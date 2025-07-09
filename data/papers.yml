@@ -980,7 +980,7 @@ papers:
       the start of a long stream of contributions for the OCaml Distribution
       and Community at large.
     authors:
-      - Fabrice le Fessant
+      - Fabrice Le Fessant
     tags:
       - ocaml-workshop
     year: 2012
@@ -999,7 +999,7 @@ papers:
       media witholds a significant piece of history for OCaml.
     authors:
       - Frederic Tuong
-      - Fabrice le Fessant
+      - Fabrice Le Fessant
       - Thomas Gazagnaire
     tags:
       - ocaml-workshop
@@ -1523,4 +1523,162 @@ papers:
     links:
       - description: "Read Online"
         uri: https://arxiv.org/abs/2411.19397
+    featured: false
+  - title: "The design of the wxOCaml library"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      WxWidgets is a well-known cross-platform library to build graphical user interfaces
+      for desktop applications. It has bindings for many languages, among which the most
+      famous is probably WxPython, but not for OCaml. Binding such a library is a huge —
+      error-prone — work, because, to be useful, hundreds of C++ classes with tens of methods
+      have to be accessible though the binding.
+      In this paper, we show how this problem was solved in the case of wxOCaml, providing
+      an easy to use, easy to extend binding supporting multiple versions of WxWidgets.
+    authors:
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2013
+    links:
+      - description: "Download Paper in PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/proposals/wxocaml.pdf
+      - description: "Download Slides in PDF"
+        uri: https://github.com/ocaml/v2.ocaml.org/blob/master/site/meetings/ocaml/2013/slides/lefessant.pdf
+    featured: false
+  - title: "A Case for Multi-Switch Constraints in OPAM"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Package managers usually only deal with packages and their versions, and the constraints
+      on their dependencies towards other packages’ versions. Among package managers, opam
+      is probably the first one to introduce the notion of switch, i.e. the ability to
+      manage different directories, where different sets of packages with different versions are
+      installed, as each directory is treated as an independant universe when solving dependency
+      constraints. In this talk, we will support a case to be able, in opam, to manage
+      different switches in the same universe, allowing to express dependency constraints that
+      cross switch boundaries.
+    authors:
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2014
+    links:
+      - description: "Download Paper in PDF"
+        uri: https://inria.hal.science/hal-01091175/file/ocaml2014_12.pdf
+    featured: false
+  - title: "Using Preferences to Tame your Package Manager"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      Determining whether some components can be installed on a system is a complex problem:
+      not only it is NP-complete in the worst case, but there can also be exponentially many
+      solutions to it. Ordinary package managers use ad-hoc heuristics to solve this installation
+      problem and choose a particular solution, making extremely difficult to change or sidestep
+      these heuristics when the result is not the one we expect.
+      When software repositories become complex enough, one gets vastly superior results by
+      delegating dependency handling to a specialised solver, and use optimisation functions (or
+      preferences) to control the class of solutions that are found.
+      The opam package manager relies on the CUDF pivot format, which allows OCaml users
+      that have a CUDF-compliant solver on their machine to reap the benefits of preferences-
+      based dependency resolution. Thanks to the solver farm provided by Irill, these benefits are
+      now extended to the OCaml community at large.
+      In this talk we will present the preferences language and explain how to use it.
+    authors:
+      - Roberto Di Cosmo
+      - Pietro Abate
+      - Stefano Zacchiroli
+      - Fabrice Le Fessant
+      - Louis Gesbert
+    tags:
+      - ocaml-workshop
+    year: 2014
+    links:
+      - description: "Download Paper in PDF"
+        uri: https://inria.hal.science/hal-01091177/document
+    featured: false
+  - title: "Operf: Benchmarking the OCaml Compiler"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      We present operf, a set of tools to benchmark the OCaml compiler, with both micro-
+      benchmarks, for fast feedback during development, and macro-benchmarks, for results on a
+      larger set of benchmarks.
+    authors:
+      - Pierre Chambart
+      - Fabrice Le Fessant
+      - Vincent Bernardoff
+    tags:
+      - ocaml-workshop
+    year: 2015
+    links:
+      - description: "View Video"
+        uri: https://watch.ocaml.org/videos/watch/eb229518-1108-46bd-b8b2-3ce8b886c96f
+      - description: "Download Paper in PDF"
+        uri: https://inria.hal.science/hal-01245844/document
+    featured: false
+  - title: "OPAM-builder: Continuous Monitoring of OPAM Repositories"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk, we will present the opam-builder system. opam-builder is an online service
+      that monitors the official OPAM repository, continuously builds all versions of all packages
+      for 6 different versions of OCaml, and display html reports with all the information about
+      failed installations. It can be used both by repository maintainers and package developers
+      as a useful tool to improve the quality of the OPAM repository
+    authors:
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2016
+    links:
+      - description: "View Video"
+        uri: https://www.youtube.com/watch?v=qoOXYInfI40
+      - description: "Download Paper in PDF"
+        uri: https://inria.hal.science/hal-01352008v1/preview/ocaml2016-opam-builder.pdf
+    featured: false
+  - title: "ocp-lint, A Plugin-based Style-Checker with Semantic Patches"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk, we will present ocp-lint, a new
+      style-checker for OCaml projects. ocp-lint can
+      typically be used to check pull-requests in a
+      Github-style workflow. ocp-lint is highly extensible,
+      with a simple API to define new plugins that can be linked dynamically.
+      ocp-lint is easily configurable, with plugin- and
+      analysis-specific options and arguments. ocp-lint can also use semantic patches,
+      a patch-style format to describe code patterns to detect. Warnings
+      found by ocp-lint are stored in a database, to avoid useless recomputations
+      and ease the development of external tools and GUIs to exploit its results
+    authors:
+      - Çagdas Bozman
+      - Théophane Hufschmitt
+      - Michael Laporte
+      - Fabrice Le Fessant
+    tags:
+      - ocaml-workshop
+    year: 2016
+    links:
+      - description: "Download Paper in PDF"
+        uri: https://inria.hal.science/hal-01352013/document
+    featured: false
+  - title: "Tezos: the OCaml Crypto-Ledger"
+    publication: International Conference on Functional Programming (ICFP)
+    abstract: >
+      In this talk, we will present the story of the Tezos project. Tezos is a crypto-ledger,
+      i.e. a distributed blockchain with a language to express smart contracts, with two specific
+      characteristics: the first one is its ability for self-amendment, that allows a majority of
+      stake-holders to update the behavior of Tezos without risking a fork; the second one is a
+      design and implementation (in OCaml) that took into account safety and security from
+      the very beginning, and in particular the use of static typing and formal methods when
+      possible. For example, Michelson, the smart contract language of Tezos, is the only such
+      language with a formal semantics, a type system ensuring no runtime errors, and an
+      implementation that uses OCaml GADTs to ensure its correctness
+    authors:
+      - Benjamin Canou
+      - Grégoire Henry
+      - Pierre Chambart
+      - Fabrice Le Fessant
+      - Arthur Breitman
+    tags:
+      - ocaml-workshop
+    year: 2017
+    links:
+      - description: "Download Paper in PDF"
+        uri: https://github.com/55d43691-9965-4218-b99f-b1d9bfcb1084
     featured: false
