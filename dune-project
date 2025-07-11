@@ -20,8 +20,6 @@
 
 (maintainers "Thibaut Mattio" "Patrick Ferris")
 
-(generate_opam_files true)
-
 (using mdx 0.1)
 
 (package
@@ -34,7 +32,7 @@
   "This repository contains the server that serves the official OCaml website at https://ocaml.org.")
  (depends
   (ocaml
-   (>= 5.2.0))
+   (= 5.2.0))
   ppx_deriving
   cohttp
   cohttp-lwt-unix
