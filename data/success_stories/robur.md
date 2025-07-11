@@ -1,7 +1,7 @@
 ---
 title: Secure Internet Services with OCaml and MirageOS
-logo: success-stories/robur.svg
-card_logo: success-stories/white/robur.svg
+logo: success-stories/robur.png
+card_logo: success-stories/white/robur.png
 background: /success-stories/robur-bg.jpg
 theme: blue
 synopsis: "A worker-owned collective leverages OCaml and MirageOS to build secure, high-performance, and resource-efficient software solutions"
