@@ -184,7 +184,7 @@ module ChangelogFeed = struct
     | Release release ->
         let content = Syndic.Atom.Html (None, release.body_html) in
         let id =
-          Uri.of_string ("https://ocaml.org/changelog/release/" ^ release.slug)
+          Uri.of_string ("https://ocaml.org/changelog/" ^ release.slug)
         in
         let authors =
           (Syndic.Atom.author "OCaml.org", List.map to_author release.authors)
