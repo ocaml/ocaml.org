@@ -119,7 +119,6 @@ Layout.base
           <%s! Footer.secondary_footer ()  %>
         </div>
         <% (if right_sidebar_html <> "" then %>
-        <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
           <%s! right_sidebar_html %>
         </div>
         <% ); %>
@@ -199,7 +198,7 @@ Layout.base
 
           let list_item = document.createElement("li");
           let a = document.createElement("a");
-          let href = "/" + entry.url;
+          let href = entry.url;
           a.href = href;
           a.id = "search-result-"+entry.id;
           a.classList.add("search-entry", kind.innerText.slice(0,3));
@@ -302,7 +301,7 @@ Layout.base
       event.stopPropagation();
       if (event.key == "Enter") {
         if (results.length > 0) {
-          let url = "/"+results[search_results_position || 0].url;
+          let url = results[search_results_position || 0].url;
           goToUrl(event, url)
         }
         return false;

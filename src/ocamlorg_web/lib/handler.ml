@@ -858,7 +858,7 @@ module Package_helper = struct
   let search_index_digest ~kind state name =
     let open Lwt.Syntax in
     let* search_index_digest =
-      Ocamlorg_package.search_index_digest ~kind state name
+      Ocamlorg_package.Documentation.search_index_digest ~kind state name
     in
     search_index_digest |> Option.map Dream.to_base64url |> Lwt.return
 
@@ -892,29 +892,18 @@ module Package_helper = struct
 
   let package_sidebar_data ~kind t package =
     let open Lwt.Syntax in
-    let* package_documentation_status =
-      Ocamlorg_package.documentation_status ~kind t package
-    in
+    let* doc_status = Ocamlorg_package.Documentation.status ~kind t package in
     let readme_filename =
-      Option.fold ~none:None
-        ~some:(fun (s : Ocamlorg_package.Documentation_status.t) ->
-          s.otherdocs.readme)
-        package_documentation_status
+      Option.bind doc_status Ocamlorg_package.Documentation.Status.readme
     in
     let changes_filename =
-      Option.fold ~none:None
-        ~some:(fun (s : Ocamlorg_package.Documentation_status.t) ->
-          s.otherdocs.changes)
-        package_documentation_status
+      Option.bind doc_status Ocamlorg_package.Documentation.Status.changelog
     in
     let license_filename =
-      Option.fold ~none:None
-        ~some:(fun (s : Ocamlorg_package.Documentation_status.t) ->
-          s.otherdocs.license)
-        package_documentation_status
+      Option.bind doc_status Ocamlorg_package.Documentation.Status.license
     in
     let documentation_status =
-      match package_documentation_status with
+      match doc_status with
       | Some { failed = false; _ } -> Ocamlorg_frontend.Package.Success
       | Some { failed = true; _ } -> Failure
       | None -> Unknown
@@ -1010,7 +999,7 @@ let is_author_match name pattern =
 let documentation_status_of_package t (pkg : Ocamlorg_package.t) =
   let open Lwt.Syntax in
   let* package_documentation_status =
-    Ocamlorg_package.documentation_status ~kind:`Package t pkg
+    Ocamlorg_package.Documentation.status ~kind:`Package t pkg
   in
   Lwt.return
     (match package_documentation_status with
@@ -1180,7 +1169,8 @@ let package_overview t kind req =
     match sidebar_data.readme_filename with
     | Some path ->
         let* maybe_readme =
-          Ocamlorg_package.file ~kind package (path ^ ".html")
+          Ocamlorg_package.Documentation.documentation_page ~kind package
+            (path ^ ".html")
         in
         Lwt.return
           (Option.map
@@ -1241,19 +1231,48 @@ let package_documentation t kind req =
   in
   let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
   let hash = match kind with `Package -> None | `Universe u -> Some u in
-  let root =
-    Url.Package.documentation ?hash ~page:""
-      ?version:(Ocamlorg_frontend.Package.url_version frontend_package)
-      (Ocamlorg_package.Name.to_string name)
+  let url =
+    Url.Package.documentation ?hash ~page:path ~version:version_from_url
+    @@ Dream.param req "name"
   in
-  let* docs = Ocamlorg_package.documentation_page ~kind package path in
+  let* package_documentation_status =
+    Ocamlorg_package.Documentation.status ~kind t package
+  in
+  let redirect =
+    match package_documentation_status with
+    | None -> None
+    | Some { redirections; _ } ->
+        List.find_map
+          (function
+            | { Ocamlorg_package.Documentation.Status.old_path; new_path } -> (
+                match String.cut ~on:("/" ^ old_path) url with
+                | Some (prefix, "") -> Some (prefix ^ "/" ^ new_path)
+                | _ -> None))
+          redirections
+  in
+  let handle_redirect redirect continue =
+    match redirect with Some r -> Dream.redirect req r | None -> continue ()
+  in
+  let handle_asset continue =
+    if String.ends_with ~suffix:".html" path then continue ()
+    else
+      let* asset =
+        Ocamlorg_package.Documentation.documentation_asset ~kind package path
+      in
+      match asset with Some asset -> Dream.respond asset | None -> continue ()
+  in
+  handle_redirect redirect @@ fun () ->
+  handle_asset @@ fun () ->
+  let* docs =
+    Ocamlorg_package.Documentation.documentation_page ~kind package path
+  in
   match docs with
   | None ->
       let response_404_page =
         Dream.html ~code:404
           (Ocamlorg_frontend.package_documentation_not_found ~page:path
              ~search_index_digest:None
-             ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation Index)
+             ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation [])
              frontend_package)
       in
       if version_from_url = "latest" then
@@ -1270,95 +1289,37 @@ let package_documentation t kind req =
                  (Ocamlorg_package.Name.to_string name))
       else response_404_page
   | Some doc ->
-      let module Package_info = Ocamlorg_package.Package_info in
-      let rec toc_of_module ~root
-          (module' : Ocamlorg_package.Package_info.Module.t) :
-          Ocamlorg_frontend.Navmap.toc =
-        let title = Package_info.Module.name module' in
-        let kind = Package_info.Module.kind module' in
-        let href = Some (root ^ Package_info.Module.path module') in
-        let children =
-          module' |> Package_info.Module.submodules |> String.Map.bindings
-          |> List.map (fun (_, module') -> toc_of_module ~root module')
-        in
-        let kind =
-          match (kind : Package_info.Kind.t) with
-          | Page -> Ocamlorg_frontend.Navmap.Page
-          | Module -> Module
-          | LeafPage -> Leaf_page
-          | ModuleType -> Module_type
-          | Parameter _ -> Parameter
-          | Class -> Class
-          | ClassType -> Class_type
-          | File -> File
-        in
-        Ocamlorg_frontend.Navmap.{ title; href; kind; children }
-      in
-      let toc_of_map ~root (map : Ocamlorg_package.Package_info.t) :
-          Ocamlorg_frontend.Navmap.t =
-        let libraries = map.libraries in
-        String.Map.bindings libraries
-        |> List.map (fun (_, (library : Package_info.library)) ->
-               let title = library.name in
-               let href = None in
-               let children =
-                 String.Map.bindings library.modules
-                 |> List.map (fun (_, module') -> toc_of_module ~root module')
-               in
-               Ocamlorg_frontend.Navmap.
-                 { title; href; kind = Library; children })
-      in
-      let* module_map = Ocamlorg_package.module_map ~kind package in
+      let* sidebar = Ocamlorg_package.Documentation.sidebar ~kind package in
       let* search_index_digest =
         Package_helper.search_index_digest ~kind t package
       in
-      let toc = Package_helper.frontend_toc doc.toc in
-      let (maptoc : Ocamlorg_frontend.Navmap.toc list) =
-        toc_of_map ~root module_map
-      in
+      let local_toc = Package_helper.frontend_toc doc.toc in
+      let (global_toc : Ocamlorg_frontend.Navmap.toc list) = sidebar in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
         let breadcrumbs = doc.breadcrumbs in
-        if breadcrumbs != [] then
-          let first_path_item = List.hd breadcrumbs in
-          let doc_breadcrumb_to_library_path_item
-              (p : Ocamlorg_package.Documentation.breadcrumb) =
-            match p.kind with
-            | Module ->
-                Ocamlorg_frontend.Package_breadcrumbs.Module
-                  { name = p.name; href = p.href }
-            | ModuleType -> ModuleType { name = p.name; href = p.href }
-            | Parameter i ->
-                Parameter { name = p.name; href = p.href; number = i }
-            | Class -> Class { name = p.name; href = p.href }
-            | ClassType -> ClassType { name = p.name; href = p.href }
-            | Page | LeafPage | File ->
-                failwith "library paths do not contain Page, LeafPage or File"
+        let doc_breadcrumb_to_library_path_item
+            (p : Ocamlorg_package.Documentation.breadcrumb) =
+          let b =
+            {
+              Ocamlorg_frontend.Package_breadcrumbs.name = p.name;
+              href = p.href;
+            }
           in
+          match p.kind with
+          | Module -> Ocamlorg_frontend.Package_breadcrumbs.Module b
+          | ModuleType -> ModuleType b
+          | Parameter i -> Parameter (b, i)
+          | Class -> Class b
+          | ClassType -> ClassType b
+          | Page | LeafPage | File | Source -> Page b
+        in
 
-          match first_path_item.kind with
-          | Page | LeafPage | File ->
-              Ocamlorg_frontend.Package_breadcrumbs.Documentation
-                (Page first_path_item.name)
-          | Module | ModuleType | Parameter _ | Class | ClassType ->
-              let library =
-                List.find_opt
-                  (fun (toc : Ocamlorg_frontend.Navmap.toc) ->
-                    List.exists
-                      (fun (t : Ocamlorg_frontend.Navmap.toc) ->
-                        t.title = first_path_item.name)
-                      toc.children)
-                  maptoc
-              in
-
-              Ocamlorg_frontend.Package_breadcrumbs.Documentation
-                (Library
-                   ( (match library with Some l -> l.title | None -> "unknown"),
-                     List.map doc_breadcrumb_to_library_path_item breadcrumbs ))
-        else Ocamlorg_frontend.Package_breadcrumbs.Documentation Index
+        Ocamlorg_frontend.Package_breadcrumbs.Documentation
+          (List.map doc_breadcrumb_to_library_path_item breadcrumbs)
       in
       Dream.html
         (Ocamlorg_frontend.package_documentation ~page:(Some path)
-           ~search_index_digest ~path:breadcrumb_path ~toc ~maptoc
+           ~search_index_digest ~path:breadcrumb_path ~local_toc ~global_toc
            ~content:doc.content frontend_package)
 
 let package_file t kind req =
@@ -1375,12 +1336,14 @@ let package_file t kind req =
     | Package -> `Package
     | Universe -> `Universe (Dream.param req "hash")
   in
-  let path = (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/" in
+  let path =
+    "doc" :: (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/"
+  in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
   let* search_index_digest =
     Package_helper.search_index_digest ~kind t package
   in
-  let* maybe_doc = Ocamlorg_package.file ~kind package path in
+  let* maybe_doc = Ocamlorg_package.Documentation.file ~kind package path in
   let</>? doc = maybe_doc in
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
@@ -1400,7 +1363,9 @@ let package_search_index t kind req =
     | Package -> `Package
     | Universe -> `Universe (Dream.param req "hash")
   in
-  let* maybe_search_index = Ocamlorg_package.search_index ~kind package in
+  let* maybe_search_index =
+    Ocamlorg_package.Documentation.search_index ~kind package
+  in
   let</>? search_index = maybe_search_index in
   Lwt.return
     (Dream.response
