@@ -60,10 +60,14 @@ watch: ## Watch for the filesystem and rebuild on every change
 utop: ## Run a REPL and link with the project's libraries
 	opam exec -- dune utop --root . . -- -implicit-bindings
 
-.PHONY: scrape
-scrape: ## Generate the po files
+.PHONY: scrape_ocaml_planet
+scrape_ocaml_planet:
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe planet
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe video
+
+.PHONY: scrape_changelog
+scrape_changelog:
+	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe platform_releases
 
 .PHONY: docker
 docker: ## Generate docker container

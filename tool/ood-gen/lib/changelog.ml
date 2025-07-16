@@ -41,8 +41,37 @@ type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
    a pull request to mirror a release announcement that likely already happened
    on discuss.ocaml.org. *)
 
-let re_date_slug =
+(** A scraper is provided to check whether changelog entries are missing. Run it
+    like this:
+    {v
+     dune exec -- tool/ood-gen/bin/scrape.exe changelog
+    v}
+    The list below describes how to query the latest releases. *)
+let projects_release_feeds =
+  [
+    ("ocamlformat", `Github "https://github.com/ocaml-ppx/ocamlformat");
+    ("dune", `Github "https://github.com/ocaml/dune");
+    ("dune-release", `Github "https://github.com/tarides/dune-release");
+    ("mdx", `Github "https://github.com/realworldocaml/mdx");
+    ("merlin", `Github "https://github.com/ocaml/merlin");
+    ("ocaml", `Github "https://github.com/ocaml/ocaml");
+    ("ocaml-lsp", `Github "https://github.com/ocaml/ocaml-lsp");
+    ("ocp-indent", `Github "https://github.com/OCamlPro/ocp-indent");
+    ("odoc", `Github "https://github.com/ocaml/odoc");
+    ("opam", `Github "https://github.com/ocaml/opam/");
+    ("opam-publish", `Github "https://github.com/ocaml-opam/opam-publish");
+    ("ppxlib", `Github "https://github.com/ocaml-ppx/ppxlib");
+    ("utop", `Github "https://github.com/ocaml-community/utop");
+    ("omp", `Github "https://github.com/ocaml-ppx/ocaml-migrate-parsetree");
+  ]
+
+let re_slug =
   let open Re in
+  let re_project_name =
+    let w = rep1 alpha in
+    seq [ w; rep (seq [ char '-'; w ]) ]
+  in
+  let re_version_string = seq [ digit; rep1 any ] in
   compile
     (seq
        [
@@ -56,17 +85,21 @@ let re_date_slug =
              group (rep1 digit);
            ];
          char '-';
+         opt
+           (seq
+              [ group re_project_name; set "-."; group re_version_string; eos ]);
        ])
 
-let parse_date_from_slug s =
-  match Re.exec_opt re_date_slug s with
+let parse_slug s =
+  match Re.exec_opt re_slug s with
   | None -> None
   | Some g ->
       let int n = Re.Group.get g n |> int_of_string in
       let year = int 1 in
       let month = int 2 in
       let day = int 3 in
-      Some (Printf.sprintf "%04d-%02d-%02d" year month day)
+      let version = Re.Group.get_opt g 5 in
+      Some (Printf.sprintf "%04d-%02d-%02d" year month day, version)
 
 module Releases = struct
   type release_metadata = {
@@ -76,18 +109,21 @@ module Releases = struct
     contributors : string list option;
     description : string option;
     changelog : string option;
+    versions : string list option;
   }
   [@@deriving
     of_yaml,
       stable_record ~version:release ~remove:[ changelog; description ]
-        ~modify:[ authors; contributors ]
-        ~add:[ slug; changelog_html; body_html; body; date ]]
+        ~modify:[ authors; contributors; versions ]
+        ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
   let of_release_metadata m =
     release_metadata_to_release m ~modify_authors:(Option.value ~default:[])
       ~modify_contributors:(Option.value ~default:[])
+      ~modify_versions:(Option.value ~default:[])
 
   let decode (fname, (head, body)) =
+    let project_name = Filename.basename (Filename.dirname fname) in
     let slug = Filename.basename (Filename.remove_extension fname) in
     let metadata =
       release_metadata_of_yaml head |> Result.map_error (Utils.where fname)
@@ -109,16 +145,21 @@ module Releases = struct
                 |> Hilite.Md.transform
                 |> Cmarkit_html.of_doc ~safe:false)
         in
-        let date =
-          match parse_date_from_slug slug with
+        let date, slug_version =
+          match parse_slug slug with
           | Some x -> x
           | None ->
               failwith
-                "date is not present in metadata and could not be parsed from \
-                 slug"
+                ("date is not present in metadata and could not be parsed from \
+                  slug: " ^ slug)
+        in
+        let metadata =
+          match (metadata.versions, slug_version) with
+          | None, Some v -> { metadata with versions = Some [ v ] }
+          | _ -> metadata
         in
         of_release_metadata ~slug ~changelog_html ~body ~body_html ~date
-          metadata)
+          ~project_name metadata)
       metadata
 
   let all () =
@@ -154,8 +195,8 @@ module Posts = struct
     Result.map
       (fun metadata ->
         let date =
-          match parse_date_from_slug slug with
-          | Some x -> x
+          match parse_slug slug with
+          | Some (date, _) -> date
           | None ->
               failwith
                 "date is not present in metadata and could not be parsed from \
@@ -233,3 +274,54 @@ include Data_intf.Changelog
 let all = %a
 |ocaml}
     (Fmt.Dump.list pp) (all ())
+
+module Scraper = struct
+  module SMap = Map.Make (String)
+  module SSet = Set.Make (String)
+
+  let warning_count = ref 0
+
+  let warn fmt =
+    let flush out =
+      Printf.fprintf out "\n%!";
+      incr warning_count
+    in
+    Printf.kfprintf flush stderr fmt
+
+  let fetch_github repo =
+    [ River.fetch { River.name = repo; url = repo ^ "/releases.atom" } ]
+    |> River.posts
+    |> List.map (fun post -> River.title post)
+
+  let group_releases_by_project all =
+    List.fold_left
+      (fun acc t ->
+        List.fold_left
+          (fun acc v -> SMap.add_to_list t.project_name v acc)
+          acc t.versions)
+      SMap.empty all
+
+  let check_if_uptodate project known_versions =
+    let known_versions = SSet.of_list known_versions in
+    let check scraped_versions =
+      List.iter
+        (fun v ->
+          if not (SSet.mem v known_versions) then
+            warn "No changelog entry for %S version %S\n%!" project v)
+        scraped_versions
+    in
+    match List.assoc_opt project projects_release_feeds with
+    | Some (`Github repo) -> check (fetch_github repo)
+    | None ->
+        warn
+          "Don't know how to lookup project %S. Please update \
+           'tool/ood-gen/lib/changelog.ml'\n\
+           %!"
+          project
+
+  (** This does not generate any file. Instead, it exits with an error if a
+      changelog entry is missing. *)
+  let scrape_platform_releases () =
+    Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate;
+    if !warning_count > 0 then exit 1
+end

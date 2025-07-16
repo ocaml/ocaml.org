@@ -1,7 +1,12 @@
 open Cmdliner
 open Ood_gen
 
-let term_scrapers = [ ("planet", Blog.Scraper.scrape); ("video", Video.scrape) ]
+let term_scrapers =
+  [
+    ("planet", Blog.Scraper.scrape);
+    ("video", Video.scrape);
+    ("platform_releases", Changelog.Scraper.scrape_platform_releases);
+  ]
 
 let cmds =
   Cmd.group (Cmd.info "ood-scrape")

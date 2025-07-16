@@ -98,6 +98,8 @@ module Changelog = struct
     body : string;
     authors : string list;
     contributors : string list;
+    project_name : string;
+    versions : string list;
   }
 
   type post = {
