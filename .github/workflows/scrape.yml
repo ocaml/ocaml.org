@@ -1,4 +1,4 @@
-name: Scrape
+name: Scrape (OCaml Planet)
 
 on:
   workflow_dispatch:
