@@ -1,4 +1,4 @@
-name: Scrape
+name: Scrape (OCaml Changelog)
 
 on:
   workflow_dispatch:
