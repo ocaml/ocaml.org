@@ -321,7 +321,7 @@ module Scraper = struct
 
   (** This does not generate any file. Instead, it exits with an error if a
       changelog entry is missing. *)
-  let scrape () =
+  let scrape_platform_releases () =
     Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate;
     if !warning_count > 0 then exit 1
 end
