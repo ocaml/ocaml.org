@@ -36,10 +36,15 @@
    (:js %{project_root}/src/merlin_worker.bc.js))
   (action
    (run jsoo_minify %{js} -o %{targets})))
+   (rule
+ (target stdlib_path.txt)
+ (action
+  (with-stdout-to %{target}
+   (run ocamlopt -config-var standard_library))))
  (rule
   (targets
    (dir stdlib))
   (mode
    (promote (until-clean)))
   (action
-   (run ../gen_stdlib.sh))))
+   (run ../gen_stdlib.sh %{read:stdlib_path.txt}))))
