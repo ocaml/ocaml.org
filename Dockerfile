@@ -4,7 +4,7 @@ FROM alpine:3.21 AS build
 RUN apk -U upgrade --no-cache && apk add --no-cache \
     # to download and install Dune Developer Preview with alpine:3.21
     build-base patch tar ca-certificates git rsync curl sudo bash \
-       libx11-dev nano coreutils xz \
+       libx11-dev nano coreutils xz wget \
     autoconf \
     curl-dev \
     gmp-dev \
@@ -14,9 +14,16 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     openssl-dev
 
 # Install Dune Developer Preview
-RUN curl -fsSL https://get.dune.build/install | sh
-RUN /bin/bash -c 'source "/root/.local/share/dune/env/env.bash"'
+# RUN curl -fsSL https://get.dune.build/install | sh
+# RUN /bin/bash -c 'source "/root/.local/share/dune/env/env.bash"'
+# ENV PATH="/root/.local/bin:$PATH"
+
+RUN wget https://get.dune.build/2025-07-17/x86_64-unknown-linux-musl/dune-2025-07-17-x86_64-unknown-linux-musl.tar.gz
+RUN tar xzf dune-2025-07-17-x86_64-unknown-linux-musl.tar.gz
+RUN mkdir -p /root/.local/bin \
+ && mv dune-2025-07-17-x86_64-unknown-linux-musl/dune /root/.local/bin/
 ENV PATH="/root/.local/bin:$PATH"
+RUN dune --version
 
 # Build project
 WORKDIR "/root/ocaml.org"
