@@ -40,7 +40,7 @@ fmt: ## Format the codebase with ocamlformat
 	dune build --root . --auto-promote @fmt
 
 .PHONY: watch
-watch: ## Watch for the filesystem and rebuild on every change
+watch: dune.lock ## Watch for the filesystem and rebuild on every change
 	dune build @run -w --force --no-buffer
 
 .PHONY: utop
