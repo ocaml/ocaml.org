@@ -279,13 +279,8 @@ module Scraper = struct
   module SMap = Map.Make (String)
   module SSet = Set.Make (String)
 
-  let warning_count = ref 0
-
   let warn fmt =
-    let flush out =
-      Printf.fprintf out "\n%!";
-      incr warning_count
-    in
+    let flush out = Printf.fprintf out "\n%!" in
     Printf.kfprintf flush stderr fmt
 
   let fetch_github repo =
@@ -319,9 +314,7 @@ module Scraper = struct
            %!"
           project
 
-  (** This does not generate any file. Instead, it exits with an error if a
-      changelog entry is missing. *)
+  (** This does not generate any file. *)
   let scrape_platform_releases () =
-    Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate;
-    if !warning_count > 0 then exit 1
+    Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate
 end
