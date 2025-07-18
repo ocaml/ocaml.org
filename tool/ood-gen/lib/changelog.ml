@@ -316,8 +316,7 @@ module Scraper = struct
            %!"
           project
 
-  (** This does not generate any file. Instead, it exits with an error if a
-      changelog entry is missing. *)
+  (** This does not generate any file. *)
   let scrape_platform_releases () =
     Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate
 end
