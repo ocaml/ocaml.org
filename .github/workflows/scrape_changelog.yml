@@ -45,14 +45,14 @@ jobs:
 
       - name: Run scrapers
         run: |
-          opam exec -- dune exec tool/ood-gen/bin/scrape.exe platform_releases
+          make scrape_changelog
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          title: '[scrape.yml] New Platform Releases'
+          title: '[scrape_changelog.yml] New Platform Releases'
           labels: scrape
           add-paths: |
             data/changelog/*/*.md
           commit-message: |
-            [scrape.yml] New Platform Releases
+            [scrape_changelog.yml] New Platform Releases
