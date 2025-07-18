@@ -50,7 +50,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          title: '[scrape_ocaml.yml] New OCaml blog posts and videos'
+          title: '[scrape.yml] New OCaml blog posts and videos'
           labels: scrape
           add-paths: |
             data/video-watch.yml
