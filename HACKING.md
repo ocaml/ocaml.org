@@ -26,11 +26,13 @@ cd OCaml.org
 
 Ensure you have [Dune Developer Preview](https://preview.dune.build) installed. Dune will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2). We assume you are using the most recent version of Dune Developer Preview.
 
+If you would like to build using Dune installed via `opam`, make sure to remove the `dune.lock/` directories and use the same build commands present in the Makefile, skipping `dune pkg lock`.
+
 ### Running the Server
 
 From the root of your project, you can just build and run the project with
 
-```
+```bash
 make start
 ```
 
@@ -110,7 +112,7 @@ before they get merged.
 
 OCaml.org is using an pinned version of `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in one place:
 
-```
+```bash
 dune-workspace
 ```
 
