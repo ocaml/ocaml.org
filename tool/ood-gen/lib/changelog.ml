@@ -280,9 +280,7 @@ module Scraper = struct
   module SSet = Set.Make (String)
 
   let warn fmt =
-    let flush out =
-      Printf.fprintf out "\n%!";
-    in
+    let flush out = Printf.fprintf out "\n%!" in
     Printf.kfprintf flush stderr fmt
 
   let fetch_github repo =
