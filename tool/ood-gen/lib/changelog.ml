@@ -112,10 +112,16 @@ module Releases = struct
     versions : string list option;
   }
   [@@deriving
-    of_yaml,
+    yaml,
       stable_record ~version:release ~remove:[ changelog; description ]
         ~modify:[ authors; contributors; versions ]
         ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
+
+  let pp_meta ppf v =
+    Fmt.pf ppf {|---
+%s---
+|}
+      (release_metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
   let of_release_metadata m =
     release_metadata_to_release m ~modify_authors:(Option.value ~default:[])
@@ -279,19 +285,14 @@ module Scraper = struct
   module SMap = Map.Make (String)
   module SSet = Set.Make (String)
 
-  let warning_count = ref 0
-
   let warn fmt =
-    let flush out =
-      Printf.fprintf out "\n%!";
-      incr warning_count
-    in
+    let flush out = Printf.fprintf out "\n%!" in
     Printf.kfprintf flush stderr fmt
 
   let fetch_github repo =
     [ River.fetch { River.name = repo; url = repo ^ "/releases.atom" } ]
     |> River.posts
-    |> List.map (fun post -> River.title post)
+    |> List.map (fun post -> (River.title post, post))
 
   let group_releases_by_project all =
     List.fold_left
@@ -301,17 +302,48 @@ module Scraper = struct
           acc t.versions)
       SMap.empty all
 
+  let write_release_announcement_file project version (post : River.post) =
+    let yyyy_mm_dd =
+      River.date post |> Option.get |> Ptime.to_rfc3339
+      |> String.split_on_char 'T' |> List.hd
+    in
+    let title = River.title post in
+    let output_file =
+      "data/changelog/releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
+      ^ "-" ^ version ^ ".md"
+    in
+    let content = River.content post in
+    let description = River.meta_description post in
+    let author = River.author post in
+    let metadata : Releases.release_metadata =
+      {
+        title;
+        tags = [ project ];
+        contributors = None;
+        description;
+        changelog = None;
+        versions = None;
+        authors = Some [ author ];
+      }
+    in
+    let s = Format.asprintf "%a\n%s\n" Releases.pp_meta metadata content in
+    let oc = open_out output_file in
+    Printf.fprintf oc "%s" s;
+    close_out oc
+
   let check_if_uptodate project known_versions =
     let known_versions = SSet.of_list known_versions in
-    let check scraped_versions =
+    let check repo =
+      let scraped_versions = fetch_github repo in
       List.iter
-        (fun v ->
-          if not (SSet.mem v known_versions) then
-            warn "No changelog entry for %S version %S\n%!" project v)
+        (fun (version, post) ->
+          if not (SSet.mem version known_versions) then (
+            warn "No changelog entry for %S version %S\n%!" project version;
+            write_release_announcement_file project version post))
         scraped_versions
     in
     match List.assoc_opt project projects_release_feeds with
-    | Some (`Github repo) -> check (fetch_github repo)
+    | Some (`Github repo) -> check repo
     | None ->
         warn
           "Don't know how to lookup project %S. Please update \
@@ -319,9 +351,6 @@ module Scraper = struct
            %!"
           project
 
-  (** This does not generate any file. Instead, it exits with an error if a
-      changelog entry is missing. *)
   let scrape_platform_releases () =
-    Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate;
-    if !warning_count > 0 then exit 1
+    Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate
 end
