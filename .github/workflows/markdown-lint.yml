@@ -12,7 +12,10 @@ jobs:
     - uses: tj-actions/changed-files@v46
       id: changed-files
       with:
-        files: '**/*.md'
+        files: |
+          **/*.md
+          !data/planet/**/*.md
+          !data/changelog/**/*.md
         separator: ","
     - uses: DavidAnson/markdownlint-cli2-action@v20
       if: steps.changed-files.outputs.any_changed == 'true'
