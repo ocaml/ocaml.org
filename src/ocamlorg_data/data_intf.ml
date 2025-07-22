@@ -93,6 +93,8 @@ module Changelog = struct
     slug : string;
     date : string;
     tags : string list;
+    unstable : bool;
+    ignore : bool;
     changelog_html : string option;
     body_html : string;
     body : string;
