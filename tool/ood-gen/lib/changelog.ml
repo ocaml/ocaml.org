@@ -168,11 +168,12 @@ module Releases = struct
     changelog : string option;
     versions : string list option;
     unstable : bool option;
+    ignore : bool option;
   }
   [@@deriving
     yaml,
       stable_record ~version:release ~remove:[ changelog; description ]
-        ~modify:[ authors; contributors; versions; unstable ]
+        ~modify:[ authors; contributors; versions; unstable; ignore ]
         ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
   let pp_meta ppf v =
@@ -186,10 +187,13 @@ module Releases = struct
       ~modify_contributors:(Option.value ~default:[])
       ~modify_versions:(Option.value ~default:[])
       ~modify_unstable:(Option.value ~default:false)
+      ~modify_ignore:(Option.value ~default:false)
 
   let decode (fname, (head, body)) =
     let project_name = Filename.basename (Filename.dirname fname) in
-    let slug = Filename.basename (Filename.remove_extension fname) in
+    let slug =
+      Filename.basename (Filename.remove_extension fname) |> Utils.slugify
+    in
     let metadata =
       release_metadata_of_yaml head |> Result.map_error (Utils.where fname)
     in
@@ -229,6 +233,7 @@ module Releases = struct
 
   let all () =
     Utils.map_md_files decode "changelog/releases/*/*.md"
+    |> List.filter (fun (a : release) -> a.ignore = false)
     |> List.sort (fun (a : release) b -> String.compare b.slug a.slug)
 end
 
@@ -384,6 +389,7 @@ module Scraper = struct
         versions = None;
         authors = Some [ author ];
         unstable = Some false;
+        ignore = Some false;
       }
     in
     let s = Format.asprintf "%a\n%s\n" Releases.pp_meta metadata content in
