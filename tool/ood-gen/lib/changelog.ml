@@ -110,11 +110,12 @@ module Releases = struct
     description : string option;
     changelog : string option;
     versions : string list option;
+    unstable : bool option;
   }
   [@@deriving
     yaml,
       stable_record ~version:release ~remove:[ changelog; description ]
-        ~modify:[ authors; contributors; versions ]
+        ~modify:[ authors; contributors; versions; unstable ]
         ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
   let pp_meta ppf v =
@@ -127,6 +128,7 @@ module Releases = struct
     release_metadata_to_release m ~modify_authors:(Option.value ~default:[])
       ~modify_contributors:(Option.value ~default:[])
       ~modify_versions:(Option.value ~default:[])
+      ~modify_unstable:(Option.value ~default:false)
 
   let decode (fname, (head, body)) =
     let project_name = Filename.basename (Filename.dirname fname) in
@@ -324,6 +326,7 @@ module Scraper = struct
         changelog = None;
         versions = None;
         authors = Some [ author ];
+        unstable = Some false;
       }
     in
     let s = Format.asprintf "%a\n%s\n" Releases.pp_meta metadata content in
@@ -351,10 +354,6 @@ module Scraper = struct
            %!"
           project
 
-<<<<<<< HEAD
-  (** This does not generate any file. *)
-=======
->>>>>>> 092794a6 (update scraper to add releases)
   let scrape_platform_releases () =
     Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate
 end
