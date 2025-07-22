@@ -47,22 +47,79 @@ type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
      dune exec -- tool/ood-gen/bin/scrape.exe changelog
     v}
     The list below describes how to query the latest releases. *)
-let projects_release_feeds =
+
+type release_feed_entry = { github_feed_url : string; tags : string list }
+
+let github_project_release_feeds =
   [
-    ("ocamlformat", `Github "https://github.com/ocaml-ppx/ocamlformat");
-    ("dune", `Github "https://github.com/ocaml/dune");
-    ("dune-release", `Github "https://github.com/tarides/dune-release");
-    ("mdx", `Github "https://github.com/realworldocaml/mdx");
-    ("merlin", `Github "https://github.com/ocaml/merlin");
-    ("ocaml", `Github "https://github.com/ocaml/ocaml");
-    ("ocaml-lsp", `Github "https://github.com/ocaml/ocaml-lsp");
-    ("ocp-indent", `Github "https://github.com/OCamlPro/ocp-indent");
-    ("odoc", `Github "https://github.com/ocaml/odoc");
-    ("opam", `Github "https://github.com/ocaml/opam/");
-    ("opam-publish", `Github "https://github.com/ocaml-opam/opam-publish");
-    ("ppxlib", `Github "https://github.com/ocaml-ppx/ppxlib");
-    ("utop", `Github "https://github.com/ocaml-community/utop");
-    ("omp", `Github "https://github.com/ocaml-ppx/ocaml-migrate-parsetree");
+    ( "ocamlformat",
+      {
+        github_feed_url = "https://github.com/ocaml-ppx/ocamlformat";
+        tags = [ "ocamlformat"; "platform" ];
+      } );
+    ( "dune",
+      {
+        github_feed_url = "https://github.com/ocaml/dune";
+        tags = [ "dune"; "platform" ];
+      } );
+    ( "dune-release}",
+      {
+        github_feed_url = "https://github.com/tarides/dune-release";
+        tags = [ "dune-release"; "platform" ];
+      } );
+    ( "mdx",
+      {
+        github_feed_url = "https://github.com/realworldocaml/mdx";
+        tags = [ "mdx"; "platform" ];
+      } );
+    ( "merlin",
+      {
+        github_feed_url = "https://github.com/ocaml/merlin";
+        tags = [ "merlin"; "platform" ];
+      } );
+    ( "ocaml",
+      { github_feed_url = "https://github.com/ocaml/ocaml"; tags = [ "ocaml" ] }
+    );
+    ( "ocaml-lsp}",
+      {
+        github_feed_url = "https://github.com/ocaml/ocaml-lsp";
+        tags = [ "ocaml-lsp"; "platform" ];
+      } );
+    ( "ocp-indent",
+      {
+        github_feed_url = "https://github.com/OCamlPro/ocp-indent";
+        tags = [ "ocp-indent"; "platform" ];
+      } );
+    ( "odoc",
+      {
+        github_feed_url = "https://github.com/ocaml/odoc";
+        tags = [ "odoc"; "platform" ];
+      } );
+    ( "opam",
+      {
+        github_feed_url = "https://github.com/ocaml/opam/";
+        tags = [ "opam"; "platform" ];
+      } );
+    ( "opam-publish}",
+      {
+        github_feed_url = "https://github.com/ocaml-opam/opam-publish";
+        tags = [ "opam-publish"; "platform" ];
+      } );
+    ( "ppxlib",
+      {
+        github_feed_url = "https://github.com/ocaml-ppx/ppxlib";
+        tags = [ "ppxlib"; "platform" ];
+      } );
+    ( "utop",
+      {
+        github_feed_url = "https://github.com/ocaml-community/utop";
+        tags = [ "utop"; "platform" ];
+      } );
+    ( "omp",
+      {
+        github_feed_url = "https://github.com/ocaml-ppx/ocaml-migrate-parsetree";
+        tags = [ "ocaml-migrate-parsetree"; "platform" ];
+      } );
   ]
 
 let re_slug =
@@ -304,7 +361,7 @@ module Scraper = struct
           acc t.versions)
       SMap.empty all
 
-  let write_release_announcement_file project version (post : River.post) =
+  let write_release_announcement_file project version tags (post : River.post) =
     let yyyy_mm_dd =
       River.date post |> Option.get |> Ptime.to_rfc3339
       |> String.split_on_char 'T' |> List.hd
@@ -320,7 +377,7 @@ module Scraper = struct
     let metadata : Releases.release_metadata =
       {
         title;
-        tags = [ project ];
+        tags;
         contributors = None;
         description;
         changelog = None;
@@ -336,17 +393,17 @@ module Scraper = struct
 
   let check_if_uptodate project known_versions =
     let known_versions = SSet.of_list known_versions in
-    let check repo =
+    let check repo tags =
       let scraped_versions = fetch_github repo in
       List.iter
         (fun (version, post) ->
           if not (SSet.mem version known_versions) then (
             warn "No changelog entry for %S version %S\n%!" project version;
-            write_release_announcement_file project version post))
+            write_release_announcement_file project version tags post))
         scraped_versions
     in
-    match List.assoc_opt project projects_release_feeds with
-    | Some (`Github repo) -> check repo
+    match List.assoc_opt project github_project_release_feeds with
+    | Some { github_feed_url; tags } -> check github_feed_url tags
     | None ->
         warn
           "Don't know how to lookup project %S. Please update \
