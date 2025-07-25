@@ -4,7 +4,7 @@ logo: success-stories/ahrefs.svg
 card_logo: success-stories/white/ahrefs.svg
 background: /success-stories/ahrefs-bg.jpg
 theme: blue
-synopsis: "Ahrefs built the world's third-largest web crawler using OCaml, processing 500 billion requests daily and indexing petabytes of web data with a lean, efficient team."
+synopsis: "Ahrefs built the world's third-largest web crawler using OCaml, indexing petabytes of web data with a lean, efficient team."
 url: https://ahrefs.com/
 priority: 2
 why_ocaml_reasons:
@@ -19,15 +19,15 @@ why_ocaml_reasons:
 
 [Ahrefs](https://ahrefs.com/) is a Singapore-based SaaS company that provides comprehensive SEO tools and marketing intelligence powered by big data. Since 2011, they've been crawling the entire web daily to maintain extensive databases of backlinks, keywords, and website analytics that help businesses with SEO strategy, competitor analysis, and content optimization. Today, they're trusted by 44% of Fortune 500 companies.
 
-Building and operating a web crawler at internet scale presents extraordinary challenges. Ahrefs needed to index billions of web pages continuously, process petabytes of data in real-time, and turn this massive dataset into actionable insights for thousands of customers worldwide. The technical demands are staggering: their systems must handle **500 billion backend requests per day** while maintaining **over 100PB of storage**.
+Building and operating a web crawler at internet scale presents extraordinary challenges. Ahrefs needs to index billions of web pages continuously, process petabytes of data in real-time, and turn this massive dataset into actionable insights for thousands of customers worldwide. The technical demands are staggering: their systems must handle **500 billion backend requests per day** while maintaining **over 100PB of storage**.
 
-As a self-funded company, Ahrefs couldn't solve these challenges by throwing unlimited resources at the problem. They needed maximum efficiency from a small team—systems that could run reliably for months without intervention, code that could be understood and maintained by a lean engineering organization, and performance that could compete with tech giants despite having a fraction of their headcount.
+As a self-funded company, Ahrefs couldn't solve these challenges by throwing unlimited resources at the problem. They needed maximum efficiency from a small team — systems that could run reliably for months without intervention, code that could be understood and maintained by a lean engineering organization, and performance that could compete with tech giants despite having a fraction of their headcount.
 
 The question wasn't just whether they could build a web-scale crawler, but whether they could do it sustainably with the constraints of a bootstrapped company.
 
 ## Result
 
-Over a decade later, Ahrefs operates one of the world's most sophisticated web crawling operations, ranking as the **third-largest web crawler globally**. Their OCaml-powered systems process **500 billion requests daily**, maintain an index of **456.5 billion pages** across **267.6 million domains**, and update metrics for **300 million pages every 24 hours**.
+Over a decade later, Ahrefs operates one of the world's most sophisticated web crawling operations. Their OCaml-powered systems maintains an index of **492.7 billion pages** across **500.4 million domains**.
 
 This technical achievement translates directly to business success. Ahrefs has grown into a **$100M+ ARR company** with **150 employees** managing **4000+ servers**—all while maintaining their original philosophy of operational efficiency. They've become the sector leader in SEO tools, proving that the right technology choices can create sustainable competitive advantages.
 
@@ -38,11 +38,11 @@ Their success demonstrates that OCaml can power not just technical excellence at
 ## Why OCaml
 Ahrefs chose OCaml because it solved their constraint: building world-class infrastructure with limited resources.
 
-* **Expressiveness reduces team requirements** - OCaml allowed their small team to develop crawling and data processing systems with few lines of code, essential when you can't hire armies of engineers like big tech companies.
-* **Reliability minimizes operational overhead** - Systems run for months without surprises, crucial when you can't afford large operations teams to babysit infrastructure.
-* **Native performance handles web scale** - Compilation to native code provided the performance needed for processing 500 billion requests daily without requiring expensive hardware optimizations.
+* **Expressiveness reduces team requirements** - OCaml allowed their small team to develop crawling and data processing systems with few lines of code.
+* **Reliability minimizes operational overhead** - Systems run for months without surprises.
+* **Native performance handles web scale** - Compilation to native code provided the performance needed for processing billions requests daily.
 * **Type safety prevents data disasters** - When processing petabytes of evolving web data, catching format issues at compile time rather than in production saves hours of debugging and prevents costly system failures.
-* **Language philosophy matches business model** - OCaml's expressiveness made it economical to create specialized, efficient systems tailored to their exact requirements rather than adapting bloated generic solutions.
+* **Language philosophy matches business model** - OCaml's expressiveness made it economical to create specialized, efficient systems tailored to their exact requirements. The maintainers of the compiler put on a strong emphasis on making a language matching needs of industrial users.
 
 ## Solution
 
@@ -50,7 +50,7 @@ Ahrefs built their crawling infrastructure around OCaml's strengths, creating a 
 
 The architecture treats data consistency as paramount. Using **[ATD (Adjustable Type Definitions)](https://github.com/ahrefs/atd)** to define shared data structures, they ensure type safety throughout their processing pipeline—from initial web crawling through to final data storage. This approach catches schema mismatches at compile time rather than runtime, crucial when processing billions of pages daily.
 
-Their storage layer combines **[ClickHouse](https://clickhouse.com/)** for analytical workloads, **[MySQL](https://www.mysql.com/)** for transactional data, and **[Elasticsearch](https://www.elastic.co/)** for search functionality, all orchestrated on **[AWS](https://aws.amazon.com/)**. The key insight was designing these systems to work together seamlessly through shared OCaml types rather than complex API layers.
+Their storage layer combines **[ClickHouse](https://clickhouse.com/)**, **[MySQL](https://www.mysql.com/)**, **[Elasticsearch](https://www.elastic.co/)**. The key insight was designing these systems to work together seamlessly through shared OCaml types rather than complex API layers.
 
 Ahrefs maintains their own libraries and frameworks rather than relying on generic solutions. This "build it ourselves" philosophy requires more initial investment but delivers systems perfectly tailored to web crawling demands. Their **1.5 million lines of OCaml code** represent years of accumulated domain expertise encoded in reliable, maintainable software.
 
