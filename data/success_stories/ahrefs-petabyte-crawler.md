@@ -48,7 +48,7 @@ Ahrefs chose OCaml because it solved their constraint: building world-class infr
 
 Ahrefs built their crawling infrastructure around OCaml's strengths, creating a distributed system that balances performance, reliability, and maintainability. **[OCaml](https://ocaml.org/)** serves as the primary language for all crawling and data processing systems, compiled natively for maximum performance across their **4000+ servers**.
 
-The architecture treats data consistency as paramount. Using **[ATD (Adjustable Type Definitions)](https://github.com/ahrefs/atd)** to define shared data structures, they ensure type safety throughout their processing pipeline—from initial web crawling through to final data storage. This approach catches schema mismatches at compile time rather than runtime, crucial when processing billions of pages daily.
+Their architecture treats data consistency as paramount. Defining shared data structures (using **[ATD (Adjustable Type Definitions)](https://github.com/ahrefs/atd)**, and now moving to [melange-json](https://github.com/melange-community/melange-json)), they ensure type safety throughout their processing pipeline — from initial web crawling to final data storage. This approach catches schema mismatches at compile time rather than at runtime, crucial when processing billions of pages daily.
 
 Their storage layer combines **[ClickHouse](https://clickhouse.com/)**, **[MySQL](https://www.mysql.com/)**, **[Elasticsearch](https://www.elastic.co/)**. The key insight was designing these systems to work together seamlessly through shared OCaml types rather than complex API layers.
 
