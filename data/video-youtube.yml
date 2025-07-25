@@ -1,3 +1,24 @@
+- title: The Saga of Multicore OCaml
+  url: https://www.youtube.com/watch/XGGSPpk1IB0?version=3
+  thumbnail: https://i1.ytimg.com/vi/XGGSPpk1IB0/hqdefault.jpg
+  description: "Jane Street is an electronic trading firm that uses low latency trading
+    systems built in OCaml to provide liquidity to financial markets worldwide. In
+    December 2022, after nearly a decade of development, OCaml 5.0 was released with
+    OCaml\u2019s first multi-core capable runtime. This was an exciting milestone,
+    finally making it possible to write shared-memory parallel programs in OCaml.
+    The new runtime was designed to be easy to adopt: it didn\u2019t disturb OCaml\u2019s
+    FFI, and performance was meant to be only a few percentage points slower in single-core
+    mode. Despite those promising beginnings, switching to runtime-5 within Jane Street
+    was harder than we expected. Indeed, we've only just switched to it this year,
+    after 2.5 years of research and engineering effort. This talk will give an overview
+    of the problems we ran into, and what we learned from the process, including some
+    new ideas that solved some very old problems in the design of OCaml's GC.\n\nSee
+    other Tech Talks here: https://www.janestreet.com/tech-talks/index.html"
+  published: 2025-07-24T20:13:04+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: Making OCaml Safe for Performance Engineering
   url: https://www.youtube.com/watch/g3qd4zpm1LA?version=3
   thumbnail: https://i4.ytimg.com/vi/g3qd4zpm1LA/hqdefault.jpg
@@ -17,7 +38,7 @@
     simplicity of programming in OCaml. In all of this, we will focus less on the
     type theory, and more on how these features are surfaced to users, the practical
     problems that they help us solve, and the place in the design space of programming
-    languages that this leaves us in."
+    languages that this leaves us in.\n\nRead the full transcript here: https://www.janestreet.com/tech-talks/making-ocaml-safe-for-performance-engineering/"
   published: 2025-04-03T20:44:20+00:00
   author_name: Jane Street
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
@@ -50,7 +71,10 @@
 
     Twitter: https://x.com/FunOCaml
 
-    Bluesky: https://bsky.app/profile/fun-ocaml.com'
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml'
   published: 2024-11-20T09:24:00+00:00
   author_name: FUN OCaml
   author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
@@ -66,7 +90,7 @@
     for your `dune`-based project, from a bare repository to a documentation with
     both API pages and documentation pages.\n\nodoc: https://github.com/ocaml/odoc\n\nConnect
     with us\nWebsite: https://fun-ocaml.com/\nTwitter: https://x.com/FunOCaml\nBluesky:
-    https://bsky.app/profile/fun-ocaml.com"
+    https://bsky.app/profile/fun-ocaml.com\n\n#ocaml"
   published: 2024-11-20T09:24:00+00:00
   author_name: FUN OCaml
   author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
