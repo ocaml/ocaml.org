@@ -6,16 +6,6 @@ tags:
 authors:
 - NathanReb
 contributors:
-description: 'CHANGES:
-
-
-  Add a --minimal-update flag to lock to generate a lockfile
-
-  with minimum dependency changes from a previous lockfile. (#305,
-
-  @NathanReb)
-
-  Add command line options to complement or overwrite...'
 changelog:
 versions:
 unstable: false

@@ -164,15 +164,16 @@ module Releases = struct
     tags : string list;
     authors : string list option;
     contributors : string list option;
-    description : string option;
     changelog : string option;
     versions : string list option;
     unstable : bool option;
     ignore : bool option;
+    github_release_tag : string option;
   }
   [@@deriving
     yaml,
-      stable_record ~version:release ~remove:[ changelog; description ]
+      stable_record ~version:release
+        ~remove:[ changelog; github_release_tag ]
         ~modify:[ authors; contributors; versions; unstable; ignore ]
         ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
@@ -372,24 +373,29 @@ module Scraper = struct
       |> String.split_on_char 'T' |> List.hd
     in
     let title = River.title post in
+    let github_release_tag =
+      River.link post
+      |> Option.map (fun url ->
+             url |> Uri.to_string |> String.split_on_char '/' |> List.rev
+             |> List.hd)
+    in
     let output_file =
       "data/changelog/releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
       ^ "-" ^ version ^ ".md"
     in
     let content = River.content post in
-    let description = River.meta_description post in
     let author = River.author post in
     let metadata : Releases.release_metadata =
       {
         title;
         tags;
         contributors = None;
-        description;
         changelog = None;
         versions = None;
         authors = Some [ author ];
         unstable = Some false;
         ignore = Some false;
+        github_release_tag;
       }
     in
     let s = Format.asprintf "%a\n%s\n" Releases.pp_meta metadata content in
