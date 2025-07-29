@@ -34,6 +34,9 @@ let render (entry : Data.Changelog.t) = match entry with
         </section>
 
         <section class="pb-6 lg:pb-8">
+          <div class="text-content dark:text-dark-content">
+            <%s if List.length release.authors > 0 then String.concat ", " release.authors else "" %>
+          </div>
           <time datetime="2023-07-14"
             class="block pb-5 mt-0 mb-6 font-sans text-sm text-content dark:text-dark-content border-b-2 border-solid border-separator_20 dark:border-dark-separator_30">
           <%s Utils.human_date release.date %>
@@ -86,6 +89,9 @@ let render (entry : Data.Changelog.t) = match entry with
         </section>
 
         <section class="pb-6 lg:pb-8">
+          <div class="text-content dark:text-dark-content">
+            <%s if List.length post.authors > 0 then String.concat ", " post.authors else "" %>
+          </div>
           <time datetime="2023-07-14"
             class="block pb-5 mt-0 mb-6 font-sans text-sm text-content dark:text-dark-content border-b-2 border-solid border-separator_20 dark:border-dark-separator_30">
           <%s Utils.human_date post.date %>
