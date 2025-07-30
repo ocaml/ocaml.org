@@ -17,5 +17,11 @@ Notes:
 
 What else can we write here?
 
+https://ocaml.org/docs/set-up-editor#emacs
+
+https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#ocaml-eglot
+
+
+
 Should this be a post announcing only ocaml-eglot, or are there other ocaml-lsp related efforts worth talking about? I.e. a post giving updates on what has happened about editor support based on ocaml-lsp in general?
 -->
