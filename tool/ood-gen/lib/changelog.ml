@@ -172,9 +172,16 @@ module Releases = struct
   }
   [@@deriving
     yaml,
-      stable_record ~version:release
-        ~remove:[ changelog; github_release_tag ]
-        ~modify:[ authors; contributors; versions; unstable; ignore ]
+      stable_record ~version:release ~remove:[ changelog ]
+        ~modify:
+          [
+            authors;
+            contributors;
+            versions;
+            unstable;
+            ignore;
+            github_release_tag;
+          ]
         ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
   let pp_meta ppf v =
@@ -189,6 +196,7 @@ module Releases = struct
       ~modify_versions:(Option.value ~default:[])
       ~modify_unstable:(Option.value ~default:false)
       ~modify_ignore:(Option.value ~default:false)
+      ~modify_github_release_tag:(Option.value ~default:"MISSING")
 
   let decode (fname, (head, body)) =
     let project_name = Filename.basename (Filename.dirname fname) in
@@ -350,6 +358,11 @@ module Scraper = struct
   module SMap = Map.Make (String)
   module SSet = Set.Make (String)
 
+  type github_release = { tag : string; post : River.post }
+
+  let github_release_tag_from_url url =
+    url |> Uri.to_string |> String.split_on_char '/' |> List.rev |> List.hd
+
   let warn fmt =
     let flush out = Printf.fprintf out "\n%!" in
     Printf.kfprintf flush stderr fmt
@@ -357,14 +370,14 @@ module Scraper = struct
   let fetch_github repo =
     [ River.fetch { River.name = repo; url = repo ^ "/releases.atom" } ]
     |> River.posts
-    |> List.map (fun post -> (River.title post, post))
+    |> List.filter_map (fun post ->
+           River.link post
+           |> Option.map github_release_tag_from_url
+           |> Option.map (fun tag -> { tag; post }))
 
   let group_releases_by_project all =
     List.fold_left
-      (fun acc t ->
-        List.fold_left
-          (fun acc v -> SMap.add_to_list t.project_name v acc)
-          acc t.versions)
+      (fun acc t -> SMap.add_to_list t.project_name t.github_release_tag acc)
       SMap.empty all
 
   let write_release_announcement_file project version tags (post : River.post) =
@@ -374,10 +387,8 @@ module Scraper = struct
     in
     let title = River.title post in
     let github_release_tag =
-      River.link post
-      |> Option.map (fun url ->
-             url |> Uri.to_string |> String.split_on_char '/' |> List.rev
-             |> List.hd)
+      River.link post |> Option.map github_release_tag_from_url
+      (*|> Option.value ~default:"MISSING"*)
     in
     let output_file =
       "data/changelog/releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
@@ -403,15 +414,15 @@ module Scraper = struct
     Printf.fprintf oc "%s" s;
     close_out oc
 
-  let check_if_uptodate project known_versions =
-    let known_versions = SSet.of_list known_versions in
+  let check_if_uptodate project known_tags =
+    let known_github_tags = SSet.of_list known_tags in
     let check repo tags =
       let scraped_versions = fetch_github repo in
       List.iter
-        (fun (version, post) ->
-          if not (SSet.mem version known_versions) then (
-            warn "No changelog entry for %S version %S\n%!" project version;
-            write_release_announcement_file project version tags post))
+        (fun { tag; post } ->
+          if not (SSet.mem tag known_github_tags) then (
+            warn "No changelog entry for %S github tag %S\n%!" project tag;
+            write_release_announcement_file project tag tags post))
         scraped_versions
     in
     match List.assoc_opt project github_project_release_feeds with
