@@ -13,11 +13,7 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     oniguruma-dev \
     openssl-dev
 
-ADD https://get.dune.build/2025-07-17/x86_64-unknown-linux-musl/dune-2025-07-17-x86_64-unknown-linux-musl.tar.gz .
-RUN tar xzf dune-2025-07-17-x86_64-unknown-linux-musl.tar.gz
-RUN mkdir -p /root/.local/bin \
- && mv dune-2025-07-17-x86_64-unknown-linux-musl/dune /root/.local/bin/
-ENV PATH="/root/.local/bin:$PATH"
+RUN curl -sSL https://github.com/ocaml-dune/dune-bin-install/releases/download/v1/install.sh | sh -s 3.19.1 --install-root /usr --no-update-shell-config
 RUN dune --version
 
 # Build project
