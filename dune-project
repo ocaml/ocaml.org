@@ -59,6 +59,10 @@
   syndic
   ounit
   (alcotest :with-test)
+  (ocamlformat
+   (and
+    :with-test
+    ( = 0.26.2)))
   (mdx
    (and
     :with-test
