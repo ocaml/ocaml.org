@@ -1,6 +1,7 @@
 # Dune artifacts
 _build/
 dune.lock
+dev-tools.locks
 
 # Local OPAM switch
 _opam/
