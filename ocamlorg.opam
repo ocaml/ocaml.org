@@ -72,5 +72,4 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["river.dev" "git+https://github.com/aantron/river#476dc945a908a69548bddd267f143a3e5d9c8a1a"]
-  ["olinkcheck.~dev" "git+https://github.com/tarides/olinkcheck"]
 ]
