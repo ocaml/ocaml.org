@@ -4,6 +4,7 @@ title: Comparison of Standard Containers
 description: >
   Rough comparison of the different container types in OCaml
 category: "Resources"
+language: English
 ---
 
 This is a rough comparison of the different container types

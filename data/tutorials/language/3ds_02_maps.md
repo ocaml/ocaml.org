@@ -4,6 +4,7 @@ title: Maps
 description: >
   Create a mapping using the standard library's Map module
 category: "Data Structures"
+language: English
 ---
 
 ## Introduction

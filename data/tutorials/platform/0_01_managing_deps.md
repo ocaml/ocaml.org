@@ -4,6 +4,7 @@ title: "Managing Dependencies With opam"
 description: |
   How to manage dependencies with opam
 category: "Projects"
+language: English
 ---
 
 ## Installing Existing Dependencies

@@ -4,6 +4,7 @@ title: "Running Commands in an opam Switch"
 description: |
   How to use commands installed in an opam switch
 category: "Projects"
+language: English
 ---
 
 Opam is a package manager for OCaml that facilitates the installation and management of OCaml libraries and tools. When working with opam, it's essential to understand how to run commands within a specific opam switch. In this tutorial, we'll explore three methods: `opam env`, `opam exec`, and `direnv`.

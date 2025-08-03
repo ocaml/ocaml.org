@@ -5,6 +5,7 @@ description: |
   This page will help you install OCaml and the OCaml Platform Tools. |
   These instructions work on Windows, and Unix systems like Linux, and macOS.
 category: "First Steps"
+language: English
 ---
 
 This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix-and-macos) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.

@@ -4,6 +4,7 @@ title: Calling Fortran Libraries
 description: >
   Cross the divide and call Fortran code from your OCaml program
 category: "Tutorials"
+language: English
 ---
 
 Fortran isn't a language the many people write new code in but it still

@@ -4,6 +4,7 @@ title: Higher Order Functions
 description: >
   Functions describe the world; higher-order functions take functions as parameters. Learn how to manipulate and leverage functions to write composable and reusable code.
 category: "Introduction"
+language: English
 prerequisite_tutorials:
   - "values-and-functions"
   - "loops-recursion"

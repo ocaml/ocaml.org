@@ -5,6 +5,7 @@ short_title: The OCaml Playground
 description: |
   This page will walk you through the OCaml Playground
 category: "Resources"
+language: English
 ---
 
 Welcome to OCaml's in-browser playground!

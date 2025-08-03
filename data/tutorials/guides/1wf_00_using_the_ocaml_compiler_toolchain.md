@@ -4,6 +4,7 @@ title: Using the OCaml Compiler Toolchain
 description: >
   An introduction to the OCaml compiler tools for building OCaml projects as well as the most common build tools such as Dune
 category: "Guides"
+language: English
 ---
 
 This tutorial explains how to compile your OCaml programs into executable form.

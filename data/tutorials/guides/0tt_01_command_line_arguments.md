@@ -4,6 +4,7 @@ title: Command-line Arguments
 description: >
   The Arg module that comes with the compiler can help you write command line interfaces
 category: "Tutorials"
+language: English
 ---
 
 In this tutorial we learn how to read command line arguments directly, using

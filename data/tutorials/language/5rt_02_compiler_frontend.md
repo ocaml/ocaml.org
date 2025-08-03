@@ -5,6 +5,7 @@ short_title: Compiler Frontend
 description: >
   The Compiler Frontend: Parsing and Type Checking, excerpt from Real World OCaml
 category: "Runtime & Compiler"
+language: English
 external_tutorial:
   tag: "RWO"
   banner:
