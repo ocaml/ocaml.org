@@ -444,6 +444,8 @@ module Tutorial = struct
     slug : string;
   }
 
+  type language = English | Japanese [@@deriving show]
+
   type t = {
     title : string;
     short_title : string;
@@ -458,6 +460,7 @@ module Tutorial = struct
     body_html : string;
     recommended_next_tutorials : recommended_next_tutorials;
     prerequisite_tutorials : prerequisite_tutorials;
+    language : language;
   }
 end
 
