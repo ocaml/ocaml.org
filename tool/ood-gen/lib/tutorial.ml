@@ -122,7 +122,11 @@ let decode (fpath, (head, body_md)) =
 
 let all () =
   Utils.map_md_files decode "tutorials/*/*.md"
-  |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
+  |> List.sort 
+    (Base.Comparable.lexicographic [
+      (fun (t1 : t) t2 -> Data_intf.Tutorial.compare_language t1.language t2.language);
+      (fun t1 t2 -> String.compare t1.fpath t2.fpath)
+    ])
 
 module TutorialSearch = struct
   let document_from_section

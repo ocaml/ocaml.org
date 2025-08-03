@@ -764,7 +764,15 @@ let tool_page commit_hash req =
 
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
-  let</>? tutorial = Data.Tutorial.get_by_slug slug in
+  let language =
+    Option.bind
+      (Dream.query req "lang")
+      (function
+       | "en" -> Some Data.Tutorial.English
+       | "ja" -> Some Japanese
+       | _ -> None)
+  in
+  let</>? tutorial = Data.Tutorial.get_by_slug_and_language slug language in
   let all_tutorials = Data.Tutorial.all in
 
   let tutorials =

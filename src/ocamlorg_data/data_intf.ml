@@ -475,7 +475,7 @@ module Tutorial = struct
     slug : string;
   }
 
-  type language = English | Japanese [@@deriving show]
+  type language = English | Japanese [@@deriving show, equal, compare]
 
   type t = {
     title : string;
