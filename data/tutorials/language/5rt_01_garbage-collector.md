@@ -4,6 +4,7 @@ title: Understanding the Garbage Collector
 description: >
   Understanding the Garbage Collector, excerpt from Real World OCaml
 category: "Runtime & Compiler"
+language: English
 external_tutorial:
   tag: "RWO"
   banner:

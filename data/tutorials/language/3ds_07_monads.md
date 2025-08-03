@@ -4,6 +4,7 @@ title: Monads
 description: >
   Monads, adapted from OCaml Programming: Correct + Efficient + Beautiful
 category: "Data Structures"
+language: English
 external_tutorial:
   tag: "CS3110"
   banner:
