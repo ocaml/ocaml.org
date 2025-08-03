@@ -4,6 +4,7 @@ title: Sets
 description: >
   The standard library's Set module
 category: "Data Structures"
+language: English
 ---
 
 ## Introduction

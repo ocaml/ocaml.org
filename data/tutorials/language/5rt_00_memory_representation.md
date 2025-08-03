@@ -4,6 +4,7 @@ title: Memory Representation of Values
 description: >
   Memory Representation of Values, excerpt from Real World OCaml
 category: "Runtime & Compiler"
+language: English
 external_tutorial:
   tag: "RWO"
   banner:
