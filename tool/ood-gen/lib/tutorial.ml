@@ -34,6 +34,24 @@ type search_document_section =
 type search_document = [%import: Data_intf.Tutorial.search_document]
 [@@deriving show]
 
+type language = [%import: Data_intf.Tutorial.language] [@@deriving show]
+
+(* Deriving of_yaml doesn't seem to work in an intuitive way for regular variant;
+   in order to have a type like [language] to be parsed, we need to write
+   something like:
+
+   {v
+     language:
+       English: []
+   v}
+
+   So we instead write a custom parser to get the behavior we want. *)
+let language_of_yaml : Yaml.value -> (language, _) result =
+  function
+  | `String "English" -> Ok English
+  | `String "Japanese" -> Ok Japanese
+  | value -> Error (`Msg ("Unexpected language value: " ^ Yaml.to_string_exn value))
+
 type t = [%import: Data_intf.Tutorial.t] [@@deriving show]
 
 type metadata = {
@@ -45,6 +63,7 @@ type metadata = {
   external_tutorial : external_tutorial option;
   recommended_next_tutorials : recommended_next_tutorials option;
   prerequisite_tutorials : prerequisite_tutorials option;
+  language : language;
 }
 [@@deriving
   of_yaml,
