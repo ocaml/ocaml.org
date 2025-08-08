@@ -24,7 +24,7 @@ changelog: |
   - `dune-release` no longer publishes docs to github pages. Instead, we rely on
     the docs published under `ocaml.org/packages` (#499 #500, @v-gb @samoht)
 
-
+github_release_tags: [2.1.0]
 ---
 
 Dune-release 2.1.0 has been released!

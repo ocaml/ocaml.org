@@ -18,5 +18,6 @@ changelog: |
     tag and project version don't match (e.g. `v1.0` vs `1.0`). `dune-release`
     would in such case believe the release doesn't exist, attempt to create it
     and subsequently fail. (#387, #395, @Leonidas-from-XIV)
+github_release_tags: [1.5.1]
 ---
 

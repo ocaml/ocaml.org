@@ -110,6 +110,7 @@ changelog: |
   - Fixes release names by explicitly setting it to match the released version (#338, @NathanReb)
   - Fix a bug that prevented release of a package whose version number contains invalid characters for a git branch. The git branch names are now sanitized. (#271, @gpetiot)
   - `publish`: Fix the process of inferring user name and repo from the dev repo uri (#348, @pitag-ha)
+github_release_tags: [1.5.0]
 ---
 
 On behalf of the dune-release team I'm pleased to announce that we're releasing dune-release.1.5.0.
