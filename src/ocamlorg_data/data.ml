@@ -223,11 +223,15 @@ module Tutorial = struct
   include Tutorial
 
   let get_by_slug_and_language slug language =
-    List.find_opt (fun x ->
+    match List.find_opt (fun x ->
       String.equal slug x.slug &&
       (match language with 
       | None -> true
       | Some language -> equal_language language x.language)) all
+    with
+    | Some x -> Some x
+    | None ->
+      List.find_opt (fun x -> String.equal slug x.slug) all
 
   let search_documents q =
     let score_document (doc : search_document) =
