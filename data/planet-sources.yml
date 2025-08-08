@@ -202,8 +202,8 @@
   name: Jon Ludlam's Blog at recoil.org
   url: https://jon.recoil.org/atom.xml
 - id: patricoferris
-  name: Patrick Ferris' Blog
-  url: https://patrick.sirref.org/posts/atom.xml
+  name: Patrick Ferris' OCaml Blog
+  url: https://patrick.sirref.org/ocaml-blog/atom.xml
 - id: dra27
   name: David Allsopp's Blog
   url: https://www.dra27.uk/feed.xml
