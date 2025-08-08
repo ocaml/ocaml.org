@@ -242,7 +242,6 @@ module Releases = struct
 
   let all () =
     Utils.map_md_files decode "changelog/releases/*/*.md"
-    |> List.filter (fun (a : release) -> a.ignore = false)
     |> List.sort (fun (a : release) b -> String.compare b.slug a.slug)
 end
 
@@ -352,7 +351,10 @@ let template () =
 include Data_intf.Changelog
 let all = %a
 |ocaml}
-    (Fmt.Dump.list pp) (all ())
+    (Fmt.Dump.list pp)
+    (all ()
+    |> List.filter (fun (a : t) ->
+           match a with Release a -> a.ignore = false | Post _ -> true))
 
 module Scraper = struct
   module SMap = Map.Make (String)
