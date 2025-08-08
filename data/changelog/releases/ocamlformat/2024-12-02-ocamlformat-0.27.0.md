@@ -1,6 +1,7 @@
 ---
 title: OCamlformat 0.27.0
 tags: [ocamlformat, platform]
+github_release_tags: [0.27.0, "0.27.0-20250228", "0.27.0+20250228"]
 changelog: |
   ### Highlight
   

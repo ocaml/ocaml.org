@@ -8,4 +8,5 @@ changelog: |
     `--keep-build-dir` to the main command (#419, @NathanReb)
   - Added support for parsing changelogs written in the style of
     [keepachangelog.com](https://keepachangelog.com/) (#421, @ifazk)
+github_release_tags: [1.6.0]
 ---

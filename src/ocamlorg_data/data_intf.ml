@@ -102,7 +102,7 @@ module Changelog = struct
     contributors : string list;
     project_name : string;
     versions : string list;
-    github_release_tag : string;
+    github_release_tags : string list;
   }
 
   type post = {

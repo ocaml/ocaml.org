@@ -47,6 +47,7 @@ changelog: |
     The `fun` keyword is docked where possible and the arguments are indented to avoid confusion with the body.
   - JaneStreet profile: treat comments as doc-comments (#2261, #2344, #2354, #2365, #2392, @gpetiot, @Julow)
   - Tweaks the JaneStreet profile to be more consistent with ocp-indent (#2214, #2281, #2284, #2289, #2299, #2302, #2309, #2310, #2311, #2313, #2316, #2362, #2363, @gpetiot, @Julow)
+github_release_tags: [0.26.0]
 ---
 
 We are thrilled to announce the release of OCamlFormat 0.26.0!
