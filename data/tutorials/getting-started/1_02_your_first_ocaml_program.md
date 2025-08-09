@@ -4,6 +4,7 @@ title: Your First OCaml Program
 description: >
   Learn how to write your very first OCaml program.
 category: "First Steps"
+language: English
 recommended_next_tutorials:
   - "values-and-functions"
   - "basic-data-types"

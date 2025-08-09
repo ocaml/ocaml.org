@@ -4,6 +4,7 @@ title: Values and Functions
 description: |
   Functions, values, definitions, environments, scopes, closures, and shadowing. This tutorial will help you master the fundamentals.
 category: "Introduction"
+language: English
 prerequisite_tutorials:
   - "toplevel-introduction"
   - "installing-ocaml"

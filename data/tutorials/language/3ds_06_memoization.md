@@ -4,6 +4,7 @@ title: Memoization
 description: >
   Memoization, adapted from OCaml Programming: Correct + Efficient + Beautiful
 category: "Data Structures"
+language: English
 external_tutorial:
   tag: "CS3110"
   banner:

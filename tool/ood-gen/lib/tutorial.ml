@@ -34,6 +34,24 @@ type search_document_section =
 type search_document = [%import: Data_intf.Tutorial.search_document]
 [@@deriving show]
 
+type language = [%import: Data_intf.Tutorial.language] [@@deriving show]
+
+(* Deriving of_yaml doesn't seem to work in an intuitive way for regular variant;
+   in order to have a type like [language] to be parsed, we need to write
+   something like:
+
+   {v
+     language:
+       English: []
+   v}
+
+   So we instead write a custom parser to get the behavior we want. *)
+let language_of_yaml : Yaml.value -> (language, _) result =
+  function
+  | `String "English" -> Ok English
+  | `String "Japanese" -> Ok Japanese
+  | value -> Error (`Msg ("Unexpected language value: " ^ Yaml.to_string_exn value))
+
 type t = [%import: Data_intf.Tutorial.t] [@@deriving show]
 
 type metadata = {
@@ -45,6 +63,7 @@ type metadata = {
   external_tutorial : external_tutorial option;
   recommended_next_tutorials : recommended_next_tutorials option;
   prerequisite_tutorials : prerequisite_tutorials option;
+  language : language;
 }
 [@@deriving
   of_yaml,
@@ -103,7 +122,11 @@ let decode (fpath, (head, body_md)) =
 
 let all () =
   Utils.map_md_files decode "tutorials/*/*.md"
-  |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
+  |> List.sort 
+    (Base.Comparable.lexicographic [
+      (fun (t1 : t) t2 -> Data_intf.Tutorial.compare_language t1.language t2.language);
+      (fun t1 t2 -> String.compare t1.fpath t2.fpath)
+    ])
 
 module TutorialSearch = struct
   let document_from_section
