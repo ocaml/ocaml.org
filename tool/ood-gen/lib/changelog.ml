@@ -47,22 +47,79 @@ type t = [%import: Data_intf.Changelog.t] [@@deriving of_yaml, show]
      dune exec -- tool/ood-gen/bin/scrape.exe changelog
     v}
     The list below describes how to query the latest releases. *)
-let projects_release_feeds =
+
+type release_feed_entry = { github_feed_url : string; tags : string list }
+
+let github_project_release_feeds =
   [
-    ("ocamlformat", `Github "https://github.com/ocaml-ppx/ocamlformat");
-    ("dune", `Github "https://github.com/ocaml/dune");
-    ("dune-release", `Github "https://github.com/tarides/dune-release");
-    ("mdx", `Github "https://github.com/realworldocaml/mdx");
-    ("merlin", `Github "https://github.com/ocaml/merlin");
-    ("ocaml", `Github "https://github.com/ocaml/ocaml");
-    ("ocaml-lsp", `Github "https://github.com/ocaml/ocaml-lsp");
-    ("ocp-indent", `Github "https://github.com/OCamlPro/ocp-indent");
-    ("odoc", `Github "https://github.com/ocaml/odoc");
-    ("opam", `Github "https://github.com/ocaml/opam/");
-    ("opam-publish", `Github "https://github.com/ocaml-opam/opam-publish");
-    ("ppxlib", `Github "https://github.com/ocaml-ppx/ppxlib");
-    ("utop", `Github "https://github.com/ocaml-community/utop");
-    ("omp", `Github "https://github.com/ocaml-ppx/ocaml-migrate-parsetree");
+    ( "ocamlformat",
+      {
+        github_feed_url = "https://github.com/ocaml-ppx/ocamlformat";
+        tags = [ "ocamlformat"; "platform" ];
+      } );
+    ( "dune",
+      {
+        github_feed_url = "https://github.com/ocaml/dune";
+        tags = [ "dune"; "platform" ];
+      } );
+    ( "dune-release",
+      {
+        github_feed_url = "https://github.com/tarides/dune-release";
+        tags = [ "dune-release"; "platform" ];
+      } );
+    ( "mdx",
+      {
+        github_feed_url = "https://github.com/realworldocaml/mdx";
+        tags = [ "mdx"; "platform" ];
+      } );
+    ( "merlin",
+      {
+        github_feed_url = "https://github.com/ocaml/merlin";
+        tags = [ "merlin"; "platform" ];
+      } );
+    ( "ocaml",
+      { github_feed_url = "https://github.com/ocaml/ocaml"; tags = [ "ocaml" ] }
+    );
+    ( "ocaml-lsp",
+      {
+        github_feed_url = "https://github.com/ocaml/ocaml-lsp";
+        tags = [ "ocaml-lsp"; "platform" ];
+      } );
+    ( "ocp-indent",
+      {
+        github_feed_url = "https://github.com/OCamlPro/ocp-indent";
+        tags = [ "ocp-indent"; "platform" ];
+      } );
+    ( "odoc",
+      {
+        github_feed_url = "https://github.com/ocaml/odoc";
+        tags = [ "odoc"; "platform" ];
+      } );
+    ( "opam",
+      {
+        github_feed_url = "https://github.com/ocaml/opam/";
+        tags = [ "opam"; "platform" ];
+      } );
+    ( "opam-publish}",
+      {
+        github_feed_url = "https://github.com/ocaml-opam/opam-publish";
+        tags = [ "opam-publish"; "platform" ];
+      } );
+    ( "ppxlib",
+      {
+        github_feed_url = "https://github.com/ocaml-ppx/ppxlib";
+        tags = [ "ppxlib"; "platform" ];
+      } );
+    ( "utop",
+      {
+        github_feed_url = "https://github.com/ocaml-community/utop";
+        tags = [ "utop"; "platform" ];
+      } );
+    ( "omp",
+      {
+        github_feed_url = "https://github.com/ocaml-ppx/ocaml-migrate-parsetree";
+        tags = [ "ocaml-migrate-parsetree"; "platform" ];
+      } );
   ]
 
 let re_slug =
@@ -107,24 +164,45 @@ module Releases = struct
     tags : string list;
     authors : string list option;
     contributors : string list option;
-    description : string option;
     changelog : string option;
     versions : string list option;
+    unstable : bool option;
+    ignore : bool option;
+    github_release_tags : string list option;
   }
   [@@deriving
-    of_yaml,
-      stable_record ~version:release ~remove:[ changelog; description ]
-        ~modify:[ authors; contributors; versions ]
+    yaml,
+      stable_record ~version:release ~remove:[ changelog ]
+        ~modify:
+          [
+            authors;
+            contributors;
+            versions;
+            unstable;
+            ignore;
+            github_release_tags;
+          ]
         ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
+
+  let pp_meta ppf v =
+    Fmt.pf ppf {|---
+%s---
+|}
+      (release_metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
   let of_release_metadata m =
     release_metadata_to_release m ~modify_authors:(Option.value ~default:[])
       ~modify_contributors:(Option.value ~default:[])
       ~modify_versions:(Option.value ~default:[])
+      ~modify_unstable:(Option.value ~default:false)
+      ~modify_ignore:(Option.value ~default:false)
+      ~modify_github_release_tags:(Option.value ~default:[])
 
   let decode (fname, (head, body)) =
     let project_name = Filename.basename (Filename.dirname fname) in
-    let slug = Filename.basename (Filename.remove_extension fname) in
+    let slug =
+      Filename.basename (Filename.remove_extension fname) |> Utils.slugify
+    in
     let metadata =
       release_metadata_of_yaml head |> Result.map_error (Utils.where fname)
     in
@@ -273,11 +351,19 @@ let template () =
 include Data_intf.Changelog
 let all = %a
 |ocaml}
-    (Fmt.Dump.list pp) (all ())
+    (Fmt.Dump.list pp)
+    (all ()
+    |> List.filter (fun (a : t) ->
+           match a with Release a -> a.ignore = false | Post _ -> true))
 
 module Scraper = struct
   module SMap = Map.Make (String)
   module SSet = Set.Make (String)
+
+  type github_release = { github_tag : string; post : River.post }
+
+  let github_release_tag_from_url url =
+    url |> Uri.to_string |> String.split_on_char '/' |> List.rev |> List.hd
 
   let warn fmt =
     let flush out = Printf.fprintf out "\n%!" in
@@ -286,27 +372,75 @@ module Scraper = struct
   let fetch_github repo =
     [ River.fetch { River.name = repo; url = repo ^ "/releases.atom" } ]
     |> River.posts
-    |> List.map (fun post -> River.title post)
+    |> List.filter_map (fun post ->
+           River.link post
+           |> Option.map github_release_tag_from_url
+           |> Option.map (fun github_tag -> { github_tag; post }))
 
   let group_releases_by_project all =
     List.fold_left
       (fun acc t ->
-        List.fold_left
-          (fun acc v -> SMap.add_to_list t.project_name v acc)
-          acc t.versions)
+        let existing =
+          SMap.find_opt t.project_name acc |> Option.value ~default:[]
+        in
+        let updated = existing @ t.github_release_tags in
+        SMap.add t.project_name updated acc)
       SMap.empty all
 
-  let check_if_uptodate project known_versions =
-    let known_versions = SSet.of_list known_versions in
-    let check scraped_versions =
+  let write_release_announcement_file project github_tag tags
+      (post : River.post) =
+    let yyyy_mm_dd =
+      River.date post |> Option.get |> Ptime.to_rfc3339
+      |> String.split_on_char 'T' |> List.hd
+    in
+    let title = River.title post in
+    let github_release_tags =
+      [ River.link post |> Option.map github_release_tag_from_url ]
+      (*|> Option.value ~default:"MISSING"*)
+    in
+    let output_file =
+      "data/changelog/releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
+      ^ "-" ^ github_tag ^ "-draft.md"
+    in
+    let content = River.content post in
+    let author = River.author post in
+    let metadata : Releases.release_metadata =
+      {
+        title;
+        tags;
+        contributors = None;
+        changelog = None;
+        versions = None;
+        authors = Some [ author ];
+        unstable = Some false;
+        ignore = Some false;
+        github_release_tags =
+          (match
+             List.filter_map (fun (a : string option) -> a) github_release_tags
+           with
+          | [] -> None
+          | xs -> Some xs);
+      }
+    in
+    let s = Format.asprintf "%a\n%s\n" Releases.pp_meta metadata content in
+    let oc = open_out output_file in
+    Printf.fprintf oc "%s" s;
+    close_out oc
+
+  let check_if_uptodate project known_tags =
+    let known_github_tags = SSet.of_list known_tags in
+    let check repo tags =
+      let scraped_versions = fetch_github repo in
       List.iter
-        (fun v ->
-          if not (SSet.mem v known_versions) then
-            warn "No changelog entry for %S version %S\n%!" project v)
+        (fun { github_tag; post } ->
+          if not (SSet.mem github_tag known_github_tags) then (
+            warn "No changelog entry for %S github tag %S\n%!" project
+              github_tag;
+            write_release_announcement_file project github_tag tags post))
         scraped_versions
     in
-    match List.assoc_opt project projects_release_feeds with
-    | Some (`Github repo) -> check (fetch_github repo)
+    match List.assoc_opt project github_project_release_feeds with
+    | Some { github_feed_url; tags } -> check github_feed_url tags
     | None ->
         warn
           "Don't know how to lookup project %S. Please update \
@@ -314,7 +448,6 @@ module Scraper = struct
            %!"
           project
 
-  (** This does not generate any file. *)
   let scrape_platform_releases () =
     Releases.all () |> group_releases_by_project |> SMap.iter check_if_uptodate
 end

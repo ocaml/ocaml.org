@@ -47,4 +47,5 @@ changelog: |
   - The `git` command used in `publish doc` should check `DUNE_RELEASE_GIT` (even
     if deprecated) before `PATH`. (#242, @gpetiot)
   - Adapt the docs to the removal of the `log` subcommand (#196, @gpetiot)
+github_release_tags: [1.4.0]
 ---

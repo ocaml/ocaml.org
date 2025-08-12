@@ -1,6 +1,7 @@
 ---
 title: OCamlFormat 0.26.1
 tags: [ocamlformat, platform]
+github_release_tags: [0.26.1]
 changelog: |
   ### Changed
 

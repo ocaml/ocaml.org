@@ -8,4 +8,5 @@ changelog: |
     (#165, @NathanReb)
   - Fix a bug where opam files could be improperly tempered with while building
     the distribution tarball (#168, @NathanReb)
+github_release_tags: [1.3.3]
 ---

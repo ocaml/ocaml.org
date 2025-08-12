@@ -34,6 +34,7 @@ changelog: |
   - Removed support for the OPAM 1.2.2 client. This means `dune-release` expects
     the `opam` binary to be version 2.0 at least. (#406, #411,
     @Leonidas-from-XIV)
+github_release_tags: [2.0.0]
 ---
 
 We're excited to announce the release of Dune-release 2.0.0!

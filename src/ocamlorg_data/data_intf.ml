@@ -93,6 +93,8 @@ module Changelog = struct
     slug : string;
     date : string;
     tags : string list;
+    unstable : bool;
+    ignore : bool;
     changelog_html : string option;
     body_html : string;
     body : string;
@@ -100,6 +102,7 @@ module Changelog = struct
     contributors : string list;
     project_name : string;
     versions : string list;
+    github_release_tags : string list;
   }
 
   type post = {
