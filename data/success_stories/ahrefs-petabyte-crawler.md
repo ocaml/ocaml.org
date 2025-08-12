@@ -35,15 +35,6 @@ The reliability of their OCaml systems is perhaps most impressive: programs writ
 
 Their success demonstrates that OCaml can power not just technical excellence at massive scale, but sustainable business growth in highly competitive markets.
 
-## Why OCaml
-Ahrefs chose OCaml because it solved their constraint: building world-class infrastructure with limited resources.
-
-* **Expressiveness reduces team requirements** - OCaml allowed their small team to develop crawling and data processing systems with few lines of code.
-* **Reliability minimizes operational overhead** - Systems run for months without surprises.
-* **Native performance handles web scale** - Compilation to native code provided the performance needed for processing billions requests daily.
-* **Type safety prevents data disasters** - When processing petabytes of evolving web data, catching format issues at compile time rather than in production saves hours of debugging and prevents costly system failures.
-* **Language philosophy matches business model** - OCaml's expressiveness made it economical to create specialized, efficient systems tailored to their exact requirements. The maintainers of the compiler put on a strong emphasis on making a language matching needs of industrial users.
-
 ## Solution
 
 Ahrefs built their crawling infrastructure around OCaml's strengths, creating a distributed system that balances performance, reliability, and maintainability. **[OCaml](https://ocaml.org/)** serves as the primary language for all crawling and data processing systems, compiled natively for maximum performance across their **4000+ servers**.
@@ -56,20 +47,10 @@ Ahrefs maintains their own libraries and frameworks rather than relying on gener
 
 The result is a unified system where improvements to crawling algorithms, data processing pipelines, or storage efficiency can be implemented quickly and deployed confidently across their entire infrastructure.
 
-## Lessons Learned
+## Why OCaml
 
-Ahrefs' experience building web-scale infrastructure in OCaml offers valuable insights:
-
-* **Reliability pays compound interest**: OCaml's "boring" stability means systems built years ago still run without surprises, freeing engineering time for new capabilities rather than maintenance.
-* **Types scale better than tests**: At petabyte scale, compile-time guarantees about data consistency prevent entire classes of runtime failures that would be catastrophic at this volume.
-* **Expressiveness enables specialization**: OCaml's high-level abstractions made it economical to build highly specialized systems rather than adapting generic frameworks to their unique requirements.
-* **Small teams can compete with giants**: The right language choice allowed Ahrefs to build infrastructure that competes with tech giants despite having a fraction of their resources.
-* **Performance and maintainability aren't mutually exclusive**: OCaml's combination of native compilation and high-level abstractions delivered both the performance needed for web scale and the clarity needed for long-term maintenance.
-
-## Open Source
-
-Ahrefs supports the OCaml ecosystem through contributions that benefit infrastructure and data processing applications:
-
-- **[Ahrefs DevKit](https://github.com/ahrefs/devkit):** Tools and utilities for building distributed applications.
-- **[OCaml Community Tools](https://github.com/ocaml-community):** Contributions to widely used infrastructure tools like `ocurl` and `ocaml-mariadb`.
-- **[ATD](https://github.com/ahrefs/atd):** Schema definition language for cross-platform data serialization.
+* **Low maintenance burden**: OCaml systems built years ago continue running without intervention, allowing engineers to focus on new development rather than troubleshooting production issues.
+* **Static typing catches errors**: At petabyte scale, compile-time type checking prevents data format inconsistencies and runtime failures that would be expensive to debug in production environments processing large volumes of web data.
+* **Language expressiveness reduces development time**: OCaml's abstractions enabled building domain-specific systems efficiently rather than adapting existing frameworks. Small teams could develop complex crawling and data processing systems with relatively few lines of code.
+* **Performance**: Native compilation provides the throughput needed for processing billions of daily requests while maintaining code readability for long-term maintenance.
+* **Cost-effective specialized tooling**: OCaml made it practical to build custom systems tailored to specific requirements rather than using general-purpose solutions, which aligned with their business constraints of limited engineering resources.

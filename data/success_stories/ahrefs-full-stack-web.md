@@ -62,8 +62,8 @@ Integration with their existing data infrastructure (**[ClickHouse](https://clic
 
 Ahrefs contributes actively to the full-stack OCaml ecosystem, sharing tools that benefit the broader community:
 
-- **[ahrefs/devkit](https://github.com/ahrefs/devkit):** Utilities and tools for building OCaml applications.
 - **[styled-ppx](https://github.com/davesnx/styled-ppx):** Type-safe styled components for ReScript, Melange and native with type-safe CSS 
 - **[server-reason-react](https://github.com/ml-in-barcelona/server-reason-react):** Native implementation of React's Server-side rendering (SSR) and React Server Components (RSC) architecture for Reason 
 - **[melange-recharts](https://github.com/ahrefs/melange-recharts):** Production-ready charting components for data visualization applications.
 - **[melange-json](https://github.com/melange-community/melange-json):** Streamlined JSON handling for frontend applications.
+- **[ocaml-mlx/mlx](https://github.com/ocaml-mlx/mlx):** OCaml `.mlx` syntax dialect which adds JSX syntax expressions 
