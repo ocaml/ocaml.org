@@ -1,7 +1,7 @@
 ---
 title: "opam 2.0 preview release!"
 authors: [ "Louis Gesbert" ]
-description: "Release announcement for opam 2.0.0~preview"
+unstable: true
 tags: [opam, platform]
 ---
 

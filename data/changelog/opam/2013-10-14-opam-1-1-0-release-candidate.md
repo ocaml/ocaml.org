@@ -1,7 +1,7 @@
 ---
 title: "OPAM 1.1.0 release candidate out"
 authors: [ "Louis Gesbert" ]
-description: "Release announcement for OPAM 1.1.0~rc1"
+unstable: true
 tags: [opam, platform]
 changelog: |
    Too many to list here, see
