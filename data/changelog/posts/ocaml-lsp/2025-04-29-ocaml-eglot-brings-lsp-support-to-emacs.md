@@ -1,9 +1,9 @@
 ---
-title: Language-Server-Protocol-Based Editor Support for OCaml in Emacs
+title: Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot
 tags: [ocaml-lsp, platform]
 ---
 
-# ocaml-eglot: Language-Server-Protocol-Based Editor Support for OCaml in Emacs
+# Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot
 
 ## TL;DR
 
