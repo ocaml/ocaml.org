@@ -9,7 +9,7 @@ contributors:
 changelog:
 versions:
 unstable: false
-ignore: false
+ignore: true
 github_release_tags:
 - nlfork-1.5.5
 ---
