@@ -2,6 +2,8 @@
 title: Opam-publish 2.2.0
 authors: [ "Kate Deplaix" ]
 tags: [opam-publish, platform]
+github_release_tags:
+- 2.2.0
 ---
 
 We are pleased to announce the minor release of [opam-publish 2.2.0](https://github.com/ocaml-opam/opam-publish/releases/tag/2.2.0).

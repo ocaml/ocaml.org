@@ -6,5 +6,7 @@ changelog: |
     * github remote detection
     * `not a git repository` error
   * New option --packages-directory to indicate where package descriptions are stored
+github_release_tags:
+- 2.0.2
 ---
 

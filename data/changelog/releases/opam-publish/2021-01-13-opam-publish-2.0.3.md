@@ -7,5 +7,7 @@ changelog: |
   * Allow publication of packages without URL (for conf packages)
   * Added flag `--no-browser` to disable browser popup
   * Fix detection of package names when specifying opam file names on the command-line
+github_release_tags:
+- 2.0.3
 ---
 
