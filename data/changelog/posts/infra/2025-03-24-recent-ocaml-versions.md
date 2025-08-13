@@ -1,8 +1,6 @@
 ---
 title: "OCaml Infrastructure: OCaml-version 4.0.0 released"
 tags: [infrastructure]
-changelog: |
-  - ocaml-version 4.0.0 released (by ~mtelvers, https://github.com/ocurrent/ocaml/version)
 ---
 
 Following a post on [discuss.ocaml.org](https://discuss.ocaml.org/t/docker-base-images-and-ocaml-ci-support-for-ocaml-4-08/16229), there has been a new release of [ocurrent/ocaml-version](https://github.com/ocurrent/ocaml-version) that moves the minimum version of OCaml, considered as _recent_, from 4.02 to 4.08.
