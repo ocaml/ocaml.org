@@ -100,7 +100,7 @@ let github_project_release_feeds =
         github_feed_url = "https://github.com/ocaml/opam/";
         tags = [ "opam"; "platform" ];
       } );
-    ( "opam-publish}",
+    ( "opam-publish",
       {
         github_feed_url = "https://github.com/ocaml-opam/opam-publish";
         tags = [ "opam-publish"; "platform" ];
