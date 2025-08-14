@@ -13,9 +13,9 @@ let right_sidebar
 =
   <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
 
-let left_sidebar ~tutorials ~current_tutorial ~section =
+let left_sidebar ~tutorials ~current_tutorial ~language ~section =
   <div class="flex flex-col gap-5">
-    <%s! Learn_layout.render_sidebar ~tutorials ~current_tutorial ~section %>
+    <%s! Learn_layout.render_sidebar ~tutorials ~current_tutorial ~language ~section %>
   </div>
 
 let of_tutorial_section (s: Data.Tutorial.section) =
@@ -81,7 +81,7 @@ Learn_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.short_title)
 ~description:tutorial.description
 ~canonical
-~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~tutorials ~section:(of_tutorial_section tutorial.section)))
+~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~language:tutorial.language ~tutorials ~section:(of_tutorial_section tutorial.section)))
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">

@@ -1,6 +1,6 @@
 let left_sidebar ~tutorials ~current_tutorial =
   <div class="flex flex-col gap-10">
-    <%s! Learn_layout.render_sidebar ~tutorials ~current_tutorial ~section:Learn_layout.Guides %>
+    <%s! Learn_layout.render_sidebar ~tutorials ~current_tutorial ~language:English ~section:Learn_layout.Guides %>
   </div>
 
 let render

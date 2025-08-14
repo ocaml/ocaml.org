@@ -122,11 +122,12 @@ let decode (fpath, (head, body_md)) =
 
 let all () =
   Utils.map_md_files decode "tutorials/*/*.md"
-  |> List.sort 
-    (Base.Comparable.lexicographic [
-      (fun (t1 : t) t2 -> Data_intf.Tutorial.compare_language t1.language t2.language);
-      (fun t1 t2 -> String.compare t1.fpath t2.fpath)
-    ])
+  |> Base.List.sort_and_group
+       ~compare:(fun t1 t2 -> String.compare t1.slug t2.slug)
+  |> List.map
+       (List.sort (fun (t1 : t) t2 -> Data_intf.Tutorial.compare_language t1.language t2.language))
+  |> List.sort (fun t1 t2 -> String.compare (List.hd t1).fpath (List.hd t2).fpath)
+  |> List.concat
 
 module TutorialSearch = struct
   let document_from_section
