@@ -801,6 +801,7 @@ let tutorial commit_hash req =
     (Ocamlorg_frontend.tutorial commit_hash ~tutorials
        ~canonical:(Url.tutorial tutorial.slug None)
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
+       ~language
        tutorial)
 
 let exercises req =
