@@ -61,6 +61,7 @@ commit_hash
 ~recommended_next_tutorials
 ~prerequisite_tutorials
 ~canonical
+~language
 =
 let href, description = match tutorial.external_tutorial with
   | None ->
@@ -81,7 +82,7 @@ Learn_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" tutorial.short_title)
 ~description:tutorial.description
 ~canonical
-~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~language:tutorial.language ~tutorials ~section:(of_tutorial_section tutorial.section)))
+~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~language ~tutorials ~section:(of_tutorial_section tutorial.section)))
 ~right_sidebar_html:(Some(right_sidebar tutorial))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
