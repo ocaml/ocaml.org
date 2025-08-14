@@ -199,7 +199,9 @@ module Tool_page : sig
 end
 
 module Tutorial : sig
-  include module type of Tutorial
+  include module type of struct include Tutorial end
+
+  val language_of_query_param : string -> language option
 
   val all : t list
   val all_search_documents : search_document list

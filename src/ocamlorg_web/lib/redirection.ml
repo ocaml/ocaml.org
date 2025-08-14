@@ -86,59 +86,59 @@ let from_v2 =
     ("/learn/teaching-ocaml.html", Url.academic_users);
     ("/learn/tutorials/99problems.html", Url.exercises);
     ( "/learn/tutorials/a_first_hour_with_ocaml.html",
-      Url.tutorial "tour-of-ocaml" );
+      Url.tutorial "tour-of-ocaml" None );
     ( "/learn/tutorials/calling_c_libraries.html",
-      Url.tutorial "calling-c-libraries" );
+      Url.tutorial "calling-c-libraries" None );
     ( "/learn/tutorials/calling_fortran_libraries.html",
-      Url.tutorial "calling-fortran-libraries" );
+      Url.tutorial "calling-fortran-libraries" None );
     ("/learn/tutorials/camlp5.html", Url.learn);
     ( "/learn/tutorials/command-line_arguments.ja.html",
-      Url.tutorial "cli-arguments" );
+      Url.tutorial "cli-arguments" None );
     ( "/learn/tutorials/command-line_arguments.html",
-      Url.tutorial "cli-arguments" );
+      Url.tutorial "cli-arguments" None );
     ( "/learn/tutorials/command-line_arguments.zh.html",
-      Url.tutorial "cli-arguments" );
+      Url.tutorial "cli-arguments" None );
     ( "/learn/tutorials/common_error_messages.fr.html",
-      Url.tutorial "common-errors" );
+      Url.tutorial "common-errors" None );
     ( "/learn/tutorials/common_error_messages.ja.html",
-      Url.tutorial "common-errors" );
-    ("/learn/tutorials/common_error_messages.html", Url.tutorial "common-errors");
+      Url.tutorial "common-errors" None );
+    ("/learn/tutorials/common_error_messages.html", Url.tutorial "common-errors" None);
     ( "/learn/tutorials/common_error_messages.zh.html",
-      Url.tutorial "common-errors" );
+      Url.tutorial "common-errors" None );
     ( "/learn/tutorials/comparison_of_standard_containers.ja.html",
-      Url.tutorial "data-structures-comparison" );
+      Url.tutorial "data-structures-comparison" None );
     ( "/learn/tutorials/comparison_of_standard_containers.ko.html",
-      Url.tutorial "data-structures-comparison" );
+      Url.tutorial "data-structures-comparison" None );
     ( "/learn/tutorials/comparison_of_standard_containers.html",
-      Url.tutorial "data-structures-comparison" );
+      Url.tutorial "data-structures-comparison" None );
     ( "/learn/tutorials/comparison_of_standard_containers.zh.html",
-      Url.tutorial "data-structures-comparison" );
+      Url.tutorial "data-structures-comparison" None );
     ( "/learn/tutorials/compiling_ocaml_projects.ja.html",
-      Url.tutorial "using-the-ocaml-compiler-toolchain" );
-    ( Url.tutorial "compiling-ocaml-projects",
-      Url.tutorial "using-the-ocaml-compiler-toolchain" );
+      Url.tutorial "using-the-ocaml-compiler-toolchain" None );
+    ( Url.tutorial "compiling-ocaml-projects" None,
+      Url.tutorial "using-the-ocaml-compiler-toolchain" None );
     ( "/learn/tutorials/compiling_ocaml_projects.html",
-      Url.tutorial "using-the-ocaml-compiler-toolchain" );
+      Url.tutorial "using-the-ocaml-compiler-toolchain" None );
     ( "/learn/tutorials/data_types_and_matching.fr.html",
-      Url.tutorial "basic-data-types" );
+      Url.tutorial "basic-data-types" None );
     ( "/learn/tutorials/data_types_and_matching.it.html",
-      Url.tutorial "basic-data-types" );
+      Url.tutorial "basic-data-types" None );
     ( "/learn/tutorials/data_types_and_matching.ja.html",
-      Url.tutorial "basic-data-types" );
+      Url.tutorial "basic-data-types" None );
     ( "/learn/tutorials/data_types_and_matching.html",
-      Url.tutorial "basic-data-types" );
+      Url.tutorial "basic-data-types" None );
     ( "/learn/tutorials/data_types_and_matching.zh.html",
-      Url.tutorial "basic-data-types" );
-    (Url.tutorial "data-types", Url.tutorial "basic-data-types");
-    ("/learn/tutorials/debug.html", Url.tutorial "debugging");
-    ("/learn/tutorials/error_handling.html", Url.tutorial "error-handling");
+      Url.tutorial "basic-data-types" None );
+    (Url.tutorial "data-types" None, Url.tutorial "basic-data-types" None);
+    ("/learn/tutorials/debug.html", Url.tutorial "debugging" None);
+    ("/learn/tutorials/error_handling.html", Url.tutorial "error-handling" None);
     ( "/learn/tutorials/file_manipulation.ja.html",
-      Url.tutorial "file-manipulation" );
-    ("/learn/tutorials/file_manipulation.html", Url.tutorial "file-manipulation");
+      Url.tutorial "file-manipulation" None );
+    ("/learn/tutorials/file_manipulation.html", Url.tutorial "file-manipulation" None);
     ( "/learn/tutorials/file_manipulation.zh.html",
-      Url.tutorial "file-manipulation" );
-    ("/learn/tutorials/format.fr.html", Url.tutorial "formatting-text");
-    ("/learn/tutorials/format.html", Url.tutorial "formatting-text");
+      Url.tutorial "file-manipulation" None );
+    ("/learn/tutorials/format.fr.html", Url.tutorial "formatting-text" None);
+    ("/learn/tutorials/format.html", Url.tutorial "formatting-text" None);
     (* FIXME: uncomment when higher-order-functions is merged (
        "/learn/tutorials/functional_programming.fr.html", Url.tutorial
        "higher-order-functions" ); (
@@ -150,32 +150,32 @@ let from_v2 =
        "higher-order-functions" ); (
        "/learn/tutorials/functional_programming.zh.html", Url.tutorial
        "higher-order-functions" ); *)
-    ("/learn/tutorials/functors.html", Url.tutorial "functors");
+    ("/learn/tutorials/functors.html", Url.tutorial "functors" None);
     ( "/learn/tutorials/garbage_collection.ja.html",
-      Url.tutorial "garbage-collection" );
+      Url.tutorial "garbage-collection" None );
     ( "/learn/tutorials/garbage_collection.html",
-      Url.tutorial "garbage-collection" );
+      Url.tutorial "garbage-collection" None );
     ( "/learn/tutorials/garbage_collection.zh.html",
-      Url.tutorial "garbage-collection" );
-    ("/learn/tutorials/guidelines.html", Url.tutorial "guidelines");
-    ("/learn/tutorials/hashtbl.ja.html", Url.tutorial "hash-tables");
-    ("/learn/tutorials/hashtbl.html", Url.tutorial "hash-tables");
-    ("/learn/tutorials/hashtbl.zh.html", Url.tutorial "hash-tables");
+      Url.tutorial "garbage-collection" None );
+    ("/learn/tutorials/guidelines.html", Url.tutorial "guidelines" None);
+    ("/learn/tutorials/hashtbl.ja.html", Url.tutorial "hash-tables" None);
+    ("/learn/tutorials/hashtbl.html", Url.tutorial "hash-tables" None);
+    ("/learn/tutorials/hashtbl.zh.html", Url.tutorial "hash-tables" None);
     ("/learn/tutorials/humor_proof.html", Url.learn);
     ( "/learn/tutorials/if_statements_loops_and_recursion.fr.html",
-      Url.tutorial "loops-recursion" );
+      Url.tutorial "loops-recursion" None );
     ( "/learn/tutorials/if_statements_loops_and_recursion.it.html",
-      Url.tutorial "loops-recursion" );
+      Url.tutorial "loops-recursion" None );
     ( "/learn/tutorials/if_statements_loops_and_recursion.ja.html",
-      Url.tutorial "loops-recursion" );
+      Url.tutorial "loops-recursion" None );
     ( "/learn/tutorials/if_statements_loops_and_recursion.ko.html",
-      Url.tutorial "loops-recursion" );
+      Url.tutorial "loops-recursion" None );
     ( "/learn/tutorials/if_statements_loops_and_recursion.html",
-      Url.tutorial "loops-recursion" );
+      Url.tutorial "loops-recursion" None );
     ( "/learn/tutorials/if_statements_loops_and_recursion.zh.html",
-      Url.tutorial "loops-recursion" );
+      Url.tutorial "loops-recursion" None );
     ( "/learn/tutorials/mutability-loops-and-imperative",
-      Url.tutorial "mutability-imperative-control-flow" );
+      Url.tutorial "mutability-imperative-control-flow" None );
     ("/learn/tutorials/index.de.html", Url.learn);
     ("/learn/tutorials/index.fr.html", Url.learn);
     ("/learn/tutorials/index.it.html", Url.learn);
@@ -185,34 +185,34 @@ let from_v2 =
     ("/learn/tutorials", Url.learn);
     ("/learn/tutorials/index.zh.html", Url.learn);
     ("/learn/tutorials/introduction_to_gtk.html", Url.learn);
-    ("/learn/tutorials/labels.ja.html", Url.tutorial "labels");
-    ("/learn/tutorials/labels.html", Url.tutorial "labels");
-    ("/learn/tutorials/labels.zh.html", Url.tutorial "labels");
-    ("/learn/tutorials/lists.html", Url.tutorial "lists");
-    ("/learn/tutorials/map.fr.html", Url.tutorial "map");
-    ("/learn/tutorials/map.ja.html", Url.tutorial "map");
-    ("/learn/tutorials/map.html", Url.tutorial "map");
-    ("/learn/tutorials/map.zh.html", Url.tutorial "map");
-    ("/learn/tutorials/modules.fr.html", Url.tutorial "modules");
-    ("/learn/tutorials/modules.ja.html", Url.tutorial "modules");
-    ("/learn/tutorials/modules.ko.html", Url.tutorial "modules");
-    ("/learn/tutorials/modules.html", Url.tutorial "modules");
-    ("/learn/tutorials/modules.zh.html", Url.tutorial "modules");
-    ("/learn/tutorials/objects.ja.html", Url.tutorial "objects");
-    ("/learn/tutorials/objects.html", Url.tutorial "objects");
-    ("/learn/tutorials/objects.zh.html", Url.tutorial "objects");
+    ("/learn/tutorials/labels.ja.html", Url.tutorial "labels" None);
+    ("/learn/tutorials/labels.html", Url.tutorial "labels" None);
+    ("/learn/tutorials/labels.zh.html", Url.tutorial "labels" None);
+    ("/learn/tutorials/lists.html", Url.tutorial "lists" None);
+    ("/learn/tutorials/map.fr.html", Url.tutorial "map" None);
+    ("/learn/tutorials/map.ja.html", Url.tutorial "map" None);
+    ("/learn/tutorials/map.html", Url.tutorial "map" None);
+    ("/learn/tutorials/map.zh.html", Url.tutorial "map" None);
+    ("/learn/tutorials/modules.fr.html", Url.tutorial "modules" None);
+    ("/learn/tutorials/modules.ja.html", Url.tutorial "modules" None);
+    ("/learn/tutorials/modules.ko.html", Url.tutorial "modules" None);
+    ("/learn/tutorials/modules.html", Url.tutorial "modules" None);
+    ("/learn/tutorials/modules.zh.html", Url.tutorial "modules" None);
+    ("/learn/tutorials/objects.ja.html", Url.tutorial "objects" None);
+    ("/learn/tutorials/objects.html", Url.tutorial "objects" None);
+    ("/learn/tutorials/objects.zh.html", Url.tutorial "objects" None);
     ( "/learn/tutorials/performance_and_profiling.ja.html",
-      Url.tutorial "profiling" );
-    ("/learn/tutorials/performance_and_profiling.html", Url.tutorial "profiling");
+      Url.tutorial "profiling" None );
+    ("/learn/tutorials/performance_and_profiling.html", Url.tutorial "profiling" None);
     ( "/learn/tutorials/performance_and_profiling_discussion.html",
-      Url.tutorial "profiling" );
-    ("/learn/tutorials/set.fr.html", Url.tutorial "sets");
-    ("/learn/tutorials/set.ja.html", Url.tutorial "sets");
-    ("/learn/tutorials/set.html", Url.tutorial "sets");
-    ("/learn/tutorials/set.zh.html", Url.tutorial "sets");
-    ("/learn/tutorials/streams.html", Url.tutorial "sequences");
-    ("/learn/tutorials/up_and_running.html", Url.tutorial "up-and-running");
-    (Url.tutorial "first-hour", Url.tutorial "tour-of-ocaml");
+      Url.tutorial "profiling" None );
+    ("/learn/tutorials/set.fr.html", Url.tutorial "sets" None);
+    ("/learn/tutorials/set.ja.html", Url.tutorial "sets" None);
+    ("/learn/tutorials/set.html", Url.tutorial "sets" None);
+    ("/learn/tutorials/set.zh.html", Url.tutorial "sets" None);
+    ("/learn/tutorials/streams.html", Url.tutorial "sequences" None);
+    ("/learn/tutorials/up_and_running.html", Url.tutorial "up-and-running" None);
+    (Url.tutorial "first-hour" None, Url.tutorial "tour-of-ocaml" None);
     ("/meetings/index.fr.html", Url.conferences);
     ("/meetings/index.html", Url.conferences);
     ("/meetings", Url.conferences);
@@ -251,7 +251,7 @@ let from_v2 =
     ("/docs/platform-principles", Url.tool_page "platform-principles");
     ("/docs/platform-users", Url.tool_page "platform-users");
     ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
-    ("/docs/configuring-your-editor", Url.tutorial "set-up-editor");
+    ("/docs/configuring-your-editor", Url.tutorial "set-up-editor" None);
     ( "/success-stories/peta-byte-scale-web-crawler",
       Url.success_story "peta-byte-scale-web-crawling-and-data-processing" );
   ]

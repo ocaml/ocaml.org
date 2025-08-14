@@ -70,10 +70,10 @@ let page_routes t =
       Dream.get Url.tools Handler.tools;
       Dream.get Url.platform Handler.tools_platform;
       Dream.get (Url.tool_page ":id") (Handler.tool_page Commit.hash);
-      Dream.get (Url.tutorial "is-ocaml-web-yet") (Handler.is_ocaml_yet t "web");
-      Dream.get (Url.tutorial "is-ocaml-gui-yet") (Handler.is_ocaml_yet t "gui");
+      Dream.get (Url.tutorial "is-ocaml-web-yet" None) (Handler.is_ocaml_yet t "web");
+      Dream.get (Url.tutorial "is-ocaml-gui-yet" None) (Handler.is_ocaml_yet t "gui");
       Dream.get Url.tutorial_search Handler.learn_documents_search;
-      Dream.get (Url.tutorial ":id") (Handler.tutorial Commit.hash);
+      Dream.get (Url.tutorial ":id" None) (Handler.tutorial Commit.hash);
       Dream.get Url.playground Handler.playground;
       Dream.get Url.logos Handler.logos;
     ]

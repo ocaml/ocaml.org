@@ -222,6 +222,12 @@ end
 module Tutorial = struct
   include Tutorial
 
+  let language_of_query_param =
+    function
+    | "en" -> Some English
+    | "ja" -> Some Japanese
+    | _ -> None
+  
   let get_by_slug_and_language slug language =
     match List.find_opt (fun x ->
       String.equal slug x.slug &&

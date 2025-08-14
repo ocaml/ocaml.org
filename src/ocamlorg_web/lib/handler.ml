@@ -26,28 +26,28 @@ let learn_get_started req =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = GetStarted)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let learn_language req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Language)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let learn_guides req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Guides)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let learn_platform req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let community _req =
   let query = Dream.query _req "e" in
@@ -767,10 +767,7 @@ let tutorial commit_hash req =
   let language =
     Option.bind
       (Dream.query req "lang")
-      (function
-       | "en" -> Some Data.Tutorial.English
-       | "ja" -> Some Japanese
-       | _ -> None)
+      Data.Tutorial.language_of_query_param
   in
   let</>? tutorial = Data.Tutorial.get_by_slug_and_language slug language in
   let all_tutorials = Data.Tutorial.all in
@@ -802,7 +799,7 @@ let tutorial commit_hash req =
 
   Dream.html
     (Ocamlorg_frontend.tutorial commit_hash ~tutorials
-       ~canonical:(Url.tutorial tutorial.slug)
+       ~canonical:(Url.tutorial tutorial.slug None)
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
        tutorial)
 
