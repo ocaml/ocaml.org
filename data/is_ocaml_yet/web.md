@@ -164,12 +164,13 @@ categories:
   - name: Authentication
     status: •
     description: |
-      Packages for authentication-related functionality in OCaml Web applications.
+      Packages for authentication-related functionality in OCaml Web
+      applications. Note that `webauthn` can be used to implement passkey
+      authentication.
     packages:
     - name: jwt
     - name: cookie
     - name: FPauth
-    - name: u2f
     - name: webauthn
     - name: ssl
     - name: twostep
