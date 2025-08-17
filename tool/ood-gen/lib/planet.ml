@@ -105,7 +105,9 @@ module GlobalFeed = struct
              ())
 
   let entry_of_post (post : Blog.post) =
-    let content = Syndic.Atom.Html (None, post.body_html) in
+    let content =
+      Syndic.Atom.Html (None, Option.value post.description ~default:"")
+    in
     let url = Uri.of_string post.source.url in
     let source : Syndic.Atom.source =
       Syndic.Atom.source ~authors:[] ~id:url
