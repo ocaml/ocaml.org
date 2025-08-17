@@ -223,4 +223,7 @@
   name: Tim McGilchrist
   url: https://lambdafoo.com/rss.xml
   only_ocaml: true
-
+- id: aguluman
+  name: Chukwuma Akunyili
+  url: https://fearful-odds.rocks/feed.xml
+  only_ocaml: true
