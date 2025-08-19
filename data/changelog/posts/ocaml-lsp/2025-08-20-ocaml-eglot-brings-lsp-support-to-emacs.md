@@ -9,7 +9,7 @@ tags: [ocaml-lsp, platform]
 
 `ocaml-eglot` provides full OCaml language support in Emacs through the Language Server Protocol (LSP) instead of direct Merlin integration. It offers the same features as `merlin.el` with simplified setup and enhanced capabilities like project-wide search. If you're starting fresh or want a more standardized approach, try `ocaml-eglot`, which is actively maintained. If your current `merlin.el` setup works well, you can continue using it.
 
-**Quick start**: Install `ocaml-lsp-server`, add `ocaml-eglot` to your Emacs config, get the same OCaml development experience with less configuration.
+**Quick start**: [Install `ocaml-lsp-server`, add `ocaml-eglot` to your Emacs config](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#installation), and get the same OCaml development experience with less configuration.
 
 ## What is ocaml-eglot?
 
@@ -28,11 +28,11 @@ Since the recent versions of Emacs (29), `eglot`, an LSP client, has been shippe
 - Want access to project-wide search and rename features
 - Want to rely on an actively maintained project that evolves over time
 
-**Stick with merlin.el if:**
+**Stick with `merlin.el` if:**
 - Your current setup is working perfectly and heavily customized
 - You prefer direct Merlin communication
 
-For the moment, we don't plan to provide any special support for merlin.el unless we receive a lot of requests.
+For the moment, we don't plan to provide any special support for `merlin.el` -- unless we receive a lot of requests.
 
 ## Key Benefits
 
@@ -90,7 +90,7 @@ Search for: -string +int
 Finds functions that take strings and return ints
 ```
 
-(This function is also available in merlin.el.)
+(This function is also available in `merlin.el`.)
 
 ## Next Steps
 
