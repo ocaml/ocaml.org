@@ -1,5 +1,5 @@
 ---
-title: Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot
+title: "Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot"
 tags: [ocaml-lsp, platform]
 ---
 
@@ -45,20 +45,6 @@ For the moment, we don't plan to provide any special support for `merlin.el` -- 
 
 Follow the [installation instructions in the ocaml-eglot README](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#installation).
 
-## Essential Commands
-
-| Feature | Command | Key Binding |
-|---------|---------|-------------|
-| Show type | `ocaml-eglot-type-enclosing` | `C-c C-t` |
-| Jump to definition | `ocaml-eglot-find-definition` | `C-c C-l` |
-| Jump to declaration | `ocaml-eglot-find-declaration` | `C-c C-i` |
-| Generate patterns | `ocaml-eglot-destruct` | `C-c \|` |
-| Fill holes | `ocaml-eglot-construct` | `C-c \` |
-| Switch .ml/.mli | `ocaml-eglot-alternate-file` | `C-c C-a` |
-| Show documentation | `ocaml-eglot-document` | `C-c C-d` |
-| Search by type | `ocaml-eglot-search` | |
-| Rename symbol | `ocaml-eglot-rename` | |
-
 For a detailed list of features, see [the ocaml-eglot README](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#features).
 
 ## Migration from merlin.el
@@ -90,7 +76,7 @@ Search for: -string +int
 Finds functions that take strings and return ints
 ```
 
-(This function is also available in `merlin.el`.)
+(Type search is also available in `merlin.el`)
 
 ## Next Steps
 
