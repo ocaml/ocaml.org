@@ -7,13 +7,17 @@ tags: [ocaml-lsp, platform]
 
 ## TL;DR
 
-`ocaml-eglot` provides full OCaml language support in Emacs through the Language Server Protocol (LSP) instead of direct Merlin integration. It offers the same features as `merlin.el` with simplified setup and enhanced capabilities like project-wide search. If you're starting fresh or want a more standardized approach, try `ocaml-eglot`. If your current `merlin.el` setup works well, you can continue using it.
+`ocaml-eglot` provides full OCaml language support in Emacs through the Language Server Protocol (LSP) instead of direct Merlin integration. It offers the same features as `merlin.el` with simplified setup and enhanced capabilities like project-wide search. If you're starting fresh or want a more standardized approach, try `ocaml-eglot`, which is actively maintained. If your current `merlin.el` setup works well, you can continue using it.
 
 **Quick start**: Install `ocaml-lsp-server`, add `ocaml-eglot` to your Emacs config, get the same OCaml development experience with less configuration.
 
 ## What is ocaml-eglot?
 
-`ocaml-eglot` connects Emacs to `ocaml-lsp-server` using the Language Server Protocol, providing a standardized way to get OCaml language support. This eliminates editor-specific integrations while preserving all OCaml-specific features.
+`ocaml-eglot` connects Emacs to `ocaml-lsp-server` using the Language Server Protocol, providing a standardized way to get OCaml language support.
+
+Since the recent versions of Emacs (29), `eglot`, an LSP client, has been shipped with Emacs. However, `merlin.el` provides more features than LSP (which is designed to be generic), so relying solely on the features of LSP and `eglot` would limit functionality. Thus, we extended the LSP server to support more features, and `ocaml-eglot` allows you to benefit from these features in Emacs.
+
+`ocaml-eglot` is a minor mode. It therefore works in conjunction with a major mode to edit Caml code. Examples of major modes include `tuareg`, `caml-mode` and the recent `neocaml`.
 
 ## Who Should Use ocaml-eglot?
 
@@ -22,12 +26,13 @@ tags: [ocaml-lsp, platform]
 - Want simplified configuration with automatic setup
 - Use multiple editors and want consistent OCaml support
 - Want access to project-wide search and rename features
+- Want to rely on an actively maintained project that evolves over time
 
 **Stick with merlin.el if:**
 - Your current setup is working perfectly and heavily customized
 - You prefer direct Merlin communication
 
-Both approaches are fully supported.
+For the moment, we don't plan to provide any special support for merlin.el unless we receive a lot of requests.
 
 ## Key Benefits
 
@@ -38,51 +43,7 @@ Both approaches are fully supported.
 
 ## Getting Started
 
-### Prerequisites
-- Emacs 29.1+ (includes Eglot)
-- `opam install ocaml-lsp-server ocamlformat`
-
-### Basic Setup
-
-```elisp
-(use-package tuareg
-  :ensure t
-  :mode (("\\.ocamlinit\\'" . tuareg-mode)))
-
-(use-package ocaml-eglot
-  :ensure t
-  :after tuareg
-  :hook
-  (tuareg-mode . ocaml-eglot)
-  (ocaml-eglot . eglot-ensure))
-```
-
-### Recommended Configuration
-
-```elisp
-;; Better error display
-(use-package flymake
-  :ensure t
-  :config
-  (setq flymake-diagnostic-format-alist
-        '((t . (origin code message)))))
-
-;; OCaml support with formatting
-(use-package tuareg :ensure t)
-(use-package dune :ensure t)
-(use-package opam-switch-mode
-  :ensure t
-  :hook (tuareg-mode . opam-switch-mode))
-
-(use-package ocaml-eglot
-  :ensure t
-  :after tuareg
-  :hook
-  (tuareg-mode . ocaml-eglot)
-  (ocaml-eglot . eglot-ensure)
-  (ocaml-eglot . (lambda () 
-                   (add-hook #'before-save-hook #'eglot-format nil t))))
-```
+Follow the [installation instructions in the ocaml-eglot README](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#installation).
 
 ## Essential Commands
 
@@ -97,6 +58,8 @@ Both approaches are fully supported.
 | Show documentation | `ocaml-eglot-document` | `C-c C-d` |
 | Search by type | `ocaml-eglot-search` | |
 | Rename symbol | `ocaml-eglot-rename` | |
+
+For a detailed list of features, see [the ocaml-eglot README](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#features).
 
 ## Migration from merlin.el
 
@@ -121,11 +84,13 @@ dune build @ocaml-index
 # Then use ocaml-eglot-rename in Emacs
 ```
 
-**Polarity search**: Find functions by input/output types
+**Type search**: Find functions by input/output types
 ```
 Search for: -string +int
 Finds functions that take strings and return ints
 ```
+
+(This function is also available in merlin.el.)
 
 ## Next Steps
 
