@@ -149,19 +149,15 @@ module Scraper = struct
     let title = River.title post in
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source.Data_intf.Blog.id in
+    print_string
+      (Printf.sprintf "\nprocesing %s/%s " source.Data_intf.Blog.id slug);
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
     if not (Sys.file_exists output_file) then
       let url = River.link post in
       let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
       match (url, date) with
-      | None, _ ->
-          print_endline
-            (Printf.sprintf "skipping %s/%s: item does not have a url"
-               source.Data_intf.Blog.id slug)
-      | _, None ->
-          print_endline
-            (Printf.sprintf "skipping %s/%s: item does not have a date"
-               source.id slug)
+      | None, _ -> print_string "skipping, item does not have a url"
+      | _, None -> print_string "skipping, item does not have a date"
       | Some url, Some date ->
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
           let content = River.content post in
@@ -191,7 +187,7 @@ module Scraper = struct
             let oc = open_out output_file in
             Printf.fprintf oc "%s" s;
             close_out oc)
-          else ()
+          else print_string "skipping, flagged as not caml related"
 
   let scrape_source source =
     try
