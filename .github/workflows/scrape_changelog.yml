@@ -52,6 +52,7 @@ jobs:
         with:
           title: '[scrape_changelog.yml] New Platform Releases'
           labels: scrape
+          branch: create-pull-request/patch-scrape-changelog
           add-paths: |
             data/changelog/*/*.md
           commit-message: |

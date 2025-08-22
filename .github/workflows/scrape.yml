@@ -52,6 +52,7 @@ jobs:
         with:
           title: '[scrape.yml] New OCaml blog posts and videos'
           labels: scrape
+          branch: create-pull-request/patch-scrape-planet
           add-paths: |
             data/video-watch.yml
             data/video-youtube.yml
