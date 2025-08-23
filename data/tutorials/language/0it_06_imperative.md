@@ -4,6 +4,7 @@ title: Mutability and Imperative Control Flow
 description: >
   Write stateful programs in OCaml. Use for and while loops, if-then-else, mutable record fields, and references.
 category: "Introduction"
+language: English
 prerequisite_tutorials:
   - "basic-data-types"
   - "values-and-functions"
