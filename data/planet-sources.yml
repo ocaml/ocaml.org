@@ -35,6 +35,7 @@
 - id: cameleon
   name: Cameleon news
   url: http://www.blogger.com/feeds/7617521785419311079/posts/default
+  publish_all: false
 - id: inria
   name: Caml INRIA
   url: http://caml.inria.fr/news.en.rss
@@ -70,8 +71,9 @@
   url: http://frama-c.com/rss.xml
   publish_all: false
 - id: gallium
-  name: GaGallium
+  name: Gagallium
   url: http://gallium.inria.fr/blog/index.rss
+  publish_all: false
 - id: gaius
   name: Gaius Hammond
   url: https://gaius.tech/category/ocaml/feed/
@@ -143,6 +145,7 @@
 - id: psellos
   name: Psellos
   url: http://psellos.com/atom.xml
+  publish_all: false
 - id: rjones
   name: Richard Jones
   url: https://rwmj.wordpress.com/tag/ocaml/feed/
