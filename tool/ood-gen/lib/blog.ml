@@ -10,7 +10,7 @@ module Source = struct
     id : string;
     name : string;
     url : string;
-    only_ocaml : bool option;
+    publish_all : bool option;
     disabled : bool option;
   }
   [@@deriving yaml]
@@ -27,13 +27,13 @@ module Source = struct
       in
       Ok
         (sources
-        |> List.map (fun { id; name; url; only_ocaml; disabled } ->
+        |> List.map (fun { id; name; url; publish_all; disabled } ->
                {
                  Data_intf.Blog.id;
                  name;
                  url;
                  description = "";
-                 only_ocaml = Option.value ~default:true only_ocaml;
+                 publish_all = Option.value ~default:true publish_all;
                  disabled = Option.value ~default:false disabled;
                }))
     in
@@ -79,7 +79,7 @@ module Post = struct
                       name;
                       url;
                       description = "";
-                      only_ocaml = false;
+                      publish_all = true;
                       disabled = false;
                     }
                 | None ->
@@ -150,7 +150,7 @@ module Scraper = struct
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source.Data_intf.Blog.id in
     print_string
-      (Printf.sprintf "\nprocesing %s/%s " source.Data_intf.Blog.id slug);
+      (Printf.sprintf "\nprocessing %s/%s " source.Data_intf.Blog.id slug);
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
     if not (Sys.file_exists output_file) then
       let url = River.link post in
@@ -162,7 +162,7 @@ module Scraper = struct
           if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
           let content = River.content post in
           if
-            (not source.only_ocaml)
+            source.publish_all
             || String.(
                  is_sub_ignore_case "caml" content
                  || is_sub_ignore_case "caml" title)

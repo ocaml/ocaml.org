@@ -48,7 +48,7 @@ module Blog = struct
     name : string;
     url : string;
     description : string;
-    only_ocaml : bool;
+    publish_all : bool;
     disabled : bool;
   }
 
