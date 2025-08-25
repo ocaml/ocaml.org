@@ -42,7 +42,7 @@ let source_of_yaml x =
   x |> source_metadata_of_yaml
   |> Result.map
        (source_of_source_metadata
-          ~modify_publish_all:(Option.value ~default:false))
+          ~modify_publish_all:(Option.value ~default:true))
 
 type source_list = source list [@@deriving of_yaml]
 
@@ -179,7 +179,7 @@ let scrape yaml_file =
            |> walk_mrss
            |> Seq.unfold (feed_entry src [])
            |> Seq.filter (fun video ->
-                  (not src.publish_all)
+                  src.publish_all
                   || String.(
                        is_sub_ignore_case "caml" video.Vid.title
                        || is_sub_ignore_case "caml" video.Vid.description)))
