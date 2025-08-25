@@ -1,6 +1,7 @@
 - id: practicalocaml
   name: Practical OCaml
   url: https://practicalocaml.com/rss/
+  disabled: true
 - id: ocamlpro
   name: OCamlPro
   url: https://ocamlpro.com/blog/feed
@@ -213,6 +214,7 @@
   name: Debajyati's Blog
   url: https://debajyatidey.hashnode.dev/rss.xml
   publish_all: false
+  disabled: true
 - id: bbatsov
   name: Bozhidar Batsov
   url: https://batsov.com/feeds/OCaml.xml
@@ -242,4 +244,3 @@
   name: Tim McGilchrist
   url: https://lambdafoo.com/rss.xml
   publish_all: false
-

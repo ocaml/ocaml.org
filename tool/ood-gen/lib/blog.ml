@@ -150,7 +150,7 @@ module Scraper = struct
     let slug = Utils.slugify title in
     let source_path = "data/planet/" ^ source.Data_intf.Blog.id in
     print_string
-      (Printf.sprintf "\nprocesing %s/%s " source.Data_intf.Blog.id slug);
+      (Printf.sprintf "\nprocessing %s/%s " source.Data_intf.Blog.id slug);
     let output_file = source_path ^ "/" ^ slug ^ ".md" in
     if not (Sys.file_exists output_file) then
       let url = River.link post in
