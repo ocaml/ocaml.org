@@ -10,9 +10,11 @@
 - id: tarides
   name: Tarides
   url: https://tarides.com/feed.xml
+  publish_all: false
 - id: janestreet
   name: Jane Street Tech Blog
   url: https://blog.janestreet.com/feed.xml
+  publish_all: false
 - id: hannes
   name: Hannes Mehnert
   url: https://hannes.robur.coop/atom
@@ -22,6 +24,7 @@
 - id: andrej
   name: Andrej Bauer
   url: http://math.andrej.com/feed.xml
+  publish_all: false
 - id: ujamjar
   name: Andy Ray
   url: http://www.ujamjar.com/ocaml.xml
@@ -40,12 +43,14 @@
 - id: coq
   name: Coq
   url: https://coq.inria.fr/rss.xml
+  publish_all: false
 - id: cburnout
   name: Cranial Burnout
   url: http://www.blogger.com/feeds/9108979482982930820/posts/default/-/OCaml
 - id: erratique
   name: Daniel Bünzli
   url: https://erratique.ch/feeds/news.atom
+  publish_all: false
 - id: dbaelde
   name: David Baelde
   url: http://www.blogger.com/feeds/17133288/posts/default/-/ocaml
@@ -55,12 +60,14 @@
 - id: mega-nerd
   name: Erik de Castro Lopo
   url: http://www.mega-nerd.com/erikd/Blog/index.rss20
+  publish_all: false
 - id: emillon
   name: Etienne Millon
   url: http://blog.emillon.org/feeds/ocaml.xml
 - id: frama-c
   name: Frama-C
   url: http://frama-c.com/rss.xml
+  publish_all: false
 - id: gallium
   name: GaGallium
   url: http://gallium.inria.fr/blog/index.rss
@@ -78,33 +85,39 @@
 - id: hongboz
   name: Hong bo Zhang
   url: https://hongboz.wordpress.com/feed/
+  publish_all: false
 - id: ambassadortothecomputers
   name: Jake Donham
   url: http://ambassadortothecomputers.blogspot.com/feeds/posts/default?alt=rss
+  publish_all: false
 - id: kcsrk
   name: KC Sivaramakrishnan
   url: https://kcsrk.info/atom-ocaml.xml
 - id: lpw25
   name: Leo White
   url: http://lpw25.net/rss.xml
+  publish_all: false
 - id: skjegstad
   name: Magnus Skjegstad
   url: http://www.skjegstad.com/feeds/ocaml.tag.atom.xml
 - id: 0branch
   name: Marc Simpson
   url: https://blog.0branch.com/rss.xml
+  publish_all: false
 - id: syntaxexclamation
   name: Matthias Puech
   url: https://syntaxexclamation.wordpress.com/tag/ocaml/feed/
 - id: mgiovannini
   name: Matías Giovannini
   url: http://www.blogger.com/feeds/5888658295182480819/posts/default
+  publish_all: false
 - id: mlin
   name: Mike Lin
   url: http://www.blogger.com/feeds/3693082774051755513/posts/default/-/OCaml
 - id: mcclurmc
   name: Mike McClurg
   url: https://mcclurmc.wordpress.com/feed/
+  publish_all: false
 - id: mirage
   name: MirageOS
   url: https://mirage.io/feed.xml
@@ -135,6 +148,7 @@
 - id: rgrinberg
   name: Rudi Grinberg
   url: http://rgrinberg.com/blog/atom.xml
+  publish_all: false
 - id: smondet
   name: Sebastien Mondet
   url: https://seb.mondet.org/b/OCaml.rss
@@ -150,6 +164,7 @@
 - id: tvaroquaux
   name: Till Varoquaux
   url: http://www.blogger.com/feeds/6115529230232389198/posts/default
+  publish_all: false
 - id: yansnotes
   name: Yan Shvartzshnaider
   url: http://yansnotes.blogspot.com/feeds/posts/default/-/ocaml
@@ -165,19 +180,21 @@
 - id: bap
   name: The BAP Blog
   url: https://binaryanalysisplatform.github.io/feed.xml
+  publish_all: false
 - id: baturin
   name: Daniil Baturin
   url: https://baturin.org/blog/atom-ocaml.xml
 - id: signalsandthreads
   name: Signals and Threads
   url: https://feeds.simplecast.com/L9810DOa
+  publish_all: false
 - id: robur.coop
   name: Robur Cooperative
   url: https://blog.robur.coop/feed.xml
-  only_ocaml: false
 - id: dinosaure
   name: Romain Calascibetta
   url: https://blog.osau.re/feed.xml
+  publish_all: false
 - id: emilpriver
   name: Emil Privér
   url: https://priver.dev/tags/ocaml/index.xml
@@ -187,41 +204,42 @@
 - id: chshersh
   name: Dmitrii Kovanikov
   url: https://chshersh.com/atom.xml
+  publish_all: false
 - id: lthms
   name: "Thomas Letan’s Blog"
   url: https://soap.coffee/~lthms/posts/index.xml
-  only_ocaml: true
+  publish_all: false
 - id: debajyatidey
   name: Debajyati's Blog
   url: https://debajyatidey.hashnode.dev/rss.xml
-  only_ocaml: true
+  publish_all: false
 - id: bbatsov
   name: Bozhidar Batsov
   url: https://batsov.com/feeds/OCaml.xml
-  only_ocaml: true
 - id: jonludlam
   name: Jon Ludlam's Blog at recoil.org
   url: https://jon.recoil.org/atom.xml
+  publish_all: false
 - id: patricoferris
   name: Patrick Ferris' OCaml Blog
   url: https://patrick.sirref.org/ocaml-blog/atom.xml
 - id: dra27
   name: David Allsopp's Blog
   url: https://www.dra27.uk/feed.xml
+  publish_all: false
 - id: anil
   name: Anil Madhavapeddy's Blog
   url: https://anil.recoil.org/news.xml
-  only_ocaml: true
+  publish_all: false
 - id: xvw
   name: "Xavier Van de Woestyne's Blog"
   url: https://xvw.lol/tags/en/ocaml.xml
-  only_ocaml: true
 - id: yawaramin
   name: Yawar Amin
   url: https://dev.to/feed/yawaramin
-  only_ocaml: true
+  publish_all: false
 - id: tsmc
   name: Tim McGilchrist
   url: https://lambdafoo.com/rss.xml
-  only_ocaml: true
+  publish_all: false
 

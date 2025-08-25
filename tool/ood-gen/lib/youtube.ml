@@ -31,18 +31,18 @@ type source_metadata = {
   name : string;
   kind : kind;
   id : string;
-  only_ocaml : bool option;
+  publish_all : bool option;
 }
 [@@deriving of_yaml]
 
-type source = { name : string; kind : kind; id : string; only_ocaml : bool }
-[@@deriving stable_record ~version:source_metadata ~modify:[ only_ocaml ]]
+type source = { name : string; kind : kind; id : string; publish_all : bool }
+[@@deriving stable_record ~version:source_metadata ~modify:[ publish_all ]]
 
 let source_of_yaml x =
   x |> source_metadata_of_yaml
   |> Result.map
        (source_of_source_metadata
-          ~modify_only_ocaml:(Option.value ~default:false))
+          ~modify_publish_all:(Option.value ~default:false))
 
 type source_list = source list [@@deriving of_yaml]
 
@@ -179,7 +179,7 @@ let scrape yaml_file =
            |> walk_mrss
            |> Seq.unfold (feed_entry src [])
            |> Seq.filter (fun video ->
-                  (not src.only_ocaml)
+                  (not src.publish_all)
                   || String.(
                        is_sub_ignore_case "caml" video.Vid.title
                        || is_sub_ignore_case "caml" video.Vid.description)))
