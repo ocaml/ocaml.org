@@ -22,7 +22,8 @@ Since the recent versions of Emacs (29), `eglot`, an LSP client, has been shippe
 ## Who Should Use ocaml-eglot?
 
 **Use ocaml-eglot if you:**
-- Are starting fresh with OCaml in Emacs
+- Are starting fresh with OCaml
+- If you use or want to use Emacs
 - Want simplified configuration with automatic setup
 - Use multiple editors and want consistent OCaml support
 - Want access to project-wide search and rename features
@@ -34,54 +35,30 @@ Since the recent versions of Emacs (29), `eglot`, an LSP client, has been shippe
 
 For the moment, we don't plan to provide any special support for `merlin.el` -- unless we receive a lot of requests.
 
-## Key Benefits
-
-- **Simplified setup**: Install package, add config, start coding
-- **Same features**: All `merlin.el` functionality with identical keybindings
-- **Enhanced capabilities**: Project-wide rename, type-based search, automatic formatting
-- **Platform integration**: Works seamlessly with opam, dune, ocamlformat, and other OCaml tools
-
 ## Getting Started
 
 Follow the [installation instructions in the ocaml-eglot README](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#installation).
 
+When migrating from `merlin.el` to `ocaml-eglot`, your existing keybindings should work immediately!
+
+## Features
+
+**Error Navigation:** Quick jump to next/previous errors
+
+**Type Information:** Display types under cursor with adjustable verbosity, navigate enclosing expressions
+
+**Code Generation:** Pattern matching construction, case completion, wildcard refinement via "destruct" feature
+
+**Navigation:** Jump between language constructs (let, module, function, match), navigate phrases and pattern cases
+
+**Search:** Find definitions, declarations, and references
+
 For a detailed list of features, see [the ocaml-eglot README](https://github.com/tarides/ocaml-eglot?tab=readme-ov-file#features).
-
-## Migration from merlin.el
-
-1. Install: `opam install ocaml-lsp-server ocamlformat`
-2. Replace your Merlin configuration with the `ocaml-eglot` setup above
-3. Restart Emacs
-
-Your existing keybindings work immediately.
-
-## Enhanced Features Examples
-
-**Type-based search**: Find functions by signature
-```
-Search for: string -> int option
-Result: String.to_int, Int.of_string, etc.
-```
-
-**Project-wide rename** (OCaml 5.2+):
-```bash
-# Build index first
-dune build @ocaml-index
-# Then use ocaml-eglot-rename in Emacs
-```
-
-**Type search**: Find functions by input/output types
-```
-Search for: -string +int
-Finds functions that take strings and return ints
-```
-
-(Type search is also available in `merlin.el`)
 
 ## Next Steps
 
 1. Try the basic setup with an existing OCaml project
-2. Explore type-based search and project-wide features
+2. Explore all the features of `ocaml-eglot`
 3. Provide feedback at [ocaml-eglot's GitHub Issues](https://github.com/tarides/ocaml-eglot/issues)
 
 ## Documentation
