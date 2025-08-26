@@ -29,7 +29,7 @@ Since the recent versions of Emacs (29), `eglot`, an LSP client, has been shippe
 - Want access to project-wide search and rename features
 - Want to rely on an actively maintained project that evolves over time
 
-If your current setup is working perfectly and is heavily customised, `merlin.el` will still keep working, so there's no immediate need to migrate. However, for the moment, we don't plan to provide any special support for `merlin.el` -- unless we receive a lot of requests.
+If your current setup is working perfectly and is heavily customised, `merlin.el` will still keep working, so there's no immediate need to migrate. However, for the moment, we don't plan to actively maintain `merlin.el` -- unless we receive a lot of requests.
 
 ## Getting Started
 
