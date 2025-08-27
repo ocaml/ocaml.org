@@ -50,6 +50,18 @@
     (run %{ood_gen} book)))))
 
 (rule
+ (target backstage.ml)
+ (deps
+  (source_tree %{workspace_root}/data/changelog)
+  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (with-stdout-to
+    %{target}
+    (run %{ood_gen} backstage)))))
+
+(rule
  (target changelog.ml)
  (deps
   (source_tree %{workspace_root}/data/changelog)

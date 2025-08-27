@@ -22,6 +22,18 @@ module Book = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Backstage = struct
+  include Backstage
+
+  let get_by_slug slug =
+    List.find_opt
+      (fun x ->
+        match x with
+        | Release x -> String.equal slug x.slug
+        | Post x -> String.equal slug x.slug)
+      all
+end
+
 module Changelog = struct
   include Changelog
 
