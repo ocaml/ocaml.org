@@ -251,3 +251,7 @@
   name: Chukwuma Akunyili
   url: https://fearful-odds.rocks/feed.xml
   publish_all: false
+- id: tunbury
+  name: Marc Elvers
+  url: https://www.tunbury.org/atom.xml
+  publish_all: false
