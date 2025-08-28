@@ -21,14 +21,16 @@ jobs:
           - "5.2.0"
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Use Dune Developer Preview
+      - name: Setup Dune
         uses: ocaml-dune/setup-dune@v0
+        with:
+          version: 3.19.1
 
       - name: Install system dependencies
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
+
+      - name: Checkout code
+        uses: actions/checkout@v5
 
       - name: Run scrapers
         run: |

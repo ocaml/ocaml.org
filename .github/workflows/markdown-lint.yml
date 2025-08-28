@@ -6,6 +6,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+
     - uses: actions/checkout@v5
       with:
         fetch-depth: 0
@@ -17,6 +18,7 @@ jobs:
           !data/planet/**/*.md
           !data/changelog/**/*.md
         separator: ","
+
     - uses: DavidAnson/markdownlint-cli2-action@v20
       if: steps.changed-files.outputs.any_changed == 'true'
       with:
