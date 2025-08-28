@@ -1,3 +1,27 @@
+- title: Rust for Everyone!
+  url: https://www.youtube.com/watch/R0dP-QR5wQo?version=3
+  thumbnail: https://i3.ytimg.com/vi/R0dP-QR5wQo/hqdefault.jpg
+  description: 'Rust promises to empower everyone to build reliable software, but
+    its unique features create steep learning curves. In this talk, Will Crichton
+    presents four years of research into evidence-based tools that help both novices
+    and experts work more effectively with Rust''s complexity, including:
+
+    - Ownership visualization: Interactive diagrams showing permissions (read/write/own)
+    that help students understand borrowing better than rule-based explanations
+
+    - Trait debugging: A graphical tool for navigating complex trait inference trees
+    when compiler errors become unreadably long
+
+    - Program slicing: Using Rust''s type system to automatically highlight only code
+    relevant to specific variables
+
+
+    All tools discussed are open source and available for use.'
+  published: 2025-08-27T15:42:33+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: The Saga of Multicore OCaml
   url: https://www.youtube.com/watch/XGGSPpk1IB0?version=3
   thumbnail: https://i1.ytimg.com/vi/XGGSPpk1IB0/hqdefault.jpg
