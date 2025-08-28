@@ -24,7 +24,7 @@ git clone https://github.com/<username>/OCaml.org.git
 cd OCaml.org
 ```
 
-Ensure you have [Dune Binary](https://github.com/ocaml-dune/dune-bin-install) installed. Dune will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2). We assume you are using the most recent version of Dune.
+Ensure you have [Dune Binary](https://github.com/ocaml-dune/dune-bin-install) installed. Dune will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2). We assume you are using a recent version of Dune. You can see which version of Dune OCaml.org is using for deployment in the [Dockerfile](./Dockerfile).
 
 If you would like to build using Dune installed via `opam`, make sure to remove the `dune.lock/` directories and use the same build commands present in the Makefile, skipping `dune pkg lock`.
 
