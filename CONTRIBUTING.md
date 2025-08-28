@@ -56,7 +56,7 @@ If you write about OCaml and have an RSS or Atom feed, you can add your feed to 
 
 When compiling, the feed entries will be downloaded, and Markdown files for each item will be created in [`data/rss`](data/rss/). For instance: [building-ahrefs-codebase-with-melange.md`](data/rss/ahrefs/building-ahrefs-codebase-with-melange.md).
 
-Please, make sure your feed only contains articles about OCaml.
+If you enable the `publish_all: true` flag in `data/planet-sources.yml`, you must make sure your feed only contains articles about OCaml.
 
 #### Add Your YouTube Channel
 
