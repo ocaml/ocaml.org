@@ -17,8 +17,6 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        ocaml-compiler:
-          - "5.2.0"
 
     steps:
       - name: Setup Dune
