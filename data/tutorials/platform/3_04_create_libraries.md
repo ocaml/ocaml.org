@@ -5,6 +5,7 @@ short_title: "Creating Libraries"
 description: |
   How to create libraries with Dune
 category: "Libraries & Packages"
+language: English
 ---
 
 > **TL;DR**

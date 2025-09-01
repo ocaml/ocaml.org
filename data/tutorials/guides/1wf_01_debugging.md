@@ -4,6 +4,7 @@ title: Debugging
 description: >
   Learn to debug OCaml programs using tracing and ocamldebug
 category: "Guides"
+language: English
 ---
 
 This tutorial presents four techniques for debugging OCaml programs:

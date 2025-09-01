@@ -1,3 +1,4 @@
 (library
  (name ocamlorg)
+ (libraries data_intf)
  (public_name ocamlorg.global))

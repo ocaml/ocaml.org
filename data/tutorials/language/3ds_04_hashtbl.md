@@ -4,6 +4,7 @@ title: Hash Tables
 description: >
   Discover efficient and mutable lookup tables with OCaml's Hashtbl module
 category: "Data Structures"
+language: English
 ---
 
 ## Introduction
