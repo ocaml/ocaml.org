@@ -1162,6 +1162,17 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: Outreachy May 2025 Demo Day
+  description: "The OCaml community participated in the May 2025 round of Outreachy
+    internships. Two interns worked on a range of projects including [Claudius](https://github.com/claudiusFX/claudius)
+    and [Dune](https://github.com/ocaml/dune).\r\n\r\nThis meeting was ..."
+  url: https://watch.ocaml.org/videos/watch/a1ed70d6-f57a-4349-ba85-c12b2054529f
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/3604a5b1-1cc6-4c67-8702-7e4fe48c131c.jpg
+  published: 2025-09-02T09:28:48.816Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: Outreachy Presentations for the December 2021 Round
   description: The OCaml community participated in the December 2021 round of [Outreachy](https://www.outreachy.org/)
     internships. Three interns worked on a range of projects including OCaml's pre-processor
