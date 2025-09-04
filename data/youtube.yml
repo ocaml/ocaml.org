@@ -1,21 +1,21 @@
 - name: Jane Street - Tech Talks
   kind: playlist
   id: PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
-  publish_all: true
+  publish_all: false
 - name: Jane Street - OCaml Unboxed
   kind: playlist
   id: PLCiAikFFaMJrgFrWRKn0-1EI3gVZLQJtJ
 - name: Jane Street - Signal & Threads
   kind: playlist
   id: PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
-  publish_all: true
+  publish_all: false
 - name: Emelle TV
   kind: channel
   id: UCvVVfCa7-nzSuCdMKXnNJNQ
 - name: The Vimeagen
   kind: channel
   id: UCVk4b-svNJoeytrrlOixebQ
-  publish_all: true
+  publish_all: false
 - name: FUN OCaml
   kind: channel
   id: UC3TI-fmhJ_g3_n9fHaXGZKA
@@ -28,3 +28,4 @@
 - name: Collège de France - Sciences du logiciel
   kind: playlist
   id: PLtimy8tnozICbD45yhB7Ha_zIBJTIK3im
+  publish_all: false
