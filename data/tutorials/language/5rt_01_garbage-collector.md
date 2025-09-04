@@ -20,7 +20,7 @@ This is an adaptation of the chapter [Understanding the Garbage Collector](https
 *This chapter includes contributions from Stephen Weeks and Sadiq Jaffer.*
 
 We've described the runtime format of individual OCaml variables earlier, in
-[Memory Representation Of Values](/docs/runtime-memory-layoutl#memory-representation-of-values).
+[Memory Representation Of Values](/docs/memory-representation).
 When you execute your program, OCaml manages the lifecycle of these variables
 by regularly scanning allocated values and freeing them when they're no
 longer needed. This in turn means that your applications don't need to
