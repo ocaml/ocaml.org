@@ -3,7 +3,7 @@ let test_parse_date_from_slug =
     ( name,
       `Quick,
       fun () ->
-        let got = Ood_gen.Changelog.parse_slug s in
+        let got = Ood_gen.Slug.parse_slug s in
         Alcotest.(check (option (pair string (option string))))
           __LOC__ expected got )
   in

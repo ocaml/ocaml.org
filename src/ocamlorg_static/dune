@@ -6,6 +6,7 @@
  (target asset.ml)
  (deps
   %{project_root}/asset/css/main.css
+  %{project_root}/asset/backstage.xml
   %{project_root}/asset/changelog.xml
   %{project_root}/asset/events.xml
   %{project_root}/asset/jobs.xml
