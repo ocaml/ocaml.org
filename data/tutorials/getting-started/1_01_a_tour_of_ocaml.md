@@ -127,7 +127,7 @@ let feets = 5280;;
 val feets : int = 5280
 ```
 
-This is discussed further in [`odoc` for Authors: Special Comments](https://ocaml.github.io/odoc/odoc_for_authors.html#special_comments).
+This is discussed further in [`odoc` for Authors: Special Comments](https://ocaml.github.io/odoc/odoc/odoc_for_authors.html#special_comments).
 
 Names can be defined locally, within an expression, using the `let … = … in …` syntax:
 
