@@ -41,8 +41,7 @@ also analyzed and compiled into highly optimized automata.
 
 The lambda form is the key stage that discards the OCaml type
 information and maps the source code to the runtime memory model
-described in [Memory Representation Of
-Values](/docs/runtime-memory-layout#memory-representation-of-values).
+described in [Memory Representation Of Values](/docs/memory-representation).
 This stage also performs some optimizations, most notably converting
 pattern-match statements into more optimized but low-level statements.
 
