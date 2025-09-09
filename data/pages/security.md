@@ -5,7 +5,7 @@ meta_title: OCaml Security
 meta_description: This page details the OCaml security disclosure process, including how to report vulnerabilities, the role and members of the OCaml Security Response Team (SRT), and their publications.
 ---
 
-# Reporting security issues
+## Reporting security issues
 
 The [OCaml security advisory database](https://github.com/ocaml/security-advisories) documents known issues in OCaml libraries and open source tools. Anyone can report historical or low-impact issues as a PR to the security advisory database.
 
@@ -24,7 +24,7 @@ The Security Response Team maintains a [security disclosure process](/security-r
 
 For example, a high-severity vulnerability affecting the OCaml toolchain or a popular library would likely warrant an embargo. If you are unsure, please contact the Security Response Team and we will help assess the impact.
 
-# OCaml Security Response Team
+## OCaml Security Response Team
 
 The OCaml Security Response Team (SRT) coordinates security response for high-impact vulnerabilities, and maintains the advisory database and associated tooling.
 
