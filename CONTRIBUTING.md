@@ -308,3 +308,9 @@ Feel free to use any approach while creating a PR. Here are a few suggestions fr
 - Consult the tasks noted in the PR template.
 - When merging, consider cleaning up the commit body.
 - Close any issues that were addressed by this PR.
+
+## Troubleshooting
+
+### After rebase, my branch doesn't build anymore
+
+Please check in the commit log whether an upgrade of the dependencies (advancing of the `opam-repository` commit hash) has happened. If this is the case, running `dune pkg lock` should install the new dependencies.
