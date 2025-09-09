@@ -33,9 +33,9 @@ jobs:
         if: runner.os == 'macOS'
 
       - name: Setup Dune
-        uses: ocaml-dune/setup-dune@v0
+        uses: ocaml-dune/setup-dune@v1
         with:
-          version: 3.19.1
+          version: 3.20.1
 
       - name: Checkout Repo
         uses: actions/checkout@v5
