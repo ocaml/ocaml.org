@@ -13,7 +13,7 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     oniguruma-dev \
     openssl-dev
 
-RUN curl -sSL https://github.com/ocaml-dune/dune-bin-install/releases/download/v1/install.sh | sh -s 3.19.1 --install-root /usr --no-update-shell-config
+RUN curl -4fsSL https://github.com/ocaml-dune/dune-bin-install/releases/download/v3/install.sh | sh -s 3.20.1 --install-root /usr --no-update-shell-config
 RUN dune --version
 
 # Build project
