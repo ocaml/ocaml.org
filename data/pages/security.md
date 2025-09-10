@@ -17,7 +17,7 @@ High-impact vulnerabilities should be reported privately to [security@ocaml.org]
 - Fill in the advisory details form. ...
 - At the bottom of the form, click Submit report.
 
-The Security Response Team maintains a [security disclosure process](/security-reporting) to coordinate security responses. Factors that influence whether or not we will deal with a report and embargo it include:
+The Security Response Team (SRT) maintains a [security disclosure process](/security-reporting) to coordinate security responses. Factors that influence whether or not we will deal with a report and embargo it include:
 
 - How severe is the vulnerability?
 - How widely used is the library or tool in which the issue occurs?
@@ -27,19 +27,19 @@ For example, a high-severity vulnerability affecting the OCaml toolchain or a po
 
 ## OCaml Security Response Team
 
-The OCaml Security Response Team (SRT) coordinates security response for high-impact vulnerabilities, and maintains the advisory database and associated tooling.
+The OCaml Security Response Team coordinates security response for high-impact vulnerabilities, and maintains the advisory database and associated tooling.
 
 The current members of the SRT are:
 
-- Hannes Mehnert - @hannesm - individual, robur.coop
-- Mindy Preston - @yomimono - individual
-- Joe - @cfcs - individual
-- Edwin Török - @edwintorok - individual
-- Nicolás Ojeda Bär - @nojb - LexiFi
-- Louis Roché - @Khady - ahrefs
-- Maxim Grankin - @maxim092001 - Bloomberg
+- Hannes Mehnert - [@hannesm](https://github.com/hannesm) - individual, robur.coop
+- Mindy Preston - [@yomimono](https://github.com/yomimono) - individual
+- Joe - @cfcs - [individual](https://github.com/cfcs)
+- Edwin Török - [@edwintorok](https://github.com/edwintorok) - individual
+- Nicolás Ojeda Bär - [@nojb](https://github.com/nojb) - LexiFi
+- Louis Roché - [@Khady](https://github.com/Khady) - ahrefs
+- Maxim Grankin - [@maxim092001](https://github.com/maxim092001) - Bloomberg
 
-The SRT is an initiative of the OCaml Software Foundation
+The SRT is an initiative of the [OCaml Software Foundation](https://ocaml-sf.org/)
 
 ## Security Guides
 
