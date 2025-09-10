@@ -15,6 +15,6 @@ meta_description: This page details the step-by-step process for how the OCaml s
 6. When the patch is available, discussion between *reporter*, *maintainer(s)*, and *responder* whether this fixes the issue (the *reporter* may have some test environment and can confirm it).
 7. Potentially a pre-announcement about which package and when the advisory and patch will be published for core opam packages and high impact vulnerabilities.
 8. The *responder* publishes the security advisory
-   - (8b.) The advisory is sent to the mailing list for security announcements (TBD)
+   - (8b.) The advisory is sent to the [mailing list for security announcements](https://sympa.inria.fr/sympa/info/ocsf-ocaml-security-announcements)
    - (8c.) The *maintainer(s)* (or the *responder*) publishes the fixed opam package to opam.ocaml.org (and mark vulnerable packages unavailable)
    - (8d.) The *responder* publishes the security announcement also on the [database](https://github.com/ocaml/security-advisories), which is an input source for [OSV](https://osv.dev)
