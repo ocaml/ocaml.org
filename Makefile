@@ -65,8 +65,8 @@ scrape_ocaml_planet:
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe planet
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe video
 
-.PHONY: scrape_changelog
-scrape_changelog:
+.PHONY: scrape_platform_releases
+scrape_platform_releases:
 	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe platform_releases
 
 .PHONY: docker
