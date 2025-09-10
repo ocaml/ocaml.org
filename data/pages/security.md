@@ -9,8 +9,9 @@ meta_description: This page details the OCaml security disclosure process, inclu
 
 The [OCaml security advisory database](https://github.com/ocaml/security-advisories) documents known issues in OCaml libraries and open source tools. Anyone can report historical or low-impact issues as a PR to the security advisory database.
 
-High-impact vulnerabilities should be reported privately to security@ocaml.org (we do not use PGP). Alternatively, high-impact vulnerabilities can be reported via a private GitHub issue as follows:
-- On GitHub, navigate to the main page of the repository. (https://github.com/ocaml/security-advisories)
+High-impact vulnerabilities should be reported privately to [security@ocaml.org](mailto:security@ocaml.org) (we do not use PGP). Alternatively, high-impact vulnerabilities can be reported via a private GitHub issue as follows:
+
+- On GitHub, navigate to the main page of the [ocaml/security-advisories repository](https://github.com/ocaml/security-advisories).
 - Under the repository name, click Security. ...
 - Click Report a vulnerability to open the advisory form.
 - Fill in the advisory details form. ...
