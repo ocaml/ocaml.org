@@ -11,7 +11,7 @@ The [OCaml security advisory database](https://github.com/ocaml/security-advisor
 
 High-impact vulnerabilities should be reported privately to [security@ocaml.org](mailto:security@ocaml.org) (we do not use PGP). Alternatively, high-impact vulnerabilities can be reported via a private GitHub issue as follows:
 
-- On GitHub, navigate to the main page of the [ocaml/security-advisories repository](https://github.com/ocaml/security-advisories).
+- On GitHub, navigate to the main page of the [ocaml/security-advisories](https://github.com/ocaml/security-advisories) repository.
 - Under the repository name, click Security. ...
 - Click Report a vulnerability to open the advisory form.
 - Fill in the advisory details form. ...
