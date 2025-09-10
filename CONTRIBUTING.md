@@ -22,6 +22,7 @@ Anyone can contribute to these sections:
 - [Images](#images)
 - [The OCaml Planet](#ocaml-planet)
 - [Job Board](#content-job)
+- [Success Stories](#content-success-story)
 - [Academic Users](#content-academic-user)
 - [Industrial Users](#content-industrial-user)
 - [OCaml Books](#content-book)
@@ -30,7 +31,6 @@ Anyone can contribute to these sections:
 - [Upcoming Events](#content-upcoming_event)
 
 OCaml Platform maintainers can contribute to these sections:
-- [Success Stories](#content-success-story)
 - [The OCaml Changelog](#content-changelog)
 - [Backstage OCaml](#content-backstage)
 - [Platform Tools Releases](#content-platform-tools-releases)
