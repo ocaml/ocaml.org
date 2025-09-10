@@ -45,8 +45,6 @@ The SRT is an initiative of the [OCaml Software Foundation](https://ocaml-sf.org
 
 The SRT publishes security guides for OCaml programmers and project maintainers. Guides will be added or updated over time.
 
-### How to secure GitHub repositories
-
 ## SRT Reports
 
 The SRT reports quarterly on our completed and ongoing work, and future plans.
