@@ -219,8 +219,8 @@ module Scraper = struct
       (*|> Option.value ~default:"MISSING"*)
     in
     let output_file =
-      "data/changelog/releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
-      ^ "-" ^ github_tag ^ "-draft.md"
+      "data/platform_tools_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-"
+      ^ project ^ "-" ^ github_tag ^ "-draft.md"
     in
     let content = River.content post in
     let author = River.author post in
@@ -254,8 +254,8 @@ module Scraper = struct
       List.iter
         (fun { github_tag; post } ->
           if not (SSet.mem github_tag known_github_tags) then (
-            warn "No changelog entry for %S github tag %S\n%!" project
-              github_tag;
+            warn "We don't have the release notes for %S github tag %S\n%!"
+              project github_tag;
             write_release_announcement_file project github_tag tags post))
         scraped_versions
     in
@@ -264,7 +264,7 @@ module Scraper = struct
     | None ->
         warn
           "Don't know how to lookup project %S. Please update \
-           'tool/ood-gen/lib/changelog.ml'\n\
+           'tool/ood-gen/lib/platform_release.ml'\n\
            %!"
           project
 
