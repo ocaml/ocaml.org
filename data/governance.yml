@@ -88,9 +88,6 @@ teams:
   description: The Platform team is responsible for the development and maintenance
     of the OCaml Platform, the official OCaml developer toolchain.
   contacts:
-  - name: Mailing List
-    link: https://lists.ocaml.org/listinfo/platform
-    kind: email
   members:
   - name: Anil Madhavapeddy
     github: avsm
@@ -154,9 +151,6 @@ teams:
       link: https://us06web.zoom.us/j/84185730263?pwd=TTYrY2puc0dST0lBMjZ5ZHNTaThoZz09
       notes: https://github.com/ocaml/opam/wiki#dev-meetings
     contacts:
-    - name: Mailing List
-      link: https://lists.ocaml.org/listinfo/opam-devel
-      kind: email
     - name: GitHub
       link: https://github.com/ocaml/opam
       kind: github
@@ -213,9 +207,6 @@ teams:
       link: https://discuss.ocaml.org/search?q=tags%3Adev-meetings%2Beditor
       notes: https://github.com/ocaml/merlin/wiki/Public-dev%E2%80%90meetings
     contacts:
-    - name: Mailing List
-      link: https://lists.ocaml.org/listinfo/merlin
-      kind: email
     - name: GitHub
       link: https://github.com/ocaml/merlin
       kind: github
@@ -330,9 +321,6 @@ teams:
     name: OCamlFormat
     description: Auto-formatter for OCaml code
     contacts:
-    - name: Mailing List
-      link: https://lists.ocaml.org/listinfo/ocamlformat-dev
-      kind: email
     - name: GitHub
       link: https://github.com/ocaml-ppx/ocamlformat
       kind: github
