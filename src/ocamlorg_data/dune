@@ -52,7 +52,8 @@
 (rule
  (target backstage.ml)
  (deps
-  (source_tree %{workspace_root}/data/changelog)
+  (source_tree %{workspace_root}/data/backstage)
+  (source_tree %{project_root}/data/platform_tools_releases)
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
@@ -65,6 +66,7 @@
  (target changelog.ml)
  (deps
   (source_tree %{workspace_root}/data/changelog)
+  (source_tree %{project_root}/data/platform_tools_releases)
   (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
  (action
   (chdir
