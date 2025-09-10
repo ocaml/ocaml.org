@@ -72,13 +72,14 @@ OCaml.org uses a fixed commit hash of `opam-repository` to ensure a stable envir
    ; Both dune-workspace and playground/dune-workspace use:
    (repository
     (name pinned_opam_repository)
-    (url git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f))
+    (url git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f)
+   )
 
    (lock_dir
     (path dune.lock)
     (repositories 
-     pinned_opam_repository 
-      ))
+     pinned_opam_repository)
+   )
    ```
 
 2. **Update the pinned repository commit** in both files during coordinated upgrades:
@@ -102,15 +103,15 @@ The playground has additional complexity because it requires specific versions o
 (pin
  (name merlin-js)
  (url "git+https://github.com/voodoos/merlin-js#3a8c83e03d629228b8a8394ecafc04523b0ab93f")
- (package
-  (name merlin-js)))
+ (package (name merlin-js))
+)
 
 ...
 
 (lock_dir
   (repositories pinned_opam_repository)
   (pins esbuild code-mirror merlin-js js-top-worker ocamlbuild ocamlfind)
-  (version_preference newest))
+)
 ```
 
 ### Compatibility of Dependencies Using Symlinks
@@ -128,13 +129,19 @@ So, we added the overlays repository to the `dune-workspace` files and listed bo
 ```lisp
 ...
 
-(repository (name pinned_overlay_repository) (url git+https://github.com/ocaml-dune/opam-overlays#2a9543286ff0e0656058fee5c0da7abc16b8717d))
+(repository
+ (name pinned_overlay_repository)
+ (url git+https://github.com/ocaml-dune/opam-overlays#2a9543286ff0e0656058fee5c0da7abc16b8717d)
+)
 
 (lock_dir
-  (repositories pinned_opam_repository pinned_overlay_repository))
+ (repositories pinned_opam_repository pinned_overlay_repository)
+)
 ```
 
 This way, the patched dependencies `ocamlbuild` and `ocamlfind` are picked up by Dune's solver when creating the `dune.lock` directory.
+
+**Note**: the overlay is part of the standard repositories and only necessary to explicitly add here because we need to use a pinned revision in our workspace.
 
 ### Updating GitHub Actions to Use Dune Package Management
 
