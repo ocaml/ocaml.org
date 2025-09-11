@@ -17,7 +17,7 @@ High-impact vulnerabilities should be reported privately to [security@ocaml.org]
 - Fill in the advisory details form. ...
 - At the bottom of the form, click Submit report.
 
-The Security Response Team (SRT) maintains a [security disclosure process](/security-reporting) to coordinate security responses. Factors that influence whether or not we will deal with a report and embargo it include:
+The Security Response Team (SRT) maintains a [security disclosure process](https://github.com/ocaml/security-advisories?tab=readme-ov-file#reporting-vulnerabilities) to coordinate security responses. Factors that influence whether or not we will deal with a report and embargo it include:
 
 - How severe is the vulnerability?
 - How widely used is the library or tool in which the issue occurs?

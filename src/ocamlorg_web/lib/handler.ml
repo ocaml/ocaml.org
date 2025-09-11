@@ -648,7 +648,6 @@ let privacy_policy = page Url.privacy_policy
 let governance_policy = page Url.governance_policy
 let code_of_conduct = page Url.code_of_conduct
 let security = page Url.security
-let security_reporting = page Url.security_reporting
 
 let playground _req =
   let default = Data.Code_example.get "default.ml" in

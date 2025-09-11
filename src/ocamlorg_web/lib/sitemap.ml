@@ -14,7 +14,6 @@ let urls =
     Url.changelog;
     Url.code_of_conduct;
     Url.security;
-    Url.security_reporting;
     Url.community;
     Url.events;
     Url.exercises;

@@ -60,7 +60,6 @@ let page_routes t =
       Dream.get Url.privacy_policy Handler.privacy_policy;
       Dream.get Url.code_of_conduct Handler.code_of_conduct;
       Dream.get Url.security Handler.security;
-      Dream.get Url.security_reporting Handler.security_reporting;
       Dream.get Url.governance Handler.governance;
       Dream.get (Url.governance_team ":id") Handler.governance_team;
       Dream.get Url.governance_policy Handler.governance_policy;
