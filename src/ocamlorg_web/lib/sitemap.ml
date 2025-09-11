@@ -13,6 +13,7 @@ let urls =
     Url.carbon_footprint;
     Url.changelog;
     Url.code_of_conduct;
+    Url.security;
     Url.community;
     Url.events;
     Url.exercises;
