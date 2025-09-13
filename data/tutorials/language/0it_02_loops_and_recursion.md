@@ -4,6 +4,7 @@ title: Loops and Recursions
 description: >
   Learn basic control-flow and recursion in OCaml
 category: "Introduction"
+language: English
 ---
 
 As in other OCaml.org documentation, the code examples will either be something you can test or

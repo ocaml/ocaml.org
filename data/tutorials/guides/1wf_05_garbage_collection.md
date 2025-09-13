@@ -4,6 +4,7 @@ title: How to Work with the Garbage Collector
 description: >
   How to use the Gc module in OCaml and how to write your own finalisers.
 category: "Guides"
+language: English
 ---
 
 In [Understanding the Garbage Collector](/docs/garbage-collector), discussed how Garbage Collection in OCaml works.
