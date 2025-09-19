@@ -145,3 +145,95 @@ opam user-setup install
 - Type `:MerlinTypeOf` and press <kbd>Enter</kbd>.
 - The type information will be displayed in the command bar.
 Other Merlin commands for Vim are available and you can checkout their usage on the [Merlin official documentation for Vim](https://ocaml.github.io/merlin/editor/vim/).
+
+## Neovim
+
+Neovim comes with an LSP client.
+
+One note here is that is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and pointing your Neovim config to use that.
+
+To install the LSP server and the formatter, run the following.
+```shell
+opam install ocaml-lsp-server ocamlformat
+```
+
+There are two main ways to install and manage LSP servers.
+- A more traditional way is to use `nvim-lspconfig`, which is a package used for this purpose. For more info, `kickstart.nvim` has a great example setup.
+- A newer way is to use the new Neovim LSP API for versions newer than v0.11.0 via `vim.lsp`.
+
+Using the Lazy package manager with `nvim-lspconfig`:
+```lua
+require('lazy').setup({
+  -- other packages...
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      vim.api.nvim_create_autocmd('LspAttach', {
+        -- your keybindings here...
+      })
+
+      -- this part may contain your existing LSP setup that play along nicely with Mason...
+
+      -- add this line specifically for OCaml
+      require('lspconfig').ocamllsp.setup {}
+    end,
+  },
+  -- other packages...
+})
+```
+
+Using `vim.lsp`:
+```lua
+-- add this to your toplevel init.lua
+vim.lsp.config['ocamllsp'] = {
+  cmd = { 'ocamllsp' },
+  filetypes = { 'ocaml', 'ocaml.interface', 'ocaml.menhir', 'reason' },
+  root_markers = { { 'dune-project', 'dune-workspace' }, '.git' },
+  settings = {},
+}
+
+vim.lsp.enable 'ocamllsp'
+```
+
+You can also use `vim.lsp` with a modular config.
+
+Assume that your config has the following structure. The internal structure of `lua` does not matter much.
+```text
+.
+├── init.lua
+└── lua
+    ├── custom
+    │   └── plugins
+    │       └── some-plugin.lua
+    └── kickstart
+        ├── health.lua
+        └── plugins
+            └── some-plugin.lua
+```
+
+Then run the following.
+```text
+cd lua
+mkdir lsp
+touch lsp/init.lua
+touch lsp/servers.lua
+```
+
+We now add our LSP configs to `lsp/servers.lua`, export them from `lsp/init.lua`, and import them in the toplevel `init.lua`.
+```lua
+-- path/to/config/lua/lsp/servers.lua
+vim.lsp.config['ocamllsp'] = {
+  cmd = { 'ocamllsp' },
+  filetypes = { 'ocaml', 'ocaml.interface', 'ocaml.menhir', 'reason' },
+  root_markers = { { 'dune-project', 'dune-workspace' }, '.git' },
+  settings = {},
+}
+
+vim.lsp.enable 'ocamllsp'
+
+-- path/to/config/lua/lsp/init.lua
+require("lsp.servers")
+
+-- path/to/config/init.lua
+require("lsp")
+```
