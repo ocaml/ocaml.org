@@ -5,6 +5,7 @@ short_title: "Running Executables and Tests"
 description: |
   How to run executables and tests with Dune
 category: "Projects"
+language: English
 ---
 
 ## Running Executables
