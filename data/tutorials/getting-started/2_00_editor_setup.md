@@ -167,8 +167,19 @@ Add this to your toplevel `init.lua`.
 ```lua
 vim.lsp.config['ocamllsp'] = {
   cmd = { 'ocamllsp' },
-  filetypes = { 'ocaml', 'ocaml.interface', 'ocaml.menhir', 'reason' },
-  root_markers = { { 'dune-project', 'dune-workspace' }, '.git' },
+  filetypes = { 
+    'ocaml',
+    'ocaml.interface',
+    'ocaml.menhir',
+    'ocaml.ocamllex',
+    'dune',
+    'reason'
+  },
+  root_markers = {
+    { 'dune-project', 'dune-workspace' },
+    { "*.opam", "esy.json", "package.json" },
+    '.git'
+  },
   settings = {},
 }
 
@@ -202,8 +213,19 @@ Add your LSP config to `lsp/ocamllsp.lua`.
 ```lua
 return {
   cmd = { 'ocamllsp' },
-  filetypes = { 'ocaml', 'ocaml.interface', 'ocaml.menhir', 'reason' },
-  root_markers = { { 'dune-project', 'dune-workspace' }, '.git' },
+  filetypes = { 
+    'ocaml',
+    'ocaml.interface',
+    'ocaml.menhir',
+    'ocaml.ocamllex',
+    'dune',
+    'reason'
+  },
+  root_markers = {
+    { 'dune-project', 'dune-workspace' },
+    { "*.opam", "esy.json", "package.json" },
+    '.git'
+  },
   settings = {},
 }
 ```
