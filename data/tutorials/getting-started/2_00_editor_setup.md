@@ -175,29 +175,30 @@ vim.lsp.config['ocamllsp'] = {
 vim.lsp.enable 'ocamllsp'
 ```
 
-You can also use `vim.lsp` with a modular config.
+See `:h lsp-config` for more detail on configuration options.
 
-Assume that your config has the following structure. The internal structure of `lua` does not matter much.
-```text
-.
-├── init.lua
-└── lua
-    ├── custom
-    │   └── plugins
-    │       └── some-plugin.lua
-    └── kickstart
-        ├── health.lua
-        └── plugins
-            └── some-plugin.lua
-```
+#### Modular Config With Runtimepath
 
-Then run the following at the root of your config.
+You can also use `vim.lsp` with a modular config via `runtimepath`. Putting your config table inside `lsp/<some_name>.lua` or `after/lsp/<some_name>.lua` will allow Neovim to search for them automatically.
+
+See `:h runtimepath` for more detail.
+
+Run the following at the root of your config.
 ```text
 mkdir lsp
 touch lsp/ocamllsp.lua
 ```
 
-We now add our LSP configs to `lsp/ocamllsp.lua`...
+Your Neovim config should have the following structure now.
+```text
+.
+├── init.lua
+├── lsp
+│   └── ocamllsp.lua
+└── ...
+```
+
+Add your LSP config to `lsp/ocamllsp.lua`.
 ```lua
 return {
   cmd = { 'ocamllsp' },
@@ -207,7 +208,7 @@ return {
 }
 ```
 
-...and import them in the toplevel `init.lua`.
+Then enable them in the toplevel `init.lua`.
 ```lua
 vim.lsp.enable 'ocamllsp'
 ```
@@ -226,4 +227,6 @@ Add this to your `nvim-lspconfig` setup.
   end,
 },
 ```
+
+There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [here](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.
 
