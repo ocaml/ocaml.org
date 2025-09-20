@@ -177,9 +177,9 @@ vim.lsp.enable 'ocamllsp'
 
 See `:h lsp-config` for more detail on configuration options.
 
-#### Modular Config With Runtimepath
+#### Using vim.lsp With runtimepath
 
-You can also use `vim.lsp` with a modular config via `runtimepath`. Putting your config table inside `lsp/<some_name>.lua` or `after/lsp/<some_name>.lua` will allow Neovim to search for them automatically.
+You can also move your LSP config to a separate file via `runtimepath` if you'd like to keep your `init.lua` minimal. Putting your config table inside `lsp/<some_name>.lua` or `after/lsp/<some_name>.lua` will allow Neovim to search for them automatically.
 
 See `:h runtimepath` for more detail.
 
