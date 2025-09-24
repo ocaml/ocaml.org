@@ -61,7 +61,8 @@ Community_layout.single_column_layout
             Chat in the <a class='text-primary dark:text-dark-primary hover:underline' href='https://matrix.to/#/#ocaml-lang:matrix.org'>#ocaml-lang</a>
             Matrix chat room, or join the <a class='text-primary dark:text-dark-primary hover:underline' href='https://matrix.to/#/#ocaml-space:matrix.org'>#ocaml-space</a> Matrix space
           </p>
-          |}) ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>    
+          |}) ~left_icon:(Icons.matrix "h-8 mr-0") ~title:("Matrix") "" %>
+        <%s! social_list_item ~text:("Chat with other members of the community on Zulip - ") ~href:("https://caml.zulipchat.com") ~left_icon:(Icons.zulip "w-10 h-10") ~title:("Zulip") "" %>    
       </ul>
       <ul>
         <p class="text-title dark:text-dark-title font-mono text-xl mb-2">Video</p>

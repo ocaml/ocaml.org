@@ -647,6 +647,7 @@ let carbon_footprint = page Url.carbon_footprint
 let privacy_policy = page Url.privacy_policy
 let governance_policy = page Url.governance_policy
 let code_of_conduct = page Url.code_of_conduct
+let security = page Url.security
 
 let playground _req =
   let default = Data.Code_example.get "default.ml" in

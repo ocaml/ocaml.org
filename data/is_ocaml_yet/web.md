@@ -13,6 +13,7 @@ categories:
     - name: opium
     - name: sihl
     - name: ocsigen-start
+    - name: vif
   - name: Browser
     status: •
     description: |
@@ -72,6 +73,7 @@ categories:
     - name: paf
     - name: mimic
     - name: tiny_httpd
+    - name: ocaml-h1
   - name: HTTP Clients
     status: •
     description: |
@@ -82,6 +84,7 @@ categories:
     - name: ocurl
     - name: http-lwt-client
     - name: ezcurl
+    - name: httpcats
   - name: Templating
     status: •
     description: |

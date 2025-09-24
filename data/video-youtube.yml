@@ -1,3 +1,18 @@
+- title: FUN OCaml 2025 - Join us in Warsaw, Poland on September 15 for a day full
+    of presentations!
+  url: https://www.youtube.com/watch/L_rTHhIEfVM?version=3
+  thumbnail: https://i1.ytimg.com/vi/L_rTHhIEfVM/hqdefault.jpg
+  description: 'Fun OCaml 2025 is a 2 days open source hacking event dedicated to
+    OCaml enthusiasts and professionals around the globe!
+
+
+    This is day 1 and we''re live-streaming all the presentations! For the schedule,
+    see https://fun-ocaml.com#schedule.'
+  published: 2025-09-12T10:02:39+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
 - title: Rust for Everyone!
   url: https://www.youtube.com/watch/R0dP-QR5wQo?version=3
   thumbnail: https://i3.ytimg.com/vi/R0dP-QR5wQo/hqdefault.jpg
@@ -36,8 +51,8 @@
     was harder than we expected. Indeed, we've only just switched to it this year,
     after 2.5 years of research and engineering effort. This talk will give an overview
     of the problems we ran into, and what we learned from the process, including some
-    new ideas that solved some very old problems in the design of OCaml's GC.\n\nSee
-    other Tech Talks here: https://www.janestreet.com/tech-talks/index.html"
+    new ideas that solved some very old problems in the design of OCaml's GC.\n\nRead
+    the full transcript here: https://www.janestreet.com/tech-talks/the-saga-of-multicore-ocaml/"
   published: 2025-07-24T20:13:04+00:00
   author_name: Jane Street
   author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
