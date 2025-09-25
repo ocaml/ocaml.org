@@ -1,0 +1,99 @@
+let render (entry : Data.Backstage.t) = match entry with
+| Release release ->
+  Layout.render
+  ~title:(Printf.sprintf "%s • Backstage OCaml" release.title)
+  ~description:release.title @@
+  <div class="bg-background dark:bg-dark-background pt-12 pb-10 lg:py-24">
+    <div class="container-fluid">
+      <div class="mx-auto max-w-5xl">
+        <div class="mx-auto max-w-5xl">
+          <a href="<%s Url.backstage %>"
+            class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
+            <%s! Icons.arrow_left "h-5 w-5" %>
+            <div>View all changes</div>
+          </a>
+        </div>
+
+        <section class="leading-5 pb-10 lg:pb-24">
+          <h1
+            class="mx-0 mt-0 mb-1 font-sans text-3xl font-extrabold tracking-normal leading-8 lg:text-5xl lg:tracking-tight md:mb-4 md:text-4xl text-title dark:text-dark-title">
+            <%s release.title %>
+          </h1>
+          <% (match release.tags with [] -> () | _ -> %>
+          <ul class="inline-block pl-0 mt-2 mb-0 text-zinc-800">
+            <% release.tags |> List.iter (fun tag -> %>
+            <li class="inline-block mt-2 mr-2 text-left">
+              <a href="<%s Url.backstage %>?t=<%s tag %>"
+                class="whitespace-nowrap rounded-full bg-background dark:bg-dark-background px-4 py-2.5 text-sm font-semibold text-title dark:text-dark-title shadow-sm border border-separator_20 dark:border-dark-separator_30 hover:opacity-70">
+                <%s tag %>
+              </a>
+            </li>
+            <% ); %>
+          </ul>
+          <% ); %>
+        </section>
+
+        <section class="pb-6 lg:pb-8">
+          <time datetime="2023-07-14"
+            class="block pb-5 mt-0 mb-6 font-sans text-sm text-content dark:text-dark-content border-b-2 border-solid border-separator_20 dark:border-dark-separator_30">
+          <%s Utils.human_date release.date %>
+          </time>
+          <div class="prose dark:prose-invert prose-orange max-w-none">
+            <%s! release.body_html %>
+            <% (match release.changelog_html with | None -> () | Some backstage -> %>
+            <details>
+              <summary>See full backstage</summary>
+              <%s! backstage %>
+            </details>
+            <% ); %>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+| Post post ->
+  Layout.render
+  ~title:(Printf.sprintf "%s • Backstage OCaml" post.title)
+  ~description:post.title @@
+  <div class="bg-background dark:bg-dark-background pt-12 pb-10 lg:py-24">
+    <div class="container-fluid">
+      <div class="mx-auto max-w-5xl">
+        <div class="mx-auto max-w-5xl">
+          <a href="<%s Url.backstage %>"
+            class="flex justify-start space-x-3 items-center text-primary dark:text-dark-primary hover:underline font-semibold mb-4 h-12">
+            <%s! Icons.arrow_left "h-5 w-5" %>
+            <div>View all changes</div>
+          </a>
+        </div>
+
+        <section class="leading-5 pb-10 lg:pb-24">
+          <h1
+            class="mx-0 mt-0 mb-1 font-sans text-3xl font-extrabold tracking-normal leading-8 lg:text-5xl lg:tracking-tight md:mb-4 md:text-4xl text-title dark:text-dark-title">
+            <%s post.title %>
+          </h1>
+          <% (match post.tags with [] -> () | _ -> %>
+          <ul class="inline-block pl-0 mt-2 mb-0 text-zinc-800">
+            <% post.tags |> List.iter (fun tag -> %>
+            <li class="inline-block mt-2 mr-2 text-left">
+              <a href="<%s Url.backstage %>?t=<%s tag %>"
+                class="whitespace-nowrap rounded-full bg-background dark:bg-dark-background px-4 py-2.5 text-sm font-semibold text-title dark:text-dark-title shadow-sm border border-separator_20 dark:border-dark-separator_30 hover:opacity-70">
+                <%s tag %>
+              </a>
+            </li>
+            <% ); %>
+          </ul>
+          <% ); %>
+        </section>
+
+        <section class="pb-6 lg:pb-8">
+          <time datetime="2023-07-14"
+            class="block pb-5 mt-0 mb-6 font-sans text-sm text-content dark:text-dark-content border-b-2 border-solid border-separator_20 dark:border-dark-separator_30">
+          <%s Utils.human_date post.date %>
+          </time>
+          <div class="prose dark:prose-invert prose-orange max-w-none">
+            <%s! post.body_html %>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>

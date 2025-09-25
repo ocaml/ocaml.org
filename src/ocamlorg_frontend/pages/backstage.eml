@@ -1,0 +1,129 @@
+let render_entry ?current_tag (item: Data.Backstage.t) = match item with
+  | Release item ->
+    <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+      <div class="relative md:w-72 pb-6 lg:pb-8">
+        <div class="sticky" style="top: 128px; word-break: keep-all;">
+          <div class="hidden md:absolute md:block -left-11 bg-background dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
+            <%s! Icons.changelog_release "w-6 h-6" %>
+          </div>
+          <h2
+            class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 text-title dark:text-dark-title">
+            <a href="<%s Url.backstage_entry item.slug %>"><%s item.title %></a>
+          </h2>
+          <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
+          <% (match item.tags with [] -> () | _ ->  %>
+          <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
+            <% item.tags |> List.iter (fun tag -> %>
+            <a href="<%s Url.backstage %>?t=<%s tag %>" class="whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold <%s if current_tag = (Some tag) then "bg-primary dark:bg-dark-primary text-white dark:text-dark-white hover:bg-primary_dark dark:hover:bg-dark-card_hover" else "bg-white dark:bg-dark-card_hover text-title dark:text-dark-title hover:bg-tertiary_25 dark:hover:bg-dark-primary_nav_block_hover_10 border border-separator_20 dark:border-dark-separator_30" %>"><%s tag %></a>
+            <% ); %>
+          </div>
+          <% ); %>
+        </div>
+      </div>
+      <div class="grow border-b border-separator_20 dark:border-dark-separator_30 border-solid pb-6 lg:pb-8">
+        <div class="prose dark:prose-invert prose-orange">
+          <%s! item.body_html %>
+          <% (match item.changelog_html with | None -> () | Some backstage -> %>
+          <details>
+            <summary>See full backstage</summary>
+            <%s! backstage %>
+          </details>
+          <% ); %>
+        </div>
+      </div>
+    </article>
+  | Post item ->
+    <article class="flex flex-col lg:flex-row relative gap-6 lg:gap-10">
+      <div class="relative md:w-72 pb-6 lg:pb-8">
+        <div class="sticky" style="top: 128px; word-break: keep-all;">
+          <div class="hidden md:absolute md:block -left-11 bg-background dark:bg-dark-background w-6 h-6 mt-0.5 text-primary dark:text-dark-primary">
+            <%s! Icons.changelog_post "w-6 h-6" %>
+          </div>
+          <h2
+            class="my-0 font-sans text-2xl tracking-normal font-extrabold leading-7 text-title dark:text-dark-title">
+            <a href="<%s Url.backstage_entry item.slug %>"><%s item.title %></a>
+          </h2>
+          <time datetime="<%s item.date %>" class="block mt-3 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
+          <% (match item.tags with [] -> () | _ ->  %>
+          <div class="mt-3 flex flex-row flex-wrap justify-start gap-4">
+            <% item.tags |> List.iter (fun tag -> %>
+            <a href="<%s Url.backstage %>?t=<%s tag %>" class="whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold <%s if current_tag = (Some tag) then "bg-primary dark:bg-dark-primary text-white dark:text-dark-white hover:bg-primary_dark dark:hover:bg-dark-card_hover" else "bg-white dark:bg-dark-card_hover text-title dark:text-dark-title hover:bg-tertiary_25 dark:hover:bg-dark-primary_nav_block_hover_10 border border-separator_20 dark:border-dark-separator_30" %>"><%s tag %></a>
+            <% ); %>
+          </div>
+          <% ); %>
+        </div>
+      </div>
+      <div class="grow border-b border-separator_20 dark:border-dark-separator_30 border-solid pb-6 lg:pb-8">
+        <div class="prose dark:prose-invert prose-orange">
+          <%s! item.body_html %>
+        </div>
+      </div>
+    </article>
+
+let render ~tags ?current_tag ~(pagination_info : Pagination.t) (news : Data.Backstage.t list) =
+News_layout.single_column_layout
+~title:"Backstage OCaml"
+~canonical:(Url.backstage ^ if pagination_info.page_number = 1 then "" else "?p=" ^ string_of_int pagination_info.page_number)
+~description:"Read the latest releases and updates from the OCaml ecosystem."
+~current:Backstage @@
+<div class="intro-section-simple dark:dark-intro-section-simple py-12">
+  <div class="container-fluid">
+    <div class="flex items-center">
+      <h1 class="m-0 font-sans text-3xl font-extrabold tracking-normal leading-8 capitalize lg:text-5xl lg:tracking-tight md:text-4xl text-title dark:text-dark-title">
+        Backstage OCaml
+      </h1>
+      <a href="/backstage.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6">
+        <span class="sr-only">RSS</span>
+        <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
+      </a>
+    </div>
+
+    <p class="text-lg text-content dark:text-dark-content mt-6">
+      Get updates on experimental releases, work-in-progress,
+      and opportunities to contribute to the development
+      of the OCaml Platform and its infrastructure.
+    </p>
+
+    <div class="flex flex-wrap gap-2 mt-6">
+      <a href="?t=ocaml" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
+        <span class="flex-grow">Compiler</span>
+      </a>
+      <a href="?t=platform" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
+        <span class="flex-grow">Platform</span>
+      </a>
+      <a href="?t=developer-preview" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
+        <span class="flex-grow">Developer Preview</span>
+      </a>
+      <a href="?t=infrastructure" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
+        <span class="flex-grow">Infrastructure</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background py-12">
+  <div class="leading-5 text-content dark:text-dark-content">
+    <div class="mx-auto max-w-screen-xl px-6 leading-5 text-content dark:text-dark-content sm:px-10 lg:px-6">
+      <form action="<%s Url.backstage %>" method="GET">
+        <label for="t" class="sr-only">Tag</label>
+        <select id="t" name="t" onchange="this.form.submit()" class="mt-2 block w-48 rounded-md border-0 py-1.5 pl-3 pr-10 text-content dark:text-dark-content ring-1 ring-inset bg-white dark:bg-dark-card ring-separator_20 dark:ring-dark-separator_30 focus:ring-2 focus:ring-primary dark:focus:ring-dark-primary sm:text-sm sm:leading-6">
+          <option value="" <%s if current_tag = None then "selected" else "" %>>All Tags</option>
+          <% tags |> List.iter (fun item -> %>
+          <option value="<%s item %>" <%s if current_tag = (Some item) then "selected" else "" %>><%s item %></option>
+          <% ); %>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="mt-20 md:pl-8 md:border-l-2 border-separator_20 dark:border-dark-separator_30">
+      <div class="flex flex-col gap-6 lg:gap-8 mx-auto">
+        <%s! news |> List.map (fun (item : Data.Backstage.t) -> render_entry ?current_tag item ) |> String.concat "" %>
+        <%s! Pagination.render pagination_info %>
+      </div>
+    </div>
+    <div class="prose dark:prose-invert max-w-none mt-8">
+          If you want to contribute to a new release announcement, check out the <a href="https://github.com/ocaml/ocaml.org/blob/main/CONTRIBUTING.md#content-backstage" target="_blank">Contributing Guide</a> on GitHub.
+        </div>
+  </div>
+</div>

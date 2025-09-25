@@ -275,10 +275,55 @@ let learn_documents_search req =
     (Ocamlorg_frontend.tutorial_search current_items ~total ~pagination_info
        ~search:(q |> Option.value ~default:""))
 
+let backstage req =
+  let current_tag = Dream.query req "t" in
+  let tags_from_backstage_entry change =
+    match change with Data.Backstage.Release r -> r.tags | Post p -> p.tags
+  in
+  let tags =
+    Data.Backstage.all
+    |> List.concat_map (fun (change : Data.Backstage.t) ->
+           tags_from_backstage_entry change)
+    |> List.sort_uniq String.compare
+  in
+  let backstage_entries =
+    match current_tag with
+    | None | Some "" -> Data.Backstage.all
+    | Some tag ->
+        List.filter
+          (fun (change : Data.Backstage.t) ->
+            List.exists (( = ) tag) (tags_from_backstage_entry change))
+          Data.Backstage.all
+  in
+
+  let page_number, total_page_count, current_backstage_entries =
+    paginate ~req ~n:50 backstage_entries
+  in
+  let pagination_info =
+    Ocamlorg_frontend.Pagination.
+      {
+        total_page_count;
+        page_number;
+        base_url = Url.backstage;
+        queries = query_param ~name:"t" current_tag;
+      }
+  in
+
+  Dream.html
+    (Ocamlorg_frontend.backstage ?current_tag ~tags ~pagination_info
+       current_backstage_entries)
+
+let backstage_entry req =
+  let slug = Dream.param req "id" in
+  let</>? backstage = Data.Backstage.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.backstage_entry backstage)
+
 let changelog req =
   let current_tag = Dream.query req "t" in
-  let tags_from_change change =
-    match change with Data.Changelog.Release r -> r.tags | Post p -> p.tags
+  let tags_from_change changelog_entry =
+    match changelog_entry with
+    | Data.Changelog.Release r -> r.tags
+    | Post p -> p.tags
   in
   let tags =
     Data.Changelog.all
@@ -286,7 +331,7 @@ let changelog req =
            tags_from_change change)
     |> List.sort_uniq String.compare
   in
-  let changes =
+  let changelog_entries =
     match current_tag with
     | None | Some "" -> Data.Changelog.all
     | Some tag ->
@@ -296,8 +341,8 @@ let changelog req =
           Data.Changelog.all
   in
 
-  let page_number, total_page_count, current_changes =
-    paginate ~req ~n:50 changes
+  let page_number, total_page_count, current_changelog_entries =
+    paginate ~req ~n:50 changelog_entries
   in
   let pagination_info =
     Ocamlorg_frontend.Pagination.
@@ -311,12 +356,12 @@ let changelog req =
 
   Dream.html
     (Ocamlorg_frontend.changelog ?current_tag ~tags ~pagination_info
-       current_changes)
+       current_changelog_entries)
 
 let changelog_entry req =
   let slug = Dream.param req "id" in
-  let</>? change = Data.Changelog.get_by_slug slug in
-  Dream.html (Ocamlorg_frontend.changelog_entry change)
+  let</>? changelog_entry = Data.Changelog.get_by_slug slug in
+  Dream.html (Ocamlorg_frontend.changelog_entry changelog_entry)
 
 let success_story req =
   let slug = Dream.param req "id" in
