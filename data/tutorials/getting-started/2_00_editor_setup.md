@@ -145,3 +145,110 @@ opam user-setup install
 - Type `:MerlinTypeOf` and press <kbd>Enter</kbd>.
 - The type information will be displayed in the command bar.
 Other Merlin commands for Vim are available and you can checkout their usage on the [Merlin official documentation for Vim](https://ocaml.github.io/merlin/editor/vim/).
+
+## Neovim
+
+Neovim comes with an LSP client.
+
+One note here is that is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and pointing your Neovim config to use that.
+
+To install the LSP server and the formatter, run the following.
+```shell
+opam install ocaml-lsp-server ocamlformat
+```
+
+There are two main ways to install and manage LSP servers.
+- A newer, more recommended way is to use the new Neovim LSP API for versions newer than v0.11.0 via `vim.lsp`.
+- A more traditional way is to use `nvim-lspconfig`. For more info, `kickstart.nvim` has a great example setup.
+
+### Using vim.lsp:
+
+Add this to your toplevel `init.lua`.
+```lua
+vim.lsp.config['ocamllsp'] = {
+  cmd = { 'ocamllsp' },
+  filetypes = { 
+    'ocaml',
+    'ocaml.interface',
+    'ocaml.menhir',
+    'ocaml.ocamllex',
+    'dune',
+    'reason'
+  },
+  root_markers = {
+    { 'dune-project', 'dune-workspace' },
+    { "*.opam", "esy.json", "package.json" },
+    '.git'
+  },
+  settings = {},
+}
+
+vim.lsp.enable 'ocamllsp'
+```
+
+See `:h lsp-config` for more detail on configuration options.
+
+#### Using vim.lsp With runtimepath
+
+You can also move your LSP config to a separate file via `runtimepath` if you'd like to keep your `init.lua` minimal. Putting your config table inside `lsp/<some_name>.lua` or `after/lsp/<some_name>.lua` will allow Neovim to search for them automatically.
+
+See `:h runtimepath` for more detail.
+
+Run the following at the root of your config.
+```text
+mkdir lsp
+touch lsp/ocamllsp.lua
+```
+
+Your Neovim config should have the following structure now.
+```text
+.
+├── init.lua
+├── lsp
+│   └── ocamllsp.lua
+└── ...
+```
+
+Add your LSP config to `lsp/ocamllsp.lua`.
+```lua
+return {
+  cmd = { 'ocamllsp' },
+  filetypes = { 
+    'ocaml',
+    'ocaml.interface',
+    'ocaml.menhir',
+    'ocaml.ocamllex',
+    'dune',
+    'reason'
+  },
+  root_markers = {
+    { 'dune-project', 'dune-workspace' },
+    { "*.opam", "esy.json", "package.json" },
+    '.git'
+  },
+  settings = {},
+}
+```
+
+Then enable them in the toplevel `init.lua`.
+```lua
+vim.lsp.enable 'ocamllsp'
+```
+
+### Using nvim-lspconfig
+
+Add this to your `nvim-lspconfig` setup.
+```lua
+{
+  'neovim/nvim-lspconfig',
+  config = function()
+    -- rest of config...
+
+    -- add this line specifically for OCaml
+    require('lspconfig').ocamllsp.setup {}
+  end,
+},
+```
+
+There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [here](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.
+
