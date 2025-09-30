@@ -147,7 +147,10 @@ let router t =
   Dream.router
     [
       Dream.get "/.well-known/assetlinks.json"
-        (Dream.from_filesystem "asset/.well-known" "assetlinks.json");
+        (fun _request ->
+          match Ocamlorg_static.Asset.read "assetlinks.json" with
+          | Some content -> Dream.respond ~headers:[("Content-Type", "application/json")] content
+          | None -> Dream.respond ~status:`Not_Found "Not found");
       Redirection.t;
       Dream.get "/conferences/ocaml/**" Handler.v2_asset;
       page_routes t;
