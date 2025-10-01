@@ -37,6 +37,8 @@ let page_routes t =
         Handler.cookbook_recipe;
       Dream.get Url.community Handler.community;
       Dream.get Url.events Handler.events;
+      Dream.get Url.backstage Handler.backstage;
+      Dream.get (Url.backstage_entry ":id") Handler.backstage_entry;
       Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;
       Dream.get (Url.success_story ":id") Handler.success_story;
