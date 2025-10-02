@@ -35,5 +35,4 @@ let () =
   @@ Dream.logger
   @@ Dream.router [
     Dream.get "/" (fun _ -> Dream.html template);
-    Dream.any "/" (fun _ -> Dream.empty `Not_Found);
   ]
