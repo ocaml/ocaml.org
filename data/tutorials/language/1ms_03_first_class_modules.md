@@ -2,168 +2,256 @@
 id: first-class-modules
 title: First-Class Modules
 description: >
-  First-Class Modules permits the use of modules as if they are usual values.
+  First-Class Modules permit the use of modules as ordinary values.
 category: "Module System"
 ---
+
 ## Introduction
 
-This tutorial details how to use first-class modules in a program. This
-can dispense the user of a library to use functors in order to create some
-modules.
+First-class modules let you treat modules as values. You can pass them to functions, return them from functions, and store them in data structures. This provides an alternative to functors for some use cases and can simplify your APIs.
 
-We will use a dummy database driver implementation with functors and first-class modules in this tutorial.
+**Prerequisites**: [Modules](/docs/modules), [Functors](/docs/functors).
 
-**Prerequisites**: [Modules](/docs/modules), [Functors](/doc/functors).
+## Basic Example
 
-## An Example With Functors
-
-Let's suppose we want to have a program that can be used with multiple
-databases. Each database has a specific set of parameters (host, credentials,
-database name...) and a set of functions (prepare query, execute
-query...) which can be implemented differently.
-
-One implementation would be to define a generic module signature and
-provide specific modules, one for each database type. The program can be
-presented like this:
+Here's how to pack a module into a value and unpack it:
 
 ```ocaml
-(* Database library *)
+# module type Printer = sig
+    val print : string -> unit
+  end;;
+module type Printer = sig val print : string -> unit end
 
-module type Database = sig
-  val execute : string -> string list
-end
+# module SimplePrinter = struct
+    let print s = print_endline ("Message: " ^ s)
+  end;;
+module SimplePrinter : sig val print : string -> unit end
 
-module type Postgres_Connection = sig
-  val hostname : string
-  val database_name : string
-end
+# (* Pack a module into a value *)
+  let printer = (module SimplePrinter : Printer);;
+val printer : (module Printer) = <module>
 
-module Postgres(Cnx : Postgres_Connection) : Database = struct
-  let execute query =
-    Printf.printf "[%s@%s] exec %s\n"
-      Cnx.database_name Cnx.hostname query;
-    [ "A dummy result" ]
-end
-
-(* Main program *)
-
-module My_Database =
-  Postgres(struct
-    let hostname = "localhost"
-    let database_name = "dummy"
-  end)
-
-let () =
-  ignore @@ My_Database.execute "SELECT * FROM table"
+# (* Unpack and use it *)
+  let module P = (val printer : Printer) in
+  P.print "Hello";;
+Message: Hello
+- : unit = ()
 ```
 
-Here, we would just have to change the `My_Database` definition 
-to use a database from an other type.
+The expression `(module SimplePrinter : Printer)` converts a module into a value of type `(module Printer)`. The expression `(val printer : Printer)` converts it back. The type annotation can often be omitted when it can be inferred.
 
-We can also define multiple `My_Database` modules if we want our program
-to work simultaneously with multiple databases that may have different drivers.
+## Passing Modules to Functions
 
-## First-Class Modules
-
-In the previous example, we saw that we could have a modular program
-where changing a database would just need a couple lines changed. However,
-the `My_Database` module is only visible from the module where it is declared.
-
-Defining a generic `transaction` function that would send `start`, `commit`,
-and/or `rollback` would also need to access this module. This can't always be practical.
-
-First-class modules can make it possible to call this `transaction` function
-with a module as a parameter. The idea is
-to pass a module as if it was an argument of usual type, then convert 
-the argument back to a module if we want to use its exported values.
-
-We have the following expressions:
+You can write functions that accept modules as parameters:
 
 ```ocaml
-let variable = (module M:ModuleType) in ...
-let module M = (val argument:ModuleType) in ...
+# let print_with (module P : Printer) message =
+    P.print message;;
+val print_with : (module Printer) -> string -> unit = <fun>
+
+# print_with printer "Works!";;
+Message: Works!
+- : unit = ()
 ```
 
-The first expression converts a module into
-a variable of type `(module ModuleType)`. (We can replace `M` with a `struct ... end`
-definition or a functor call).
+The pattern `(module P : Printer)` automatically unpacks the first-class module, making `P` available as a regular module inside the function.
 
-The second expression converts back such a value into a module `M`, which
-can be used in the expression (expression of the form `M.function`).
+## Practical Example: Multiple Implementations
 
-If a function just needs to get a first-class module and uses its exported values,
-we can just declare this function in the following way:
+First-class modules shine when you need to choose between implementations at runtime:
 
 ```ocaml
-let f (module M:ModuleType) =
-  ...
+# module type Database = sig
+    val name : string
+    val execute : string -> string list
+  end;;
+module type Database =
+  sig val name : string val execute : string -> string list end
+
+# let postgres_connect host db_name =
+    (module struct
+      let name = "PostgreSQL"
+      let execute query =
+        Printf.printf "[PostgreSQL] %s\n" query;
+        ["result"]
+    end : Database);;
+val postgres_connect : 'a -> 'b -> (module Database) = <fun>
+
+# let mysql_connect host db_name =
+    (module struct
+      let name = "MySQL"
+      let execute query =
+        Printf.printf "[MySQL] %s\n" query;
+        ["result"]
+    end : Database);;
+val mysql_connect : 'a -> 'b -> (module Database) = <fun>
+
+# let execute (module D : Database) query =
+    Printf.printf "Using %s\n" D.name;
+    D.execute query;;
+val execute : (module Database) -> string -> string list = <fun>
 ```
 
-Then the conversion is implicit and the body of the function can use
-the module `M`.
-
-The following program illustrates the use of first-class modules:
+Now you can choose the database at runtime and store different implementations in data structures:
 
 ```ocaml
-(* Database library *)
+# let db1 = postgres_connect "localhost" "mydb";;
+val db1 : (module Database) = <module>
 
-module type Database = sig
-  val execute : string -> string list
-end
+# let db2 = mysql_connect "localhost" "backup";;
+val db2 : (module Database) = <module>
 
-let postgress_connect _hostname _database_name =
-  (module struct
-    let hostname = _hostname
-    let database_name = _database_name
-    let execute query =
-       Printf.printf "[%s@%s] exec %s\n" database_name hostname query;
-       ["Dummy result"]
-  end:Database)
+# execute db1 "SELECT * FROM users";;
+Using PostgreSQL
+[PostgreSQL] SELECT * FROM users
+- : string list = ["result"]
 
-let execute (module D:Database) query =
-  D.execute query
+# (* Store in a list *)
+  let all_dbs = [db1; db2];;
+val all_dbs : (module Database) list = [<module>; <module>]
 
-(* Main program *)
-
-let () =
-  let database = postgress_connect "localhost" "dummy" in
-  ignore @@ execute database "SELECT * FROM table_a"
+# List.iter (fun db -> ignore (execute db "SELECT 1")) all_dbs;;
+Using PostgreSQL
+[PostgreSQL] SELECT 1
+Using MySQL
+[MySQL] SELECT 1
+- : unit = ()
 ```
 
-The program is a little simpler since we don't have to define a dedicated
-module that contains database connection information, and the programmer
-who has to use the database library can  use it
-without having to call functors directly. The database variable can be used
-as if it had a usual type and passed to any function that needs to use the database.
+## Runtime Selection
 
-Note, we can also define `execute` in the following way:
+A common pattern is selecting an implementation based on configuration:
 
 ```ocaml
-let execute database query =
-  let module D = (val database:Database) in
-  D.execute query
+# type config = { db_type : string; host : string };;
+type config = { db_type : string; host : string; }
+
+# let get_database config =
+    match config.db_type with
+    | "postgres" -> postgres_connect config.host "mydb"
+    | "mysql" -> mysql_connect config.host "mydb"
+    | _ -> failwith "Unknown database type";;
+val get_database : config -> (module Database) = <fun>
+
+# let config = { db_type = "mysql"; host = "localhost" };;
+val config : config = {db_type = "mysql"; host = "localhost"}
+
+# let db = get_database config;;
+val db : (module Database) = <module>
+
+# execute db "SELECT * FROM config";;
+Using MySQL
+[MySQL] SELECT * FROM config
+- : string list = ["result"]
 ```
 
-Here, the `database` argument can be used if we have to call other functions
-that need it as a first-class module argument (let's say a commit/rollback
-function).
+## Using Type Constraints
 
-Remember, OCaml modules can be seen as usual values. The database
-example shows a use with a function argument, but we can also consider a list
-of modules (ex: modules that represent drawable forms).
+When you need to expose the type from a first-class module, use type constraints with `with type`:
 
-## Comparison to Object Programming
+```ocaml
+# module type Comparable = sig
+    type t
+    val compare : t -> t -> int
+  end;;
+module type Comparable = sig type t val compare : t -> t -> int end
 
-First-class modules can be compared with object instances from the object-programming
-paradigm. It has in common:
+# let int_comparable = (module struct
+    type t = int
+    let compare = Int.compare
+  end : Comparable with type t = int);;
+val int_comparable : (module Comparable with type t = int) = <module>
 
-- Encapsulation: the internal variables of the `Postgress` module are not
-  accessible,
-- Polymorphism: the `execute` function can be used with different types
-  of databases and will behave differently.
+# let sort (type a) (module C : Comparable with type t = a) list =
+    List.sort C.compare list;;
+val sort : (module Comparable with type t = 'a) -> 'a list -> 'a list = <fun>
 
-However, the first-class module we have implemented lacks inheritence. It may be
-compared to a Java class that implements a single interface. The `include`
-statement may bring some inheritence features, but imported functions won't call
-overidden functions. Then we can't consider the use of first-class modules as 
-strictly equivent to the oriented object paradigm.
+# sort int_comparable [3; 1; 4; 1; 5];;
+- : int list = [1; 1; 3; 4; 5]
+```
+
+The `(type a)` syntax creates a locally abstract type that connects the module's type `t` with the list elements' type.
+
+## When to Use First-Class Modules
+
+**Use first-class modules when you need to:**
+- Pass different module implementations to the same function
+- Store modules in data structures (lists, hash tables)
+- Choose implementations at runtime based on configuration
+- Build plugin systems
+
+**Use functors when you need to:**
+- Generate many similar modules at compile time
+- Maximize performance (first-class modules have small runtime overhead)
+- Complex module relationships with multiple dependencies
+
+## Common Patterns
+
+### Plugin Registry
+
+```ocaml
+# module type Plugin = sig
+    val name : string
+    val run : unit -> unit
+  end;;
+module type Plugin = sig val name : string val run : unit -> unit end
+
+# let plugins = ref [];;
+val plugins : '_weak1 list ref = {contents = []}
+
+# let register (module P : Plugin) =
+    plugins := (module P : Plugin) :: !plugins;
+    Printf.printf "Registered: %s\n" P.name;;
+val register : (module Plugin) -> unit = <fun>
+
+# register (module struct
+    let name = "Logger"
+    let run () = print_endline "Logging..."
+  end);;
+Registered: Logger
+- : unit = ()
+
+# List.iter (fun (module P : Plugin) -> P.run ()) !plugins;;
+Logging...
+- : unit = ()
+```
+
+### Heterogeneous Collections
+
+```ocaml
+# module type Formatter = sig
+    val format : string -> string
+  end;;
+module type Formatter = sig val format : string -> string end
+
+# let formatters = [
+    ("upper", (module struct let format = String.uppercase_ascii end : Formatter));
+    ("lower", (module struct let format = String.lowercase_ascii end : Formatter));
+  ];;
+val formatters : (string * (module Formatter)) list =
+  [("upper", <module>); ("lower", <module>)]
+
+# let apply name text =
+    match List.assoc_opt name formatters with
+    | Some (module F) -> F.format text
+    | None -> text;;
+val apply : string -> string -> string = <fun>
+
+# apply "upper" "hello";;
+- : string = "HELLO"
+```
+
+## Key Points
+
+- Pack modules with `(module M : ModuleType)`
+- Unpack with `let module M = (val x : ModuleType) in ...`
+- Functions can directly pattern match: `fun (module M : ModuleType) -> ...`
+- Use `with type` constraints to expose abstract types
+- First-class modules enable runtime polymorphism without objects
+- Small runtime overhead compared to functors
+
+## Conclusion
+
+First-class modules let you write flexible code that chooses implementations at runtime. They're particularly useful for plugin systems, configuration-based selection, and when you need to store different module implementations in data structures.
+
+For compile-time module generation and maximum performance, use functors instead.
