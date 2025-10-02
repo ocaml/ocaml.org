@@ -1,59 +1,60 @@
----
-packages:
-- name: "dream"
-  tested_version: "1.0.0~alpha8"
-  used_libraries:
-  - dream
-- name: "base64"
-  tested_version: "3.5.1"
-  used_libraries:
-  - base64
-discussion: |
-  This example uses Dream, a simple and type-safe web framework for OCaml.
----
+(* 
+   ⚠️  WARNING: DO NOT USE THIS IN PRODUCTION! ⚠️
+   
+   This is a DEMONSTRATION ONLY showing basic HTTP authentication concepts.
+   
+   This code has SERIOUS SECURITY FLAWS:
+   - Passwords stored in plain text
+   - No password hashing
+   - Vulnerable to timing attacks
+   - No rate limiting
+   - No HTTPS enforcement
+   - Improper credential validation
+   
+   For production use:
+   - Consult OWASP Authentication Cheat Sheet
+   - Use established authentication frameworks
+   - Implement proper password hashing (bcrypt, argon2)
+   - Use HTTPS only
+   - Consider OAuth 2.0, JWT, or session-based auth
+   - Add rate limiting and account lockout
+   
+   Learn more: https://cheatsheetseries.owasp.org/
+*)
 
-(* This OCaml program uses the `Dream` web framework to run a simple web server with Basic Authentication. It defines a list of mock users and checks incoming HTTP requests for a valid Authorization header. If the credentials (encoded in Base64) match a user in the list, access to the protected `/dashboard` route is granted. Otherwise, the server responds with a `401 Unauthorized` status and a `WWW-Authenticate` header to prompt the browser for login.*)
+(* Simple demo users - NEVER do this in real apps! *)
+let users = [("admin", "password")]
 
-let mock_authorized_users = [
-  ("admin", "password");
-  ("joy", "secret123");
-]
+(* Check if credentials match *)
+let is_valid username password =
+  List.exists (fun (u, p) -> u = username && p = password) users
 
-let check_credentials username password =
-  List.exists (fun (u, p) -> u = username && p = password) mock_authorized_users
-
-let basic_auth_middleware handler request =
+(* Basic auth middleware *)
+let auth_check handler request =
   match Dream.header request "authorization" with
-  | Some auth_header ->
-      let prefix = "Basic " in
-      if String.starts_with ~prefix auth_header then
-        let encoded = String.sub auth_header (String.length prefix) (String.length auth_header - String.length prefix) in
-        match Base64.decode encoded with
-        | Ok credentials ->
-            (match String.split_on_char ':' credentials with
-            | [username; password] ->
-                if check_credentials username password then
-                  handler request
-                else
-                  Dream.respond ~status:`Unauthorized "Invalid username or password"
+  | Some auth ->
+      if String.starts_with ~prefix:"Basic " auth then
+        let encoded = String.sub auth 6 (String.length auth - 6) in
+        (match Base64.decode encoded with
+        | Ok creds ->
+            (match String.split_on_char ':' creds with
+            | [username; password] when is_valid username password ->
+                handler request
             | _ ->
-                Dream.respond ~status:`Bad_Request "Bad credentials")
+                Dream.respond ~status:`Unauthorized "Invalid credentials")
         | Error _ ->
-            Dream.respond ~status:`Bad_Request "Could not decode credentials"
+            Dream.respond ~status:`Bad_Request "Bad encoding")
       else
-        Dream.respond ~status:`Unauthorized "Wrong credentials"
+        Dream.respond ~status:`Unauthorized "Invalid auth header"
   | None ->
       Dream.respond ~status:`Unauthorized
-        ~headers:[("WWW-Authenticate", "Basic realm=\"Access Secret Dashboard\"")]
-        "Authentication required"
+        ~headers:[("WWW-Authenticate", "Basic realm=\"Demo\"")]
+        "Login required"
 
-let protected_route_handler _ =
-  Dream.html "Welcome to the protected Dashboard"
-
+(* Routes *)
 let () =
   Dream.run
-  @@ Dream.logger
   @@ Dream.router [
-    Dream.get "/" (fun _ -> Dream.html "Welcome to the public Home Page");
-    Dream.get "/dashboard" (basic_auth_middleware protected_route_handler);
+    Dream.get "/" (fun _ -> Dream.html "Public page");
+    Dream.get "/secret" (auth_check (fun _ -> Dream.html "Secret page"));
   ]
