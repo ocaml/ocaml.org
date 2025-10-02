@@ -1,0 +1,17 @@
+---
+title: "OCaml Security Team Established"
+tags: [security]
+---
+
+# OCaml Security Team Established
+
+There is now a dedicated security team to handle vulnerability reports and coordinate security responses. If you discover a security issue in the OCaml compiler, runtime, standard library, or package, you can report it confidentially to the team.
+
+- **Report vulnerabilities**: Email security@ocaml.org with details of the issue
+- **Security page**: [ocaml.org/security](https://ocaml.org/security) provides full details on reporting and the team
+- **Security advisories**: Published in the OCaml Security Advisory Database at [ocaml.org/security](https://ocaml.org/security) when issues are disclosed
+- **Announcements**: Subscribe to the security-announce@discuss.ocaml.org mailing list for notifications of new advisories
+
+The security team follows responsible disclosure practices, working with reporters to validate issues, develop fixes, and coordinate public disclosure timelines. This effort also helps OCaml developers and companies comply with emerging security regulations like the EU Cyber Resilience Act.
+
+For more information, see the [announcement on Discuss](https://discuss.ocaml.org/t/ann-ocaml-security-team/16902).
