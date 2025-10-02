@@ -10,6 +10,7 @@ let contact_kind_of_yaml = function
   | `String "email" -> Ok Email
   | `String "discord" -> Ok Discord
   | `String "chat" -> Ok Chat
+  | `String "forum" -> Ok Forum
   | x -> (
       match Yaml.to_string x with
       | Ok str ->
@@ -17,7 +18,7 @@ let contact_kind_of_yaml = function
             (`Msg
               ("\"" ^ str
              ^ "\" is not a valid contact_kind! valid options are: github, \
-                email, discord, chat"))
+                email, discord, chat, forum"))
       | Error _ -> Error (`Msg "Invalid Yaml value"))
 
 let contact_kind_to_yaml = function
@@ -25,6 +26,7 @@ let contact_kind_to_yaml = function
   | Email -> `String "email"
   | Discord -> `String "discord"
   | Chat -> `String "chat"
+  | Forum -> `String "forum"
 
 type contact = [%import: Data_intf.Governance.contact]
 [@@deriving of_yaml, show]
