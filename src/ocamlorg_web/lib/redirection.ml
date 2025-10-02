@@ -252,6 +252,8 @@ let from_v2 =
     ("/docs/platform-users", Url.tool_page "platform-users");
     ("/docs/platform-roadmap", Url.tool_page "platform-roadmap");
     ("/docs/configuring-your-editor", Url.tutorial "set-up-editor");
+    ( "/success-stories/peta-byte-scale-web-crawler",
+      Url.success_story "peta-byte-scale-web-crawling-and-data-processing" );
   ]
 
 let make ?(permanent = false) t =
