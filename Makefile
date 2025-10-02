@@ -29,7 +29,16 @@ test: ## Run the unit tests
 
 .PHONY: clean
 clean: ## Clean build artifacts and other generated files
-	dune clean --root .
+	@if [ -d dune.pkg ]; then \
+		echo "Backing up dune.pkg..."; \
+		mv dune.pkg dune.pkg.bak; \
+		dune clean --root .; \
+		mv dune.pkg.bak dune.pkg; \
+	fi
+
+.PHONY: wipe
+wipe:
+	dune clean root .
 
 .PHONY: doc
 doc: ## Generate odoc documentation
