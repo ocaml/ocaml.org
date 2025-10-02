@@ -88,6 +88,9 @@ teams:
   description: The Platform team is responsible for the development and maintenance
     of the OCaml Platform, the official OCaml developer toolchain.
   contacts:
+  - name: Discuss Forum
+    link: https://discuss.ocaml.org
+    kind: forum
   members:
   - name: Anil Madhavapeddy
     github: avsm

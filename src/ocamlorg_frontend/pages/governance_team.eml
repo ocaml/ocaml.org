@@ -3,6 +3,7 @@ let contact_icon (kind : Data.Governance.contact_kind) = match kind with
   | Email -> Icons.email
   | Discord -> Icons.discord
   | Chat -> Icons.chat
+  | Forum -> Icons.chat
 
 let render_team_member (member : Data.Governance.member) =
   <a href="https://github.com/<%s member.github %>" class="flex gap-x-2 p-4 card dark:dark-card">
