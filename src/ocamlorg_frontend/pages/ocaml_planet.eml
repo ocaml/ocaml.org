@@ -63,7 +63,13 @@ News_layout.single_column_layout
         <div class="col-span-1 lg:flex flex-col p-4 lg:order-2">
           <div class="border-b border-separator_20 dark:border-dark-separator_30 pb-4 mb-4">
             <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">Blog</p>
-            <h1 class="font-bold text-2xl text-title dark:text-dark-title mb-2">The OCaml Planet</h1>
+            <h1 class="font-bold text-2xl text-title dark:text-dark-title mb-2">
+              The OCaml Planet
+              <a href="/planet.xml" class="text-content dark:text-dark-title hover:text-primary dark:hover:text-dark-primary ml-4 lg:ml-6">
+                <span class="sr-only">RSS</span>
+                <%s! Icons.rss "h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10" %>
+              </a>
+            </h1>
             <p class="text-content dark:text-dark-content mb-4">
               Articles and videos contributed by both experts, companies and passionate developers from the OCaml community.
               From in-depth technical articles, project highlights, community news, or insights into Open Source projects,
