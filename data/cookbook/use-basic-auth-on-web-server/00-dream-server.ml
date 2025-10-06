@@ -13,7 +13,7 @@
    
    For production use:
    - Consult OWASP Authentication Cheat Sheet
-   - Use established authentication frameworks
+   - Use established authentication frameworks and schemes (e.g. passwordless, phishing-resistant passkey auth like [WebAuthn](https://ocaml.org/p/webauthn))
    - Implement proper password hashing (bcrypt, argon2)
    - Use HTTPS only
    - Consider OAuth 2.0, JWT, or session-based auth
