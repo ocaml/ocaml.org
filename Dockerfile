@@ -40,7 +40,7 @@ COPY --from=build --link "/root/ocaml.org/package.state" /var/package.state
 COPY --from=build --link "/root/ocaml.org/opam-repository" /var/opam-repository
 COPY --from=build --link "/root/ocaml.org/_build/default/src/ocamlorg_web/bin/main.exe" /bin/server
 
-COPY playground/asset playground/asset
+COPY --link playground/asset playground/asset
 
 RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
 ADD data/v2 /v2
