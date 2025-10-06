@@ -36,9 +36,9 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     gmp \
     libev
 
-COPY --from=build "/root/ocaml.org/package.state" /var/package.state
-COPY --from=build "/root/ocaml.org/opam-repository" /var/opam-repository
-COPY --from=build "/root/ocaml.org/_build/default/src/ocamlorg_web/bin/main.exe" /bin/server
+COPY --from=build --link "/root/ocaml.org/package.state" /var/package.state
+COPY --from=build --link "/root/ocaml.org/opam-repository" /var/opam-repository
+COPY --from=build --link "/root/ocaml.org/_build/default/src/ocamlorg_web/bin/main.exe" /bin/server
 
 COPY playground/asset playground/asset
 
