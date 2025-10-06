@@ -40,7 +40,7 @@
  (target stdlib_path.txt)
  (action
   (with-stdout-to %{target}
-   (run ocamlopt -config-var standard_library))))
+   (echo %{ocaml-config:standard_library}))))
  (rule
   (targets
    (dir stdlib))
