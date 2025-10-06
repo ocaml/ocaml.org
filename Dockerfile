@@ -1,7 +1,7 @@
 FROM alpine:3.21 AS build
 
 # Install system dependencies
-RUN apk -U upgrade --no-cache && apk add --no-cache \
+RUN apk -U upgrade && apk add \
     # to download and install Dune Developer Preview with alpine:3.21
     build-base patch tar ca-certificates git \
        libx11-dev coreutils xz curl bash \
