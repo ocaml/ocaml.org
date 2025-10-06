@@ -1,5 +1,5 @@
 ---
-title: 2.6.0
+title: Opam-publish 2.6.0
 tags:
 - opam-publish
 - platform
