@@ -3,8 +3,6 @@ title: "Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot"
 tags: [ocaml-lsp, platform]
 ---
 
-# Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot
-
 ## TL;DR
 
 `ocaml-eglot` provides full OCaml language support in Emacs through the Language Server Protocol (LSP) instead of direct Merlin integration. It offers the same features as `merlin.el` with simplified setup and enhanced capabilities like project-wide search. If you're starting fresh or want a more standardized approach, try `ocaml-eglot`, which is actively maintained. If your current `merlin.el` setup works well, you can continue using it.

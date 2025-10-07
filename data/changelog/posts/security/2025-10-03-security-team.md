@@ -1,9 +1,7 @@
 ---
-title: "OCaml Security Team Established"
+title: "OCaml Security Response Team Established"
 tags: [security]
 ---
-
-# OCaml Security Response Team Established
 
 There is now a dedicated Security Response Team (SRT) to handle vulnerability reports and coordinate security responses. If you discover a security issue in the OCaml compiler, runtime, standard library, or ecosystem tools, you can report it confidentially to the team.
 
