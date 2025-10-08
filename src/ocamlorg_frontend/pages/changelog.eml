@@ -89,6 +89,12 @@ News_layout.single_column_layout
       <a href="?t=platform" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
         <span class="flex-grow">Platform</span>
       </a>
+      <a href="?t=editors" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
+        <span class="flex-grow">Editor Support</span>
+      </a>
+      <a href="?t=dune" class="group whitespace-nowrap h-12 flex p-3 px-4 items-center bg-white dark:bg-dark-card hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-title drop-shadow hover:drop-shadow-xl border-primary dark:border-dark-primary border-2 rounded-lg text-title dark:text-dark-title text-sm">
+        <span class="flex-grow">Dune</span>
+      </a>
     </div>
   </div>
 </div>
