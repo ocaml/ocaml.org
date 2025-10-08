@@ -1,6 +1,6 @@
 ---
 title: "Emacs Integration for OCaml LSP Server: Introducing ocaml-eglot"
-tags: [ocaml-lsp, platform]
+tags: [ocaml-lsp, platform, editors]
 ---
 
 ## TL;DR

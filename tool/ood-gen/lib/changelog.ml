@@ -75,7 +75,7 @@ let github_project_release_feeds =
     ( "merlin",
       {
         github_feed_url = "https://github.com/ocaml/merlin";
-        tags = [ "merlin"; "platform" ];
+        tags = [ "merlin"; "platform"; "editors" ];
       } );
     ( "ocaml",
       { github_feed_url = "https://github.com/ocaml/ocaml"; tags = [ "ocaml" ] }
@@ -83,7 +83,7 @@ let github_project_release_feeds =
     ( "ocaml-lsp",
       {
         github_feed_url = "https://github.com/ocaml/ocaml-lsp";
-        tags = [ "ocaml-lsp"; "platform" ];
+        tags = [ "ocaml-lsp"; "platform"; "editors" ];
       } );
     ( "ocp-indent",
       {
