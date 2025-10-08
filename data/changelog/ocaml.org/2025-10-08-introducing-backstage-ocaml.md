@@ -3,6 +3,8 @@ title: "OCaml.org: Introducing Backstage OCaml - Separate Feeds for Stable and E
 tags: [ocaml-org]
 ---
 
+You can [comment on this announcement on the OCaml Discuss forums](https://discuss.ocaml.org/t/ocaml-org-introducing-backstage-ocaml-separate-feeds-for-stable-and-experimental-features/17359)!
+
 We're pleased to announce that OCaml.org now has dedicated RSS feeds and pages for stable and experimental announcements, introduced in [PR #3278](https://github.com/ocaml/ocaml.org/pull/3278)!
 
 **What's new:**
