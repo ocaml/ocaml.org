@@ -1,7 +1,7 @@
 ---
 title: "opam 2.0 preview release!"
 authors: [ "Louis Gesbert" ]
-backstage: true
+experimental: true
 tags: [opam, platform]
 ---
 

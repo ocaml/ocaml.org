@@ -100,7 +100,7 @@ let all () =
   let slug_of_t r = match r with Release r -> r.slug | Post p -> p.slug in
   let releases =
     Platform_release.all ()
-    |> List.filter (fun (a : Platform_release.t) -> a.backstage = false)
+    |> List.filter (fun (a : Platform_release.t) -> a.experimental = false)
     |> List.map platform_tools_release_to_release
   in
   let posts = Posts.all () in

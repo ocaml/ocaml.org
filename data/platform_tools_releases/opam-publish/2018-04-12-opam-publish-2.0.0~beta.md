@@ -1,7 +1,7 @@
 ---
 title: Opam-publish 2.0.0~beta
 tags: [opam-publish, platform]
-backstage: true
+experimental: true
 changelog: |
   * Now based on opam 2 libs and intended for publications in the 2.0 format
     (inclusive opam files, etc.)

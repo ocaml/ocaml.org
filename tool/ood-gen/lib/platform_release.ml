@@ -3,7 +3,7 @@ type t = {
   slug : string;
   date : string;
   tags : string list;
-  backstage : bool;
+  experimental : bool;
   changelog_html : string option;
   body_html : string;
   body : string;
@@ -106,7 +106,7 @@ type metadata = {
   contributors : string list option;
   changelog : string option;
   versions : string list option;
-  backstage : bool option;
+  experimental : bool option;
   ignore : bool option;
   github_release_tags : string list option;
 }
@@ -114,7 +114,7 @@ type metadata = {
   yaml,
     stable_record ~version:t ~remove:[ changelog; ignore ]
       ~modify:
-        [ authors; contributors; versions; github_release_tags; backstage ]
+        [ authors; contributors; versions; github_release_tags; experimental ]
       ~add:[ slug; changelog_html; body_html; body; date; project_name ]]
 
 let pp_meta ppf v =
@@ -127,7 +127,7 @@ let of_release_metadata m =
   metadata_to_t m ~modify_authors:(Option.value ~default:[])
     ~modify_contributors:(Option.value ~default:[])
     ~modify_versions:(Option.value ~default:[])
-    ~modify_backstage:(Option.value ~default:false)
+    ~modify_experimental:(Option.value ~default:false)
     ~modify_github_release_tags:(Option.value ~default:[])
 
 let decode (fname, (head, body)) =
@@ -232,7 +232,7 @@ module Scraper = struct
         changelog = None;
         versions = None;
         authors = Some [ author ];
-        backstage = Some false;
+        experimental = Some false;
         ignore = Some false;
         github_release_tags =
           (match

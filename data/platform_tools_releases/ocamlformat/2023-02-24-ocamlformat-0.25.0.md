@@ -60,7 +60,7 @@ changelog: |
     *   New value `vertical` for option `break-cases` ([#2176](https://github.com/ocaml-ppx/ocamlformat/pull/2176), [@gpetiot](https://github.com/gpetiot))
     *   New value `wrap-or-vertical` for option `break-infix` that only wraps high precedence infix ops ([#1865](https://github.com/ocaml-ppx/ocamlformat/pull/1865), [@gpetiot](https://github.com/gpetiot))
 versions:
-backstage: false
+experimental: false
 ignore: false
 github_release_tags:
 - 0.25.0

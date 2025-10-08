@@ -1,7 +1,7 @@
 ---
 title: "OPAM 1.1.0 release candidate out"
 authors: [ "Louis Gesbert" ]
-backstage: true
+experimental: true
 tags: [opam, platform]
 changelog: |
    Too many to list here, see
