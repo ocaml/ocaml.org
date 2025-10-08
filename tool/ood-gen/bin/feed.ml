@@ -3,7 +3,8 @@ open Ood_gen
 
 let term_templates =
   [
-    ("changelog", Changelog.ChangelogFeed.create_feed);
+    ("backstage", Backstage.Feed.create_feed);
+    ("changelog", Changelog.Feed.create_feed);
     ("events", Event.EventsFeed.create_feed);
     ("news", News.RssFeed.create_feed);
     ("planet", Planet.GlobalFeed.create_feed);

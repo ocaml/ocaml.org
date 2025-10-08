@@ -5,7 +5,7 @@ let term_scrapers =
   [
     ("planet", Blog.Scraper.scrape);
     ("video", Video.scrape);
-    ("platform_releases", Changelog.Scraper.scrape_platform_releases);
+    ("platform_releases", Platform_release.Scraper.scrape_platform_releases);
   ]
 
 let cmds =

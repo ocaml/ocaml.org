@@ -256,6 +256,38 @@ let from_v2 =
       Url.success_story "peta-byte-scale-web-crawling-and-data-processing" );
   ]
 
+let changelog_to_backstage =
+  List.map
+    (fun slug -> ("/changelog/" ^ slug, Url.backstage_entry slug))
+    [
+      "2024-08-26-closing-on-public-beta";
+      "2024-09-25-call-for-feedback";
+      "2024-10-29-shell-completions-in-dune-developer-preview";
+      "2024-11-15-installing-developer-tools-with-dune";
+      "2025-05-19-portable-lock-directories-for-dune-package-management";
+      "2025-06-05-portable-external-dependencies-for-dune-package-management";
+      "2022-11-04-relocating-ocaml-org";
+      "2022-11-08-tarsnap-backups";
+      "2023-02-27-watch-ocaml-org";
+      "2023-03-09-moving-opam-ocaml-org";
+      "2023-03-10-opam-repository-mingw";
+      "2023-03-17-opam-ci-ocaml-org";
+      "2023-04-06-maintenance-operations";
+      "2023-04-25-updated-images";
+      "2023-04-26-check-ci-ocaml-org";
+      "2023-05-05-opam-repo-ci";
+      "2023-06-09-grafana-changes";
+      "2023-06-15-opam-repo-ci-ocaml-ci";
+      "2023-06-28-upgrading-linux-distros";
+      "2023-08-08-freebsd-testing";
+      "2023-09-21-more-freebsd-news";
+      "2023-11-09-macos-sonoma";
+      "2023-12-04-relocate-services";
+      "2024-10-02-updates";
+      "2025-03-24-recent-ocaml-versions";
+      "2025-03-26-freebsd-14.2";
+    ]
+
 let make ?(permanent = false) t =
   let status = if permanent then `Moved_Permanently else `See_Other in
   Dream.scope ""
@@ -281,6 +313,7 @@ let t =
       make ~permanent:true [ ("feed.xml", "planet.xml") ];
       make ~permanent:true from_v2;
       make ~permanent:true v2_assets;
+      make ~permanent:true changelog_to_backstage;
       make ~permanent:true [ ("/blog", "/ocaml-planet") ];
       make ~permanent:true [ ("/opportunities", "/jobs") ];
       make ~permanent:true

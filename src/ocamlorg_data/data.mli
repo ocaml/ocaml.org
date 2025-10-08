@@ -22,6 +22,13 @@ module Book : sig
   val get_by_slug : string -> t option
 end
 
+module Backstage : sig
+  include module type of Backstage
+
+  val all : t list
+  val get_by_slug : string -> t option
+end
+
 module Changelog : sig
   include module type of Changelog
 
