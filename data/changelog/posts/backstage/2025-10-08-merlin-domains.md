@@ -4,8 +4,6 @@ title: "Backstage OCaml: You Can Try the Experimental Branch of Merlin That Uses
 tags: [experimental, merlin, platform, editors]
 ---
 
-# You Can Try the Experimental Branch of Merlin That Uses Domains and Effects
-
 The Merlin team is excited to share that you can now try out an experimental branch of Merlin that leverages OCaml 5's domains and effects! This is Merlin-domains, and we'd love for you to test it and share your feedback.
 
 ## What is Merlin-domains?
