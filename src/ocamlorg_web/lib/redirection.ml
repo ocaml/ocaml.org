@@ -286,6 +286,7 @@ let changelog_to_backstage =
       "2024-10-02-updates";
       "2025-03-24-recent-ocaml-versions";
       "2025-03-26-freebsd-14.2";
+      "2025-10-08-merlin-domains";
     ]
 
 let make ?(permanent = false) t =
