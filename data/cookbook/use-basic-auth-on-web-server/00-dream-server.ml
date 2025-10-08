@@ -1,3 +1,17 @@
+---
+packages:
+- name: "dream"
+  tested_version: "1.0.0~alpha8"
+  used_libraries:
+  - dream
+- name: "base64"
+  tested_version: "3.5.1"
+  used_libraries:
+  - base64
+discussion: |
+  This example uses Dream, a simple and type-safe web framework for OCaml.
+---
+
 (* 
    ⚠️  WARNING: DO NOT USE THIS IN PRODUCTION! ⚠️
    
