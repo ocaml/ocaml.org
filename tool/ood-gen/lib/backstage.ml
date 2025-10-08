@@ -154,7 +154,7 @@ module Feed = struct
     let open Rss in
     () |> all
     |> create_entries ~create_entry ~days:365
-    |> entries_to_feed ~id:"backstage.xml" ~title:"Backstage"
+    |> entries_to_feed ~id:"backstage.xml" ~title:"Backstage OCaml"
     |> feed_to_string
 end
 
