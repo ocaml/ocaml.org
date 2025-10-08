@@ -1,7 +1,7 @@
 ---
 title: "Backstage OCaml: You Can Try the Experimental Branch of Merlin That Uses Domains and Effects
 "
-tags: [experimental, merlin, platform]
+tags: [experimental, merlin, platform, editors]
 ---
 
 # You Can Try the Experimental Branch of Merlin That Uses Domains and Effects
@@ -10,7 +10,9 @@ The Merlin team is excited to share that you can now try out an experimental bra
 
 ## What is Merlin-domains?
 
-Merlin-domains is an experimental branch that uses domains and effects to interrupt the typing process at the right moment when an analysis request comes in. As a reminder, Merlin is the editor service that powers OCaml's IDE features—if you're using the OCaml Platform extension with VS Code or ocaml-eglot with Emacs, you're already using Merlin under the hood through OCaml LSP Server.
+Merlin-domains is an experimental branch that uses domains and effects to implement two optimisations to improve performance in large buffers: partial typing and cancellation.
+
+As a reminder, Merlin is the editor service that powers OCaml's IDE features—if you're using the OCaml Platform extension with VS Code or ocaml-eglot with Emacs, you're already using Merlin under the hood through OCaml LSP Server.
 
 ## Why This Matters
 
