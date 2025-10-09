@@ -11,7 +11,9 @@ Traditional formal verification delivers strong correctness guarantees but requi
 
 [Gospel](https://ocaml-gospel.github.io/gospel/) provides a non-invasive syntax for annotating OCaml interfaces with formal contracts in special comments beginning with `@`, describing type invariants, mutability, pre-conditions, post-conditions, and exceptions. The specifications use logical models to represent abstract types—for example, modeling a queue as a mathematical sequence to specify how operations transform its contents.
 
-## The Verification Toolkit
+## Status of Gospel and its Toolkit
+
+**[Gospel language](https://github.com/ocaml-gospel/gospel)** (experimental, major changes coming) is preparing a release with significant breaking changes. Early adopters should expect the language to evolve and should not expect bug fixes in the current version.
 
 Gospel's tool-agnostic design powers an ecosystem of verification tools at different maturity levels:
 
@@ -24,8 +26,6 @@ Gospel's tool-agnostic design powers an ecosystem of verification tools at diffe
 **[Cameleer](https://github.com/ocaml-gospel/cameleer)** (working toward first release) translates Gospel into [Why3](https://why3.lri.fr/) for deductive verification using automated theorem provers.
 
 **[Peter](https://github.com/ocaml-gospel/peter)** (ongoing research) explores separation logic verification through [CFML](https://gitlab.inria.fr/charguer/cfml) integration with [Coq](https://coq.inria.fr/) for complex heap manipulation proofs.
-
-**[Gospel language](https://github.com/ocaml-gospel/gospel)** (experimental, major changes coming) is preparing a release with significant breaking changes. Early adopters should expect the language to evolve and should not expect bug fixes in the current version.
 
 ## Open Source Infrastructure Strategy
 
