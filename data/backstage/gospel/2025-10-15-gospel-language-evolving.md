@@ -55,14 +55,6 @@ The [VOCaL (Verified OCaml Library)](https://github.com/vocal-project/vocal) pro
 
 ## What to Expect
 
-**Gospel language**: Major breaking changes coming. Not recommended for production use until the new release stabilizes. Bugs in the current version likely won't be fixed.
-
-**Ortac/QCheck-STM**: Ready to try. Has found real bugs in established libraries. Practical for CI integration.
-
-**Ortac/Wrapper**: Released but not yet battle-tested. Feedback welcome.
-
-**Proof tools (Cameleer, Peter)**: Under active development, not yet released.
-
 The verification infrastructure is already useful for testing — bugs are being found, specifications provide value as documentation. Work on establishing the path from testing to formal proofs is ongoing, but the proof tools aren't ready for general use yet.
 
 ## Learn More
