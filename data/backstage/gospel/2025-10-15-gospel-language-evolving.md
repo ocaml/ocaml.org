@@ -70,7 +70,7 @@ The verification infrastructure is already useful for testing — bugs are being
 The ecosystem is open source and actively developed. Explore the [Gospel GitHub organization](https://github.com/ocaml-gospel), or review research papers:
 - [GOSPEL — Providing OCaml with a Formal Specification Language](https://inria.hal.science/hal-02157484/file/final.pdf) (FM 2019)
 - [Static and Dynamic Verification of OCaml Programs: The Gospel Ecosystem](https://arxiv.org/pdf/2407.17289) (ISoLA 2024)
-- [Dynamic Verification of OCaml Software with Gospel and Ortac/QCheck-STM](https://hal.science/hal-05073121v1/document) (TACAS 2025)
+- [Dynamic Verification of OCaml Software with Gospel and Ortac/QCheck-STM](https://hal.science/hal-05073121v1/document) (TACAS 2025, [Best Tool Paper award from ETAPS](https://etaps.org/awards/best-paper/))
 
 For teams interested in specification-driven testing, Ortac/QCheck-STM is ready to try. For those interested in formal proofs or stable Gospel language features, watch the project but expect it will be some time before these are production-ready.
 
