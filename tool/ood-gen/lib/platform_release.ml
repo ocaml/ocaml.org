@@ -11,6 +11,7 @@ type t = {
   contributors : string list;
   project_name : string;
   versions : string list;
+  released_on_github_by : string option;
   github_release_tags : string list;
 }
 [@@deriving of_yaml, show]
@@ -108,6 +109,7 @@ type metadata = {
   versions : string list option;
   experimental : bool option;
   ignore : bool option;
+  released_on_github_by : string option;
   github_release_tags : string list option;
 }
 [@@deriving
@@ -223,7 +225,7 @@ module Scraper = struct
       ^ project ^ "-" ^ github_tag ^ "-draft.md"
     in
     let content = River.content post in
-    let author = River.author post in
+    let released_on_github_by = Some (River.author post) in
     let metadata : metadata =
       {
         title;
@@ -231,9 +233,10 @@ module Scraper = struct
         contributors = None;
         changelog = None;
         versions = None;
-        authors = Some [ author ];
+        authors = Some [];
         experimental = Some false;
         ignore = Some false;
+        released_on_github_by;
         github_release_tags =
           (match
              List.filter_map (fun (a : string option) -> a) github_release_tags
