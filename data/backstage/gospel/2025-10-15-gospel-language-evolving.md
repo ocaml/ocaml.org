@@ -7,7 +7,9 @@ tags: [gospel, platform]
 
 ## Making Formal Methods Accessible
 
-Traditional formal verification delivers strong correctness guarantees but requires significant expertise and resources. Gospel's vision is different: one specification language that will eventually support multiple verification strategies, from lightweight runtime testing to full mathematical proofs. While the testing tools are available today, the proof tools are still under development.
+Traditionally, formal verification delivers strong correctness guarantees but requires significant expertise and resources. Gospel's vision is different: one specification language that will eventually support multiple verification strategies, from lightweight runtime testing to full mathematical proofs. While the testing tools are available today, the proof tools are still under development.
+
+This approach follows a successful pattern established in other language ecosystems. [ACSL (ANSI/ISO C Specification Language)](https://frama-c.com/acsl.html) provides a behavioral specification language for C programs that supports multiple verification tools including Frama-C, while [JML (Java Modeling Language)](https://www.cs.ucf.edu/~leavens/JML/index.shtml) offers a unified specification language for Java that can be used for runtime assertion checking, static analysis, and theorem proving. Similarly, Eiffel pioneered the concept of design by contract with specifications embedded directly in the programming language. Gospel brings this proven strategy to OCaml.
 
 [Gospel](https://ocaml-gospel.github.io/gospel/) provides a non-invasive syntax for annotating OCaml interfaces with formal contracts in special comments beginning with `@`, describing type invariants, mutability, pre-conditions, post-conditions, and exceptions. The specifications use logical models to represent abstract types—for example, modeling a queue as a mathematical sequence to specify how operations transform its contents.
 
