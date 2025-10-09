@@ -40,7 +40,7 @@ The [OCaml Platform roadmap](https://ocaml.org/tools/platform-roadmap#w22-formal
 ## Try Ortac/QCheck-STM Today
 
 Install via opam:
-```
+```shell
 opam install ortac-qcheck-stm
 ```
 
@@ -74,4 +74,4 @@ The ecosystem is open source and actively developed. Explore the [Gospel GitHub 
 
 For teams interested in specification-driven testing, Ortac/QCheck-STM is ready to try. For those interested in formal proofs or stable Gospel language features, watch the project but expect it will be some time before these are production-ready.
 
-*Contact: @n-osborne | Get started: [Ortac Tutorial](https://tarides.com/blog/2025-09-10-dynamic-formal-verification-in-ocaml-an-ortac-qcheck-stm-tutorial/) | Documentation: [Gospel docs](https://ocaml-gospel.github.io/gospel/)*
+*Contact: [@n-osborne](mailto:nicolas.osborne@tarides.com) | Get started: [Ortac Tutorial](https://tarides.com/blog/2025-09-10-dynamic-formal-verification-in-ocaml-an-ortac-qcheck-stm-tutorial/) | Documentation: [Gospel docs](https://ocaml-gospel.github.io/gospel/)*
