@@ -221,8 +221,8 @@ module Scraper = struct
       (*|> Option.value ~default:"MISSING"*)
     in
     let output_file =
-      "data/platform_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-"
-      ^ project ^ "-" ^ github_tag ^ "-draft.md"
+      "data/platform_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
+      ^ "-" ^ github_tag ^ "-draft.md"
     in
     let content = River.content post in
     let released_on_github_by = Some (River.author post) in
