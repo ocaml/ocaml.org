@@ -285,7 +285,7 @@ As part of the [OCaml Changelog page](https://ocaml.org/changelog) and the [Back
 
 To contribute OCaml Platform Tools release notes:
 
-1. Create a new Markdown file in the `data/platform_tools_releases/` directory.
+1. Create a new Markdown file in the `data/platform_releases/` directory.
 2. Use a clear, descriptive filename (e.g., `2025-02-03-dune-release-2.1.0.md`).
 3. Include relevant metadata at the top of the file (title, tags, etc.).
 4. Submit a pull request with your new file.
