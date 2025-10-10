@@ -175,7 +175,7 @@ let decode (fname, (head, body)) =
     metadata
 
 let all () =
-  Utils.map_md_files decode "platform_tools_releases/*/*.md"
+  Utils.map_md_files decode "platform_releases/*/*.md"
   |> List.sort (fun (a : t) b -> String.compare b.slug a.slug)
 
 module Scraper = struct
@@ -221,7 +221,7 @@ module Scraper = struct
       (*|> Option.value ~default:"MISSING"*)
     in
     let output_file =
-      "data/platform_tools_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-"
+      "data/platform_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-"
       ^ project ^ "-" ^ github_tag ^ "-draft.md"
     in
     let content = River.content post in
