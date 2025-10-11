@@ -14,6 +14,7 @@ type sidebar_data = {
 }
 
 let sidebar
+~toc
 ~(sidebar_data: sidebar_data)
 ~specific_version
 ~version
@@ -45,6 +46,9 @@ let render_user_list (users: Data.Opam_user.t list) =
     <% ) else (); %>
   </div>
 in
+  <div class="xl:hidden mb-6 xl:mb-0">
+  <%s! Toc.render toc %>
+  </div>
   <div class="text-base text-content dark:text-dark-content mb-6">
     <%s package.synopsis %>
   </div>
@@ -136,9 +140,11 @@ type dependencies_and_conflicts = {
 let right_sidebar
 ~toc
 =
-  <div class="pt-6">
-    <%s! Toc.render toc %>
-  </div>
+    <div class="pt-6">
+      <div class="hidden xl:flex top-0 sticky h-screen flex-col w-60 overflow-auto md:pb-24">
+        <%s! Toc.render toc %>
+      </div>
+    </div>
 
 let render
 ~(sidebar_data: sidebar_data)
@@ -192,7 +198,7 @@ let render
   ~package
   ~documentation_status:sidebar_data.documentation_status
   ~path:(Overview None)
-  ~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
+  ~left_sidebar_html:(sidebar ~toc ~sidebar_data ~specific_version ~version package)
   ~right_sidebar_html:(right_sidebar ~toc) @@
   <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
       <div class="flex-1 max-w-full">
@@ -258,7 +264,7 @@ Package_layout.render
 ~package
 ~documentation_status:sidebar_data.documentation_status
 ~path:(Overview (Some content_title))
-~left_sidebar_html:(sidebar ~sidebar_data ~specific_version ~version package)
+~left_sidebar_html:(sidebar ~toc ~sidebar_data ~specific_version ~version package)
 ~right_sidebar_html:(right_sidebar ~toc) @@
   <div class="flex md:gap-6 xl:gap-12 flex-col md:flex-row justify-between">
       <div class="flex-1 max-w-full">
