@@ -2,9 +2,9 @@
 
 # Advancing the `opam-repository` pin
 
-OCaml.org's dependencies are fixed through pinning `opam-repository` in the `dune-workspace` files, and in the `Dockerfile`. To update the repository pin,
+OCaml.org's dependencies are fixed through pinning `opam-repository` in the `dune-workspace` files. To update the repository pin,
 
-1. change the commit hash in the main `dune-workspace` file, `dune-workspace` file of the playground, and in the `Dockerfile`
+1. change the commit hash in the main `dune-workspace` file, `dune-workspace` file of the playground
 2. delete the `dune.lock/` directory
 3. build the project
 4. make it very obvious in the PR updating the opam-repository pin that contributors need to re-run `dune pkg lock` and be aware that contributors may need to be told to do this
