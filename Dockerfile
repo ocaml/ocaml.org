@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM alpine:3.21 AS build
+FROM alpine:3.22 AS build
 
 # Install system dependencies
 RUN apk -U upgrade && apk add \
