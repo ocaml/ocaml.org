@@ -28,7 +28,7 @@ jobs:
       - name: Setup Dune
         uses: ocaml-dune/setup-dune@v1
         with:
-          version: latest
+          version: 3.20.1
 
       - name: Checkout Repo
         uses: actions/checkout@v5
