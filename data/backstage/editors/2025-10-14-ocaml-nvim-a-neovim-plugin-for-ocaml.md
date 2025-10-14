@@ -4,7 +4,7 @@ title: "Backstage OCaml: ocaml.nvim - A Neovim Plugin for OCaml
 tags: [experimental, ocaml-lsp, platform, editors]
 ---
 
-Discuss this post on [discuss](https://discuss.ocaml.org/TODO-insert-link)!
+Discuss this post on [discuss](https://discuss.ocaml.org/t/ann-backstage-ocaml-ocaml-nvim-a-neovim-plugin-for-ocaml/17383)!
 
 We're excited to announce **ocaml.nvim**, a new Neovim plugin actively being developed by Tarides that brings advanced OCaml development features to Neovim users. Think of it as the Neovim sibling of [ocaml-eglot](https://github.com/tarides/ocaml-eglot), which we released earlier this year for Emacs users.
 
@@ -44,4 +44,4 @@ The plugin complements your existing LSP setup—you'll continue to use Neovim's
 
 The ocaml.nvim repository is now public on [GitHub](https://github.com/tarides/ocaml.nvim), with comprehensive documentation, a feature table, and screencast demonstrations. We're working towards a stable 1.0 release and welcome feedback from the community.
 
-Try out `ocaml.nvim` and let us know what you think! For questions or feedback, reach out to Charlène Gros at charlene@tarides.com, join the discussion on the [OCaml Discuss forum](https://discuss.ocaml.org), or post an issue on the [ocaml.nvim GitHub repository](https://github.com/tarides/ocaml.nvim).
+Try out `ocaml.nvim` and let us know what you think! For questions or feedback, reach out to Charlène Gros at charlene@tarides.com, join the discussion on the [OCaml Discuss forum](https://discuss.ocaml.org/t/ann-backstage-ocaml-ocaml-nvim-a-neovim-plugin-for-ocaml/17383), or post an issue on the [ocaml.nvim GitHub repository](https://github.com/tarides/ocaml.nvim).
