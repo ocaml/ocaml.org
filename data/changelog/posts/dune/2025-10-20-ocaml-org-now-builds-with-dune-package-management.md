@@ -1,5 +1,5 @@
 ---
-title: "OCaml.org Now Relies on Dune Package Management"
+title: "OCaml.org Now Builds With Dune Package Management"
 tags: [dune, ocaml-org]
 authors: ["Sabine Schmaltz", "Leandro Ostera", "Sudha Parimala"]
 ---
