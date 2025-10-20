@@ -6,7 +6,7 @@
 !tool/
 !dune
 !dune-project
-!ocamlorg.opam
+!dune-workspace
 !tailwind.config.js
 !init-cache
 !.git

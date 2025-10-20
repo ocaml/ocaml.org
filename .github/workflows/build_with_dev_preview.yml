@@ -1,11 +1,14 @@
-name: Debug CI
+name: Build OCaml.org Using Dune Developer Preview
 
 on:
   workflow_dispatch:
+  schedule:
+    # Run every day
+    - cron: 36 5 * * *
 
 jobs:
   build:
-    name: Dev and Debug Workflows
+    name: Build OCaml.org Using Dune Developer Preview
 
     runs-on: ${{ matrix.os }}
 
@@ -25,10 +28,8 @@ jobs:
         run: brew update && brew reinstall libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
         if: runner.os == 'macOS'
 
-      - name: Setup Dune
+      - name: Setup Dune Developer Preview
         uses: ocaml-dune/setup-dune@v1
-        with:
-          version: 3.20.1
 
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -38,7 +39,3 @@ jobs:
 
       - name: Run tests
         run: make test
-
-      - name: Format code
-        run: make fmt
-        if: runner.os == 'Linux'
