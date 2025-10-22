@@ -1,6 +1,6 @@
 ---
 id: "bytecode-target"
-short_title: "Compilation Targets: Bytecode"
+short_title: "Bytecode"
 title: "Compilation Targets: Bytecode"
 description: "Compile OCaml to portable bytecode with ocamlc. Fast compilation, excellent portability, and easy debugging for OCaml development and production."
 category: "Compilation Targets"

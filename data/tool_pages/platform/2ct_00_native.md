@@ -1,7 +1,7 @@
 ---
 id: "native-target"
-short_title: "Compilation Targets: Native Code"
-title: "Compilation Targets: Native Code"
+short_title: "Native"
+title: "Compilation Targets: Native"
 description: "Compile OCaml to high-performance native code with ocamlopt. Maximum runtime performance with optimized machine code for production deployments."
 category: "Compilation Targets"
 ---

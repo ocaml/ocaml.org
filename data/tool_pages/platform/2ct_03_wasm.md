@@ -1,6 +1,6 @@
 ---
 id: "wasm-target"
-short_title: "Compilation Targets: WASM"
+short_title: "WebAssembly"
 title: "Compilation Targets: WebAssembly"
 description: "Compile OCaml to WebAssembly with wasm_of_ocaml and Wasocaml. Build high-performance applications for browsers, servers, and edge computing with Wasm."
 category: "Compilation Targets"
