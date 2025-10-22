@@ -6,8 +6,6 @@ description: "Compile OCaml to specialized unikernel targets using MirageOS. Cre
 category: "Compilation Targets"
 ---
 
-# Unikernel Targets
-
 OCaml can compile to specialized unikernel targets through [MirageOS](https://mirage.io), a library operating system that creates secure, high-performance single-purpose applications.
 
 ## What are Unikernels?
