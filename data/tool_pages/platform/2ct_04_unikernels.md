@@ -1,6 +1,6 @@
 ---
 id: "unikernel-target"
-short_title: "Compilation Targets: Unikernels"
+short_title: "Unikernels"
 title: "Compilation Targets: Unikernels"
 description: "Compile OCaml to specialized unikernel targets using MirageOS. Create minimal, fast-booting applications for hvt, virtio, Xen, and more with reduced attack surfaces."
 category: "Compilation Targets"

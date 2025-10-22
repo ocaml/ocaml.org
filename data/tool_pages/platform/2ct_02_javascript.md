@@ -1,6 +1,6 @@
 ---
 id: "javascript-target"
-short_title: "Compilation Targets: JavaScript"
+short_title: "JavaScript"
 title: "Compilation Targets: JavaScript"
 description: "Compile OCaml to JavaScript with Js_of_ocaml and Melange. Build type-safe web applications that run in browsers and Node.js with high performance."
 category: "Compilation Targets"
