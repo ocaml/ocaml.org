@@ -40,33 +40,6 @@ The bytecode compiler produces several types of files:
 - **.cma** - Bytecode library archive (collection of .cmo files)
 - **executable** - Bytecode executable (often with no extension or .byte extension)
 
-## Getting Started
-
-To get started with OCaml bytecode compilation, visit the [OCaml Manual: Batch Compilation (ocamlc)](https://ocaml.org/manual/latest/comp.html). This comprehensive guide covers:
-
-- Compiling OCaml source files to bytecode
-- Linking bytecode object files into executables
-- Creating and using bytecode libraries
-- Compiler command-line options and flags
-- Separate compilation for larger projects
-
-For information on running bytecode programs and configuring the runtime system, see the [OCaml Manual: Runtime System (ocamlrun)](https://ocaml.org/manual/latest/runtime.html).
-
-## Debugging
-
-The bytecode compiler includes excellent debugging support. Compile with the `-g` flag to include debugging information, which enables:
-- Stack backtraces for uncaught exceptions
-- Use of the OCaml debugger (ocamldebug)
-- Better error reporting
-
-Learn more in the [OCaml Manual: The Debugger](https://ocaml.org/manual/latest/debugger.html).
-
-## Custom Runtime Mode
-
-For standalone executables that don't require ocamlrun to be installed separately, OCaml supports custom runtime mode. This bundles the runtime system with your bytecode in a single executable file.
-
-Details can be found in the [OCaml Manual: Batch Compilation](https://ocaml.org/manual/latest/comp.html) under the `-custom` flag documentation.
-
 ## Learn More
 
 - [OCaml Manual: Batch Compilation](https://ocaml.org/manual/latest/comp.html) - Complete reference for ocamlc
