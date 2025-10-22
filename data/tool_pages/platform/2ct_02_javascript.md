@@ -22,6 +22,8 @@ OCaml can compile to JavaScript, enabling you to write type-safe, high-performan
 
 Js_of_ocaml is ideal when you want to leverage existing OCaml code in web applications or need access to the complete OCaml ecosystem.
 
+**Getting started:** Visit the [Js_of_ocaml documentation](https://ocsigen.org/js_of_ocaml/latest/manual/overview) to learn how to install and set up Js_of_ocaml, compile your first OCaml program to JavaScript, interact with JavaScript APIs and the DOM, and integrate with web applications.
+
 ### Melange
 
 [Melange](https://melange.re) compiles OCaml and Reason to JavaScript with a focus on JavaScript ecosystem integration. It provides:
@@ -34,31 +36,13 @@ Js_of_ocaml is ideal when you want to leverage existing OCaml code in web applic
 
 Melange is ideal when you're building JavaScript-first applications and want seamless integration with the JavaScript ecosystem.
 
+**Getting started:** Visit the [Melange documentation](https://melange.re/v5.0.0/) to learn how to set up a Melange project, bind to JavaScript libraries, build web applications with Melange, and integrate with existing JavaScript tooling.
+
 ## Choosing a Tool
 
 **Use Js_of_ocaml** when you have existing OCaml code you want to run in the browser, need the full OCaml standard library, or want to use OCaml-native libraries.
 
 **Use Melange** when you're building web applications that need to integrate tightly with JavaScript libraries, want readable JavaScript output, or need excellent TypeScript compatibility.
-
-## Getting Started
-
-### Js_of_ocaml
-
-Visit the [Js_of_ocaml documentation](https://ocsigen.org/js_of_ocaml/latest/manual/overview) to learn how to:
-
-- Install and set up Js_of_ocaml
-- Compile your first OCaml program to JavaScript
-- Interact with JavaScript APIs and the DOM
-- Integrate with web applications
-
-### Melange
-
-Visit the [Melange documentation](https://melange.re/v5.0.0/) to learn how to:
-
-- Set up a Melange project
-- Bind to JavaScript libraries
-- Build web applications with Melange
-- Integrate with existing JavaScript tooling
 
 ## Learn More
 
