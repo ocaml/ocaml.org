@@ -1,4 +1,17 @@
 - title: Hacking OCaml
+  url: https://www.youtube.com/watch/HVE9WWC0hbQ?version=3
+  thumbnail: https://i1.ytimg.com/vi/HVE9WWC0hbQ/hqdefault.jpg
+  description: 'This talk breaks down a CTF puzzle Corwin de Zahr designed a few years
+    back that involves finding problems and vulnerabilities within the OCaml runtime.
+
+
+    Read the full transcript here: https://www.janestreet.com/tech-talks/hacking-ocaml/'
+  published: 2025-10-24T16:24:04+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
+- title: Hacking OCaml
   url: https://www.youtube.com/watch/SV9Vna-Qgo8?version=3
   thumbnail: https://i4.ytimg.com/vi/SV9Vna-Qgo8/hqdefault.jpg
   description: 'This talk breaks down a CTF puzzle Corwin de Zahr designed a few years
