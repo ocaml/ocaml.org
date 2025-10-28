@@ -18,7 +18,7 @@ why_ocaml_reasons:
 
 [Ahrefs](https://ahrefs.com/) is a Singapore-based SaaS company that provides SEO tools and marketing intelligence powered by big data. Since 2011, they've built their business around OCaml, using it for web crawling and data processing to serve thousands of customers worldwide. Today, they're trusted by 44% of Fortune 500 companies and operate as a lean, self-funded organization focused on efficiency.
 
-By 2017, Ahrefs had built a successful SEO tools business powered by OCaml on the backend, but they faced a bottleneck in web application development. Their frontend was built with PHP and jQuery while their data processing lived in OCaml. Every time frontend developers needed backend data, they had to coordinate with backend engineers to update the APIs. 
+By 2017, Ahrefs had built a successful SEO tools business powered by OCaml on the backend, but they faced a bottleneck in web application development. Their frontend was built with PHP and jQuery while their data processing lived in OCaml. Every time frontend developers needed backend data, they had to coordinate with backend engineers to update the APIs.
 
 The JavaScript tooling used in 2017 for the frontend of the web application was lacking compared to today's TypeScript ecosystem. With BuckleScript and Reason appearing around the same time, they saw an opportunity to use OCaml on both the backend and frontend of their web application.
 
@@ -28,7 +28,7 @@ The challenge was both technical and cultural. Could they transition the entire 
 
 After adopting Reason/BuckleScript around 2017-2020 and migrating to **[Melange](https://melange.re/)** in 2023, Ahrefs has achieved a full stack web development setup around OCaml.
 
-Now, any engineer in the company can contribute across the entire web application. Thanks to shared types between backend and frontend, coordination overhead is greatly reduced. 
+Now, any engineer in the company can contribute across the entire web application. Thanks to shared types between backend and frontend, coordination overhead is greatly reduced.
 
 Today, their public-facing web application belongs to the same OCaml codebase that powers their backend systems. The web application serving **44% of Fortune 500 companies** handles around **500 billion HTTP requests on the backend** and **5 billion HTTP requests on the frontend**, every day.
 
@@ -62,8 +62,8 @@ Integration with their existing data infrastructure (**[ClickHouse](https://clic
 
 Ahrefs contributes actively to the full-stack OCaml ecosystem, sharing tools that benefit the broader community:
 
-- **[styled-ppx](https://github.com/davesnx/styled-ppx):** Type-safe styled components for ReScript, Melange and native with type-safe CSS 
-- **[server-reason-react](https://github.com/ml-in-barcelona/server-reason-react):** Native implementation of React's Server-side rendering (SSR) and React Server Components (RSC) architecture for Reason 
-- **[melange-recharts](https://github.com/ahrefs/melange-recharts):** Production-ready charting components for data visualization applications.
-- **[melange-json](https://github.com/melange-community/melange-json):** Streamlined JSON handling for frontend applications.
-- **[ocaml-mlx/mlx](https://github.com/ocaml-mlx/mlx):** OCaml `.mlx` syntax dialect which adds JSX syntax expressions 
+* **[styled-ppx](https://github.com/davesnx/styled-ppx):** Type-safe styled components for ReScript, Melange and native with type-safe CSS
+* **[server-reason-react](https://github.com/ml-in-barcelona/server-reason-react):** Native implementation of React's Server-side rendering (SSR) and React Server Components (RSC) architecture for Reason
+* **[melange-recharts](https://github.com/ahrefs/melange-recharts):** Production-ready charting components for data visualization applications.
+* **[melange-json](https://github.com/melange-community/melange-json):** Streamlined JSON handling for frontend applications.
+* **[ocaml-mlx/mlx](https://github.com/ocaml-mlx/mlx):** OCaml `.mlx` syntax dialect which adds JSX syntax expressions
