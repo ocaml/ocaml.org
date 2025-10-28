@@ -50,7 +50,7 @@ The repository maintains quality through several key policies, documented in the
 
 **Dependency Constraints**: The repository discourages overly strict version constraints (using `=` or `<=`) as they make package combination difficult and worsen the user experience. Instead, packages should use reasonable upper bounds and allow opam's solver to find compatible combinations.
 
-**Maintenance Requirements**: Packages must be actively maintained for modern OCaml versions. There is a [compiler cutoff threshold](https://github.com/ocaml/opam-repository/blob/master/governance/policies/archiving.md#compiler-cutoff-threshold) (at time of writing, OCaml 4.08), which will be increased as newer releases become available. Packages that don't support recent compiler versions may be archived.
+**Maintenance Requirements**: Packages must be actively maintained for modern OCaml versions. There is a [compiler cutoff threshold](https://github.com/ocaml/opam-repository/blob/master/governance/policies/archiving.md#compiler-cutoff-threshold), which will be increased as newer releases become available. Packages that don't support recent compiler versions may be archived.
 
 ### The Archiving Process
 
