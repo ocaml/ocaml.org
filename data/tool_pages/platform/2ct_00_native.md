@@ -33,6 +33,9 @@ The native-code compiler is available only on 64-bit systems (OCaml 5.0+):
 - **ARM64 (AArch64)** - Linux, macOS (including Apple Silicon)
 - **RISC-V** - Linux
 - **IBM Z (s390x)** - Linux (OCaml 5.1+)
+- **PowerPC (PPC64)** - Linux
+
+All native code platforms use **63-bit integers** (with 1 bit reserved for the garbage collector tag).
 
 **Windows:** Native compilation is supported via MSVC, MinGW, or Cygwin toolchains. See [OCaml on Windows](https://ocaml.org/docs/ocaml-on-windows) for setup details.
 

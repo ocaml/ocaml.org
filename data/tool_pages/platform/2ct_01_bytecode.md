@@ -23,6 +23,8 @@ Bytecode provides several advantages over native compilation:
 - Predictable and consistent execution behavior
 - Easier debugging with built-in tools
 
+The bytecode compiler can be built in either 32-bit or 64-bit mode, resulting in **31-bit or 63-bit integers**, respectively (with 1 bit reserved for the garbage collector tag).
+
 ## When to Use Bytecode
 
 **Use bytecode** when you want fast compilation during development, need maximum portability, or are targeting platforms without a native code compiler.

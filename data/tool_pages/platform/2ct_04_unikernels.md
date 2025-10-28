@@ -6,7 +6,7 @@ description: "Compile OCaml to specialized unikernel targets using MirageOS. Cre
 category: "Compilation Targets"
 ---
 
-OCaml can compile to specialized unikernel targets through [MirageOS](https://mirage.io), a library operating system that creates secure, high-performance single-purpose applications.
+OCaml can compile to specialized unikernel targets through [MirageOS](https://mirage.io), a library operating system that creates secure, single-purpose applications.
 
 ## What are Unikernels?
 
@@ -27,15 +27,18 @@ MirageOS supports compilation to several unikernel backends:
 
 [Solo5](https://github.com/Solo5/solo5) is a sandboxed execution environment that provides multiple deployment options:
 
-- **hvt** (Hardware Virtualized Tender) - Runs on KVM/Linux and bhyve/FreeBSD with minimal overhead
+- **hvt** (Hardware Virtualized Tender) - Runs on KVM/Linux, bhyve/FreeBSD, and vmm/OpenBSD with minimal overhead
 - **spt** (Sandboxed Process Tender) - Runs as a regular Unix process with seccomp sandboxing on Linux
 - **virtio** - Runs on standard virtio-based hypervisors including QEMU/KVM, Google Compute Engine, and OpenStack
 - **muen** - Runs on the Muen Separation Kernel
-- **genode** - Runs on the Genode OS framework
-
-### Xen
-
 - **xen** - Runs on the Xen hypervisor as a paravirtualized guest (PVHv2 mode)
+
+### Unikraft Targets
+
+[Unikraft](https://unikraft.org) is a general Unikernel Development Kit that can be used as a MirageOS backend:
+
+- **unikraft-qemu** - Runs on the [QEMU](https://www.qemu.org/) virtual machine monitor
+- **unikraft-firecracker** - Runs on the [Firecracker](https://firecracker-microvm.github.io/) virtual machine monitor
 
 ### Unix
 
@@ -45,13 +48,15 @@ MirageOS supports compilation to several unikernel backends:
 
 **Use Unix** when you're developing and testing your unikernel locally.
 
-**Use hvt** when you want lightweight virtualization on Linux or FreeBSD with KVM or bhyve.
+**Use hvt** when you want lightweight virtualization on Linux, FreeBSD, or OpenBSD with KVM, bhyve, or vmm.
 
 **Use virtio** when deploying to cloud providers like Google Compute Engine, or standard KVM/QEMU setups.
 
 **Use spt** when you want process-level isolation on Linux without full virtualization.
 
 **Use Xen** when deploying to Xen-based infrastructure or cloud providers that support Xen.
+
+**Use Unikraft targets** when you want to use the Unikraft unikernel framework with QEMU or Firecracker.
 
 ## Getting Started
 

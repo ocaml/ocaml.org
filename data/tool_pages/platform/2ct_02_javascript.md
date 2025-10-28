@@ -17,8 +17,11 @@ OCaml can compile to JavaScript, enabling you to write type-safe, high-performan
 - Excellent performance with compact output
 - Strong integration with existing JavaScript libraries
 - Access to browser APIs and DOM manipulation
-- Support for the full OCaml language, including advanced features
+- Support for the full OCaml language, including OCaml 5 effects
 - Compatibility with most OCaml libraries and the standard library
+- **32-bit integers** (JavaScript's bit operations are 32-bit)
+
+**Note:** While Js_of_ocaml supports OCaml 5 effects, it has limited support for Domains (multicore parallelism).
 
 Js_of_ocaml is ideal when you want to leverage existing OCaml code in web applications or need access to the complete OCaml ecosystem.
 
