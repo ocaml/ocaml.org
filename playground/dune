@@ -47,4 +47,4 @@
   (mode
    (promote (until-clean)))
   (action
-   (run ../gen_stdlib.sh %{read:stdlib_path.txt}))))
+   (run ../gen_stdlib.sh %{bin:jsoo_listunits} %{read:stdlib_path.txt}))))

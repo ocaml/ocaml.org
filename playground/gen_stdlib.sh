@@ -3,8 +3,9 @@
 mkdir -p stdlib
 
 tmpfile=$(mktemp)
-srcdir=$1
-jsoo_listunits -o $tmpfile stdlib
+jsoo_listunits=$1
+srcdir=$2
+$jsoo_listunits -o $tmpfile stdlib
 for i in $(cat $tmpfile); do
   cp $srcdir/?${i#?}.cmi stdlib/ 
 done
