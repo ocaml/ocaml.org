@@ -17,33 +17,20 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        ocaml-compiler:
-          - "5.2.0"
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v3
+      - name: Setup Dune
+        uses: ocaml-dune/setup-dune@v1
         with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: ${{ matrix.os != 'macos-latest' }}
-          opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f
-          opam-disable-sandboxing: true
+          version: latest
 
       - name: Install system dependencies
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
 
-      - name: Install opam dependencies
-        run: opam install --deps-only --with-test .
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-      - name: Build scraper
-        run: |
-          opam exec -- dune build tool/ood-gen/bin/scrape.exe
-
-      - name: Run scrapers
+      - name: Run scraper
         run: |
           make scrape_platform_releases
 

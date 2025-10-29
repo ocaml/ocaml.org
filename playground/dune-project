@@ -1,4 +1,4 @@
-(lang dune 3.0)
+(lang dune 3.19)
 
 (using directory-targets 0.1)
 
@@ -22,8 +22,6 @@
 
 (maintainers "Thibaut Mattio" "Patrick Ferris")
 
-(generate_opam_files true)
-
 (using mdx 0.1)
 
 (package
@@ -34,7 +32,7 @@
  (allow_empty)
  (depends
   (ocaml
-   (>= 5.0.0))
+   (= 5.0.0))
   (brr
    (>= 0.0.6))
   esbuild

@@ -1,0 +1,5 @@
+# Dune artifacts
+_build/
+dune.lock
+
+stdlib_path.txt

@@ -15,22 +15,8 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
-        ocaml-compiler:
-          - "5.2.0"
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v5
-
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: ${{ matrix.os != 'macos-latest' }}
-          opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f
-          opam-disable-sandboxing: true
-
       - name: Install system dependencies (Linux)
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
         if: runner.os == 'Linux'
@@ -39,18 +25,20 @@ jobs:
         run: brew update && brew reinstall libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
         if: runner.os == 'macOS'
 
-      - name: Install opam dependencies
-        run: opam install --deps-only --with-test .
+      - name: Setup Dune
+        uses: ocaml-dune/setup-dune@v1
+        with:
+          version: latest
 
-      - name: Install ocamlformat
-        run: opam install ocamlformat.0.26.2
+      - name: Checkout Repo
+        uses: actions/checkout@v5
 
       - name: Build project
-        run: opam exec -- dune build @install
+        run: make
 
       - name: Run tests
-        run: opam exec -- dune test
+        run: make test
 
       - name: Format code
-        run: opam exec -- dune build --auto-promote @fmt
+        run: make fmt
         if: runner.os == 'Linux'

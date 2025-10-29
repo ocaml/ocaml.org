@@ -1,0 +1,36 @@
+(lang dune 3.19)
+
+(repository
+ (name pinned_opam_repository)
+ (url git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f))
+
+(repository (name pinned_overlay_repository) (url git+https://github.com/ocaml-dune/opam-overlays#2a9543286ff0e0656058fee5c0da7abc16b8717d))
+
+(pin
+(name esbuild)
+ (url "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb")
+ (package
+  (name esbuild)))
+
+(pin
+(name code-mirror)
+ (url "git+https://github.com/patricoferris/jsoo-code-mirror#8fe48910e265ff87f9fc94ceb7b3d19fac102a96")
+ (package
+  (name code-mirror)))
+
+(pin
+(name merlin-js)
+ (url "git+https://github.com/sudha247/merlin-js#exp")
+ (package
+  (name merlin-js)))
+
+(pin
+(name js-top-worker)
+ (url "git+https://github.com/tmattio/js_top_worker#6110d50db0ce8577e6d662fa06d5ae9cc0c95ea1")
+ (package
+  (name js-top-worker)))
+
+(lock_dir
+  (repositories pinned_opam_repository pinned_overlay_repository)
+  (pins esbuild code-mirror merlin-js js-top-worker)
+   (version_preference newest))
