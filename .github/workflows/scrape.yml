@@ -22,7 +22,7 @@ jobs:
       - name: Setup Dune
         uses: ocaml-dune/setup-dune@v1
         with:
-          version: 3.20.1
+          version: latest
 
       - name: Install system dependencies
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
