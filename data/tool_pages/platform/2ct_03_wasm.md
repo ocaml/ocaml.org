@@ -34,34 +34,31 @@ wasm_of_ocaml is ideal when you want to leverage existing OCaml code with WebAss
 
 Visit the [wasm_of_ocaml documentation](https://github.com/ocsigen/js_of_ocaml/blob/master/README_wasm_of_ocaml.md) in the Js_of_ocaml repository to learn how to install and set up wasm_of_ocaml, compile OCaml programs to WebAssembly, interact with JavaScript APIs from WASM, and deploy WASM modules in web applications.
 
-### Wasocaml
+### Wasocaml (Experimental)
 
-[Wasocaml](https://github.com/OCamlPro/wasocaml) is an OCaml compiler that targets WebAssembly GC (WASM-GC). Developed by OCamlPro, it provides:
+[Wasocaml](https://github.com/OCamlPro/wasocaml) is an experimental OCaml compiler developed by OCamlPro that targets WebAssembly GC (WASM-GC). As a research project exploring direct compilation to WASM-GC, it provides:
 - Direct compilation from OCaml's Flambda intermediate representation to WASM-GC
 - Native WebAssembly garbage collection support
 - Optimized performance through the Flambda optimizer
 - Support for functional programming language features in WebAssembly
-- First real-world functional language compiler targeting WASM-GC
 - **31-bit integers** (similar to traditional OCaml bytecode on 32-bit systems)
 
-**Note:** Wasocaml is based on OCaml 4.14 and does not currently support OCaml 5 effects or multicore features.
+**Important limitations:** Wasocaml is based on OCaml 4.14 and does not currently support OCaml 5 effects or multicore features. As an experimental project, it should be considered for research and experimentation rather than production use.
 
-Wasocaml is ideal when you need direct compilation to WebAssembly with garbage collection support and want to benefit from Flambda optimizations.
-
-Visit the [Wasocaml repository](https://github.com/OCamlPro/wasocaml) and [OCamlPro's blog posts](https://ocamlpro.com/blog/2022_12_14_wasm_and_ocaml/) to learn how to install the Wasocaml compiler switch, compile OCaml programs to WASM-GC, understand the compilation process and optimizations, and deploy to WebAssembly runtimes.
+Visit the [Wasocaml repository](https://github.com/OCamlPro/wasocaml) to learn how to install the Wasocaml compiler switch and explore its experimental features.
 
 ## Choosing a Tool
 
-**Use wasm_of_ocaml** when you want to run existing OCaml bytecode in WebAssembly environments, need compatibility with Js_of_ocaml web bindings, or want a mature toolchain similar to Js_of_ocaml.
+**Use wasm_of_ocaml** for most WebAssembly projects. It provides a mature toolchain for running existing OCaml bytecode in WebAssembly environments, with compatibility with Js_of_ocaml web bindings and OCaml 5 support.
 
-**Use Wasocaml** when you need direct compilation with Flambda optimizations, want to target the WebAssembly GC proposal, or are building performance-critical applications.
+**Explore Wasocaml** if you're interested in experimental approaches to WebAssembly compilation or researching direct compilation to WASM-GC, keeping in mind its current limitations and experimental status.
 
 ## Learn More
 
+- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
 - [ocaml-wasm Organization](https://github.com/ocaml-wasm) - Coordination hub for OCaml WebAssembly efforts
 - [WebAssembly.org](https://webassembly.org/) - WebAssembly specification and documentation
 - [WASM-GC Proposal](https://github.com/WebAssembly/gc) - Garbage Collection proposal for WebAssembly
-- [OCamlPro WASM Blog Posts](https://ocamlpro.com/blog/tags/wasm/) - Technical deep dives on Wasocaml
 
 ## Community
 
