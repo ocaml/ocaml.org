@@ -124,7 +124,7 @@ Currently, Dune package management doesn't support symlinks, so we removed the o
 
 A similar issue relating to symlinks exists with `ocamlbuild` and `ocamlfind`; however, both packages already have patched versions compatible with Dune package management and available at [ocaml-dune/opam-overlays](https://github.com/ocaml-dune/opam-overlays).
 
-For the main OCaml.org workspace, we added the overlays repository and listed both repositories within the `lock_dir` Dune stanza:
+So, we added the overlays repository to both the main and playground `dune-workspace` files and listed both repositories within the `lock_dir` Dune stanza:
 
 ```lisp
 ...
@@ -139,21 +139,9 @@ For the main OCaml.org workspace, we added the overlays repository and listed bo
 )
 ```
 
-For the playground, which needs specific versions of `ocamlbuild` and `ocamlfind`, we directly pin these packages to their patched versions:
+This way, the patched dependencies `ocamlbuild` and `ocamlfind` are automatically picked up by Dune's solver when creating the `dune.lock` directory.
 
-```lisp
-(pin
- (name ocamlbuild)
- (url "https://github.com/gridbugs/ocamlbuild/archive/refs/tags/0.16.1+dune.tar.gz")
- (package (name ocamlbuild)))
-
-(pin
- (name ocamlfind)
- (url "https://github.com/Leonidas-from-XIV/ocamlfind/releases/download/findlib-1.9.6%2Bdune/findlib-1.9.6+dune.tar.gz")
- (package (name ocamlfind)))
-```
-
-**Note**: the overlay is part of the standard repositories and only necessary to explicitly add to the main workspace because we need to use a pinned revision.
+**Note**: the overlay is part of the standard repositories and only necessary to explicitly add here because we need to use a pinned revision in our workspace.
 
 ### Updating GitHub Actions to Use Dune Package Management
 

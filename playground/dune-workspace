@@ -4,6 +4,8 @@
  (name pinned_opam_repository)
  (url git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f))
 
+(repository (name pinned_overlay_repository) (url git+https://github.com/ocaml-dune/opam-overlays#2a9543286ff0e0656058fee5c0da7abc16b8717d))
+
 (pin
 (name esbuild)
  (url "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb")
@@ -28,21 +30,7 @@
  (package
   (name js-top-worker)))
 
-; workaround: temporary pin for ocamlbuild, to be removed when ocamlbuild works with dune pkg
-(pin
-(name ocamlbuild)
- (url "https://github.com/gridbugs/ocamlbuild/archive/refs/tags/0.16.1+dune.tar.gz")
- (package
-  (name ocamlbuild)))
-
-; workaround: temporary pin as for ocamlfind, to be removed when ocamlfind works with dune pkg
-(pin
-(name ocamlfind)
- (url "https://github.com/Leonidas-from-XIV/ocamlfind/releases/download/findlib-1.9.6%2Bdune/findlib-1.9.6+dune.tar.gz")
- (package
-  (name ocamlfind)))
-
 (lock_dir
-  (repositories pinned_opam_repository)
-  (pins esbuild code-mirror merlin-js js-top-worker ocamlbuild ocamlfind)
+  (repositories pinned_opam_repository pinned_overlay_repository)
+  (pins esbuild code-mirror merlin-js js-top-worker)
    (version_preference newest))
