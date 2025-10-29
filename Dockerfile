@@ -18,8 +18,8 @@ RUN curl -fsSL https://github.com/ocaml-dune/dune-bin-install/releases/download/
 RUN dune --version
 
 # Build project
+COPY --chown=root --link . "/root/ocaml.org"
 WORKDIR "/root/ocaml.org"
-COPY --chown=root . .
 RUN ls
 
 RUN dune pkg lock
@@ -32,7 +32,7 @@ RUN touch package.state && ./init-cache package.state
 
 FROM alpine:3.21
 
-RUN apk -U upgrade --no-cache && apk add --no-cache \
+RUN apk -U upgrade && apk add \
     git \
     gmp \
     libev
