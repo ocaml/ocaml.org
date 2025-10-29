@@ -66,9 +66,9 @@ Every package submission undergoes human review in addition to automated testing
 
 ### Current Maintainer Team
 
-The repository is maintained by a dedicated team of volunteers who review every package submission. Kate Deplaix (kit-ty-kate) was the primary opam-repository maintainer from 2017 to 2024. Her contribution was instrumental in maintaining the repository's quality and establishing many of the current processes and documentation. She is now contributing to the opam tool itself.
+The repository is maintained by a dedicated team of volunteers who review every package submission. The current active maintainers are listed in the [governance documentation](https://github.com/ocaml/opam-repository/tree/master/governance). 
 
-The current active maintainers are listed in the [governance documentation](https://github.com/ocaml/opam-repository/tree/master/governance).
+We extend our heartfelt gratitude to all the maintainers, past and present, for their tireless volunteer work. They review every package submission with care, uphold quality standards, provide guidance to contributors, and ensure the opam-repository remains a reliable foundation for the entire OCaml ecosystem. Their dedication is essential to the health and continued growth of our community, and we deeply appreciate their contributions.
 
 ### Community Involvement
 
