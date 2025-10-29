@@ -3,7 +3,7 @@ FROM alpine:3.22 AS build
 
 # Install system dependencies
 RUN apk -U upgrade && apk add \
-    # to download and install Dune Developer Preview with alpine:3.21
+    # to download and install Dune with alpine:3.22
     build-base patch tar ca-certificates git \
        libx11-dev coreutils xz curl bash \
     autoconf \
