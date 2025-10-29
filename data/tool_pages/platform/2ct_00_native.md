@@ -43,6 +43,7 @@ If your target platform lacks native code support, the bytecode compiler provide
 
 ## Learn More
 
+- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
 - [OCaml Manual: Native-code Compilation](https://ocaml.org/manual/latest/native.html) - Complete ocamlopt reference
 - [Using the OCaml Compiler Toolchain](https://ocaml.org/docs/using-the-ocaml-compiler-toolchain) - Practical compilation guide
 - [The Compiler Backend: Bytecode and Native code](https://ocaml.org/docs/compiler-backend) - Deep dive into compilation internals

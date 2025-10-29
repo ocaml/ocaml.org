@@ -49,6 +49,7 @@ Melange is ideal when you're building JavaScript-first applications and want sea
 
 ## Learn More
 
+- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
 - [Js_of_ocaml Manual](https://ocsigen.org/js_of_ocaml/latest/manual/overview) - Comprehensive guide and API reference
 - [Melange Playground](https://melange.re/v5.0.0/playground/) - Try Melange in your browser
 - [OCaml for Web Development](https://ocaml.org/docs/web-development) - Overview of web development with OCaml

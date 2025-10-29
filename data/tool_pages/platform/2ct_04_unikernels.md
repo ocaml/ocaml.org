@@ -69,6 +69,7 @@ To start building unikernels with OCaml, visit the [MirageOS Getting Started Gui
 
 ## Learn More
 
+- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
 - [MirageOS Documentation](https://mirage.io/docs/) - Comprehensive guides and tutorials
 - [MirageOS Blog](https://mirage.io/blog/) - Updates and advanced topics
 - [Solo5 Documentation](https://github.com/Solo5/solo5) - Details on Solo5 targets and deployment

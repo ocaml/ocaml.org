@@ -44,6 +44,7 @@ The bytecode compiler produces several types of files:
 
 ## Learn More
 
+- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
 - [OCaml Manual: Batch Compilation](https://ocaml.org/manual/latest/comp.html) - Complete reference for ocamlc
 - [OCaml Manual: Runtime System](https://ocaml.org/manual/latest/runtime.html) - Details on ocamlrun and bytecode execution
 - [Compiler Backend Documentation](https://ocaml.org/docs/compiler-backend) - How the OCaml compiler works
