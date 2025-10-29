@@ -124,7 +124,7 @@ Currently, Dune package management doesn't support symlinks, so we removed the o
 
 A similar issue relating to symlinks exists with `ocamlbuild` and `ocamlfind`; however, both packages already have patched versions compatible with Dune package management and available at [ocaml-dune/opam-overlays](https://github.com/ocaml-dune/opam-overlays).
 
-So, we added the overlays repository to the `dune-workspace` files and listed both repositories within the `lock_dir` Dune stanza:
+For the main OCaml.org workspace, we added the overlays repository and listed both repositories within the `lock_dir` Dune stanza:
 
 ```lisp
 ...
@@ -139,9 +139,21 @@ So, we added the overlays repository to the `dune-workspace` files and listed bo
 )
 ```
 
-This way, the patched dependencies `ocamlbuild` and `ocamlfind` are picked up by Dune's solver when creating the `dune.lock` directory.
+For the playground, which needs specific versions of `ocamlbuild` and `ocamlfind`, we directly pin these packages to their patched versions:
 
-**Note**: the overlay is part of the standard repositories and only necessary to explicitly add here because we need to use a pinned revision in our workspace.
+```lisp
+(pin
+ (name ocamlbuild)
+ (url "https://github.com/gridbugs/ocamlbuild/archive/refs/tags/0.16.1+dune.tar.gz")
+ (package (name ocamlbuild)))
+
+(pin
+ (name ocamlfind)
+ (url "https://github.com/Leonidas-from-XIV/ocamlfind/releases/download/findlib-1.9.6%2Bdune/findlib-1.9.6+dune.tar.gz")
+ (package (name ocamlfind)))
+```
+
+**Note**: the overlay is part of the standard repositories and only necessary to explicitly add to the main workspace because we need to use a pinned revision.
 
 ### Updating GitHub Actions to Use Dune Package Management
 
@@ -153,7 +165,7 @@ Besides migrating to Dune Package Management, we simplified the configuration in
 
 For the playground to load the Standard Library in the browser via the generated .js bundle, we need the relevant `.cmi` files. Previously, we were using the `opam var ocaml:lib` command to discover the location from the compiler build artifacts, and we copied them to the `asset/` folder of the playground.
 
-To replicate this behavior with Dune Package Management, we invoke the OCaml compiler itself to tell us the path where we can find these `.cmi` files, by invoking `ocamlopt -config-var standard_library` through Dune Package Management from inside the [playground's dune file](https://github.com/ocaml/ocaml.org/blob/main/playground/dune).
+To replicate this behavior with Dune Package Management, we use Dune's built-in `%{ocaml-config:standard_library}` variable to get the path where we can find these `.cmi` files, as shown in the [playground's dune file](https://github.com/ocaml/ocaml.org/blob/main/playground/dune).
 
 ## Migration Complete: What Contributors Need to Know
 
