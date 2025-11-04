@@ -39,11 +39,11 @@ Visit the [wasm_of_ocaml documentation](https://github.com/ocsigen/js_of_ocaml/b
 [Wasocaml](https://github.com/OCamlPro/wasocaml) is an experimental OCaml compiler developed by OCamlPro that targets WebAssembly GC (WASM-GC). As a research project exploring direct compilation to WASM-GC, it provides:
 - Direct compilation from OCaml's Flambda intermediate representation to WASM-GC
 - Native WebAssembly garbage collection support
-- Optimized performance through the Flambda optimizer
+- Optimised performance through the Flambda optimiser
 - Support for functional programming language features in WebAssembly
 - **31-bit integers** (similar to traditional OCaml bytecode on 32-bit systems)
 
-**Important limitations:** Wasocaml is based on OCaml 4.14 and does not currently support OCaml 5 effects or multicore features. As an experimental project, it should be considered for research and experimentation rather than production use.
+**Important limitations:** Wasocaml is based on OCaml 4.14 and does not currently support OCaml 5 effects or multicore features. As an experimental project, it should be considered for research and experimentation rather than for use in production.
 
 Visit the [Wasocaml repository](https://github.com/OCamlPro/wasocaml) to learn how to install the Wasocaml compiler switch and explore its experimental features.
 
@@ -56,7 +56,7 @@ Visit the [Wasocaml repository](https://github.com/OCamlPro/wasocaml) to learn h
 ## Learn More
 
 - [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
-- [ocaml-wasm Organization](https://github.com/ocaml-wasm) - Coordination hub for OCaml WebAssembly efforts
+- [ocaml-wasm Organisation](https://github.com/ocaml-wasm) - Coordination hub for OCaml WebAssembly efforts
 - [WebAssembly.org](https://webassembly.org/) - WebAssembly specification and documentation
 - [WASM-GC Proposal](https://github.com/WebAssembly/gc) - Garbage Collection proposal for WebAssembly
 

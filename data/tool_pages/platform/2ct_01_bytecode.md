@@ -14,13 +14,13 @@ OCaml bytecode is a portable intermediate representation of OCaml programs that 
 
 - **ocamlc** - The bytecode compiler that compiles OCaml source files to bytecode
 - **ocamlrun** - The bytecode interpreter that executes bytecode programs
-- **Runtime system** - Includes the bytecode interpreter, garbage collector, and C primitive operations
+- **Runtime system** - Includes the bytecode interpreter, garbage collector, and primitive C operations
 
 Bytecode provides several advantages over native compilation:
 - Fast compilation speed
 - Portability across all platforms where OCaml is installed
 - Smaller compiler footprint
-- Predictable and consistent execution behavior
+- Predictable and consistent execution behaviour
 - Easier debugging with built-in tools
 
 The bytecode compiler can be built in either 32-bit or 64-bit mode, resulting in **31-bit or 63-bit integers**, respectively (with 1 bit reserved for the garbage collector tag).

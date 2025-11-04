@@ -2,22 +2,22 @@
 id: "unikernel-target"
 short_title: "Unikernels"
 title: "Compilation Targets: Unikernels"
-description: "Compile OCaml to specialized unikernel targets using MirageOS. Create minimal, fast-booting applications for hvt, virtio, Xen, and more with reduced attack surfaces."
+description: "Compile OCaml to specialised unikernel targets using MirageOS. Create minimal, fast-booting applications for hvt, virtio, Xen, and more with reduced attack surfaces."
 category: "Compilation Targets"
 ---
 
-OCaml can compile to specialized unikernel targets through [MirageOS](https://mirage.io), a library operating system that creates secure, single-purpose applications.
+OCaml can compile to specialised unikernel targets through [MirageOS](https://mirage.io), a library operating system that creates secure, single-purpose applications.
 
 ## What are Unikernels?
 
-Unikernels are specialized, single-purpose virtual machine images that bundle your application with only the minimal OS functionality it needs. Unlike traditional applications that run on general-purpose operating systems, unikernels:
+Unikernels are specialised, single-purpose virtual machine images that bundle your application with only the minimal OS functionality it needs. Unlike traditional applications that run on general-purpose operating systems, unikernels:
 
 - Include only the necessary OS components, resulting in tiny footprints (often just a few megabytes)
 - Boot in milliseconds
 - Have reduced attack surfaces due to minimal code
-- Run directly on hypervisors or specialized monitor layers
+- Run directly on hypervisors or specialised monitor layers
 
-MirageOS lets you write OCaml applications once and deploy them as unikernels to different virtualization platforms.
+MirageOS lets you write OCaml applications once and deploy them as unikernels to different virtualisation platforms.
 
 ## Available Targets
 
@@ -31,7 +31,7 @@ MirageOS supports compilation to several unikernel backends:
 - **spt** (Sandboxed Process Tender) - Runs as a regular Unix process with seccomp sandboxing on Linux
 - **virtio** - Runs on standard virtio-based hypervisors including QEMU/KVM, Google Compute Engine, and OpenStack
 - **muen** - Runs on the Muen Separation Kernel
-- **xen** - Runs on the Xen hypervisor as a paravirtualized guest (PVHv2 mode)
+- **xen** - Runs on the Xen hypervisor as a paravirtualised guest (PVHv2 mode)
 
 ### Unikraft Targets
 
@@ -48,11 +48,11 @@ MirageOS supports compilation to several unikernel backends:
 
 **Use Unix** when you're developing and testing your unikernel locally.
 
-**Use hvt** when you want lightweight virtualization on Linux, FreeBSD, or OpenBSD with KVM, bhyve, or vmm.
+**Use hvt** when you want lightweight virtualisation on Linux, FreeBSD, or OpenBSD with KVM, bhyve, or vmm.
 
 **Use virtio** when deploying to cloud providers like Google Compute Engine, or standard KVM/QEMU setups.
 
-**Use spt** when you want process-level isolation on Linux without full virtualization.
+**Use spt** when you want process-level isolation on Linux without full virtualisation.
 
 **Use Xen** when deploying to Xen-based infrastructure or cloud providers that support Xen.
 

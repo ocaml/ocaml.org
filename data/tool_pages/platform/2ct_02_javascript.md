@@ -34,7 +34,7 @@ Js_of_ocaml is ideal when you want to leverage existing OCaml code in web applic
 - Idiomatic JavaScript output designed for readability
 - Deep integration with NPM packages and JavaScript tooling
 - Excellent TypeScript interoperability
-- Optimized bundle sizes for modern web applications
+- Optimised bundle sizes for modern web applications
 - Support for React and modern frontend frameworks
 
 Melange is ideal when you're building JavaScript-first applications and want seamless integration with the JavaScript ecosystem.
