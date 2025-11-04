@@ -68,11 +68,17 @@ When maintainers indicate they're no longer supporting certain versions or stepp
 
 Every package submission undergoes human review in addition to automated testing. Maintainers check for compliance with repository policies, verify licensing information, assess package utility, and ensure proper dependency declarations. This human oversight is crucial for maintaining the repository's curation standards.
 
-### Current Maintainer Team
+### Maintainer Team and Acknowledgments
 
-The repository is maintained by a dedicated team of volunteers who review every package submission. The current active maintainers are listed in the [governance documentation](https://github.com/ocaml/opam-repository/tree/master/governance). 
+The repository is maintained by a dedicated team of volunteers who review every package submission. The current active maintainers are listed in the [governance documentation](https://github.com/ocaml/opam-repository/tree/master/governance).
 
-We extend our heartfelt gratitude to all the maintainers, past and present, for their tireless volunteer work. They review every package submission with care, uphold quality standards, provide guidance to contributors, and ensure the opam-repository remains a reliable foundation for the entire OCaml ecosystem. Their dedication is essential to the health and continued growth of our community, and we deeply appreciate their contributions.
+The opam-repository has benefited from the contributions of many dedicated individuals over the years. Since its inception, Anil Madhavapeddy, Thomas Gazagnaire, and Jeremy Yallop established the foundations of the repository and its processes. Kate Deplaix (kit-ty-kate) served as the primary maintainer from 2017 to 2024, during which time she established many of the current processes, comprehensive documentation, and quality standards. She now contributes to the opam tool itself.
+
+Today's active maintenance team includes Marcello Seri, Shon Feder, Raphaël Proust, Hannes Mehnert, and Jan Midtgaard, who review submissions and ensure the repository's continued quality. The CI infrastructure is maintained by Mark Elvers, whose work keeps the testing systems running smoothly—a laborious but essential task.
+
+Beyond package review, Hannes Mehnert has been working on initiatives like [Conex](https://hannes.robur.coop/Posts/Conex) to improve package security since 2015.
+
+We extend our heartfelt gratitude to all these maintainers, contributors, and everyone else who has helped make the opam-repository a reliable foundation for the OCaml ecosystem. Their tireless volunteer work reviewing submissions, upholding quality standards, and providing guidance to contributors is essential to the health and continued growth of our community.
 
 ### Community Involvement
 
