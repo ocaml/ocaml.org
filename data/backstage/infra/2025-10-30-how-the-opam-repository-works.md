@@ -7,7 +7,7 @@ The [opam repository](https://github.com/ocaml/opam-repository) serves as the ce
 
 ## Architecture and Infrastructure
 
-The opam repository operates as a curated Git repository containing package metadata rather than the packages themselves. Each package is described by an `.opam` file that specifies dependencies, build instructions, and other metadata. The package also includes a URL pointing to the source of the actual package. The actual source code remains in the original repositories maintained by package authors.
+The opam repository operates as a curated Git repository containing package metadata rather than the packages themselves. Each package is described by an `opam` file that specifies dependencies, build instructions, and other metadata. The package also includes a URL pointing to the source of the actual package. The actual source code remains in the original repositories maintained by package authors.
 
 For example, the [yojson.3.0.0 package](https://github.com/ocaml/opam-repository/blob/master/packages/yojson/yojson.3.0.0/opam) provides a simple illustration of the package format. For more details, see the [opam package format documentation](https://opam.ocaml.org/doc/Packaging.html).
 
@@ -28,10 +28,10 @@ This comprehensive testing matrix helps maintain the repository's high quality s
 The opam repository integrates with several other OCaml infrastructure services:
 
 - **Docker Base Images**: The [docker-base-images service](https://images.ci.ocaml.org) provides consistent testing environments, building official images for various Linux distributions, OCaml versions, and architectures
-- **Documentation CI**: Automatically builds and publishes package documentation to the [OCaml.org website's package area](https://ocaml.org/packages)
+- **Documentation CI**: The [docs.ci.ocaml.org service](https://docs.ci.ocaml.org) automatically builds and publishes package documentation to the [OCaml.org website's package area](https://ocaml.org/packages)
 - **Health Check Services**: Multiple services continuously monitor package installability across different platforms and compiler versions:
   - [check.ci.ocaml.org](https://check.ci.ocaml.org): Tests all packages regularly
-  - [dune.check.ci.dev](https://dune.check.ci.dev): Tests with the Dune build system
+  - [dune.check.ci.dev](https://dune.check.ci.dev): Tests packages with the Dune build system - related to the recent addition of the Dune Package Management feature
   - [windows.check.ci.dev](https://windows.check.ci.dev): Windows-specific testing
   - [freebsd.check.ci.dev](https://freebsd.check.ci.dev): FreeBSD compatibility
   - [oxcaml.check.ci.dev](https://oxcaml.check.ci.dev): Tests with OxCaml compiler variant
@@ -56,11 +56,11 @@ The repository maintains quality through several key policies, documented in the
 
 **Maintenance Requirements**: Packages must be actively maintained for modern OCaml versions. There is a [compiler cutoff threshold](https://github.com/ocaml/opam-repository/blob/master/governance/policies/archiving.md#compiler-cutoff-threshold), which will be increased as newer releases become available. Packages that don't support recent compiler versions may be archived.
 
-### The Archiving Process
+### Maintenance Intent Declarations
 
-To manage repository growth and maintain quality, the opam repository has implemented a systematic archiving process for unmaintained packages. Packages that no longer meet the compiler cutoff threshold or are explicitly marked as unmaintained get moved to the [opam-repository-archive](https://github.com/ocaml/opam-repository-archive).
+One distinctive feature of the opam repository is the ability for package maintainers to explicitly declare their maintenance intentions using the `x-maintenance-intent` field in package metadata. This allows maintainers to express their commitment level upfront—you don't need to be stuck maintaining something forever. This is fairly unusual in package ecosystems and provides clarity for both maintainers and users.
 
-The process works through maintenance intent declarations using the `x-maintenance-intent` field in package metadata. When maintainers stop supporting older versions, the community is notified, and if no new maintainer steps forward, packages are archived rather than removed entirely.
+When maintainers indicate they're no longer supporting certain versions or stepping back entirely, the community is notified. If no new maintainer volunteers, packages that no longer meet the compiler cutoff threshold or are marked as unmaintained get moved to the [opam-repository-archive](https://github.com/ocaml/opam-repository-archive) rather than being removed entirely. This archiving process helps manage repository growth while preserving historical packages.
 
 ## The Human Element
 
@@ -90,8 +90,8 @@ For information about the onboarding process, see the [Onboarding documentation]
 For package authors, the typical publishing workflow involves:
 
 1. **Creating a package source archive** (commonly done by pushing a git tag to your online forge of choice: GitHub, GitLab, Codeberg, or other)
-2. **Opening a pull request** to opam-repository (often automated with tools like `dune-release` or `opam-publish`)
-3. **Monitoring CI results** and addressing any build failures or policy violations
+2. **Opening a pull request** to opam-repository (often automated with tools like [`dune-release`](https://github.com/tarides/dune-release) or [`opam-publish`](https://github.com/ocaml-opam/opam-publish))
+3. **Monitoring the pull request's CI results** and addressing any build failures or policy violations
 4. **Responding to maintainer feedback** during the review process
 5. **Package acceptance** and automatic propagation to opam users worldwide
 
@@ -100,5 +100,11 @@ The process is streamlined by extensive documentation including the [CONTRIBUTIN
 ## Looking Forward
 
 The opam repository continues to evolve as the OCaml ecosystem grows. Recent initiatives include the introduction of an archiving policy, improving maintainer documentation, and scaling the review process to handle increasing submission volumes.
+
+### A Thriving Ecosystem
+
+The opam repository's design as a shared metadata format has enabled a diverse ecosystem of tools and repositories. Multiple package management clients can consume opam metadata, including the traditional opam client, [Dune's package management](https://dune.readthedocs.io/en/stable/reference/packages.html), [esy](https://esy.sh/), and even [Nix](https://nixos.org/). This flexibility demonstrates the health and maturity of the OCaml package ecosystem.
+
+Beyond the main repository, there's a rich ecosystem of specialized package repositories that complement it. These include cross-compilation overlays (notably for Windows and iOS), organization-specific repositories (such as Jane Street's packages and OxCaml), and domain-specific collections like the [Rocq](https://github.com/coq/platform) proof assistant packages. By design, these repositories can be stacked and composed together, allowing users to mix and match packages from different sources while maintaining dependency resolution.
 
 For developers interested in contributing to this critical infrastructure, whether as package authors or potential maintainers, the repository represents one of the most impactful ways to support the broader OCaml community. The combination of technical infrastructure, human oversight, and community governance makes the opam repository a model for how modern package ecosystems can balance growth with quality.
