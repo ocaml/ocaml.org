@@ -36,6 +36,10 @@ The opam repository integrates with several other OCaml infrastructure services:
   - [freebsd.check.ci.dev](https://freebsd.check.ci.dev): FreeBSD compatibility
   - [oxcaml.check.ci.dev](https://oxcaml.check.ci.dev): Tests with OxCaml compiler variant
 
+#### Infrastructure Funding
+
+As of 2025, the OCaml infrastructure is primarily funded and supported by the Cambridge Computer Lab and Tarides. Additional cloud hosting costs are covered by community contributions. For architecture-specific testing, [Oregon State University Open Source Lab](https://osuosl.org/communities/) provides essential PowerPC infrastructure support, and Jane Street has generously donated x86 machines to Cambridge University. This combination of institutional support, corporate sponsorship, and community backing enables the comprehensive multi-platform testing that ensures package quality across the entire OCaml ecosystem.
+
 ## Governance and Curation Policies
 
 The opam package repository is a [commons](https://en.wikipedia.org/wiki/Commons) rather than a publishing platform: it is manually curated, so not all packages submitted for publication are accepted; it is maintained communally, so anyone can suggest changes to any package.
