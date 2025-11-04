@@ -55,7 +55,7 @@ Visit the [Wasocaml repository](https://github.com/OCamlPro/wasocaml) to learn h
 
 ## Learn More
 
-- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, or other compilation modes in Dune
+- [Dune Manual: Executable Linking Modes](https://dune.readthedocs.io/en/stable/reference/dune/executable.html#linking-modes) - How to specify native, bytecode, WebAssembly, or other compilation modes in Dune
 - [ocaml-wasm Organisation](https://github.com/ocaml-wasm) - Coordination hub for OCaml WebAssembly efforts
 - [WebAssembly.org](https://webassembly.org/) - WebAssembly specification and documentation
 - [WASM-GC Proposal](https://github.com/WebAssembly/gc) - Garbage Collection proposal for WebAssembly
