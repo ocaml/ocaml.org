@@ -38,7 +38,7 @@ The opam repository integrates with several other OCaml infrastructure services:
 
 #### Infrastructure Funding
 
-As of 2025, the OCaml infrastructure is primarily funded and supported by the Cambridge Computer Lab and Tarides. Additional cloud hosting costs are covered by community contributions. For architecture-specific testing, [Oregon State University Open Source Lab](https://osuosl.org/communities/) provides essential PowerPC infrastructure support, and Jane Street has generously donated x86 machines to Cambridge University. This combination of institutional support, corporate sponsorship, and community backing enables the comprehensive multi-platform testing that ensures package quality across the entire OCaml ecosystem.
+As of 2025, the OCaml.org infrastructure is primarily funded and supported by the Cambridge Computer Lab and Tarides. Additional cloud hosting costs are covered by community contributions. For architecture-specific testing, [Oregon State University Open Source Lab](https://osuosl.org/communities/) provides essential PowerPC infrastructure support, [IBM LinuxONE](https://linuxone.cloud.marist.edu/) at [Marist University](https://www.marist.edu/) provides S390 machines for the CI pipelines, and Jane Street has generously donated x86 machines to Cambridge University. This combination of institutional support, corporate sponsorship, and community backing enables the comprehensive multi-platform testing that ensures package quality across the entire OCaml ecosystem.
 
 ## Governance and Curation Policies
 
@@ -74,7 +74,7 @@ The repository is maintained by a dedicated team of volunteers who review every 
 
 The opam-repository has benefited from the contributions of many dedicated individuals over the years. Since its inception, Anil Madhavapeddy, Thomas Gazagnaire, and Jeremy Yallop established the foundations of the repository and its processes. Kate Deplaix (kit-ty-kate) served as the primary maintainer from 2017 to 2024, during which time she established many of the current processes, comprehensive documentation, and quality standards. She now contributes to the opam tool itself.
 
-Today's active maintenance team includes Marcello Seri, Shon Feder, Raphaël Proust, Hannes Mehnert, and Jan Midtgaard, who review submissions and ensure the repository's continued quality. The CI infrastructure is maintained by Mark Elvers, whose work keeps the testing systems running smoothly—a laborious but essential task.
+Today's active maintenance team includes Marcello Seri, Shon Feder, Raphaël Proust, Hannes Mehnert, and Jan Midtgaard, who review submissions and ensure the repository's continued quality. The CI infrastructure is maintained by Mark Elvers, whose work keeps the testing systems running smoothly — a laborious but essential task.
 
 Beyond package review, Hannes Mehnert has been working on initiatives like [Conex](https://hannes.robur.coop/Posts/Conex) to improve package security since 2015.
 
