@@ -23,6 +23,14 @@ $ open _build/default/_doc/_html/index.html
 $ explorer _build\default\_doc\_html\index.html
 ```
 
+Alternatively, you can use the `dune ocaml doc` command, which builds the documentation and automatically opens it in your web browser:
+
+```shell
+$ dune ocaml doc
+```
+
+This is a convenient shortcut that combines the build and open steps into a single command.
+
 ## Generating `.mld` Documentation Pages
 
 In addition to documenting the publicly-visible API of your project,
