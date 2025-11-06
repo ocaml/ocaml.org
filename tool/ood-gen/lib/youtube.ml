@@ -193,20 +193,25 @@ let scrape yaml_file =
         |> List.sort (fun a b -> compare b.Vid.published a.Vid.published)
       in
       let yaml = Vid.video_list_to_yaml all_videos in
-      (* The yaml library uses a fixed-size output buffer. The default is 262140 bytes,
-         which was exceeded when we had 203 videos (~262KB output). This caused the
-         document_end operation to fail with "doc_end failed" error.
-         
-         Current stats: 203 videos ≈ 260KB, average ~1.3KB per video.
-         We use a 2MB buffer to accommodate growth to ~1500 videos before hitting limits.
-         If the list grows beyond that, this will fail with a clear error message. *)
-      let buffer_size = 2 * 1024 * 1024 in (* 2MB *)
-      let output = match Yaml.to_string ~len:buffer_size yaml with
+      (* The yaml library uses a fixed-size output buffer. The default is 262140
+         bytes, which was exceeded when we had 203 videos (~262KB output). This
+         caused the document_end operation to fail with "doc_end failed" error.
+
+         Current stats: 203 videos ≈ 260KB, average ~1.3KB per video. We use a
+         2MB buffer to accommodate growth to ~1500 videos before hitting limits.
+         If the list grows beyond that, this will fail with a clear error
+         message. *)
+      let buffer_size = 2 * 1024 * 1024 in
+      (* 2MB *)
+      let output =
+        match Yaml.to_string ~len:buffer_size yaml with
         | Ok s -> s
-        | Error (`Msg err) -> 
-            failwith (Printf.sprintf 
-              "YAML serialization failed (tried %d videos, buffer size %d bytes): %s" 
-              (List.length all_videos) buffer_size err)
+        | Error (`Msg err) ->
+            failwith
+              (Printf.sprintf
+                 "YAML serialization failed (tried %d videos, buffer size %d \
+                  bytes): %s"
+                 (List.length all_videos) buffer_size err)
       in
       let oc = open_out yaml_file in
       output_string oc output;
