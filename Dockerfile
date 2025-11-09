@@ -1,7 +1,11 @@
-FROM ocaml/opam:alpine-3.21-ocaml-5.2 AS build
+# syntax=docker/dockerfile:1
+FROM alpine:3.22 AS build
 
 # Install system dependencies
-RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
+RUN apk -U upgrade && apk add \
+    # to download and install Dune with alpine:3.22
+    build-base patch tar ca-certificates git \
+       libx11-dev coreutils xz curl bash \
     autoconf \
     curl-dev \
     gmp-dev \
@@ -10,44 +14,37 @@ RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
     oniguruma-dev \
     openssl-dev
 
-# Use Opam 2.2 and enable the backup mirror if primary sources of packages are unavailable
-RUN sudo mv /usr/bin/opam-2.2 /usr/bin/opam && opam update
-RUN opam option --global 'archive-mirrors+="https://opam.ocaml.org/cache"'
-
-# Branch freeze was opam-repo HEAD at the time of commit
-RUN cd ~/opam-repository && git reset --hard 584630e7a7e27e3cf56158696a3fe94623a0cf4f && opam update
-
-WORKDIR /home/opam
-
-# Install opam dependencies
-COPY --chown=opam ocamlorg.opam .
-RUN opam install . --deps-only
+RUN curl -fsSL https://github.com/ocaml-dune/dune-bin-install/releases/download/v3/install.sh | sh -s -- --install-root /usr --no-update-shell-config
+RUN dune --version
 
 # Build project
-COPY --chown=opam . .
-RUN opam exec -- dune build @install --profile=release
+COPY --chown=root --link . "/root/ocaml.org"
+WORKDIR "/root/ocaml.org"
+RUN ls
+
+RUN dune pkg lock
+RUN dune build @install --profile=release
 
 # Launch project in order to generate the package state cache
-RUN cd ~/opam-repository && git checkout master && git pull origin master && opam update
 ENV OCAMLORG_PKG_STATE_PATH=package.state \
     OCAMLORG_REPO_PATH=opam-repository
 RUN touch package.state && ./init-cache package.state
 
-FROM alpine:3.21
+FROM alpine:3.22
 
-RUN apk -U upgrade --no-cache && apk add --no-cache \
+RUN apk -U upgrade && apk add \
     git \
     gmp \
     libev
 
-COPY --from=build /home/opam/package.state /var/package.state
-COPY --from=build /home/opam/opam-repository /var/opam-repository
-COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
+COPY --from=build --link "/root/ocaml.org/package.state" /var/package.state
+COPY --from=build --link "/root/ocaml.org/opam-repository" /var/opam-repository
+COPY --from=build --link "/root/ocaml.org/_build/default/src/ocamlorg_web/bin/main.exe" /bin/server
 
-COPY playground/asset playground/asset
+COPY --link playground/asset playground/asset
 
-RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
-ADD data/v2 /v2
+ADD --keep-git-dir --link https://github.com/ocaml-web/html-compiler-manuals /manual
+ADD --link data/v2 /v2
 
 RUN git config --global --add safe.directory /var/opam-repository
 

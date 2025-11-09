@@ -25,19 +25,13 @@ This repository contains the sources of the OCaml website. It is served at <http
 
 ## Getting Started
 
-Before you begin, make sure you have opam (OCaml Package Manager) installed on your system. If you haven't installed it yet, you can follow the official installation instructions for your platform:
+Ensure you have [Dune Binary](https://github.com/ocaml-dune/dune-bin-install) installed. Dune will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. 
 
-- [Official opam Installation Guide](https://opam.ocaml.org/doc/Install.html)
+We assume you are some Unix-like system (Linux, macOS, WSL2), as well as a recent version of Dune. You can see which version of Dune OCaml.org is using for deployment in the [Dockerfile](./Dockerfile).
 
-Once opam is installed, you can set up the project with the following command:
+From the root of your project, you can just build and run the project with
 
-```
-make switch
-```
-
-And run it with:
-
-```
+```bash
 make start
 ```
 
