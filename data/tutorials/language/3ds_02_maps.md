@@ -10,11 +10,11 @@ category: "Data Structures"
 
 In the most general sense, the [`Map`](/manual/api/Map.html) module lets you create _immutable_ key-value
 [associative array](https://en.wikipedia.org/wiki/Associative_array) for your types. More concretely, 
-OCaml's `Map` module is implemented using a binary search tree alogorithm to support fast lookups (of O(Log n)). 
+OCaml's `Map` module is implemented using a binary search tree algorithm to support fast lookups (of O(Log n)). 
 
 **Note**: The concept of a `Map` in this tutorial refers to a data structure that stores a
 set of key-value pairs. It is sometimes called a dictionary or an association table. This
-is a disinct concept from the maps we've explored in previous lessons, such as `List.map`,
+is a distinct concept from the maps we've explored in previous lessons, such as `List.map`,
 `Array.map`, and `Option.map`, which are functions that operate over data rather than
 being data themselves.
 

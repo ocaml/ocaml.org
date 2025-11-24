@@ -50,7 +50,7 @@ This module also defines two types:
 
 For `StringSet.empty`, you can see that the OCaml toplevel displays the placeholder `<abstr>` instead of the actual value. However, converting the string set to a list using `StringSet.to_list` results in an empty list.
 
-(Remember, for OCaml versions before 5.1, it will be `StringeSet.empty |> StringSet.elements;;`)
+(Remember, for OCaml versions before 5.1, it will be `StringSet.empty |> StringSet.elements;;`)
 
 2. A set with a single element is created using `StringSet.singleton`:
 
