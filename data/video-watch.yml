@@ -1,3 +1,16 @@
+- title: 0xCaml From a System Engineer's Point of View - Dmitriy Kovalenko - FUN OCaml
+    2025
+  description: "0xCaml From a System Engineer's Point of View\r\n\r\nDmitriy Kovalenko
+    (LightSource)\r\n\r\nABSTRACT\r\n\r\nI do a lot of Rust, C, Zig and whatever else
+    cursed systems programming languages are there. So recently 0xCaml popped out
+    and I was def interested if ..."
+  url: https://watch.ocaml.org/videos/watch/48e84692-9e43-47c5-8d54-60550299e988
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/1d15c2cc-4ea4-41df-a558-1aeff51e6cd8.jpg
+  published: 2025-11-10T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: '25 Years of OCaml: Xavier Leroy'
   description: Professor Xavier Leroy -- the primary original author and leader of
     the OCaml project -- reflects on 25 years of the OCaml language at his OCaml Workshop
@@ -81,6 +94,18 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: A Vision for OCaml in the AI Era - Thibaut Mattio - FUN OCaml 2025
+  description: "A Vision for OCaml in the AI Era\r\n\r\nThibaut Mattio\r\n\r\nABSTRACT\r\n\r\nAI
+    is reshaping software development, yet OCaml's adoption in AI workflows remains
+    limited. This talk explores how the OCaml community can proactively embrace AI
+    to make OCaml a pro..."
+  url: https://watch.ocaml.org/videos/watch/b959eeaf-e8c1-48e4-9d16-f8084a7bdda9
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/f79f69db-2da5-4be0-b126-9f15338762c6.jpg
+  published: 2025-12-02T08:31:50.359Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: A review of the growth of the OCaml community
   description: ""
   url: https://watch.ocaml.org/videos/watch/f9d0b637-8aec-4bff-8c32-cd16b58023b6
@@ -134,6 +159,18 @@
   url: https://watch.ocaml.org/videos/watch/3ede0b76-e250-4a43-af42-83c394cf4497
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/4dfc2ff3-3c53-4e7c-85ed-907df5b1faff.jpg
   published: 2021-10-03T22:23:18.701Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: Analyzing Programs with SMT Solvers - Tikhon Jelvis - FUN OCaml 2025
+  description: "Analyzing Programs with SMT Solvers\r\n\r\nTikhon Jelvis (Semgrep)\r\n\r\nABSTRACT\r\n\r\nWe
+    can use SMT solvers like Z3 to analyze programs and answer difficult questions
+    about our code. By generating and solving complex constraints, we can improve
+    error mes..."
+  url: https://watch.ocaml.org/videos/watch/501e4907-e1a2-4a03-b19a-659c98847333
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/b2800b78-1099-4598-8d92-78611ebc89dc.jpg
+  published: 2025-11-12T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
@@ -551,6 +588,19 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: 'Frameworks: No, Libraries: Yes. Developing a product in OCaml from Scratch
+    - FUN OCaml 2025'
+  description: "Frameworks: No, Libraries: Yes. Developing a product in OCaml from
+    Scratch\r\n\r\nMalcolm Matalka (Terrateam)\r\n\r\nABSTRACT\r\n\r\nTerrateam is
+    an open source infrastructure management product written in OCaml. In order to
+    stay lean and flexible, Terrateam ..."
+  url: https://watch.ocaml.org/videos/watch/4c7b5d96-7a93-42bd-9729-daaedd331c8f
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/e2a19621-9541-4eb1-9756-434cb5693664.jpg
+  published: 2025-11-14T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: From 2n+1 to n
   description: "\r\nOCaml relies on a type-agnostic object representation centred
     around values which unify odd integers and aligned pointers. The last bit of a
@@ -559,6 +609,32 @@
   url: https://watch.ocaml.org/videos/watch/74b32dae-11c6-4713-be1b-946260196e50
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/a2042ab9-9025-421a-9eae-176462ac594b.jpg
   published: 2021-08-31T08:30:23.211Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: 'From OCaml 4 to 5 and from Parmap to Effects: A legacy code transition story
+    - FUN OCaml 2025'
+  description: "From OCaml 4 to 5 and from Parmap to Effects: A legacy code transition
+    story\r\n\r\nSPEAKERS \r\n\r\nNathan Taylor (Semgrep)\r\nNat Mote (Semgrep)\r\n\r\nABSTRACT\r\n\r\nOCaml
+    5's support for shared memory parallelism and effects-based concurrency opens
+    up new ways..."
+  url: https://watch.ocaml.org/videos/watch/fbbca08e-f222-4c38-8ccc-f9cce61d9e6a
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/9b1f1be3-23f5-4d6a-87ac-b7ee820a7637.jpg
+  published: 2025-11-07T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: Generating Static Websites the Functional Programming Way - Xavier Van de
+    Woestyne - FUN OCaml 2025
+  description: "Generating Static Websites the Functional Programming Way\r\n\r\nXavier
+    Van de Woestyne (Tarides)\r\n\r\nABSTRACT\r\n\r\nStatic site generators like Jekyll,
+    Zola, and Hugo are effective, but fall short for complex sites like personal encyclopedias,
+    wikis, or ..."
+  url: https://watch.ocaml.org/videos/watch/e9c12245-eea3-4b71-87e3-4a467ddb0ffb
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/c0fc97cb-478e-4e05-93b4-a7292dbe096d.jpg
+  published: 2025-11-08T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
@@ -658,6 +734,19 @@
   url: https://watch.ocaml.org/videos/watch/316e573e-6622-46da-aa25-de81d4477ca7
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/c79ab9b0-8d48-43df-b979-abdae746811a.jpg
   published: 2024-11-20T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: 'I Can See The Pixels: Designing Cross-Stitch Patterns in OCaml - Mindy Preston
+    - FUN OCaml 2025'
+  description: "I Can See The Pixels: Designing Cross-Stitch Patterns in OCaml\r\n\r\nMindy
+    Preston (yomimono)\r\n\r\nABSTRACT\r\n\r\nI was unsatisfied with existing cross-stitch
+    pattern generating software, which was mostly structured like pixel-based paint
+    programs. Those ..."
+  url: https://watch.ocaml.org/videos/watch/6d859b22-d09a-442a-b1a2-d9e3227a0ce9
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/98596982-5b59-4dde-90fe-0198387c1ecc.jpg
+  published: 2025-11-15T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
@@ -987,6 +1076,18 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: "OCaml at LexiFi - Nicol\xE1s Ojeda B\xE4r - FUN OCaml 2025"
+  description: "OCaml at LexiFi\r\n\r\nNicol\xE1s Ojeda B\xE4r\r\n\r\nABSTRACT\r\n\r\nLexiFi
+    is likely to have been the first real industrial user of OCaml, back when it was
+    funded in 2000. In this talk, I will present some of the things we have learned
+    along the way. Some of the ..."
+  url: https://watch.ocaml.org/videos/watch/28bb8857-ccb8-4888-876f-ba74d238a0cd
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/e8f3a6fe-8bd6-4e31-b59e-7f57c9870927.jpg
+  published: 2025-11-19T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: 'OCaml behind the scenes: Exceptions'
   description: "In this talk, Fabrice Buoro explained what happens at the deepest
     level when your OCaml program raises or catches an exception. This inside knowledge
@@ -1264,6 +1365,19 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: 'Performance Pitfalls: Tales From a Python/OCaml Codebase - Emma Jin - FUN
+    OCaml 2025'
+  description: "Performance Pitfalls: Tales From a Python/OCaml Codebase\r\n\r\nEmma
+    Jin (Semgrep)\r\n\r\nABSTRACT\r\n\r\nSemgrep is a tool that enables developers
+    to search their code for security vulnerabilities, built with an OCaml engine
+    and a Python frontend. This has c..."
+  url: https://watch.ocaml.org/videos/watch/1dd46b85-e119-436a-ab62-f6b9e673e7e0
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/59ea8a75-d46d-4bb0-a2b3-015597b1bbee.jpg
+  published: 2025-11-09T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: Persistent Networking with Irmin and MirageOS
   description: ""
   url: https://watch.ocaml.org/videos/watch/97dd9634-28e4-4066-96e4-9c2036ee4bb2
@@ -1317,6 +1431,18 @@
   url: https://watch.ocaml.org/videos/watch/9324fba4-2482-4bab-bfdd-b8881b3ed94a
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/d7e22bba-cda1-4c2b-9368-9b2c1643e751.jpg
   published: 2021-08-31T08:37:00.571Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: "Purely functional gRPC and HTTP/2 with OCaml - Adam Cholewi\u0144ski - FUN
+    OCaml 2025"
+  description: "Purely functional gRPC and HTTP/2 with OCaml\r\n\r\nAdam Cholewi\u0144ski
+    (Dialo)\r\n\r\nSession page: https://fun-ocaml.com/2025/production-grade-network-protocols/\r\n\r\n\r\nConnect
+    with FUN OCaml:\r\nTwitter: https://x.com/FunOCaml\r\nBluesky: https://bsky.app/profi..."
+  url: https://watch.ocaml.org/videos/watch/0198f159-d03f-42ff-84b9-c79aa24737e4
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/f22f6969-dd1c-4ce8-96a1-19870fc37560.jpg
+  published: 2025-11-13T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
@@ -1388,6 +1514,19 @@
   url: https://watch.ocaml.org/videos/watch/7a0a6d3c-dad0-4fe8-9c35-78cbfbd431d9
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/fbc3103b-30f2-45d9-85ce-95732b8e7f74.jpg
   published: 2021-10-03T22:03:25.164Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: "Slipshow: A Full-Featured Presentation Tool in OCaml - Paul-Elliot Angl\xE8s
+    d'Auriac - FUN OCaml 2025"
+  description: "Slipshow: A Full-Featured Presentation Tool in OCaml\r\n\r\nPaul-Elliot
+    Angl\xE8s d'Auriac\r\n\r\nABSTRACT\r\n\r\nSlipshow is a tool to create interactive
+    presentations. Started as a JavaScript project, it is now fully written in OCaml
+    and features a runtime eng..."
+  url: https://watch.ocaml.org/videos/watch/0b4e06b9-3657-472f-abeb-fa6e6ff1823e
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/836c12c8-6cb5-4b26-a88b-a53ddf238fa5.jpg
+  published: 2025-11-11T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
