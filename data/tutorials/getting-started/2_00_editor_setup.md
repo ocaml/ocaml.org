@@ -148,9 +148,13 @@ Other Merlin commands for Vim are available and you can checkout their usage on 
 
 ## Neovim
 
-Neovim comes with an LSP client.
+Neovim comes with an LSP client for basic features, such as code navigation and diagnostics.
+For the advanced Merlin features, you can also install the dedicated [`ocaml.nvim` plugin](https://github.com/tarides/ocaml.nvim).
 
-One note here is that is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and pointing your Neovim config to use that.
+### Installing and configuring the LSP
+
+> [!NOTE]
+> One note here is that is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a package manager for language services. We recommend you install the LSP server directly in the switch, and pointing your Neovim config to use that.
 
 To install the LSP server and the formatter, run the following.
 ```shell
@@ -161,13 +165,13 @@ There are two main ways to install and manage LSP servers.
 - A newer, more recommended way is to use the new Neovim LSP API for versions newer than v0.11.0 via `vim.lsp`.
 - A more traditional way is to use `nvim-lspconfig`. For more info, `kickstart.nvim` has a great example setup.
 
-### Using vim.lsp:
+#### Using vim.lsp:
 
 Add this to your toplevel `init.lua`.
 ```lua
 vim.lsp.config['ocamllsp'] = {
   cmd = { 'ocamllsp' },
-  filetypes = { 
+  filetypes = {
     'ocaml',
     'ocaml.interface',
     'ocaml.menhir',
@@ -188,7 +192,7 @@ vim.lsp.enable 'ocamllsp'
 
 See `:h lsp-config` for more detail on configuration options.
 
-#### Using vim.lsp With runtimepath
+##### Using vim.lsp With runtimepath
 
 You can also move your LSP config to a separate file via `runtimepath` if you'd like to keep your `init.lua` minimal. Putting your config table inside `lsp/<some_name>.lua` or `after/lsp/<some_name>.lua` will allow Neovim to search for them automatically.
 
@@ -235,7 +239,7 @@ Then enable them in the toplevel `init.lua`.
 vim.lsp.enable 'ocamllsp'
 ```
 
-### Using nvim-lspconfig
+#### Using nvim-lspconfig
 
 Add this to your `nvim-lspconfig` setup.
 ```lua
@@ -252,3 +256,28 @@ Add this to your `nvim-lspconfig` setup.
 
 There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [here](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.
 
+
+### Installing `ocaml.nvim`
+
+You can install this plugin easily using [lazy.nvim](https://github.com/folke/lazy.nvim) by adding the following to your `ocaml.nvim` setup.
+```lua
+require("lazy").setup({
+  {"tarides/ocaml.nvim",
+    config = function()
+      require("ocaml").setup()
+    end
+  }
+})
+```
+
+#### Features
+
+This plugin adds the following features :
+- Type enclosing: inspect types with adjustable scope and verbosity
+- Holes handling: jump between holes and propose valid substitutions
+- Code navigation: jump to expressions or phrases
+- Interface management: switch or infer `.mli` files
+- Identifier information: find definitions, declarations, documentation
+- Type queries: search by type or polarity for definition or declaration
+
+You will find the complete plugin documentation with a list of commands and key bindings in [the project's readme](https://github.com/tarides/ocaml.nvim).
