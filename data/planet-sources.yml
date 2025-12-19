@@ -255,6 +255,10 @@
   name: Marc Elvers
   url: https://www.tunbury.org/atom.xml
   publish_all: false
+- id: terrateam
+  name: Terrateam Blog
+  url: https://terrateam.io/rss-ocaml.xml
+  publish_all: true
 - id: ryan
   name: ryan.freumh.org
   url: https://ryan.freumh.org/ocaml.xml
