@@ -87,6 +87,12 @@ On PowerShell:
 > (& opam env --switch=default) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }
 ```
 
+On [Nushell](https://www.nushell.sh/):
+
+```
+> opam env --shell=powershell | parse "$env:{key} = '{val}'" | transpose -rd | load-env
+```
+
 Opam will display the shell update command each time it is needed.
 
 You can verify your installation with

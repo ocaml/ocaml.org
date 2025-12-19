@@ -7,6 +7,7 @@ let term_templates =
     ("academic_institutions", Academic_institution.template);
     ("academic_testimonials", Academic_testimonial.template);
     ("book", Book.template);
+    ("backstage", Backstage.template);
     ("changelog", Changelog.template);
     ("code_examples", Code_example.template);
     ("cookbook", Cookbook.template);

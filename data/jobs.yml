@@ -61,7 +61,8 @@ jobs:
     link: https://www.lexifi.com/careers/software_engineer/
     locations:
       - France
-    publication_date: 2021-04-22
+      - Paris, France
+    publication_date: 2025-12-10
     company: LexiFi
     company_logo: img/community/jobs/lexifi_svg.svg
   - title: OCaml Programmer

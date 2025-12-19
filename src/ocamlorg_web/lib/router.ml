@@ -37,6 +37,8 @@ let page_routes t =
         Handler.cookbook_recipe;
       Dream.get Url.community Handler.community;
       Dream.get Url.events Handler.events;
+      Dream.get Url.backstage Handler.backstage;
+      Dream.get (Url.backstage_entry ":id") Handler.backstage_entry;
       Dream.get Url.changelog Handler.changelog;
       Dream.get (Url.changelog_entry ":id") Handler.changelog_entry;
       Dream.get (Url.success_story ":id") Handler.success_story;
@@ -146,8 +148,13 @@ let middleware_text_utf8 handler request =
 let router t =
   Dream.router
     [
-      Dream.get "/.well-known/assetlinks.json"
-        (Dream.from_filesystem "asset/.well-known" "assetlinks.json");
+      Dream.get "/.well-known/assetlinks.json" (fun _request ->
+          match Ocamlorg_static.Asset.read "assetlinks.json" with
+          | Some content ->
+              Dream.respond
+                ~headers:[ ("Content-Type", "application/json") ]
+                content
+          | None -> Dream.respond ~status:`Not_Found "Not found");
       Redirection.t;
       Dream.get "/conferences/ocaml/**" Handler.v2_asset;
       page_routes t;

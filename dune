@@ -46,6 +46,7 @@
   (target changelog.xml)
   (deps
    (source_tree %{project_root}/data/changelog)
+   (source_tree %{project_root}/data/platform_releases)
    (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir
@@ -53,6 +54,21 @@
     (with-stdout-to
      %{target}
      (run %{gen_feed} changelog))))))
+
+(subdir
+ asset/
+ (rule
+  (target backstage.xml)
+  (deps
+   (source_tree %{project_root}/data/backstage)
+   (source_tree %{project_root}/data/platform_releases)
+   (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
+  (action
+   (chdir
+    %{project_root}
+    (with-stdout-to
+     %{target}
+     (run %{gen_feed} backstage))))))
 
 (subdir
  asset/

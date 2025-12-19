@@ -1,3 +1,514 @@
+- title: A Vision for OCaml in the AI Era - Thibaut Mattio - FUN OCaml 2025
+  url: https://www.youtube.com/watch/BAvXqd0QeVM?version=3
+  thumbnail: https://i3.ytimg.com/vi/BAvXqd0QeVM/hqdefault.jpg
+  description: "A Vision for OCaml in the AI Era\n\nNicol\xE1s Ojeda B\xE4r\n\nABSTRACT\n\nAI
+    is reshaping software development, yet OCaml's adoption in AI workflows remains
+    limited. This talk explores how the OCaml community can proactively embrace AI
+    to make OCaml a productive language in the AI era\u2014both for writing AI applications
+    and for AI-assisted development. We examine two critical questions:\n\nFirst,
+    how can OCaml become a viable alternative to Python for machine learning? By addressing
+    ecosystem breadth and developer experience, we can solve real problems\u2014from
+    unifying research and production codebases to enabling scalable deployment with
+    OCaml's performance guarantees.\n\nSecond, how can we make OCaml more productive
+    for AI-assisted development? Strong type systems and integrated tooling give OCaml
+    a natural advantage for coding agents, but we need specialized, open-source tools
+    built for the OCaml ecosystem.\n\nThis talk introduces Raven, a modern scientific
+    computing ecosystem for OCaml that mirrors Python's ML stack, and Spice, an upcoming
+    local-first, OCaml-native coding agent.\n\nBeyond tooling, we'll discuss how the
+    community can anticipate changes in onboarding, documentation, and workflows to
+    ensure OCaml thrives in an AI-driven future\u2014while maintaining equal opportunity
+    and access for all developers.\n\n\nSession page: https://fun-ocaml.com/2025/a-vision-for-ocaml-in-the-ai-era/\n\n\nConnect
+    with FUN OCaml:\nTwitter: https://x.com/FunOCaml\nBluesky: https://bsky.app/profile/fun-ocaml.com\n\n#ocaml\n\n---\n\nBig
+    Thanks(TM) go to our generous sponsors who made FUN OCaml possible!\n* Octra Labs
+    - https://octra.org/ - Platinum Sponsor\n* Ahrefs - https://ahrefs.com/ - Platinum
+    Sponsor\n* Dialo - https://dialo.ai/ - Gold Sponsor\n* LexiFi - https://www.lexifi.com
+    - Bronze Sponsor\n* Jane Street - https://www.janestreet.com/ - Bronze Sponsor\n\n*
+    LightSource - Volunteer / Organizer Commitment\n* Tarides - Volunteer / Organizer
+    Commitment"
+  published: 2025-11-19T19:47:07+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: "OCaml at LexiFi - Nicol\xE1s Ojeda B\xE4r - FUN OCaml 2025"
+  url: https://www.youtube.com/watch/_uwvra1NFJg?version=3
+  thumbnail: https://i4.ytimg.com/vi/_uwvra1NFJg/hqdefault.jpg
+  description: "OCaml at LexiFi\n\nNicol\xE1s Ojeda B\xE4r\n\nABSTRACT\n\nLexiFi is
+    likely to have been the first real industrial user of OCaml, back when it was
+    funded in 2000. In this talk, I will present some of the things we have learned
+    along the way. Some of the points I will address: our technology stack (development
+    environment, deployment and distribution, cloud infrastructure, etc), tooling,
+    strong and weak points of OCaml, people aspects (hiring and training), etc. If
+    there is time, I will also present one of our key technical innovations: extending
+    the OCaml compiler with type reflection (this topic will be explored further in
+    the dedicated Workshop).\n\nSession page: https://fun-ocaml.com/2025/ocaml-at-lexifi/\n\n\nConnect
+    with FUN OCaml:\nTwitter: https://x.com/FunOCaml\nBluesky: https://bsky.app/profile/fun-ocaml.com\n\n#ocaml\n\n---\n\nBig
+    Thanks(TM) go to our generous sponsors who made FUN OCaml possible!\n* Octra Labs
+    - https://octra.org/ - Platinum Sponsor\n* Ahrefs - https://ahrefs.com/ - Platinum
+    Sponsor\n* Dialo - https://dialo.ai/ - Gold Sponsor\n* LexiFi - https://www.lexifi.com
+    - Bronze Sponsor\n* Jane Street - https://www.janestreet.com/ - Bronze Sponsor\n\n*
+    LightSource - Volunteer / Organizer Commitment\n* Tarides - Volunteer / Organizer
+    Commitment"
+  published: 2025-11-19T18:26:18+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: 'I Can See The Pixels: Designing Cross-Stitch Patterns in OCaml - Mindy Preston
+    - FUN OCaml 2025'
+  url: https://www.youtube.com/watch/Q2-qIrYzSXw?version=3
+  thumbnail: https://i2.ytimg.com/vi/Q2-qIrYzSXw/hqdefault.jpg
+  description: 'I Can See The Pixels: Designing Cross-Stitch Patterns in OCaml
+
+
+    Mindy Preston (yomimono)
+
+
+    ABSTRACT
+
+
+    I was unsatisfied with existing cross-stitch pattern generating software, which
+    was mostly structured like pixel-based paint programs. Those programs with support
+    for very common operations like tiling borders were locked behind paywalls. I
+    decided to write my own in OCaml, and I''ve been using it to design cross-stitch
+    patterns since 2019. I''ll talk a bit about the joy of making the Exact Right
+    Tool, the anguish of abandoned experiments, and the ambiguous pleasure of monetizing
+    art.
+
+
+
+    Session page: https://fun-ocaml.com/2025/i-can-see-the-pixels/
+
+
+
+    Connect with FUN OCaml:
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml
+
+
+    ---
+
+
+    Big Thanks(TM) go to our generous sponsors who made FUN OCaml possible!
+
+    * Octra Labs - https://octra.org/ - Platinum Sponsor
+
+    * Ahrefs - https://ahrefs.com/ - Platinum Sponsor
+
+    * Dialo - https://dialo.ai/ - Gold Sponsor
+
+    * LexiFi - https://www.lexifi.com - Bronze Sponsor
+
+    * Jane Street - https://www.janestreet.com/ - Bronze Sponsor
+
+
+    * LightSource - Volunteer / Organizer Commitment
+
+    * Tarides - Volunteer / Organizer Commitment'
+  published: 2025-11-15T11:06:23+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: 'Frameworks: No, Libraries: Yes. Developing a product in OCaml from Scratch
+    - FUN OCaml 2025'
+  url: https://www.youtube.com/watch/0Hwd7NxQ8_c?version=3
+  thumbnail: https://i1.ytimg.com/vi/0Hwd7NxQ8_c/hqdefault.jpg
+  description: 'Frameworks: No, Libraries: Yes. Developing a product in OCaml from
+    Scratch
+
+
+    Malcolm Matalka (Terrateam)
+
+
+    ABSTRACT
+
+
+    Terrateam is an open source infrastructure management product written in OCaml.
+    In order to stay lean and flexible, Terrateam has developed almost all of its
+    own frameworks and tooling. With a small team, the Terrateam product punches well
+    above its weight compared to its competition. This talk will cover the choice
+    to develop their own frameworks, the good, the bad, and how OCaml has been instrumental
+    in being able to achieve so much despite being a two person company.
+
+
+    Session page: https://fun-ocaml.com/2025/terrateam/
+
+
+
+    Connect with FUN OCaml:
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml
+
+
+    ---
+
+
+    Big Thanks(TM) go to our generous sponsors who made FUN OCaml possible!
+
+    * Octra Labs - https://octra.org/ - Platinum Sponsor
+
+    * Ahrefs - https://ahrefs.com/ - Platinum Sponsor
+
+    * Dialo - https://dialo.ai/ - Gold Sponsor
+
+    * LexiFi - https://www.lexifi.com - Bronze Sponsor
+
+    * Jane Street - https://www.janestreet.com/ - Bronze Sponsor
+
+
+    * LightSource - Volunteer / Organizer Commitment
+
+    * Tarides - Volunteer / Organizer Commitment'
+  published: 2025-11-14T23:00:03+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: "Purely functional gRPC and HTTP/2 with OCaml - Adam Cholewin\u0301ski -
+    FUN OCaml 2025"
+  url: https://www.youtube.com/watch/exR5eWSQ_8o?version=3
+  thumbnail: https://i2.ytimg.com/vi/exR5eWSQ_8o/hqdefault.jpg
+  description: "Purely functional gRPC and HTTP/2 with OCaml\n\nAdam Cholewi\u0144ski
+    (Dialo)\n\nSession page: https://fun-ocaml.com/2025/production-grade-network-protocols/\n\n\nConnect
+    with FUN OCaml:\nTwitter: https://x.com/FunOCaml\nBluesky: https://bsky.app/profile/fun-ocaml.com\n\n#ocaml\n\n---\n\nBig
+    Thanks(TM) go to our generous sponsors who made FUN OCaml possible!\n* Octra Labs
+    - https://octra.org/ - Platinum Sponsor\n* Ahrefs - https://ahrefs.com/ - Platinum
+    Sponsor\n* Dialo - https://dialo.ai/ - Gold Sponsor\n* LexiFi - https://www.lexifi.com
+    - Bronze Sponsor\n* Jane Street - https://www.janestreet.com/ - Bronze Sponsor\n\n*
+    LightSource - Volunteer / Organizer Commitment\n* Tarides - Volunteer / Organizer
+    Commitment"
+  published: 2025-11-13T23:00:53+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Analyzing Programs with SMT Solvers - Tikhon Jelvis - FUN OCaml 2025
+  url: https://www.youtube.com/watch/BL8bmtBfd7E?version=3
+  thumbnail: https://i3.ytimg.com/vi/BL8bmtBfd7E/hqdefault.jpg
+  description: 'Analyzing Programs with SMT Solvers
+
+
+    Tikhon Jelvis (Semgrep)
+
+
+    ABSTRACT
+
+
+    We can use SMT solvers like Z3 to analyze programs and answer difficult questions
+    about our code. By generating and solving complex constraints, we can improve
+    error message localization, attack cryptographic protocols, check refinement types,
+    search for proofs, verify invariants, compare programs against specifications
+    or even synthesize code. Z3 is the goto state-of-the-art SMT solver, available
+    under and open source license and has a first-class OCaml library.
+
+
+    In this talk, I''ll walk through a simple OCaml program to generate SMT constraints
+    that represent a bounded model of programs in a simple imperative language. Algebraic
+    data types and pattern matching are a perfect fit for this kind of work.
+
+
+
+    Session page: https://fun-ocaml.com/2025/analyzing-programs-with-smt-solvers/
+
+
+
+    Connect with FUN OCaml:
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml
+
+
+    ---
+
+
+    Big Thanks(TM) go to our generous sponsors who made FUN OCaml possible!
+
+    * Octra Labs - https://octra.org/ - Platinum Sponsor
+
+    * Ahrefs - https://ahrefs.com/ - Platinum Sponsor
+
+    * Dialo - https://dialo.ai/ - Gold Sponsor
+
+    * LexiFi - https://www.lexifi.com - Bronze Sponsor
+
+    * Jane Street - https://www.janestreet.com/ - Bronze Sponsor
+
+
+    * LightSource - Volunteer / Organizer Commitment
+
+    * Tarides - Volunteer / Organizer Commitment'
+  published: 2025-11-12T23:00:13+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: "Slipshow: A Full-Featured Presentation Tool in OCaml - Paul-Elliot Angl\xE8s
+    d'Auriac - FUN OCaml 2025"
+  url: https://www.youtube.com/watch/5HMpiGKHu9A?version=3
+  thumbnail: https://i2.ytimg.com/vi/5HMpiGKHu9A/hqdefault.jpg
+  description: "Slipshow: A Full-Featured Presentation Tool in OCaml\n\nPaul-Elliot
+    Angl\xE8s d'Auriac\n\nABSTRACT\n\nSlipshow is a tool to create interactive presentations.
+    Started as a JavaScript project, it is now fully written in OCaml and features
+    a runtime engine, a compiler, a collaborative editing website, a VSCode extension,
+    a standalone app...\n\nThis talk tells the story of how it is possible to develop
+    and maintain such a challenging project as a single developer.\n\nSession page:
+    https://fun-ocaml.com/2025/slipshow/\n\nConnect with FUN OCaml:\nTwitter: https://x.com/FunOCaml\nBluesky:
+    https://bsky.app/profile/fun-ocaml.com\n\n#ocaml\n\n---\n\nBig Thanks(TM) go to
+    our generous sponsors who made FUN OCaml possible!\n* Octra Labs - https://octra.org/
+    - Platinum Sponsor\n* Ahrefs - https://ahrefs.com/ - Platinum Sponsor\n* Dialo
+    - https://dialo.ai/ - Gold Sponsor\n* LexiFi - https://www.lexifi.com - Bronze
+    Sponsor\n* Jane Street - https://www.janestreet.com/ - Bronze Sponsor\n\n* LightSource
+    - Volunteer / Organizer Commitment\n* Tarides - Volunteer / Organizer Commitment"
+  published: 2025-11-11T23:00:04+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: 0xCaml From a System Engineer's Point of View - Dmitriy Kovalenko - FUN OCaml
+    2025
+  url: https://www.youtube.com/watch/iQc5fHW5SZA?version=3
+  thumbnail: https://i2.ytimg.com/vi/iQc5fHW5SZA/hqdefault.jpg
+  description: '0xCaml From a System Engineer''s Point of View
+
+
+    Dmitriy Kovalenko (LightSource)
+
+
+    ABSTRACT
+
+
+    I do a lot of Rust, C, Zig and whatever else cursed systems programming languages
+    are there. So recently 0xCaml popped out and I was def interested if I can finally
+    use it. So I did some research on how it actually works comparing to native OCaml
+    and other languages and try to build odiff (the fastest image comparison lib in
+    the world) with 0xCaml. Here is what I learned.
+
+
+
+    Session page: https://fun-ocaml.com/2025/oxcaml-system-engineers-pov/
+
+
+
+    Connect with FUN OCaml:
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml
+
+
+    ---
+
+
+    Big Thanks(TM) go to our generous sponsors who made FUN OCaml possible!
+
+    * Octra Labs - https://octra.org/ - Platinum Sponsor
+
+    * Ahrefs - https://ahrefs.com/ - Platinum Sponsor
+
+    * Dialo - https://dialo.ai/ - Gold Sponsor
+
+    * LexiFi - https://www.lexifi.com - Bronze Sponsor
+
+    * Jane Street - https://www.janestreet.com/ - Bronze Sponsor
+
+
+    * LightSource - Volunteer / Organizer Commitment
+
+    * Tarides - Volunteer / Organizer Commitment'
+  published: 2025-11-10T23:00:56+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: 'Performance Pitfalls: Tales From a Python/OCaml Codebase - Emma Jin - FUN
+    OCaml 2025'
+  url: https://www.youtube.com/watch/UfrryqltZUQ?version=3
+  thumbnail: https://i2.ytimg.com/vi/UfrryqltZUQ/hqdefault.jpg
+  description: 'Performance Pitfalls: Tales From a Python/OCaml Codebase
+
+
+    Emma Jin (Semgrep)
+
+
+    ABSTRACT
+
+
+    Semgrep is a tool that enables developers to search their code for security vulnerabilities,
+    built with an OCaml engine and a Python frontend. This has come with a fair amount
+    of performance pain. In this talk, I''ll share some of the worst problems we ran
+    into, how we found them, and how we solved them (mostly, rewriting Python code
+    in OCaml).
+
+
+    Session page: https://fun-ocaml.com/2025/performance-pitfalls-tales-from-a-python-ocaml-codebase/
+
+
+
+    Connect with FUN OCaml:
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml
+
+
+    ---
+
+
+    Big Thanks(TM) go to our generous sponsors who made FUN OCaml possible!
+
+    * Octra Labs - https://octra.org/ - Platinum Sponsor
+
+    * Ahrefs - https://ahrefs.com/ - Platinum Sponsor
+
+    * Dialo - https://dialo.ai/ - Gold Sponsor
+
+    * LexiFi - https://www.lexifi.com - Bronze Sponsor
+
+    * Jane Street - https://www.janestreet.com/ - Bronze Sponsor
+
+
+    * LightSource - Volunteer / Organizer Commitment
+
+    * Tarides - Volunteer / Organizer Commitment'
+  published: 2025-11-09T23:00:40+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Generating Static Websites the Functional Programming Way - Xavier Van de
+    Woestyne - FUN OCaml 2025
+  url: https://www.youtube.com/watch/rHGMD49eb_k?version=3
+  thumbnail: https://i3.ytimg.com/vi/rHGMD49eb_k/hqdefault.jpg
+  description: 'Generating Static Websites the Functional Programming Way
+
+
+    Xavier Van de Woestyne (Tarides)
+
+
+    ABSTRACT
+
+
+    Static site generators like Jekyll, Zola, and Hugo are effective, but fall short
+    for complex sites like personal encyclopedias, wikis, or sites with rich content.
+    Features like backlinks and transclusions require richer context and efficient
+    builds. This talk explores the theory behind static site generation (as a case
+    of build systems) and shows how to implement advanced features inspired by Project
+    Xanadu using YOCaml, a static site framework based on functional abstractions
+    (such as strong profunctors) in OCaml.
+
+
+    Session page: https://fun-ocaml.com/2025/static-websites-functional-programming/
+
+
+
+    Connect with FUN OCaml:
+
+    Twitter: https://x.com/FunOCaml
+
+    Bluesky: https://bsky.app/profile/fun-ocaml.com
+
+
+    #ocaml
+
+
+    ---
+
+
+    Big Thanks(TM) go to our generous sponsors who made FUN OCaml possible!
+
+    * Octra Labs - https://octra.org/ - Platinum Sponsor
+
+    * Ahrefs - https://ahrefs.com/ - Platinum Sponsor
+
+    * Dialo - https://dialo.ai/ - Gold Sponsor
+
+    * LexiFi - https://www.lexifi.com - Bronze Sponsor
+
+    * Jane Street - https://www.janestreet.com/ - Bronze Sponsor
+
+
+    * LightSource - Volunteer / Organizer Commitment
+
+    * Tarides - Volunteer / Organizer Commitment'
+  published: 2025-11-08T23:01:05+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: 'From OCaml 4 to 5 and from Parmap to Effects: A legacy code transition story
+    - FUN OCaml 2025'
+  url: https://www.youtube.com/watch/zfGlQZ2pkss?version=3
+  thumbnail: https://i3.ytimg.com/vi/zfGlQZ2pkss/hqdefault.jpg
+  description: "From OCaml 4 to 5 and from Parmap to Effects: A legacy code transition
+    story\n\nSPEAKERS \n\nNathan Taylor (Semgrep)\nNat Mote (Semgrep)\n\nABSTRACT\n\nOCaml
+    5's support for shared memory parallelism and effects-based concurrency opens
+    up new ways for developers to build new OCaml programs for modern hardware, but
+    it isn't trivial to migrate existing software to this new world. We've spent the
+    last few months porting a large (~3MM LoC) OCaml codebase from process-based parallelism
+    to multi-domain Eio, and learned a lot along the way. In this talk, we'll discuss
+    the fundamentals of shared-memory parallism, our incremental migration approach
+    which used a combination of static and dynamic analysis, the pitfalls (both expected
+    and unexpected) that we encountered along the way, and some lessons that others
+    can adopt for their own journey.\n\nSession page: https://fun-ocaml.com/2025/from-ocaml-4-to-5/\n\nConnect
+    with FUN OCaml:\nTwitter: https://x.com/FunOCaml\nBluesky: https://bsky.app/profile/fun-ocaml.com\n\n#ocaml\n\n---\n\nBig
+    Thanks(TM) go to our generous sponsors who made FUN OCaml possible!\n* Octra Labs
+    - https://octra.org/ - Platinum Sponsor\n* Ahrefs - https://ahrefs.com/ - Platinum
+    Sponsor\n* Dialo - https://dialo.ai/ - Gold Sponsor\n* LexiFi - https://www.lexifi.com
+    - Bronze Sponsor\n* Jane Street - https://www.janestreet.com/ - Bronze Sponsor\n\n*
+    LightSource - Volunteer / Organizer Commitment\n* Tarides - Volunteer / Organizer
+    Commitment"
+  published: 2025-11-07T23:01:22+00:00
+  author_name: FUN OCaml
+  author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UC3TI-fmhJ_g3_n9fHaXGZKA
+  source_title: FUN OCaml
+- title: Hacking OCaml
+  url: https://www.youtube.com/watch/HVE9WWC0hbQ?version=3
+  thumbnail: https://i1.ytimg.com/vi/HVE9WWC0hbQ/hqdefault.jpg
+  description: 'This talk breaks down a CTF puzzle Corwin de Zahr designed a few years
+    back that involves finding problems and vulnerabilities within the OCaml runtime.
+
+
+    Read the full transcript here: https://www.janestreet.com/tech-talks/hacking-ocaml/'
+  published: 2025-10-24T16:24:04+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
+- title: Hacking OCaml
+  url: https://www.youtube.com/watch/SV9Vna-Qgo8?version=3
+  thumbnail: https://i4.ytimg.com/vi/SV9Vna-Qgo8/hqdefault.jpg
+  description: 'This talk breaks down a CTF puzzle Corwin de Zahr designed a few years
+    back that involves finding problems and vulnerabilities within the OCaml runtime.
+
+
+    Read the full transcript here: https://www.janestreet.com/tech-talks/hacking-ocaml/'
+  published: 2025-09-30T17:57:09+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: FUN OCaml 2025 - Join us in Warsaw, Poland on September 15 for a day full
     of presentations!
   url: https://www.youtube.com/watch/L_rTHhIEfVM?version=3
@@ -2504,7 +3015,7 @@
     Support the show at https://www.patreon.com/emelletv or don''t miss it live by
     following us https://www.twitch.tv/emelletv'
   published: 2023-06-14T13:59:18+00:00
-  author_name: emelletv
+  author_name: David Sancho
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
@@ -2584,7 +3095,7 @@
 
     Support the show at https://www.patreon.com/emelletv'
   published: 2023-01-29T19:23:01+00:00
-  author_name: emelletv
+  author_name: David Sancho
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
@@ -2636,7 +3147,7 @@
 
     Watch live at https://www.twitch.tv/emelletv'
   published: 2022-08-06T19:04:39+00:00
-  author_name: emelletv
+  author_name: David Sancho
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
@@ -2736,7 +3247,7 @@
 
     Watch live at https://www.twitch.tv/emelletv'
   published: 2022-04-18T14:03:56+00:00
-  author_name: emelletv
+  author_name: David Sancho
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
@@ -2930,7 +3441,7 @@
     amount to emelletv.tez (tz1bQHQKT4BSoEreWKHuR3H5mme6fV3XCcvX)\n\nWatch live at
     https://www.twitch.tv/emelletv"
   published: 2021-11-08T22:00:23+00:00
-  author_name: emelletv
+  author_name: David Sancho
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV

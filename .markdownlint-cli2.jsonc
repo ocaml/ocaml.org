@@ -14,6 +14,10 @@
         "MD024": {
             "allow_different_nesting": true
         },
+        // Don't require code blocks to be surrounded by blank space
+        "MD031": false,
+        // Don't require lists to be surrounded by blank space
+        "MD032": false,
         // Allow inline HTML
         "MD033": false,
         // First line in a file doesn't need to be a top-level header

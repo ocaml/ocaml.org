@@ -61,7 +61,6 @@ module Blog = struct
     authors : string list;
     date : string;
     preview_image : string option;
-    body_html : string;
   }
 end
 
@@ -87,14 +86,41 @@ module Book = struct
   }
 end
 
+module Backstage = struct
+  type release = {
+    title : string;
+    slug : string;
+    date : string;
+    tags : string list;
+    changelog_html : string option;
+    body_html : string;
+    body : string;
+    authors : string list;
+    contributors : string list;
+    project_name : string;
+    versions : string list;
+    github_release_tags : string list;
+  }
+
+  type post = {
+    title : string;
+    slug : string;
+    date : string;
+    tags : string list;
+    body_html : string;
+    body : string;
+    authors : string list;
+  }
+
+  type t = Release of release | Post of post
+end
+
 module Changelog = struct
   type release = {
     title : string;
     slug : string;
     date : string;
     tags : string list;
-    unstable : bool;
-    ignore : bool;
     changelog_html : string option;
     body_html : string;
     body : string;
@@ -206,7 +232,7 @@ end
 
 module Governance = struct
   type member = { name : string; github : string; role : string }
-  type contact_kind = GitHub | Email | Discord | Chat
+  type contact_kind = GitHub | Email | Discord | Chat | Forum
   type contact = { name : string; link : string; kind : contact_kind }
 
   type dev_meeting = {

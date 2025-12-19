@@ -72,11 +72,12 @@ let adjacency_example = ['b', ['c'; 'f'];
                          'd', [];
                          'f', ['b'; 'c'; 'k'];
                          'g', ['h'];
+                         'h', ['g'];
                          'k', ['f']
                          ];;
 val adjacency_example : (char * char list) list =
   [('b', ['c'; 'f']); ('c', ['b'; 'f']); ('d', []); ('f', ['b'; 'c'; 'k']);
-   ('g', ['h']); ('k', ['f'])]
+   ('g', ['h']); ('h', ['g']); ('k', ['f'])]
 ```
 
 * The representations we introduced so far are well suited for automated

@@ -50,6 +50,12 @@ let urlables =
             match r with
             | Release r -> to_url @@ Url.changelog_entry r.slug
             | Post r -> to_url @@ Url.changelog_entry r.slug );
+      Urlable
+        ( Backstage.all,
+          fun r ->
+            match r with
+            | Release r -> to_url @@ Url.backstage_entry r.slug
+            | Post r -> to_url @@ Url.backstage_entry r.slug );
       Urlable (Governance.teams, fun r -> to_url @@ Url.governance_team r.id);
       Urlable (Is_ocaml_yet.all, fun r -> to_url @@ Url.is_ocaml_yet r.id);
       Urlable (News.all, fun r -> to_url @@ Url.news_post r.slug);

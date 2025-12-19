@@ -18,6 +18,7 @@ Please include images and browser-specific information if the bug is related to 
 
 We've provided a list of community-driven content below. When adding content to any of these sections, it's best to fork the repo, add your file, and open a pull request (PR).
 
+Anyone can contribute to these sections:
 - [Images](#images)
 - [The OCaml Planet](#ocaml-planet)
 - [Job Board](#content-job)
@@ -28,9 +29,13 @@ We've provided a list of community-driven content below. When adding content to 
 - [OCaml Cookbook Recipes](#content-cookbook)
 - [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
-- [The OCaml Changelog](#content-changelog)
 
-The following sections give more details on how to contribute to each.
+OCaml Platform maintainers can contribute to these sections:
+- [The OCaml Changelog](#content-changelog)
+- [Backstage OCaml](#content-backstage)
+- [Platform Tools Releases](#content-platform-tools-releases)
+
+The following sections give more details on how to contribute.
 
 ### <a name="images"></a>Adding Images
 
@@ -221,7 +226,7 @@ You can add a new upcoming event by creating a new Markdown file in [data/events
 
 ### <a name="content-changelog"></a>OCaml Changelog
 
-The [OCaml Changelog](https://ocaml.org/changelog) is a user-oriented blog that serves as a newsfeed for the OCaml ecosystem. It's important to note that despite its name, it's not a traditional changelog, but rather a curated blog of significant updates and news.
+The [OCaml Changelog](https://ocaml.org/changelog) is a user-oriented blog that serves as a newsfeed for the OCaml ecosystem. It's important to note that despite its name, it's not a traditional changelog, but rather a curated blog of significant updates and news about the stable OCaml tooling.
 
 The Changelog covers developments across:
 
@@ -253,10 +258,37 @@ The Changelog is not meant for:
 To contribute a new post to the Changelog:
 
 1. Create a new Markdown file in the `data/changelog/` directory.
-2. Use a clear, descriptive filename (e.g., `2023-06-15-ocaml-5-1-release.md`).
-3. Include relevant metadata at the top of the file (date, title, tags, etc.).
+2. Use a clear, descriptive filename (e.g., `2025-08-26-ocaml-eglot-brings-lsp-support-to-emacs.md`).
+3. Include relevant metadata at the top of the file (title, tags, etc.).
 4. Write the post content, focusing on how the news or change affects OCaml users.
 5. Submit a pull request with your new file.
+
+### <a name="content-backstage"></a>Backstage OCaml
+
+As a dual to the OCaml Changelog, Backstage OCaml is a channel TODO
+
+#### Contributing a Post
+
+To contribute a new post to Backstage OCaml:
+
+1. Create a new Markdown file in the `data/backstage/` directory.
+2. Use a clear, descriptive filename (e.g., `2025-06-05-portable-external-dependencies-for-dune-package-management.md`).
+3. Include relevant metadata at the top of the file (title, tags, etc.).
+4. Write the post content, focusing on how the news or change affects OCaml users.
+5. Submit a pull request with your new file.
+
+### <a name="content-platform-tools-release"></a>Platform Tools Releases
+
+As part of the [OCaml Changelog page](https://ocaml.org/changelog) and the [Backstage OCaml page](https://ocaml.org/backstage), we list stable, and respectively, unstable releases of all the OCaml Platform tools, as well as the OCaml compiler.
+
+#### Contributing Release Notes
+
+To contribute OCaml Platform Tools release notes:
+
+1. Create a new Markdown file in the `data/platform_releases/` directory.
+2. Use a clear, descriptive filename (e.g., `2025-02-03-dune-release-2.1.0.md`).
+3. Include relevant metadata at the top of the file (title, tags, etc.).
+4. Submit a pull request with your new file.
 
 ## Git and GitHub Workflow
 
