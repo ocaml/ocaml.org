@@ -16,7 +16,7 @@ The recommendations are based on the availability table below:
 * Tier 2 is supported but maintained when possible.
 * Tier 3 is user supported.
 
-```
+```text
 ╭──────────────────────────────────────────────────────────────────────────╮
 │ Tier   │ OCaml Version and Environment   │ Support                       │
 │ ------ │ ------------------------------- │ ----------------------------- │
@@ -65,7 +65,7 @@ well as an OCaml compiler of version `> 4.05`. By default, opam chooses `mingw` 
 a C compiler when creating switches, but know that you can choose to install an
 alternative instead, like `msvc`, with the following command:
 
-```
+```sh
 opam install system-msvc
 ```
 
@@ -73,19 +73,19 @@ After `opam init` completes, run the following command to update your environmen
 
 On CMD:
 
-```
+```dosbatch
 > for /f "tokens=*" %i in ('opam env --switch=default') do @%i
 ```
 
 On PowerShell:
 
-```
+```powershell
 > (& opam env --switch=default) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }
 ```
 
 On [Nushell](https://www.nushell.sh/):
 
-```
+```nushell
 > opam env --shell=powershell | parse "$env:{key} = '{val}'" | transpose -rd | load-env
 ```
 
@@ -93,7 +93,7 @@ Opam will display the shell update command each time it is needed.
 
 You can verify your installation with
 
-```
+```text
 > ocaml --version
 The OCaml toplevel, version 5.2.0
 
