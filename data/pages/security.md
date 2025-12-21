@@ -35,6 +35,10 @@ The current members of the SRT are:
 
 The SRT is an initiative of the [OCaml Software Foundation](https://ocaml-sf.org/)
 
+### Former members
+
+- May 2025 until December 2025: Maxim Grankin - [@maxim092001](https://github.com/maxim092001) - Bloomberg
+
 ## Mailing List For Security Announcements
 
 On the public [mailing list ocsf-ocaml-security-announcements](https://sympa.inria.fr/sympa/info/ocsf-ocaml-security-announcements) every security advisory will be published. Everyone can subscribe to the mailing list - it is only for security advisories (i.e. there won't be any discussion on the mailing list).
