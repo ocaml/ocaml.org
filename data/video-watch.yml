@@ -458,18 +458,6 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
-- title: Develop Cross-Platform Software using 2+ Languages
-  description: "Explore how high school robotics software was developed that works
-    on Android phones and desktop PCs. Use OCaml alongside common programming languages
-    like Java and Python.\r\n\r\nDkSDK Subscription: https://diskuv.com/pricing/\r\nLearning
-    OCaml: https:..."
-  url: https://watch.ocaml.org/videos/watch/6162e7b7-f2dd-47e6-8133-c4126ce1b508
-  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/4a50eb98-ab79-4a57-87d9-a55a91654301.jpg
-  published: 2023-11-16T22:18:27.526Z
-  author_name: Unknown
-  author_uri: https://watch.ocaml.org/
-  source_link: https://watch.ocaml.org/
-  source_title: Watch OCaml
 - title: Digodoc and Docs
   description: In this talk, we will introduce a new tool called digodoc, that builds
     a graph of an opam switch, associating files, libraries and opam packages into
@@ -541,18 +529,6 @@
   url: https://watch.ocaml.org/videos/watch/556c8f75-b456-43a3-b9cb-97ae35b82072
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/f03f27d0-ca66-40b3-938d-65230885cd85.jpg
   published: 2021-10-02T02:09:19.827Z
-  author_name: Unknown
-  author_uri: https://watch.ocaml.org/
-  source_link: https://watch.ocaml.org/
-  source_title: Watch OCaml
-- title: Episode3-Youtube
-  description: "Everything you need to know to install and use the DkML distribution
-    of OCaml on Windows. Includes a 5-minute quick install for learners. Includes
-    how to setup projects and configuring IDEs for software creators/engineers.\r\n\r\nAt
-    the time of this v..."
-  url: https://watch.ocaml.org/videos/watch/4d2578c2-20bf-4cd7-9256-b0eb49716009
-  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/669c9550-883a-4610-8450-504b172762ed.jpg
-  published: 2023-12-08T12:14:13.996Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
