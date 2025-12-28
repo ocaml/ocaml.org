@@ -174,15 +174,22 @@ let scrape yaml_file =
     in
     sources |> List.to_seq
     |> Seq.concat_map (fun src ->
-           src |> source_to_url |> Http_client.get_sync |> fun feed ->
-           Xmlm.make_input (`String (0, feed))
-           |> walk_mrss
-           |> Seq.unfold (feed_entry src [])
-           |> Seq.filter (fun video ->
-                  src.publish_all
-                  || String.(
-                       is_sub_ignore_case "caml" video.Vid.title
-                       || is_sub_ignore_case "caml" video.Vid.description)))
+           try
+             let feed = src |> source_to_url |> Http_client.get_sync in
+             Xmlm.make_input (`String (0, feed))
+             |> walk_mrss
+             |> Seq.unfold (feed_entry src [])
+             |> Seq.filter (fun video ->
+                    src.publish_all
+                    || String.(
+                         is_sub_ignore_case "caml" video.Vid.title
+                         || is_sub_ignore_case "caml" video.Vid.description))
+           with e ->
+             Printf.eprintf " [WARN] Could not fetch %s (url: %s): %s\n%!"
+               src.name
+               (source_to_url src |> Uri.to_string)
+               (Printexc.to_string e);
+             Seq.empty)
     |> VideoSet.of_seq |> Result.ok
   in
   match fetched with
