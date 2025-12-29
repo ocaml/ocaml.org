@@ -1,6 +1,11 @@
 let rec get ?(max_redirects = 10) uri =
   let open Lwt.Syntax in
-  let* ans = Cohttp_lwt_unix.Client.get uri in
+  let headers =
+    Cohttp.Header.init_with "User-Agent"
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) \
+       Chrome/91.0.4472.114 Safari/537.36"
+  in
+  let* ans = Cohttp_lwt_unix.Client.get ~headers uri in
   follow_redirect ~max_redirects uri ans
 
 and follow_redirect ~max_redirects request_uri (response, body) =
