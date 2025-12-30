@@ -172,10 +172,16 @@ let scrape yaml_file =
     let* sources =
       yaml |> source_list_of_yaml |> Result.map_error (Utils.where file)
     in
-    sources |> List.to_seq
+    let sources = Array.of_list sources in
+    Array.shuffle ~rand:Random.int sources;
+    let sources = Array.to_seq sources in
+    sources
     |> Seq.concat_map (fun src ->
            try
-             let feed = src |> source_to_url |> Http_client.get_sync in
+             let feed =
+               src |> source_to_url
+               |> Http_client.get_sync ~max_random_delay:180.0
+             in
              Xmlm.make_input (`String (0, feed))
              |> walk_mrss
              |> Seq.unfold (feed_entry src [])
@@ -185,8 +191,7 @@ let scrape yaml_file =
                          is_sub_ignore_case "caml" video.Vid.title
                          || is_sub_ignore_case "caml" video.Vid.description))
            with e ->
-             Printf.eprintf " [WARN] Could not fetch %s (url: %s): %s\n%!"
-               src.name
+             Printf.eprintf " [WARN] Could not fetch %s %s %s\n%!" src.name
                (source_to_url src |> Uri.to_string)
                (Printexc.to_string e);
              Seq.empty)
