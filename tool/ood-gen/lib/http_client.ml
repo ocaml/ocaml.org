@@ -21,11 +21,9 @@ and follow_redirect ~max_redirects request_uri (response, body) =
       handle_redirect ~permanent:true ~max_redirects request_uri response
   | `Found | `Temporary_redirect ->
       handle_redirect ~permanent:false ~max_redirects request_uri response
-  | `Not_found | `Gone -> Lwt.fail_with "Not found"
   | status ->
       Lwt.fail_with
-        (Printf.sprintf "Unhandled status: %s"
-           (Cohttp.Code.string_of_status status))
+        (Printf.sprintf "Status: %s" (Cohttp.Code.string_of_status status))
 
 and handle_redirect ~permanent ~max_redirects request_uri response =
   if max_redirects <= 0 then Lwt.fail_with "Too many redirects"
@@ -47,9 +45,16 @@ and handle_redirect ~permanent ~max_redirects request_uri response =
         in
         get uri ~max_redirects:(max_redirects - 1)
 
-let get_sync ?max_redirects uri =
+let get_sync ?max_redirects ?max_random_delay uri =
   let body =
     let open Lwt.Syntax in
+    let* () =
+      match max_random_delay with
+      | Some delay when delay > 0. ->
+          Random.self_init ();
+          Lwt_unix.sleep (Random.float delay)
+      | _ -> Lwt.return_unit
+    in
     let* _res, body = get ?max_redirects uri in
     Cohttp_lwt.Body.to_string body
   in
