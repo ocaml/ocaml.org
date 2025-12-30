@@ -48,7 +48,7 @@ jobs:
           make scrape_ocaml_planet
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           title: '[scrape.yml] New OCaml blog posts and videos'
           labels: scrape
