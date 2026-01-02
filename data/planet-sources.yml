@@ -263,3 +263,7 @@
   name: ryan.freumh.org
   url: https://ryan.freumh.org/ocaml.xml
   publish_all: false
+- id: chrisarmstrong
+  name: Chris Armstrong
+  url: https://www.chrisarmstrong.dev/tags/ocaml/feed.xml
+  publish_all: false
