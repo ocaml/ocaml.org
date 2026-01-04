@@ -4,6 +4,7 @@ title: OCaml on Windows
 description: >
   Read about the state of OCaml on Windows and our roadmap to improve Windows support.
 category: "Resources"
+language: English
 ---
 
 We recommend installing [opam](https://opam.ocaml.org/) for new users. Opam, the OCaml package manager, has full Windows support since version 2.2 and provides the most up-to-date OCaml environment.

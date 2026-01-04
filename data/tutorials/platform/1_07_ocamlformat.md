@@ -5,6 +5,7 @@ short_title: "Formatting Your Code"
 description: |
   How to set up OCamlFormat to automatically format your code
 category: "Additional Tooling"
+language: English
 ---
 
 Automatic formatting with OCamlFormat requires an `.ocamlformat` configuration file at the root of the project.
