@@ -1,5 +1,5 @@
 ---
-title: Ocaml Security
+title: OCaml Security
 description: This page details the OCaml security disclosure process, including how to report vulnerabilities, the role and members of the OCaml Security Response Team (SRT), and their publications.
 meta_title: OCaml Security
 meta_description: This page details the OCaml security disclosure process, including how to report vulnerabilities, the role and members of the OCaml Security Response Team (SRT), and their publications.
