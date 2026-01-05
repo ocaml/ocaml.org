@@ -85,7 +85,19 @@ let learn_platform = "/docs/tools"
 let tools = "/tools"
 let platform = "/platform"
 let tool_page name = "/tools/" ^ name
-let tutorial name = "/docs/" ^ name
+let tutorial name (language : Data_intf.Tutorial.language option) =
+  let language_query_param =
+    match language with
+    | None -> ""
+    | Some language ->
+      let language =
+        match language with
+        | English -> "en"
+        | Japanese -> "ja"
+      in
+      "?lang=" ^ language
+  in
+  "/docs/" ^ name ^ language_query_param
 let tutorial_search = "/docs/search"
 let getting_started = "/docs/get-started"
 let installing_ocaml = "/docs/installing-ocaml"
