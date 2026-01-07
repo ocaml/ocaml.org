@@ -1,4 +1,4 @@
-name: Scrape (OCaml Changelog)
+name: Scrape (OCaml Platform Releases)
 
 on:
   workflow_dispatch:
@@ -54,6 +54,6 @@ jobs:
           labels: scrape
           branch: create-pull-request/patch-scrape-changelog
           add-paths: |
-            data/changelog/*/*.md
+            data/**/*.md
           commit-message: |
             [scrape_platform_releases.yml] New Platform Releases
