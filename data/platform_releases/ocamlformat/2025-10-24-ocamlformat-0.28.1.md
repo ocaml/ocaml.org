@@ -159,3 +159,25 @@ github_release_tags:
 ---
 
 We're happy to announce the release of OCamlFormat `0.28.1`!
+
+### Highlight
+
+- \* Support for OCaml 5.4
+  (#2717, #2720, #2732, #2733, #2735, @Julow, @Octachron, @cod1r, @EmileTrotignon)
+  OCamlformat now supports OCaml 5.4 syntax.
+  Module packing of the form `((module M) : (module S))` are no longer
+  rewritten to `(module M : S)` because these are now two different syntaxes.
+- \* Reduce indentation after `|> map (fun` (#2694, @EmileTrotignon)
+  Notably, the indentation no longer depends on the length of the infix
+  operator, for example:
+  ```ocaml
+  (* before *)
+  v
+  |>>>>>> map (fun x ->
+              x )
+  (* after *)
+  v
+  |>>>>>> map (fun x ->
+      x )
+  ```
+  `@@ match` can now also be on one line.
