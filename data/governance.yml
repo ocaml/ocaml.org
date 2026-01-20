@@ -83,6 +83,132 @@ teams:
   - name: Olivier Nicole
     github: OlivierNicole
     role: Maintainer
+- id: language
+  name: Language Committee
+  description: This committee is a collegial instance aiming to
+    facilitate discussion and form consensus regarding the evolution of the
+    OCaml language.
+  contacts:
+  - name: Mailing List
+    link: https://sympa.inria.fr/sympa/arc/ocaml-language-committee
+    kind: email
+  members:
+  - name: Florian Angeletti
+    github: Octachron
+    role: Chair
+  - name: Frédéric Bour
+    github: let-def
+    role: Member
+  - name: Richard Eisenberg
+    github: goldfirere
+    role: Member
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Member
+  - name: Andrew Kennedy
+    github: andrewjkennedy
+    role: Member
+  - name: François Pottier
+    github: fpottier
+    role: Member
+  - name: Gabriel Scherer
+    github: gasche
+    role: Member
+  - name: Leo White
+    github: lpw25
+    role: Member
+  - name: Jeremy Yallop
+    github: yallop
+    role: Member
+- id: security
+  name: Security
+  description: The OCaml Security Team coordinates security response
+    for high-impact vulnerabilities, and maintains the advisory database
+    and associated tooling.
+  contacts:
+  - name: Mailing List
+    link: https://sympa.inria.fr/sympa/info/ocsf-ocaml-security-announcements
+    kind: email
+  - name: GitHub
+    link: https://github.com/ocaml/security-advisories
+    kind: github
+  members:
+  - name: Hannes Mehnert
+    github: hannesm
+    role: Chair
+  - name: Mindy Preston
+    github: yomimono
+    role: Member
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Member
+  - name: Joe
+    github: cfcs
+    role: Member
+  - name: Edwin Törok
+    github: edwintorok
+    role: Member
+  - name: Louis Roché
+    github: Khady
+    role: Member
+  - name: Boning Dong
+    github: bn-d
+    role: Member
+- id: library
+  name: Standard Library
+  description: The Standard Library Team is in charge of shepherding, reviewing
+    and generally staying on top of standard library contributions to the compiler.
+  members:
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Member
+  - name: Daniel Bünzli
+    github: dbuenzli
+    role: Member
+  - name: Simon Cruanes
+    github: c-cube
+    role: Member
+  - name: Kate Deplaix
+    github: kit-ty-kate
+    role: Member
+  - name: Léo Andrès
+    github: redianthus
+    role: Member
+- id: foundation
+  name: Foundation
+  description: The OCaml Software Foundation is a non-profit foundation whose
+    mission is to promote, protect, and advance the OCaml programming language and
+    its ecosystem, and to support and facilitate the growth of a diverse and
+    international community of OCaml users.
+  contacts:
+  - name: Email
+    link: ocaml.software.foundation@gmail.com
+    kind: email
+  - name: Website
+    link: https://ocaml-sf.org/
+    kind: website
+  members:
+  - name: Gabriel Scherer
+    github: gasche
+    role: Chair
+  - name: Alan Schmitt
+    github: brabalan
+    role: Member
+  - name: Nicolás Ojeda Bär
+    github: nojb
+    role: Member
+  - name: Xavier Leroy
+    github: xavierleroy
+    role: Member
+  - name: Damien Doligez
+    github: damiendoligez
+    role: Member
+  - name: Kim Nguyễn
+    github: Tchou
+    role: Member
+  - name: Virgile Prevosto
+    github: vprevosto
+    role: Member
 - id: platform
   name: Platform
   description: The Platform team is responsible for the development and maintenance
