@@ -136,7 +136,7 @@ For convenience:
 
 Example:
 ```bash
-$ ocaml-ci mirage/irmin pull/867 alpine-3.10-ocaml-4.08 cancel
+ocaml-ci mirage/irmin pull/867 alpine-3.10-ocaml-4.08 cancel
 ```
 
 ## Main Sources of OCaml-CI Documentation
