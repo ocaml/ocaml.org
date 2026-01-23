@@ -7,9 +7,9 @@ description: |
 category: "Additional Tooling"
 ---
 
-## setup-ocaml — [github.com/ocaml/setup-ocaml](https://github.com/ocaml/setup-ocaml)
+## `setup-ocaml`
 
-This action aims to provide an OS-neutral interface to `opam`, and so will not add features that only work on one operating system.
+[`setup-ocaml`](https://github.com/ocaml/setup-ocaml) is an action that provides an OS-neutral interface to `opam`, and so will not add features that only work on one operating system. It is the _de-facto_ standard for OCaml CI workflows. It is maintained by Sora Moritomo ([@smoritomo](https://github.com/smoritomo)).
 
 ### Basic Usage
 
