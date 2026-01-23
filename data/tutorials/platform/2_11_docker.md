@@ -9,7 +9,7 @@ category: "Additional Tooling"
 
 ## Docker Hub Repository: `ocaml/opam`
 
-The official OCaml Docker images are hosted at **[hub.docker.com/r/ocaml/opam](https://hub.docker.com/r/ocaml/opam)**.
+The official OCaml Docker images are hosted at **[hub.docker.com/r/ocaml/opam](https://hub.docker.com/r/ocaml/opam)**. The [`ocurrent/docker-base-images`](https://github.com/ocurrent/docker-base-images`) repository contains their build instructions.
 
 **Note:** The older repositories `ocaml/opam2`, `ocaml/opam2-staging`, `ocurrent/opam`, and `ocaml/ocaml` are **no longer updated**. Use `ocaml/opam` for the latest images.
 
