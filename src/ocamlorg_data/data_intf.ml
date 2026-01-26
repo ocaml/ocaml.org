@@ -241,7 +241,7 @@ module Governance = struct
     | Forum
     | Website
     | Tracker
-    
+
   type contact = { name : string; link : string; kind : contact_kind }
 
   type dev_meeting = {
