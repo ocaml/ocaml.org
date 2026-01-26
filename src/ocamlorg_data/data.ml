@@ -31,8 +31,8 @@ let all_data : Data_packer.Types.All_data.t Lazy.t =
      (* Deserialize using bin_prot *)
      Data_packer.Types.All_data.bin_read_t buf ~pos_ref)
 
-(* Helper to force deserialization *)
-let get_all () = Lazy.force all_data
+(* Force deserialization once at module load time *)
+let data = Lazy.force all_data
 
 (* ============================================================
  * Individual Module Implementations
@@ -41,7 +41,7 @@ let get_all () = Lazy.force all_data
 module Academic_institution = struct
   include Data_intf.Academic_institution
 
-  let all = (get_all ()).academic_institutions
+  let all = data.academic_institutions
 
   let featured =
     all
@@ -59,20 +59,20 @@ end
 module Academic_testimonial = struct
   include Data_intf.Academic_testimonial
 
-  let all = (get_all ()).academic_testimonials
+  let all = data.academic_testimonials
 end
 
 module Book = struct
   include Data_intf.Book
 
-  let all = (get_all ()).books
+  let all = data.books
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Backstage = struct
   include Data_intf.Backstage
 
-  let all = (get_all ()).backstage
+  let all = data.backstage
 
   let get_by_slug slug =
     List.find_opt
@@ -86,7 +86,7 @@ end
 module Changelog = struct
   include Data_intf.Changelog
 
-  let all = (get_all ()).changelog
+  let all = data.changelog
 
   let get_by_slug slug =
     List.find_opt
@@ -100,16 +100,16 @@ end
 module Code_example = struct
   type t = Data_intf.Code_examples.t = { title : string; body : string }
 
-  let all = (get_all ()).code_examples
+  let all = data.code_examples
   let get title = List.find (fun x -> String.equal x.title title) all
 end
 
 module Cookbook = struct
   include Data_intf.Cookbook
 
-  let all = (get_all ()).cookbook_recipes
-  let tasks = (get_all ()).cookbook_tasks
-  let top_categories = (get_all ()).cookbook_top_categories
+  let all = data.cookbook_recipes
+  let tasks = data.cookbook_tasks
+  let top_categories = data.cookbook_top_categories
 
   let rec get_task_path_titles categories = function
     | [] -> []
@@ -144,12 +144,12 @@ end
 module Event = struct
   include Data_intf.Event
 
-  let all = (get_all ()).events
+  let all = data.events
 
   module RecurringEvent = struct
     type t = recurring_event
 
-    let all = (get_all ()).recurring_events
+    let all = data.recurring_events
 
     let get_by_slug slug =
       List.find_opt (fun (x : t) -> String.equal slug x.slug) all
@@ -161,7 +161,7 @@ end
 module Exercise = struct
   include Data_intf.Exercise
 
-  let all = (get_all ()).exercises
+  let all = data.exercises
 
   let filter_tag ?tag =
     let f x =
@@ -175,8 +175,8 @@ end
 module Governance = struct
   include Data_intf.Governance
 
-  let teams = (get_all ()).governance_teams
-  let working_groups = (get_all ()).governance_working_groups
+  let teams = data.governance_teams
+  let working_groups = data.governance_working_groups
 
   let get_by_id id =
     List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
@@ -185,7 +185,7 @@ end
 module Industrial_user = struct
   include Data_intf.Industrial_user
 
-  let all = (get_all ()).industrial_users
+  let all = data.industrial_users
   let featured = all |> List.filter (fun user -> user.featured)
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
@@ -193,32 +193,32 @@ end
 module Is_ocaml_yet = struct
   include Data_intf.Is_ocaml_yet
 
-  let all = (get_all ()).is_ocaml_yet
+  let all = data.is_ocaml_yet
 end
 
 module Job = struct
   include Data_intf.Job
 
-  let all = (get_all ()).jobs
+  let all = data.jobs
 end
 
 module Testimonial = struct
   include Data_intf.Testimonial
 
-  let all = (get_all ()).testimonials
+  let all = data.testimonials
 end
 
 module News = struct
   include Data_intf.News
 
-  let all = (get_all ()).news
+  let all = data.news
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Opam_user = struct
   include Data_intf.Opam_user
 
-  let all = (get_all ()).opam_users
+  let all = data.opam_users
 
   let make ~name ?email ?github_username ?avatar () =
     { name; email; github_username; avatar }
@@ -242,13 +242,13 @@ end
 module Outreachy = struct
   include Data_intf.Outreachy
 
-  let all = (get_all ()).outreachy
+  let all = data.outreachy
 end
 
 module Page = struct
   include Data_intf.Page
 
-  let all = (get_all ()).pages
+  let all = data.pages
 
   let get path =
     let slug = Filename.basename path in
@@ -258,7 +258,7 @@ end
 module Paper = struct
   include Data_intf.Paper
 
-  let all = (get_all ()).papers
+  let all = data.papers
   let featured = all |> List.filter (fun paper -> paper.featured)
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
@@ -266,21 +266,21 @@ end
 module Planet = struct
   include Data_intf.Planet
 
-  let all = (get_all ()).planet
+  let all = data.planet
 end
 
 module Release = struct
   include Data_intf.Release
 
-  let all = (get_all ()).releases
+  let all = data.releases
 
   let latest =
-    match (get_all ()).release_latest with
+    match data.release_latest with
     | Some r -> r
     | None -> failwith "No latest release marked in data"
 
   let lts =
-    match (get_all ()).release_lts with
+    match data.release_lts with
     | Some r -> r
     | None -> failwith "No LTS release marked in data"
 
@@ -306,36 +306,36 @@ end
 module Resource = struct
   include Data_intf.Resource
 
-  let all = (get_all ()).resources
-  let featured = (get_all ()).featured_resources
+  let all = data.resources
+  let featured = data.featured_resources
 end
 
 module Success_story = struct
   include Data_intf.Success_story
 
-  let all = (get_all ()).success_stories
+  let all = data.success_stories
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tool = struct
   include Data_intf.Tool
 
-  let all = (get_all ()).tools
+  let all = data.tools
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tool_page = struct
   include Data_intf.Tool_page
 
-  let all = (get_all ()).tool_pages
+  let all = data.tool_pages
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tutorial = struct
   include Data_intf.Tutorial
 
-  let all = (get_all ()).tutorials
-  let all_search_documents = (get_all ()).tutorial_search_documents
+  let all = data.tutorials
+  let all_search_documents = data.tutorial_search_documents
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
   let search_documents q =
@@ -368,13 +368,13 @@ end
 module Video = struct
   include Data_intf.Video
 
-  let all = (get_all ()).videos
+  let all = data.videos
 end
 
 module Conference = struct
   include Data_intf.Conference
 
-  let all = (get_all ()).conferences
+  let all = data.conferences
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
