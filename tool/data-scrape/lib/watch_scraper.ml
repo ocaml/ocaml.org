@@ -7,9 +7,12 @@ let all () =
   let videos =
     let file = "video-watch.yml" in
     let* yaml = Data_packer.Utils.yaml_file file in
-    yaml |> Data_packer.Vid.video_list_of_yaml |> Result.map_error (Data_packer.Utils.where file)
+    yaml |> Data_packer.Vid.video_list_of_yaml
+    |> Result.map_error (Data_packer.Utils.where file)
   in
-  Result.get_ok ~error:(fun (`Msg msg) -> Data_packer.Exn.Decode_error msg) videos
+  Result.get_ok
+    ~error:(fun (`Msg msg) -> Data_packer.Exn.Decode_error msg)
+    videos
 
 (* Extract published_at date, I believe `originallyPublishedAt` applies to
    videos imported from other platforms and `publishedAt` to this videos
@@ -91,7 +94,8 @@ let get_all_videos () =
 let scrape yaml_file =
   let watch =
     get_all_videos ()
-    |> List.stable_sort (fun w1 w2 -> String.compare w1.Data_packer.Vid.title w2.Data_packer.Vid.title)
+    |> List.stable_sort (fun w1 w2 ->
+           String.compare w1.Data_packer.Vid.title w2.Data_packer.Vid.title)
   in
   let yaml = to_yaml watch in
   let output =

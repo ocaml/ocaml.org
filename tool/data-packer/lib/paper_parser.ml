@@ -20,13 +20,12 @@ type metadata = {
 let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
 
 let all () =
-  Utils.yaml_sequence_file (fun yaml ->
-    Result.map of_metadata (metadata_of_yaml yaml)
-  ) "papers.yml"
+  Utils.yaml_sequence_file
+    (fun yaml -> Result.map of_metadata (metadata_of_yaml yaml))
+    "papers.yml"
   |> List.sort (fun (p1 : t) (p2 : t) ->
          (* Sort primarily by year (descending), then by title *)
          let year_cmp = Int.compare p2.year p1.year in
-         if year_cmp <> 0 then year_cmp
-         else String.compare p1.title p2.title)
+         if year_cmp <> 0 then year_cmp else String.compare p1.title p2.title)
 
 let featured () = all () |> List.filter (fun (p : t) -> p.featured)

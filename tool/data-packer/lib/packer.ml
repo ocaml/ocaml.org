@@ -3,7 +3,8 @@
 open Types
 
 let pack_to_buffer data =
-  let buf = Bigstringaf.create (1024 * 1024 * 128) in (* 128 MiB initial *)
+  let buf = Bigstringaf.create (1024 * 1024 * 128) in
+  (* 128 MiB initial *)
   let pos = All_data.bin_write_t buf ~pos:0 data in
   Bigstringaf.sub buf ~off:0 ~len:pos
 
@@ -25,7 +26,8 @@ let load_all () =
   Printf.printf "  Loaded %d testimonials\n" (List.length testimonials);
 
   let academic_testimonials = Academic_testimonial_parser.all () in
-  Printf.printf "  Loaded %d academic_testimonials\n" (List.length academic_testimonials);
+  Printf.printf "  Loaded %d academic_testimonials\n"
+    (List.length academic_testimonials);
 
   let jobs = Job_parser.all () in
   Printf.printf "  Loaded %d jobs\n" (List.length jobs);
@@ -37,14 +39,16 @@ let load_all () =
   Printf.printf "  Loaded %d resources\n" (List.length resources);
 
   let featured_resources = Resource_parser.featured () in
-  Printf.printf "  Loaded %d featured_resources\n" (List.length featured_resources);
+  Printf.printf "  Loaded %d featured_resources\n"
+    (List.length featured_resources);
 
   let videos = Video_parser.all () in
   Printf.printf "  Loaded %d videos\n" (List.length videos);
 
   (* Markdown-based content *)
   let academic_institutions = Academic_institution_parser.all () in
-  Printf.printf "  Loaded %d academic_institutions\n" (List.length academic_institutions);
+  Printf.printf "  Loaded %d academic_institutions\n"
+    (List.length academic_institutions);
 
   let books = Book_parser.all () in
   Printf.printf "  Loaded %d books\n" (List.length books);
@@ -62,15 +66,13 @@ let load_all () =
   Printf.printf "  Loaded %d releases\n" (List.length releases);
 
   let release_latest =
-    try Some (Release_parser.latest ())
-    with Invalid_argument _ -> None
+    try Some (Release_parser.latest ()) with Invalid_argument _ -> None
   in
   Printf.printf "  Loaded release_latest: %s\n"
     (match release_latest with Some r -> r.version | None -> "none");
 
   let release_lts =
-    try Some (Release_parser.lts ())
-    with Invalid_argument _ -> None
+    try Some (Release_parser.lts ()) with Invalid_argument _ -> None
   in
   Printf.printf "  Loaded release_lts: %s\n"
     (match release_lts with Some r -> r.version | None -> "none");
@@ -103,7 +105,8 @@ let load_all () =
   Printf.printf "  Loaded %d tutorials\n" (List.length tutorials);
 
   let tutorial_search_documents = Tutorial_parser.all_search_documents () in
-  Printf.printf "  Loaded %d tutorial_search_documents\n" (List.length tutorial_search_documents);
+  Printf.printf "  Loaded %d tutorial_search_documents\n"
+    (List.length tutorial_search_documents);
 
   (* Complex data structures *)
   let changelog = Changelog_parser.all () in
@@ -128,7 +131,8 @@ let load_all () =
   Printf.printf "  Loaded %d cookbook_tasks\n" (List.length cookbook_tasks);
 
   let cookbook_top_categories = Cookbook_parser.top_categories in
-  Printf.printf "  Loaded %d cookbook_top_categories\n" (List.length cookbook_top_categories);
+  Printf.printf "  Loaded %d cookbook_top_categories\n"
+    (List.length cookbook_top_categories);
 
   let is_ocaml_yet = Is_ocaml_yet_parser.all () in
   Printf.printf "  Loaded %d is_ocaml_yet pages\n" (List.length is_ocaml_yet);
@@ -140,7 +144,8 @@ let load_all () =
   Printf.printf "  Loaded %d governance_teams\n" (List.length governance_teams);
 
   let governance_working_groups = Governance_parser.working_groups () in
-  Printf.printf "  Loaded %d governance_working_groups\n" (List.length governance_working_groups);
+  Printf.printf "  Loaded %d governance_working_groups\n"
+    (List.length governance_working_groups);
 
   let tool_pages = Tool_page_parser.all () in
   Printf.printf "  Loaded %d tool_pages\n" (List.length tool_pages);

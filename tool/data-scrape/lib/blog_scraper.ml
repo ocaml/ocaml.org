@@ -117,12 +117,10 @@ let scrape_source source =
     |> List.iter (scrape_post ~source)
   with e ->
     print_endline
-      (Printf.sprintf "failed to scrape %s: %s" source.id
-         (Printexc.to_string e))
+      (Printf.sprintf "failed to scrape %s: %s" source.id (Printexc.to_string e))
 
 let scrape () =
   let sources = Source.all () in
   sources
-  |> List.filter (fun ({ disabled; _ } : Data_intf.Blog.source) ->
-         not disabled)
+  |> List.filter (fun ({ disabled; _ } : Data_intf.Blog.source) -> not disabled)
   |> List.iter scrape_source

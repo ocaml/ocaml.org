@@ -1,4 +1,5 @@
-(* Academic testimonial parser - adapted from ood-gen/lib/academic_testimonial.ml *)
+(* Academic testimonial parser - adapted from
+   ood-gen/lib/academic_testimonial.ml *)
 
 type t = [%import: Data_intf.Academic_testimonial.t] [@@deriving of_yaml, show]
 

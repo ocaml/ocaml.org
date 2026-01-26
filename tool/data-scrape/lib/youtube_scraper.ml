@@ -155,9 +155,12 @@ let all () =
   let videos =
     let file = "video-youtube.yml" in
     let* yaml = Data_packer.Utils.yaml_file file in
-    yaml |> Data_packer.Vid.video_list_of_yaml |> Result.map_error (Data_packer.Utils.where file)
+    yaml |> Data_packer.Vid.video_list_of_yaml
+    |> Result.map_error (Data_packer.Utils.where file)
   in
-  Result.get_ok ~error:(fun (`Msg msg) -> Data_packer.Exn.Decode_error msg) videos
+  Result.get_ok
+    ~error:(fun (`Msg msg) -> Data_packer.Exn.Decode_error msg)
+    videos
 
 module VideoSet = Set.Make (struct
   type nonrec t = Data_packer.Vid.t
@@ -172,7 +175,8 @@ let scrape yaml_file =
     let file = "youtube.yml" in
     let* yaml = Data_packer.Utils.yaml_file file in
     let* sources =
-      yaml |> source_list_of_yaml |> Result.map_error (Data_packer.Utils.where file)
+      yaml |> source_list_of_yaml
+      |> Result.map_error (Data_packer.Utils.where file)
     in
     let sources = Array.of_list sources in
     Array.shuffle ~rand:Random.int sources;
@@ -191,7 +195,8 @@ let scrape yaml_file =
                     src.publish_all
                     || String.(
                          is_sub_ignore_case "caml" video.Data_packer.Vid.title
-                         || is_sub_ignore_case "caml" video.Data_packer.Vid.description))
+                         || is_sub_ignore_case "caml"
+                              video.Data_packer.Vid.description))
            with e ->
              Printf.eprintf " [WARN] Could not fetch %s %s %s\n%!" src.name
                (source_to_url src |> Uri.to_string)
@@ -204,7 +209,8 @@ let scrape yaml_file =
       let all_videos =
         VideoSet.union fetched scraped
         |> VideoSet.to_seq |> List.of_seq
-        |> List.sort (fun a b -> compare b.Data_packer.Vid.published a.Data_packer.Vid.published)
+        |> List.sort (fun a b ->
+               compare b.Data_packer.Vid.published a.Data_packer.Vid.published)
       in
       let yaml = Data_packer.Vid.video_list_to_yaml all_videos in
       (* The yaml library uses a fixed-size output buffer. The default is 262140

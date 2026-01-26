@@ -21,31 +21,64 @@
   uri)
  ; Exclude blob.ml - it requires C stubs and is for runtime use only
  (modules
-   ; Core utilities
-   import exn markdown utils slug
-   ; Type definitions with bin_io support
-   types ptime_bin_prot
-   ; Search utilities
-   search
-   ; Video type (shared with scrapers)
-   vid
-   ; Parsers for individual data types - simple YAML parsers
-   testimonial_parser academic_testimonial_parser opam_user_parser
-   resource_parser job_parser video_parser
-   ; Parsers for markdown content
-   book_parser academic_institution_parser code_example_parser
-   paper_parser tool_parser success_story_parser industrial_user_parser
-   page_parser news_parser exercise_parser conference_parser
-   release_parser event_parser tutorial_parser
-   cookbook_parser governance_parser is_ocaml_yet_parser
-   outreachy_parser tool_page_parser
-   ; Platform releases and changelog (changelog depends on platform_release)
-   platform_release_parser changelog_parser backstage_parser
-   ; Blog and planet (planet depends on blog and video)
-   blog_parser planet_parser
-   ; RSS/Atom feed generation
-   rss feed
-   ; Main packer
-   packer unpacker data_packer)
+  ; Core utilities
+  import
+  exn
+  markdown
+  utils
+  slug
+  ; Type definitions with bin_io support
+  types
+  ptime_bin_prot
+  ; Search utilities
+  search
+  ; Video type (shared with scrapers)
+  vid
+  ; Parsers for individual data types - simple YAML parsers
+  testimonial_parser
+  academic_testimonial_parser
+  opam_user_parser
+  resource_parser
+  job_parser
+  video_parser
+  ; Parsers for markdown content
+  book_parser
+  academic_institution_parser
+  code_example_parser
+  paper_parser
+  tool_parser
+  success_story_parser
+  industrial_user_parser
+  page_parser
+  news_parser
+  exercise_parser
+  conference_parser
+  release_parser
+  event_parser
+  tutorial_parser
+  cookbook_parser
+  governance_parser
+  is_ocaml_yet_parser
+  outreachy_parser
+  tool_page_parser
+  ; Platform releases and changelog (changelog depends on platform_release)
+  platform_release_parser
+  changelog_parser
+  backstage_parser
+  ; Blog and planet (planet depends on blog and video)
+  blog_parser
+  planet_parser
+  ; RSS/Atom feed generation
+  rss
+  feed
+  ; Main packer
+  packer
+  unpacker
+  data_packer)
  (preprocess
-  (staged_pps ppx_import ppx_bin_prot ppx_deriving_yaml ppx_stable ppx_deriving.show)))
+  (staged_pps
+   ppx_import
+   ppx_bin_prot
+   ppx_deriving_yaml
+   ppx_stable
+   ppx_deriving.show)))

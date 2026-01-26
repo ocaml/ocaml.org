@@ -11,14 +11,16 @@ type metadata = {
   tags : string list;
   authors : string list option;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_html ] ~modify:[ authors ]]
+[@@deriving
+  of_yaml, stable_record ~version:t ~add:[ slug; body_html ] ~modify:[ authors ]]
 
-let of_metadata m =
-  metadata_to_t m ~modify_authors:(Option.value ~default:[])
+let of_metadata m = metadata_to_t m ~modify_authors:(Option.value ~default:[])
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in
-  let* metadata = metadata_of_yaml head |> Result.map_error (Utils.where fpath) in
+  let* metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let slug = Filename.basename fpath |> Filename.remove_extension in
   let body_html =
     Markdown.Content.(of_string body |> render ~syntax_highlighting:true)

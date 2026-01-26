@@ -87,7 +87,8 @@ let decode (fname, (head, body)) =
         project_name;
         versions;
         released_on_github_by = metadata.released_on_github_by;
-        github_release_tags = Option.value ~default:[] metadata.github_release_tags;
+        github_release_tags =
+          Option.value ~default:[] metadata.github_release_tags;
       })
     metadata
 

@@ -62,7 +62,9 @@ let map_md_files f glob =
     Result.map_error (where path) (f (path, metadata))
   in
   read_from_dir glob
-  |> Stdlib.List.fold_left (fun u x -> Ok Stdlib.List.cons <@> f x <@> u) (Ok [])
+  |> Stdlib.List.fold_left
+       (fun u x -> Ok Stdlib.List.cons <@> f x <@> u)
+       (Ok [])
   |> Result.map Stdlib.List.rev
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
 
@@ -93,6 +95,8 @@ let yaml_sequence_file ?key of_yaml filepath_str =
    let* list =
      (function `A u -> Ok u | _ -> Error (`Msg "expecting a sequence")) found
    in
-   Stdlib.List.fold_left (fun u x -> Ok Stdlib.List.cons <@> of_yaml x <@> u) (Ok []) list)
+   Stdlib.List.fold_left
+     (fun u x -> Ok Stdlib.List.cons <@> of_yaml x <@> u)
+     (Ok []) list)
   |> Result.map_error (where (filepath |> Fpath.to_string))
   |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)

@@ -100,9 +100,7 @@ module Post = struct
       match Str.split (Str.regexp_string "/") fpath with
       | _ :: second :: _ -> (
           match
-            List.find_opt
-              (fun (s : source) -> s.id = second)
-              all_sources
+            List.find_opt (fun (s : source) -> s.id = second) all_sources
           with
           | Some source -> Ok source
           | None -> Error (`Msg ("No source found for: " ^ fpath)))
@@ -119,8 +117,7 @@ module Post = struct
   let all () : post list =
     Utils.map_md_files decode "planet/*/*.md"
     |> List.filter_map (fun x -> x)
-    |> List.sort (fun (a : post) (b : post) ->
-           String.compare b.date a.date)
+    |> List.sort (fun (a : post) (b : post) -> String.compare b.date a.date)
 end
 
 let all_sources () = Source.all ()

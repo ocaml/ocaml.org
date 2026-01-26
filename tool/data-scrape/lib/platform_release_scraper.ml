@@ -134,8 +134,8 @@ let group_releases_by_project all =
       SMap.add t.project_name updated acc)
     SMap.empty all
 
-let write_release_announcement_file project github_tag tags
-    (post : River.post) =
+let write_release_announcement_file project github_tag tags (post : River.post)
+    =
   let yyyy_mm_dd =
     River.date post |> Option.get |> Ptime.to_rfc3339
     |> String.split_on_char 'T' |> List.hd
@@ -145,8 +145,8 @@ let write_release_announcement_file project github_tag tags
     [ River.link post |> Option.map github_release_tag_from_url ]
   in
   let output_file =
-    "data/platform_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project
-    ^ "-" ^ github_tag ^ "-draft.md"
+    "data/platform_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project ^ "-"
+    ^ github_tag ^ "-draft.md"
   in
   let content = River.content post in
   let released_on_github_by = Some (River.author post) in
@@ -196,4 +196,6 @@ let check_if_uptodate project known_tags =
         project
 
 let scrape () =
-  Data_packer.Platform_release_parser.all () |> group_releases_by_project |> SMap.iter check_if_uptodate
+  Data_packer.Platform_release_parser.all ()
+  |> group_releases_by_project
+  |> SMap.iter check_if_uptodate

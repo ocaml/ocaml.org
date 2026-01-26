@@ -4,7 +4,7 @@ open Cmdliner
 
 let output =
   let doc = "Output binary file" in
-  Arg.(value & opt string "data.bin" & info ["o"; "output"] ~docv:"FILE" ~doc)
+  Arg.(value & opt string "data.bin" & info [ "o"; "output" ] ~docv:"FILE" ~doc)
 
 let pack output =
   let data = Data_packer.Packer.load_all () in

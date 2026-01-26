@@ -50,7 +50,8 @@ let job_cmd =
   Cmd.v (Cmd.info "job") Term.(const run $ const ())
 
 let cmds =
-  Cmd.group (Cmd.info "feed" ~version:"%%VERSION%%")
+  Cmd.group
+    (Cmd.info "feed" ~version:"%%VERSION%%")
     [ backstage_cmd; changelog_cmd; events_cmd; news_cmd; planet_cmd; job_cmd ]
 
 let () =

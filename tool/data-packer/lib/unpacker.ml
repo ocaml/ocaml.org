@@ -17,7 +17,9 @@ let unpack_from_file path =
   unpack_from_buffer buf
 
 (* For use with embedded blob - takes a bigarray directly *)
-let unpack_from_bigarray (ba : (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t) =
+let unpack_from_bigarray
+    (ba :
+      (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t) =
   (* Create a bigstringaf from the bigarray data *)
   let len = Bigarray.Array1.dim ba in
   let buf = Bigstringaf.create len in
