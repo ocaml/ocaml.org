@@ -140,9 +140,7 @@ let update ~commit t =
   Logs.info (fun m -> m "Opam repository is currently at %s" commit);
   t.opam_repository_commit <- Some commit;
   Logs.info (fun m -> m "Updating opam package list");
-  let* packages =
-    time_it_lwt "Read packages" (fun () -> read_packages ())
-  in
+  let* packages = time_it_lwt "Read packages" (fun () -> read_packages ()) in
   let* packages =
     time_it_lwt "Compute package info" (fun () -> Info.of_opamfiles packages)
   in
