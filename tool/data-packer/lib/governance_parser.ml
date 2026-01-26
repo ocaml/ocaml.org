@@ -13,6 +13,8 @@ let contact_kind_of_yaml = function
   | `String "discord" -> Ok Discord
   | `String "chat" -> Ok Chat
   | `String "forum" -> Ok Forum
+  | `String "website" -> Ok Website
+  | `String "tracker" -> Ok Tracker
   | x -> (
       match Yaml.to_string x with
       | Ok str ->
