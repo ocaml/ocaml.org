@@ -49,7 +49,8 @@ module Posts = struct
     |> List.sort (fun (a : post) b -> String.compare b.slug a.slug)
 end
 
-let platform_tools_release_to_release (r : Platform_release_parser.t) : release =
+let platform_tools_release_to_release (r : Platform_release_parser.t) : release
+    =
   {
     title = r.title;
     slug = r.slug;
@@ -65,12 +66,14 @@ let platform_tools_release_to_release (r : Platform_release_parser.t) : release 
     authors = r.authors;
   }
 
-(* Backstage uses experimental=true releases, unlike Changelog which uses experimental=false *)
+(* Backstage uses experimental=true releases, unlike Changelog which uses
+   experimental=false *)
 let all () =
   let slug_of_t r = match r with Release r -> r.slug | Post p -> p.slug in
   let releases =
     Platform_release_parser.all ()
-    |> List.filter (fun (a : Platform_release_parser.t) -> a.experimental = true)
+    |> List.filter (fun (a : Platform_release_parser.t) ->
+           a.experimental = true)
     |> List.map platform_tools_release_to_release
   in
   let posts = Posts.all () in

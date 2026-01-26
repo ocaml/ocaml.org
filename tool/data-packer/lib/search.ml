@@ -63,7 +63,8 @@ let rec block_to_string (block : Cmarkit.Block.t) : string =
       |> Cmarkit.Inline.to_plain_text ~break_on_soft:false
       |> List.flatten |> String.concat "\n"
   | Cmarkit.Block.Html_block (block_lines, _) ->
-      let rec block_lines_to_string (block_lines : Cmarkit.Block_line.t list) : string =
+      let rec block_lines_to_string (block_lines : Cmarkit.Block_line.t list) :
+          string =
         match block_lines with
         | [] -> ""
         | h :: t ->

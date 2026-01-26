@@ -77,14 +77,16 @@ let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
         | None, None ->
             failwith
               (Printf.sprintf
-                 "Event %s (%s) has no specified type and no linked recurring event"
+                 "Event %s (%s) has no specified type and no linked recurring \
+                  event"
                  metadata.title metadata.starts.yyyy_mm_dd)
         | Some event_type, None | None, Some event_type -> event_type
         | Some from_upcoming, Some from_recurring
           when from_upcoming <> from_recurring ->
             failwith
               (Printf.sprintf
-                 "Event %s (%s) has type %s but its linked recurring event %s has type %s"
+                 "Event %s (%s) has type %s but its linked recurring event %s \
+                  has type %s"
                  metadata.title metadata.starts.yyyy_mm_dd
                  (show_event_type from_upcoming)
                  (Option.get metadata.recurring_event_slug)

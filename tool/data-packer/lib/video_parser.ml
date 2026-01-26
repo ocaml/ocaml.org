@@ -13,11 +13,6 @@ let load_video_file file : t list =
   in
   result |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
 
-let youtube_all () : t list =
-  load_video_file "video-youtube.yml"
-
-let watch_all () : t list =
-  load_video_file "video-watch.yml"
-
-let all () : t list =
-  youtube_all () @ watch_all ()
+let youtube_all () : t list = load_video_file "video-youtube.yml"
+let watch_all () : t list = load_video_file "video-watch.yml"
+let all () : t list = youtube_all () @ watch_all ()

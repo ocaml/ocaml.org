@@ -5,8 +5,7 @@ open Data_intf
 (* Helper to parse date - handles both YYYY-MM-DD and full RFC3339 formats *)
 let parse_date date =
   let date_str =
-    if String.contains date 'T' then date
-    else date ^ "T00:00:00Z"
+    if String.contains date 'T' then date else date ^ "T00:00:00Z"
   in
   Syndic.Date.of_rfc3339 date_str
 
@@ -40,7 +39,9 @@ module Changelog = struct
     match entry with
     | Release release ->
         let content = Syndic.Atom.Html (None, release.body_html) in
-        let id = Uri.of_string ("https://ocaml.org/changelog/" ^ release.slug) in
+        let id =
+          Uri.of_string ("https://ocaml.org/changelog/" ^ release.slug)
+        in
         let updated = parse_date release.date in
         let authors = (Syndic.Atom.author "OCaml Changelog", []) in
         Syndic.Atom.entry ~content ~id ~authors
@@ -69,7 +70,9 @@ module Backstage = struct
     match entry with
     | Release release ->
         let content = Syndic.Atom.Html (None, release.body_html) in
-        let id = Uri.of_string ("https://ocaml.org/backstage/" ^ release.slug) in
+        let id =
+          Uri.of_string ("https://ocaml.org/backstage/" ^ release.slug)
+        in
         let updated = parse_date release.date in
         let authors = (Syndic.Atom.author "OCaml Backstage", []) in
         Syndic.Atom.entry ~content ~id ~authors
@@ -164,7 +167,9 @@ module Planet = struct
   let create_entry (entry : Planet.entry) =
     match entry with
     | BlogPost post ->
-        let content = Syndic.Atom.Text (Option.value ~default:"" post.description) in
+        let content =
+          Syndic.Atom.Text (Option.value ~default:"" post.description)
+        in
         let id = Uri.of_string post.url in
         let authors =
           match List.map Syndic.Atom.author post.authors with
@@ -180,13 +185,13 @@ module Planet = struct
         let content =
           Syndic.Atom.Html
             ( None,
-              Printf.sprintf
-                {|<p>%s</p><p><a href="%s">Watch video</a></p>|}
+              Printf.sprintf {|<p>%s</p><p><a href="%s">Watch video</a></p>|}
                 video.description video.url )
         in
         let id = Uri.of_string video.url in
         let authors =
-          if video.author_name <> "" then (Syndic.Atom.author video.author_name, [])
+          if video.author_name <> "" then
+            (Syndic.Atom.author video.author_name, [])
           else (Syndic.Atom.author "OCaml", [])
         in
         let updated = Syndic.Date.of_rfc3339 video.published in

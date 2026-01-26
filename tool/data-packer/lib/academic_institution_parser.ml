@@ -1,7 +1,8 @@
-(* Academic institution parser - adapted from ood-gen/lib/academic_institution.ml *)
+(* Academic institution parser - adapted from
+   ood-gen/lib/academic_institution.ml *)
 
 open Import
-include Ptime_bin_prot  (* Brings in shadowed Ptime module with bin_io *)
+include Ptime_bin_prot (* Brings in shadowed Ptime module with bin_io *)
 
 (* Intermediate type for YAML parsing - last_check is string *)
 type course_metadata = {
@@ -22,20 +23,22 @@ type course_metadata = {
 (* Import the course type from Types (which has bin_io) *)
 type course = [%import: Data_intf.Academic_institution.course] [@@deriving show]
 
-let course_metadata_to_course ~modify_last_check (c : course_metadata) : course =
-  Data_intf.Academic_institution.{
-    name = c.name;
-    acronym = c.acronym;
-    url = c.url;
-    teacher = c.teacher;
-    enrollment = c.enrollment;
-    last_check = modify_last_check c.last_check;
-    year = c.year;
-    description = c.description |> Option.value ~default:"";
-    lecture_notes = c.lecture_notes |> Option.value ~default:false;
-    exercises = c.exercises |> Option.value ~default:false;
-    video_recordings = c.video_recordings |> Option.value ~default:false;
-  }
+let course_metadata_to_course ~modify_last_check (c : course_metadata) : course
+    =
+  Data_intf.Academic_institution.
+    {
+      name = c.name;
+      acronym = c.acronym;
+      url = c.url;
+      teacher = c.teacher;
+      enrollment = c.enrollment;
+      last_check = modify_last_check c.last_check;
+      year = c.year;
+      description = c.description |> Option.value ~default:"";
+      lecture_notes = c.lecture_notes |> Option.value ~default:false;
+      exercises = c.exercises |> Option.value ~default:false;
+      video_recordings = c.video_recordings |> Option.value ~default:false;
+    }
 
 let ( let* ) = Result.bind
 
@@ -68,7 +71,10 @@ type metadata = {
   image : string option;
   alternate_logo : string option;
 }
-[@@deriving of_yaml, stable_record ~version:Data_intf.Academic_institution.t ~add:[ body_md; body_html; slug ]]
+[@@deriving
+  of_yaml,
+    stable_record ~version:Data_intf.Academic_institution.t
+      ~add:[ body_md; body_html; slug ]]
 
 type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
 

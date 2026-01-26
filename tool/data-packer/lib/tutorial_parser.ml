@@ -51,7 +51,8 @@ type metadata = {
 [@@deriving
   of_yaml,
     stable_record ~version:t ~remove:[ id ]
-      ~modify:[ recommended_next_tutorials; prerequisite_tutorials; short_title ]
+      ~modify:
+        [ recommended_next_tutorials; prerequisite_tutorials; short_title ]
       ~add:[ slug; fpath; section; toc; body_md; body_html ]]
 
 let of_metadata m =
@@ -80,6 +81,7 @@ let check_tutorial_references all =
   List.iter has_missing_tuts_exn all
 
 let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
+
 and toc_f { Markdown.Toc.title; href; children } =
   { title; href; children = toc_toc children }
 
@@ -101,7 +103,8 @@ let decode (fpath, (head, body_md)) =
     metadata
 
 let all () =
-  let all = Utils.map_md_files decode "tutorials/*/*.md"
+  let all =
+    Utils.map_md_files decode "tutorials/*/*.md"
     |> Stdlib.List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
   in
   check_tutorial_references all;

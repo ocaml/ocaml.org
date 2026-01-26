@@ -24,10 +24,11 @@ type metadata = {
   description : string;
   tutorials : string list option;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ statement; solution ] ~modify:[ tutorials ]]
+[@@deriving
+  of_yaml,
+    stable_record ~version:t ~add:[ statement; solution ] ~modify:[ tutorials ]]
 
-let of_metadata m =
-  metadata_to_t m ~modify_tutorials:(Option.value ~default:[])
+let of_metadata m = metadata_to_t m ~modify_tutorials:(Option.value ~default:[])
 
 let split_body body =
   (* Split body on "# Statement" and "# Solution" headers *)
@@ -37,12 +38,17 @@ let split_body body =
     try Some (Str.search_forward (Str.regexp_string marker) body 0)
     with Not_found -> None
   in
-  match find_section statement_marker, find_section solution_marker with
+  match (find_section statement_marker, find_section solution_marker) with
   | Some stmt_pos, Some sol_pos when stmt_pos < sol_pos ->
       let stmt_start = stmt_pos + String.length statement_marker in
-      let statement = String.sub body stmt_start (sol_pos - stmt_start) |> String.trim in
+      let statement =
+        String.sub body stmt_start (sol_pos - stmt_start) |> String.trim
+      in
       let sol_start = sol_pos + String.length solution_marker in
-      let solution = String.sub body sol_start (String.length body - sol_start) |> String.trim in
+      let solution =
+        String.sub body sol_start (String.length body - sol_start)
+        |> String.trim
+      in
       (statement, solution)
   | _ ->
       (* Fallback: entire body is statement *)
@@ -54,7 +60,9 @@ let render_with_highlight md =
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in
-  let* metadata = metadata_of_yaml head |> Result.map_error (Utils.where fpath) in
+  let* metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let statement_md, solution_md = split_body body in
   let statement = render_with_highlight statement_md in
   let solution = render_with_highlight solution_md in

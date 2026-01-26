@@ -25,13 +25,14 @@ type metadata = {
   description : string;
   lifecycle : lifecycle;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug ] ~modify:[ description ]]
+[@@deriving
+  of_yaml, stable_record ~version:t ~add:[ slug ] ~modify:[ description ]]
 
 let of_metadata m =
-  metadata_to_t m ~slug:(Utils.slugify m.name)
-    ~modify_description:(fun desc -> Markdown.Content.(of_string desc |> render))
+  metadata_to_t m ~slug:(Utils.slugify m.name) ~modify_description:(fun desc ->
+      Markdown.Content.(of_string desc |> render))
 
 let all () =
-  Utils.yaml_sequence_file (fun yaml ->
-    Result.map of_metadata (metadata_of_yaml yaml)
-  ) "tools.yml"
+  Utils.yaml_sequence_file
+    (fun yaml -> Result.map of_metadata (metadata_of_yaml yaml))
+    "tools.yml"

@@ -12,23 +12,24 @@
 external _get_blob_size : unit -> int = "caml_ocamlorg_data_blob_size"
 external get_blob_check : unit -> bool = "caml_ocamlorg_data_blob_check"
 
-external get_blob_raw : unit ->
+external get_blob_raw :
+  unit ->
   (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
   = "caml_ocamlorg_data_blob"
 
 (* Lazy deserialization - happens once on first access *)
-let all_data : Data_packer.Types.All_data.t Lazy.t = lazy (
-  (* Verify blob is valid *)
-  if not (get_blob_check ()) then
-    failwith "Data blob is not properly initialized";
+let all_data : Data_packer.Types.All_data.t Lazy.t =
+  lazy
+    ((* Verify blob is valid *)
+     if not (get_blob_check ()) then
+       failwith "Data blob is not properly initialized";
 
-  (* Get the blob as a bigstring for bin_prot *)
-  let buf : Bigstringaf.t = get_blob_raw () in
-  let pos_ref = ref 0 in
+     (* Get the blob as a bigstring for bin_prot *)
+     let buf : Bigstringaf.t = get_blob_raw () in
+     let pos_ref = ref 0 in
 
-  (* Deserialize using bin_prot *)
-  Data_packer.Types.All_data.bin_read_t buf ~pos_ref
-)
+     (* Deserialize using bin_prot *)
+     Data_packer.Types.All_data.bin_read_t buf ~pos_ref)
 
 (* Helper to force deserialization *)
 let get_all () = Lazy.force all_data
@@ -335,7 +336,6 @@ module Tutorial = struct
 
   let all = (get_all ()).tutorials
   let all_search_documents = (get_all ()).tutorial_search_documents
-
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
   let search_documents q =

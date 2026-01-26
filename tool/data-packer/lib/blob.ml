@@ -2,7 +2,12 @@
 
 (* External functions defined in data_blob_stubs.c *)
 external get_blob_size : unit -> int = "caml_ocamlorg_data_blob_size"
-external get_blob_bigarray : unit -> (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t = "caml_ocamlorg_data_blob"
+
+external get_blob_bigarray :
+  unit ->
+  (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
+  = "caml_ocamlorg_data_blob"
+
 external get_blob_ptr : unit -> nativeint = "caml_ocamlorg_data_blob_ptr"
 
 (* Convert the bigarray to bigstringaf for bin_prot compatibility *)
@@ -11,10 +16,10 @@ let get_blob () : Bigstringaf.t =
   Bigstringaf.of_bigarray ba
 
 (* Lazy initialization - data is only deserialized once on first access *)
-let data : Types.All_data.t Lazy.t = lazy (
-  let buf = get_blob () in
-  Unpacker.unpack_from_buffer buf
-)
+let data : Types.All_data.t Lazy.t =
+  lazy
+    (let buf = get_blob () in
+     Unpacker.unpack_from_buffer buf)
 
 let get_data () = Lazy.force data
 

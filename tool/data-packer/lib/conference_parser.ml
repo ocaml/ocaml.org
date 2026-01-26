@@ -38,16 +38,17 @@ type presentation_metadata = {
 let presentation_of_yaml yaml =
   let ( let* ) = Result.bind in
   let* m = presentation_metadata_of_yaml yaml in
-  Ok {
-    Data_intf.Conference.title = m.title;
-    authors = m.authors;
-    link = m.link;
-    watch_ocamlorg_video = m.watch_ocamlorg_video;
-    youtube_video = m.youtube_video;
-    slides = m.slides;
-    poster = Option.value ~default:false m.poster;
-    additional_links = Option.value ~default:[] m.additional_links;
-  }
+  Ok
+    {
+      Data_intf.Conference.title = m.title;
+      authors = m.authors;
+      link = m.link;
+      watch_ocamlorg_video = m.watch_ocamlorg_video;
+      youtube_video = m.youtube_video;
+      slides = m.slides;
+      poster = Option.value ~default:false m.poster;
+      additional_links = Option.value ~default:[] m.additional_links;
+    }
 
 type t = [%import: Data_intf.Conference.t] [@@deriving show]
 
@@ -66,7 +67,9 @@ let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in
-  let* metadata = metadata_of_yaml head |> Result.map_error (Utils.where fpath) in
+  let* metadata =
+    metadata_of_yaml head |> Result.map_error (Utils.where fpath)
+  in
   let body_md = String.trim body in
   let body_html = Markdown.Content.(of_string body_md |> render) in
   Ok (of_metadata ~body_md ~body_html metadata)
