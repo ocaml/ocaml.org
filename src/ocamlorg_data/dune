@@ -1,3 +1,14 @@
+; Data library using binary blob embedding
+;
+; Build flow:
+;   1. data-packer parses YAML/MD and creates data.bin
+;   2. Assembler embeds data.bin via .incbin
+;   3. C stubs provide access to the blob
+;   4. data.ml deserializes lazily on first access
+
+; ============================================================
+; Library: data_intf (type definitions)
+; ============================================================
 (library
  (name data_intf)
  (public_name ocamlorg.data_intf)
@@ -6,365 +17,58 @@
  (preprocess
   (pps ppx_deriving_yaml ppx_deriving.show)))
 
-(library
- (name data)
- (public_name ocamlorg.data)
- (libraries ocamlorg.data_intf)
- (modules
-  (:standard \ data_intf)))
+; ============================================================
+; Step 1: Pack data into binary format
+; ============================================================
+(rule
+ (target data.bin)
+ (deps
+  (source_tree %{workspace_root}/data)
+  (:packer %{workspace_root}/_build/default/tool/data-packer/bin/pack.exe))
+ (action
+  (chdir %{workspace_root}
+   (run %{packer} -o %{target}))))
+
+; ============================================================
+; Step 2: Copy assembly and C stubs from data-packer
+; ============================================================
+(rule
+ (target data_blob.S)
+ (deps %{workspace_root}/tool/data-packer/stubs/data_blob.S)
+ (action (copy %{deps} %{target})))
 
 (rule
- (target academic_institution.ml)
- (deps
-  (source_tree %{workspace_root}/data/academic_institutions)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} academic_institution)))))
+ (target data_blob_stubs.c)
+ (deps %{workspace_root}/tool/data-packer/stubs/data_blob_stubs.c)
+ (action (copy %{deps} %{target})))
 
+; ============================================================
+; Step 3: Compile assembly to object file
+; ============================================================
 (rule
- (target academic_testimonial.ml)
- (deps
-  %{workspace_root}/data/academic-testimonials.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
+ (target data_blob.o)
+ (deps data_blob.S data.bin)
  (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} academic_testimonials)))))
+  (run %{cc} -c %{dep:data_blob.S} -o %{target})))
 
+; ============================================================
+; Step 4: Create static archive for linking
+; ============================================================
 (rule
- (target book.ml)
- (deps
-  (source_tree %{workspace_root}/data/books)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} book)))))
+ (target libdata_blob.a)
+ (deps data_blob.o)
+ (action (run ar rcs %{target} %{deps})))
 
-(rule
- (target backstage.ml)
- (deps
-  (source_tree %{workspace_root}/data/backstage)
-  (source_tree %{project_root}/data/platform_releases)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} backstage)))))
-
-(rule
- (target changelog.ml)
- (deps
-  (source_tree %{workspace_root}/data/changelog)
-  (source_tree %{project_root}/data/platform_releases)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} changelog)))))
-
-(rule
- (target code_example.ml)
- (deps
-  (source_tree %{workspace_root}/data/code_examples)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} code_example)))))
-
-(rule
- (target cookbook.ml)
- (deps
-  (source_tree %{workspace_root}/data/cookbook)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} cookbook)))))
-
-(rule
- (target event.ml)
- (deps
-  (source_tree %{workspace_root}/data/events)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} event)))))
-
-(rule
- (target exercise.ml)
- (deps
-  (source_tree %{workspace_root}/data/exercises)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} exercises)))))
-
-(rule
- (target governance.ml)
- (deps
-  %{workspace_root}/data/governance.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} governance)))))
-
-(rule
- (target industrial_user.ml)
- (deps
-  (source_tree %{workspace_root}/data/industrial_users)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} industrial_user)))))
-
-(rule
- (target is_ocaml_yet.ml)
- (deps
-  (source_tree %{workspace_root}/data/is_ocaml_yet)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} is_ocaml_yet)))))
-
-(rule
- (target job.ml)
- (deps
-  %{workspace_root}/data/jobs.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} job)))))
-
-(rule
- (target testimonial.ml)
- (deps
-  %{workspace_root}/data/testimonials.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} testimonial)))))
-
-(rule
- (target news.ml)
- (deps
-  (source_tree %{workspace_root}/data/news)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} news)))))
-
-(rule
- (target opam_user.ml)
- (deps
-  %{workspace_root}/data/opam-users.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} opam_user)))))
-
-(rule
- (target outreachy.ml)
- (deps
-  %{workspace_root}/data/outreachy.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} outreachy)))))
-
-(rule
- (target page.ml)
- (deps
-  (source_tree %{workspace_root}/data/pages)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} page)))))
-
-(rule
- (target paper.ml)
- (deps
-  %{workspace_root}/data/papers.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} paper)))))
-
-(rule
- (target planet.ml)
- (deps
-  %{workspace_root}/data/planet-sources.yml
-  (source_tree %{workspace_root}/data/planet)
-  %{workspace_root}/data/video-watch.yml
-  %{workspace_root}/data/video-youtube.yml
-  (source_tree %{workspace_root}/data/news)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} planet)))))
-
-(rule
- (target release.ml)
- (deps
-  (source_tree %{workspace_root}/data/releases)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} release)))))
-
-(rule
- (target resource.ml)
- (deps
-  %{workspace_root}/data/resources.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} resource)))))
-
-(rule
- (target success_story.ml)
- (deps
-  (source_tree %{workspace_root}/data/success_stories)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} success_story)))))
-
-(rule
- (target tool.ml)
- (deps
-  %{workspace_root}/data/tools.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} tool)))))
-
-(rule
- (target tutorial.ml)
- (deps
-  (source_tree %{workspace_root}/data/tutorials)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} tutorial)))))
-
-(rule
- (target tool_page.ml)
- (deps
-  (source_tree %{workspace_root}/data/tool_pages)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} tool_page)))))
-
-(rule
- (target video.ml)
- (deps
-  %{workspace_root}/data/video-watch.yml
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} video)))))
-
-(rule
- (target conference.ml)
- (deps
-  (source_tree %{workspace_root}/data/conferences)
-  (:ood_gen %{workspace_root}/tool/ood-gen/bin/gen.exe))
- (action
-  (chdir
-   %{workspace_root}
-   (with-stdout-to
-    %{target}
-    (run %{ood_gen} conferences)))))
-
+; ============================================================
+; Step 5: V2 assets
+; ============================================================
 (rule
  (target v2.ml)
  (deps
-  (:v2
-   (source_tree %{workspace_root}/data/v2)))
+  (:v2 (source_tree %{workspace_root}/data/v2)))
  (action
-  (chdir
-   %{workspace_root}/data/v2
-   (with-stdout-to
-    %{target}
+  (chdir %{workspace_root}/data/v2
+   (with-stdout-to %{target}
     (progn
      (echo "let assets = [\n")
      (pipe-stdout
@@ -373,3 +77,22 @@
       (run sed "s/^/  \"/")
       (run sed "s/$/\";/"))
      (echo "]\n"))))))
+
+; ============================================================
+; Library: data (using packed blob)
+; ============================================================
+(library
+ (name data)
+ (public_name ocamlorg.data)
+ (modules data v2)
+ (libraries
+  ocamlorg.data_intf
+  ocamlorg.data_packer
+  bigarray
+  bigstringaf
+  str)
+ (foreign_stubs
+  (language c)
+  (names data_blob_stubs)
+  (flags (:standard)))
+ (extra_objects data_blob))

@@ -65,7 +65,7 @@
    (and
     :with-test
     (>= 1.10.0)))
-  ; tools/ood-gen
+  ; tools/data-packer
   ppx_deriving_yaml
   ppx_import
   ppx_stable
@@ -76,7 +76,12 @@
   (cmdliner
    (>= 1.1.0))
   xmlm
-  uri))
+  uri
+  ; tools/data-packer (experimental)
+  bin_prot
+  ppx_bin_prot
+  bigstringaf
+  re))
 
 (dialect
  (name eml)

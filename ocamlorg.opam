@@ -53,6 +53,10 @@ depends: [
   "cmdliner" {>= "1.1.0"}
   "xmlm"
   "uri"
+  "bin_prot"
+  "ppx_bin_prot"
+  "bigstringaf"
+  "re"
   "odoc" {with-doc}
 ]
 build: [
