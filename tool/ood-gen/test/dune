@@ -1,3 +1,0 @@
-(test
- (name test_ood_gen)
- (libraries alcotest ood_gen))
