@@ -5,6 +5,7 @@ short_title: "Bootstrapping a Project"
 description: |
   How to set up a project with Dune
 category: "Projects"
+language: English
 ---
 
 [Dune](https://dune.readthedocs.io/en/stable/overview.html) is recommended for bootstrapping projects. To install `dune`, please see [the OCaml install page](/install).

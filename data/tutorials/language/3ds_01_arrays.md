@@ -4,6 +4,7 @@ title: Arrays
 description: >
   The standard library's Array module
 category: "Data Structures"
+language: English
 ---
 
 ## Introduction

@@ -36,6 +36,7 @@
   (ocaml
    (>= 5.2.0))
   ppx_deriving
+  ppx_compare
   cohttp
   cohttp-lwt-unix
   bos
