@@ -12,6 +12,7 @@ let contact_kind_of_yaml = function
   | `String "chat" -> Ok Chat
   | `String "forum" -> Ok Forum
   | `String "website" -> Ok Website
+  | `String "tracker" -> Ok Tracker
   | x -> (
       match Yaml.to_string x with
       | Ok str ->
@@ -29,6 +30,7 @@ let contact_kind_to_yaml = function
   | Chat -> `String "chat"
   | Forum -> `String "forum"
   | Website -> `String "website"
+  | Tracker -> `String "tracker"
 
 type contact = [%import: Data_intf.Governance.contact]
 [@@deriving of_yaml, show]
