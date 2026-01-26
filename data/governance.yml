@@ -126,12 +126,18 @@ teams:
     for high-impact vulnerabilities, and maintains the advisory database
     and associated tooling.
   contacts:
-  - name: Mailing List
+  - name: Website
+    link: https://ocaml.org/security
+    kind: website
+  - name: Public Announcement Mailing List
     link: https://sympa.inria.fr/sympa/info/ocsf-ocaml-security-announcements
     kind: email
   - name: GitHub
     link: https://github.com/ocaml/security-advisories
     kind: github
+  - name: Private email
+    link: security@ocaml.org
+    kind: email
   members:
   - name: Hannes Mehnert
     github: hannesm
