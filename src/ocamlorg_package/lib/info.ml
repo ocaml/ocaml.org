@@ -169,6 +169,21 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
     flags = flags opam;
   }
 
+let time_it name f =
+  let t0 = Unix.gettimeofday () in
+  let result = f () in
+  let t1 = Unix.gettimeofday () in
+  Logs.info (fun log -> log "%s: %.2fs" name (t1 -. t0));
+  result
+
+let time_it_lwt name f =
+  let open Lwt.Syntax in
+  let t0 = Unix.gettimeofday () in
+  let+ result = f () in
+  let t1 = Unix.gettimeofday () in
+  Logs.info (fun log -> log "%s: %.2fs" name (t1 -. t0));
+  result
+
 let of_opamfiles
     (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t) =
   let open Lwt.Syntax in
@@ -187,22 +202,26 @@ let of_opamfiles
     in
     List.fold_left f OpamPackage.Set.empty names
   in
-  Logs.info (fun f -> f "Dependencies...");
-  let dependencies = get_dependency_set packages opams in
-  Logs.info (fun f -> f "Reverse dependencies...");
-  let* rev_deps = rev_depends dependencies in
-  Logs.info (fun f -> f "Publication dates...");
-  let* timestamps = Opam_repository.create_package_to_timestamp () in
-  Logs.info (fun f -> f "Generate package info");
-  Lwt_fold.package_name_map
-    (fun name vmap acc ->
-      let+ vs =
-        Lwt_fold.package_version_map
-          (fun version opam acc ->
-            let package = OpamPackage.create name version in
-            let+ t = make ~rev_deps ~packages ~package ~timestamps opam in
-            OpamPackage.Version.Map.add version t acc)
-          vmap OpamPackage.Version.Map.empty
-      in
-      OpamPackage.Name.Map.add name vs acc)
-    opams OpamPackage.Name.Map.empty
+  let dependencies =
+    time_it "Dependencies" (fun () -> get_dependency_set packages opams)
+  in
+  let* rev_deps =
+    time_it_lwt "Reverse dependencies" (fun () -> rev_depends dependencies)
+  in
+  let* timestamps =
+    time_it_lwt "Publication dates" (fun () ->
+        Opam_repository.create_package_to_timestamp ())
+  in
+  time_it_lwt "Generate package info" (fun () ->
+      Lwt_fold.package_name_map
+        (fun name vmap acc ->
+          let+ vs =
+            Lwt_fold.package_version_map
+              (fun version opam acc ->
+                let package = OpamPackage.create name version in
+                let+ t = make ~rev_deps ~packages ~package ~timestamps opam in
+                OpamPackage.Version.Map.add version t acc)
+              vmap OpamPackage.Version.Map.empty
+          in
+          OpamPackage.Name.Map.add name vs acc)
+        opams OpamPackage.Name.Map.empty)
