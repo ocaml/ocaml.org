@@ -158,6 +158,7 @@ teams:
   name: Standard Library
   description: The Standard Library Team is in charge of shepherding, reviewing
     and generally staying on top of standard library contributions to the compiler.
+  contacts: []
   members:
   - name: Nicolás Ojeda Bär
     github: nojb
