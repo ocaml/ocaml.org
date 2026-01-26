@@ -37,7 +37,7 @@ This will:
 ## Results (January 2026)
 
 | Metric | ood-gen | data-packer | Improvement |
-|--------|---------|-------------|-------------|
+| ------ | ------- | ----------- | ----------- |
 | Wall clock | 7.6s | 6.5s | **15% faster** |
 | User time | 16.25s | 6.37s | **2.5x less CPU** |
 | CPU usage | 237% | 106% | Less parallel work needed |
