@@ -232,7 +232,14 @@ end
 
 module Governance = struct
   type member = { name : string; github : string; role : string }
-  type contact_kind = GitHub | Email | Discord | Chat | Forum | Website | Tracker
+  type contact_kind =
+    | GitHub
+    | Email
+    | Discord
+    | Chat
+    | Forum
+    | Website
+    | Tracker
   type contact = { name : string; link : string; kind : contact_kind }
 
   type dev_meeting = {
