@@ -62,12 +62,12 @@ utop: ## Run a REPL and link with the project's libraries
 
 .PHONY: scrape_ocaml_planet
 scrape_ocaml_planet:
-	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe planet
-	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe video
+	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe planet
+	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe video
 
 .PHONY: scrape_platform_releases
 scrape_platform_releases:
-	opam exec -- dune exec --root . tool/ood-gen/bin/scrape.exe platform_releases
+	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe platform_releases
 
 .PHONY: docker
 docker: ## Generate docker container

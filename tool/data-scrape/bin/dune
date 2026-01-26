@@ -1,0 +1,5 @@
+(executable
+ (name scrape)
+ (package ocamlorg)
+ (public_name data-scrape)
+ (libraries data_scrape cmdliner))
