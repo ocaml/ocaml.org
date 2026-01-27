@@ -26,8 +26,8 @@ teams:
   - name: David Allsopp
     github: dra27
     role: Maintainer
-  - name: Enguerrand
-    github: Engil
+  - name: Abigael
+    github: abbysmal
     role: Maintainer
   - name: Florian Angeletti
     github: Octachron
@@ -82,6 +82,12 @@ teams:
     role: Maintainer
   - name: Olivier Nicole
     github: OlivierNicole
+    role: Maintainer
+  - name: Richard Eisenberg
+    github: goldfirere
+    role: Maintainer
+  - name: Nick Barnes
+    github: NickBarnes
     role: Maintainer
 - id: language
   name: Language Committee
