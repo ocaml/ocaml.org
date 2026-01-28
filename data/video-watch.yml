@@ -2172,6 +2172,115 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: '[OCaml''25] A Mechanically Verified Garbage Collector for OCaml'
+  description: 'A Mechanically Verified Garbage Collector for OCaml (Video, OCaml
+    2025)
+
+    Sheera Shamsu, Dipesh Kafle, Dhruv Maroo, Kartik Nagar, Karthikeyan Bhargavan,
+    and KC Sivaramakrishnan
+
+    (IIT Madras; NIT Trichy, Tiruchirappalli, India; IIT Madras, Chennai; II...'
+  url: https://watch.ocaml.org/videos/watch/8d3caa4f-ad8b-44f6-b935-b1e09e1af17e
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/1d710647-49b8-472b-8430-d7fd9c692b94.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] A New Era of OCaml Editing: Powered by Merlin, Delivered via
+    LSP'
+  description: "A New Era of OCaml Editing: Powered by Merlin, Delivered via LSP (Video,
+    OCaml 2025)\nXavier Van de Woestyne, Sonja Heinze, Ulysse G\xE9rard, and Muluh
+    Godson\n(Tarides; Tarides; Tarides; Tarides)\n\nAbstract: In an era where the
+    number of code editors k..."
+  url: https://watch.ocaml.org/videos/watch/78fd36c1-86ee-411c-9812-6fc4b6c27c98
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/65e84fdc-0460-44e9-b3fc-74165da8b4d8.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] Embedding WebAssembly in OCaml for Safe Program Construction'
+  description: 'Embedding WebAssembly in OCaml for Safe Program Construction (Video,
+    OCaml 2025)
+
+    Hunter DeMeyer
+
+    (University of Illinois Urbana-Champaign)
+
+
+    Abstract: WebAssembly (wasm) is a binary instruction format for a stack-based
+    virtual machine originally des...'
+  url: https://watch.ocaml.org/videos/watch/7ba4e1f3-1504-41d8-b68d-c9a540a9c514
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/edd3c57d-a301-49ce-952c-ac91cf3d13df.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] Taming the Flat Float Array Optimization: Tracking Separability
+    in the Type System'
+  description: "Taming the Flat Float Array Optimization: Tracking Separability in
+    the Type System (Video, OCaml 2025)\nDiana Kalinichenko, and Richard A. Eisenberg\n(Jane
+    Street; Jane Street)\n\nAbstract: OCaml\u2019s flat float array optimization stores
+    floating-point v..."
+  url: https://watch.ocaml.org/videos/watch/6e0dbc24-468a-4fca-93dd-f28aafcbceaa
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/ff087733-f5d4-4858-b844-91b75df5b946.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] Three steps for OCaml to crest the AI humps'
+  description: 'Three steps for OCaml to crest the AI humps (Video, OCaml 2025)
+
+    Sadiq Jaffer, Jonathan Ludlam, Ryan Gibb, Thomas Gazagnaire, and Anil Madhavapeddy
+
+    (University of Cambridge; University of Cambridge; University of Cambridge; Tarides;
+    University of C...'
+  url: https://watch.ocaml.org/videos/watch/59166959-f1b2-431b-ae53-c126664e2346
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/c7184eaf-b652-4e13-ae2b-bdc16e12815c.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] Toward a More Secure OCaml Ecosystem'
+  description: 'Toward a More Secure OCaml Ecosystem (Video, OCaml 2025)
+
+    Maksim Grankin
+
+    (Bloomberg)
+
+
+    Abstract: To meet the growing security expectations of industrial users and open
+    source contributors alike, the OCaml Software Foundation (OCSF) has launched the
+    ...'
+  url: https://watch.ocaml.org/videos/watch/b0e37527-8d5f-4d7b-869e-15f101466b80
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/7cbe86ee-2344-47f1-abff-36911eb9ac54.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] smaws: An AWS SDK for OCaml'
+  description: 'smaws: An AWS SDK for OCaml (Video, OCaml 2025)
+
+    Chris Armstrong
+
+    (unaffiliated)
+
+
+    Abstract: This presentation introduces smaws, a new Amazon Web Services (AWS)
+    Software Development Kit (SDK) implementation for OCaml that leverages its type
+    safety an...'
+  url: https://watch.ocaml.org/videos/watch/6a5243b6-ec69-47f9-ac0f-b02744b7e34f
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/10a02002-71dd-453e-a334-1bb2a462b7b2.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: gloc - Metaprogramming WebGL Shaders with OCaml
   description: "\r\ngloc : Metaprogramming WebGL Shaders with OCaml, by David William
     Wallace Sheets and Ashima Arts.\r\n\r\nWebGL is a new Khronos Group standard for
