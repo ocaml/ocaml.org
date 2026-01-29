@@ -14,21 +14,33 @@ Package_layout.render
 ~left_sidebar_html:""
 ~right_sidebar_html:"" @@
   let version = Package.url_version package in
+  let docs_ci_issue_url =
+    Printf.sprintf "https://github.com/ocurrent/ocaml-docs-ci/issues/new?title=Missing+documentation+for+%s+%s&body=Documentation+is+missing+for+package+[%s](https://ocaml.org/p/%s/%s)+version+%s"
+      package.name (Package.render_version package)
+      package.name package.name (Package.render_version package) (Package.render_version package)
+  in
   <div class="sm:flex max-w-max mx-auto">
     <p class="text-4xl font-extrabold text-primary sm:text-5xl">404</p>
     <div class="sm:ml-6">
       <div class="sm:border-l sm:border-gray-200 sm:pl-6">
-        <h1 class="text-4xl font-extrabold text-title dark:text-dark-title tracking-tight sm:text-5xl">Page not found</h1>
-        <p class="mt-1 text-base text-content dark:text-dark-content">We're sorry, for some reason we don't have the documentation for this package.</p>
+        <h1 class="text-4xl font-extrabold text-title dark:text-dark-title tracking-tight sm:text-5xl">Documentation not found</h1>
+        <p class="mt-1 text-base text-content dark:text-dark-content">We're sorry, the documentation for this package version is not available.</p>
+        <p class="mt-3 text-sm text-content dark:text-dark-content">
+          Package documentation is generated automatically by
+          <a href="https://github.com/ocurrent/ocaml-docs-ci" class="text-primary dark:text-dark-primary hover:underline">ocaml-docs-ci</a>.
+          If you believe this is an error, please report it to the documentation CI project.
+        </p>
       </div>
-      <div class="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
+      <div class="mt-10 flex flex-wrap gap-3 sm:border-l sm:border-transparent sm:pl-6">
         <a href="<%s Url.Package.overview package.name ?version %>"
           class="btn">
           Go To Package Overview
         </a>
-        <a href="https://github.com/ocaml/ocaml.org/issues"
-          class="btn btn-ghost">
-          Open an Issue
+        <a href="<%s docs_ci_issue_url %>"
+          class="btn btn-ghost"
+          target="_blank"
+          rel="noopener noreferrer">
+          Report Missing Docs
         </a>
       </div>
     </div>
