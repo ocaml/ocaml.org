@@ -2218,6 +2218,36 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: '[OCaml''25] How the OCaml Community Established Its Code of Conduct'
+  description: 'How the OCaml Community Established Its Code of Conduct (Video, OCaml
+    2025)
+
+    Sudha Parimala
+
+    (Tarides)
+
+
+    Abstract: The OCaml language has been open source since its inception. Originating
+    at INRIA nearly three decades ago, the OCaml ecosystem has had...'
+  url: https://watch.ocaml.org/videos/watch/8a7e4fbf-c677-4575-affc-82813aa9fabd
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/9fef7cfb-dd74-440b-b72a-8e389e58be62.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[OCaml''25] OCaml Package Management with (only!) Dune'
+  description: "OCaml Package Management with (only!) Dune (Video, OCaml 2025)\nStephen
+    Sherratt, Marek Kubica, and Rudi Grinberg\n(Tarides; Tarides; OCaml Labs)\n\nAbstract:
+    The OCaml build system Dune keeps track of a project\u2019s dependencies on external
+    software pac..."
+  url: https://watch.ocaml.org/videos/watch/6169c7c1-6312-40d0-b026-af2837f41b25
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/cf3390c4-7fc6-48b1-8ff2-ecd647bef3aa.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: '[OCaml''25] Taming the Flat Float Array Optimization: Tracking Separability
     in the Type System'
   description: "Taming the Flat Float Array Optimization: Tracking Separability in
@@ -2276,6 +2306,30 @@
     safety an...'
   url: https://watch.ocaml.org/videos/watch/6a5243b6-ec69-47f9-ac0f-b02744b7e34f
   thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/10a02002-71dd-453e-a334-1bb2a462b7b2.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[Tutorials @ ICFP/SPLASH''25] A guided tour through Oxidized OCaml'
+  description: "A guided tour through Oxidized OCaml (Video, Tutorials @ ICFP/SPLASH
+    2025)\r\nGavin Gray, Anil Madhavapeddy, KC Sivaramakrishnan, Will Crichton, Shriram
+    Krishnamurthi, Chris Casinghino, and Richard A. Eisenberg\r\n(Brown University;
+    University of Camb..."
+  url: https://watch.ocaml.org/videos/watch/fd7eaca7-e2f8-49d1-814c-d3e52a44da3c
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/af798617-662b-4830-9586-6ba6f17bc78c.jpg
+  published: 2025-12-05T00:00:00.000Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
+- title: '[TyDe''25] Generating a corpus of Hazel programs from ill-typed OCaml programs'
+  description: "Generating a corpus of Hazel programs from ill-typed OCaml programs
+    (Extended Abstract) (Video, TyDe 2025)\r\nPatrick Ferris, and Anil Madhavapeddy\r\n(University
+    of Cambridge, UK; University of Cambridge, UK)\r\n\r\nAbstract: When developing
+    a new progra..."
+  url: https://watch.ocaml.org/videos/watch/377cfd0b-b643-4474-9e21-3b2f4c70e77b
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/0e02dc35-a313-4b6b-b3f5-4ae820f72a76.jpg
   published: 2025-12-05T00:00:00.000Z
   author_name: Unknown
   author_uri: https://watch.ocaml.org/
