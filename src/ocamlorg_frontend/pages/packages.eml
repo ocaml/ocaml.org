@@ -156,6 +156,39 @@ in
         </div>
     </div>
 </div>
+<div class="w-full">
+    <div class="container-fluid pt-6 pb-12">
+        <p class="uppercase text-sm text-content dark:text-dark-content tracking-widest font-medium mb-2">documentation</p>
+        <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Automatic Documentation Generation</h2>
+        <p class="text-xl text-content dark:text-dark-content mb-6">Every package published to opam gets its documentation built and hosted automatically on this website.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="text-left">
+                <h3 class="text-xl text-title dark:text-dark-title font-semibold mb-2">How It Works</h3>
+                <p class="text-base text-content dark:text-dark-content mb-4">
+                    Documentation is generated using <a href="https://github.com/ocaml/odoc" class="text-primary dark:text-dark-primary hover:underline">odoc</a>,
+                    the OCaml documentation tool. When you publish a package, a continuous integration pipeline called
+                    <a href="https://github.com/ocurrent/ocaml-docs-ci" class="text-primary dark:text-dark-primary hover:underline">ocaml-docs-ci</a>
+                    automatically picks it up, builds the documentation for all versions, and makes it available here.
+                </p>
+                <p class="text-base text-content dark:text-dark-content">
+                    The pipeline is built with <a href="https://github.com/ocurrent/ocurrent" class="text-primary dark:text-dark-primary hover:underline">OCurrent</a>,
+                    a workflow specification language written in OCaml that powers much of the OCaml ecosystem's CI infrastructure.
+                </p>
+            </div>
+            <div class="text-left">
+                <h3 class="text-xl text-title dark:text-dark-title font-semibold mb-2">Writing Good Documentation</h3>
+                <p class="text-base text-content dark:text-dark-content mb-4">
+                    To make the most of automatic documentation generation, add doc-comments to your <code class="bg-code_background dark:bg-dark-code_background px-1 rounded">.mli</code> files
+                    using the odoc syntax. These comments will be rendered as formatted documentation with cross-references to other modules and packages.
+                </p>
+                <p class="text-base text-content dark:text-dark-content">
+                    Learn more about writing documentation in the
+                    <a href="https://ocaml.github.io/odoc/" class="text-primary dark:text-dark-primary hover:underline">odoc documentation</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="w-full section-blue-gradient dark:dark-section-blue-gradient">
     <div class="container-fluid flex items-center justify-between py-7 px-8">
         <div class="flex flex-col w-full md:max-w-[50%]">
