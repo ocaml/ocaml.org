@@ -491,3 +491,50 @@ rounds:
           - Nathan Rebours <nathan.p.rebours@gmail.com>
           - Paul-Elliot <peada@free.fr>
         video: https://watch.ocaml.org/w/eWRikkpwoox1SboAwrDshD
+  - name: June 2025
+    projects:
+      - title: "Claudius: a fantasy console in OCaml"
+        description: >
+          Claudius is a "fantasy console" library for OCaml, designed to make
+          it fun and easy for people to make retro-style animated graphics or
+          games for art or fun. Similar in aim to TIC-80 or PICO-8, and to a
+          lesser extent Love2D, projects that use Lua.
+
+          The original aim was to make it easy for people to have a fun way to
+          learn OCaml (myself included) by making it easy to make fun on screen
+          visuals. Since then it's been used for generative art projects and
+          for even giving talks as an interactive prestation system!
+
+          The idea is Claudius takes care of a lot of the heavy graphics work,
+          and where possible encourages a functional way of thinking, rather
+          than just copying TIC-80 etc. wholesale. The aim is to make it easy
+          to be creative and explore - the "retro" style limitations are a part
+          of that, as retro graphics competitions are very levelling at a
+          community level - the gap between what old hands can do and new folk
+          is much smaller, so promotes more open sharing hopefully (as
+          examplified in the FieldFX/LoveByte communities).
+        mentee: "Shreya Pawaskar"
+        source: https://github.com/claudiusFX/Claudius
+        mentors:
+          - Michael W. Dales
+        video: https://watch.ocaml.org/w/kZJRFM6iw9ug9BLNjEgKeH?start=1m34s
+      - title: "Extend Dune to Discover System Information"
+        description: >
+          Dune needs to know information about the current system (OS,
+          architecture, etc) to perform many of its operations. Currently dune
+          learns this information by invoking the compiler however this means that
+          the compiler needs to be installed in order for dune to function
+          correctly. One of dune's goals in to be the entry point for ocaml
+          development, meaning it will be the first ocaml tool you install, but
+          this means it to function correctly without the compiler.
+
+          This project is to extend dune to allow it to learn all the necessary
+          information about the current machine without the help of the compiler.
+          This will probably involve looking inside the compiler's source code to
+          figure out how it learns about the current machine, and modifying dune
+          to use these same mechanisms.
+        source: https://github.com/ocaml/dune
+        mentee: Matthew Idungafa
+        mentors:
+          - Stephen Sherratt
+        video: https://watch.ocaml.org/w/kZJRFM6iw9ug9BLNjEgKeH?start=15m34s
