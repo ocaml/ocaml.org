@@ -247,6 +247,7 @@ type person = {
   city : string;
   zip : int;
   contact : string * int;
+}
 
 # let jane = {
     name = "Jane Doe";
