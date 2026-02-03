@@ -132,7 +132,7 @@ let of_release_metadata m =
     ~modify_experimental:(Option.value ~default:false)
     ~modify_github_release_tags:(Option.value ~default:[])
 
-let decode (fname, (head, body)) =
+let decode_result (fname, (head, body)) =
   let project_name = Filename.basename (Filename.dirname fname) in
   let slug =
     Filename.basename (Filename.remove_extension fname) |> Utils.slugify
@@ -148,34 +148,52 @@ let decode (fname, (head, body)) =
 
   Result.map
     (fun metadata ->
-      let changelog_html =
-        match metadata.changelog with
-        | None -> None
-        | Some changelog ->
-            Some
-              (Cmarkit.Doc.of_string ~strict:true (String.trim changelog)
-              |> Hilite.Md.transform
-              |> Cmarkit_html.of_doc ~safe:false)
-      in
-      let date, slug_version =
-        match Slug.parse_slug slug with
-        | Some x -> x
-        | None ->
-            failwith
-              ("date is not present in metadata and could not be parsed from \
-                slug: " ^ slug)
-      in
-      let metadata =
-        match (metadata.versions, slug_version) with
-        | None, Some v -> { metadata with versions = Some [ v ] }
-        | _ -> metadata
-      in
-      of_release_metadata ~slug ~changelog_html ~body ~body_html ~date
-        ~project_name metadata)
+      (* Filter out ignored releases *)
+      if metadata.ignore = Some true then None
+      else
+        let changelog_html =
+          match metadata.changelog with
+          | None -> None
+          | Some changelog ->
+              Some
+                (Cmarkit.Doc.of_string ~strict:true (String.trim changelog)
+                |> Hilite.Md.transform
+                |> Cmarkit_html.of_doc ~safe:false)
+        in
+        let date, slug_version =
+          match Slug.parse_slug slug with
+          | Some x -> x
+          | None ->
+              failwith
+                ("date is not present in metadata and could not be parsed from \
+                  slug: " ^ slug)
+        in
+        let metadata =
+          match (metadata.versions, slug_version) with
+          | None, Some v -> { metadata with versions = Some [ v ] }
+          | _ -> metadata
+        in
+        Some
+          (of_release_metadata ~slug ~changelog_html ~body ~body_html ~date
+             ~project_name metadata))
     metadata
 
 let all () =
-  Utils.map_md_files decode "platform_releases/*/*.md"
+  let process_file (path, data) =
+    let metadata =
+      Utils.extract_metadata_body path data
+      |> Result.map_error (Utils.where path)
+    in
+    match metadata with
+    | Error _ -> None
+    | Ok m -> (
+        match decode_result (path, m) with
+        | Error _ -> None
+        | Ok (Some v) -> Some v
+        | Ok None -> None)
+  in
+  Utils.read_from_dir "platform_releases/*/*.md"
+  |> List.filter_map process_file
   |> List.sort (fun (a : t) b -> String.compare b.slug a.slug)
 
 module Scraper = struct
