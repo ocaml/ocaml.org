@@ -42,6 +42,7 @@ let industrial_businesses = "/industrial-users/businesses"
 let academic_users = "/academic-users"
 let academic_institutions = "/academic-users/institutions"
 let about = "/about"
+let history = "/history"
 
 let minor v =
   match String.split_on_char '.' v with
