@@ -1,5 +1,5 @@
 ---
-title: 0.28.1
+title: OCamlFormat 0.28.1
 tags:
 - ocamlformat
 - platform

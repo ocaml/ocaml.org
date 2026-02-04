@@ -1,5 +1,5 @@
 ---
-title: Release 0.28.0
+title: OCamlFormat 0.28.0
 tags:
 - ocamlformat
 - platform

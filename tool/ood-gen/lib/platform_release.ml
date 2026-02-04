@@ -182,6 +182,24 @@ module Scraper = struct
   module SMap = Map.Make (String)
   module SSet = Set.Make (String)
 
+  (* Map from project name to its display name for titles *)
+  let project_display_name = function
+    | "dune" -> "Dune"
+    | "dune-release" -> "Dune-release"
+    | "mdx" -> "Mdx"
+    | "merlin" -> "Merlin"
+    | "ocaml" -> "OCaml"
+    | "ocaml-lsp" -> "OCaml-LSP"
+    | "ocamlformat" -> "OCamlFormat"
+    | "ocp-indent" -> "Ocp-indent"
+    | "odoc" -> "Odoc"
+    | "opam" -> "opam"
+    | "opam-publish" -> "Opam-publish"
+    | "ppxlib" -> "Ppxlib"
+    | "utop" -> "Utop"
+    | "omp" -> "OCaml-migrate-parsetree"
+    | s -> s
+
   type github_release = { github_tag : string; post : River.post }
 
   let github_release_tag_from_url url =
@@ -215,7 +233,8 @@ module Scraper = struct
       River.date post |> Option.get |> Ptime.to_rfc3339
       |> String.split_on_char 'T' |> List.hd
     in
-    let title = River.title post in
+    (* Construct proper title: display name + github release title *)
+    let title = project_display_name project ^ " " ^ River.title post in
     let github_release_tags =
       [ River.link post |> Option.map github_release_tag_from_url ]
       (*|> Option.value ~default:"MISSING"*)
