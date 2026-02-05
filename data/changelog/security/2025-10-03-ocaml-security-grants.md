@@ -22,4 +22,4 @@ If you have an idea that makes OCaml safer for everyone, check out the full anno
 
 **[Read the full announcement & apply here](https://discuss.ocaml.org/t/ocaml-security-grants/17754)**
 
-Let’s work together to make OCaml the most secure choice for functional programming!
+Let’s work together to make OCaml a more secure choice for functional programming!
