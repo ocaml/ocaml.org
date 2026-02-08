@@ -2,7 +2,7 @@
 id: installing-ocaml
 title: OCamlのインストール
 description: |
-  このページでは、OCamlとOCaml Platformツールのインストール方法を説明します。 |
+  このページでは、OCamlとOCamlプラットフォームツールのインストール方法を説明します。 |
   この手順は、Windows、およびLinuxやmacOSのようなUnix系システムで動作します。
 category: "First Steps"
 language: Japanese
@@ -36,7 +36,7 @@ brew install opam
 port install opam
 ```
 
-**注**: macOSでopamをインストールするのはかなり簡単ですが、Homebrewのインストールの仕組みが変更されたため、後で問題が発生する可能性があります。新しいMacで使われているM1プロセッサーなどのARM64環境では、実行ファイルが見つからない場合があります。これに対処するのはかなり複雑な手順になる可能性があるため、このインストールガイドの妨げにならないように、[短いARM64修正ドキュメント](/docs/arm64-fix)（英語）を作成しました。
+**注**: macOSでopamをインストールするのはかなり簡単ですが、Homebrewのインストールの仕組みが変更されたため、後で問題が発生する可能性があります。新しいMacで使われているM1プロセッサーなどのARM64環境では、実行可能ファイルが見つからない場合があります。これに対処するのはかなり複雑な手順になる可能性があるため、このインストールガイドの妨げにならないように、[Apple M1でのHomebrewエラーの修正](/docs/arm64-fix?lang=ja)ドキュメントを作成しました。
 
 **Linuxの場合**
 
@@ -84,7 +84,7 @@ Windowsでは、wingetパッケージはopamの開発者によってメンテナ
 Invoke-Expression "& { $(Invoke-RestMethod https://opam.ocaml.org/install.ps1) }"
 ```
 
-**上級のWindowsユーザー向け**: CygwinやWSL2に詳しい場合は、[OCaml on Windows](/docs/ocaml-on-windows)（英語）ページに記載されている他のインストール方法があります。
+**上級のWindowsユーザー向け**: CygwinやWSL2に詳しい場合は、[Windows上のOCaml](/docs/ocaml-on-windows?lang=ja)ページに記載されている他のインストール方法があります。
 
 ## opamの初期化
 
@@ -113,19 +113,19 @@ PowerShellの場合:
 (& opam env) -split '\r?\n' | ForEach-Object { Invoke-Expression $_ }
 ```
 
-opamの初期化には数分かかることがあります。インストールと設定が完了するのを待つ間、[A Tour of OCaml](/docs/tour-of-ocaml)（英語）を読み始めてください。
+opamの初期化には数分かかることがあります。インストールと設定が完了するのを待つ間、[OCamlツアー](/docs/tour-of-ocaml?lang=ja)を読み始めてください。
 
-**注**: opamは_スイッチ_と呼ばれるものを管理できます。これは複数のOCamlプロジェクトを切り替える際に重要です。しかし、この「はじめの一歩」シリーズのチュートリアルでは、スイッチは必要ありません。興味があれば、[opamスイッチの紹介](/docs/opam-switch-introduction)（英語）を読むことができます。
+**注**: opamは_スイッチ_と呼ばれるものを管理できます。これは複数のOCamlプロジェクトを切り替える際に重要です。しかし、この「はじめの一歩」シリーズのチュートリアルでは、スイッチは必要ありません。興味があれば、[opamスイッチ入門](/docs/opam-switch-introduction?lang=ja)を読むことができます。
 
 **インストールで問題がありましたか？** 必ず[最新のリリースノート](https://opam.ocaml.org/blog/opam-2-2-0/)（英語）を読んでください。問題は <https://github.com/ocaml/opam/issues> または <https://github.com/ocaml-windows/papercuts/issues> で報告できます。
 
-## Platformツールのインストール
+## プラットフォームツールのインストール
 
-OCamlコンパイラとopamパッケージマネージャーのインストールに成功したので、次はOCamlでの完全な開発体験を得るために必要な[OCaml Platformツール](https://ocaml.org/docs/platform)（英語）をいくつかインストールしましょう。
+OCamlコンパイラとopamパッケージマネージャーのインストールに成功したので、次はOCamlでの完全な開発体験を得るために必要な[OCamlプラットフォームツール](https://ocaml.org/docs/platform)（英語）をいくつかインストールしましょう。
 
 - [UTop](https://github.com/ocaml-community/utop): モダンな対話的トップレベル (REPL: Read-Eval-Print Loop)
 - [Dune](https://dune.build): 高速で多機能なビルドシステム
-- [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp): Language Server Protocolを実装し、VS Code、Vim、EmacsなどでOCamlのエディタサポートを可能にします。
+- [`ocaml-lsp-server`](https://github.com/ocaml/ocaml-lsp): Language Server Protocolを実装し、VS Code、Vim、EmacsなどでOCamlのエディタのサポートを可能にします。
 - [`odoc`](https://github.com/ocaml/odoc): OCamlコードからドキュメントを生成します。
 - [OCamlFormat](https://opam.ocaml.org/packages/ocamlformat/): OCamlコードを自動的にフォーマットします。
 
