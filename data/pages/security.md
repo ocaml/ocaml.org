@@ -1,5 +1,5 @@
 ---
-title: Ocaml Security
+title: OCaml Security
 description: This page details the OCaml security disclosure process, including how to report vulnerabilities, the role and members of the OCaml Security Response Team (SRT), and their publications.
 meta_title: OCaml Security
 meta_description: This page details the OCaml security disclosure process, including how to report vulnerabilities, the role and members of the OCaml Security Response Team (SRT), and their publications.
@@ -31,7 +31,7 @@ The current members of the SRT are:
 - Edwin Török - [@edwintorok](https://github.com/edwintorok) - individual
 - Nicolás Ojeda Bär - [@nojb](https://github.com/nojb) - LexiFi
 - Louis Roché - [@Khady](https://github.com/Khady) - ahrefs
-- Boning Dong - Bloomberg
+- Boning Dong - [@bn-d](https://github.com/bn-d) - Bloomberg
 
 The SRT is an initiative of the [OCaml Software Foundation](https://ocaml-sf.org/)
 

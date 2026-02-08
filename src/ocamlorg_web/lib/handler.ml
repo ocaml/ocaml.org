@@ -689,6 +689,7 @@ let page canonical (_req : Dream.request) =
        ~content:page.body_html ~canonical)
 
 let carbon_footprint = page Url.carbon_footprint
+let history = page Url.history
 let privacy_policy = page Url.privacy_policy
 let governance_policy = page Url.governance_policy
 let code_of_conduct = page Url.code_of_conduct

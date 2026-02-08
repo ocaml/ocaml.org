@@ -124,8 +124,8 @@ Bindings can be given special comments (sometimes called "docstrings") that edit
 
 ```ocaml
 (** Feet in a mile *)
-let feets = 5280;;
-val feets : int = 5280
+let feet = 5280;;
+val feet : int = 5280
 ```
 
 This is discussed further in [`odoc` for Authors: Special Comments](https://ocaml.github.io/odoc/odoc/odoc_for_authors.html#special_comments).

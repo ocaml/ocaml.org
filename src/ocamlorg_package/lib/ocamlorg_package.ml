@@ -57,19 +57,27 @@ let read_versions package_name versions =
 
 let read_packages () =
   let open Lwt.Syntax in
-  Lwt_list.fold_left_s
-    (fun acc (package_name, versions) ->
-      match Name.of_string package_name with
-      | exception ex ->
-          Logs.err (fun m ->
-              m "Invalid package name %S: %s" package_name
-                (Printexc.to_string ex));
-          Lwt.return acc
-      | _name ->
-          let+ versions = read_versions package_name versions in
-          Name.Map.add (Name.of_string package_name) versions acc)
-    Name.Map.empty
-    (Opam_repository.list_packages_and_versions ())
+  let t0 = Unix.gettimeofday () in
+  let packages_and_versions = Opam_repository.list_packages_and_versions () in
+  let t1 = Unix.gettimeofday () in
+  Logs.info (fun log -> log "List packages: %.2fs" (t1 -. t0));
+  let+ result =
+    Lwt_list.fold_left_s
+      (fun acc (package_name, versions) ->
+        match Name.of_string package_name with
+        | exception ex ->
+            Logs.err (fun m ->
+                m "Invalid package name %S: %s" package_name
+                  (Printexc.to_string ex));
+            Lwt.return acc
+        | _name ->
+            let+ versions = read_versions package_name versions in
+            Name.Map.add (Name.of_string package_name) versions acc)
+      Name.Map.empty packages_and_versions
+  in
+  let t2 = Unix.gettimeofday () in
+  Logs.info (fun log -> log "Read opam files: %.2fs" (t2 -. t1));
+  result
 
 let try_load_state () =
   let exception Invalid_version in
@@ -119,17 +127,26 @@ let get_latest' packages name =
          in
          { version; info; name })
 
+let time_it_lwt name f =
+  let open Lwt.Syntax in
+  let t0 = Unix.gettimeofday () in
+  let+ result = f () in
+  let t1 = Unix.gettimeofday () in
+  Logs.info (fun log -> log "%s: %.2fs" name (t1 -. t0));
+  result
+
 let update ~commit t =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "Opam repository is currently at %s" commit);
   t.opam_repository_commit <- Some commit;
   Logs.info (fun m -> m "Updating opam package list");
-  Logs.info (fun f -> f "Calculating packages.. .");
-  let* packages = read_packages () in
-  Logs.info (fun f -> f "Computing additional informations...");
-  let* packages = Info.of_opamfiles packages in
-  Logs.info (fun f -> f "Computing packages statistics...");
-  let+ stats = Statistics.compute packages in
+  let* packages = time_it_lwt "Read packages" (fun () -> read_packages ()) in
+  let* packages =
+    time_it_lwt "Compute package info" (fun () -> Info.of_opamfiles packages)
+  in
+  let+ stats =
+    time_it_lwt "Compute statistics" (fun () -> Statistics.compute packages)
+  in
   t.packages <- packages;
   t.stats <- Some stats;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
