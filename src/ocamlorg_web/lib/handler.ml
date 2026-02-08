@@ -770,6 +770,7 @@ let tutorial commit_hash req =
       (Dream.query req "lang")
       Data.Tutorial.language_of_query_param
   in
+  let available_languages = Data.Tutorial.get_available_languages slug in
   let</>? tutorial = Data.Tutorial.get_by_slug_and_language slug language in
   let all_tutorials = Data.Tutorial.all in
 
@@ -802,7 +803,7 @@ let tutorial commit_hash req =
     (Ocamlorg_frontend.tutorial commit_hash ~tutorials
        ~canonical:(Url.tutorial tutorial.slug None)
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
-       ~language
+       ~available_languages ~language
        tutorial)
 
 let exercises req =

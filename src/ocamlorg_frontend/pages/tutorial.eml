@@ -8,9 +8,55 @@ let rec tutorial_toc_to_toc (toc : Data.Tutorial.toc) =
     children = List.map tutorial_toc_to_toc toc.children
   }
 
+let language_switcher
+(tutorial : Data.Tutorial.t)
+~(available_languages : Data.Tutorial.language list)
+=
+  if List.length available_languages > 1 then
+    <div class="relative mb-4" x-data="{ open: false }">
+      <button
+        @click="open = !open"
+        @click.away="open = false"
+        class="flex items-center gap-1.5 text-sm text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary"
+      >
+        <%s! Icons.language "w-4 h-4" %>
+        <span><%s Data.Tutorial.language_to_string tutorial.language %></span>
+        <%s! Icons.chevron_down "w-3 h-3" %>
+      </button>
+      <div
+        x-show="open"
+        x-cloak
+        x-transition:enter="transition ease-out duration-100"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-75"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="absolute left-0 mt-1 w-40 rounded-md bg-white dark:bg-dark-card shadow-lg ring-1 ring-black ring-opacity-5 z-10"
+      >
+        <div class="py-1">
+          <% available_languages |> List.iter (fun lang -> %>
+            <% if Data.Tutorial.equal_language lang tutorial.language then ( %>
+              <span class="block px-4 py-2 text-sm font-medium text-primary dark:text-dark-primary">
+                <%s Data.Tutorial.language_to_string lang %>
+              </span>
+            <% ) else ( %>
+              <a href="<%s Url.tutorial tutorial.slug (Some lang) %>" class="block px-4 py-2 text-sm text-content dark:text-dark-content hover:bg-sand dark:hover:bg-dark-background_navigation hover:text-primary dark:hover:text-dark-primary font-normal">
+                <%s Data.Tutorial.language_to_string lang %>
+              </a>
+            <% ); %>
+          <% ); %>
+        </div>
+      </div>
+    </div>
+  else
+    ""
+
 let right_sidebar
 (tutorial : Data.Tutorial.t)
+~(available_languages : Data.Tutorial.language list)
 =
+  <%s! language_switcher tutorial ~available_languages %>
   <%s! Toc.render (List.map tutorial_toc_to_toc tutorial.toc) %>
 
 let left_sidebar ~tutorials ~current_tutorial ~language ~section =
@@ -61,6 +107,7 @@ commit_hash
 ~recommended_next_tutorials
 ~prerequisite_tutorials
 ~canonical
+~available_languages
 ~language
 =
 let href, description = match tutorial.external_tutorial with
@@ -83,7 +130,7 @@ Learn_layout.three_column_layout
 ~description:tutorial.description
 ~canonical
 ~left_sidebar_html:(Some(left_sidebar ~current_tutorial:(Some tutorial.slug) ~language ~tutorials ~section:(of_tutorial_section tutorial.section)))
-~right_sidebar_html:(Some(right_sidebar tutorial))
+~right_sidebar_html:(Some(right_sidebar tutorial ~available_languages))
 ~current:(of_tutorial_section tutorial.section) @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_external_tutorial_banner tutorial.external_tutorial %>

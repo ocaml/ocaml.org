@@ -202,6 +202,8 @@ module Tutorial : sig
   include module type of struct include Tutorial end
 
   val language_of_query_param : string -> language option
+  val language_to_string : language -> string
+  val get_available_languages : string -> language list
 
   val all : t list
   val all_search_documents : search_document list

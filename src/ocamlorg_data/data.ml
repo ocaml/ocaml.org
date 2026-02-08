@@ -228,6 +228,16 @@ module Tutorial = struct
     | "ja" -> Some Japanese
     | _ -> None
   
+  let language_to_string = function
+    | English -> "English"
+    | Japanese -> "日本語"
+
+  let get_available_languages slug =
+    all
+    |> List.filter (fun x -> String.equal slug x.slug)
+    |> List.map (fun x -> x.language)
+    |> List.sort_uniq compare_language
+
   let get_by_slug_and_language slug language =
     match List.find_opt (fun x ->
       String.equal slug x.slug &&
