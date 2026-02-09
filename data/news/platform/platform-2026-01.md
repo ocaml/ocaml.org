@@ -89,7 +89,7 @@ For the complete list of changes, see the [full release on GitHub](https://githu
 [opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-2.5.0) (November 27, 2025) is a major release with significant performance and usability improvements.
 
 **Key Features:**
-- **Massive speedup for `opam update`**: Thanks to @arozovyk, opam update now loads opam files incrementally—only parsing files that have changed since the last update. For typical small diffs, this means operations that took seconds now complete in milliseconds
+- **Massive speedup for `opam update`**: Thanks to @arozovyk, opam update now loads opam files incrementally, only parsing files that have changed since the last update. For typical small diffs, this means operations that took seconds now complete in milliseconds
 - **Improved shell integration**: Fixed issues where parts of a previous environment were kept in the current environment, causing various problems
 - **Changed default shell integration file**: Now writes to `.bashrc` instead of `.profile` when bash is detected, preventing infinite loop issues
 - **AppArmor profile**: The install script now installs an appropriate apparmor profile on systems configured with apparmor (enabled by default on Ubuntu)
@@ -183,30 +183,21 @@ For technical details, see the [cmdliner 2.0.0 documentation](https://erratique.
 
 **Merlin maintained by**: Ulysse Gérard (@voodoos, Tarides), Xavier Van de Woestyne (@xvw, Tarides), Muluh Godson (@PizieDust, Tarides)
 
+### OCaml-eglot
+
+We have drastically modified the `xref` backend (allowing navigation from definition to definition) to make it more suitable for OCaml.
+
+In addition, we added the ability to annotate the type of an enclosing active_ (used with the `ocaml-eglot-type-enclosing` command) or simply to type the selection.
+
+These updates have been merged into `main`, making them available via a MELPA update.
+
+**ocaml-eglot maintained by**: Xavier Van de Woestyne (@xvw, Tarides)
+
 ## Platform Infrastructure
 
 ### OCaml Infrastructure: How the opam-repository Works
 
-The [November 5, 2025 article on the opam-repository](https://ocaml.org/changelog/2025-11-05-how-the-opam-repository-works) provides an in-depth look at this critical piece of OCaml infrastructure.
-
-**Key Points Covered:**
-- The opam repository serves as the central package registry for the OCaml ecosystem, hosting over 4,500 packages
-- CI pipeline built around OCurrent, validating packages across multiple OCaml versions, platforms, and architectures
-- Comprehensive testing including Linux distributions, macOS, FreeBSD, Windows, and multiple CPU architectures
-- Governance and curation policies that maintain package quality
-- The human element: dedicated volunteer maintainers who review every submission
-- Community involvement and calls for new volunteers to help manage the growing submission volume
-
-The article also acknowledges the contributions of many individuals who have helped build and maintain this infrastructure over the years, including Anil Madhavapeddy, Thomas Gazagnaire, Jeremy Yallop, Kate Deplaix (who served as primary maintainer from 2017-2024), and current active maintainers Marcello Seri, Shon Feder, Raphaël Proust, Hannes Mehnert, and Jan Midtgaard.
-
-**Related Infrastructure:**
-- [OCurrent](https://github.com/ocurrent/ocurrent) - CI/CD pipeline framework
-- [ocaml-ci](https://github.com/ocurrent/ocaml-ci) - CI service for OCaml projects
-- [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci) - Documentation CI for ocaml.org
-- [opam-repository CI](https://opam.ci.ocaml.org/github/ocaml/opam-repository) - CI dashboard for opam-repository
-- [check.ci.ocaml.org](https://check.ci.ocaml.org) - Package health check service
-- [opam-repository wiki](https://github.com/ocaml/opam-repository/wiki/How-to-deal-with-CI) - CI documentation and policies
-- [opam-repository documentation](https://github.com/ocaml/opam-repository/tree/master/doc) - Repository policies and contributing guidelines
+The [November 5, 2025 article on the opam-repository](https://ocaml.org/changelog/2025-11-05-how-the-opam-repository-works) provides an in-depth look at this critical piece of OCaml infrastructure. The opam repository serves as the central package registry for the OCaml ecosystem, hosting over 4,500 packages. It relies on dedicated volunteer maintainers who review every submission.
 
 ---
 
