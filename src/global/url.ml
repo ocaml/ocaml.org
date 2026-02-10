@@ -65,7 +65,6 @@ let conferences = "/conferences"
 let conference v = "/conferences/" ^ v
 let ocaml_planet = "/ocaml-planet"
 let local_blog source = "/blog/" ^ source
-let blog_post source v = "/blog/" ^ source ^ "/" ^ v
 let news = "/news"
 let news_post v = "/news/" ^ v
 let jobs = "/jobs"
