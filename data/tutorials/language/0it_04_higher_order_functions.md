@@ -161,7 +161,7 @@ Hello, Camel!
 
 But our program only outputs one salutation:
 
-```
+```text
 Hello, Camel!
 ```
 
@@ -425,7 +425,6 @@ names
 ;;
 ```
 
-
 ### Pipelines, Composition, and Chaining
 
 In OCaml we use functions a lot, so values go from one function to the other forming what we like to call _pipelines_.
@@ -506,7 +505,6 @@ email
 <!--
 NOTE(@leostera): this example kinda sucks, i'd like one where the use of labels greatly improves the readability but since `ListLabels.nth_opt` doesn't take an argument then we still need that nasty fun flip :( will get back t othis)
 -->
-
 
 ### Iterating
 
@@ -850,7 +848,7 @@ double [1;2;3];; (* [1;1;2;2;3;3] *)
 
 This same pattern is useful to build chains of functions that _short circuit_ on specific values.
 
-For example, if you had to retrieve a user from a database, and *only if there is a user* try access the user's email, you could use `Option.bind` to short-circuit on the first operation:
+For example, if you had to retrieve a user from a database, and _only if there is a user_ try access the user's email, you could use `Option.bind` to short-circuit on the first operation:
 
 ```ocaml
 type user = {
@@ -909,7 +907,6 @@ This has the advantage of making code a lot more readable, without changing the 
 #### Async code
 
 Async libraries for OCaml that implement Promises/Futures usually also have a `bind` function that allows you to chain computations.
-
 
 <!-- ## Recipes
 

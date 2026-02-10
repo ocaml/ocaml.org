@@ -7,7 +7,7 @@ description: |
 category: "First Steps"
 ---
 
-This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#installation-on-unix-and-macos) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
+This guide will walk you through a minimum installation of OCaml. That includes installing a package manager and [the compiler](#initialise-opam) itself. We'll also install some platform tools like a build system, support for your editor, and a few other important ones.
 
 On this page, you'll find installation instructions for Linux, macOS, Windows, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam.
 
@@ -21,7 +21,7 @@ Opam also installs the OCaml compiler. Alternatives exist, but opam is the best 
 
 To install opam, you can [use your system package manager](https://opam.ocaml.org/doc/Install.html#Using-your-distribution-39-s-package-system) or download the [binary distribution](https://opam.ocaml.org/doc/Install.html#Binary-distribution). The details are available in these links, but for convenience, we use package distributions:
 
-**For macOS**
+### For macOS
 
 If you're installing with [Homebrew](https://brew.sh/):
 
@@ -37,7 +37,7 @@ port install opam
 
 **Note**: While it's rather straightforward to install opam using macOS, it's possible you'll run into problems later with Homebrew because it has changed the way it installs. The executable files cannot be found in ARM64, the M1 processor used in newer Macs. Addressing this can be a rather complicated procedure, so we've made [a short ARM64 Fix doc](/docs/arm64-fix) explaining this so as not to derail this installation guide.
 
-**For Linux**
+### For Linux
 
 It's preferable to install opam with your system's package manager on Linux, as superuser. On the opam site, find [details of all installation methods](https://opam.ocaml.org/doc/Install.html). A version of opam above 2.0 is packaged in all supported Linux distributions. If you are using an unsupported Linux distribution, please either download a precompiled binary or build opam from sources.
 
@@ -59,7 +59,7 @@ sudo pacman -S opam
 sudo apt-get install --no-install-recommends opam
 ```
 
-**For Windows**
+### For Windows
 
 It's easiest to install opam with [WinGet](https://github.com/microsoft/winget-cli):
 
@@ -67,7 +67,7 @@ It's easiest to install opam with [WinGet](https://github.com/microsoft/winget-c
 PS C:\> winget install Git.Git OCaml.opam
 ```
 
-**Binary Distribution**
+### Binary Distribution
 
 If you want the latest release of opam, install it through the binary distribution. On Unix and macOS, you'll need to install the following system packages first: `gcc`, `build-essential`, `curl`, `bubblewrap`, and `unzip`. Note that they might have different names depending on your operating system or distribution. Also, note this script internally calls `sudo`.
 
@@ -97,13 +97,13 @@ opam init -y
 
 Make sure you follow the instructions provided at the end of the output of `opam init` to complete the initialisation. Typically, this is:
 
-```
+```shell
 eval $(opam env)
 ```
 
 on Unix, and from the Windows Command Prompt:
 
-```
+```shell
 for /f \"tokens=*\" %i in ('opam env') do @%i
 ```
 

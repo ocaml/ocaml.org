@@ -9,8 +9,8 @@ category: "Data Structures"
 ## Introduction
 
 In the most general sense, the [`Map`](/manual/api/Map.html) module lets you create _immutable_ key-value
-[associative array](https://en.wikipedia.org/wiki/Associative_array) for your types. More concretely, 
-OCaml's `Map` module is implemented using a binary search tree algorithm to support fast lookups (of O(Log n)). 
+[associative array](https://en.wikipedia.org/wiki/Associative_array) for your types. More concretely,
+OCaml's `Map` module is implemented using a binary search tree algorithm to support fast lookups (of O(Log n)).
 
 **Note**: The concept of a `Map` in this tutorial refers to a data structure that stores a
 set of key-value pairs. It is sometimes called a dictionary or an association table. This
@@ -101,12 +101,12 @@ To find entries in a map, use the `find_opt` or `find` functions:
 ```
 
 When the searched key is present in the map:
-- `find_opt` returns the associated value, wrapped in an option
-- `find` returns the associated value
+* `find_opt` returns the associated value, wrapped in an option
+* `find` returns the associated value
 
 When the searched key is absent from the map:
-- `find_opt` returns `None`
-- `find` throws the `Not_found` exception
+* `find_opt` returns `None`
+* `find` throws the `Not_found` exception
 
 We can also use `find_first_opt` and `find_last_opt` if we want to use a
 predicate function:
@@ -222,9 +222,9 @@ val pick_snd : 'a -> 'b -> 'c -> 'c option = <fun>
 val drop : 'a -> 'b -> 'c -> 'd option = <fun>
 ```
 
-- `pick_fst` picks the result's value from the first map
-- `pick_snd` picks the result's value from the second map
-- `drop` drops both entries in the result map
+* `pick_fst` picks the result's value from the first map
+* `pick_snd` picks the result's value from the second map
+* `drop` drops both entries in the result map
 
 ```ocaml
 # StringMap.(

@@ -95,35 +95,35 @@ This allows users to write more compact code. However, be careful not to write e
 
 OCaml has a subtle syntax; not everything is allowed as an operator symbol. An operator symbol is an identifier with a special syntax, so it must have the following structure:
 
-**Prefix Operator**
+### Prefix Operator
 
 1. First character, either:
-    * `?` `~`
-    * `!`
+    - `?` `~`
+    - `!`
 1. Following characters, at least one if the first character is `?` or `~`, optional otherwise:
-    * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
-    * `%` `<`
+    - `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
+    - `%` `<`
 
-**Binary Operator**
+### Binary Operator
 
 1. First character, either:
-    * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
-    * `%` `<`
-    * `#`
+    - `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
+    - `%` `<`
+    - `#`
 1. Following characters, at least one if the first character is `#`, optional otherwise:
-    * `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
-    * `%` `<`
-    * `!` `.` `:` `?` `~`
+    - `$` `&` `*` `+` `-` `/` `=` `>` `@` `^` `|`
+    - `%` `<`
+    - `!` `.` `:` `?` `~`
 
 This is defined in the [Prefix and Infix symbols](/manual/lex.html#sss:lex-ops-symbols) section of The OCaml Manual.
 
 Tips:
-  * Don't define wide scope operators. Restrict their scope to module or function.
-  * Don't use many of them.
-  * Before defining a custom binary operator, check that the symbol is not already used. This can be done in two ways:
-    - By surrounding the candidate symbol with parentheses in UTop and see if it responds with a type or with an `Unbound value` error
-    - Use [Sherlocode](https://sherlocode.com/) to check if it is already used in some OCaml project
-  * Avoid shadowing existing operators.
+- Don't define wide scope operators. Restrict their scope to module or function.
+- Don't use many of them.
+- Before defining a custom binary operator, check that the symbol is not already used. This can be done in two ways:
+  - By surrounding the candidate symbol with parentheses in UTop and see if it responds with a type or with an `Unbound value` error
+  - Use [Sherlocode](https://sherlocode.com/) to check if it is already used in some OCaml project
+- Avoid shadowing existing operators.
 
 ## Operator Associativity and Precedence
 

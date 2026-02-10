@@ -99,7 +99,6 @@ val append : 'a list -> 'a list -> 'a list = <fun>
 Notice that the memory for the second list is shared, but the first list is
 effectively copied.
 
-
 ## Higher Order Functions on Lists
 
 We might wish to apply a function to each element in a list, yielding a new
@@ -233,7 +232,6 @@ The function [`find`](/manual/api/List.html#VALfind) returns the
 first element of a list matching a given predicate (a predicate is a testing
 function which returns either true or false when given an element). It raises
 an exception if such an element is not found:
-
 
 ```ocaml
 # List.find (fun x -> x mod 2 = 0) [1; 2; 3; 4; 5];;
@@ -445,7 +443,7 @@ The `length` function [previously
 defined](https://ocaml.org/docs/lists#functions-on-lists) builds up an
 intermediate expression of a size proportional to its input list:
 
-```
+```text
    length [1; 2; 3]
 => 1 + length [2; 3]
 => 1 + (1 + length [3])
@@ -476,7 +474,7 @@ val l : int = 3
 
 This function now uses a constant amount of space on the stack:
 
-```
+```text
    length 0 [1; 2; 3]
 => length 1 [2; 3]
 => length 2 [3]

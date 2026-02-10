@@ -8,7 +8,7 @@ category: "Libraries & Packages"
 ---
 
 > **TL;DR**
-> 
+>
 > Create a `CHANGES.md` file and run `dune-release bistro`.
 
 The opam package manager may differ from the package manager you're used to. In order to ensure the highest stability of the ecosystem, each package publication goes through two processes:
@@ -26,7 +26,7 @@ This is a heavy process, but hopefully, all of it is completely automated on the
 
 Once you're ready to publish your package on opam, simply create a `CHANGES.md` file with the following format:
 
-```
+```text
 # <version>
 
 <release note>

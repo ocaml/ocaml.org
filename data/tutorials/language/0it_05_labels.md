@@ -146,9 +146,9 @@ val sub : ?pos:int -> ?len:int -> string -> string = <fun>
 ```
 
 Here, we're defining a variant of the function `String.sub` from the standard library.
-* `s` is the string from which we are extracting a substring.
-* `pos` is the substring's starting position. It defaults to `0`.
-* `len` is the substring's length. If missing, it defaults to `String.length s - pos`.
+- `s` is the string from which we are extracting a substring.
+- `pos` is the substring's starting position. It defaults to `0`.
+- `len` is the substring's length. If missing, it defaults to `String.length s - pos`.
 
 When an optional parameter isn't given a default value, its type inside the function is made an `option`. Here, `len` appears as `?len:int` in the function signature. However, inside the body of the function, `len_opt` is an `int option`.
 
@@ -227,7 +227,6 @@ Most often, `concat` is needed. Therefore a function's last declared parameter s
 
 **Note**: Optional parameters make it difficult for the compiler to know if a function is partially applied or not. This is why at least one positional parameter is required after the optional ones. If present at application, it means the function is fully applied, if missing, it means the function is partially applied.
 
-
 ### Passing Labelled Arguments Using the Pipe Operator
 
 Declaring a function's unlabelled argument as the first one simplifies reading the function's type and does not prevent passing this argument using the pipe operator.
@@ -273,7 +272,7 @@ Without the unit parameter, the `optional argument cannot be erased` warning wou
 
 ## Forwarding an Optional Argument
 
-Passing an optional argument with a question mark sign `?` allows forwarding it without unwrapping. These examples reuse the `sub` function defined in the [Optional Arguments Without Default Values](#optional-arguments-without-default-values) section.
+Passing an optional argument with a question mark sign `?` allows forwarding it without unwrapping. These examples reuse the `sub` function defined in the [Defining Optional Parameters Without Default Values](#defining-optional-parameters-without-default-values) section.
 
 ```ocaml
 # let take ?len s = sub ?len s;;

@@ -160,7 +160,6 @@ of modern processor instructions to hide the extra shifts where possible.
 Addition is a single `LEA` x86 instruction, subtraction can be two
 instructions, and multiplication is only a few more.
 
-
 ## Blocks and Values
 
 An OCaml *block* is the basic unit of allocation on the heap. A block
@@ -196,36 +195,36 @@ type, which we describe in more detail later in this chapter.
 The exact representation of values inside a block depends on their static
 OCaml type. All OCaml types are distilled down into `values`, and summarized below.
 
-- `int` or `char` are stored directly as a value, shifted left by 1
+* `int` or `char` are stored directly as a value, shifted left by 1
   bit, with the least significant bit set to 1.
 
-- `unit`, `[]`, `false` are all stored as OCaml `int` 0.
+* `unit`, `[]`, `false` are all stored as OCaml `int` 0.
 
-- `true` is stored as OCaml `int` 1.
+* `true` is stored as OCaml `int` 1.
 
-- `Foo | Bar` variants are stored as ascending OCaml `int`s, starting
+* `Foo | Bar` variants are stored as ascending OCaml `int`s, starting
   from 0.
 
-- `Foo | Bar of int` variants with parameters are boxed, while
+* `Foo | Bar of int` variants with parameters are boxed, while
   variants with no parameters are unboxed.
 
-- Polymorphic variants with parameters are boxed with an extra
+* Polymorphic variants with parameters are boxed with an extra
   header word to store the value, as compared to normal variants.
   Polymorphic variants with no parameters are unboxed.
 
-- Floating-point numbers are stored as a block with a single field
+* Floating-point numbers are stored as a block with a single field
   containing the double-precision float.
 
-- Strings are word-aligned byte arrays with an explicit length.
+* Strings are word-aligned byte arrays with an explicit length.
 
-- `[1; 2; 3]` lists are stored as `1::2::3::[]` where `[]` is an int,
+* `[1; 2; 3]` lists are stored as `1::2::3::[]` where `[]` is an int,
   and `h::t` a block with tag 0 and two parameters.
 
-- Tuples, records, and arrays are stored as a C array of
+* Tuples, records, and arrays are stored as a C array of
   values. Arrays can be variable size, but tuples and records are
   fixed-size.
 
-- Records or arrays that are all float use a special tag for unboxed
+* Records or arrays that are all float use a special tag for unboxed
   arrays of floats, or records that only have `float` fields.
 
 ### Integers, Characters, and Other Basic Types
@@ -243,11 +242,9 @@ parameters to your functions. Modern architectures such as `x86_64` have a
 lot of spare registers to further improve the efficiency of using unboxed
 integers.
 
-
 ## Tuples, Records, and Arrays
 
-![](/media/tutorials/language/runtime-memory-layout/tuple_layout.png "Tuple Layout")
-
+![Tuple Layout](/media/tutorials/language/runtime-memory-layout/tuple_layout.png "Tuple Layout")
 
 Tuples, records, and arrays are all represented identically at runtime as a
 block with tag `0`. Tuples and records have constant sizes determined at
@@ -292,8 +289,7 @@ contains the floats packed directly in the data section, with
 `Double_array_tag` set to signal to the collector that the contents
 are not OCaml values.
 
-
-![](/media/tutorials/language/runtime-memory-layout/float_array_layout.png "Float array layout")
+![Float array layout](/media/tutorials/language/runtime-memory-layout/float_array_layout.png "Float array layout")
 
 First, let's check that float arrays do in fact have a different tag number
 from normal floating-point values:
@@ -328,7 +324,6 @@ have the normal tuple tag value (0).
 
 Only records and arrays can have the float array optimization, and for
 records, every single field must be a float.
-
 
 ## Variants and Lists
 
@@ -464,24 +459,24 @@ machine words. The `String_tag` (252) is higher than the
 the collector. The block contents are the contents of the string, with
 padding bytes to align the block on a word boundary.
 
-![](/media/tutorials/language/runtime-memory-layout/string_block.png "String block layout")
+![String block layout](/media/tutorials/language/runtime-memory-layout/string_block.png "String block layout")
 
 On a 32-bit machine, the padding is calculated based on the modulo of the
 string length and word size to ensure the result is word-aligned. A 64-bit
 machine extends the potential padding up to 7 bytes instead of 3.
 Given a string length modulo 4:
 
-- `0` has padding `00 00 00 03`
-- `1` has padding `00 00 02`
-- `2` has padding `00 01`
-- `3` has padding `00`
+* `0` has padding `00 00 00 03`
+* `1` has padding `00 00 02`
+* `2` has padding `00 01`
+* `3` has padding `00`
 
 This string representation is a clever way to ensure that the contents
 are always zero-terminated by the padding word and to still compute
 its length efficiently without scanning the whole string. The
 following formula is used:
 
-```
+```text
 number_of_words_in_block * sizeof(word) - last_byte_of_block - 1
 ```
 
@@ -508,7 +503,7 @@ The first word of the data within the custom block is a C pointer to a
 `struct` of custom operations. The custom block cannot have pointers to OCaml
 blocks and is opaque to the GC:
 
-```
+```c
 struct custom_operations {
   char *identifier;
   void (*finalize)(value v);

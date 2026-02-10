@@ -103,7 +103,7 @@ value of `"h"`.
 
 However, the previous values associated with the key `"h"` were not replaced.
 What we may want instead is all the elements that start with `"h"`. To do this we
-want to *find all* of them. What better name for this than `find_all`?
+want to _find all_ of them. What better name for this than `find_all`?
 
 ```ocaml
 # Hashtbl.find_all my_hash "h";;
@@ -131,7 +131,7 @@ variable of the same name.
 
 ### Replacing Data in Hash Tables
 
-In other contexts, one may prefer new values *replace* the previous ones.  In
+In other contexts, one may prefer new values _replace_ the previous ones.  In
 this case, one uses `Hashtbl.replace`:
 
 ```ocaml

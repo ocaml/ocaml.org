@@ -161,6 +161,7 @@ Like strings, byte sequences are finite and fixed-sized. Each individual byte is
 Operations on `bytes` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bytes`](/manual/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences.
 
 The memory representation of `bytes` is four times more compact than `char array`.
+
 ### Arrays & Lists
 
 #### Arrays
@@ -704,7 +705,7 @@ Here is how the map function can be defined in this type:
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-In the OCaml community, as well as in the larger functional programming community, the word *polymorphism* is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism and has a name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it is sometimes necessary to distinguish them.
+In the OCaml community, as well as in the larger functional programming community, the word _polymorphism_ is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism and has a name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it is sometimes necessary to distinguish them.
 
 Here are the terms applicable to data types:
 1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
@@ -924,7 +925,7 @@ val top_factorise : expr -> expr = <fun>
 - : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
-The factorise function above introduces another feature: *guards* to each
+The factorise function above introduces another feature: _guards_ to each
 pattern. The conditional follows the `when`, and it means that
 the return code is executed only if the pattern matches and the condition in the
 `when` clause is satisfied.

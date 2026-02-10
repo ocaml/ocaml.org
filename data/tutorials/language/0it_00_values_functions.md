@@ -13,7 +13,7 @@ prerequisite_tutorials:
 
 In OCaml, functions are treated as values, so you can use functions as arguments to functions and return them from functions. This tutorial introduces the relationship between expressions, values, and names. The first four sections address non-function values. The following sections, starting at [Function as Values](#function-as-values), address functions.
 
-We use UTop to understand these concepts by example. You are encouraged to modify the examples to gain a better understanding. 
+We use UTop to understand these concepts by example. You are encouraged to modify the examples to gain a better understanding.
 
 ## What is a Value?
 
@@ -47,7 +47,7 @@ An expression's type (before evaluation) and its resulting value's type (after c
 
 ## Global Definitions
 
-Every value can be named. This is the purpose of the `let … = … ` statement. The name is on the left; the expression is on the right.
+Every value can be named. This is the purpose of the `let … = …` statement. The name is on the left; the expression is on the right.
 * If the expression can be evaluated, it is.
 * Otherwise, the expression is turned into a value as-is. That's the case of function definition.
 
@@ -73,8 +73,8 @@ Error: Unbound value d
 Local definitions are introduced by the `let … = … in …` expression. The name bound before the `in` keyword is only bound in the expression after the `in` keyword. Here, the name `d` is bound to `6` inside the expression `d * 7`.
 
 A couple of remarks:
-- No global definition is introduced in this example, which is why we get an error.
-- Computation of `2 * 3` will always take place before `d * 7`.
+* No global definition is introduced in this example, which is why we get an error.
+* Computation of `2 * 3` will always take place before `d * 7`.
 
 Local definitions can be chained (one after another) or nested (one inside another). Here is an example of chaining:
 ```ocaml
@@ -90,8 +90,8 @@ Error: Unbound value e
 ```
 
 Here is how scoping works:
-- `d` is bound to `6` inside `let e = d * 7 in d * e`
-- `e` is bound to `42` inside `d * e`
+* `d` is bound to `6` inside `let e = d * 7 in d * e`
+* `e` is bound to `42` inside `d * e`
 
 Here is an example of nesting:
 ```ocaml
@@ -107,8 +107,8 @@ Error: Unbound value d
 Error: Unbound value e
 ```
 Here is how scoping works:
-- `e` is bound to `6` inside `e * 5`
-- `d` is bound to `30` inside `d * 7`
+* `e` is bound to `6` inside `e * 5`
+* `d` is bound to `30` inside `d * 7`
 
 Arbitrary combinations of chaining or nesting are allowed.
 
@@ -116,7 +116,7 @@ In both examples, `d` and `e` are local definitions.
 
 ## Forms of Pattern Matching
 
-[Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a programming language construct that generalizes case analysis, it makes subexpression inspection possible and applies to values of any type. 
+[Pattern matching](https://en.wikipedia.org/wiki/Pattern_matching) is a programming language construct that generalizes case analysis, it makes subexpression inspection possible and applies to values of any type.
 
 In the following sections, we explore matching inside `let` bindings, which is a special case. In the next chapter on [Basic Data Types and Pattern Matching](/docs/basic-data-types), we examine pattern matching in general cases using `match...with`. The chapter on [Error Handling](/docs/error-handling) explores how destructuring values aids in error handling when using `try...with`.
 
@@ -183,7 +183,6 @@ val introduce : name -> string = <fun>
 # let get_meaning _ = 42;;
 val get_meaning : 'a -> int = <fun>
 ```
-
 
 ### Pattern Matching on `unit`
 <!--Unit example-->
@@ -261,7 +260,7 @@ val jane : person =
    contact = ("jane@example.com", 1234567890)}
 ```
 
-The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate another approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`. 
+The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate another approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`.
 
 First, let's use nested deconstruction to access the contents of the `contact` tuple directly:
 
@@ -340,7 +339,7 @@ Without oversimplifying, an OCaml program is a sequence of expressions or global
 
 Execution evaluates each item from top to bottom.
 
-At any time during evaluation, the _environment_ is the ordered sequence of available definitions. The *environment* is also known as *context* in other languages.
+At any time during evaluation, the _environment_ is the ordered sequence of available definitions. The _environment_ is also known as _context_ in other languages.
 
 Here, the name `twenty` is added to the top-level environment.
 ```ocaml
@@ -361,7 +360,7 @@ Error: Unbound value ten
 
 Evaluating `ten` results in an error because it hasn't been added to the global environment. However, in the expression `2 * ten`, the local environment contains the definition of `ten`.
 
-Although OCaml is an expression-oriented language, it has a few statements. The global `let` modifies the global environment by adding a name-value *binding*.
+Although OCaml is an expression-oriented language, it has a few statements. The global `let` modifies the global environment by adding a name-value _binding_.
 
 Top-level expressions are also statements because they are equivalent to `let _ =` definitions.
 ```ocaml
@@ -392,7 +391,7 @@ val i : int = 21
 - : int = 21
 ```
 
-The second definition [*shadows*](https://en.wikipedia.org/wiki/Variable_shadowing) the first. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown above. Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
+The second definition [_shadows_](https://en.wikipedia.org/wiki/Variable_shadowing) the first. Inner shadowing is limited to the local definition's scope. Therefore, anything written after will still take the previous definition, as shown above. Here, the value of `i` hasn't changed. It's still `21`, as defined in the first expression. The second expression binds `i` locally, inside `i * 2`, not globally.
 
 <!--
 A name-value pair in a local expression *shadows* a binding with the same name in the global environment. In other words, the local binding temporarily hides the global one, making it inaccessible, but it doesn't change it.
@@ -434,8 +433,8 @@ When several expressions are written side by side, the leftmost one should be a 
 ```
 
 The `max` function returns the largest of its two arguments, which are:
-- `42`, the result of `21 * 2`
-- `713`, the result of `int_of_string "713"`
+* `42`, the result of `21 * 2`
+* `713`, the result of `int_of_string "713"`
 
 When creating subexpressions, using `begin ... end` is also possible. This is the same as using brackets `( ... )`. As such, the above could also be rewritten and get the same result:
 
@@ -504,10 +503,10 @@ Functions don't have to be bound to a name unless they are [recursive](#recursiv
 Function values not bound to names are called _[anonymous functions](https://en.wikipedia.org/wiki/Anonymous_function)_.
 
 In order, here is what they are:
-- The identity function, which takes anything and returns it unchanged
-- The square function, which takes an integer and returns it squared
-- The function that takes two strings and returns their concatenation with a space character in between
-- The function that takes a list and either returns `None`, if the list is empty, or returns its first element.
+* The identity function, which takes anything and returns it unchanged
+* The square function, which takes an integer and returns it squared
+* The function that takes two strings and returns their concatenation with a space character in between
+* The function that takes a list and either returns `None`, if the list is empty, or returns its first element.
 
 Anonymous functions are often passed as arguments to other functions.
 ```ocaml
@@ -549,7 +548,7 @@ Although local functions are often defined inside the function's scope, this is 
 
 ## Closures
 
-This example illustrates a [*closure*](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing)
+This example illustrates a [_closure_](https://en.wikipedia.org/wiki/Closure_(computer_programming)) using [Same-Level Shadowing](#same-level-shadowing)
 ```ocaml
 # let j = 2 * 3;;
 val j : int = 6
@@ -574,7 +573,7 @@ Here is how this makes sense:
 1. Create a new definition `j`, shadowing the first one
 1. Compute `k` of 7 again, the result is the same: 42
 
-Although the new definition of `j` *shadows* the first one, the original remains the one the function `k` uses. The `k` function's environment captures the first value of `j`, so every time you apply `k` (even after the second definition of `j`), you can be confident the function will behave the same.
+Although the new definition of `j` _shadows_ the first one, the original remains the one the function `k` uses. The `k` function's environment captures the first value of `j`, so every time you apply `k` (even after the second definition of `j`), you can be confident the function will behave the same.
 
 However, all future expressions will use the new value of `j` (`7`), as shown here:
 ```ocaml
@@ -694,12 +693,12 @@ val sweet_kitty : string -> string = <fun>
 
 Since a multiple-parameter function is a series of nested single-argument functions, you don't have to pass all arguments at once.
 
-Passing a single argument to `sour_kitty` or `sweet_kitty` returns a function of type `string -> string`. 
+Passing a single argument to `sour_kitty` or `sweet_kitty` returns a function of type `string -> string`.
  The first argument, here `"kitty"`, is captured and the result is a [closure](#closures).
 
 These expressions have the same value:
-- `fun x -> sweet_cat "kitty" x`
-- `sweet_cat "kitty"`
+* `fun x -> sweet_cat "kitty" x`
+* `sweet_cat "kitty"`
 
 ### Types of Functions of Multiple Parameters
 
@@ -729,7 +728,7 @@ The type arrow operator [_associates to the right_](https://en.wikipedia.org/wik
 
 ### Tuples as Function Parameters
 
-In OCaml, a *tuple* is a data structure used to group a fixed number of values, which can be of different types. Tuples are surrounded by parentheses, and the elements are separated by commas. Here's the basic syntax to create and work with tuples in OCaml:
+In OCaml, a _tuple_ is a data structure used to group a fixed number of values, which can be of different types. Tuples are surrounded by parentheses, and the elements are separated by commas. Here's the basic syntax to create and work with tuples in OCaml:
 ```ocaml
 # ("felix", 1920);;
 - : string * int = ("felix", 1920)
@@ -748,12 +747,11 @@ It looks like two arguments have been passed: `"hello"` and `"world"`. However, 
 
 In many imperative languages, the `spicy_cat ("hello", "world")` syntax reads as a function call with two arguments; but in OCaml, it denotes applying the function `spicy_cat` to a tuple containing `"hello"` and `"world"`.
 
-
 ### Currying and Uncurrying
 
 In the previous sections, two kinds of multiple-parameter functions have been presented.
-- Functions returning a function, such as `sweet_cat` and `sour_cat`
-- Functions taking a tuple as a parameter, such as `spicy_cat`
+* Functions returning a function, such as `sweet_cat` and `sour_cat`
+* Functions taking a tuple as a parameter, such as `spicy_cat`
 
 Interestingly, both kinds of functions provide a way to pass several pieces of data while being functions with a single parameter. From this perspective, it makes sense to say: “All functions have a single argument.”
 
@@ -766,8 +764,8 @@ These translations have names:
 It also said that `sweet_cat` and `sour_cat` are _curried_ functions whilst `spicy_cat` is _uncurried_.
 
 Functions with the following types can be translated back and forth:
-- `string -> (string -> string)` &mdash; curried function type
-- `string * string -> string` &mdash; uncurried function type
+* `string -> (string -> string)` &mdash; curried function type
+* `string * string -> string` &mdash; uncurried function type
 
 These translations are attributed to the 20th-century logician [Haskell Curry](https://en.wikipedia.org/wiki/Haskell_Curry).
 
@@ -787,22 +785,22 @@ val curried_cat : string -> string -> string = <fun>
 <!-- Currying and uncurrying can be understood as operations acting on functions the same way addition and subtraction are operations acting on numbers. -->
 
 In practice, curried functions are the default because:
-- They allow partial application
-- No parentheses or commas
-- No pattern matching over a tuple takes place
+* They allow partial application
+* No parentheses or commas
+* No pattern matching over a tuple takes place
 
 ## Functions With Side Effects
 
-To explain side effects, we need to define what *domain* and *codomain* are. Let's look at an example:
+To explain side effects, we need to define what _domain_ and _codomain_ are. Let's look at an example:
 ```ocaml
 # string_of_int;;
 - : int -> string = <fun>
 ```
 For the function `string_of_int`:
-- Its *domain* is `int`, the type of its parameters
-- The *codomain* is `string`, the type of its results
+* Its _domain_ is `int`, the type of its parameters
+* The _codomain_ is `string`, the type of its results
 
-In other words, the *domain* is left of the `->` and the *codomain* is on the right. These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
+In other words, the _domain_ is left of the `->` and the _codomain_ is on the right. These terms help avoid saying the "type at the right" or "type at the left" of a function's type arrow.
 
 Some functions operate on data outside of their domain or codomain.
 This behaviour is called an effect, or a side effect.
@@ -844,7 +842,7 @@ Functions are like other values; however, there are restrictions:
 - : float -> float = <fun>
 ```
 
-2. Equality between functions can't be tested.
+1. Equality between functions can't be tested.
 ```ocaml
 # pred;;
 - : int -> int = <fun>
@@ -857,8 +855,8 @@ Exception: Invalid_argument "compare: functional value".
 ```
 
 There are two main reasons explaining this:
-- There is no algorithm that takes two functions and determines if they return the same output when provided the same input.
-- Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, and that may not be wise.
+* There is no algorithm that takes two functions and determines if they return the same output when provided the same input.
+* Assuming it was possible, such an algorithm would declare that implementations of quicksort and bubble sort are equal. That would mean one could replace the other, and that may not be wise.
 <!--
 It may seem counterintuitive that classes of objects of the same kind (i.e., having the same type) exist where equality between objects does not make sense. High school mathematics does not provide examples of those classes. But in the case of computing procedures seen as functions, equality isn't the right tool to compare them.
 -->

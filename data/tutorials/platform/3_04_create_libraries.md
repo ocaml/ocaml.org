@@ -8,7 +8,7 @@ category: "Libraries & Packages"
 ---
 
 > **TL;DR**
-> 
+>
 > Add a `library` stanza in your `dune` file.
 
 Creating a library with dune is as simple as adding a `library` stanza in your dune file:
