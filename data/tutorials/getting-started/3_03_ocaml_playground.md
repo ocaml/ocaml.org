@@ -35,7 +35,7 @@ You can clear the editor panel by simply pressing Ctrl+A and Backspace and start
 
 Let's start with something simple. Type the following on your editor panel and click Run.
 
-```
+```ocaml
 2+3
 ```
 
@@ -45,7 +45,7 @@ You should see the following output.
 
 Now, clear the output and also delete the things on the editor panel. Let's try out some strings. Go ahead and type the following editor panel and click Run.
 
-```
+```ocaml
 "OCaml is amazing"
 ```
 
@@ -55,7 +55,7 @@ You should see the following output.
 
 That's amazing! You are doing great. Now let's write a short program. I'll be using the code sample that we saw when we entered the playground.
 
-```
+```ocaml
 let num_domains = 2
 let n = 20
 
@@ -77,7 +77,7 @@ let () =
 
 The output will be the following.
 
-```
+```text
 fib(20) = 10946
 
 val num_domains : int = 2
@@ -100,7 +100,7 @@ A little caveat here is that the playground behaves differently from the OCaml t
 All expressions and definitions are evaluated in order, every time you click the "Run" button.
 When you write `2+3` and in the next line write a string `"this is a string"` ([see here](/play#code=MiszCiJ0aGlzIGlzIGEgc3RyaW5nIg%3D%3D)), you will see an error saying:
 
-```
+```text
 Line 1, characters 2-3:
 Error: This expression has type int
        This is not a function; it cannot be applied.

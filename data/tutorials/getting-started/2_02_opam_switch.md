@@ -24,7 +24,7 @@ $ opam switch list
 
 To create a new opam switch, you can use the `opam switch` command followed by the desired switch name and an optional OCaml compiler version. For example, to create a switch named "my_project" with a specific OCaml compiler version, use:
 
-```
+```shell
 opam switch create my_project <compiler-version>
 ```
 
@@ -34,7 +34,7 @@ If you don't specify a compiler, and `my_project` is a directory, opam will choo
 
 Next, **activate** your new switch. This will set it as the currently selected switch, so any OCaml-related operations will use this switch. You can activate it by running:
 
-```
+```shell
 opam switch my_project
 ```
 
@@ -42,7 +42,7 @@ Replace `my_project` with the name of your new switch.
 
 **Confirm** you've activated it by running:
 
-```
+```shell
 opam switch
 ```
 

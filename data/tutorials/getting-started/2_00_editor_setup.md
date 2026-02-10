@@ -49,7 +49,7 @@ If you used the DkML distribution, you will need to:
     1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
     2. Select `User` > `Extensions` > `OCaml Platform`
     3. Uncheck `OCaml: Use OCaml Env`. That's it!
-    
+
 ## Emacs
 
 Using Emacs to work with OCaml requires at least two modes:
@@ -72,7 +72,6 @@ For the purposes of this tutorial, we are going to focus on the use of `tuareg` 
   :ensure t
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
 ```
-
 
 #### Melpa and `use-package`
 
@@ -110,7 +109,6 @@ You are now ready to edit OCaml code _productively_ with Emacs!
 
 OCaml-eglot can be finely configured, the project [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) gives several configuration paths to adapt perfectly to your workflow. You will also find there an exhaustive presentation of the different functions offered by the mode.
 
-
 #### Getting Type Information
 
 Opening an OCaml file should launch an `ocaml-lsp` server, and you can convince yourself that it's working by using, for example, the `ocaml-eglot-type-enclosing` command (or using the `C-c C-t` binding) on an expression of your choice:
@@ -118,7 +116,6 @@ Opening an OCaml file should launch an `ocaml-lsp` server, and you can convince 
 ![Emacs Type information](/media/tutorials/emacs-type-info.gif)
 
 OCaml-eglot [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) provides a comprehensive overview of all the functions available in this mode!
-
 
 ## Vim
 
@@ -136,7 +133,7 @@ opam user-setup install
 
 ### Talking to Merlin
 
-#### Getting Type Information
+#### Getting Type Information in Vim
 
 ![Vim Type information](/media/tutorials/vim-type-info.gif)
 
@@ -161,7 +158,7 @@ There are two main ways to install and manage LSP servers.
 - A newer, more recommended way is to use the new Neovim LSP API for versions newer than v0.11.0 via `vim.lsp`.
 - A more traditional way is to use `nvim-lspconfig`. For more info, `kickstart.nvim` has a great example setup.
 
-### Using vim.lsp:
+### Using vim.lsp
 
 Add this to your toplevel `init.lua`.
 ```lua
@@ -250,5 +247,4 @@ Add this to your `nvim-lspconfig` setup.
 },
 ```
 
-There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [here](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.
-
+There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [the nvim-lspconfig OCaml LSP configuration](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.

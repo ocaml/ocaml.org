@@ -45,7 +45,7 @@ let () =
 
 Here is what it printed out for me:
 
-```
+```text
 minor_words: 115926165     # Total number of words allocated
 promoted_words: 31217      # Promoted from minor -> major
 major_words: 31902         # Large objects allocated in major directly

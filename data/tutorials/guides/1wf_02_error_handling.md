@@ -956,7 +956,7 @@ system or the compiler to be bugged for the second code path to be executed.
 Breakage of the language semantics qualifies as extraordinary circumstances. It
 is catastrophic!
 
-# Concluding Remarks
+## Concluding Remarks
 
 Properly handling errors is a complex matter. It is a [cross-cutting
 concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all parts
@@ -970,7 +970,7 @@ always better than the others, and choosing one to use should be a matter of
 fitting the context rather than that of taste. But opinionated OCaml code is also
 fine, so it's a balance.
 
-# External Resources
+## External Resources
 
 * [“Exceptions”](/manual/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
 * [Module **`option`**](/manual/api/Option.html) in OCaml Library

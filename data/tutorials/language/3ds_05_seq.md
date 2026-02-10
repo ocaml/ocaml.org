@@ -261,7 +261,7 @@ sequences. The result returned by `Seq.unfold f x` is the sequence built by
 accumulating the results of successive calls to `f` until it returns `None`.
 This is:
 
-```
+```text
 (fst p₀, fst p₁, fst p₂, fst p₃, fst p₄, ...)
 ```
 
@@ -578,10 +578,6 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
   * Xavier Van de Woestyne [@xvw](https://github.com/xvw)
   * Simon Cruanes [@c-cube](https://github.com/c-cube)
   * Glen Mével [gmevel](https://github.com/gmevel) -->
-
-
-
-
 
 <!--
 Suggestion: perhaps it would be enlightening to illustrate the use of Seq.unfold by re-implementing the already seen function primes? Perhaps in an exercise rather than in the main text of the tutorial.

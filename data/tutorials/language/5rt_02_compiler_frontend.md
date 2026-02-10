@@ -62,7 +62,7 @@ archive that can be reused by other applications.
 
 The overall compilation pipeline looks like this:
 
-![](/media/tutorials/language/compiler-frontend/pipeline.png "Compilation pipeline")
+![Compilation pipeline](/media/tutorials/language/compiler-frontend/pipeline.png "Compilation pipeline")
 
 Notice that the pipeline branches toward the end. OCaml has multiple compiler
 backends that reuse the early stages of compilation but produce very
@@ -238,11 +238,11 @@ outside the compiler but is intended to be the long-term replacement.
 Try compiling the HTML documentation and UNIX man pages by running `ocamldoc`
 over the source file:
 
-```
-$ mkdir -p html man/man3
-$ ocamldoc -html -d html doc.ml
-$ ocamldoc -man -d man/man3 doc.ml
-$ man -M man Doc
+```shell
+mkdir -p html man/man3
+ocamldoc -html -d html doc.ml
+ocamldoc -man -d man/man3 doc.ml
+man -M man Doc
 ```
 
 You should now have HTML files inside the `html/`
@@ -258,7 +258,7 @@ integration with dune, as described in ["Generating Documentation"](/docs/genera
 ## Preprocessing with ppx
 
 One powerful feature in OCaml is a facility to extend the standard language via
-_extension points_.  These represent placeholders in the OCaml syntax tree and are
+*extension points*.  These represent placeholders in the OCaml syntax tree and are
 ignored by the standard compiler tooling, beyond being delimited and stored in
 the abstract syntax tree alongside the normal parsed source code. They are
 intended to be expanded by external tools that select extension nodes that can
@@ -266,8 +266,8 @@ interpret them.  The external tools can choose to generate further OCaml code
 by transforming the input syntax tree, thus forming the basis of an extensible
 preprocessor for the language.
 
-There are two primary forms of extension points in OCaml: _attributes_ and
-_extension nodes_.  Let's first run through some examples of what they look
+There are two primary forms of extension points in OCaml: *attributes* and
+*extension nodes*.  Let's first run through some examples of what they look
 like, and then see how to use them in your own code.
 
 ### Extension Attributes
@@ -369,7 +369,7 @@ to generate boilerplate code for handling s-expressions.  These are
 introduced by a third-party library using the `(preprocess)` directive
 in a dune file, for example:
 
-```
+```dune
 (library
  (name hello_world)
  (libraries core)
@@ -380,7 +380,6 @@ This allows you to take advantage of a community of syntax augmentation.
 There are also a number of builtin attributes
 in the core OCaml compiler.  Some are performance oriented and give directives to the compiler,
 whereas others will activate usage warnings. The full list is available in the [attributes section](https://ocaml.org/manual/attributes.html) of the OCaml manual.
-
 
 ### Extension Nodes
 
@@ -401,7 +400,6 @@ handling (`let%bind`), for command-line parsing (`let%map`) or
 inline testing (`let%expect_test`).  Extension nodes are introduced
 via dune rules in the same fashion as extension attributes, via the
 `(preprocess)` attribute.
-
 
 ## Static Type Checking
 
@@ -535,7 +533,6 @@ signature files also speeds up incremental compilation in larger code bases,
 since recompiling a `mli` signature is much faster than a full compilation of
 the implementation to native code.
 </div>
-
 
 ### Type Inference <a name="type-inference-1"></a>
 
@@ -824,7 +821,6 @@ up won't let you violate type safety, but it can result in the type checker
 failing unexpectedly very occasionally. In this case, just recompile with a
 clean source tree.
 
-
 ### Modules and Separate Compilation
 
 The OCaml module system enables smaller components to be reused effectively
@@ -942,7 +938,7 @@ hashes means that a compilation unit with the same module name may have
 conflicting type signatures in different modules. The compiler will reject
 such programs with an error similar to this:
 
-```
+```shell
 $ ocamlc -c foo.ml
 File "foo.ml", line 1, characters 0-1:
 Error: The files /home/build/bar.cmi
@@ -957,7 +953,6 @@ run into it, just clean out your intermediate files and recompile from
 scratch.
 </div>
 
-
 ### Wrapping Libraries with Module Aliases
 
 The module-to-file mapping described so far rigidly enforces a 1:1 mapping
@@ -966,9 +961,9 @@ modules into separate files to make editing easier, but still compile them
 all into a single OCaml module.
 
 Dune provides a very convenient way of doing this for libraries via
-automatically generating a toplevel _module alias_ file that places all the
+automatically generating a toplevel *module alias* file that places all the
 files in a given library as submodules within the toplevel module for
-that library. This is known as _wrapping_ the library, and works as follows.
+that library. This is known as *wrapping* the library, and works as follows.
 
 Let's define a simple library with two files `a.ml` and `b.ml` that each define
 a single value.
@@ -1076,7 +1071,7 @@ import the replacement modules and functions.
 There's one downside to this approach: type errors suddenly get much more
 verbose. We can see this if you run the vanilla OCaml toplevel (not `utop`).
 
-```
+```shell
 $ ocaml
 # List.map print_endline "";;
 Error: This expression has type string but an expression was expected of type
@@ -1086,7 +1081,7 @@ Error: This expression has type string but an expression was expected of type
 This type error without `Core` has a straightforward type error. When we
 switch to Core, though, it gets more verbose:
 
-```
+```shell
 $ ocaml
 # open Core;;
 # List.map ~f:print_endline "";;
@@ -1103,7 +1098,7 @@ causes the compiler to search all the type aliases for the shortest module
 path and use that as the preferred output type. The option is activated by
 passing `-short-paths` to the compiler, and works on the toplevel, too.
 
-```
+```shell
 $ ocaml -short-paths
 # open Core;;
 # List.map ~f:print_endline "foo";;
@@ -1120,7 +1115,6 @@ would be lost in the error if the shortest module path is always picked.
 You'll need to choose for yourself if you prefer short paths or the default
 behavior in your own projects, and pass the `-short-paths` flag to the
 compiler if you need
-
 
 ## The Typed Syntax Tree
 

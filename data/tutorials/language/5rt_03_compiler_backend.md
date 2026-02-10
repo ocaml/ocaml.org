@@ -180,7 +180,6 @@ It's not essential that you understand all of this just to use pattern
 matching, of course, but it'll give you insight as to why pattern
 matching is such an efficient language construct in OCaml.
 
-
 ### Benchmarking Pattern Matching
 
 Let's benchmark these three pattern-matching techniques to quantify their
@@ -288,7 +287,6 @@ format that we'll cover next. It's often easier to look at the textual output
 from this stage than to wade through the native assembly code from compiled
 executables.
 
-
 ## Generating Portable Bytecode
 
 After the lambda form has been generated, we are very close to having
@@ -331,19 +329,19 @@ examples:
 
 ```sh dir=examples/back-end
 $ ocamlc -dinstr pattern_monomorphic_small.ml 2>&1
-	branch L2
-L1:	acc 0
-	branchifnot L3
-	const 101
-	return 1
-L3:	const 100
-	return 1
-L2:	closure L1, 0
-	push
-	acc 0
-	makeblock 1, 0
-	pop 1
-	setglobal Pattern_monomorphic_small!
+ branch L2
+L1: acc 0
+ branchifnot L3
+ const 101
+ return 1
+L3: const 100
+ return 1
+L2: closure L1, 0
+ push
+ acc 0
+ makeblock 1, 0
+ pop 1
+ setglobal Pattern_monomorphic_small!
 ```
 
 The preceding bytecode has been simplified from the lambda form into a set of
@@ -356,7 +354,7 @@ arity). You can find full details
 
 <div class="note">
 
-#### Where Did the Bytecode Instruction Set Come From?
+### Where Did the Bytecode Instruction Set Come From?
 
 The bytecode interpreter is much slower than compiled native code, but is
 still remarkably performant for an interpreter without a JIT compiler. Its
@@ -374,7 +372,6 @@ Understanding the reasoning behind the different implementations of the
 bytecode interpreter and the native compiler is a very useful exercise for
 any budding language hacker.
 </div>
-
 
 ### Compiling and Linking Bytecode
 
@@ -415,8 +412,8 @@ other libraries that aren't loaded by default.
 Information about these extra libraries can be specified while linking a
 bytecode archive:
 
-```
-$ ocamlc -a -o mylib.cma a.cmo b.cmo -dllib -lmylib
+```shell
+ocamlc -a -o mylib.cma a.cmo b.cmo -dllib -lmylib
 ```
 
 The `dllib` flag embeds the arguments in the archive file. Any subsequent
@@ -428,8 +425,8 @@ You can also generate a complete standalone executable that bundles the
 `ocamlrun` interpreter with the bytecode in a single binary. This is known as
 a *custom runtime* mode and is built as follows:
 
-```
-$ ocamlc -a -o mylib.cma -custom a.cmo b.cmo -cclib -lmylib
+```shell
+ocamlc -a -o mylib.cma -custom a.cmo b.cmo -cclib -lmylib
 ```
 
 The custom mode is the most similar mode to native code compilation, as both
@@ -473,15 +470,13 @@ Create two OCaml source files that contain a single print line:
 let () = print_endline "hello embedded world 1"
 ```
 
-
-
 ```ocaml file=examples/back-end-embed/embed_me2.ml
 let () = print_endline "hello embedded world 2"
 ```
 
 Next, create a C file to be your main entry point:
 
-```
+```c
 #include <stdio.h>
 #include <caml/alloc.h>
 #include <caml/mlvalues.h>
@@ -502,15 +497,15 @@ main (int argc, char **argv)
 Now compile the OCaml files into a standalone object file:
 
 ```sh dir=examples/back-end-embed
-$ rm -f embed_out.c
-$ ocamlc -output-obj -o embed_out.o embed_me1.ml embed_me2.ml
+rm -f embed_out.c
+ocamlc -output-obj -o embed_out.o embed_me1.ml embed_me2.ml
 ```
 
 After this point, you no longer need the OCaml compiler, as `embed_out.o` has
 all of the OCaml code compiled and linked into a single object file. Compile
 an output binary using `gcc` to test this out:
 
-```
+```shell
 $ gcc -fPIC -Wall -I`ocamlc -where` -L`ocamlc -where` -ltermcap -lm -ldl \
   -o finalbc.native main.c embed_out.o -lcamlrun
 $ ./finalbc.native
@@ -526,7 +521,7 @@ You can even obtain the C source code to the `-output-obj` result by
 specifying a `.c` output file extension instead of the `.o` we used earlier:
 
 ```sh dir=examples/back-end-embed
-$ ocamlc -output-obj -o embed_out.c embed_me1.ml embed_me2.ml
+ocamlc -output-obj -o embed_out.c embed_me1.ml embed_me2.ml
 ```
 
 Embedding OCaml code like this lets you write OCaml that interfaces with any
@@ -604,7 +599,7 @@ let cmp (a:int) (b:int) =
 Now compile this into assembly and read the resulting `compare_mono.S` file.
 
 ```sh dir=examples/back-end,skip
-$ ocamlopt -S compare_mono.ml
+ocamlopt -S compare_mono.ml
 ```
 
 This file extension may be lowercase on some platforms such as Linux.
@@ -614,7 +609,7 @@ we'll try to give you some basic instructions to spot patterns in this
 section. The excerpt of the implementation of the `cmp` function can be found
 below:
 
-```
+```asm
 _camlCompare_mono__cmp_1008:
         .cfi_startproc
 .L101:
@@ -647,7 +642,7 @@ let cmp a b =
 Compiling this code with `-S` results in a significantly more complex
 assembly output for the same function:
 
-```
+```asm
 _camlCompare_poly__cmp_1008:
         .cfi_startproc
         subq    $24, %rsp
@@ -761,7 +756,6 @@ accessing them through the `Stdlib` module, as we did in our
 benchmark.
 </div>
 
-
 ### Debugging Native Code Binaries
 
 The native code compiler builds executables that can be debugged using
@@ -850,7 +844,7 @@ $ ./_build/default/alternate_list.exe -ascii -quota 1
 
 Now we can run this interactively within `gdb`:
 
-```
+```text
 $ gdb ./alternate_list.native
 GNU gdb (GDB) 7.4.1-debian
 Copyright (C) 2012 Free Software Foundation, Inc.
@@ -868,7 +862,7 @@ Reading symbols from /home/avsm/alternate_list.native...done.
 The `gdb` prompt lets you enter debug directives. Let's set the program to
 break just before the first call to `take`:
 
-```
+```text
 (gdb) break camlAlternate_list__take_69242
 Breakpoint 1 at 0x5658d0: file alternate_list.ml, line 5.
 ```
@@ -880,7 +874,7 @@ possible completions.
 
 Once you've set the breakpoint, start the program executing:
 
-```
+```text
 (gdb) run
 Starting program: /home/avsm/alternate_list.native
 [Thread debugging using libthread_db enabled]
@@ -895,7 +889,7 @@ waiting for further instructions. GDB has lots of features, so let's
 continue the program and check the backtrace after a couple of
 recursions:
 
-```
+```text
 (gdb) cont
 Continuing.
 
@@ -935,7 +929,6 @@ same stack. This means that GDB backtraces can give you a combined view of
 what's going on in your program *and* runtime library. This includes any
 calls to C libraries or even callbacks into OCaml from the C layer if you're
 in an environment which embeds the OCaml runtime as a library.
-
 
 ### Profiling Native Code
 
@@ -978,7 +971,7 @@ Run Perf on a compiled binary to record information first. We'll use our
 write barrier benchmark from earlier, which measures memory allocation versus
 in-place modification:
 
-```
+```shell
 $ perf record -g ./barrier_bench.native
 Estimated testing time 20s (change using -quota SECS).
 
@@ -1003,7 +996,7 @@ Estimated testing time 20s (change using -quota SECS).
 
 When this completes, you can interactively explore the results:
 
-```
+```shell
 $ perf report -g
 +  48.86%  barrier.native  barrier.native  [.] camlBarrier__test_immutable_69282
 +  30.22%  barrier.native  barrier.native  [.] camlBarrier__test_mutable_69279
@@ -1042,13 +1035,12 @@ opam provides a compiler switch that compiles OCaml with the frame pointer
 activated:
 
 ```sh skip
-$ opam switch create 4.13+fp ocaml-variants.4.13.1+options ocaml-option-fp
+opam switch create 4.13+fp ocaml-variants.4.13.1+options ocaml-option-fp
 ```
 
 Using the frame pointer changes the OCaml calling convention, but opam takes
 care of recompiling all your libraries with the new interface.
 </div>
-
 
 ### Embedding Native Code in C
 
@@ -1063,7 +1055,7 @@ installed as `libasmrun.a` in the OCaml standard library directory.
 Try this custom linking by using the same source files from the bytecode
 embedding example earlier in this chapter:
 
-```
+```shell
 $ ocamlopt -output-obj -o embed_native.o embed_me1.ml embed_me2.ml
 $ gcc -Wall -I `ocamlc -where` -o final.native embed_native.o main.c \
    -L `ocamlc -where` -lasmrun -ltermcap -lm -ldl

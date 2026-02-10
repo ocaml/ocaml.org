@@ -858,7 +858,7 @@ let rec list_length = function
 ```
 
 (For those that would contest the equivalence of those two
-versions, see the [note below](#imperative-and-functional-versions-of-listlength)).
+versions, see the [note below](#imperative-and-functional-versions-of-list_length)).
 
 * Another common “over-imperative error” in the imperative world is
   not to systematically choose the simple `for` loop to iterate on a vector's
@@ -1008,8 +1008,8 @@ Under Unix: use the line editor `ledit`, which offers great editing
 capabilities “à la Emacs” (including `ESC-/`!) as well as a history
 mechanism that lets you retrieve previously-typed commands and even
 retrieve commands from one session to another. `ledit` is written in
-OCaml and can be freely downloaded
-[here](ftp://ftp.inria.fr/INRIA/Projects/cristal/caml-light/bazar-ocaml/ledit.tar.gz).
+OCaml and can be freely downloaded from the
+[ledit archive](ftp://ftp.inria.fr/INRIA/Projects/cristal/caml-light/bazar-ocaml/ledit.tar.gz).
 
 ### How to Compile
 
@@ -1069,10 +1069,12 @@ followed by a space: `(1, 2)`, `let triplet = (x, y, z)`...
   parentheses around n-tuples when matching several values
   simultaneously.
 
-        match x, y with
-        | 1, _ -> ...
-        | x, 1 -> ...
-        | x, y -> ...
+    ```ocaml
+    match x, y with
+    | 1, _ -> ...
+    | x, 1 -> ...
+    | x, y -> ...
+    ```
 
     > **Justification**: The point is to match several values in
     > parallel, not to construct a tuple. Moreover, the expressions
@@ -1157,7 +1159,7 @@ know a little mathematics or strive to follow the following rules:
 
 For example: `1 + 2 * x` means `1 + (2 * x)`.
 
-#### Function application: the same rules as those in mathematics for usage of *trigonometric functions*
+#### Function application: same rules as for *trigonometric functions*
 
 In mathematics you write `sin x` to mean `sin (x)`. In the same way
 `sin x + cos x` means `(sin x) + (cos x)` not `sin (x + (cos x))`. Use

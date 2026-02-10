@@ -305,7 +305,7 @@ val range : int -> int -> int list = <fun>
 
 As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Prepending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been prepended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way (this is not OCaml syntax):
 
-```
+```text
    range 2 5
 => 2 :: range 3 5
 => 2 :: 3 :: range 4 5

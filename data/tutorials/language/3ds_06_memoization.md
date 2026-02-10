@@ -146,8 +146,8 @@ Each employee has an associated “fun value” and we want the set of invited
 employees to have a maximum total fun value. However, no employee is fun if his
 superior is invited, so we never invite two employees who are connected in the
 org chart. (The less fun name for this problem is the maximum weight independent
-set in a tree.) For an org chart with `n` employees, there are 2&#8319; possible 
-invitation lists, so the naive algorithm that compares the fun of every valid 
+set in a tree.) For an org chart with `n` employees, there are 2&#8319; possible
+invitation lists, so the naive algorithm that compares the fun of every valid
 invitation list takes exponential time.
 
 We can use memoization to turn this into a linear-time algorithm. We start by

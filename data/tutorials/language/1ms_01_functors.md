@@ -21,7 +21,7 @@ As suggested by the name, a _functor_ is almost like a function. However, while 
 This tutorial uses the [Dune](https://dune.build) build tool. Make sure you have installed version 3.7 or later. We start by creating a fresh project. We need a directory named `funkt` with files `dune-project`, `dune`, and `funkt.ml`.
 
 ```shell
-$ mkdir funkt; cd funkt
+mkdir funkt; cd funkt
 ```
 
 Place the following in the file **`dune-project`**:
@@ -61,8 +61,8 @@ module Make : functor (Ord : OrderedType) -> Set.S
 
 Here is how this reads (starting from the bottom, then going up):
 * Like a function (indicated by the arrow `->`), the functor `Set.Make`
-  - takes a module with signature `OrderedType` and
-  - returns a module with signature [`Set.S`](/manual/api/Set.S.html)
+  * takes a module with signature `OrderedType` and
+  * returns a module with signature [`Set.S`](/manual/api/Set.S.html)
 * The module type `OrderedType` requires a type `t` and a function `compare`, which are used to perform the comparisons between elements of the set.
 
 **Note**: Most set operations need to compare elements to check if they are the same. To allow using a user-defined comparison algorithm, the `Set.Make` functor takes a module that specifies both the element type `t` and the `compare` function. Passing the comparison function as a higher-order parameter, as done in `Array.sort`, for example, would add a lot of boilerplate code. Providing set operations as a functor allows specifying the comparison function only once.
@@ -80,8 +80,8 @@ module StringSet = Set.Make(StringCompare)
 ```
 
 This defines a module `Funkt.StringSet`. What `Set.Make` needs are:
-- Type `t`, here `string`
-- Function allowing to compare two values of type `t`, here `String.compare`
+* Type `t`, here `string`
+* Function allowing to compare two values of type `t`, here `String.compare`
 
 **Note**: A type `t` must be defined in the parameter module, here
 `StringCompare`. Most often, as shown in this example, `t` is an alias for
@@ -105,8 +105,8 @@ end)
 The module expression `struct ... end` is inlined in the `Set.Make` call.
 
 However, since the module `String` already defines
-- Type name `t`, which is an alias for `string`
-- Function `compare` of type `t -> t -> int` compares two strings
+* Type name `t`, which is an alias for `string`
+* Function `compare` of type `t -> t -> int` compares two strings
 
 This can be simplified even further into this:
 
@@ -132,10 +132,10 @@ let _ =
 ```
 
 Here is how this code works:
-- `In_channel.input_lines` : reads lines of text from standard input
-- `List.concat_map` : splits lines into words and produces a word list
-- `StringSet.of_list : string list -> StringSet.t` : converts the word list into a set
-- `StringSet.iter : StringSet.t -> unit` : displays the set's elements
+* `In_channel.input_lines` : reads lines of text from standard input
+* `List.concat_map` : splits lines into words and produces a word list
+* `StringSet.of_list : string list -> StringSet.t` : converts the word list into a set
+* `StringSet.iter : StringSet.t -> unit` : displays the set's elements
 
 The functions `StringSet.of_list` and `StringSet.iter` are available in the functor's application result.
 
@@ -242,7 +242,8 @@ Heap implementations can be represented as functors from `OrderedType` into `Hea
 
 Here is the skeleton of a possible implementation:
 
-**heap.ml**
+#### heap.ml
+
 ```ocaml
 module type OrderedType = sig
   type t
@@ -297,7 +298,7 @@ Advanced Module Systems, ICFP 2000
 
 ## Injecting Dependencies Using Functors
 
-**Dependencies Between Modules**
+### Dependencies Between Modules
 
 Here is a new version of the `funkt` program:
 
@@ -321,12 +322,12 @@ let _ =
 ```
 
 It embeds an additional `IterPrint` module that exposes a single function `f` of type `string list -> unit` and has two dependencies:
-  - Module `List` through `List.iter` and `f`'s type
-  - Module `Out_channel` through `Out_channel.output_string`
+* Module `List` through `List.iter` and `f`'s type
+* Module `Out_channel` through `Out_channel.output_string`
 
 Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
-**Dependency Injection**
+### Dependency Injection
 
 [Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is a way to parametrise over a dependency.
 
@@ -369,7 +370,7 @@ let _ =
 
 The dependency `List` is _injected_ when compiling the module `Funkt`. Observe that the code using `IterPrint` is unchanged. Check the program's behaviour using `opam exec -- dune exec funkt < dune`.
 
-**Replacing a Dependency**
+### Replacing a Dependency
 
 Now, replacing the implementation of `iter` inside `IterListPrint` is no longer a refactoring; it is another functor application with another dependency. Here, [`Array`](/manual/api/Array.html) replaces `List`:
 
@@ -433,7 +434,7 @@ module Make(Dep: Iterable) : S with type 'a t := 'a Dep.t = struct
 end
 ```
 
-In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope. 
+In the example above, `t` from `with type` takes precedence over the local `t`, which only has a local scope.
 
 **Warning**: Don't shadow names too often because it makes the code harder to understand.
 

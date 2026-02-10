@@ -26,7 +26,7 @@ $ explorer _build\default\_doc\_html\index.html
 Alternatively, you can use the `dune ocaml doc` command, which builds the documentation and automatically opens it in your web browser:
 
 ```shell
-$ dune ocaml doc
+dune ocaml doc
 ```
 
 This is a convenient shortcut that combines the build and open steps into a single command.
@@ -43,7 +43,7 @@ To make Dune find your `.mld` pages and process them with `odoc`,
 the `dune` file in the same directory as your `.mld` files needs to
 include this stanza:
 
-```
+```dune
 (documentation
  (package name-of-your-package))
 ```

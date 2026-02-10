@@ -10,7 +10,7 @@ category: "Data Structures"
 
 `Set` provides the functor `Set.Make`. You must start by passing `Set.Make` a module. It specifies the element type for your set. In return, you get another module with those elements' set operations.
 
-**Disclaimer:** The examples in this tutorial require OCaml 5.1. If you're running a previous version of OCaml, you can either use `elements` instead of `to_list`, which is a new function in OCaml 5.1, or upgrade OCaml by running `opam update`, then `opam upgrade ocaml`. Check your current version with `ocaml --version`. 
+**Disclaimer:** The examples in this tutorial require OCaml 5.1. If you're running a previous version of OCaml, you can either use `elements` instead of `to_list`, which is a new function in OCaml 5.1, or upgrade OCaml by running `opam update`, then `opam upgrade ocaml`. Check your current version with `ocaml --version`.
 
 If you need to work with string sets, you must invoke `Set.Make(String)`. That returns a new module.
 
@@ -52,7 +52,7 @@ For `StringSet.empty`, you can see that the OCaml toplevel displays the placehol
 
 (Remember, for OCaml versions before 5.1, it will be `StringSet.empty |> StringSet.elements;;`)
 
-2. A set with a single element is created using `StringSet.singleton`:
+1. A set with a single element is created using `StringSet.singleton`:
 
 ```ocaml
 # StringSet.singleton "hello";;
@@ -62,7 +62,7 @@ For `StringSet.empty`, you can see that the OCaml toplevel displays the placehol
 - : string list = ["hello"]
 ```
 
-3. Converting a list into a set using `StringSet.of_list`:
+1. Converting a list into a set using `StringSet.of_list`:
 
 ```ocaml
 # StringSet.of_list ["hello"; "hi"];;
@@ -223,4 +223,3 @@ end);;
 ## Conclusion
 
 We gave an overview of OCaml's `Set` module by creating a `StringSet` module using the `Set.Make` functor. Further, we looked at how to create sets based on a custom comparison function. For more information, refer to [Set](/manual/api/Set.Make.html) in the Standard Library documentation.
-

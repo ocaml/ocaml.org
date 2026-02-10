@@ -12,7 +12,7 @@ We recommend installing a project's dependencies in a local opam switch to sandb
 
 If you're using opam `2.0.X`, you can do this with:
 
-```
+```shell
 # if you need external system dependencies
 opam pin add -n .
 opam depext -i <packages>
@@ -21,32 +21,32 @@ opam install . --deps-only --with-test --with-doc
 
 If you use opam `2.1.X`, it will install the system dependencies automatically, so you can run:
 
-```
+```shell
 opam install . --deps-only --with-test --with-doc
 ```
 
 Now, if for some reason you prefer to install your dependencies in a global switch, you can run:
 
-```
+```shell
 opam switch set <switch_name>
 opam install . --deps-only --with-test --with-doc
 ```
 
 Once the dependencies have been installed successfully, and assuming the project uses Dune as the build system, you can compile it with:
 
-```
+```shell
 opam exec -- dune build
 ```
 
 Or if you set your environment with `eval $(opam env)`:
 
-```
+```shell
 dune build
 ```
 
 ## Adding Dependencies From the opam Repository
 
-To avoid duplicating the project configuration into multiple files, Dune allows you to generate the project's `*.opam` file from the 
+To avoid duplicating the project configuration into multiple files, Dune allows you to generate the project's `*.opam` file from the
 package definitions in `dune-project` when adding the `(generate_opam_files true)` stanza.
 
 However, opam remains a central piece of the ecosystem, and it's very likely that you will have to work with `*.opam` files at some point,
@@ -74,7 +74,6 @@ Once you have added your dependency, you can build your project with `dune build
 ### Adding a Dependency to Your .opam File
 
 If the `*.opam` files are not generated, you can add the dependencies in them directly in the `depends` field. It should look like this:
-
 
 ```opam
 opam-version: "2.0"
@@ -107,14 +106,14 @@ Either way, once you have added your dependency in the appropriate file, you can
 ### Installing a Dependency in Your Switch
 
 Installing a package from the opam repository to your active switch, you can run
-```
+```shell
 opam install <package-name>
 ```
 
 to get the latest version of the package.
 
 If you want to install a specific version of the package, use
-```
+```shell
 opam install <package-name>.<package-version>
 ```
 
@@ -134,19 +133,19 @@ If your project does not have a file matching the name of your project's `.opam`
 
 For example, if your project's opam file is `my_project.opam`, create `my_project.opam.template` and use `pin-depends` to tell `opam` to install a package from a Git repository.
 
-```
+```opam
 pin-depends: [
   ["<package-name>.dev" "git+https://<repository-url>#<branch-or-commit>"]
 ]
 ```
 
 Next, regenerate the `.opam` file of your project by running
-```
+```shell
 opam exec -- dune build
 ```
 
 Then, run
-```
+```shell
 opam install . --deps-only
 ```
 
@@ -158,7 +157,7 @@ To open your opam file, locate the `opam` file for your OCaml project. This file
 
 Add the `pin-depends` field in the `opam` file if it doesn't exist. Inside this field, you specify the package and the URL from which it should be fetched. For example:
 
-```
+```opam
 pin-depends: [
   ["<package-name>.dev" "git+https://<repository-url>#<branch-or-commit>"]
 ]
@@ -166,7 +165,7 @@ pin-depends: [
 
 Finally, use opam install to install the dependencies, including the one specified in the `pin-depends` field.
 
-```
+```shell
 opam install . --deps-only
 ```
 
@@ -174,7 +173,7 @@ opam install . --deps-only
 
 You can install a package in your active switch directly from a Git URL:
 
-```
+```shell
 opam pin add <package-name> <git-url>#<branch-or-commit>
 ```
 
