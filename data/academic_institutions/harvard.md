@@ -1,7 +1,7 @@
 ---
 name: Harvard University 
 description: >
- Harvard University is a private Ivy League research university in Cambridge, Massachusetts. higher education academy. 
+ Harvard University is a private Ivy League research university in Cambridge, Massachusetts. 
 url: "https://www.harvard.edu/"
 logo: academic_institution/harvard.png
 continent: North America

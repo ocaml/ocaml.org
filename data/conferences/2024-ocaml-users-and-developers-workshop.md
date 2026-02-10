@@ -145,4 +145,3 @@ ACM Sigplan ICFP page: [OCaml Workshop 2024](https://icfp24.sigplan.org/home/oca
 The OCaml Users and Developers Workshop brings together the OCaml community, including users of OCaml in industry, academia, hobbyists, and the free software community.
 
 Video recordings can be found on the [@OCamlWorkshops YouTube Channel](https://www.youtube.com/@OCamlWorkshops).
-

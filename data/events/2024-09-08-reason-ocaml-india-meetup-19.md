@@ -1,5 +1,5 @@
 ---
-title: "Online meetup - (Continuted) Joining Nikhil as he writes a card game in OCaml"
+title: "Online meetup - (Continued) Joining Nikhil as he writes a card game in OCaml"
 event_type: meetup
 country: "India"
 city: "Online"

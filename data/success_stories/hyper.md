@@ -20,13 +20,11 @@ Since the inception of the company, Hyper has had very unique product requiremen
 3. Offline-first deployments – the architecture of the distributed analytics and automation system requires precise state replication to support offline deployments for customers with farms in remote locations. It’s critical that this software operates reliably without any external services.
 4. Developer productivity – most importantly, Hyper is a startup and needs to continuously iterate on product features with fast time-to-market and maintain a high degree of confidence in their work.
 
-
 ## Solution
 
 While not being commonly regarded as a language or platform for IoT and embedded programming, OCaml has helped satisfy Hyper’s requirements in a way that’s unique to the strongly-typed functional paradigm, as it offers strong abstraction boundaries with declarative interfaces and numerous opportunities for optimisation.
 
 Hyper leverages OCaml to design a product that is both extremely adaptable and offers a high degree of safety. While iterating their system design, they were able to rewrite several critical components numerous times with remarkable speed and without compromising reliability.
-
 
 ## Results
 

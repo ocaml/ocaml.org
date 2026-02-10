@@ -144,5 +144,3 @@ Please consider submitting a presentation, and/or join us in Boston! See here th
 
 If you have any questions, please e-mail:
 Michel Mauny <michel.mauny AT ensta-paristech DOT fr>
-
-

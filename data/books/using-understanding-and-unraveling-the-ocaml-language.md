@@ -5,10 +5,10 @@ description: >
   These course notes are addressed to a wide audience of people interested
   in modern programming languages in general, ML-like languages in particular,
   or simply in OCaml, whether they are programmers or language
-  designers, beginners or knowledgeable readers —little prerequiresite is
+  designers, beginners or knowledgeable readers —little prerequisite is
   actually assumed.
   They provide a formal description of the operational semantics (evaluation)
-  and statics semantics (type checking) of core ML and of several
+  and static semantics (type checking) of core ML and of several
   extensions starting from small variations on the core language to end
   up with the OCaml language including its object-oriented layer.
 authors:
@@ -29,12 +29,12 @@ pricing: free
 These course notes are addressed to a wide audience of people interested
 in modern programming languages in general, ML-like languages in particular,
 or simply in OCaml, whether they are programmers or language
-designers, beginners or knowledgeable readers —little prerequiresite is
+designers, beginners or knowledgeable readers —little prerequisite is
 actually assumed.
 They provide a formal description of the operational semantics (evaluation)
-and statics semantics (type checking) of core ML and of several
+and static semantics (type checking) of core ML and of several
 extensions starting from small variations on the core language to end
-up with the OCaml language —one of the most popular incarnation of
+up with the OCaml language —one of the most popular incarnations of
 ML— including its object-oriented layer.
 The tight connection between theory and practice is a constant goal:
 formal definitions are often accompanied by OCaml programs:
@@ -43,7 +43,7 @@ type reconstruction are included. Conversely, some practical programming
 situations taken from modular or object-oriented programming patterns are
 considered, compared with one another, and explained in terms of typechecking problems.
 Many exercises with different level of difficulties are proposed all along
-the way, so that the reader can continuously checks his understanding and
+the way, so that the reader can continuously check his understanding and
 trains his skills manipulating the new concepts; soon, he will feel invited
 to select more advanced exercises and pursue the exploration deeper so
 as to reach a stage where he can be left on his own.

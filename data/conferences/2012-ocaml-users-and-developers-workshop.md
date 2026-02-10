@@ -147,7 +147,6 @@ It will be an informal meeting, with an online scribe report of the meeting, but
 
 ## Questions and contact
 
-If you have any queries or suggestions for the workshop, please contact Didier Remy (first.last@inria.fr) or Anil Madhavapeddy (first.last@cl.cam.ac.uk).
+If you have any queries or suggestions for the workshop, please contact Didier Remy (<first.last@inria.fr>) or Anil Madhavapeddy (<first.last@cl.cam.ac.uk>).
 
 There is also an ASCII version of this information available, suitable for dissemination on mailing lists. Please help spread the word about this meeting!
-

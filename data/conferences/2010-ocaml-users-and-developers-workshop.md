@@ -62,6 +62,3 @@ organising_committee: []
 ## Call for Presentations
 
 Please consider submitting a presentation! See here the call for presentations.
-
-
-

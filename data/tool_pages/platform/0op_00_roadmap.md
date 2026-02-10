@@ -113,7 +113,7 @@ important:
   developers and a major hurdle for the adoption of the language. Recent efforts
   to improve the situation include the new central package documentation on
   OCaml.org. However, the available documentation generation tooling isn't
-  suited to created user manuals. To incentivise developers to write
+  suited to creating user manuals. To incentivise developers to write
   high-quality documentation for their package, one priority is to improve the
   tooling to support this use case.
 
@@ -521,8 +521,8 @@ In addition, to respect (P5) (Tools are independent, yet unified), the plugins
 are usable independently of Dune.
 
 Underlying Dune's plugin system is the fact that it may take years for new
-tooling to be integrated into Dune. To better adapt to tools lifecyle, Dune
-plugin systems is used to allow a fast iteration with loose backward
+tooling to be integrated into Dune. To better adapt to tools lifecycle, Dune
+plugin system is used to allow a fast iteration with loose backward
 compatibility constrained during pre-incubation and incubation stages, until the
 tools move to the Active stage and are integrated into Dune as first-class
 citizens.
@@ -542,7 +542,7 @@ eject the build plan to a machine-readable format. This enables third-party
 tools to consume the exported build plan and convert it into other build
 systems' specifications.
 
-We note that prior discussions have been inconclusive on wether there exists an
+We note that prior discussions have been inconclusive on whether there exists an
 adequate solution to eject Dune's build plan. Further discussions and
 investigations with maintainers of conversion tools like obazel, and users of
 other build systems are needed to determine how the integration with these
