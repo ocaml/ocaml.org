@@ -211,8 +211,7 @@
   publish_all: false
 - id: lthms
   name: "Thomas Letan’s Blog"
-  url: https://soap.coffee/~lthms/posts/index.xml
-  publish_all: false
+  url: https://soap.coffee/~lthms/tags/ocaml.xml
 - id: debajyatidey
   name: Debajyati's Blog
   url: https://debajyatidey.hashnode.dev/rss.xml
