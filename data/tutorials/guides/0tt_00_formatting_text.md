@@ -24,11 +24,11 @@ Line breaking is based on three concepts:
 * **break hints**: a break hint is a directive to the pretty-printing
  engine that proposes to break the line here, if it is necessary to
  properly print the rest of the material. Otherwise, the
- pretty-printing engine never break lines (except “in case of
+ pretty-printing engine never breaks lines (except “in case of
  emergency” to avoid very bad output). In short, a break hint tells
  the pretty printer that a line break here may be appropriate.
 * **Indentation rules**: When a line break occurs, the pretty-printing
- engines fixes the indentation (or amount of leading spaces) of the
+ engine fixes the indentation (or amount of leading spaces) of the
  new line using indentation rules, as follows:
   * A box can state the extra indentation of every new line opened
  in its scope. This extra indentation is named **box breaking
@@ -50,7 +50,7 @@ so skip the rest at first reading).
 * **horizontal box** (*h* box, as obtained by the `open_hbox`
  procedure): within this box, break hints do not lead to line breaks.
 * **vertical box** (*v* box, as obtained by the `open_vbox`
- procedure): within this box, every break hint lead to a new line.
+ procedure): within this box, every break hint leads to a new line.
 * **vertical/horizontal box** (*hv* box, as obtained by the
  `open_hvbox` procedure): if it is possible, the entire box is
  written on a single line; otherwise, every break hint within the box
@@ -65,7 +65,7 @@ so skip the rest at first reading).
 
 Let me give an example. Suppose we can write 10 chars before the right
 margin (that indicates no more room). We represent any char as a `-`
-sign; characters `[` and `]` indicates the opening and closing of a box
+sign; characters `[` and `]` indicate the opening and closing of a box
 and `b` stands for a break hint given to the pretty-printing engine.
 
 The output "--b--b--" is displayed like this (the b symbol stands for
@@ -295,12 +295,12 @@ When writing a pretty-printing routine, follow these simple rules:
  most of the time a space should be considered a break hint.
 1. Do not try to force new lines, let the pretty-printer do it for you:
  that's its only job. In particular, do not use `force_newline`: this
- procedure effectively leads to a newline, but it also as the
+ procedure effectively leads to a newline, but it also has the
  unfortunate side effect to partially reinitialise the
  pretty-printing engine, so that the rest of the printing material is
  noticeably messed up.
 1. Never put newline characters directly in the strings to be printed:
- pretty printing engine will consider this newline character as any
+ the pretty printing engine will consider this newline character as any
  other character written on the current line and this will completely
  mess up the output. Instead of new line characters use line break
  hints: if those break hints must always result in new lines, it just

@@ -136,7 +136,7 @@ let _ =
 The runner creates a bank with 7 accounts containing $100
 each and then runs two loops in parallel with:
 
-- One transfering money with `money_shuffle`
+- One transferring money with `money_shuffle`
 - Another one repeatedly printing the account balances with `print_balances`:
 
 ``` shell
@@ -301,7 +301,7 @@ ready for OCaml 5.x parallelism, hurrah!
 
 The programming pattern of 'always-having-to-do-something-at-the-end'
 that we encountered with the missing `Mutex.unlock` is a recurring
-one for which OCaml offers a dedicate function:
+one for which OCaml offers a dedicated function:
 
 ```ocaml
  Fun.protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a

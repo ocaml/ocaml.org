@@ -39,7 +39,7 @@ The `int` type is the default and basic integer type in OCaml. When you enter a 
 - : int = 42
 ```
 
-The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Int`](/manual/api/Int.html) modules.
+The `int` type represents platform-dependent signed integers. This means `int` does not always have the same number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Int`](/manual/api/Int.html) modules.
 
 Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/manual/api/Int32.html) and [`Int64`](/manual/api/Int64.html) modules, which support platform-independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
@@ -160,7 +160,7 @@ Like strings, byte sequences are finite and fixed-sized. Each individual byte is
 
 Operations on `bytes` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bytes`](/manual/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences.
 
-The memory representation of `bytes` is four times more compact that `char array`.
+The memory representation of `bytes` is four times more compact than `char array`.
 ### Arrays & Lists
 
 #### Arrays

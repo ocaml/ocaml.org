@@ -214,7 +214,7 @@ This function is using `Option.bind` as a custom binder over the calls to `rinde
 
 The `let open String in` construct allows calling functions `rindex_opt`, `rindex_from_opt`, `length`, `ends_with` and `sub` from module `String` without prefixing each of them with `String.` within the scope of the definition of `doi_parts`.
 
-The rest of the function applies if relevant delimiting characters have been found. It does performs additional checks and extracts registrant and identifier form the string `s`, if possible.
+The rest of the function applies if relevant delimiting characters have been found. It performs additional checks and extracts registrant and identifier from the string `s`, if possible.
 
  <!-- TODO: move this into the list tutorial
  In the following example, we use that mechanism to write a function which produces the list of Friday 13th dates between two years.

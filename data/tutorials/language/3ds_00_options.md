@@ -52,7 +52,7 @@ Most of the functions in this section, as well as other useful ones, are provide
 
 ### Map Over an Option
 
-Using pattern matching, it is possible to define functions, allowing us to work with option values. For example, lets define a custom `map` function of type `('a -> 'b) -> 'a option -> 'b option` that allows us to apply a function to the wrapped value inside an `option` (if present):
+Using pattern matching, it is possible to define functions, allowing us to work with option values. For example, let's define a custom `map` function of type `('a -> 'b) -> 'a option -> 'b option` that allows us to apply a function to the wrapped value inside an `option` (if present):
 
 ```ocaml
 let map f = function
@@ -60,7 +60,7 @@ let map f = function
   | Some v -> Some (f v)
 ```
 
-Our custom `map` function is the same a the standard library's `Option.map`:
+Our custom `map` function is the same as the standard library's `Option.map`:
 
 ```ocaml
 # Option.map (fun x -> x * x) (Some 3);;
@@ -110,7 +110,7 @@ Here, `map` is applied to a list inside `Some`, doubling each number. If `None`,
 
 ### Peel Off Doubly Wrapped Options
 
-Sometimes we may encounter a value that is wrapped in multiple options. Lets define a custom `join` function of type `'a option option -> 'a option` that peels off one layer from a doubly wrapped option:
+Sometimes we may encounter a value that is wrapped in multiple options. Let's define a custom `join` function of type `'a option option -> 'a option` that peels off one layer from a doubly wrapped option:
 
 ```ocaml
 let join = function
@@ -119,7 +119,7 @@ let join = function
   | None -> None
 ```
 
-Our custom `join` function is the same a the standard library's `Option.join`:
+Our custom `join` function is the same as the standard library's `Option.join`:
 
 ```ocaml
 # Option.join (Some (Some 42));;
@@ -169,7 +169,7 @@ val safe_divide : int -> int -> int option = <fun>
 
 ### Extract the Content of an Option
 
-We will also want to extract the contents of a value wrapped in an option. Lets define a custom `get` function of type `'a option -> 'a` that allows us to access to the value contained inside an `option`:
+We will also want to extract the contents of a value wrapped in an option. Let's define a custom `get` function of type `'a option -> 'a` that allows us to access the value contained inside an `option`:
 
 ```ocaml
 # let get = function
@@ -251,7 +251,7 @@ The function `fold` of type `none:'a -> some:('b -> 'a) -> 'b option -> 'a` can 
 let fold ~none ~some o = o |> Option.map some |> Option.value ~default:none
 ```
 
-In the standard library, this function is `Option.fold`.
+In the standard library, this function is `Option.bind`.
 
 The `Option.fold` function can be used to implement a fall-back logic without writing pattern matching. For instance, here is a function that turns the contents of the `$PATH` environment variable into a list of strings, or the empty list if undefined. This version uses pattern matching:
 
@@ -333,7 +333,7 @@ val greet : string option -> string = <fun>
 
 The `bind` function of type `'a option -> ('a -> 'b option) -> 'b option` works a bit like `map`. But whilst `map` expects a function parameter `f` that returns an unwrapped value of type `b`, `bind` expects a function `f` that returns a value already wrapped in an option `'b option`.
 
-Lets try to implement a custom `bind` function:
+Let's try to implement a custom `bind` function:
 
 ```ocaml
 # let bind o f =
@@ -342,7 +342,7 @@ Lets try to implement a custom `bind` function:
   | None -> None;;
 val bind : 'a option -> ('a -> 'b option) -> 'b option = <fun>
 ```
-In the standard library, this function is `Option.fold`.
+In the standard library, this function is `Option.bind`.
 
 The following are simple examples demonstrating the use of `Option.bind`:
 

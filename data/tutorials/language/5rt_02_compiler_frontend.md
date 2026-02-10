@@ -94,7 +94,7 @@ of:
 : Command-line interfaces for the compiler tools.
 
 `file_formats/`
-: Serializer and deserializers for on-disk files used by the compiler driver.
+: Serializers and deserializers for on-disk files used by the compiler driver.
 
 `lambda/`
 : The lambda conversion pass.

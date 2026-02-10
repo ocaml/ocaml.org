@@ -6,7 +6,7 @@ description: >
 category: "Tutorials"
 ---
 
-Fortran isn't a language the many people write new code in but it still
+Fortran isn't a language that many people write new code in but it still
 is in extensive use in the scientific communities. Many, many libraries
 exist for doing numerical calculation that will never be written in C or
 C++. It is quite possible though to call Fortran routines from OCaml as
@@ -68,7 +68,7 @@ corresponding C prototype for our gtd6 function is
 
 `int gtd6_(integer *iyd, real* sec, real* alt, real* glat, real* glong, real* dens, real* temp);`
 
-Note that its up to the caller to know that `dens` and `temp` are
+Note that it's up to the caller to know that `dens` and `temp` are
 actually arrays. Failure to pass an array will cause a segmentation
 violation since the gtd6_ function is using them as arrays (yet another
 reason OCaml shines).
@@ -113,7 +113,7 @@ A few points of interest
 ### Step 3: Compile the Shared Library
 
 Now having the two source files funcs.f and wrapper.c we need to create
-a shared library that can be loaded by OCaml. Its easier to do this as a
+a shared library that can be loaded by OCaml. It's easier to do this as a
 multistep process, so here are the commands:
 
 `prompt> g77 -c funcs.f`
@@ -146,7 +146,7 @@ single floating point and calls the C function gtd6_t.
 
 At this point, the steps that are given are to compile this into
 bytecode. I don't yet have much experience compiling to native so I'll
-let some else help out (or wait until I learn how to do it).
+let someone else help out (or wait until I learn how to do it).
 
 `prompt> ocamlc -c gtd6.ml`
 

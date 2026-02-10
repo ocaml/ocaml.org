@@ -256,8 +256,8 @@ The name of this function begins with `List.` because it is part of the predefin
 
 The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced “alpha” and “beta”). They both can be anything; however, in regard to the function passed to `List.map`:
 
-1. Input list elements have the same type of its input.
-2. Output list elements have the same type of its output.
+1. Input list elements have the same type as its input.
+2. Output list elements have the same type as its output.
 
 ### Side-Effects and the `unit` Type
 
@@ -683,7 +683,7 @@ The standard library provides several predefined exceptions. It is possible to d
 
 ### Using the `result` Type
 
-Another way to deal with errors in OCaml is by returning value of type `result`,
+Another way to deal with errors in OCaml is by returning a value of type `result`,
 which can represent either the correct result or an error. Here is how it is defined:
 
 ```ocaml

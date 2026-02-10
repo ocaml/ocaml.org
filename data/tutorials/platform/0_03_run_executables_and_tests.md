@@ -78,7 +78,7 @@ Running `dune test` will fail with the following output:
 
 This means that the test failed because the executable exited with the status code `1`.
 
-The output is not very descriptive. If we want to create suites of unit tests, with several tests per files, and different kind of assertions, we will want to use a test framework such as Alcotest.
+The output is not very descriptive. If we want to create suites of unit tests, with several tests per files, and different kinds of assertions, we will want to use a test framework such as Alcotest.
 
 Let's modify our dummy test to link to Alcotest:
 

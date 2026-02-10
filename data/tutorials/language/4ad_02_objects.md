@@ -59,7 +59,7 @@ list `[]` has type `'a list`, meaning a list of any type. However we
 want a stack of `int`, not anything else, so in this case we want to
 tell the type inference engine that this list isn't the general "list of
 anything" but is in fact the narrower "list of `int`." The syntax
-`( expression : type )` means `expression`, which is a of type
+`( expression : type )` means `expression`, which is of type
 `type`. This *isn't* a general type cast because you can't use it to
 overrule the type inference engine, only to narrow a general type to
 make it more specific. So you can't write, for example, `( 1 : float )`:
@@ -615,7 +615,7 @@ canonical way of creating objects is to first define a class, then use
 this class to create individual objects. This can be cumbersome in some
 situations because class definitions are more than a type definition and
 cannot be defined recursively with types. However, objects have a type
-that is very analog to a record type, and it can be used in type
+that is very analogous to a record type, and it can be used in type
 definitions. In addition, objects can be created without a class. They
 are called *immediate objects*. Here is the definition of an immediate
 object:

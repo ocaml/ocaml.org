@@ -106,7 +106,7 @@ The module expression `struct ... end` is inlined in the `Set.Make` call.
 
 However, since the module `String` already defines
 - Type name `t`, which is an alias for `string`
-- Function `compare` of type `t -> t -> bool` compares two strings
+- Function `compare` of type `t -> t -> int` compares two strings
 
 This can be simplified even further into this:
 

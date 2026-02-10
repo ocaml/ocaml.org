@@ -376,7 +376,7 @@ own work!
 
 #### Pattern-matching warnings
 
-Warnings about pattern-matching must be treated with the upmost care.
+Warnings about pattern-matching must be treated with the utmost care.
 
 * Those with useless clauses should be eliminated, of course.
 * For nonexhaustive pattern-matching, you must complete the
@@ -420,7 +420,7 @@ can use it with more complex or simpler patterns. For instance:
  `let [x; y] as l = ...`<br />
  simultaneously defines a list `l` and its two elements `x` and `y`.
 * `let` with simple pattern:<br />
- `let _ = ...` does not define anything, it just evaluate the
+ `let _ = ...` does not define anything, it just evaluates the
  expression on the right hand side of the `=` symbol.
 
 #### The destructuring `let` must be exhaustive
@@ -879,7 +879,7 @@ versions, see the [note below](#imperative-and-functional-versions-of-listlength
  with recursive functions, using lists in contexts where
  imperative data structures seem to be mandatory to anyone,
  passing numerous global parameters of the problem to every
- function, even when a global reference perfectly avoid
+ function, even when a global reference perfectly avoids
  these spurious parameters that are mainly invariants that must
  be repeatedly passed.
   * This programmer feels that the `mutable` keyword in record-type
@@ -996,7 +996,7 @@ subsequent `ESC-/` proposes an alternate completion.
 
 Under Unix, the `CTRL-C-CTRL-C` or `Meta-X     compile` combination,
 followed by `` CTRL-X-` ``, is also used to find all occurrences of a
-certain string in a OCaml program. Instead of launching `make` to
+certain string in an OCaml program. Instead of launching `make` to
 recompile, launch the `grep` command. Then all the “error
 messages” from `grep` are compatible with the `` CTRL-X-` `` usage,
 which automatically takes you to the file and the place where the string
@@ -1008,7 +1008,7 @@ Under Unix: use the line editor `ledit`, which offers great editing
 capabilities “à la Emacs” (including `ESC-/`!) as well as a history
 mechanism that lets you retrieve previously-typed commands and even
 retrieve commands from one session to another. `ledit` is written in
-OCaml and can be freely downnloaded
+OCaml and can be freely downloaded
 [here](ftp://ftp.inria.fr/INRIA/Projects/cristal/caml-light/bazar-ocaml/ledit.tar.gz).
 
 ### How to Compile
@@ -1298,7 +1298,7 @@ recommended.
 ### How to Indent Operations
 
 When an operator takes complex arguments, or in the presence of multiple
-calls to the same operator, start the next the line with the operator,
+calls to the same operator, start the next line with the operator,
 and don't indent the rest of the operation. For example:
 
 <!-- $MDX skip -->
@@ -1779,7 +1779,7 @@ let rec size_lambda accu = function
 | Var v -> succ accu
 ```
 
-### Bad Indentation of Pattern-Catching constructs
+### Bad Indentation of Pattern-Matching Constructs
 
 #### No *beastly* indentation of functions and case analyses
 
@@ -1831,7 +1831,7 @@ let f = function
 
 No problem arises except for functions with many arguments&mdash;or very
 complicated arguments&mdash;which can't fit on the same line. You
-must indent the expressions with respect to the fucntion's name (1
+must indent the expressions with respect to the function's name (1
 or 2 spaces according to the chosen convention). Write small arguments
 on the same line, and change lines at the start of an argument.
 

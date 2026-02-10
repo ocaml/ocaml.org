@@ -10,7 +10,7 @@ category: "Data Structures"
 
 `Set` provides the functor `Set.Make`. You must start by passing `Set.Make` a module. It specifies the element type for your set. In return, you get another module with those elements' set operations.
 
-**Disclaimer:** The examples in this tutorial require OCaml 5.1. If you're running a previous version of OCaml , you can either use `elements` instead of `to_list`, which is a new function in OCaml 5.1, or upgrade OCaml by running `opam update`, then `opam upgrade ocaml`. Check your current version with `ocaml --version`. 
+**Disclaimer:** The examples in this tutorial require OCaml 5.1. If you're running a previous version of OCaml, you can either use `elements` instead of `to_list`, which is a new function in OCaml 5.1, or upgrade OCaml by running `opam update`, then `opam upgrade ocaml`. Check your current version with `ocaml --version`. 
 
 If you need to work with string sets, you must invoke `Set.Make(String)`. That returns a new module.
 

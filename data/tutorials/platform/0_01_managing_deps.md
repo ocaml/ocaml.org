@@ -60,7 +60,7 @@ If the project generates the opam file from the `dune-project` (you can tell by 
 (package
  (name demo)
  (synopsis "A short, but powerful statement about your project")
- (description "An complete and exhaustive description everything your project does.")
+ (description "A complete and exhaustive description of everything your project does.")
  (depends
   (ocaml
    (>= 4.08.0))
@@ -201,7 +201,7 @@ And for the `*.opam` file, it looks like:
 "alcotest" {with-test}
 ```
 
-The available flags for each dependencies are:
+The available flags for each dependency are:
 
 - Normal: no flag
 - Build: `build`

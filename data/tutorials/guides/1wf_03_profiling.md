@@ -902,7 +902,7 @@ Each sample counts as 0.01 seconds.
 
 ### Using `perf` on Linux
 
-Assuming `perf`is installed and your program is compiled into
+Assuming `perf` is installed and your program is compiled into
 native code with `-g` (or ocamlbuild tag `debug`), you just need to type
 
 <!-- $MDX skip -->

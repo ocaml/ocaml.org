@@ -9,7 +9,7 @@ category: "Additional Tooling"
 
 The documentation rendering tool `odoc` generates documentation
 in the form of HTML, LaTeX, or man pages,
-from the docstrings and interfaces of the project's modules
+from the docstrings and interfaces of the project's modules.
 
 Dune can run `odoc` on your project to generate HTML documentation with this command:
 

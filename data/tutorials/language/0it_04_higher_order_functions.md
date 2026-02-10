@@ -98,7 +98,7 @@ But what would happen if we wanted to say "hi" 2 times? Or 4 or 12 times?
 
 When this happens, it usually means that the function is making certain decision that it shouldn't. In other words, the function **knows something** (like the number of times).
 
-So instead, we will create a function that **let's the caller decide** how many times to say "hi." We do this by requiring a new argument, in this case, `times`:
+So instead, we will create a function that **lets the caller decide** how many times to say "hi." We do this by requiring a new argument, in this case, `times`:
 
 ```ocaml
 # let rec say_many_hi times name =
@@ -332,7 +332,7 @@ On the other hand, sometimes we have functions that already work with tuples, an
 
 For that we can define a little `curry` helper that will take a function as input, and return another function as output. It is essentially a wrapper.
 
-The input function must have type: `('a * 'b) -> 'c` – this is the type of any function that one tuple with 2 parameters.
+The input function must have type: `('a * 'b) -> 'c` – this is the type of any function that takes one tuple with 2 parameters.
 
 The output function will have type `'a -> 'b -> 'c` – notice how the arguments `'a` and `'b` are now unbundled!
 
@@ -819,7 +819,7 @@ let asc = List.sort (fun a b -> a - b) list ;;
 let desc = List.sort (fun a b -> b - a) list ;;
 ```
 
-Most OCaml modules include a `compare` function that can be pass in to `sort`:
+Most OCaml modules include a `compare` function that can be passed in to `sort`:
 
 ```ocaml
 let int_array = [|3;0;100|];;

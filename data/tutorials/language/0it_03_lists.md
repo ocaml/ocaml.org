@@ -2,7 +2,7 @@
 id: lists
 title: Lists
 description: >
-  Learn about one of OCaml's must used, built-in data types
+  Learn about one of OCaml's most used, built-in data types
 category: "Introduction"
 ---
 
