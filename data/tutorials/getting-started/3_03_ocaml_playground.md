@@ -96,8 +96,8 @@ The playground also supports code completion. It helps users by suggesting and c
 
 As you can see from the above code samples, you don't need to use `;;` at the end of definitions.
 
-A little caveat here is that the playground behaves different from the OCaml toplevel.
-All expressions and definitions all evaluated in order, every time you click the "Run" button.
+A little caveat here is that the playground behaves differently from the OCaml toplevel.
+All expressions and definitions are evaluated in order, every time you click the "Run" button.
 When you write `2+3` and in the next line write a string `"this is a string"` ([see here](/play#code=MiszCiJ0aGlzIGlzIGEgc3RyaW5nIg%3D%3D)), you will see an error saying:
 
 ```

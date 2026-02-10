@@ -263,7 +263,7 @@ val jane : person =
 
 The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate another approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`. 
 
-First, lets use nested deconstruction to access the contents of the `contact` tuple directly:
+First, let's use nested deconstruction to access the contents of the `contact` tuple directly:
 
 ```ocaml
 # let { name; street; city; zip; contact = (email, phone) } = jane;;
@@ -457,7 +457,7 @@ There are two alternative ways to apply functions.
 
 ### The Application Operator
 
-The application operator `@@` operator.
+The application operator is `@@`.
 ```ocaml
 # sqrt 9.0;;
 - : float = 3.
@@ -668,7 +668,7 @@ The way `sweet_cat` is written is an abbreviated version of `sour_cat`. Such a w
 
 ### Partial Application and Closures
 
-We want to define functions of type `string -> string` that appends `"kitty "` in front of its arguments. This can be done using `sour_cat` and `sweet_cat`
+We want to define functions of type `string -> string` that append `"kitty "` in front of its arguments. This can be done using `sour_cat` and `sweet_cat`
 ```ocaml
 # let sour_kitty x = sour_cat "kitty" x;;
 val sour_kitty : string -> string = <fun>

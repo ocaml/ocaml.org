@@ -23,7 +23,7 @@ create our custom map module. Refer to the [Functors](/docs/functors) for more i
 on functors. This functor has a module parameter that defines the keys' type to be used in
 the maps, and a function for comparing them.
 
-For an different implementation of an association table in OCaml's Standard Library, see the tutorial
+For a different implementation of an association table in OCaml's Standard Library, see the tutorial
 on [Hash Tables](/docs/hash-tables).
 
 ```ocaml
@@ -100,13 +100,13 @@ To find entries in a map, use the `find_opt` or `find` functions:
 - : int = 2112
 ```
 
-When the searched key is present from the map:
+When the searched key is present in the map:
 - `find_opt` returns the associated value, wrapped in an option
 - `find` returns the associated value
 
 When the searched key is absent from the map:
 - `find_opt` returns `None`
-- `find` throws the `Not_found` exceptions
+- `find` throws the `Not_found` exception
 
 We can also use `find_first_opt` and `find_last_opt` if we want to use a
 predicate function:
@@ -299,11 +299,11 @@ If you need to create a map with a custom key type, you can call the `Map.Make`
 functor with a module of your own, provided that it implements two things:
 
 1. A type `t` exposing the type of the map's key
-2. A function `compare : t -> t -> int` function that compares `t` values
+2. A function `compare : t -> t -> int` that compares `t` values
 
 Let's define our custom map below for non-negative numbers.
 
-We'll start by defining a module for strings that compares them in case-insensitive way.
+We'll start by defining a module for strings that compares them in a case-insensitive way.
 
 ```ocaml
 # module Istring = struct

@@ -29,13 +29,13 @@ If your editor is setup correctly, here are some important features you can begi
 
 ![VSCode Hovering](/media/tutorials/vscode-hover.gif)
 
-This is a great feature that let's you see type information of any OCaml variable or function. All you have to do is place your cursor over the code and it will be displayed in the tooltip.
+This is a great feature that lets you see type information of any OCaml variable or function. All you have to do is place your cursor over the code and it will be displayed in the tooltip.
 
 #### 2) Jump to Definitions With `Ctrl + Click`
 
 ![VSCode Ctrl click](/media/tutorials/vscode-ctrl-click.gif)
 
-If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a clickable link which if clicked takes you to the file where the implementation is. This can be great if you want to understand how a piece of code works under the hood. In this example, hovering and `Ctrl + Clicking` over the `peek` method of the `Queue` module will take you to the definiton of the `peek` method itself and how it is implemented.
+If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a clickable link which if clicked takes you to the file where the implementation is. This can be great if you want to understand how a piece of code works under the hood. In this example, hovering and `Ctrl + Clicking` over the `peek` method of the `Queue` module will take you to the definition of the `peek` method itself and how it is implemented.
 
 #### 3) OCaml Commands With `Ctrl + Shift + P`
 
@@ -98,7 +98,7 @@ Next, we need to bridge the gap between our major mode (in this case, `tuareg`) 
   (ocaml-eglot . eglot-ensure))
 ```
 
-And that's all there is to it! Now all you need to do is install `ocaml-lsp-server` and `ocamlformat` in our [switch](/docs/opam-switch-introduction):
+And that's all there is to it! Now all you need to do is install `ocaml-lsp-server` and `ocamlformat` in your [switch](/docs/opam-switch-introduction):
 
 ```shell
 opam install ocaml-lsp-server ocamlformat
@@ -140,7 +140,7 @@ opam user-setup install
 
 ![Vim Type information](/media/tutorials/vim-type-info.gif)
 
-- In the Vim editor, press the <kbd>Esc</kbd> to enter command mode.
+- In the Vim editor, press <kbd>Esc</kbd> to enter command mode.
 - Place the cursor over the variable.
 - Type `:MerlinTypeOf` and press <kbd>Enter</kbd>.
 - The type information will be displayed in the command bar.
@@ -150,7 +150,7 @@ Other Merlin commands for Vim are available and you can checkout their usage on 
 
 Neovim comes with an LSP client.
 
-One note here is that is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and pointing your Neovim config to use that.
+One note here is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and point your Neovim config to use that.
 
 To install the LSP server and the formatter, run the following.
 ```shell

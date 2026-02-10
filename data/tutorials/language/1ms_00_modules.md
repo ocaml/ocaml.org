@@ -471,7 +471,7 @@ reset.
 
 ## Conclusion
 
-OCaml, modules are the basic means of organising software. To sum up, a
+In OCaml, modules are the basic means of organising software. To sum up, a
 module is a collection of definitions wrapped under a name. These definitions
 can be submodules, which allows the creation of hierarchies of modules.
 Top-level modules must be files and are the units of compilation. Every module

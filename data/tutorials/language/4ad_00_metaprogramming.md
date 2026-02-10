@@ -136,7 +136,7 @@ module files using our previously written `preprocessor.sh`:
 
 ### The Limits of Manipulating Text Files
 
-The complexities of a programming language syntax makes it very hard to
+The complexities of a programming language's syntax make it very hard to
 manipulate text in a way that is tied to the syntax. Suppose for instance that,
 similarly to the previous example, you want to rewrite all occurrences of "World"
 by "Universe," but _inside the OCaml strings of the program_ only. It is quite
@@ -297,7 +297,7 @@ files](#the-limits-of-manipulating-text-files)). Indeed, exactly the right amoun
 of information is passed to the PPX, and we also know that the PPX won't modify
 any part of the source.
 
-Example of derivers are:
+Examples of derivers are:
 - [`ppx_show`](https://github.com/thierry-martinez/ppx_show) generates a pretty printer
   from a type for values of this type.
 - Derivers that derive serializers from OCaml types to other formats, such as

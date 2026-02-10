@@ -261,7 +261,7 @@ opam install sexplib
 ```
 
 Next, define a string containing a valid S-expression in `bin/main.ml`. Parse
-it into a S-expression with  the  `Sexplib.Sexp.of_string` function, and then
+it into an S-expression with the `Sexplib.Sexp.of_string` function, and then
 convert it back into a string with `Sexplib.Sexp.to_string` and print it.
 
 ```ocaml

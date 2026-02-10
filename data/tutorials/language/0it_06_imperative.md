@@ -579,7 +579,7 @@ val c1 : unit -> int = <fun>
 val c2 : unit -> int = <fun>
 ```
 
-Now, using partial application, we create two closure `c1` and `c2` that encapsulates a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, calling `c2 ()` will update its own independent counter.
+Now, using partial application, we create two closures `c1` and `c2` that encapsulate a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, calling `c2 ()` will update its own independent counter.
 
 ```ocaml
 # c1 ();;
@@ -829,7 +829,7 @@ This issue also arises when applying arguments to variant constructors, building
 - : int * int = (0, -1)
 ```
 
-The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
+The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must be avoided.
 
 To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences using either `let … in` expressions or the semi-colon sequence operator (`;`). Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
 

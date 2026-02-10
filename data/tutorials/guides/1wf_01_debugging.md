@@ -563,7 +563,7 @@ v is 11
 The TSan instrumentation benefits from compiling programs with debug
 information, which happens by default under `dune`. To manually invoke
 the `ocamlopt` compiler under our `5.2.0+tsan` switch it is thus
-suffient to pass it the `-g` flag:
+sufficient to pass it the `-g` flag:
 
 ```
 ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml

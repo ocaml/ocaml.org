@@ -57,7 +57,7 @@ If you want to use a library from a package installed in the current opam switch
 # #require "<LIBRARY_NAME>";;
 ```
 
-into the toplevel to make all definitions from the library available. For, example, try
+into the toplevel to make all definitions from the library available. For example, try
 
 ```ocaml
 # Str.quote {|"hello"|};;
