@@ -18,14 +18,12 @@ description: "Write a function to reverse a list."
 val rev : 'a list -> 'a list = <fun>
 ```
 
-
 ## Statement
 
 Reverse a list.
 
 OCaml standard library has `List.rev` but we ask that you reimplement
 it.
-
 
 ```ocaml
 # rev ["a"; "b"; "c"];;

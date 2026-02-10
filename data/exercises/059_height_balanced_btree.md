@@ -45,7 +45,6 @@ for a given height. The function should generate all solutions via
 backtracking. Put the letter `'x'` as information into all nodes of the
 tree.
 
-
 ```ocaml
 # let t = hbal_tree 3;;
 val t : char binary_tree list =

@@ -36,7 +36,7 @@ let phi_improved n =
 
 ## Statement
 
-See problem "[Calculate Euler&#39;s totient function φ(m)](#34)" for
+See problem "[Calculate Euler's totient function φ(m)](#34)" for
 the definition of Euler's totient function. If the list of the prime
 factors of a number m is known in the form of the previous problem then
 the function phi(m) can be efficiently calculated as follows: Let

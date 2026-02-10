@@ -36,7 +36,6 @@ As a preparation for drawing the tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several
 layout methods are conceivable, one of them is shown in the illustration.
 
-
 ![Binary Tree Grid](/media/problems/tree-layout1.gif)
 
 In this layout strategy, the position of a node v is obtained by the

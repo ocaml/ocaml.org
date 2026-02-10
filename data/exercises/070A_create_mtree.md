@@ -92,7 +92,6 @@ the string representing the tree and
 `tree_of_string : string -> char mult_tree` to construct the tree when
 the string is given.
 
-
 ```ocaml
 # let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
           T ('b', [T ('d', []); T ('e', [])])]);;

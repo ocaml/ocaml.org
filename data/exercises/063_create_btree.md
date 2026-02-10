@@ -44,7 +44,7 @@ val complete_binary_tree : 'a list -> 'a binary_tree = <fun>
 ## Statement
 
 A *complete* binary tree with height H is defined as follows: The levels
-1,2,3,...,H-1 contain the maximum number of nodes (i.e 2<sup>i-1</sup>
+1,2,3,...,H-1 contain the maximum number of nodes (i.e. 2<sup>i-1</sup>
 at the level i, note that we start counting the levels from 1 at the
 root). In level H, which may contain less than the maximum possible
 number of nodes, all the nodes are "left-adjusted". This means that in a

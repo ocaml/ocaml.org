@@ -34,7 +34,6 @@ There are several ways to represent graphs in OCaml.
 We call this **edge-clause form**. Obviously, isolated nodes cannot
 be represented.
 
-
 * Another method is to represent the whole graph as one data object.
  According to the definition of the graph as a pair of two sets
  (nodes and edges), we may use the following OCaml type:

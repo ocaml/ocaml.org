@@ -55,7 +55,6 @@ Solution using
   (* solution pending *)
 ```
 
-
 ## Statement
 
 We consider binary trees with nodes that are identified by single
@@ -78,8 +77,8 @@ lower-case letters, as in the example of the previous problem.
 1. Solve problems 1 to 3 using
    [difference lists](https://en.wikipedia.org/wiki/Difference_list).
    Cool!  Use the
- function `timeit` (defined in problem “[Compare the two methods of
- calculating Euler&#39;s totient function.](#38)”) to compare the
+ function `timeit` (defined in problem "Compare the two methods of
+ calculating Euler's totient function") to compare the
  solutions.
 
 What happens if the same character appears in more than one node. Try

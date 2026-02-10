@@ -39,7 +39,7 @@ val paths : 'a graph_term -> 'a -> 'a -> 'a list list = <fun>
 
 ## Statement
 
-Write a function `paths g a b` that returns all acyclic path `p` from
+Write a function `paths g a b` that returns all acyclic paths `p` from
 node `a` to node `b ≠ a` in the graph `g`. The function should return
 the list of all paths via backtracking.
 

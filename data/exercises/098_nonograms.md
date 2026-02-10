@@ -12,7 +12,6 @@ Brute force solution: construct boards trying all the fill
 possibilities for the columns given the prescribed patterns for them
 and reject the solution if it does not satisfy the row patterns.
 
-
 ```ocaml
 # type element = Empty | X (* ensure we do not miss cases in patterns *);;
 type element = Empty | X

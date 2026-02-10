@@ -40,7 +40,7 @@ val encode : 'a list -> (int * 'a) list = <fun>
 
 ## Statement
 
-If you need so, refresh your memory about
+If you need to, refresh your memory about
 [run-length encoding](http://en.wikipedia.org/wiki/Run-length_encoding).
 
 Here is an example:

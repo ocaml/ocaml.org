@@ -36,7 +36,7 @@ val cycles : 'a graph_term -> 'a -> 'a list list = <fun>
 
 ## Statement
 
-Write a functions `cycle g a` that returns a closed path (cycle) `p`
+Write a function `cycle g a` that returns a closed path (cycle) `p`
 starting at a given node `a` in the graph `g`. The predicate should
 return the list of all cycles via backtracking.
 
