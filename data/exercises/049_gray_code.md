@@ -6,7 +6,7 @@ tags: [ "logic" ]
 description: "Generate the n-bit Gray code sequence following certain construction rules using the gray function."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let gray n =
@@ -30,7 +30,7 @@ description: "Generate the n-bit Gray code sequence following certain constructi
 val gray : int -> string list = <fun>
 ```
 
-# Statement
+## Statement
 
 An n-bit Gray code is a sequence of n-bit strings constructed according
 to certain rules. For example,

@@ -12,7 +12,7 @@ type 'a rle =
   | Many of int * 'a
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let encode list =
@@ -27,7 +27,7 @@ type 'a rle =
 val encode : 'a list -> 'a rle list = <fun>
 ```
 
-# Statement
+## Statement
 
 Implement the so-called run-length encoding data compression method
 directly. I.e. don't explicitly create the sublists containing the

@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Find out whether a list is a palindrome."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let is_palindrome list =
@@ -15,7 +15,7 @@ description: "Find out whether a list is a palindrome."
 val is_palindrome : 'a list -> bool = <fun>
 ```
 
-# Statement
+## Statement
 
 Find out whether a list is a palindrome.
 

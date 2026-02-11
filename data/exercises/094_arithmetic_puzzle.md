@@ -6,13 +6,13 @@ tags: []
 description: "Given a list of integer numbers, find a correct way of inserting arithmetic signs to form a correct equation."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 Given a list of integer numbers, find a correct way of inserting
 arithmetic signs (operators) such that the result is a correct equation.

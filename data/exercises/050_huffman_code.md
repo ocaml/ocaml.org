@@ -6,7 +6,7 @@ tags: [ "logic" ]
 description: "Generate Huffman codes for a set of symbols with their respective frequencies using the huffman function."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Simple priority queue where the priorities are integers 0..100.
@@ -61,7 +61,7 @@ val prefixes_of_tree : string -> tree -> (string * string) list = <fun>
 val huffman : (string * int) list -> (string * string) list = <fun>
 ```
 
-# Statement
+## Statement
 
 First of all, consult a good book on discrete mathematics or algorithms
 for a detailed description of Huffman codes (you can start with the

@@ -7,7 +7,7 @@ description: "Define an 'a stream type for infinite sequences, and provide essen
 tutorials: [ "sequences"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 type 'a cons = Cons of 'a * 'a stream
@@ -28,7 +28,7 @@ let rec of_seq seq () = match seq () with
 | Seq.Cons (x, seq) -> Cons (x, of_seq seq)
 ```
 
-# Statement
+## Statement
 
 Lists are finite, meaning they always contain a finite number of elements. Sequences may
 be finite or infinite.

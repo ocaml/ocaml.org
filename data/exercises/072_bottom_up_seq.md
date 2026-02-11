@@ -13,7 +13,7 @@ let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
           T ('b', [T ('d', []); T ('e', [])])])
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec prepend_bottom_up (T (c, sub)) l =
@@ -23,7 +23,7 @@ val prepend_bottom_up : 'a mult_tree -> 'a list -> 'a list = <fun>
 val bottom_up : 'a mult_tree -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Write a function `bottom_up t` which constructs the bottom-up sequence
 of the nodes of the multiway tree `t`.

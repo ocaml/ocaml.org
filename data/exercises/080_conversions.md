@@ -6,13 +6,13 @@ tags: [ "graph" ]
 description: "Convert from edge-clause form (a list of pairs of nodes) to graph-term form (a record with a list of nodes and a list of edges)."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *)
 ```
 
-# Statement
+## Statement
 
 ![A graph](/media/problems/graph1.gif)
 

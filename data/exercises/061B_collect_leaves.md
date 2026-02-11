@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Having an accumulator acc prevents using inefficient List.append.
@@ -29,7 +29,7 @@ type 'a binary_tree =
 val leaves : 'a binary_tree -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 A leaf is a node with no successors. Write a function `leaves` to
 collect them in a list.

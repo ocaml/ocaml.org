@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Write a function that drops every N'th element from a list."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let drop list n =
@@ -17,7 +17,7 @@ description: "Write a function that drops every N'th element from a list."
 val drop : 'a list -> int -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Drop every N'th element from a list.
 

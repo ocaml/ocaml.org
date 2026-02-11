@@ -17,7 +17,7 @@ let add_trees_with left right all =
     List.fold_left add_right_tree all left
 ```
 
-# Solution
+## Solution
 
 The function `add_trees_with` is defined in the solution of
 [Construct completely balanced binary trees](#55).
@@ -34,7 +34,7 @@ The function `add_trees_with` is defined in the solution of
 val hbal_tree : int -> char binary_tree list = <fun>
 ```
 
-# Statement
+## Statement
 
 In a height-balanced binary tree, the following property holds for every
 node: The height of its left subtree and the height of its right subtree

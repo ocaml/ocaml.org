@@ -7,7 +7,7 @@ description: "Write a function that returns the last element of a list."
 tutorials: [ "lists"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec last = function 
@@ -17,7 +17,7 @@ tutorials: [ "lists"]
 val last : 'a list -> 'a option = <fun>
 ```
 
-# Statement
+## Statement
 
 Write a function `last : 'a list -> 'a option` that returns the last element of a list
 

@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec split_n lst acc n = match (n, lst) with
@@ -41,7 +41,7 @@ val myflatten : 'a list -> 'a binary_tree list -> 'a binary_tree list = <fun>
 val complete_binary_tree : 'a list -> 'a binary_tree = <fun>
 ```
 
-# Statement
+## Statement
 
 A *complete* binary tree with height H is defined as follows: The levels
 1,2,3,...,H-1 contain the maximum number of nodes (i.e 2<sup>i-1</sup>

@@ -10,13 +10,13 @@ description: "Construct all spanning trees of a given graph g and find out how m
 type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list}
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 (* solution pending *);;
 ```
 
-# Statement
+## Statement
 
 ![Spanning tree graph](/media/problems/spanning-tree-graph1.gif)
 

@@ -7,7 +7,7 @@ description: "Return the diagonal sequence formed by taking the nth element from
 tutorials: [ "sequences"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 let rec diag seq_seq () =
@@ -17,7 +17,7 @@ let rec diag seq_seq () =
     Option.fold ~none:Fun.id ~some:Seq.cons hd d ()
 ```
 
-# Statement
+## Statement
 
 Write a function `diag : 'a Seq.t Seq.t -> 'a Seq` that returns the _diagonal_
 of a sequence of sequences. The returned sequence is formed as follows:

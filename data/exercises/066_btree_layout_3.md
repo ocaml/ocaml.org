@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
   In order to pack the tree tightly, the layout function will return
   in addition to the layout of the tree the left and right profiles of
@@ -53,7 +53,7 @@ val layout_binary_tree_3 : 'a binary_tree -> ('a * int * int) binary_tree =
   <fun>
 ```
 
-# Statement
+## Statement
 
 ![Binary Tree Grid](/media/problems/tree-layout3.gif)
 

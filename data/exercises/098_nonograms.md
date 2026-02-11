@@ -6,7 +6,7 @@ tags: []
 description: "Solve nonogram puzzles by constructing the corresponding bitmap from annotated rows and columns."
 ---
 
-# Solution
+## Solution
 
 Brute force solution: construct boards trying all the fill
 possibilities for the columns given the prescribed patterns for them
@@ -33,7 +33,7 @@ and implement them so you can solve the following within reasonable time:
          [1; 2; 2]; [2; 1; 1; 1; 1]; [2; 2]; [2; 2]; [7]]
 ```
 
-# Statement
+## Statement
 
 Around 1994, a certain kind of puzzles was very popular in England. The
 "Sunday Telegraph" newspaper wrote: "Nonograms are puzzles from Japan

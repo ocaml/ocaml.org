@@ -6,13 +6,13 @@ tags: []
 description: "Fill in the crossword puzzle according to the given framework and word list."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 ![Crossword](/media/problems/crossword.gif)
 

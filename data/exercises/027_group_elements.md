@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Generate all possible ways to group elements into disjoint subsets."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # (* This implementation is less streamlined than the one-extraction
@@ -47,7 +47,7 @@ description: "Generate all possible ways to group elements into disjoint subsets
 val group : 'a list -> int list -> 'a list list list = <fun>
 ```
 
-# Statement
+## Statement
 
 Group the elements of a set into disjoint subsets
 

@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Modify run-length encoding to include single elements and (count, element) pairs."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # type 'a rle =
@@ -27,7 +27,7 @@ type 'a rle = One of 'a | Many of int * 'a
 val encode : 'a list -> 'a rle list = <fun>
 ```
 
-# Statement
+## Statement
 
 Modify the result of the previous problem in such a way that if an
 element has no duplicates it is simply copied into the result list. Only

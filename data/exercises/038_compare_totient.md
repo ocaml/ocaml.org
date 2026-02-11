@@ -43,7 +43,7 @@ let phi_improved n =
     aux 1 (factors n)
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Naive [timeit] function.  It requires the [Unix] module to be loaded. *)
@@ -55,7 +55,7 @@ let phi_improved n =
 val timeit : ('a -> 'b) -> 'a -> float = <fun>
 ```
 
-# Statement
+## Statement
 
 Use the solutions of problems 
 "[Calculate Euler&#39;s totient function φ(m)](#34)" and

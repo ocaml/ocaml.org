@@ -6,13 +6,13 @@ tags: []
 description: "Calculate a numbering scheme for a given tree, such that for each edge K, the difference of its node numbers equals to K."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 Several years ago I met a mathematician who was intrigued by a problem
 for which he didn't know a solution. His name was Von Koch, and I don't

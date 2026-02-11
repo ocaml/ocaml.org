@@ -7,7 +7,7 @@ description: "Find the last and penultimate elements of a list."
 tutorials: [ "lists", "options"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec last_two = function
@@ -17,7 +17,7 @@ tutorials: [ "lists", "options"]
 val last_two : 'a list -> ('a * 'a) option = <fun>
 ```
 
-# Statement
+## Statement
 
 Find the last two (last and penultimate) elements of a list.
 

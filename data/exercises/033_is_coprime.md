@@ -11,7 +11,7 @@ let rec gcd a b =
   if b = 0 then a else gcd b (a mod b)
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* [gcd] is defined in the previous question *)
@@ -19,7 +19,7 @@ let rec gcd a b =
 val coprime : int -> int -> bool = <fun>
 ```
 
-# Statement
+## Statement
 
 Determine whether two positive integer numbers are coprime.
 

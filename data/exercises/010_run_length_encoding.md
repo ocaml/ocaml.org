@@ -7,7 +7,7 @@ description: "Performs run-length encoding on a list"
 tutorials: [ "basic-data-types"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let encode list =
@@ -38,7 +38,7 @@ val pack : 'a list -> 'a list list = <fun>
 val encode : 'a list -> (int * 'a) list = <fun>
 ```
 
-# Statement
+## Statement
 
 If you need so, refresh your memory about
 [run-length encoding](http://en.wikipedia.org/wiki/Run-length_encoding).

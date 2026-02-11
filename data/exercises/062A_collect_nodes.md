@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Having an accumulator acc prevents using inefficient List.append.
@@ -29,7 +29,7 @@ type 'a binary_tree =
 val internals : 'a binary_tree -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 An internal node of a binary tree has either one or two non-empty
 successors. Write a function `internals` to collect them in a list.

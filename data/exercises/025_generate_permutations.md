@@ -6,7 +6,7 @@ tags: ["list"]
 description: "Generate a random permutation of the elements in the given list."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let permutation list =
@@ -26,7 +26,7 @@ description: "Generate a random permutation of the elements in the given list."
 val permutation : 'a list -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Generate a random permutation of the elements of a list.
 

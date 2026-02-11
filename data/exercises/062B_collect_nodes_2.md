@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Having an accumulator acc prevents using inefficient List.append.
@@ -32,7 +32,7 @@ type 'a binary_tree =
 val at_level : 'a binary_tree -> int -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 A node of a binary tree is at level N if the path from the root to the
 node has length N-1. The root node is at level 1. Write a function

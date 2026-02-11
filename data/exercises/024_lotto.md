@@ -34,7 +34,7 @@ let range a b =
     if a < b then aux [] b a else List.rev (aux [] a b)
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* [range] and [rand_select] defined in problems above *)
@@ -42,7 +42,7 @@ let range a b =
 val lotto_select : int -> int -> int list = <fun>
 ```
 
-# Statement
+## Statement
 
 Draw N different random numbers from the set `1..M`.
 

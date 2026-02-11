@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let layout_binary_tree_1 t =
@@ -30,7 +30,7 @@ val layout_binary_tree_1 : 'a binary_tree -> ('a * int * int) binary_tree =
   <fun>
 ```
 
-# Statement
+## Statement
 
 As a preparation for drawing the tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several

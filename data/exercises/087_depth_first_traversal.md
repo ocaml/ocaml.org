@@ -16,7 +16,7 @@ module type GRAPH = sig
 end
 ```
 
-# Solution
+## Solution
 
 In a depth-first search you fully explore the edges of the most
 recently discovered node *v* before 'backtracking' to explore edges
@@ -93,7 +93,7 @@ discovered node *u*, this fact is recorded in the predecessor subgraph
 module M : GRAPH
 ```
 
-# Statement
+## Statement
 
 Write a function that generates a
 [depth-first order graph traversal](https://en.wikipedia.org/wiki/Depth-first_search)

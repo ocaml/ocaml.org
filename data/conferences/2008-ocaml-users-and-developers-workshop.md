@@ -35,7 +35,7 @@ organising_committee:
  - name: Gabriel Kerneis
 ---
 
-### Call for Presentations
+## Call for Presentations
 
 Please consider submitting a presentation! See here the call for presentations.
 

@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 We use lists to represent the result. Note that `preorder` and `inorder` can be made more efficient by avoiding list concatenations.
 
@@ -56,7 +56,7 @@ Solution using
 ```
 
 
-# Statement
+## Statement
 
 We consider binary trees with nodes that are identified by single
 lower-case letters, as in the example of the previous problem.
