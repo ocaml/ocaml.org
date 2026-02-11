@@ -47,7 +47,7 @@ out the rules and write the corresponding OCaml function.
 **Hint:** On a given level, the horizontal distance between
 neighbouring nodes is constant.
 
-The tree shown is 
+The tree shown is
 ```ocaml
 # let example_layout_tree =
   let leaf x = Node (x, Empty, Empty) in

@@ -20,7 +20,7 @@ type 'a binary_tree =
     | (_, []) -> (List.rev acc, [])
     | (_, h :: t) -> split_n t (h :: acc) (n-1)
 
-  let rec myflatten p c = 
+  let rec myflatten p c =
     match (p, c) with
     | (p, []) -> List.map (fun x -> Node (x, Empty, Empty)) p
     | (x :: t, [y]) -> Node (x, y, Empty) :: myflatten t []

@@ -19,7 +19,7 @@ type 'a binary_tree =
    * Every internal node will be pushed directly into accumulator.
    * Not tail-recursive, but that is no problem since we have a binary tree and
    * and stack depth is logarithmic. *)
-  let internals t = 
+  let internals t =
     let rec internals_aux t acc = match t with
       | Empty -> acc
       | Node (x, Empty, Empty) -> acc

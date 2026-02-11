@@ -11,7 +11,7 @@ tutorials: [ "loops-recursion"]
 
 ```ocaml
 # type 'a node =
-    | One of 'a 
+    | One of 'a
     | Many of 'a node list;;
 type 'a node = One of 'a | Many of 'a node list
 # (* This function traverses the list, prepending any encountered elements
@@ -33,7 +33,7 @@ Flatten a nested list structure.
 
 ```ocaml
 type 'a node =
-  | One of 'a 
+  | One of 'a
   | Many of 'a node list
 ```
 

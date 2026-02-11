@@ -13,7 +13,7 @@ description: "Split a list into two parts, with the length of the first part spe
     let rec aux i acc = function
       | [] -> List.rev acc, []
       | h :: t as l -> if i = 0 then List.rev acc, l
-                       else aux (i - 1) (h :: acc) t 
+                       else aux (i - 1) (h :: acc) t
     in
       aux n [] list;;
 val split : 'a list -> int -> 'a list * 'a list = <fun>

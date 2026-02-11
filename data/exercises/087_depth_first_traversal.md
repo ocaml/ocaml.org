@@ -47,7 +47,7 @@ discovered node *u*, this fact is recorded in the predecessor subgraph
     type node = char
     type t = (node list) Char_map.t
 
-    let of_adjacency l = 
+    let of_adjacency l =
       List.fold_right (fun (x, y) -> Char_map.add x y) l Char_map.empty
 
     type colors = White|Gray|Black
@@ -80,7 +80,7 @@ discovered node *u*, this fact is recorded in the predecessor subgraph
       in
       let v = List.fold_left (fun k (x, _) -> x :: k) []
                              (Char_map.bindings g) in
-      let initial_state= 
+      let initial_state=
         {d = Char_map.empty;
          f = Char_map.empty;
          pred = Char_map.empty;
