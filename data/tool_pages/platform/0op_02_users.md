@@ -17,7 +17,7 @@ ecosystem while empowering users to achieve their individual goals.
 
 ## (U1) Application Developer
 
-_Builds OCaml applications to solve real-world problems_
+Builds OCaml applications to solve real-world problems.
 
 Application developers using OCaml are focused on building solutions to
 real-world problems. They care deeply about application stability, reliability,
@@ -68,7 +68,7 @@ image classifiers using Owl.
 
 ## (U2) Library Author
 
-_Builds re-usable OCaml components, not directly executable_
+Builds re-usable OCaml components, not directly executable.
 
 Library authors write code consumed by other developers while using other
 people's libraries to build their own. They focus on ensuring that their
@@ -124,7 +124,7 @@ the OCaml community to use.
 
 ## (U3) Distribution Manager
 
-_Works on maintaining a Linux distro like Debian or RedHat_
+Works on maintaining a Linux distro like Debian or RedHat.
 
 Distribution managers work on maintaining Unix distributions, such as BSD,
 Debian or Red Hat, and ensuring that OCaml applications, libraries, and tools
@@ -157,7 +157,7 @@ to include in their distributions and ensure they are well-supported and secure.
 
 ## (U4) Newcomer
 
-_Learn the syntax and language features_
+Learns the syntax and language features.
 
 Newcomers are individuals who are new to OCaml or interested in learning the
 language for personal or educational purposes. They are often drawn to OCaml
