@@ -1,19 +1,44 @@
 open Cmdliner
 open Ood_gen
 
-let term_scrapers =
-  [
-    ("planet", Blog.Scraper.scrape);
-    ("video", Video.scrape);
-    ("platform_releases", Platform_release.Scraper.scrape_platform_releases);
-  ]
+let commit_file_arg =
+  let doc = "Write commit message to $(docv)." in
+  Arg.(
+    value & opt (some string) None & info [ "commit-file" ] ~docv:"FILE" ~doc)
+
+let report_file_arg =
+  let doc = "Write full report to $(docv) (for PR body)." in
+  Arg.(
+    value & opt (some string) None & info [ "report-file" ] ~docv:"FILE" ~doc)
+
+let planet_cmd =
+  let run commit_file report_file =
+    let entries = Blog.Scraper.scrape () in
+    Option.iter
+      (fun p -> Scrape_report.write_commit_message p entries)
+      commit_file;
+    Option.iter (fun p -> Scrape_report.write_report p entries) report_file
+  in
+  Cmd.v (Cmd.info "planet") Term.(const run $ commit_file_arg $ report_file_arg)
+
+let video_cmd =
+  let run commit_file report_file =
+    let entries = Video.scrape () in
+    Option.iter
+      (fun p -> Scrape_report.append_commit_message p entries)
+      commit_file;
+    Option.iter (fun p -> Scrape_report.append_report p entries) report_file
+  in
+  Cmd.v (Cmd.info "video") Term.(const run $ commit_file_arg $ report_file_arg)
+
+let platform_releases_cmd =
+  Cmd.v
+    (Cmd.info "platform_releases")
+    Term.(const Platform_release.Scraper.scrape_platform_releases $ const ())
 
 let cmds =
   Cmd.group (Cmd.info "ood-scrape")
-  @@ List.map
-       (fun (term, scraper) ->
-         Cmd.v (Cmd.info term) Term.(const scraper $ const ()))
-       term_scrapers
+    [ planet_cmd; video_cmd; platform_releases_cmd ]
 
 let () =
   Printexc.record_backtrace true;

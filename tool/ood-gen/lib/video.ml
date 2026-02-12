@@ -8,5 +8,6 @@ let all =%a
     Vid.pp_video_list (all ())
 
 let scrape () =
-  Youtube.scrape "data/video-youtube.yml";
-  Watch.scrape "data/video-watch.yml"
+  let yt_entries = Youtube.scrape "data/video-youtube.yml" in
+  let watch_entries = Watch.scrape "data/video-watch.yml" in
+  yt_entries @ watch_entries
