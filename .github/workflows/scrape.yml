@@ -45,17 +45,24 @@ jobs:
 
       - name: Run scrapers
         run: |
-          make scrape_ocaml_planet
+          make scrape_ocaml_planet \
+            COMMIT_FILE=_scrape_commit.md \
+            REPORT_FILE=_scrape_report.md
+
+      - name: Read commit message
+        id: scrape
+        run: |
+          { echo "msg<<EOF"; cat _scrape_commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          title: '[scrape.yml] New OCaml blog posts and videos'
+          title: '[scrape] New OCaml Planet posts'
+          commit-message: ${{ steps.scrape.outputs.msg }}
+          body-path: _scrape_report.md
           labels: scrape
           branch: create-pull-request/patch-scrape-planet
           add-paths: |
             data/video-watch.yml
             data/video-youtube.yml
             data/planet/*/*.md
-          commit-message: |
-            [scrape.yml] New OCaml Planet blog posts and videos
