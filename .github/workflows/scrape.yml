@@ -9,6 +9,7 @@ on:
 jobs:
   scrape:
     name: Run Scrapers
+    if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
 
     runs-on: ${{ matrix.os }}
 
