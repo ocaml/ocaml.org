@@ -11,7 +11,7 @@ let rec gcd a b = if b = 0 then a else gcd b (a mod b)
 let coprime a b = gcd a b = 1
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* [coprime] is defined in the previous question *)
@@ -25,7 +25,7 @@ let coprime a b = gcd a b = 1
 val phi : int -> int = <fun>
 ```
 
-# Statement
+## Statement
 
 Euler's so-called totient function φ(m) is defined as the number of
 positive integers r (1 ≤ r < m) that are coprime to m. We let φ(1) = 1.

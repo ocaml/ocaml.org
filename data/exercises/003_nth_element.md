@@ -7,7 +7,7 @@ description: "Find the N'th element of a list."
 tutorials: ["options"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec at k = function
@@ -16,7 +16,7 @@ tutorials: ["options"]
 val at : int -> 'a list -> 'a option = <fun>
 ```
 
-# Statement
+## Statement
 
 Find the N'th element of a list.
 

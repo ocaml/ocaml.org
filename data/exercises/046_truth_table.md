@@ -14,7 +14,7 @@ type bool_expr =
   | Or of bool_expr * bool_expr
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec eval2 a val_a b val_b = function
@@ -34,7 +34,7 @@ val table2 : string -> string -> bool_expr -> (bool * bool * bool) list =
   <fun>
 ```
 
-# Statement
+## Statement
 
 Let us define a small "language" for boolean expressions containing
 variables:

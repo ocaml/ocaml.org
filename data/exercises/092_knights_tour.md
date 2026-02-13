@@ -6,13 +6,13 @@ tags: []
 description: "Determine a sequence of knight's moves on an N×N chessboard such that the knight visits every square exactly once."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 Another famous problem is this one: How can a knight jump on an N×N
 chessboard in such a way that it visits every square exactly once?

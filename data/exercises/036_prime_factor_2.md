@@ -6,7 +6,7 @@ tags: [ "arithmetic" ]
 description: "Find the prime factors of a given positive integer 'n' along with their multiplicities."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let factors n =
@@ -22,7 +22,7 @@ description: "Find the prime factors of a given positive integer 'n' along with 
 val factors : int -> (int * int) list = <fun>
 ```
 
-# Statement
+## Statement
 
 Construct a list containing the prime factors and their multiplicity.
 

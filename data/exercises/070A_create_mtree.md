@@ -10,7 +10,7 @@ description: "Convert multiway trees into depth-first order sequence strings and
 type 'a mult_tree = T of 'a * 'a mult_tree list
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* We could build the final string by string concatenation but
@@ -52,7 +52,7 @@ val string_of_tree : char mult_tree -> string = <fun>
 val tree_of_string : string -> char mult_tree = <fun>
 ```
 
-# Statement
+## Statement
 
 ![Multiway Tree](/media/problems/multiway-tree.gif)
 

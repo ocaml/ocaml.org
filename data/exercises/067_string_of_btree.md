@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 A simple solution is:
 
@@ -70,7 +70,7 @@ and do not deal with error reporting.
 val tree_of_string : string -> char binary_tree = <fun>
 ```
 
-# Statement
+## Statement
 
 ![Binary Tree](/media/problems/binary-tree.gif)
 

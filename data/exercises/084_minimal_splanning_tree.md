@@ -6,13 +6,13 @@ tags: [ "graph" ]
 description: "Construct the minimal spanning tree of a given labeled graph."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* solution pending *);;
 ```
 
-# Statement
+## Statement
 
 ![Spanning tree graph](/media/problems/spanning-tree-graph2.gif)
 

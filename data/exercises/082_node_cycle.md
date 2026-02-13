@@ -24,7 +24,7 @@ let rec list_path g a to_b = match to_b with
             List.concat_map (fun c -> list_path g a (c :: to_b)) n
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let cycles g a =
@@ -34,7 +34,7 @@ let rec list_path g a to_b = match to_b with
 val cycles : 'a graph_term -> 'a -> 'a list list = <fun>
 ```
 
-# Statement
+## Statement
 
 Write a functions `cycle g a` that returns a closed path (cycle) `p`
 starting at a given node `a` in the graph `g`. The predicate should

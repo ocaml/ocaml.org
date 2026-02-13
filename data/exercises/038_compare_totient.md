@@ -43,7 +43,7 @@ let phi_improved n =
     aux 1 (factors n)
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Naive [timeit] function.  It requires the [Unix] module to be loaded. *)
@@ -55,9 +55,9 @@ let phi_improved n =
 val timeit : ('a -> 'b) -> 'a -> float = <fun>
 ```
 
-# Statement
+## Statement
 
-Use the solutions of problems 
+Use the solutions of problems
 "[Calculate Euler&#39;s totient function φ(m)](#34)" and
 "[Calculate Euler&#39;s totient function φ(m) (improved)](#37)"
 to compare the algorithms. Take the number of logical inferences as a measure for efficiency. Try to calculate φ(10090) as an example.

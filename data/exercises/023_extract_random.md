@@ -7,7 +7,7 @@ description: "Randomly select N elements from a list."
 ---
 
 
-# Solution
+## Solution
 
 ```ocaml
 # let rand_select list n =
@@ -29,10 +29,10 @@ description: "Randomly select N elements from a list."
 val rand_select : 'a list -> int -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 The selected items shall be returned in a list. We use the `Random`
-module but and initialise it with `Random.init 0` at the start of 
+module but and initialise it with `Random.init 0` at the start of
 the function for reproducibility and validate the solution. To make the function truly random, however,
 one should remove the call to `Random.init 0`
 

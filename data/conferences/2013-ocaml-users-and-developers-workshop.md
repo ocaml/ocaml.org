@@ -136,11 +136,11 @@ program_committee:
     affiliation: EADS IW, France
 ---
 
-### Call for Presentations
+## Call for Presentations
 
 Please consider submitting a presentation, and/or join us in Boston! See here the call for presentations.
 
-### Submission
+## Submission
 
 If you have any questions, please e-mail:
 Michel Mauny <michel.mauny AT ensta-paristech DOT fr>

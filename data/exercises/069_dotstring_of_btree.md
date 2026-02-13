@@ -6,13 +6,13 @@ tags: [ "binary-tree" ]
 description: "Convert binary trees into dot-representations and vice versa using difference lists."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
   (* solution pending *)
 ```
 
-# Statement
+## Statement
 
 We consider again binary trees with nodes that are identified by single
 lower-case letters, as in the example of problem “[A string

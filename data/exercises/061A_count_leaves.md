@@ -13,7 +13,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec count_leaves = function
@@ -23,7 +23,7 @@ type 'a binary_tree =
 val count_leaves : 'a binary_tree -> int = <fun>
 ```
 
-# Statement
+## Statement
 
 A leaf is a node with no successors. Write a function `count_leaves` to
 count them.

@@ -1,6 +1,6 @@
 # Information for maintainers
 
-# How we maintain the staging branch
+## How we maintain the staging branch
 
 To reduce the workload maintaining the `staging` branch in a good shape where
 it is close to the main branch with only a few patches applied, some discipline is needed:

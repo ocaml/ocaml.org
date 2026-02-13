@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Extract a slice of a list between indices i and k, both inclusive, using 0-based indexing."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let slice list i k =
@@ -42,7 +42,7 @@ val fold_until : ('a -> 'b -> 'a) -> 'a -> int -> 'b list -> 'a * 'b list =
 val slice : 'a list -> int -> int -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Given two indices, `i` and `k`, the slice is the list containing the
 elements between the `i`'th and `k`'th element of the original list

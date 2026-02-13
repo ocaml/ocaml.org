@@ -6,7 +6,7 @@ tags: [ "arithmetic" ]
 description: "Generate a list of all prime numbers within a specified range of integers."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let is_prime n =
@@ -24,7 +24,7 @@ val is_prime : int -> bool = <fun>
 val all_primes : int -> int -> int list = <fun>
 ```
 
-# Statement
+## Statement
 
 Given a range of integers by its lower and upper limit, construct a list
 of all prime numbers in that range.

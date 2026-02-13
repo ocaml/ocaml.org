@@ -7,11 +7,11 @@ description: "Write a function that flattens a nested list structure represented
 tutorials: [ "loops-recursion"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # type 'a node =
-    | One of 'a 
+    | One of 'a
     | Many of 'a node list;;
 type 'a node = One of 'a | Many of 'a node list
 # (* This function traverses the list, prepending any encountered elements
@@ -27,13 +27,13 @@ type 'a node = One of 'a | Many of 'a node list
 val flatten : 'a node list -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Flatten a nested list structure.
 
 ```ocaml
 type 'a node =
-  | One of 'a 
+  | One of 'a
   | Many of 'a node list
 ```
 

@@ -14,7 +14,7 @@ let is_prime n =
   n <> 1 && is_not_divisor 2
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* [is_prime] is defined in the previous solution *)
@@ -27,7 +27,7 @@ let is_prime n =
 val goldbach : int -> int * int = <fun>
 ```
 
-# Statement
+## Statement
 
 Goldbach's conjecture says that every positive even number greater than
 2 is the sum of two prime numbers. Example: 28 = 5 + 23. It is one of

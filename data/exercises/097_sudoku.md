@@ -7,7 +7,7 @@ description: "Solve Sudoku puzzles by filling in the missing spots with digits (
 tutorials: [ "arrays", "mutability-imperative-control-flow" ]
 ---
 
-# Solution
+## Solution
 
 A simple way of resolving this is to use brute force.
 The idea is to start filling with available values in each case and
@@ -106,7 +106,7 @@ module Board :
 val sudoku : Board.t -> Board.t = <fun>
 ```
 
-# Statement
+## Statement
 
 Sudoku puzzles go like this:
 

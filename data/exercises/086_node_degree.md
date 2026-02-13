@@ -6,13 +6,13 @@ tags: [ "graph" ]
 description: "Implement Welsh-Powell's algorithm to color the nodes of a graph so that adjacent nodes have different colors."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 * Write a function `degree graph node` that determines the degree of a
  given node.

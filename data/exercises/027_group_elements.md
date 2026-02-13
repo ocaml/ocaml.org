@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Generate all possible ways to group elements into disjoint subsets."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # (* This implementation is less streamlined than the one-extraction
@@ -47,11 +47,11 @@ description: "Generate all possible ways to group elements into disjoint subsets
 val group : 'a list -> int list -> 'a list list list = <fun>
 ```
 
-# Statement
+## Statement
 
 Group the elements of a set into disjoint subsets
 
-1. In how many ways can a group of 9 people work in 3 disjoint subgroups 
+1. In how many ways can a group of 9 people work in 3 disjoint subgroups
 of 2, 3 and 4 persons? Write a function that generates all the
 possibilities and returns them in a list.
 2. Generalize the above function in a way that we can specify a list of

@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Write a function that rotates a list N places to the left."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let split list n =
@@ -26,7 +26,7 @@ val split : 'a list -> int -> 'a list * 'a list = <fun>
 val rotate : 'a list -> int -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Rotate a list N places to the left.
 

@@ -6,13 +6,13 @@ tags: [ "graph" ]
 description: "Split a graph into its connected components."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 Write a predicate that splits a graph into its [connected
 components](http://en.wikipedia.org/wiki/Connected_component_%28graph_theory%29).

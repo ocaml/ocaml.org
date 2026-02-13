@@ -7,7 +7,7 @@ description: "Check whether a given string conforms to the syntax rules of a leg
 tutorials: [ "basic-data-types" ]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let identifier =
@@ -24,7 +24,7 @@ tutorials: [ "basic-data-types" ]
 val identifier : string -> bool = <fun>
 ```
 
-# Statement
+## Statement
 
 ![Syntax graph](/media/problems/syntax-graph.gif)
 

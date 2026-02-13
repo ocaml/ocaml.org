@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let layout_binary_tree_2 t =
@@ -37,7 +37,7 @@ val layout_binary_tree_2 : 'a binary_tree -> ('a * int * int) binary_tree =
   <fun>
 ```
 
-# Statement
+## Statement
 
 ![Binary Tree Grid](/media/problems/tree-layout2.gif)
 
@@ -47,7 +47,7 @@ out the rules and write the corresponding OCaml function.
 **Hint:** On a given level, the horizontal distance between
 neighbouring nodes is constant.
 
-The tree shown is 
+The tree shown is
 ```ocaml
 # let example_layout_tree =
   let leaf x = Node (x, Empty, Empty) in

@@ -12,7 +12,7 @@ type 'a rle =
   | Many of int * 'a
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let decode list =
@@ -28,7 +28,7 @@ type 'a rle =
 val decode : 'a rle list -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Given a run-length code list generated as specified in the previous
 problem, construct its uncompressed version.

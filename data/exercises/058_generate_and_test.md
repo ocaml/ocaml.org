@@ -38,7 +38,7 @@ let rec cbal_tree n =
       add_trees_with t1 t2 (add_trees_with t2 t1 [])
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let sym_cbal_trees n =
@@ -46,7 +46,7 @@ let rec cbal_tree n =
 val sym_cbal_trees : int -> char binary_tree list = <fun>
 ```
 
-# Statement
+## Statement
 
 Apply the generate-and-test paradigm to construct all symmetric,
 completely balanced binary trees with a given number of nodes.

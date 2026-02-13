@@ -10,7 +10,7 @@ description: "Write a function that counts the number of nodes in a multiway tre
 type 'a mult_tree = T of 'a * 'a mult_tree list
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec count_nodes (T (_, sub)) =
@@ -18,7 +18,7 @@ type 'a mult_tree = T of 'a * 'a mult_tree list
 val count_nodes : 'a mult_tree -> int = <fun>
 ```
 
-# Statement
+## Statement
 
 ```ocaml
 # count_nodes (T ('a', [T ('f', []) ]));;

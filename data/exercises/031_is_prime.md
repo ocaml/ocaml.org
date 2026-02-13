@@ -6,7 +6,7 @@ tags: ["arithmetic"]
 description: "Check if a given integer is a prime number."
 ---
 
-# Solution
+## Solution
 
 Recall that `d` divides `n` if and only if `n mod d = 0`. This is a naive
 solution. See the [Sieve of
@@ -22,7 +22,7 @@ more clever one.
 val is_prime : int -> bool = <fun>
 ```
 
-# Statement
+## Statement
 
 Determine whether a given integer number is prime.
 

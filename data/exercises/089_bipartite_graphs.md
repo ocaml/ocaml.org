@@ -6,13 +6,13 @@ tags: [ "graph" ]
 description: "Determine whether a given graph is bipartite."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 Write a predicate that finds out whether a given graph is
 [bipartite](http://en.wikipedia.org/wiki/Bipartite_graph).
