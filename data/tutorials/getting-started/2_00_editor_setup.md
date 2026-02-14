@@ -2,7 +2,7 @@
 id: set-up-editor
 title: Configuring Your Editor
 description: |
-  This page will show you how to set up your editor for OCaml. 
+  This page will show you how to set up your editor for OCaml.
 category: "Tooling"
 ---
 While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools required to enhance Merlin, our editor of choice with OCaml support. Merlin provides all features such as "jump to definition," "show type," and `ocaml-lsp-server`, a server that delivers those features to the editor through the LSP server.
@@ -73,13 +73,13 @@ For the purposes of this tutorial, we are going to focus on the use of `tuareg` 
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
 ```
 
-#### Melpa and `use-package`
+#### MELPA and `use-package`
 
 If your version of Emacs does not support the `use-package` macro (or is not set up to take MELPA packages into account), please update it and follow these instructions to install [`use-package`](https://github.com/jwiegley/use-package) and [MELPA](https://melpa.org/#/getting-started).
 
 ### LSP setup for OCaml
 
-Since version `29.1`, Emacs has had a built-in mode for interacting with LSP servers, [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html). If you are using an earlier version of Emacs, you will need to install it this way:
+Since version 29.1, Emacs has had a built-in mode for interacting with LSP servers, [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html). If you are using an earlier version of Emacs, you will need to install it this way:
 
 ```elisp
 (use-package eglot
@@ -164,7 +164,7 @@ Add this to your toplevel `init.lua`.
 ```lua
 vim.lsp.config['ocamllsp'] = {
   cmd = { 'ocamllsp' },
-  filetypes = { 
+  filetypes = {
     'ocaml',
     'ocaml.interface',
     'ocaml.menhir',
@@ -210,7 +210,7 @@ Add your LSP config to `lsp/ocamllsp.lua`.
 ```lua
 return {
   cmd = { 'ocamllsp' },
-  filetypes = { 
+  filetypes = {
     'ocaml',
     'ocaml.interface',
     'ocaml.menhir',
