@@ -5,7 +5,8 @@ description: |
   This page will show you how to set up your editor for OCaml.
 category: "Tooling"
 ---
-While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools required to enhance Merlin, our editor of choice with OCaml support. Merlin provides all features such as "jump to definition," "show type," and `ocaml-lsp-server`, a server that delivers those features to the editor through the LSP server.
+While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. The OCaml ecosystem provides `ocaml-lsp-server`, a Language Server Protocol (LSP) server that delivers editor features such as "jump to definition," "show type," autocompletion, and more. It uses [Merlin](https://ocaml.github.io/merlin/) under the hood as its analysis engine.
+
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
 ## Visual Studio Code
@@ -52,18 +53,20 @@ If you used the DkML distribution, you will need to:
 
 ## Emacs
 
+> **Note:** Emacs 29.1 or later is recommended, as both `use-package` and `eglot` (the built-in LSP client) are included out of the box.
+
 Using Emacs to work with OCaml requires at least two modes:
 
 - A major mode, which, among other things, supports syntax highlighting and the structuring of indentation levels
-- A minor mode, which will interact with a language server (such as `ocaml-lsp-server` or `merlin`). In this tutorial, we will focus on using the new `ocaml-eglot` mode and `ocaml-lsp-server` as a server.
+- A minor mode, which will interact with a language server (such as `ocaml-lsp-server`). In this tutorial, we will focus on using `ocaml-eglot` and `ocaml-lsp-server`.
 
 ### Choosing a major mode
 
 There are several major modes dedicated to OCaml, of which the 3 main ones are:
 
-- [Tuareg](https://github.com/ocaml/tuareg): an old-fashioned (but still updated), very complete mode, usually the recommended one
-- [Caml](https://github.com/ocaml/caml-mode): a mode even older than `tuareg` (but still updated), lighter than `tuareg`
-- [Neocaml](https://github.com/bbatsov/neocaml): a brand new mode, based on modern tools (like [tree-sitter](https://tree-sitter.github.io/tree-sitter/)). Still experimental at the time of writing.
+- [Tuareg](https://github.com/ocaml/tuareg): a well-established and actively maintained mode with comprehensive OCaml support. Recommended if you're using an older version of Emacs (before the introduction of `tree-sitter` support) or you need some of the advanced functionality that Tuareg provides.
+- [Caml](https://github.com/ocaml/caml-mode): an older, lighter mode that is softly deprecated at this point.
+- [Neocaml](https://github.com/bbatsov/neocaml): a newer mode based on [tree-sitter](https://tree-sitter.github.io/tree-sitter/), requiring Emacs 30+. A solid choice if you're using Emacs 30+ and you're after a simple mode that gets the basics right.
 
 For the purposes of this tutorial, we are going to focus on the use of `tuareg` as the major mode, but you should feel free to experiment and choose your favourite one! To use `tuareg`, you can add these lines to your Emacs configuration:
 
@@ -75,18 +78,18 @@ For the purposes of this tutorial, we are going to focus on the use of `tuareg` 
 
 #### MELPA and `use-package`
 
-If your version of Emacs does not support the `use-package` macro (or is not set up to take MELPA packages into account), please update it and follow these instructions to install [`use-package`](https://github.com/jwiegley/use-package) and [MELPA](https://melpa.org/#/getting-started).
+The `use-package` macro has been built into Emacs since version 29.1. If you are on an older version, you will need to install [`use-package`](https://github.com/jwiegley/use-package) manually. You will also need to ensure [MELPA](https://melpa.org/#/getting-started) is configured as a package source.
 
 ### LSP setup for OCaml
 
-Since version 29.1, Emacs has had a built-in mode for interacting with LSP servers, [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html). If you are using an earlier version of Emacs, you will need to install it this way:
+Since version 29.1, Emacs includes [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html), a built-in LSP client. On older versions of Emacs, you will need to install it separately:
 
 ```elisp
 (use-package eglot
   :ensure t)
 ```
 
-Next, we need to bridge the gap between our major mode (in this case, `tuareg`) and `eglot`. This is done using the [`ocaml-eglot`](https://github.com/tarides/ocaml-eglot) package:
+Next, we need to bridge the gap between our major mode (in this case, `tuareg`) and `eglot`. Standard `eglot` provides basic LSP features, but OCaml's LSP server supports additional capabilities beyond the LSP specification. The [`ocaml-eglot`](https://github.com/tarides/ocaml-eglot) package exposes these extra features (such as type enclosing navigation, destruct, and project-wide search):
 
 ```elisp
 (use-package ocaml-eglot
