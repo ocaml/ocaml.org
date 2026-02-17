@@ -29,6 +29,7 @@
 - id: ujamjar
   name: Andy Ray
   url: http://www.ujamjar.com/ocaml.xml
+  disabled: true
 - id: ashishagarwal
   name: Ashish Agarwal
   url: http://ashishagarwal.org/tag/ocaml/feed/
@@ -45,6 +46,11 @@
 - id: coq
   name: Coq
   url: https://coq.inria.fr/rss.xml
+  publish_all: false
+  disabled: true
+- id: rocq
+  name: Rocq Prover
+  url: https://rocq-prover.org/news.xml
   publish_all: false
 - id: cburnout
   name: Cranial Burnout
