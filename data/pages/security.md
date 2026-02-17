@@ -49,4 +49,4 @@ The SRT publishes security guides for OCaml programmers and project maintainers.
 
 ## SRT Reports
 
-The SRT reports quarterly on our completed and ongoing work, and future plans.
+Reports from the security report team [are available on GitHub](https://github.com/ocaml/security-advisories/tree/main/reports).
