@@ -936,7 +936,7 @@ This tutorial has provided a comprehensive overview of OCaml's basic data types 
 <!--
 From the data point of view, records and tuples are similar to the logical conjunction “and,” while variants are similar to the logical disjunction “or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
-In this tutorial _variants_ and _products_ were presented, this correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
+In this tutorial _variants_ and _products_ were presented, these correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
 
 ## Next: Advanced Data Types
 -->
