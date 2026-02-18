@@ -1,7 +1,7 @@
 ---
 title: "Platform Newsletter: November 2025 to January 2026"
 description: "OCaml Platform Nov 2025-Jan 2026: Relocatable OCaml merged, opam 2.5.0 with significant speedup, OCaml-LSP 1.25.0 with .mlx support, Dune 3.21.0, Merlin 5.6.1-504, and dune-release 2.2.0"
-date: "2026-02-11"
+date: "2026-02-19"
 tags: [platform]
 ---
 
