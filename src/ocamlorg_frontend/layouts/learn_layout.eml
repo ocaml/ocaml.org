@@ -34,24 +34,33 @@ let tabs
 
 let render_sidebar
   ~current_tutorial
+  ~(language : Data.Tutorial.language option)
   ~tutorials
   ~(section: section)
   =
     let render_tutorial_link ~title ~slug =
-      Sidebar.sidebar_link ~title ~href:(Url.tutorial slug) ~current:(current_tutorial = Some (slug))
+      Sidebar.sidebar_link ~title ~href:(Url.tutorial slug language) ~current:(current_tutorial = Some (slug))
     in
     let render_tutorial (tutorial : Data.Tutorial.t) = render_tutorial_link ~title:tutorial.short_title ~slug:tutorial.slug ~tag:(Option.map (fun (et: Data.Tutorial.external_tutorial) -> et.tag) tutorial.external_tutorial) in
+    let unique lst =
+      let rec unique' acc = function
+        | [] -> List.rev acc
+        | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
+      in
+      unique' [] lst
+    in
     let tutorial_sidebar_links_by_category category =
-      tutorials |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category) |> List.map render_tutorial |> String.concat "\n"
+      tutorials
+      |> List.filter (fun (x : Data.Tutorial.t) -> x.category = category)
+      |> List.map (fun (x : Data.Tutorial.t) -> x.slug)
+      |> unique
+      |> List.map (fun slug ->
+        Data.Tutorial.get_by_slug_and_language slug language
+        |> Option.get)
+      |> List.map render_tutorial
+      |> String.concat "\n"
     in
     let categories =
-      let unique lst =
-        let rec unique' acc = function
-          | [] -> List.rev acc
-          | h::t -> unique' (if List.mem h acc then acc else h :: acc) t
-        in
-        unique' [] lst
-      in
       tutorials |> List.map (fun (tutorial : Data.Tutorial.t) -> tutorial.category) |> unique
     in
 

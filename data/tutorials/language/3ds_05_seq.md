@@ -4,6 +4,7 @@ title: Sequences
 description: >
   Learn about sequences, one of OCaml's most-used, built-in data types
 category: "Data Structures"
+language: English
 prerequisite_tutorials:
   - "lists"
   - "options"

@@ -4,6 +4,7 @@ title: First-Class Modules
 description: >
   First-Class Modules permit the use of modules as ordinary values.
 category: "Module System"
+language: English
 ---
 
 ## Introduction

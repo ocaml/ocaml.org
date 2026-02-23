@@ -4,6 +4,7 @@ title: Modules
 description: >
   Modules are collections of definitions. This is the basic means to organise OCaml software.
 category: "Module System"
+language: English
 prerequisite_tutorials:
   - values-and-functions
   - basic-data-types

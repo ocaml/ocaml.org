@@ -5,6 +5,7 @@ short_title: "Installing a Specific Compiler Version"
 description: |
   How to install a specific version of OCaml
 category: "Projects"
+language: English
 ---
 
 > **TL;DR**

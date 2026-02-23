@@ -26,28 +26,28 @@ let learn_get_started req =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = GetStarted)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let learn_language req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Language)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let learn_guides req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Guides)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let learn_platform req =
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
   in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (List.hd tutorials).slug None)
 
 let community _req =
   let query = Dream.query _req "e" in
@@ -765,7 +765,13 @@ let tool_page commit_hash req =
 
 let tutorial commit_hash req =
   let slug = Dream.param req "id" in
-  let</>? tutorial = Data.Tutorial.get_by_slug slug in
+  let language =
+    Option.bind
+      (Dream.query req "lang")
+      Data.Tutorial.language_of_query_param
+  in
+  let available_languages = Data.Tutorial.get_available_languages slug in
+  let</>? tutorial = Data.Tutorial.get_by_slug_and_language slug language in
   let all_tutorials = Data.Tutorial.all in
 
   let tutorials =
@@ -795,8 +801,9 @@ let tutorial commit_hash req =
 
   Dream.html
     (Ocamlorg_frontend.tutorial commit_hash ~tutorials
-       ~canonical:(Url.tutorial tutorial.slug)
+       ~canonical:(Url.tutorial tutorial.slug None)
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
+       ~available_languages ~language
        tutorial)
 
 let exercises req =

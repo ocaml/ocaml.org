@@ -4,6 +4,7 @@ title: Introduction to opam Switches
 description: |
   This page will give you a brief introduction to opam switches, what they're used for, and how to create them.
 category: "Tooling"
+language: English
 ---
 
 OCaml's package manager, opam, introduces the concept of a _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations.

@@ -5,6 +5,7 @@ short_title: "Publishing a Package"
 description: |
   How to publish a package with Dune
 category: "Libraries & Packages"
+language: English
 ---
 
 > **TL;DR**

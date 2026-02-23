@@ -4,6 +4,7 @@ title: OCaml Programming Guidelines
 description: >
   Opinionated guidelines for writing OCaml code
 category: "Resources"
+language: English
 ---
 
 This is a set of reasonable guidelines for writing OCaml
