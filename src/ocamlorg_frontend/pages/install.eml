@@ -73,7 +73,7 @@ Layout.render
 
             <p>
               Opam needs to be initialised, which will create a default
-              <a href="<%s Url.tutorial "opam-switch-introduction" %>">opam switch</a>.
+              <a href="<%s Url.tutorial "opam-switch-introduction" None %>">opam switch</a>.
               An opam switch is an isolated environment for the OCaml compiler
               and any packages you install.
             </p>
@@ -113,7 +113,7 @@ Layout.render
 
           <p>Now you are ready to write some OCaml code!</p>
         </div>
-        <a class="btn mt-6 gap-2" href="<%s Url.tutorial "tour-of-ocaml" %>">Take A Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
+        <a class="btn mt-6 gap-2" href="<%s Url.tutorial "tour-of-ocaml" None %>">Take A Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
       </div>
     </div>
 
@@ -129,7 +129,7 @@ Layout.render
                 OCaml's package manager, opam, supports Windows natively since version 2.2.0 and is the recommended way to install OCaml on Windows.
 
                 If you are looking for a different installation method, check out the alternative installation instructions
-                provided in the <a href="<%s Url.tutorial "ocaml-on-windows" %>">"OCaml on Windows" guide</a>.
+                provided in the <a href="<%s Url.tutorial "ocaml-on-windows" None %>">"OCaml on Windows" guide</a>.
               </p>
 
               <p>
@@ -145,7 +145,7 @@ Layout.render
 
             <p>
               Now, we are ready to initialise opam, which will create a default
-              <a href="<%s Url.tutorial "opam-switch-introduction" %>">opam switch</a>.
+              <a href="<%s Url.tutorial "opam-switch-introduction" None %>">opam switch</a>.
               An opam switch is an isolated environment for the OCaml compiler
               and any packages you install.
             </p>
@@ -173,7 +173,7 @@ Layout.render
 
               <%s! Copy_to_clipboard.small_code_snippet ~id:"powershell-activate" "(& opam env) -split '\\r?\\n' | ForEach-Object { Invoke-Expression $_ }" %>
 
-              Opam initialisation may take several minutes. Start <a href="<%s Url.tutorial "tour-of-ocaml" %>">A Tour of OCaml</a> while waiting.
+              Opam initialisation may take several minutes. Start <a href="<%s Url.tutorial "tour-of-ocaml" None %>">A Tour of OCaml</a> while waiting.
             </p>
           </li>
         </ol>
@@ -197,7 +197,7 @@ Layout.render
 
           <p>Now you are ready to write some OCaml code!</p>
         </div>
-        <a class="btn mt-6 gap-2" href="<%s Url.tutorial "tour-of-ocaml" %>">Take A Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
+        <a class="btn mt-6 gap-2" href="<%s Url.tutorial "tour-of-ocaml" None %>">Take A Tour of OCaml <%s! Icons.arrow_small_right "h-6 w-6" %></a>
       </div>
 
     </div>

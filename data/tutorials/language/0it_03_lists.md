@@ -4,6 +4,7 @@ title: Lists
 description: >
   Learn about one of OCaml's most used, built-in data types
 category: "Introduction"
+language: English
 ---
 
 A list is an ordered sequence of elements. All elements of a list in OCaml must

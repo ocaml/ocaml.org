@@ -4,7 +4,7 @@
  (modules data_intf)
  (libraries ptime)
  (preprocess
-  (pps ppx_deriving_yaml ppx_deriving.show)))
+  (pps ppx_deriving_yaml ppx_deriving.show ppx_compare)))
 
 (library
  (name data)

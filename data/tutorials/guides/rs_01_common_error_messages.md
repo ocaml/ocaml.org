@@ -4,6 +4,7 @@ title: Common Error Messages
 description: >
   Understand the most common error messages the OCaml compiler can throw at you
 category: "Resources"
+language: English
 ---
 
 This page gives a list of quick explanations for some error or warning

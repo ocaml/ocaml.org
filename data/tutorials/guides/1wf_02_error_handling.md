@@ -4,6 +4,7 @@ title: Error Handling
 description: >
   Discover the different ways you can manage errors in your OCaml programs
 category: "Guides"
+language: English
 ---
 
 In OCaml, errors can be handled in several ways. This document presents most of
