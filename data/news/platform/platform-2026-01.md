@@ -9,11 +9,12 @@ Welcome to the seventeenth edition of the OCaml Platform newsletter!
 
 In this November 2025 to January 2026 edition, we are excited to bring you the latest on the OCaml Platform, continuing our tradition of highlighting recent developments as seen in [previous editions](https://discuss.ocaml.org/tag/platform-newsletter). To understand the direction we're headed, especially regarding development workflows and user experience improvements, check out our [roadmap](https://ocaml.org/docs/platform-roadmap).
 
-You can [comment on this newsletter on the OCaml Discuss Forums](https://discuss.ocaml.org/t/ocaml-platform-newsletter-november-2025-to-january-2026/)!
+You can [comment on this newsletter on the OCaml Discuss Forums](https://discuss.ocaml.org/t/ocaml-platform-newsletter-november-2025-to-january-2026/17845)!
 
 You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/newsletters/ocaml-platform-newsletter-7305270694567661568/)!
 
 **Highlights:**
+
 - **opam 2.5.0 Released**: Major release featuring incremental opam file loading for up to 70% faster `opam update`, improved shell integration, and better macOS sandbox support
 - **Relocatable OCaml Merged**: The final piece of the relocatable OCaml puzzle was merged in December, enabling opam to clone switches instead of recompiling them. This will be available in the first alpha release of OCaml 5.5
 - **Dune 3.21.0**: Large release with dozens of fixes, improvements, and new features including OxCaml compiler support and copy-on-write file operations
@@ -24,9 +25,11 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 - **opam-repository Archival**: January 1, 2026 archival run removed 3,264 package versions to maintain repository sustainability
 
 **Backstage OCaml:**
+
 - [OCaml Infrastructure: How the opam-repository Works](https://ocaml.org/backstage/2025-11-05-how-the-opam-repository-works) (Nov 5, 2025)
 
 **Stable Releases:**
+
 - [opam-publish 2.7.1](https://ocaml.org/changelog/2025-11-18-opam-publish-2.7.1) (Nov 18, 2025)
 - [opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-2.5.0) (Nov 27, 2025)
 - [Merlin 5.6.1-504](https://ocaml.org/changelog/2025-12-20-merlin-v5-6-1-504) (Dec 20, 2025)
@@ -35,6 +38,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 - [dune-release 2.2.0](https://ocaml.org/changelog/dune-release/2026-01-29-dune-release-2.2.0) (Jan 29, 2026)
 
 **Unstable Releases:**
+
 - [opam 2.5.0~rc1](https://ocaml.org/changelog/2025-11-20-opam-2-5-0-rc1) (Nov 20, 2025)
 - [opam 2.5.0~beta1](https://ocaml.org/changelog/2025-11-10-opam-2-5-0-beta1) (Nov 10, 2025)
 
@@ -45,7 +49,9 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 In December 2025, the final piece of the [Relocatable OCaml](https://www.dra27.uk/blog/platform/2025/12/17/its-merged.html) puzzle was merged, enabling opam to clone switches instead of recompiling them. This feature will be available in the first alpha release of OCaml 5.5.
 
 **What Relocatable OCaml Enables:**
+
 This feature allows the OCaml compiler and its associated tools to be moved to different filesystem locations after installation without breaking functionality. Key benefits include:
+
 - Binary distributions that work regardless of installation path
 - Improved flexibility for package managers organizing OCaml installations
 - Bundling of specific OCaml versions by developer tools without path conflicts
@@ -60,6 +66,7 @@ The implementation is the culmination of work by David Allsopp, with review from
 [Dune 3.21.0](https://ocaml.org/changelog/2026-01-16-dune-3-21-0) (January 16, 2026) is a large release including dozens of fixes, improvements, and additions from many contributors.
 
 **Notable Additions:**
+
 - (Experimental): `library_parameter` stanza for the OxCaml compiler
 - Copy-on-write (COW) when copying files on supporting filesystems (Btrfs, ZFS, XFS) under Linux
 - Support for Tangled ATproto-based code repositories
@@ -72,6 +79,7 @@ The implementation is the culmination of work by David Allsopp, with review from
 - Support for expanding variables in `(promote (into ..))`
 
 **Notable Fixes:**
+
 - Fixed `include_subdirs qualified` picking the furthest module instead of the closest
 - Improved error messages for invalid version formats with non-ASCII characters
 - Fixed crash when running `dune build @check` on libraries with virtual modules
@@ -89,6 +97,7 @@ For the complete list of changes, see the [full release on GitHub](https://githu
 [opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-2.5.0) (November 27, 2025) is a major release with significant performance and usability improvements.
 
 **Key Features:**
+
 - **Massive speedup for `opam update`**: Thanks to @arozovyk, opam update now loads opam files incrementally, only parsing files that have changed since the last update. For typical small diffs, this means operations that took seconds now complete in milliseconds
 - **Improved shell integration**: Fixed issues where parts of a previous environment were kept in the current environment, causing various problems
 - **Changed default shell integration file**: Now writes to `.bashrc` instead of `.profile` when bash is detected, preventing infinite loop issues
@@ -96,6 +105,7 @@ For the complete list of changes, see the [full release on GitHub](https://githu
 - **macOS sandbox improvements**: Allow writing to `/var/folders/` and `/var/db/mds/` directories as required by some macOS core tools
 
 **Build Changes:**
+
 - **Ecosystem cmdliner 2.0.0 compatibility**: opam no longer depends on `cmdliner`, removing a key blocker that prevented cmdliner 1.x and 2.0.0 from being co-installable. This change enables ecosystem-wide migration to cmdliner 2.0.0
 - OCaml 5.5 (trunk) support when using dune's dev profile
 - The release archive (`opam-full-*.tar.gz`) is now reproducible
@@ -110,6 +120,7 @@ For more details, see the [official opam 2.5.0 announcement blog](https://opam.o
 [opam-publish 2.7.1](https://ocaml.org/changelog/2025-11-18-opam-publish-2.7.1) (November 18, 2025) fixes bugs related to the GitHub API token permissions introduced in version 2.7.0.
 
 **Changes:**
+
 - Advertise the need, and check, for the `workflow` scope for GitHub personal access tokens
 - Enforce the git remote used to push branches to users' fork to be used instead of the SSH method
 - Avoid potential previously used tokens with wrong permissions to be used instead of the new one
@@ -122,11 +133,13 @@ For more details, see the [official opam 2.5.0 announcement blog](https://opam.o
 On January 1, 2026, the opam-repository completed its scheduled archival run, removing **3,264 package versions** (881 unique packages) marked with `x-maintenance-intent: archival`. This ongoing maintenance process helps keep the repository manageable by removing unmaintained or obsolete package versions.
 
 **What This Means:**
+
 - Archived packages are no longer available in the default opam repository
 - CI systems and lock files may need updates if they depend on archived versions
 - The archival is based on metadata explicitly set by package maintainers
 
 **Background:**
+
 The archival process was announced by Hannes Mehnert in December 2025 (see the [Discuss announcement](https://discuss.ocaml.org/t/opam-repository-archival-next-run-scheduled-2026-01-01/17587)), giving package maintainers and users time to prepare. Packages can be restored from archival by maintainers upon request.
 
 This maintenance practice ensures the opam repository remains sustainable and focused on actively maintained packages.
@@ -136,9 +149,11 @@ This maintenance practice ensures the opam repository remains sustainable and fo
 [dune-release 2.2.0](https://ocaml.org/changelog/dune-release/2026-01-29-dune-release-2.2.0) (January 29, 2026) brings full compatibility with cmdliner 2.0.0, continuing the ecosystem-wide migration that began with opam 2.5.0's removal of the cmdliner dependency.
 
 **Why This Matters:**
+
 cmdliner 2.0.0 introduced stricter requirements that improve CLI reliability but prevent co-installability with cmdliner 1.x. Following opam 2.5.0's lead in removing this conflict, dune-release 2.2.0 updates to use cmdliner 2.0.0 exclusively. This coordinated effort across the platform tools enables users to upgrade without encountering dependency conflicts.
 
 **Important Changes:**
+
 - **Breaking**: Following cmdliner 2.0's stricter requirements, prefix-matching for command options is no longer supported
 - Users must now provide the full wording for all flags (for example, `--skip-tests` instead of `--skip-test`)
 - This change ensures compatibility with cmdliner 2.0.0 and aligns with modern CLI best practices
@@ -157,23 +172,22 @@ For technical details, see the [cmdliner 2.0.0 documentation](https://erratique.
 [OCaml-LSP 1.25.0](https://ocaml.org/changelog/2025-12-20-ocaml-lsp-1-25-0) (December 20, 2025) introduces support for `.mlx` files and new custom requests.
 
 **Features:**
+
 - **`.mlx` Support**: Added support for `.mlx` files, including diagnostics, code actions, hover, and formatting via `ocamlformat-mlx`
 - **New Custom Requests**: Added `typeExpression`, `locate`, and `phrase` requests to the server
 - **Code-Lens Configuration**: Code-lens for nested `let` bindings is now configurable
 
 **Fixes:**
+
 - The server now falls back to `.merlin` configuration if a `dune-project` file is missing, provided [dot-merlin-reader](https://github.com/ocaml/merlin) is installed
 - Improved precision of timestamps for collected metrics
-
-**Related Tools:**
-- [ocamlformat-mlx](https://github.com/ocaml-mlx/ocamlformat-mlx) - Formatter for `.mlx` files
-- [dot-merlin-reader](https://github.com/ocaml/merlin) - Tool for reading `.merlin` configuration (part of Merlin)
 
 ### Merlin
 
 [Merlin 5.6.1-504](https://ocaml.org/changelog/2025-12-20-merlin-v5-6-1-504) (December 20, 2025) brings performance optimizations and improved stability.
 
 **Key Improvements:**
+
 - **Smarter Signature Help**: Now triggers correctly on unfinished `let ... in` bindings and no longer appears redundantly on function names
 - **More Reliable Completion**: Fixed issues with completion for inlined record labels
 - **Improved Performance**: Optimized buffer indexing and path calculations
