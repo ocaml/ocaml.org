@@ -103,21 +103,21 @@ build: [
 
 Either way, once you have added your dependency in the appropriate file, you can run `opam install . --deps-only` to update your current switch dependencies.
 
-### Installing a Dependency in Your Switch
+## Installing a Package Directly
 
-Installing a package from the opam repository to your active switch, you can run
+To quickly install a package into your active switch without declaring it in your project files:
+
 ```shell
 opam install <package-name>
 ```
 
-to get the latest version of the package.
+Or a specific version:
 
-If you want to install a specific version of the package, use
 ```shell
 opam install <package-name>.<package-version>
 ```
 
-instead.
+This is handy for trying out a library, but for project work you should declare the dependency in your `dune-project` or `*.opam` file (as described above) so that collaborators and CI can reproduce your setup with `opam install . --deps-only`.
 
 ## Adding Dependencies From a Git Repository
 
