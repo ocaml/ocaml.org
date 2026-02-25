@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Eliminate consecutive duplicates of list elements."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec compress = function
@@ -15,7 +15,7 @@ description: "Eliminate consecutive duplicates of list elements."
 val compress : 'a list -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Eliminate consecutive duplicates of list elements.
 

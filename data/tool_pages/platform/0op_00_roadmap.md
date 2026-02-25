@@ -113,7 +113,7 @@ important:
   developers and a major hurdle for the adoption of the language. Recent efforts
   to improve the situation include the new central package documentation on
   OCaml.org. However, the available documentation generation tooling isn't
-  suited to created user manuals. To incentivise developers to write
+  suited to creating user manuals. To incentivise developers to write
   high-quality documentation for their package, one priority is to improve the
   tooling to support this use case.
 
@@ -180,7 +180,7 @@ and want to stay in control. Other users, such as Language Hobbyist (U4), who
 want to get started quickly can open and install the OCaml extension on their
 favourite editor:
 
-```
+```text
 code --install-extension ocaml.vscode-ocaml # On VSCode
 M-x package-install ocaml-mode # On Emacs
 Plug 'ocaml/ocaml.vim' # On Vim
@@ -221,11 +221,11 @@ development environment.
 After checking out an existing project, being able to build it is the first
 thing needed by developers.
 
-**A Unique Command**
+##### A Unique Command
 
 In OCaml, it is as simple as running the following unique command:
 
-```
+```sh
 dune build
 ```
 
@@ -249,7 +249,7 @@ During development, two workflows are supported for building the project: in the
 command line and through the editor. Both workflows are compatible and can be
 used in conjunction.
 
-**Watch Mode**
+##### Watch Mode
 
 Dune provides a watch mode where any file modification will trigger a rebuild.
 Thanks to Dune's cache, only the parts that are affected by the change are
@@ -260,7 +260,7 @@ developers can re-run tests or invoke other targets in parallel (typically, it
 is possible to run a build in watch mode and run the tests in watch mode in
 another terminal).
 
-**Editor Integration**
+##### Editor Integration
 
 Similar to installing Dune directly through the editor, it is possible to drive
 Dune without leaving the editor.
@@ -273,7 +273,7 @@ trigger a rebuild and an update of the reported errors.
 
 All of this is transparent for the user, who only has to set up their editors.
 
-**Working in Different Contexts**
+##### Working in Different Contexts
 
 Dune can build the project with different sets of configurations, called
 contexts. A context includes information about the OCaml compiler used,
@@ -438,7 +438,7 @@ compiler to support cross-compilation of binaries.
 
 Targets can be added to the `dune-workspace` file:
 
-```
+```sexp
 (context
   (default
     (targets native windows android)))
@@ -470,7 +470,7 @@ In addition to allowing cross-compilation to native platforms like Windows,
 macOS, iOS and Android, Dune supports MirageOS unikernels as a cross-compilation
 target:
 
-```
+```sh
 dune build -x mirage
 ```
 
@@ -503,7 +503,7 @@ Compilation to WebAssembly is supported in a way akin to JavaScript compilation:
 users can add a `wasm` mode to their `dune` file to generate WebAssembly
 compiled target as part of their build:
 
-```
+```sexp
 (executable
   ...
   (modes wasm))
@@ -521,8 +521,8 @@ In addition, to respect (P5) (Tools are independent, yet unified), the plugins
 are usable independently of Dune.
 
 Underlying Dune's plugin system is the fact that it may take years for new
-tooling to be integrated into Dune. To better adapt to tools lifecyle, Dune
-plugin systems is used to allow a fast iteration with loose backward
+tooling to be integrated into Dune. To better adapt to tools lifecycle, Dune
+plugin system is used to allow a fast iteration with loose backward
 compatibility constrained during pre-incubation and incubation stages, until the
 tools move to the Active stage and are integrated into Dune as first-class
 citizens.
@@ -542,7 +542,7 @@ eject the build plan to a machine-readable format. This enables third-party
 tools to consume the exported build plan and convert it into other build
 systems' specifications.
 
-We note that prior discussions have been inconclusive on wether there exists an
+We note that prior discussions have been inconclusive on whether there exists an
 adequate solution to eject Dune's build plan. Further discussions and
 investigations with maintainers of conversion tools like obazel, and users of
 other build systems are needed to determine how the integration with these
@@ -577,7 +577,7 @@ that can be interpreted by a tool, such as
 the form of normal OCaml files that use this library and are added to Dune
 through the `bench` stanza, which behaves like the `test` stanza:
 
-```
+```sexp
 (bench
  (name ...)
  (libraries ...))
@@ -715,7 +715,7 @@ your documentation.
 This behaviour is opt-in and can be configured using a Dune stanza, for
 instance:
 
-```
+```sexp
 (documentation
   (execute_code_blocks true))
 ```

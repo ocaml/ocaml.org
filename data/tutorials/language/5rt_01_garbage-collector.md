@@ -79,7 +79,7 @@ explain how they differ in more detail next.
 
 <div class="note">
 
-#### The Gc Module and OCAMLRUNPARAM
+### The Gc Module and OCAMLRUNPARAM
 
 OCaml provides several mechanisms to query and alter the behavior of
 the runtime system. The `Gc` module provides this functionality from
@@ -117,7 +117,7 @@ interruption.
 The minor heap is a contiguous chunk of virtual memory that is usually a few
 megabytes in size so that it can be scanned quickly.
 
-![](/media/tutorials/language/garbage-collector/minor_heap.png "Minor GC heap")
+![Minor GC heap layout](/media/tutorials/language/garbage-collector/minor_heap.png "Minor GC heap")
 
 The runtime stores the boundaries of the minor heap in two pointers that
 delimit the start and end of the heap region (`caml_young_start` and
@@ -295,7 +295,7 @@ allocations. Allocations for these sizes can be serviced from their segregated
 free lists or, if they are empty, from the next size with a space.
 
 The second strategy, for larger allocations, is the use of a specialized data
-structure known as a _splay tree_ for the free list. This is a type of search
+structure known as a *splay tree* for the free list. This is a type of search
 tree that adapts to recent access patterns. For our use this means that the
 most commonly requested allocation sizes are the quickest to access.
 
@@ -377,7 +377,7 @@ available memory.
 The marking process starts with a set of *root* values that are always live
 (such as the application stack and globals). These root values have their
 color set to black and are pushed on to a specialized data structure known as
-the _mark_ stack. Marking proceeds by popping a value from the stack and
+the *mark* stack. Marking proceeds by popping a value from the stack and
 examining its fields. Any fields containing white-colored blocks are changed
 to black and pushed onto the mark stack.
 
@@ -386,7 +386,7 @@ values to mark. There's one important edge case in this process, though. The
 mark stack can only grow to a certain size, after which the GC can no longer
 recurse into intermediate values since it has nowhere to store them while it
 follows their fields. This is known as mark stack *overflow* and a process
-called _pruning_ begins. Pruning empties the mark stack entirely, summarizing
+called *pruning* begins. Pruning empties the mark stack entirely, summarizing
 the addresses of each block as start and end ranges in each heap chunk header.
 
 Later in the marking process when the mark stack is empty it is replenished by
@@ -563,13 +563,13 @@ Benchmark for mutable, immutable
   barrier_bench.exe [COLUMN ...]
 
 Columns that can be specified are:
-	time       - Number of nano secs taken.
-	cycles     - Number of CPU cycles (RDTSC) taken.
-	alloc      - Allocation of major, minor and promoted words.
-	gc         - Show major and minor collections per 1000 runs.
-	percentage - Relative execution time as a percentage.
-	speedup    - Relative execution cost as a speedup.
-	samples    - Number of samples collected for profiling.
+ time       - Number of nano secs taken.
+ cycles     - Number of CPU cycles (RDTSC) taken.
+ alloc      - Allocation of major, minor and promoted words.
+ gc         - Show major and minor collections per 1000 runs.
+ percentage - Relative execution time as a percentage.
+ speedup    - Relative execution cost as a speedup.
+ samples    - Number of samples collected for profiling.
 ...
 ```
 
@@ -583,7 +583,7 @@ been closed, or that a log message is recorded.
 
 <div class="note">
 
-#### What Values Can Be Finalized?
+### What Values Can Be Finalized?
 
 Various values cannot have finalizers attached since they aren't
 heap-allocated. Some examples of values that are not heap-allocated are

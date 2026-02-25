@@ -17,7 +17,6 @@
   (target planet.xml)
   (deps
    (source_tree %{project_root}/data/planet)
-   (source_tree %{project_root}/data/planet-local-blogs)
    (:gen_feed %{project_root}/tool/ood-gen/bin/feed.exe))
   (action
    (chdir

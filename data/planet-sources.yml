@@ -29,6 +29,7 @@
 - id: ujamjar
   name: Andy Ray
   url: http://www.ujamjar.com/ocaml.xml
+  disabled: true
 - id: ashishagarwal
   name: Ashish Agarwal
   url: http://ashishagarwal.org/tag/ocaml/feed/
@@ -45,6 +46,11 @@
 - id: coq
   name: Coq
   url: https://coq.inria.fr/rss.xml
+  publish_all: false
+  disabled: true
+- id: rocq
+  name: Rocq Prover
+  url: https://rocq-prover.org/news.xml
   publish_all: false
 - id: cburnout
   name: Cranial Burnout
@@ -211,8 +217,7 @@
   publish_all: false
 - id: lthms
   name: "Thomas Letan’s Blog"
-  url: https://soap.coffee/~lthms/posts/index.xml
-  publish_all: false
+  url: https://soap.coffee/~lthms/tags/ocaml.xml
 - id: debajyatidey
   name: Debajyati's Blog
   url: https://debajyatidey.hashnode.dev/rss.xml

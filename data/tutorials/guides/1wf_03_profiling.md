@@ -178,7 +178,7 @@ by a trailing NUL (`\0`) character. OCaml stores strings in a different
 way, as we can see from the data segment above. This string is stored
 like this:
 
-```
+```text
 4 byte header: 4348
 the string:    h e l l o , SP w o r l d \n
 padding:       \0 \0 \002
@@ -203,7 +203,7 @@ a header which tells the garbage collector about how large the object is
 in words, and something about what the object contains. Writing the
 number 4348 in binary:
 
-```
+```text
 length of the object in words:  0000 0000 0000 0000 0001 00 (4 words)
 color (used by GC):             00
 tag:                            1111 1100 (String_tag)
@@ -587,7 +587,7 @@ Note the structure of the floating point number: it has a header (2301),
 followed by the 8 byte (2 word) representation of the number itself. The
 header can be decoded by writing it as binary:
 
-```
+```text
 Length of the object in words:  0000 0000 0000 0000 0000 10 (8 bytes)
 Color:                          00
 Tag:                            1111 1101 (Double_tag)
@@ -779,7 +779,7 @@ the OCaml representation for integers. Let's represent them as:
 where `a` and `b` are the actual integer arguments. So this function
 returns:
 
-```
+```text
 %eax + %ebx - 1
 = 2 * a + 1 + 2 * b + 1 - 1
 = 2 * a + 2 * b + 1
@@ -849,7 +849,7 @@ let () =
 And can be run and compiled with
 
 <!-- $MDX skip -->
-```
+```shell
 ocamlcp -p a graphics.cma graphtest.ml -o graphtest
 ./graphtest
 ocamlprof graphtest.ml
@@ -868,7 +868,7 @@ compiler to include profiling information for `gprof`:
 After running the program as normal, the profiling code dumps out a file
 `gmon.out` which we can interpret with `gprof`:
 
-```
+```text
 $ gprof ./a.out
 Flat profile:
 
@@ -902,7 +902,7 @@ Each sample counts as 0.01 seconds.
 
 ### Using `perf` on Linux
 
-Assuming `perf`is installed and your program is compiled into
+Assuming `perf` is installed and your program is compiled into
 native code with `-g` (or ocamlbuild tag `debug`), you just need to type
 
 <!-- $MDX skip -->

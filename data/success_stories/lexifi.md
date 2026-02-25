@@ -52,6 +52,7 @@ Once again, OCaml's excellent facilities for symbolic processing has made develo
 ## Case Study: UI Construction
 
 ### Challenge
+
 Since LexiFi's end users are mostly financial operatives without special programming experience, it's crucial to offer simple and clear user interfaces to our software.
 
 ### Solution

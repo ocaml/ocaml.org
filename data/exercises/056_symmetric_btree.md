@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec is_mirror t1 t2 =
@@ -29,7 +29,7 @@ val is_mirror : 'a binary_tree -> 'b binary_tree -> bool = <fun>
 val is_symmetric : 'a binary_tree -> bool = <fun>
 ```
 
-# Statement
+## Statement
 
 Let us call a binary tree symmetric if you can draw a vertical line
 through the root node and then the right subtree is the mirror image of

@@ -7,7 +7,7 @@ description: "Generate all possible combinations of K distinct objects chosen fr
 tutorials: [ "loops-recursion"]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec extract k list =
@@ -21,7 +21,7 @@ tutorials: [ "loops-recursion"]
 val extract : int -> 'a list -> 'a list list = <fun>
 ```
 
-# Statement
+## Statement
 
 Generate the combinations of K distinct objects chosen from the N elements of a list.
 

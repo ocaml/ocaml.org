@@ -7,7 +7,7 @@ description: "Generate a list of integers in ascending order from A to B, and in
 tutorials: [ "lists", "loops-recursion" ]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let range a b =
@@ -31,7 +31,7 @@ A tail recursive implementation:
 val range : int -> int -> int list = <fun>
 ```
 
-# Statement
+## Statement
 
 If first argument is greater than second, produce a list in decreasing
 order.

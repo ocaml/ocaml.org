@@ -54,14 +54,14 @@ val d : int ref = {contents = 0}
 
 Here is what happens in this example:
 1. The value `{ contents = 0 }` is bound to the name `d`. This is a normal definition. Like any other definition, it is immutable. However, the value `0` in the `contents` field of `d` is _mutable_, so it can be updated.
-3. The _assignment_ operator `:=` is used to update the mutable value inside `d` from `0` to `1`.
-4. The _dereference_ operator `!` reads the contents of the mutable value inside `d`.
+2. The _assignment_ operator `:=` is used to update the mutable value inside `d` from `0` to `1`.
+3. The _dereference_ operator `!` reads the contents of the mutable value inside `d`.
 
 The `ref` identifier above refers to two different things:
 * The function `ref : 'a -> 'a ref` that creates a reference
 * The type of mutable references: `'a ref`
 
-**Assignment Operator**
+### Assignment Operator
 
 ```ocaml
 # ( := );;
@@ -74,7 +74,7 @@ The assignment operator `:=` is just a function. It takes
 
 The update takes place as a [side effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science)), and the value `()` is returned.
 
-**Dereference Operator**
+### Dereference Operator
 
 ```ocaml
 # ( ! );;
@@ -147,7 +147,7 @@ Mutable record fields are updated using the left arrow symbol `<-`. In the expre
 
 In contrast to references, there is no special syntax to dereference a mutable record field.
 
-**Remark**: the left arrow symbol `<-` for mutating mutable record field values is not an operator function, like the assignment operator `( := )` is for `refs`. It is rather a _construct_ of the language, it has no type. 
+**Remark**: the left arrow symbol `<-` for mutating mutable record field values is not an operator function, like the assignment operator `( := )` is for `refs`. It is rather a _construct_ of the language, it has no type.
 
 ### Remark: References Are Single Field Records
 
@@ -319,7 +319,7 @@ Using the `let … in` construct means two things:
 * Names may be bound. In the example, no name is bound since `()` is used.
 * Side effects take place in sequence. The bound expression (`print_string "This is"`) is evaluated first, and the referring expression (`print_endline " really Disco!"`) is evaluated second.
 
-**Semicolon**
+#### Semicolon
 
 The single semicolon `;` operator is known as the _sequence_ operator. It allows you to evaluate multiple expressions in order, with the last expression's value as the entire sequence's value.
 
@@ -414,7 +414,7 @@ The `unit` value `()` can serve as a [no-op](https://en.wikipedia.org/wiki/Noop)
 - : unit = ()
 ```
 
-But OCaml also allows writing `if … then … ` expressions without an `else` branch, which is the same as the above.
+But OCaml also allows writing `if … then …` expressions without an `else` branch, which is the same as the above.
 
 ```ocaml
 # if 0 = 1 then print_endline "foo";;
@@ -456,7 +456,7 @@ Here is an error you might encounter:
 Error: Syntax error
 ```
 
-Failing to group in the first branch results in a syntax error. What's before the semicolon is parsed as an `if … then … ` without an `else` expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
+Failing to group in the first branch results in a syntax error. What's before the semicolon is parsed as an `if … then …` without an `else` expression. What's after the semicolon appears as a [dangling](https://en.wikipedia.org/wiki/Dangling_else) `else`.
 
 ### For Loop
 
@@ -474,10 +474,10 @@ A `for` loop is an expression of type `unit`. Here, `for`, `to`, `do`, and `done
 ```
 
 Here:
- - `i` is the loop counter; it is incremented after every iteration.
- - `0` is the first value of `i`.
- - `5` is the last value of `i`.
- - The expression `Printf.printf "%i\n" i` is the body of the loop.
+* `i` is the loop counter; it is incremented after every iteration.
+* `0` is the first value of `i`.
+* `5` is the last value of `i`.
+* The expression `Printf.printf "%i\n" i` is the body of the loop.
 
 The iteration evaluates the body expression (which may contain `i`) until `i` reaches `5`.
 
@@ -531,8 +531,8 @@ A `while` loop is an expression of type `unit`. Here, `while`, `do`, and `done` 
 ```
 
 Here:
-- `!i <= 5` is the condition.
-- The expression ` Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop.
+* `!i <= 5` is the condition.
+* The expression `Printf.printf "%i\n" !i; i := !i + 1;` is the body of the loop.
 
 The iteration executes the body expression as long as the condition remains true.
 
@@ -579,7 +579,7 @@ val c1 : unit -> int = <fun>
 val c2 : unit -> int = <fun>
 ```
 
-Now, using partial application, we create two closure `c1` and `c2` that encapsulates a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, calling `c2 ()` will update its own independent counter.
+Now, using partial application, we create two closures `c1` and `c2` that encapsulate a counter. Calling `c1 ()` will increment the counter associated with `c1` and return its current value. Similarly, calling `c2 ()` will update its own independent counter.
 
 ```ocaml
 # c1 ();;
@@ -622,12 +622,12 @@ The function `sum` is written in an imperative style, using mutable data structu
 ### Good: Application-Wide State
 
 Some applications maintain some state while they are running. Here are a couple of examples:
-- A Read-Eval-Print-Loop (REPL). The state is the environment where values are bound to names. In OCaml, the environment is append-only, but some other languages allow replacing or removing name-value bindings.
-- A server for a stateful protocol. Each session has a state. The global state consists of all the session states.
-- A text editor. The state includes the most recent commands (to allow undo), the state of any open files, the settings, and the state of the UI.
-- A cache.
+* A Read-Eval-Print-Loop (REPL). The state is the environment where values are bound to names. In OCaml, the environment is append-only, but some other languages allow replacing or removing name-value bindings.
+* A server for a stateful protocol. Each session has a state. The global state consists of all the session states.
+* A text editor. The state includes the most recent commands (to allow undo), the state of any open files, the settings, and the state of the UI.
+* A cache.
 
-The following is a toy line editor, using the `get_char` function [defined earlier](#example-getchar-function). It waits for characters on standard input and exits on end-of-file, carriage return, or newline. Otherwise, if the character is printable, it prints it and records it in a mutable list used as a stack. If the character is the delete code, the stack is popped and the last printed character is erased.
+The following is a toy line editor, using the `get_char` function [defined earlier](#example-get_char-function). It waits for characters on standard input and exits on end-of-file, carriage return, or newline. Otherwise, if the character is printable, it prints it and records it in a mutable list used as a stack. If the character is the delete code, the stack is popped and the last printed character is erased.
 
 ```ocaml
 # let record_char state c =
@@ -661,9 +661,9 @@ val loop : char list ref -> 'a = <fun>
 After this last command, you can type and edit any single line of text. Then, press return to get back to the REPL.
 
 This example illustrates the following:
-- The functions `record_char` and `remove_char` neither update the state nor produce side effects. Instead, they each return a pair of values consisting of a string to print and the next state, `new_state`.
-- I/O and state-update side effects happen inside the `loop` function.
-- The state is passed as argument to the `loop` function.
+* The functions `record_char` and `remove_char` neither update the state nor produce side effects. Instead, they each return a pair of values consisting of a string to print and the next state, `new_state`.
+* I/O and state-update side effects happen inside the `loop` function.
+* The state is passed as argument to the `loop` function.
 
 This is a possible way to handle an application-wide state. As in the [Function-Encapsulated Mutability](#good-function-encapsulated-mutability) example, state-aware code is contained in a narrow scope; the rest of the code is purely functional.
 
@@ -707,7 +707,7 @@ It is possible to use an imperative programming style without losing the benefit
 
 Most existing modules provide an interface meant to be used in a functional way. Some require the development and maintenance of [wrapper libraries](https://en.wikipedia.org/wiki/Wrapper_library) to be used in an imperative setting and such use results in inefficient code.
 
-###  It Depends: Module State
+### It Depends: Module State
 
 A module may expose or encapsulate a state in several different ways:
 1. Good: expose a type representing a state, with state creation or reset functions
@@ -755,7 +755,6 @@ Here's an example of bad code:
     (Array.truncate k_len k, Array.truncate m_len m);;
 Error: Unbound value Array.truncate
 ```
-
 
 To understand why this is bad code, assume that the function `Array.truncate` has type `int -> 'a array -> 'a array`. It behaves such that `Array.truncate 3 [5; 6; 7; 8; 9]` returns `[5; 6; 7]`, and the returned array physically corresponds to the 3 first cells of the input array.
 
@@ -829,7 +828,7 @@ This issue also arises when applying arguments to variant constructors, building
 - : int * int = (0, -1)
 ```
 
-The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must a avoided.
+The value of this expression depends on the order of subexpression evaluation. Since this order is not specified, there is no reliable way to know what this value is. At the time of writing this tutorial, the evaluation produced `(0, -1)`, but if you see something else, it is not a bug. Such an unreliable value must be avoided.
 
 To ensure that evaluation takes place in a specific order, use the means to put expressions in sequences using either `let … in` expressions or the semi-colon sequence operator (`;`). Check the [Evaluating Expressions in Sequence](#evaluating-expressions-in-sequence) section.
 

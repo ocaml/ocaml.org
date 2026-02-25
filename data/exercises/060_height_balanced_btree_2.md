@@ -15,7 +15,7 @@ type 'a binary_tree =
 let max_nodes h = 1 lsl h - 1
 ```
 
-# Solution
+## Solution
 
 ## Minimum of nodes
 
@@ -23,7 +23,7 @@ The following solution comes directly from translating the question.
 
 ```ocaml
 # let rec min_nodes h =
-    if h <= 0 then 0 
+    if h <= 0 then 0
     else if h = 1 then 1
     else min_nodes (h - 1) + min_nodes (h - 2) + 1;;
 val min_nodes : int -> int = <fun>
@@ -170,7 +170,7 @@ val add_hbal_tree_node :
 val hbal_tree_nodes : int -> char binary_tree list = <fun>
 ```
 
-# Statement
+## Statement
 
 Consider a height-balanced binary tree of height `h`. What is the
 maximum number of nodes it can contain? Clearly,

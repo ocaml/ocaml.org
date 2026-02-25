@@ -141,8 +141,8 @@ Values, functions, types, or submodules, everything is public. This can be
 restricted to avoid exposing definitions that are not relevant from the outside.
 
 For this, we must distinguish:
-- The definitions inside a module (the module implementation)
-- The public declarations of a module (the module interface)
+* The definitions inside a module (the module implementation)
+* The public declarations of a module (the module interface)
 
 An `.ml` file contains a module implementation; an `.mli` file contains a module
 interface. By default, when no corresponding `.mli` file is provided, an
@@ -471,7 +471,7 @@ reset.
 
 ## Conclusion
 
-OCaml, modules are the basic means of organising software. To sum up, a
+In OCaml, modules are the basic means of organising software. To sum up, a
 module is a collection of definitions wrapped under a name. These definitions
 can be submodules, which allows the creation of hierarchies of modules.
 Top-level modules must be files and are the units of compilation. Every module
@@ -480,6 +480,6 @@ a module's interface exposes all its definitions, but this can be restricted
 using the interface syntax.
 
 Going further, here are the other means to handle OCaml software components:
-- Functors, which act like functions from modules to modules
-- Libraries, which are compiled modules bundled together
-- Packages, which are installation and distribution units
+* Functors, which act like functions from modules to modules
+* Libraries, which are compiled modules bundled together
+* Packages, which are installation and distribution units

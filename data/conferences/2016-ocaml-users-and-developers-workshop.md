@@ -108,7 +108,7 @@ organising_committee:
 ---
 
 
-### Scope
+## Scope
 
 Presentations and discussions will focus on the OCaml
 programming language and its community. We aim to solicit talks
@@ -130,7 +130,7 @@ example (but not limited to):
 - prominent industrial or experimental uses of OCaml, or
   deployments in unusual situations.
 
-### Presentations
+## Presentations
 
 It will be an informal meeting with no formal proceedings. The
 presentation material will be available online from the workshop
@@ -144,7 +144,7 @@ present more diverse work, and gives time for discussion. The
 program committee will decide which presentations should be
 delivered as posters or talks.
 
-### Submission
+## Submission
 
 To submit a presentation, please register a description of the
 talk (about 2 pages long) at <https://icfp-ocaml17.hotcrp.com/>
@@ -158,14 +158,13 @@ also provide the sources of their submission in a textual
 format, such as .tex sources. Reviewers may read either the
 submitted PDF or the text version.
 
-### ML family workshop and post-proceedings
+## ML family workshop and post-proceedings
 
 The ML family workshop, held on the previous day, deals with general issues of the ML-style programming and  poster systems, and is seen as more research-oriented. Yet there is an overlap with the OCaml workshop, which we are keen to explore, for instance by having a common session. The authors who feel their submission fits both workshops are encouraged to mention it at submission time and/or contact the Program Chairs.
 
 There may be a combined post-conference proceedings of selected papers from the two workshops.
 
-
-### Questions and contact
+## Questions and contact
 
 Please send any questions to the chair:
 mshinwell -at- janestreet.com

@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Find the number of elements of a list."
 ---
 
-# Solution
+## Solution
 
 This function is tail-recursive: it uses a constant amount of stack memory regardless of list size.
 
@@ -20,7 +20,7 @@ This function is tail-recursive: it uses a constant amount of stack memory regar
 val length : 'a list -> int = <fun>
 ```
 
-# Statement
+## Statement
 
 Find the number of elements of a list.
 

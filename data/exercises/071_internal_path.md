@@ -13,7 +13,7 @@ let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
           T ('b', [T ('d', []); T ('e', [])])])
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec ipl_sub len (T(_, sub)) =
@@ -25,7 +25,7 @@ val ipl_sub : int -> 'a mult_tree -> int = <fun>
 val ipl : 'a mult_tree -> int = <fun>
 ```
 
-# Statement
+## Statement
 
 We define the internal path length of a multiway tree as the total sum
 of the path lengths from the root to all nodes of the tree. By this

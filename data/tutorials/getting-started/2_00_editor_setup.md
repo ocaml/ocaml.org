@@ -2,10 +2,11 @@
 id: set-up-editor
 title: Configuring Your Editor
 description: |
-  This page will show you how to set up your editor for OCaml. 
+  This page will show you how to set up your editor for OCaml.
 category: "Tooling"
 ---
-While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. We already installed the tools required to enhance Merlin, our editor of choice with OCaml support. Merlin provides all features such as "jump to definition," "show type," and `ocaml-lsp-server`, a server that delivers those features to the editor through the LSP server.
+While the toplevel is great for interactively trying out the language, we will shortly need to write OCaml files in an editor. The OCaml ecosystem provides `ocaml-lsp-server`, a Language Server Protocol (LSP) server that delivers editor features such as "jump to definition," "show type," autocompletion, and more. It uses [Merlin](https://ocaml.github.io/merlin/) under the hood as its analysis engine.
+
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
 ## Visual Studio Code
@@ -29,13 +30,13 @@ If your editor is setup correctly, here are some important features you can begi
 
 ![VSCode Hovering](/media/tutorials/vscode-hover.gif)
 
-This is a great feature that let's you see type information of any OCaml variable or function. All you have to do is place your cursor over the code and it will be displayed in the tooltip.
+This is a great feature that lets you see type information of any OCaml variable or function. All you have to do is place your cursor over the code and it will be displayed in the tooltip.
 
 #### 2) Jump to Definitions With `Ctrl + Click`
 
 ![VSCode Ctrl click](/media/tutorials/vscode-ctrl-click.gif)
 
-If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a clickable link which if clicked takes you to the file where the implementation is. This can be great if you want to understand how a piece of code works under the hood. In this example, hovering and `Ctrl + Clicking` over the `peek` method of the `Queue` module will take you to the definiton of the `peek` method itself and how it is implemented.
+If you hold down the <kbd>Ctrl</kbd> key while hovering, the code appears as a clickable link which if clicked takes you to the file where the implementation is. This can be great if you want to understand how a piece of code works under the hood. In this example, hovering and `Ctrl + Clicking` over the `peek` method of the `Queue` module will take you to the definition of the `peek` method itself and how it is implemented.
 
 #### 3) OCaml Commands With `Ctrl + Shift + P`
 
@@ -49,21 +50,23 @@ If you used the DkML distribution, you will need to:
     1. Go to `File` > `Preferences` > `Settings` view (or press `Ctrl ,`)
     2. Select `User` > `Extensions` > `OCaml Platform`
     3. Uncheck `OCaml: Use OCaml Env`. That's it!
-    
+
 ## Emacs
+
+> **Note:** Emacs 29.1 or later is recommended, as both `use-package` and `eglot` (the built-in LSP client) are included out of the box.
 
 Using Emacs to work with OCaml requires at least two modes:
 
 - A major mode, which, among other things, supports syntax highlighting and the structuring of indentation levels
-- A minor mode, which will interact with a language server (such as `ocaml-lsp-server` or `merlin`). In this tutorial, we will focus on using the new `ocaml-eglot` mode and `ocaml-lsp-server` as a server.
+- A minor mode, which will interact with a language server (such as `ocaml-lsp-server`). In this tutorial, we will focus on using `ocaml-eglot` and `ocaml-lsp-server`.
 
 ### Choosing a major mode
 
 There are several major modes dedicated to OCaml, of which the 3 main ones are:
 
-- [Tuareg](https://github.com/ocaml/tuareg): an old-fashioned (but still updated), very complete mode, usually the recommended one
-- [Caml](https://github.com/ocaml/caml-mode): a mode even older than `tuareg` (but still updated), lighter than `tuareg`
-- [Neocaml](https://github.com/bbatsov/neocaml): a brand new mode, based on modern tools (like [tree-sitter](https://tree-sitter.github.io/tree-sitter/)). Still experimental at the time of writing.
+- [Tuareg](https://github.com/ocaml/tuareg): a well-established and actively maintained mode with comprehensive OCaml support. Recommended if you're using an older version of Emacs (before the introduction of `tree-sitter` support) or you need some of the advanced functionality that Tuareg provides.
+- [Caml](https://github.com/ocaml/caml-mode): an older, lighter mode that is softly deprecated at this point.
+- [Neocaml](https://github.com/bbatsov/neocaml): a newer mode based on [tree-sitter](https://tree-sitter.github.io/tree-sitter/), requiring Emacs 30+.
 
 For the purposes of this tutorial, we are going to focus on the use of `tuareg` as the major mode, but you should feel free to experiment and choose your favourite one! To use `tuareg`, you can add these lines to your Emacs configuration:
 
@@ -73,21 +76,20 @@ For the purposes of this tutorial, we are going to focus on the use of `tuareg` 
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
 ```
 
+#### MELPA and `use-package`
 
-#### Melpa and `use-package`
-
-If your version of Emacs does not support the `use-package` macro (or is not set up to take MELPA packages into account), please update it and follow these instructions to install [`use-package`](https://github.com/jwiegley/use-package) and [MELPA](https://melpa.org/#/getting-started).
+The `use-package` macro has been built into Emacs since version 29.1. If you are on an older version, you will need to install [`use-package`](https://github.com/jwiegley/use-package) manually. You will also need to ensure [MELPA](https://melpa.org/#/getting-started) is configured as a package source.
 
 ### LSP setup for OCaml
 
-Since version `29.1`, Emacs has had a built-in mode for interacting with LSP servers, [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html). If you are using an earlier version of Emacs, you will need to install it this way:
+Since version 29.1, Emacs includes [Eglot](https://www.gnu.org/software/emacs/manual/html_mono/eglot.html), a built-in LSP client. On older versions of Emacs, you will need to install it separately:
 
 ```elisp
 (use-package eglot
   :ensure t)
 ```
 
-Next, we need to bridge the gap between our major mode (in this case, `tuareg`) and `eglot`. This is done using the [`ocaml-eglot`](https://github.com/tarides/ocaml-eglot) package:
+Next, we need to bridge the gap between our major mode (in this case, `tuareg`) and `eglot`. Standard `eglot` provides basic LSP features, but OCaml's LSP server supports additional capabilities beyond the LSP specification. The [`ocaml-eglot`](https://github.com/tarides/ocaml-eglot) package exposes these extra features (such as type enclosing navigation, destruct, and project-wide search):
 
 ```elisp
 (use-package ocaml-eglot
@@ -98,7 +100,7 @@ Next, we need to bridge the gap between our major mode (in this case, `tuareg`) 
   (ocaml-eglot . eglot-ensure))
 ```
 
-And that's all there is to it! Now all you need to do is install `ocaml-lsp-server` and `ocamlformat` in our [switch](/docs/opam-switch-introduction):
+And that's all there is to it! Now all you need to do is install `ocaml-lsp-server` and `ocamlformat` in your [switch](/docs/opam-switch-introduction):
 
 ```shell
 opam install ocaml-lsp-server ocamlformat
@@ -110,7 +112,6 @@ You are now ready to edit OCaml code _productively_ with Emacs!
 
 OCaml-eglot can be finely configured, the project [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) gives several configuration paths to adapt perfectly to your workflow. You will also find there an exhaustive presentation of the different functions offered by the mode.
 
-
 #### Getting Type Information
 
 Opening an OCaml file should launch an `ocaml-lsp` server, and you can convince yourself that it's working by using, for example, the `ocaml-eglot-type-enclosing` command (or using the `C-c C-t` binding) on an expression of your choice:
@@ -118,7 +119,6 @@ Opening an OCaml file should launch an `ocaml-lsp` server, and you can convince 
 ![Emacs Type information](/media/tutorials/emacs-type-info.gif)
 
 OCaml-eglot [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) provides a comprehensive overview of all the functions available in this mode!
-
 
 ## Vim
 
@@ -136,11 +136,11 @@ opam user-setup install
 
 ### Talking to Merlin
 
-#### Getting Type Information
+#### Getting Type Information in Vim
 
 ![Vim Type information](/media/tutorials/vim-type-info.gif)
 
-- In the Vim editor, press the <kbd>Esc</kbd> to enter command mode.
+- In the Vim editor, press <kbd>Esc</kbd> to enter command mode.
 - Place the cursor over the variable.
 - Type `:MerlinTypeOf` and press <kbd>Enter</kbd>.
 - The type information will be displayed in the command bar.
@@ -150,7 +150,7 @@ Other Merlin commands for Vim are available and you can checkout their usage on 
 
 Neovim comes with an LSP client.
 
-One note here is that is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and pointing your Neovim config to use that.
+One note here is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and point your Neovim config to use that.
 
 To install the LSP server and the formatter, run the following.
 ```shell
@@ -161,13 +161,13 @@ There are two main ways to install and manage LSP servers.
 - A newer, more recommended way is to use the new Neovim LSP API for versions newer than v0.11.0 via `vim.lsp`.
 - A more traditional way is to use `nvim-lspconfig`. For more info, `kickstart.nvim` has a great example setup.
 
-### Using vim.lsp:
+### Using vim.lsp
 
 Add this to your toplevel `init.lua`.
 ```lua
 vim.lsp.config['ocamllsp'] = {
   cmd = { 'ocamllsp' },
-  filetypes = { 
+  filetypes = {
     'ocaml',
     'ocaml.interface',
     'ocaml.menhir',
@@ -213,7 +213,7 @@ Add your LSP config to `lsp/ocamllsp.lua`.
 ```lua
 return {
   cmd = { 'ocamllsp' },
-  filetypes = { 
+  filetypes = {
     'ocaml',
     'ocaml.interface',
     'ocaml.menhir',
@@ -250,5 +250,4 @@ Add this to your `nvim-lspconfig` setup.
 },
 ```
 
-There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [here](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.
-
+There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [the nvim-lspconfig OCaml LSP configuration](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.

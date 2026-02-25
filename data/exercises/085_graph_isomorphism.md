@@ -10,13 +10,13 @@ description: "Determine whether two graphs are isomorphic based on the given def
 type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list}
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 (* solution pending *);;
 ```
 
-# Statement
+## Statement
 
 Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a
 bijection f: N1 → N2 such that for any nodes X,Y of N1, X and Y are

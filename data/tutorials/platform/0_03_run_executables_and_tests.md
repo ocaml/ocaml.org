@@ -10,7 +10,7 @@ category: "Projects"
 ## Running Executables
 
 > **TL;DR**
-> 
+>
 > Add an `executable` stanza in your `dune` file and run the executable with `dune exec <executable_path>.exe` or `dune exec <public_name>`.
 
 To tell Dune to produce an executable, you can use the executable stanza:
@@ -48,10 +48,11 @@ Keep in mind:
 * `dune build --watch` monitors files and triggers necessary recompilation.
 * Dune locks the build directory, so you can't run two Dune commands simultaneously.
 * To run the application, stop the watch process (Ctrl-C) or execute the app directly with `_build\default\<executable_path>.exe`.
+
 ## Running Tests
 
 > **TL;DR**
-> 
+>
 > Add a `test` stanza in your `dune` file and run the tests with `dune test`.
 
 Tests are created using Dune's `test` stanza. The `test` stanza is a simple convenience wrapper that will create an executable and add it to the list of tests of the `@runtest` target.
@@ -72,13 +73,13 @@ let () = exit 1
 
 Running `dune test` will fail with the following output:
 
-```
+```text
   dummy_test alias src/ocamlorg_web/test/runtest (exit 1)
 ```
 
 This means that the test failed because the executable exited with the status code `1`.
 
-The output is not very descriptive. If we want to create suites of unit tests, with several tests per files, and different kind of assertions, we will want to use a test framework such as Alcotest.
+The output is not very descriptive. If we want to create suites of unit tests, with several tests per files, and different kinds of assertions, we will want to use a test framework such as Alcotest.
 
 Let's modify our dummy test to link to Alcotest:
 
@@ -110,8 +111,7 @@ let () =
 
 If we run `dune test` again, the test should be successful and output the following:
 
-
-```
+```text
 Testing `Dummy'.
 This run has ID `B5926D16-0DD4-4C97-8C7A-5AFE1F5DF31B'.
 

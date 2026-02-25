@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Create a function to remove the K'th element from a list (0-based index)."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec remove_at n = function
@@ -15,7 +15,7 @@ description: "Create a function to remove the K'th element from a list (0-based 
 val remove_at : int -> 'a list -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Remove the K'th element from a list.
 

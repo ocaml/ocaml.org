@@ -658,7 +658,7 @@ That notion of *sequential order* is part of what the monad laws stipulate. We
 will state those laws below. But first, let's pause to consider sequential order
 in imperative languages.
 
-**Sequential Order.* In languages like Java and C, there is a semicolon that
+**Sequential Order.** In languages like Java and C, there is a semicolon that
 imposes a sequential order on statements, e.g.:
 
 ```java

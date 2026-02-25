@@ -204,7 +204,7 @@ exceptions are called asynchronous. These include:
 
 The latter is thrown when the user interrupts an interactive execution. Because
 they are loosely or not at all related with the program logic, it mostly doesn't
-make sense to track the place where an asynchronous exceptions was thrown, as it
+make sense to track the place where an asynchronous exception was thrown, as it
 could be anywhere. Deciding if an application needs to catch those exceptions
 and how it should be done is beyond the scope of this tutorial. Interested
 readers may refer to Guillaume Munch-Maccagnoni's [A Guide to recover from
@@ -491,7 +491,7 @@ Here is a questionable but straightforward implementation using exceptions:
 val host : string -> string = <fun>
 ```
 
-This may fail by raising `Not_found` if the first the call to `String.index`
+This may fail by raising `Not_found` if the first call to `String.index`
 does, which could happen if there is no `@` character in the input string,
 signifying that it's not an email address. However, if the second call to
 `String.index` fails, meaning no dot character was found, we may return the
@@ -599,7 +599,7 @@ robustness. A couple of observations:
   as a fallback
 
 When used to handling errors with catch statements, it requires some time to get
-used the latter style. The key idea is avoiding or deferring looking directly
+used to the latter style. The key idea is avoiding or deferring looking directly
 into option values. Instead, pass them along using ad hoc pipes (such as `map`
 and `bind`). Erik Meijer calls that style “following the happy path.” Visually,
 it also resembles the “early return“ pattern often found in C.
@@ -747,7 +747,7 @@ Note that some say the types **`result`** and `Either.t` are
 [isomorphic](https://en.wikipedia.org/wiki/Isomorphism). Concretely, it means
 it's always possible to replace one by the other, like in a completely neutral
 refactoring. Values of type **`result`** and `Either.t` can be translated back and
-forth, and appling both translations one after the other, in any order, returns
+forth, and applying both translations one after the other, in any order, returns
 to the starting value. Nevertheless, this doesn't mean **`result`** should be used
 in place of `Either.t`, or vice versa. Naming things matters, as punned by Phil
 Karlton's famous quote:
@@ -764,7 +764,7 @@ behavior with minimal loss of clarity. Use them.
 
 When `Option.bind` or `Result.bind` are used, they are often aliased into a
 custom binding operator, such as `let*`. However, it is also possible to use it
-as a binary operator, which is very often writen `>>=`. Using `bind` this way
+as a binary operator, which is very often written `>>=`. Using `bind` this way
 must be detailed because it is extremely popular in other functional programming
 languages, especially in Haskell.
 
@@ -826,7 +826,7 @@ Go, Rust, Swift, or even modern Java, where it would look like:
 `x.bind(f)`.
 
 Here is the same code as presented at the end of the previous section, rewritten
-using `Result.bind` as a binary opeator:
+using `Result.bind` as a binary operator:
 
 ```ocaml
 File.read_opt path
@@ -844,7 +844,7 @@ expression extends beyond a single line.
 
 OCaml has a strict typing discipline, not a strict styling discipline;
 therefore, picking the right style is left to the author's decision. That
-applies error handling, so pick a style knowingly. See the [OCaml Programming
+applies to error handling, so pick a style knowingly. See the [OCaml Programming
 Guidelines](/docs/guidelines) for more details on those matters.
 
 ## Conversions Between Errors
@@ -956,9 +956,9 @@ system or the compiler to be bugged for the second code path to be executed.
 Breakage of the language semantics qualifies as extraordinary circumstances. It
 is catastrophic!
 
-# Concluding Remarks
+## Concluding Remarks
 
-Properly handling errors is a complex matter. It is [cross-cutting
+Properly handling errors is a complex matter. It is a [cross-cutting
 concern](https://en.wikipedia.org/wiki/Cross-cutting_concern), touches all parts
 of an application, and can't be isolated in a dedicated module. In contrast to
 several other mainstream languages, OCaml provides several mechanisms to handle
@@ -970,14 +970,14 @@ always better than the others, and choosing one to use should be a matter of
 fitting the context rather than that of taste. But opinionated OCaml code is also
 fine, so it's a balance.
 
-# External Resources
+## External Resources
 
 * [“Exceptions”](/manual/coreexamples.html#s%3Aexceptions) in ”The OCaml Manual, The Core Language”, chapter 1, section 6, December 2022
 * [Module **`option`**](/manual/api/Option.html) in OCaml Library
-* [Module **`result`**](/manual/api/Result.html) in Ocaml Library
+* [Module **`result`**](/manual/api/Result.html) in OCaml Library
 * [“Error Handling”](https://dev.realworldocaml.org/error-handling.html) in “Real World OCaml”, part 7, Yaron Minsky and Anil Madhavapeddy, 2ⁿᵈ edition, Cambridge University Press, October 2022
 * “Add "finally" function to Pervasives”, Marcello Seri, GitHub PR, [ocaml/ocaml/pull/1855](https://github.com/ocaml/ocaml/pull/1855)
-* “A guide to recover from interrupts”, Guillaume Munch-Maccagnoni, parf the [`memprof-limits`](https://gitlab.com/gadmm/memprof-limits/) documentation
+* “A guide to recover from interrupts”, Guillaume Munch-Maccagnoni, part of the [`memprof-limits`](https://gitlab.com/gadmm/memprof-limits/) documentation
 
 <!--
 Acknowledgements

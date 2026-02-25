@@ -21,7 +21,7 @@ let goldbach n =
     aux 2
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* [goldbach] is defined in the previous question. *)
@@ -36,7 +36,7 @@ val goldbach_list : int -> int -> (int * (int * int)) list = <fun>
 val goldbach_limit : int -> int -> int -> (int * (int * int)) list = <fun>
 ```
 
-# Statement
+## Statement
 
 Given a range of integers by its lower and upper limit, print a list of
 all even numbers and their Goldbach composition.

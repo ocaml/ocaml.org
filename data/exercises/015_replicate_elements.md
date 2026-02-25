@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Write a function that replicates the elements of a list a given number of times."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let replicate list n =
@@ -24,7 +24,7 @@ val replicate : 'a list -> int -> 'a list = <fun>
 > Note that `List.rev list` is needed only because we want `aux` to be
 > [tail recursive](http://en.wikipedia.org/wiki/Tail_call).
 
-# Statement
+## Statement
 
 Replicate the elements of a list a given number of times.
 

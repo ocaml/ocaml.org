@@ -7,7 +7,7 @@ description: "Given a non-negative integer number, return its representation in 
 tutorials: [ "arrays" ]
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let full_words =
@@ -21,7 +21,7 @@ tutorials: [ "arrays" ]
 val full_words : int -> string = <fun>
 ```
 
-# Statement
+## Statement
 
 On financial documents, like cheques, numbers must sometimes be written
 in full words. Example: 175 must be written as one-seven-five. Write a

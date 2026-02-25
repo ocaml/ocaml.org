@@ -42,6 +42,7 @@ let industrial_businesses = "/industrial-users/businesses"
 let academic_users = "/academic-users"
 let academic_institutions = "/academic-users/institutions"
 let about = "/about"
+let history = "/history"
 
 let minor v =
   match String.split_on_char '.' v with
@@ -64,7 +65,6 @@ let conferences = "/conferences"
 let conference v = "/conferences/" ^ v
 let ocaml_planet = "/ocaml-planet"
 let local_blog source = "/blog/" ^ source
-let blog_post source v = "/blog/" ^ source ^ "/" ^ v
 let news = "/news"
 let news_post v = "/news/" ^ v
 let jobs = "/jobs"

@@ -6,7 +6,7 @@ tags: []
 description: "Find all the distinct solutions for the Eight Queens puzzle on an N×N chessboard, where no two queens threaten each other."
 ---
 
-# Solution
+## Solution
 
   This is a brute force algorithm enumerating all possible solutions.
   For a deeper analysis, look for example to
@@ -31,7 +31,7 @@ val possible : int -> int -> int list -> int list -> int list -> bool = <fun>
 val queens_positions : int -> int list list = <fun>
 ```
 
-# Statement
+## Statement
 
 This is a classical problem in computer science. The objective is to
 place eight queens on a chessboard so that no two queens are attacking

@@ -146,12 +146,11 @@ Discussions will focus on the practical aspects of OCaml programming and the nit
 
 It will be an informal meeting, with an online scribe report of the meeting, but no formal proceedings. Slides of presentations will be available online from the workshop homepage. The presentations will likely be recorded, and made available at a later time.
 
-To submit a talk, please register a description of the talk (about 2 pages long) at https://easychair.org/conferences/?conf=ocaml2015, providing a clear statement of what will be brought by the talk: the problems that are addressed, the technical solutions or methods that are proposed. If you wish to perform a demo or require any special setup, we will do our best to accommodate you.
+To submit a talk, please register a description of the talk (about 2 pages long) at <https://easychair.org/conferences/?conf=ocaml2015>, providing a clear statement of what will be brought by the talk: the problems that are addressed, the technical solutions or methods that are proposed. If you wish to perform a demo or require any special setup, we will do our best to accommodate you.
 
 ### ML family workshop and post-proceedings
 
 The ML family workshop, held on the previous day, deals with general issues of the ML-style programming and type systems, and is seen as more research-oriented. Yet there is an overlap with the OCaml workshop, which we are keen to explore, for instance by having a common session. The authors who feel their submission fits both workshops are encouraged to mention it at submission time and/or contact the Program Chairs.
-
 
 ### Questions and contact
 

@@ -256,8 +256,8 @@ The name of this function begins with `List.` because it is part of the predefin
 
 The function `List.map` can be applied on any kind of list. Here it is given a list of integers, but it could be a list of floats, strings, or anything. This is known as _polymorphism_. The `List.map` function is polymorphic, meaning it has two implicit _type variables_: `'a` and `'b` (pronounced “alpha” and “beta”). They both can be anything; however, in regard to the function passed to `List.map`:
 
-1. Input list elements have the same type of its input.
-2. Output list elements have the same type of its output.
+1. Input list elements have the same type as its input.
+2. Output list elements have the same type as its output.
 
 ### Side-Effects and the `unit` Type
 
@@ -305,7 +305,7 @@ val range : int -> int -> int list = <fun>
 
 As indicated by its type `int -> int -> int list`, the function `range` takes two integers as arguments and returns a list of integers as result. The first `int` parameter, `lo`, is the range's lower bound; the second `int` parameter, `hi`, is the higher bound. If `lo > hi`, the empty range is returned. That's the first branch of the `if … then … else` expression. Otherwise, the `lo` value is prepended to the list created by calling `range` itself; this is recursion. Prepending is achieved using `::`, the cons operator in OCaml. It constructs a new list by adding an element at the front of an existing list. Progress is made at each call; since `lo` has just been prepended at the head of the list, `range` is called with `lo + 1`. This can be visualised this way (this is not OCaml syntax):
 
-```
+```text
    range 2 5
 => 2 :: range 3 5
 => 2 :: 3 :: range 4 5
@@ -683,7 +683,7 @@ The standard library provides several predefined exceptions. It is possible to d
 
 ### Using the `result` Type
 
-Another way to deal with errors in OCaml is by returning value of type `result`,
+Another way to deal with errors in OCaml is by returning a value of type `result`,
 which can represent either the correct result or an error. Here is how it is defined:
 
 ```ocaml

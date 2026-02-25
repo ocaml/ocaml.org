@@ -1,5 +1,5 @@
 ---
-title: 2.7.1
+title: Opam-publish 2.7.1
 tags:
 - opam-publish
 - platform
@@ -18,7 +18,7 @@ github_release_tags:
 - 2.7.1
 ---
 
-We announce the release of opam-publish 2.7.1, whose full release notes can be seen [here](https://github.com/ocaml-opam/opam-publish/releases/tag/2.7.1).
+We announce the release of opam-publish 2.7.1, whose full release notes can be seen on [GitHub](https://github.com/ocaml-opam/opam-publish/releases/tag/2.7.1).
 
 ## Changes in opam-publish 2.7.1
 
@@ -30,4 +30,3 @@ Thanks to @filipeom both for the original contribution in 2.7.0 and for subseque
 Read our [blog post](https://opam.ocaml.org/blog/opam-2-5-0-rc1-publish/) for more details.
 
 Please report any issues to the [opam-publish bug-tracker](https://github.com/ocaml/opam-publish/issues).
-

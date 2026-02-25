@@ -6,7 +6,7 @@ description: >
 category: "Guides"
 ---
 
-In [Understanding the Garbage Collector](/docs/garbage-collector), discussed how Garbage Collection in OCaml works.
+In [Understanding the Garbage Collector](/docs/garbage-collector), we discussed how Garbage Collection in OCaml works.
 In this tutorial, we look at how to use the `Gc` module and how to write your own finalisers.
 At the end of the tutorial, we give some exercises you might try in order to develop a better understanding.
 
@@ -45,7 +45,7 @@ let () =
 
 Here is what it printed out for me:
 
-```
+```text
 minor_words: 115926165     # Total number of words allocated
 promoted_words: 31217      # Promoted from minor -> major
 major_words: 31902         # Large objects allocated in major directly

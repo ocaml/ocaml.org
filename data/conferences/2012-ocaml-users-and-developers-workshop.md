@@ -129,7 +129,7 @@ program_committee:
  
 ---
 
-### Scope
+## Scope
 
 The OCaml Users and Developers Workshop will bring together industrial users of OCaml with academics and hackers who are working on extending the language, type system and tools. Discussion will focus on the practical aspects of OCaml programming and the nitty gritty of the tool-chain and upcoming improvements and changes. Thus, we aim to solicit talks on all aspects related to improving the use or development of the language, including, for example:
 
@@ -145,9 +145,8 @@ The OCaml Users and Developers Workshop will bring together industrial users of 
 
 It will be an informal meeting, with an online scribe report of the meeting, but no formal proceedings for this year. Slides of presentations will be available online from the workshop homepage.
 
-### Questions and contact
+## Questions and contact
 
-If you have any queries or suggestions for the workshop, please contact Didier Remy (first.last@inria.fr) or Anil Madhavapeddy (first.last@cl.cam.ac.uk).
+If you have any queries or suggestions for the workshop, please contact Didier Remy (<first.last@inria.fr>) or Anil Madhavapeddy (<first.last@cl.cam.ac.uk>).
 
 There is also an ASCII version of this information available, suitable for dissemination on mailing lists. Please help spread the word about this meeting!
-

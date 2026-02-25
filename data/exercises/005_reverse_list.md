@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Write a function to reverse a list."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rev list =
@@ -19,7 +19,7 @@ val rev : 'a list -> 'a list = <fun>
 ```
 
 
-# Statement
+## Statement
 
 Reverse a list.
 

@@ -8,7 +8,7 @@ tutorials: [ "values-and-functions"]
 ---
 
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Recall that d divides n iff [n mod d = 0] *)
@@ -21,7 +21,7 @@ tutorials: [ "values-and-functions"]
 val factors : int -> int list = <fun>
 ```
 
-# Statement
+## Statement
 
 Construct a flat list containing the prime factors in ascending order.
 

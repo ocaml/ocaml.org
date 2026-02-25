@@ -24,7 +24,7 @@ categories:
   - name: 2d graphics
     status: •
     description: |
-      These libraries provides the necessary functionalities to create and manipulate 2D graphics.
+      These libraries provide the necessary functionalities to create and manipulate 2D graphics.
     packages:
       - name: vg
       - name: gg

@@ -7,12 +7,13 @@ category: "Introduction"
 ---
 
 As in other OCaml.org documentation, the code examples will either be something you can test or
-an example of code. Code snippets that begin with the CLI prompt `#`, end with `;;`, and have a 
-clear output can be tested in the OCaml toplevel (`ocaml` or `utop`) 
-or pasted into the OCaml playground. If the code doesn't start with `#` and end in `;;`, 
-it's an example of how to write the code. 
+an example of code. Code snippets that begin with the CLI prompt `#`, end with `;;`, and have a
+clear output can be tested in the OCaml toplevel (`ocaml` or `utop`)
+or pasted into the OCaml playground. If the code doesn't start with `#` and end in `;;`,
+it's an example of how to write the code.
 
 ## For Loops and While Loops
+
 OCaml supports a rather limited form of the familiar `for` loop:
 
 <!-- $MDX skip -->
@@ -125,6 +126,7 @@ let quit_loop = ref false in
 ```
 
 ## Looping Over Lists
+
 If you want to loop over a list, don't be an imperative programmer and
 reach for your trusty six-shooter Mr. `For` Loop! OCaml has some better
 and faster ways to loop over lists, and they are all located in the
@@ -251,6 +253,7 @@ overflows the integers and gives wrong answers even for quite small
 values of `n`.)
 
 ## Looping Over Strings
+
 The `String` module also contains dozens of useful string-related
 functions, and some of them are concerned with looping over strings.
 
@@ -259,6 +262,7 @@ function which works like `List.iter`, except over the characters of the
 string.
 
 ## Recursion
+
 Now we come to a hard topic: recursion. Functional programmers are
 defined by their love of recursive functions, and in many ways recursive
 functions in functional programming are the equivalent of loops in imperative programming.
@@ -274,21 +278,24 @@ In the first example, we'll read the whole file into memory
 this:
 
 ### Approach 1
+
 Get the length of the file and read it all at once using the
 [`really_input`](https://ocaml.org/manual/api/Stdlib.html#VALreally_input) method. This is the simplest, but it might not work on
 channels that are not really files (e.g., reading keyboard input), which
 is why we have two other approaches.
 
 ### Approach 2
+
 The imperative approach uses a `while` loop that is broken out of using
 an exception.
 
 ### Approach 3
+
 A recursive loop breaks out of the recursion again using an
 exception.
 
 We're going to introduce a few new concepts here. Our second two
-approaches will use the `Buffer` module, an expandable buffer. 
+approaches will use the `Buffer` module, an expandable buffer.
 Think of it like a string onto which you can efficiently append more
 text at the end. We're also going to be catching the `End_of_file`
 exception, which the input functions throw when they reach the end of the
@@ -332,7 +339,7 @@ let read_whole_chan chan =
         Buffer.add_char buf '\n'
     done;
     assert false (* This is never executed
-	                (always raises Assert_failure). *)
+                 (always raises Assert_failure). *)
   with
     End_of_file -> Buffer.contents buf
 
@@ -455,7 +462,7 @@ Note the use of `fold_left` and `map`. The `map` is used to
 Then the `fold_left (^) ""` concatenates the list together into one big
 string. Notice also the use of pattern matching. (The library defines a
 function called `String.concat`, which is essentially equivalent to
-`fold_left (^) `, but implemented more efficiently).
+`fold_left (^)`, but implemented more efficiently).
 
 Now let's define a function to read a directory structure, recursively,
 and return a recursive `filesystem` data structure. I'm going to show
@@ -601,6 +608,7 @@ print_endline (string_of_filesystem fs)
 ```
 
 ### Recursion Example: Maximum Element in a List
+
 Remember the basic recursion pattern for lists:
 
 <!-- $MDX skip -->
@@ -640,7 +648,7 @@ Think about this for a while. Suppose you know the maximum element of
 bigger than `y`, then the overall maximum is `x`, whereas conversely if
 `x` is less than `y`, then the overall maximum is `y`.
 
-Does this really work? 
+Does this really work?
 
 Consider `[1; 2; 3; 4; 1]` again. This is
 `1 :: [2; 3; 4; 1]`. Now the maximum element of the remainder,
@@ -690,6 +698,7 @@ to say that a program is provably bug-free, useful for space shuttles,
 nuclear power plants and higher quality software in general).
 
 ### Tail Recursion
+
 Let's look at the `range` function again for about the twentieth time:
 
 ```ocaml
@@ -822,18 +831,19 @@ val range : int -> int -> int list = <fun>
 
 That was a brief overview of tail recursion, but in real world
 situations, determining if a function is tail-recursive can be quite
-hard. 
+hard.
 
-What did we really learn here? 
+What did we really learn here?
 
 One thing is that recursive
 functions have a dangerous trap for inexperienced programmers. Your
 function can appear to work for small inputs (during testing), but then fail
 catastrophically in the field when exposed to large inputs. This is one
-argument *against* using recursive functions; instead, use explicit `while` 
+argument *against* using recursive functions; instead, use explicit `while`
 loops when possible.
 
 ## Mutable Records, References (Again!) and Arrays
+
 Previously we mentioned records in passing. These are like C `struct`s:
 
 ```ocaml
@@ -848,7 +858,7 @@ Error: Some record fields are undefined: b
 
 Let's move on to another interesting feature: OCaml records can have mutable fields.
 Normally an expression like `{a = 3; b = 5}` is an immutable, constant
-object. However if the record has **mutable fields**, 
+object. However if the record has **mutable fields**,
 there is a way to change those fields in the record. This is an
 imperative feature of OCaml, because functional languages don't normally
 allow mutable objects (or references or mutable arrays, which we'll look
@@ -1012,6 +1022,7 @@ Exception: Failure "int_of_string".
 ```
 
 ## Mutually Recursive Functions
+
 Suppose I want to define two functions that call each other. This is
 actually not a very common thing to do, but it can sometimes be useful.
 Here's a contrived example (thanks to Ryan Tarpine): The number 0 is

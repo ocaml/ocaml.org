@@ -12,7 +12,7 @@ type 'a binary_tree =
   | Node of 'a * 'a binary_tree * 'a binary_tree
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* Build all trees with given [left] and [right] subtrees. *)
@@ -37,7 +37,7 @@ val add_trees_with :
 val cbal_tree : int -> char binary_tree list = <fun>
 ```
 
-# Statement
+## Statement
 
 ![Binary Tree](/media/problems/binary-tree.gif)
 

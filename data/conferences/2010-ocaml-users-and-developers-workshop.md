@@ -59,9 +59,6 @@ program_committee: []
 organising_committee: []
 ---
 
-### Call for Presentations
+## Call for Presentations
 
 Please consider submitting a presentation! See here the call for presentations.
-
-
-

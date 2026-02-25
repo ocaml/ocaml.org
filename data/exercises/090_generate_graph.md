@@ -6,13 +6,13 @@ tags: [ "graph" ]
 description: "Count the number of non-isomorphic 3-regular graphs with 6 nodes."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* example pending *);;
 ```
 
-# Statement
+## Statement
 
 In a [K-regular graph](http://en.wikipedia.org/wiki/K-regular_graph) all
 nodes have a degree of K; i.e. the number of edges incident in each node

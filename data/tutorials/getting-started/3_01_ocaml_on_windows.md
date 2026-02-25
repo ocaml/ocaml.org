@@ -148,7 +148,7 @@ The installation procedure will print instructions on how to link Merlin with
 your editor.
 
 **If you use Vim**, the default Cygwin Vim will not work with
-Merlin. You will need install Vim separately. In addition to the usual
+Merlin. You will need to install Vim separately. In addition to the usual
 instructions printed when installing Merlin, you may need to set the PATH in
 Vim:
 

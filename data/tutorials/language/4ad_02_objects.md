@@ -7,7 +7,8 @@ category: "Advanced Topics"
 ---
 
 ## Objects and Classes
-OCaml is an [object-oriented, imperative, functional programming language](https://ocaml.org/about). 
+
+OCaml is an [object-oriented, imperative, functional programming language](https://ocaml.org/about).
 It mixes all these paradigms and lets you use the most appropriate
 (or most familiar) programming paradigm for the task at hand. In this
 chapter, we're going to look at object-oriented programming in OCaml, but
@@ -59,7 +60,7 @@ list `[]` has type `'a list`, meaning a list of any type. However we
 want a stack of `int`, not anything else, so in this case we want to
 tell the type inference engine that this list isn't the general "list of
 anything" but is in fact the narrower "list of `int`." The syntax
-`( expression : type )` means `expression`, which is a of type
+`( expression : type )` means `expression`, which is of type
 `type`. This *isn't* a general type cast because you can't use it to
 overrule the type inference engine, only to narrow a general type to
 make it more specific. So you can't write, for example, `( 1 : float )`:
@@ -74,7 +75,7 @@ Error: This expression has type int but an expression was expected of type
 
 Type safety is preserved. Back to the example ...
 
-This class has four simple methods: 
+This class has four simple methods:
 - `push` pushes an integer onto the
 stack.
 - `pop` pops the top integer off the stack and returns it. Notice
@@ -135,6 +136,7 @@ val s : stack_of_ints = <obj>
 from callers.
 
 ### Polymorphic Classes
+
 A stack of integers is good, but what about a stack that can store any
 type? (Not a single stack that can store a mixture of types, but
 multiple stacks each storing objects of any single type). As with
@@ -227,6 +229,7 @@ val drain_stack : 'a stack -> unit = <fun>
 ```
 
 ### Inheritance, Virtual Classes, Initialisers
+
 I've noticed programmers in Java tend to overuse inheritance, possibly
 because it's the only reasonable way of extending code in that language.
 A much better and more general way to extend code is usually to use
@@ -238,7 +241,7 @@ Let's consider an imaginary OCaml widget library similar to Java's
 Swing. We will define buttons and labels with the following class
 hierarchy:
 
-```
+```text
 widget  (superclass for all widgets)
   |
   +----> container  (any widget that can contain other widgets)
@@ -378,7 +381,7 @@ Notes:
 ```
 
 Would this modify the private internal representation of my `container`
-class, by prepending `x` to the list of widgets? No it wouldn't. If you run 
+class, by prepending `x` to the list of widgets? No it wouldn't. If you run
 the above code, you'll see it throws an error:
 
 ```ocaml
@@ -512,6 +515,7 @@ Button being repainted, state is Released
 ```
 
 ### A Note About `self`
+
 In all the examples above, we defined classes using the general pattern:
 
 <!-- $MDX skip -->
@@ -593,6 +597,7 @@ this direction is *unsafe*. You might try to coerce a `widget` which is
 in fact a `label`, not a `button`.
 
 ### The `Oo` Module and Comparing Objects
+
 The `Oo` module contains a few useful functions for OO programming.
 
 `Oo.copy` makes a shallow copy of an object. `Oo.id object` returns a
@@ -605,17 +610,19 @@ etc., which provides an ordering of objects based apparently on their
 IDs.
 
 ## Objects Without Class
+
 Here we examine how to use objects pretty much like records, without
 necessarily using classes.
 
 ### Immediate Objects and Object Types
+
 Objects can be used instead of records. Plus, they have some nice properties
 that can make them preferable to records in some cases. We saw that the
 canonical way of creating objects is to first define a class, then use
 this class to create individual objects. This can be cumbersome in some
 situations because class definitions are more than a type definition and
 cannot be defined recursively with types. However, objects have a type
-that is very analog to a record type, and it can be used in type
+that is very analogous to a record type, and it can be used in type
 definitions. In addition, objects can be created without a class. They
 are called *immediate objects*. Here is the definition of an immediate
 object:
@@ -662,19 +669,20 @@ val r : counter_r = {get = <fun>; incr = <fun>}
 In terms of functionality, both the object and the record are similar,
 but each solution has its own advantages:
 
-* **speed**: slightly faster field access in records
-* **field names**: it is inconvenient to manipulate records of
+- **speed**: slightly faster field access in records
+- **field names**: it is inconvenient to manipulate records of
  different types when some fields are named identically but it's not
  a problem with objects.
-* **subtyping**: it is impossible to coerce the record type to a
+- **subtyping**: it is impossible to coerce the record type to a
  type with fewer fields. However, that is possible with objects, so
  objects of different kinds that share some methods can be mixed in a
  data structure where only their common methods are visible (see next
  section).
-* **type definitions**: there is no need to define an object type in
+- **type definitions**: there is no need to define an object type in
  advance, so it lightens the dependency constraints between modules.
 
 ### Class Types vs. Just Types
+
 Beware of the confusion between *class types* and object *types*. A
 *class type* is not a data *type*, normally referred to as *type* in the
 OCaml jargon. An object *type* is a kind of data *type*, just like a

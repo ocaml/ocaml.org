@@ -14,7 +14,7 @@ type bool_expr =
   | Or of bool_expr * bool_expr
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* [val_vars] is an associative list containing the truth value of
@@ -45,7 +45,7 @@ val table : string list -> bool_expr -> ((string * bool) list * bool) list =
   <fun>
 ```
 
-# Statement
+## Statement
 
 Generalize the previous problem in such a way that the logical
 expression may contain any number of logical variables. Define `table`

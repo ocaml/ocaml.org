@@ -7,16 +7,16 @@ Apply the [*Spiral Learning*](https://en.wikipedia.org/wiki/Spiral_approach) app
 ## Materials
 
 - References, e.g.:
-  - [OCaml Language Manual](https://ocaml.org/releases/latest/manual.html). You can contribute [here](https://github.com/ocaml/ocaml/tree/trunk/manual).
-  - [opam manual](https://opam.ocaml.org/). You can contribute [here](https://github.com/ocaml/opam).
-  - [Dune's documentation](https://dune.readthedocs.io/en/stable/). You can contribute [here](https://github.com/ocaml/dune/tree/main/doc).
+  - [OCaml Language Manual](https://ocaml.org/releases/latest/manual.html). You can contribute to [its source on GitHub](https://github.com/ocaml/ocaml/tree/trunk/manual).
+  - [opam manual](https://opam.ocaml.org/). You can contribute to [its repository](https://github.com/ocaml/opam).
+  - [Dune's documentation](https://dune.readthedocs.io/en/stable/). You can contribute to [its docs folder](https://github.com/ocaml/dune/tree/main/doc).
 - Tutorials
 - Guides
 - Recommended practices
 
 ## Audience
 
-Anytime one contributes to the OCaml.org documentation, it's important to keep the target audience in mind. For example, if writing a tutorial for programmers new to OCaml, you want to ensure the examples are simple and straighforward so as not to overwhelm them with too much detail while starting their learning journey. For more advanced users, adjust the tone and examples accordingly.
+Anytime one contributes to the OCaml.org documentation, it's important to keep the target audience in mind. For example, if writing a tutorial for programmers new to OCaml, you want to ensure the examples are simple and straightforward so as not to overwhelm them with too much detail while starting their learning journey. For more advanced users, adjust the tone and examples accordingly.
 
 **Our audience:**
 - Self-directed learners without a tutor
@@ -38,7 +38,7 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 
 ## Our Key Values / Constraints
 
-- **Goals and Prerequisites**. Each tutorial begins with its objectives, so that people know what they will learn about.```
+- **Goals and Prerequisites**. Each tutorial begins with its objectives, so that people know what they will learn about.
 - **Avoid Overwhelming Choices**. Tutorials should guide learners on a straightforward path, avoiding multiple options. This makes the learning process smoother. Detailed choices can be included in additional references and guides.
 - **Highlight Important Computer Science Terms**. Use italics for well-known terms, providing a visual hint that these are important concepts. Linking to Wikipedia for further explanation is an option.
 - **Be Entertaining in Examples, Accurate in Text**. While it's essential to be clear and precise in the main text, using engaging and fun examples can make the material more appealing. This approach helps cater to different learning styles.

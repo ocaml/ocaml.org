@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Insert an element at a specified position (0-based index) within a list."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec insert_at x n = function
@@ -15,7 +15,7 @@ description: "Insert an element at a specified position (0-based index) within a
 val insert_at : 'a -> int -> 'a list -> 'a list = <fun>
 ```
 
-# Statement
+## Statement
 
 Start counting list elements with 0.  If the position is larger or
 equal to the length of the list, insert the element at the end.  (The

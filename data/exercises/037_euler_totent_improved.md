@@ -19,7 +19,7 @@ let factors n =
     aux 2 n
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 (* Naive power function. *)
@@ -34,7 +34,7 @@ let phi_improved n =
     aux 1 (factors n)
 ```
 
-# Statement
+## Statement
 
 See problem "[Calculate Euler&#39;s totient function φ(m)](#34)" for
 the definition of Euler's totient function. If the list of the prime

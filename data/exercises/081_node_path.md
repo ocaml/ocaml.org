@@ -10,7 +10,7 @@ description: "Return all acyclic paths between two nodes a and b in a given grap
 type 'a graph_term = {nodes : 'a list;  edges : ('a * 'a) list}
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # (* The datastructures used here are far from the most efficient ones
@@ -37,7 +37,7 @@ val list_path : 'a graph_term -> 'a -> 'a list -> 'a list list = <fun>
 val paths : 'a graph_term -> 'a -> 'a -> 'a list list = <fun>
 ```
 
-# Statement
+## Statement
 
 Write a function `paths g a b` that returns all acyclic path `p` from
 node `a` to node `b ≠ a` in the graph `g`. The function should return

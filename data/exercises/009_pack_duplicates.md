@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Pack consecutive duplicates of list elements into sublists."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let pack list =
@@ -20,7 +20,7 @@ description: "Pack consecutive duplicates of list elements into sublists."
 val pack : 'a list -> 'a list list = <fun>
 ```
 
-# Statement
+## Statement
 
 Pack consecutive duplicates of list elements into sublists.
 

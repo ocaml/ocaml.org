@@ -22,7 +22,7 @@ information at a nearly instantaneous linear time complexity (O(1)).
 A hash table data structure achieves efficient reads and writes by employing a
 hashing function that converts the key of a key/value pair into an
 algorithmically unique "fingerprint" known as a hash. OCaml has a built-in
-hashing function within the `Hashtabl` module that is available for each key
+hashing function within the `Hashtbl` module that is available for each key.
 The `Hashtbl` module implements an efficient, mutable lookup table.
 
 ## Creating a Polymorphic Hash Table
@@ -54,7 +54,7 @@ and then later use a string as a key in that same hash table.
 
 ### Adding Data to a Hash Table
 
-Lets add some data to `my_hash`. Lets say I am working on a cross word
+Let's add some data to `my_hash`. Let's say I am working on a crossword
 solving program and I want to find all words that start with a certain
 letter. First I need to enter the data into `my_hash`.
 
@@ -77,7 +77,7 @@ something like this:
 
 The return type is `unit`, indicating that `Hashtbl.add` produces a side effect.
 
-Now that we put data into `my_hash`, lets look at its type:
+Now that we put data into `my_hash`, let's look at its type:
 
 ```ocaml
 # my_hash;;
@@ -103,7 +103,7 @@ value of `"h"`.
 
 However, the previous values associated with the key `"h"` were not replaced.
 What we may want instead is all the elements that start with `"h"`. To do this we
-want to *find all* of them. What better name for this than `find_all`?
+want to _find all_ of them. What better name for this than `find_all`?
 
 ```ocaml
 # Hashtbl.find_all my_hash "h";;
@@ -127,11 +127,11 @@ associated to the key.
 
 This behavior is interesting for the above example or when, say, the
 keys represent variables that can be temporarily masked by a local
-variables of the same name.
+variable of the same name.
 
 ### Replacing Data in Hash Tables
 
-In other contexts, one may prefer new values *replace* the previous ones.  In
+In other contexts, one may prefer new values _replace_ the previous ones.  In
 this case, one uses `Hashtbl.replace`:
 
 ```ocaml

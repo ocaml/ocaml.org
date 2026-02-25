@@ -39,7 +39,7 @@ The `int` type is the default and basic integer type in OCaml. When you enter a 
 - : int = 42
 ```
 
-The `int` type represents platform-dependent signed integers. This means `int` does not always have same the number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Int`](/manual/api/Int.html) modules.
+The `int` type represents platform-dependent signed integers. This means `int` does not always have the same number of bits. It depends on underlying platform characteristics, such as processor architecture or operating system. Operations on `int` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Int`](/manual/api/Int.html) modules.
 
 Usually, `int` has 31 bits in 32-bit architectures and 63 in 64-bit architectures, because one bit is reserved for OCaml's runtime operation. The standard library also provides [`Int32`](/manual/api/Int32.html) and [`Int64`](/manual/api/Int64.html) modules, which support platform-independent operations on 32- and 64-bit signed integers. These modules are not detailed in this tutorial.
 
@@ -160,7 +160,8 @@ Like strings, byte sequences are finite and fixed-sized. Each individual byte is
 
 Operations on `bytes` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Bytes`](/manual/api/Bytes.html) modules. Only the function `Bytes.get` allows direct access to the characters contained in a byte sequence. Unlike arrays, there is no direct access operator on byte sequences.
 
-The memory representation of `bytes` is four times more compact that `char array`.
+The memory representation of `bytes` is four times more compact than `char array`.
+
 ### Arrays & Lists
 
 #### Arrays
@@ -704,7 +705,7 @@ Here is how the map function can be defined in this type:
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
 
-In the OCaml community, as well as in the larger functional programming community, the word *polymorphism* is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism and has a name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it is sometimes necessary to distinguish them.
+In the OCaml community, as well as in the larger functional programming community, the word _polymorphism_ is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism and has a name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it is sometimes necessary to distinguish them.
 
 Here are the terms applicable to data types:
 1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
@@ -924,7 +925,7 @@ val top_factorise : expr -> expr = <fun>
 - : expr = Times (Var "n", Plus (Var "x", Var "y"))
 ```
 
-The factorise function above introduces another feature: *guards* to each
+The factorise function above introduces another feature: _guards_ to each
 pattern. The conditional follows the `when`, and it means that
 the return code is executed only if the pattern matches and the condition in the
 `when` clause is satisfied.
@@ -935,11 +936,11 @@ This tutorial has provided a comprehensive overview of OCaml's basic data types 
 <!--
 From the data point of view, records and tuples are similar to the logical conjunction “and,” while variants are similar to the logical disjunction “or.” This analogy goes very deep, with records and tuples on one side as products and variants on the other side as union. These are true mathematical operations on data types. Records and tuples play the role of multiplication, which is why they are called product types. Variants play the role of addition. Putting it all together, basic OCaml types are said to be algebraic.
 
-In this tutorial _variants_ and _products_ were presented, this correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
+In this tutorial _variants_ and _products_ were presented, these correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
 
 ## Next: Advanced Data Types
 -->
-In this tutorial _variants_ and _products_ were presented, this correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
+In this tutorial _variants_ and _products_ were presented, these correspond to [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type). At this level, a [nominal](https://en.wikipedia.org/wiki/Nominal_type_system) type-checking algorithm is used. Historically, this is OCaml's first type system, as it comes from the [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) programming language, OCaml's ancestor. Although OCaml has other type systems, this document focused on data typed using this algorithm.
 <!--
 ## Next: Advanced Data Types
 

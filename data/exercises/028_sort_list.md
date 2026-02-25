@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Sort a list of lists based on the frequency of sublist lengths in ascending order, with lists of less frequent lengths coming first."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 (* We might not be allowed to use built-in List.sort, so here's an
@@ -49,7 +49,7 @@ let frequency_sort lists =
   List.map snd sorted
 ```
 
-# Statement
+## Statement
 
 Sorting a list of lists according to length of sublists.
 

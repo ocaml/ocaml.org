@@ -13,7 +13,7 @@ let t = T ('a', [T ('f', [T ('g', [])]); T ('c', []);
           T ('b', [T ('d', []); T ('e', [])])])
 ```
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec add_lispy buf = function
@@ -31,7 +31,7 @@ val add_lispy : Buffer.t -> char mult_tree -> unit = <fun>
 val lispy : char mult_tree -> string = <fun>
 ```
 
-# Statement
+## Statement
 
 There is a particular notation for multiway trees in Lisp. The
 picture shows how multiway tree structures are represented in Lisp.

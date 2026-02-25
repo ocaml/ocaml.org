@@ -6,7 +6,7 @@ tags: [ "list" ]
 description: "Write a function that duplicates the elements of a list."
 ---
 
-# Solution
+## Solution
 
 ```ocaml
 # let rec duplicate = function
@@ -18,7 +18,7 @@ val duplicate : 'a list -> 'a list = <fun>
 > Remark: this function is not tail recursive.  Can you modify it so
 > it becomes so?
 
-# Statement
+## Statement
 
 Duplicate the elements of a list.
 

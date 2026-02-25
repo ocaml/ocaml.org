@@ -2,7 +2,7 @@
 id: sequences
 title: Sequences
 description: >
-  Learn about sequences, of OCaml's most-used, built-in data types
+  Learn about sequences, one of OCaml's most-used, built-in data types
 category: "Data Structures"
 prerequisite_tutorials:
   - "lists"
@@ -59,7 +59,7 @@ may see as forcing evaluation to retrieve the first element of the list.
 However, this only gives access to the tip of the
 sequence, since the second argument of `Seq.Cons` is a function too.
 
-This explain why sequences may be considered potentially
+This explains why sequences may be considered potentially
 infinite: Until a `Seq.Nil` value has been found in the sequence, one can't say
 for sure if some will ever appear. The sequence could be a stream of incoming
 requests in a server, readings from an embedded sensor, or system logs. All have
@@ -227,7 +227,7 @@ filtered sequence beginning with `Seq.Nil`.
 colloquially be called a recursive, is an example of a kind of recursion called
 [corecursion](https://en.wikipedia.org/wiki/Corecursion). Corecursion differs
 from recursion in that it constructs results incrementally rather than consuming
-it's input incrementally. Unlike traditional recursion, which works towards a
+its input incrementally. Unlike traditional recursion, which works towards a
 base case, corecursive functions must indefinitely produce values as a stream. The `trial_div` function is corecursive
 because it does not immediately compute the complete sequence of primes. Instead, it
 produces prime numbers on-demand, filtering and deferring further computation until
@@ -261,7 +261,7 @@ sequences. The result returned by `Seq.unfold f x` is the sequence built by
 accumulating the results of successive calls to `f` until it returns `None`.
 This is:
 
-```
+```text
 (fst p₀, fst p₁, fst p₂, fst p₃, fst p₄, ...)
 ```
 
@@ -371,7 +371,7 @@ This application of `Seq.unfold` has type  `unit -> int Seq.node`, making it a f
 
 ## Be Aware of Seq.Cons vs Seq.cons
 
-The `Seq` module in the OCaml Standard Library contains two version of
+The `Seq` module in the OCaml Standard Library contains two versions of
 "cons-ing" that warrant special attention due to their similar names and distinct
 behavior.
 
@@ -420,7 +420,7 @@ val ints_b : int Seq.t = <fun>
 Now that we have seen these two versions of "cons-ing" can construct the same
 sequence, it begs the question: what makes `Seq.cons` and `Seq.Cons` different?
 
-Lets look at how confusing `Seq.Cons` and `Seq.con` can lead to unintended
+Let's look at how confusing `Seq.Cons` and `Seq.cons` can lead to unintended
 behavior.
 
 ### Fibs with `Seq.cons`
@@ -452,7 +452,7 @@ This produces a never-ending recursion that leads to a stack overflow.
 
 ### Fibs with `Seq.Cons`
 
-Next, lets define `fibs_v2` using the constructor `Seq.Cons`:
+Next, let's define `fibs_v2` using the constructor `Seq.Cons`:
 
 ```ocaml
 # let rec fibs_v2 m n () = Seq.Cons (m, fibs_v2 n (n + m));;
@@ -504,7 +504,7 @@ arguments of `'a` and `'a t`.
 
 ### A Mental Model for `Seq.Cons` vs `Seq.cons`
 
-It useful to think of `Seq.Cons` and `Seq.cons` as accomplishing different
+It is useful to think of `Seq.Cons` and `Seq.cons` as accomplishing different
 tasks. `Seq.Cons` provides a convenient means of recursively defining a sequence
 generator and a clumsy means to prepend a value to a sequence.  Conversely,
 `Seq.cons` provides a convenient means to prepend a value to a sequence and an
@@ -578,10 +578,6 @@ OCaml 4.14. Beware books and documentation written before may still mention it.
   * Xavier Van de Woestyne [@xvw](https://github.com/xvw)
   * Simon Cruanes [@c-cube](https://github.com/c-cube)
   * Glen Mével [gmevel](https://github.com/gmevel) -->
-
-
-
-
 
 <!--
 Suggestion: perhaps it would be enlightening to illustrate the use of Seq.unfold by re-implementing the already seen function primes? Perhaps in an exercise rather than in the main text of the tutorial.

@@ -40,7 +40,7 @@ If you don't want a local opam switch and are happy to install everything global
 make deps
 ```
 
-Opam will likely ask questions about installing system dependencies. Ror the project to work, you will have to answer yes to installing these.
+Opam will likely ask questions about installing system dependencies. For the project to work, you will have to answer yes to installing these.
 
 ### Running the Server
 
@@ -92,7 +92,7 @@ After the dependencies have been installed, simply build the project to regenera
 make playground
 ```
 
-Once the compilation is complete and successuful, commit the newly-generated assets in OCaml.org's Git repo and merge the pull request.
+Once the compilation is complete and successful, commit the newly-generated assets in OCaml.org's Git repo and merge the pull request.
 
 ### Deploying
 
@@ -161,7 +161,7 @@ Makefile
 .github/workflows/*.yml
 ```
 
-When bringing up OCaml.org to a newer pin, the commit hash found it those files must be changed all at once.
+When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once.
 
 Once the opam repo pin is updated, the local switch must be updated using the following command:
 
@@ -178,7 +178,7 @@ of OCamlFormat.
 
 ### Handling the Tailwind CSS
 
-The Tailwind CSS framework. The tailwind binary pulled from its GitHub [repo](https://github.com/tailwindlabs/tailwindcss). Download is performed by Dune during the build. When working on a local switch for hacking, you don't want `dune clean` to delete this binary. Just do `dune install tailwind` to have it installed in the local switch.
+The site uses the Tailwind CSS framework. The Tailwind binary is pulled from its GitHub [repo](https://github.com/tailwindlabs/tailwindcss). Download is performed by Dune during the build. When working on a local switch for hacking, you don't want `dune clean` to delete this binary. Just do `dune install tailwind` to have it installed in the local switch.
 
 ## Repository Structure
 

@@ -95,7 +95,7 @@ function simply adds the file name to the reference defined earlier.
 let anon_fun filename = input_files := filename :: !input_files
 ```
 
-Finally we build the list of command line flag specifcations. Each is a tuple
+Finally we build the list of command line flag specifications. Each is a tuple
 of the flag name, the action to be taken when it is encountered, and the help
 string.
 
@@ -187,7 +187,7 @@ built-in `Arg` module:
   parser.
 
 * [Minicli](https://opam.ocaml.org/packages/minicli/) has good support for
-  rejecting malformed command lines which others might sliently accept.
+  rejecting malformed command lines which others might silently accept.
 
 * [Getopt](https://opam.ocaml.org/packages/getopt/) for OCaml is similar to
   [GNU getopt](https://www.gnu.org/software/libc/manual/html_node/Getopt.html).

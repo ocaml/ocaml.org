@@ -221,19 +221,19 @@ At runtime, the program raises an uncaught exception `Not_found`.  Suppose we
 want to find where and why this exception has been raised, we can proceed as
 follows. First, we compile the program in debug mode:
 
-```
+```shell
 ocamlc -g uncaught.ml
 ```
 
 We launch the debugger:
 
-```
+```shell
 ocamldebug a.out
 ```
 
 Then the debugger answers with a banner and a prompt:
 
-```
+```text
 OCaml Debugger version 4.14.0
 
 (ocd)
@@ -243,7 +243,7 @@ OCaml Debugger version 4.14.0
 
 Type `r` (for *run*); you get
 
-```
+```text
 (ocd) r
 Loading program... done.
 Time : 27
@@ -256,7 +256,7 @@ Self-explanatory, isn't it? So, you want to step backward to set the program
 counter before the time the exception is raised; hence type in `b` as
 *backstep*, and you get
 
-```
+```text
 (ocd) b
 Time: 26 - pc: 0:29628 - module Stdlib__List
 191     [] -> raise Not_found<|a|>
@@ -271,7 +271,7 @@ But, as you know, you want the debugger to tell you which procedure calls the
 one from `List`, and also who calls the procedure that calls the one from
 `List`; hence, you want a backtrace of the execution stack:
 
-```
+```text
 (ocd) bt
 Backtrace:
 #0 Stdlib__List list.ml:191:26
@@ -307,7 +307,7 @@ spurious exception you just need to type `ocamldebug a.out`, then `r`, `b`, and
 To get more info about the current status of the debugger you can ask it
 directly at the toplevel prompt of the debugger; for instance:
 
-```
+```text
 (ocd) info breakpoints
 No breakpoint.
 
@@ -327,7 +327,7 @@ Syntax: break
 Let's set up a breakpoint and rerun the entire program from the
 beginning (`(g)oto 0` then `(r)un`):
 
-```
+```text
 (ocd) break @Uncaught 7
 Breakpoint 1 at 0:42856: file uncaught.ml, line 7, characters 3-36
 
@@ -344,7 +344,7 @@ Breakpoint: 1
 Then, we can step and find what happens just before (`<|b|>`)
 `List.assoc` is about to be called in `find_address`:
 
-```
+```text
 (ocd) s
 Time: 21 - pc: 0:42756 - module Uncaught
 3 let find_address name = <|b|>List.assoc name !l
@@ -372,7 +372,7 @@ Getting a back trace for an uncaught exception can be informative to
 understand in which context a problem occurs. However, by default,
 programs compiled with both `ocamlc` and `ocamlopt` will not print it:
 
-```
+```shell
 ocamlc -g uncaught.ml
 ./a.out
 Fatal error: exception Not_found
@@ -384,7 +384,7 @@ Fatal error: exception Not_found
 By running with the environment variable `OCAMLRUNPARAM` set to `b`
 (for back trace) we get something more informative:
 
-```
+```shell
 OCAMLRUNPARAM=b ./a.out
 Fatal error: exception Not_found
 Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
@@ -399,7 +399,7 @@ exception in `List.assoc` from the `Stdlib` when calling
 The environment variable `OCAMLRUNPARAM` also works when working on a
 program built with `dune`:
 
-```
+```dune
 ;; file dune
 (executable
  (name uncaught)
@@ -407,7 +407,7 @@ program built with `dune`:
 )
 ```
 
-```
+```shell
 OCAMLRUNPARAM=b dune exec ./uncaught.exe
 Fatal error: exception Not_found
 Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
@@ -427,7 +427,7 @@ report these.
 To install the TSan mode, create a dedicated TSan switch by running the
 following command (here we create a 5.2.0 switch):
 
-```
+```shell
 opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
 ```
 
@@ -483,7 +483,7 @@ Here is a corresponding `dune` file:
 If we compile and run the program using `dune` under a regular `5.2.0` switch the
 program appears to work:
 
-```
+```shell
 $ opam exec -- dune build ./race.exe
 $ opam exec -- dune exec ./race.exe
 v.x is 11
@@ -492,7 +492,7 @@ v.x is 11
 However, if we compile and run the program with Dune from the new
 `5.2.0+tsan` switch TSan warns us of a data race:
 
-```
+```text
 $ opam switch 5.2.0+tsan
 $ opam exec -- dune build ./race.exe
 $ opam exec -- dune exec ./race.exe
@@ -554,7 +554,7 @@ let () =
 If we recompile and run our program with this change, it now completes
 without TSan warnings:
 
-```
+```shell
 $ opam exec -- dune build ./race.exe
 $ opam exec -- dune exec ./race.exe
 v is 11
@@ -563,8 +563,8 @@ v is 11
 The TSan instrumentation benefits from compiling programs with debug
 information, which happens by default under `dune`. To manually invoke
 the `ocamlopt` compiler under our `5.2.0+tsan` switch it is thus
-suffient to pass it the `-g` flag:
+sufficient to pass it the `-g` flag:
 
-```
+```shell
 ocamlopt -g -o race.exe -I +unix unix.cmxa race.ml
 ```

@@ -21,8 +21,8 @@ preprocessor](https://github.com/ocaml-ppx/ppxlib/tree/main/examples/simple-exte
 Printf.printf "This program has been compiled by user: %s" [%get_env "USER"]
 ```
 
-The preprocessor will replace [%get_env "USER"] with the content of the USER 
-environment variable at compile time. This environment variable has no effect at 
+The preprocessor will replace [%get_env "USER"] with the content of the USER
+environment variable at compile time. This environment variable has no effect at
 runtime. For example, if USER is set to "JohnDoe", the line would become:
 
 <!-- $MDX skip -->
@@ -77,7 +77,6 @@ However, some preprocessors such as
 [`cppo`](https://github.com/ocaml-community/cppo) have been made especially to
 integrate well with OCaml.
 
-
 In OCaml, preprocessing text files do not have specific support from the language. Instead
 it is the build system's role to drive the preprocessing. So, applying
 preprocessors will boil down to telling Dune about it. Only for educational
@@ -115,8 +114,8 @@ Hello, Universe!
 ### Preprocessing With Dune
 
 Dune's build system has a specific stanza to apply preprocessing to files.
-The full documentation can be found
-[here](https://dune.readthedocs.io/en/stable/explanation/preprocessing.html),
+The full documentation can be found in the
+[Dune preprocessing guide](https://dune.readthedocs.io/en/stable/explanation/preprocessing.html),
 and should serve as a reference. In this section, we only give a few examples.
 
 The stanza to apply preprocessing on the source file is `(preprocess (action
@@ -136,7 +135,7 @@ module files using our previously written `preprocessor.sh`:
 
 ### The Limits of Manipulating Text Files
 
-The complexities of a programming language syntax makes it very hard to
+The complexities of a programming language's syntax make it very hard to
 manipulate text in a way that is tied to the syntax. Suppose for instance that,
 similarly to the previous example, you want to rewrite all occurrences of "World"
 by "Universe," but _inside the OCaml strings of the program_ only. It is quite
@@ -147,7 +146,7 @@ comments could get in the way...
 Consider another example. Suppose you have defined a type, and you want to
 generate a serializer at compile time from this specific type to an encoding of
 it in a `json` format, such as `Yojson` (see
-[here](#why-ppxs-are-especially-useful-in-ocaml) for the reasons it has to be
+[Why PPXs Are Especially Useful in OCaml](#why-ppxs-are-especially-useful-in-ocaml) for the reasons it has to be
 generated at compile-time). This serialization code could be written by a
 preprocessor, which would look for the type in the file and serialize it
 differently depending on the type structure; that is, whether it is a variants
@@ -297,7 +296,7 @@ files](#the-limits-of-manipulating-text-files)). Indeed, exactly the right amoun
 of information is passed to the PPX, and we also know that the PPX won't modify
 any part of the source.
 
-Example of derivers are:
+Examples of derivers are:
 - [`ppx_show`](https://github.com/thierry-martinez/ppx_show) generates a pretty printer
   from a type for values of this type.
 - Derivers that derive serializers from OCaml types to other formats, such as

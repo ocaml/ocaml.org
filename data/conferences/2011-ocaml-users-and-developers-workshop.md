@@ -65,8 +65,6 @@ organising_committee:
 
 This event will take place in Paris. The venue is in Telecom ParisTech (former ENST, the place of the first OCaml Meeting).
 
-### Questions and contact
+## Questions and contact
 
-If you have any queries or suggestions for the workshop, please contact Didier Remy (first.last@inria.fr) or Anil Madhavapeddy (first.last@cl.cam.ac.uk).
-
-
+If you have any queries or suggestions for the workshop, please contact Didier Remy (<first.last@inria.fr>) or Anil Madhavapeddy (<first.last@cl.cam.ac.uk>).
