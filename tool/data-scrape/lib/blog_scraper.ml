@@ -66,19 +66,23 @@ module Post = struct
       |> Result.get_ok ~error:(fun (`Msg m) -> Data_packer.Exn.Decode_error m))
 end
 
-let scrape_post ~source (post : River.post) =
+let scrape_post ~source (post : River.post) : Scrape_report.entry option =
   let title = River.title post in
   let slug = Data_packer.Utils.slugify title in
   let source_path = "data/planet/" ^ source.Data_intf.Blog.id in
   print_string
     (Printf.sprintf "\nprocessing %s/%s " source.Data_intf.Blog.id slug);
   let output_file = source_path ^ "/" ^ slug ^ ".md" in
-  if not (Sys.file_exists output_file) then
+  if not (Sys.file_exists output_file) then (
     let url = River.link post in
     let date = River.date post |> Option.map Syndic.Date.to_rfc3339 in
     match (url, date) with
-    | None, _ -> print_string "skipping, item does not have a url"
-    | _, None -> print_string "skipping, item does not have a date"
+    | None, _ ->
+        print_string "skipping, item does not have a url";
+        None
+    | _, None ->
+        print_string "skipping, item does not have a date";
+        None
     | Some url, Some date ->
         if not (Sys.file_exists source_path) then Sys.mkdir source_path 0o775;
         let content = River.content post in
@@ -107,20 +111,26 @@ let scrape_post ~source (post : River.post) =
           let s = Format.asprintf "%a" Post.pp_meta metadata in
           let oc = open_out output_file in
           Printf.fprintf oc "%s" s;
-          close_out oc)
-        else print_string "skipping, flagged as not caml related"
+          close_out oc;
+          Some
+            (Scrape_report.New_post
+               { source_id = source.Data_intf.Blog.id; title }))
+        else (
+          print_string "skipping, flagged as not caml related";
+          None))
+  else None
 
-let scrape_source source =
+let scrape_source (source : Data_intf.Blog.source) : Scrape_report.entry list =
   try
     [ River.fetch { name = source.name; url = source.url } ]
     |> River.posts
-    |> List.iter (scrape_post ~source)
+    |> List.filter_map (scrape_post ~source)
   with e ->
-    print_endline
-      (Printf.sprintf "failed to scrape %s: %s" source.id (Printexc.to_string e))
+    let message = Printexc.to_string e in
+    print_endline (Printf.sprintf "failed to scrape %s: %s" source.id message);
+    [ Scrape_report.Error { source_id = source.id; message } ]
 
-let scrape () =
-  let sources = Source.all () in
-  sources
+let scrape () : Scrape_report.entry list =
+  Source.all ()
   |> List.filter (fun ({ disabled; _ } : Data_intf.Blog.source) -> not disabled)
-  |> List.iter scrape_source
+  |> List.concat_map scrape_source

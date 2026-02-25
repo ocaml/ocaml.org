@@ -171,6 +171,7 @@ end)
 let scrape yaml_file =
   let ( let* ) = Result.bind in
   let scraped = all () |> VideoSet.of_list in
+  let errors = ref [] in
   let fetched =
     let file = "youtube.yml" in
     let* yaml = Data_packer.Utils.yaml_file file in
@@ -198,9 +199,13 @@ let scrape yaml_file =
                          || is_sub_ignore_case "caml"
                               video.Data_packer.Vid.description))
            with e ->
+             let message = Printexc.to_string e in
              Printf.eprintf " [WARN] Could not fetch %s %s %s\n%!" src.name
                (source_to_url src |> Uri.to_string)
-               (Printexc.to_string e);
+               message;
+             errors :=
+               Scrape_report.Error { source_id = source_to_id src; message }
+               :: !errors;
              Seq.empty)
     |> VideoSet.of_seq |> Result.ok
   in
@@ -211,6 +216,10 @@ let scrape yaml_file =
         |> VideoSet.to_seq |> List.of_seq
         |> List.sort (fun a b ->
                compare b.Data_packer.Vid.published a.Data_packer.Vid.published)
+      in
+      let new_count =
+        VideoSet.cardinal (VideoSet.union fetched scraped)
+        - VideoSet.cardinal scraped
       in
       let yaml = Data_packer.Vid.video_list_to_yaml all_videos in
       (* The yaml library uses a fixed-size output buffer. The default is 262140
@@ -235,5 +244,11 @@ let scrape yaml_file =
       in
       let oc = open_out yaml_file in
       output_string oc output;
-      close_out oc
+      close_out oc;
+      let video_entry =
+        if new_count > 0 then
+          [ Scrape_report.Video_update { file = yaml_file; new_count } ]
+        else []
+      in
+      video_entry @ List.rev !errors
   | Error (`Msg msg) -> failwith msg

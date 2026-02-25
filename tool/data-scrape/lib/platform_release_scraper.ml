@@ -104,6 +104,23 @@ let pp_meta ppf v =
 |}
     (metadata_to_yaml v |> Yaml.to_string |> Result.get_ok)
 
+let project_display_name = function
+  | "dune" -> "Dune"
+  | "dune-release" -> "Dune-release"
+  | "mdx" -> "Mdx"
+  | "merlin" -> "Merlin"
+  | "ocaml" -> "OCaml"
+  | "ocaml-lsp" -> "OCaml-LSP"
+  | "ocamlformat" -> "OCamlFormat"
+  | "ocp-indent" -> "Ocp-indent"
+  | "odoc" -> "Odoc"
+  | "opam" -> "opam"
+  | "opam-publish" -> "Opam-publish"
+  | "ppxlib" -> "Ppxlib"
+  | "utop" -> "Utop"
+  | "omp" -> "OCaml-migrate-parsetree"
+  | s -> s
+
 module SMap = Map.Make (String)
 module SSet = Set.Make (String)
 
@@ -140,7 +157,7 @@ let write_release_announcement_file project github_tag tags (post : River.post)
     River.date post |> Option.get |> Ptime.to_rfc3339
     |> String.split_on_char 'T' |> List.hd
   in
-  let title = River.title post in
+  let title = project_display_name project ^ " " ^ River.title post in
   let github_release_tags =
     [ River.link post |> Option.map github_release_tag_from_url ]
   in

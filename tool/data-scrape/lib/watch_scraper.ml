@@ -92,6 +92,7 @@ let get_all_videos () =
   aux data
 
 let scrape yaml_file =
+  let old_count = List.length (all ()) in
   let watch =
     get_all_videos ()
     |> List.stable_sort (fun w1 w2 ->
@@ -104,4 +105,8 @@ let scrape yaml_file =
   in
   let oc = open_out yaml_file in
   Printf.fprintf oc "%s" output;
-  close_out oc
+  close_out oc;
+  let new_count = List.length watch - old_count in
+  if new_count > 0 then
+    [ Scrape_report.Video_update { file = yaml_file; new_count } ]
+  else []
