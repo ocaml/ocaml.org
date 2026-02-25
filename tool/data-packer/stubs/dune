@@ -1,0 +1,8 @@
+; Source files for embedded data blob access
+;
+; These files are copied to src/ocamlorg_data/ during build.
+; They cannot be built standalone because:
+;   - data_blob.S requires data.bin to exist (via .incbin)
+;   - data_blob_stubs.c references symbols defined in data_blob.S
+;
+; See src/ocamlorg_data/dune for the actual build rules.

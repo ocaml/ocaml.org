@@ -42,7 +42,7 @@ jobs:
 
       - name: Build scraper
         run: |
-          opam exec -- dune build tool/ood-gen/bin/scrape.exe
+          opam exec -- dune build tool/data-scrape/bin/scrape.exe
 
       - name: Run scrapers
         run: |

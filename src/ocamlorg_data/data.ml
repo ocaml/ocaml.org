@@ -1,5 +1,47 @@
+(* Data module using binary blob embedding
+ *
+ * The blob is embedded in the binary via .incbin assembly directive and
+ * deserialized lazily on first access using bin_prot.
+ *)
+
+(* ============================================================
+ * Blob Access
+ * ============================================================ *)
+
+(* External C functions to access the embedded blob *)
+external _get_blob_size : unit -> int = "caml_ocamlorg_data_blob_size"
+external get_blob_check : unit -> bool = "caml_ocamlorg_data_blob_check"
+
+external get_blob_raw :
+  unit ->
+  (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
+  = "caml_ocamlorg_data_blob"
+
+(* Lazy deserialization - happens once on first access *)
+let all_data : Data_packer.Types.All_data.t Lazy.t =
+  lazy
+    ((* Verify blob is valid *)
+     if not (get_blob_check ()) then
+       failwith "Data blob is not properly initialized";
+
+     (* Get the blob as a bigstring for bin_prot *)
+     let buf : Bigstringaf.t = get_blob_raw () in
+     let pos_ref = ref 0 in
+
+     (* Deserialize using bin_prot *)
+     Data_packer.Types.All_data.bin_read_t buf ~pos_ref)
+
+(* Force deserialization once at module load time *)
+let data = Lazy.force all_data
+
+(* ============================================================
+ * Individual Module Implementations
+ * ============================================================ *)
+
 module Academic_institution = struct
-  include Academic_institution
+  include Data_intf.Academic_institution
+
+  let all = data.academic_institutions
 
   let featured =
     all
@@ -14,16 +56,23 @@ module Academic_institution = struct
     | Some acronym -> acronym ^ " - " ^ course.name
 end
 
-module Academic_testimonial = Academic_testimonial
+module Academic_testimonial = struct
+  include Data_intf.Academic_testimonial
+
+  let all = data.academic_testimonials
+end
 
 module Book = struct
-  include Book
+  include Data_intf.Book
 
+  let all = data.books
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Backstage = struct
-  include Backstage
+  include Data_intf.Backstage
+
+  let all = data.backstage
 
   let get_by_slug slug =
     List.find_opt
@@ -35,7 +84,9 @@ module Backstage = struct
 end
 
 module Changelog = struct
-  include Changelog
+  include Data_intf.Changelog
+
+  let all = data.changelog
 
   let get_by_slug slug =
     List.find_opt
@@ -47,13 +98,18 @@ module Changelog = struct
 end
 
 module Code_example = struct
-  include Code_example
+  type t = Data_intf.Code_examples.t = { title : string; body : string }
 
+  let all = data.code_examples
   let get title = List.find (fun x -> String.equal x.title title) all
 end
 
 module Cookbook = struct
-  include Cookbook
+  include Data_intf.Cookbook
+
+  let all = data.cookbook_recipes
+  let tasks = data.cookbook_tasks
+  let top_categories = data.cookbook_top_categories
 
   let rec get_task_path_titles categories = function
     | [] -> []
@@ -86,12 +142,14 @@ module Cookbook = struct
 end
 
 module Event = struct
-  include Event
+  include Data_intf.Event
+
+  let all = data.events
 
   module RecurringEvent = struct
     type t = recurring_event
 
-    let all = recurring_event_all
+    let all = data.recurring_events
 
     let get_by_slug slug =
       List.find_opt (fun (x : t) -> String.equal slug x.slug) all
@@ -101,7 +159,9 @@ module Event = struct
 end
 
 module Exercise = struct
-  include Exercise
+  include Data_intf.Exercise
+
+  let all = data.exercises
 
   let filter_tag ?tag =
     let f x =
@@ -113,31 +173,52 @@ module Exercise = struct
 end
 
 module Governance = struct
-  include Governance
+  include Data_intf.Governance
+
+  let teams = data.governance_teams
+  let working_groups = data.governance_working_groups
 
   let get_by_id id =
     List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
 end
 
 module Industrial_user = struct
-  include Industrial_user
+  include Data_intf.Industrial_user
 
+  let all = data.industrial_users
   let featured = all |> List.filter (fun user -> user.featured)
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Is_ocaml_yet = Is_ocaml_yet
-module Job = Job
-module Testimonial = Testimonial
+module Is_ocaml_yet = struct
+  include Data_intf.Is_ocaml_yet
+
+  let all = data.is_ocaml_yet
+end
+
+module Job = struct
+  include Data_intf.Job
+
+  let all = data.jobs
+end
+
+module Testimonial = struct
+  include Data_intf.Testimonial
+
+  let all = data.testimonials
+end
 
 module News = struct
-  include News
+  include Data_intf.News
 
+  let all = data.news
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Opam_user = struct
-  include Opam_user
+  include Data_intf.Opam_user
+
+  let all = data.opam_users
 
   let make ~name ?email ?github_username ?avatar () =
     { name; email; github_username; avatar }
@@ -158,10 +239,16 @@ module Opam_user = struct
            contains pattern (String.lowercase_ascii name))
 end
 
-module Outreachy = Outreachy
+module Outreachy = struct
+  include Data_intf.Outreachy
+
+  let all = data.outreachy
+end
 
 module Page = struct
-  include Page
+  include Data_intf.Page
+
+  let all = data.pages
 
   let get path =
     let slug = Filename.basename path in
@@ -169,16 +256,33 @@ module Page = struct
 end
 
 module Paper = struct
-  include Paper
+  include Data_intf.Paper
 
+  let all = data.papers
   let featured = all |> List.filter (fun paper -> paper.featured)
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
-module Planet = Planet
+module Planet = struct
+  include Data_intf.Planet
+
+  let all = data.planet
+end
 
 module Release = struct
-  include Release
+  include Data_intf.Release
+
+  let all = data.releases
+
+  let latest =
+    match data.release_latest with
+    | Some r -> r
+    | None -> failwith "No latest release marked in data"
+
+  let lts =
+    match data.release_lts with
+    | Some r -> r
+    | None -> failwith "No LTS release marked in data"
 
   let get_by_version version =
     if version = "lts" then Some lts
@@ -199,29 +303,39 @@ module Release = struct
                u v)
 end
 
-module Resource = Resource
+module Resource = struct
+  include Data_intf.Resource
+
+  let all = data.resources
+  let featured = data.featured_resources
+end
 
 module Success_story = struct
-  include Success_story
+  include Data_intf.Success_story
 
+  let all = data.success_stories
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tool = struct
-  include Tool
+  include Data_intf.Tool
 
+  let all = data.tools
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tool_page = struct
-  include Tool_page
+  include Data_intf.Tool_page
 
+  let all = data.tool_pages
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tutorial = struct
-  include Tutorial
+  include Data_intf.Tutorial
 
+  let all = data.tutorials
+  let all_search_documents = data.tutorial_search_documents
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
   let search_documents q =
@@ -251,13 +365,18 @@ module Tutorial = struct
     |> List.map fst
 end
 
-module Video = Video
+module Video = struct
+  include Data_intf.Video
+
+  let all = data.videos
+end
 
 module Conference = struct
-  include Conference
+  include Data_intf.Conference
 
-  let all = Conference.all
+  let all = data.conferences
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+(* V2 assets - comes from separately generated v2.ml *)
 module V2 = V2
