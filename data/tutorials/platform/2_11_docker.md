@@ -3,13 +3,13 @@ id: "ocaml-docker"
 title: "OCaml Docker Images"
 short_title: "Docker Images"
 description: |
-  :OCaml official docker images, what they are, what they provide, how to use them
+  An overview of the official OCaml Docker images: what they provide and how to use them
 category: "Additional Tooling"
 ---
 
 ## Docker Hub Repository: `ocaml/opam`
 
-The official OCaml Docker images are hosted at **[hub.docker.com/r/ocaml/opam](https://hub.docker.com/r/ocaml/opam)**. The [`ocurrent/docker-base-images`](https://github.com/ocurrent/docker-base-images`) repository contains their build instructions.
+The official OCaml Docker images are hosted at **[hub.docker.com/r/ocaml/opam](https://hub.docker.com/r/ocaml/opam)**. The [`ocurrent/docker-base-images`](https://github.com/ocurrent/docker-base-images) repository contains their build instructions.
 
 **Note:** The older repositories `ocaml/opam2`, `ocaml/opam2-staging`, `ocurrent/opam`, and `ocaml/ocaml` are **no longer updated**. Use `ocaml/opam` for the latest images.
 
@@ -17,7 +17,7 @@ The official OCaml Docker images are hosted at **[hub.docker.com/r/ocaml/opam](h
 
 Each image contains the following:
 - The latest release of `opam`
-- A global `opam` switch with the base image specific compiler pre-installed
+- A global `opam` switch with the base-image-specific compiler pre-installed
 - A local copy of [`opam-repository`](https://github.com/ocaml/opam-repository) from when the base-image was created
 - A default user called `opam`
 
@@ -53,7 +53,7 @@ The `latest` tag is the latest release of OCaml running on the latest version of
 
 ## Supported Architectures
 
-The images are multi-arch images including support for 32 and 64 bit where possible and `arm`, `x86` and `ppc`.
+The images are multi-arch, with support for `arm`, `x86`, and `ppc` architectures in both 32-bit and 64-bit variants where possible.
 
 ## OCaml Compiler Variants
 
@@ -63,7 +63,7 @@ Beyond standard OCaml versions, there are variants like:
 
 ## How They're Built
 
-This is an OCurrent pipeline that builds Docker images for OCaml, for various combinations of Linux distribution, Windows version, OCaml version and architecture.
+The images are built by an OCurrent pipeline that produces Docker images for various combinations of Linux distribution, Windows version, OCaml version, and architecture.
 
 The images are **updated weekly** via an automated pipeline at [images.ci.ocaml.org](https://images.ci.ocaml.org).
 
