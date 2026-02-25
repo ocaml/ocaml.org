@@ -66,7 +66,7 @@ There are several major modes dedicated to OCaml, of which the 3 main ones are:
 
 - [Tuareg](https://github.com/ocaml/tuareg): a well-established and actively maintained mode with comprehensive OCaml support. Recommended if you're using an older version of Emacs (before the introduction of `tree-sitter` support) or you need some of the advanced functionality that Tuareg provides.
 - [Caml](https://github.com/ocaml/caml-mode): an older, lighter mode that is softly deprecated at this point.
-- [Neocaml](https://github.com/bbatsov/neocaml): a newer mode based on [tree-sitter](https://tree-sitter.github.io/tree-sitter/), requiring Emacs 30+. A solid choice if you're using Emacs 30+ and you're after a simple mode that gets the basics right.
+- [Neocaml](https://github.com/bbatsov/neocaml): a newer mode based on [tree-sitter](https://tree-sitter.github.io/tree-sitter/), requiring Emacs 30+.
 
 For the purposes of this tutorial, we are going to focus on the use of `tuareg` as the major mode, but you should feel free to experiment and choose your favourite one! To use `tuareg`, you can add these lines to your Emacs configuration:
 
