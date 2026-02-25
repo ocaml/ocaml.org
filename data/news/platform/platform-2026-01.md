@@ -30,17 +30,17 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 **Stable Releases:**
 
-- [opam-publish 2.7.1](https://ocaml.org/changelog/2025-11-18-opam-publish-2.7.1) (Nov 18, 2025)
-- [opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-2.5.0) (Nov 27, 2025)
-- [Merlin 5.6.1-504](https://ocaml.org/changelog/2025-12-20-merlin-v5-6-1-504) (Dec 20, 2025)
-- [OCaml-LSP 1.25.0](https://ocaml.org/changelog/2025-12-20-ocaml-lsp-1-25-0) (Dec 20, 2025)
-- [Dune 3.21.0](https://ocaml.org/changelog/2026-01-16-dune-3-21-0) (Jan 16, 2026)
-- [dune-release 2.2.0](https://ocaml.org/changelog/dune-release/2026-01-29-dune-release-2.2.0) (Jan 29, 2026)
+- [opam-publish 2.7.1](https://ocaml.org/changelog/2025-11-18-opam-publish-271) (Nov 18, 2025)
+- [opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-250) (Nov 27, 2025)
+- [Merlin 5.6.1-504](https://ocaml.org/changelog/2025-12-20-merlin-v561-504) (Dec 20, 2025)
+- [OCaml-LSP 1.25.0](https://ocaml.org/changelog/2025-12-20-ocaml-lsp-1250) (Dec 20, 2025)
+- [Dune 3.21.0](https://ocaml.org/changelog/2026-01-16-dune3210) (Jan 16, 2026)
+- [dune-release 2.2.0](https://ocaml.org/changelog/2026-01-29-dune-release-220) (Jan 29, 2026)
 
 **Unstable Releases:**
 
-- [opam 2.5.0~rc1](https://ocaml.org/changelog/2025-11-20-opam-2-5-0-rc1) (Nov 20, 2025)
-- [opam 2.5.0~beta1](https://ocaml.org/changelog/2025-11-10-opam-2-5-0-beta1) (Nov 10, 2025)
+- [opam 2.5.0~rc1](https://ocaml.org/backstage/2025-11-20-opam-250-rc1) (Nov 20, 2025)
+- [opam 2.5.0~beta1](https://ocaml.org/backstage/2025-11-10-opam-250-beta1) (Nov 10, 2025)
 
 ## OCaml Compiler
 
@@ -63,7 +63,7 @@ The implementation is the culmination of work by David Allsopp, with review from
 
 ### Dune
 
-[Dune 3.21.0](https://ocaml.org/changelog/2026-01-16-dune-3-21-0) (January 16, 2026) is a large release including dozens of fixes, improvements, and additions from many contributors.
+[Dune 3.21.0](https://ocaml.org/changelog/2026-01-16-dune3210) (January 16, 2026) is a large release including dozens of fixes, improvements, and additions from many contributors.
 
 **Notable Additions:**
 
@@ -94,7 +94,7 @@ For the complete list of changes, see the [full release on GitHub](https://githu
 
 ### opam
 
-[opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-2.5.0) (November 27, 2025) is a major release with significant performance and usability improvements.
+[opam 2.5.0](https://ocaml.org/changelog/2025-11-27-opam-250) (November 27, 2025) is a major release with significant performance and usability improvements.
 
 **Key Features:**
 
@@ -117,7 +117,7 @@ For more details, see the [official opam 2.5.0 announcement blog](https://opam.o
 
 ### opam-publish
 
-[opam-publish 2.7.1](https://ocaml.org/changelog/2025-11-18-opam-publish-2.7.1) (November 18, 2025) fixes bugs related to the GitHub API token permissions introduced in version 2.7.0.
+[opam-publish 2.7.1](https://ocaml.org/changelog/2025-11-18-opam-publish-271) (November 18, 2025) fixes bugs related to the GitHub API token permissions introduced in version 2.7.0.
 
 **Changes:**
 
@@ -146,7 +146,7 @@ This maintenance practice ensures the opam repository remains sustainable and fo
 
 ### dune-release
 
-[dune-release 2.2.0](https://ocaml.org/changelog/dune-release/2026-01-29-dune-release-2.2.0) (January 29, 2026) brings full compatibility with cmdliner 2.0.0, continuing the ecosystem-wide migration that began with opam 2.5.0's removal of the cmdliner dependency.
+[dune-release 2.2.0](https://ocaml.org/changelog/2026-01-29-dune-release-220) (January 29, 2026) brings full compatibility with cmdliner 2.0.0, continuing the ecosystem-wide migration that began with opam 2.5.0's removal of the cmdliner dependency.
 
 **Why This Matters:**
 
@@ -169,7 +169,7 @@ For technical details, see the [cmdliner 2.0.0 documentation](https://erratique.
 
 ### OCaml-LSP Server
 
-[OCaml-LSP 1.25.0](https://ocaml.org/changelog/2025-12-20-ocaml-lsp-1-25-0) (December 20, 2025) introduces support for `.mlx` files and new custom requests.
+[OCaml-LSP 1.25.0](https://ocaml.org/changelog/2025-12-20-ocaml-lsp-1250) (December 20, 2025) introduces support for `.mlx` files and new custom requests.
 
 **Features:**
 
@@ -184,7 +184,7 @@ For technical details, see the [cmdliner 2.0.0 documentation](https://erratique.
 
 ### Merlin
 
-[Merlin 5.6.1-504](https://ocaml.org/changelog/2025-12-20-merlin-v5-6-1-504) (December 20, 2025) brings performance optimizations and improved stability.
+[Merlin 5.6.1-504](https://ocaml.org/changelog/2025-12-20-merlin-v561-504) (December 20, 2025) brings performance optimizations and improved stability.
 
 **Key Improvements:**
 
@@ -211,7 +211,7 @@ These updates have been merged into `main`, making them available via a MELPA up
 
 ### OCaml Infrastructure: How the opam-repository Works
 
-The [November 5, 2025 article on the opam-repository](https://ocaml.org/changelog/2025-11-05-how-the-opam-repository-works) provides an in-depth look at this critical piece of OCaml infrastructure. The opam repository serves as the central package registry for the OCaml ecosystem, hosting over 4,500 packages. It relies on dedicated volunteer maintainers who review every submission.
+The [November 5, 2025 article on the opam-repository](https://ocaml.org/backstage/2025-11-05-how-the-opam-repository-works) provides an in-depth look at this critical piece of OCaml infrastructure. The opam repository serves as the central package registry for the OCaml ecosystem, hosting over 4,500 packages. It relies on dedicated volunteer maintainers who review every submission.
 
 ---
 
