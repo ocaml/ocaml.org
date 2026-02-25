@@ -4,6 +4,8 @@ title: Introduction to opam Switches
 description: |
   This page will give you a brief introduction to opam switches, what they're used for, and how to create them.
 category: "Tooling"
+recommended_next_tutorials:
+  - "managing-dependencies"
 ---
 
 ## What Is an opam Switch?

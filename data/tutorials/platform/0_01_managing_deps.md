@@ -4,31 +4,31 @@ title: "Managing Dependencies With opam"
 description: |
   How to manage dependencies with opam
 category: "Projects"
+prerequisite_tutorials:
+  - "opam-switch-introduction"
 ---
 
 ## Installing Existing Dependencies
 
-We recommend installing a project's dependencies in a local opam switch to sandbox your development environment.
+We recommend installing a project's dependencies in a [local opam switch](/docs/opam-switch-introduction) to sandbox your development environment. If you haven't created one yet, run `opam switch create .` from your project directory first.
 
-If you're using opam `2.0.X`, you can do this with:
+Before installing, make sure your package index is up to date:
 
 ```shell
-# if you need external system dependencies
-opam pin add -n .
-opam depext -i <packages>
-opam install . --deps-only --with-test --with-doc
+opam update
 ```
 
-If you use opam `2.1.X`, it will install the system dependencies automatically, so you can run:
+Then install the project's dependencies:
 
 ```shell
 opam install . --deps-only --with-test --with-doc
 ```
 
-Now, if for some reason you prefer to install your dependencies in a global switch, you can run:
+If you prefer to install your dependencies in a global switch instead, select it first:
 
 ```shell
 opam switch set <switch_name>
+eval $(opam env)
 opam install . --deps-only --with-test --with-doc
 ```
 
@@ -78,7 +78,7 @@ If the `*.opam` files are not generated, you can add the dependencies in them di
 ```opam
 opam-version: "2.0"
 synopsis: "A short, but powerful statement about your project"
-description: "An complete and exhaustive description everything your project does."
+description: "A complete and exhaustive description of everything your project does."
 depends: [
   "ocaml" {>= "4.08.0"}
   "dune"
@@ -177,34 +177,25 @@ You can install a package in your active switch directly from a Git URL:
 opam pin add <package-name> <git-url>#<branch-or-commit>
 ```
 
-## Dealing With Development-Only Dependencies
+## Dependency Categories
 
-Opam does not have a notion of development dependencies. Instead, each dependency can be either:
+Each dependency in opam can be tagged with a flag to indicate when it is needed:
 
-- A normal dependency (used at runtime)
-- A build dependency (used to build the project)
-- A test dependency (used to test the project)
-- A documentation dependency (used to generate the documentation)
+- **Normal** (no flag): used at runtime
+- **Build** (`build`): used only to build the project
+- **Test** (`with-test`): used only to run tests
+- **Documentation** (`with-doc`): used only to generate documentation
 
-When adding a new dependency, as seen in the "Update Dependencies" workflow, you can add a flag to your dependency.
-
-For `dune-project`, it looks like this:
+In `dune-project`, flags look like this:
 
 ```dune
 (alcotest :with-test)
 ```
 
-And for the `*.opam` file, it looks like:
+In `*.opam` files:
 
 ```opam
 "alcotest" {with-test}
 ```
-
-The available flags for each dependency are:
-
-- Normal: no flag
-- Build: `build`
-- Test: `with-test`
-- Documentation: `with-doc`
 
 See [opam documentation](https://opam.ocaml.org/doc/Manual.html#Package-variables) for more details on the opam syntax.
