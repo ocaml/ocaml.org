@@ -1,5 +1,5 @@
 ---
-title: 2.7.1
+title: opam-publish 2.7.1
 tags:
 - opam-publish
 - platform
