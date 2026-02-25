@@ -3,13 +3,13 @@ id: "setup-ocaml"
 title: "OCaml GitHub Action"
 short_title: "GitHub Action"
 description: |
-  :OCaml official docker images, what they are, what they provide, how to use them
+  Using the setup-ocaml GitHub Action to set up CI workflows for OCaml projects
 category: "Additional Tooling"
 ---
 
 ## `setup-ocaml`
 
-[`setup-ocaml`](https://github.com/ocaml/setup-ocaml) is an action that provides an OS-neutral interface to `opam`, and so will not add features that only work on one operating system. It is the _de-facto_ standard for OCaml CI workflows. It is maintained by Sora Moritomo ([@smoritomo](https://github.com/smoritomo)).
+[`setup-ocaml`](https://github.com/ocaml/setup-ocaml) is an action that provides an OS-neutral interface to `opam`, and so will not add features that only work on one operating system. It is the _de-facto_ standard for OCaml CI workflows. It is maintained by Sora Morimoto ([@smorimoto](https://github.com/smorimoto)).
 
 ### Basic Usage
 
@@ -53,7 +53,7 @@ Check source code formatting
       - uses: ocaml/setup-ocaml/lint-fmt@v3    # Check ocamlformat
 ```
 
-Check documentation
+Lint opam package files
 ```yaml
   lint-opam:
     runs-on: ubuntu-latest
@@ -65,7 +65,7 @@ Check documentation
       - uses: ocaml/setup-ocaml/lint-opam@v3  # Lint opam files
 ```
 
-Check documentation
+Check documentation builds
 ```yaml
   lint-doc:
     runs-on: ubuntu-latest
@@ -79,42 +79,13 @@ Check documentation
 
 ### Key Features
 
-<table>
-<thead>
-  <tr>
-    <th>Feature</th>
-    <th>Input</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Compiler version</td>
-    <td><code>ocaml-compiler: 5.2</code></td>
-    <td>Supports semver syntax</td>
-  </tr>
-  <tr>
-    <td>Compiler variants</td>
-    <td><code>ocaml-compiler: ocaml-variants.5.2.0+options,ocaml-option-flambda</code></td>
-    <td>Flambda, etc.</td>
-  </tr>
-  <tr>
-    <td>Dune cache</td>
-    <td><code>dune-cache: true</code></td>
-    <td>Speed up builds</td>
-  </tr>
-  <tr>
-    <td>Custom opam repo</td>
-    <td><code>opam-repositories: ...</code></td>
-    <td>Use custom/pinned repos</td>
-  </tr>
-  <tr>
-    <td>Disable sandbox</td>
-    <td><code>opam-disable-sandboxing: true</code></td>
-    <td>For Docker/containers</td>
-  </tr>
-</tbody>
-</table>
+| Feature | Input | Description |
+|---------|-------|-------------|
+| Compiler version | `ocaml-compiler: 5.2` | Supports semver syntax |
+| Compiler variants | `ocaml-compiler: ocaml-variants.5.2.0+options,ocaml-option-flambda` | Flambda, etc. |
+| Dune cache | `dune-cache: true` | Speed up builds |
+| Custom opam repo | `opam-repositories: ...` | Use custom/pinned repos |
+| Disable sandbox | `opam-disable-sandboxing: true` | For Docker/containers |
 
 ### Cross-Platform Support
 
@@ -122,46 +93,13 @@ Works on Linux, macOS, and Windows with the same workflow file. The action handl
 
 ## OCaml-CI _vs_ GitHub Actions
 
-<table>
-<thead>
-  <tr>
-    <th>Aspect</th>
-    <th>OCaml-CI</th>
-    <th>GitHub Actions + setup-ocaml</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Configuration</td>
-    <td>Zero (reads opam/dune files)</td>
-    <td>Manual YAML workflow</td>
-  </tr>
-  <tr>
-    <td>Platforms</td>
-    <td>Linux, macOS (experimental)</td>
-    <td>Linux, macOS, Windows</td>
-  </tr>
-  <tr>
-    <td>Multi-version testing</td>
-    <td>Automatic from opam constraints</td>
-    <td>Manual matrix setup</td>
-  </tr>
-  <tr>
-    <td>Lower-bound testing</td>
-    <td>Built-in (experimental)</td>
-    <td>DIY</td>
-  </tr>
-  <tr>
-    <td>Caching</td>
-    <td>Automatic, smart</td>
-    <td>Manual with <code>dune-cache: true</code></td>
-  </tr>
-  <tr>
-    <td>Approval needed</td>
-    <td>Yes (allowlist)</td>
-    <td>No</td>
-  </tr>
-</tbody>
-</table>
+| Aspect | OCaml-CI | GitHub Actions + setup-ocaml |
+|--------|----------|------------------------------|
+| Configuration | Zero (reads opam/dune files) | Manual YAML workflow |
+| Platforms | Linux, macOS (experimental) | Linux, macOS, Windows |
+| Multi-version testing | Automatic from opam constraints | Manual matrix setup |
+| Lower-bound testing | Built-in (experimental) | DIY |
+| Caching | Automatic, smart | Manual with `dune-cache: true` |
+| Approval needed | Yes (allowlist) | No |
 
 Many projects use both: [OCaml-CI](/docs/ocaml-ci) for comprehensive automated testing, and GitHub Actions for quick feedback and Windows support.
