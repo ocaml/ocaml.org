@@ -6,80 +6,104 @@ description: |
 category: "Tooling"
 ---
 
-OCaml's package manager, opam, introduces the concept of a _switch_, which is an isolated OCaml environment. These switches often cause confusion amongst OCaml newcomers, so this document aims to provide a better understanding of opam switches and their usage for managing dependencies and project-specific configurations.
+## What Is an opam Switch?
 
-Opam is designed to manage multiple concurrent installation prefixes called "switches." Similar to Python's `virtualenv`, an opam switch is a tool that creates isolated environments. They are independent of each other and have their own set of installed packages, repositories, and configuration options. Switches also have their own OCaml compiler, libraries, and binaries. This enables you to have multiple compiler versions available at once.
+An opam switch is an isolated OCaml environment. Each switch has its own OCaml compiler, installed packages, and binaries, all independent from other switches. This is similar to Python's `virtualenv` or Node's `nvm`: you can have multiple OCaml setups side by side without them interfering with each other.
 
-## Listing Switches
+After [installing OCaml](/docs/installing-ocaml), you'll have a single switch called `default`.
 
-The command below will display the opam switches that are configured on your system. After completing installation of OCaml, such as outlined in [Installing OCaml](/docs/installing-ocaml), a single switch called `default` will have been created. At that point, listing the switches will only show that switch.
+## Global vs. Local Switches
 
-```shell
-$ opam switch list
-#   switch   compiler      description
-->  default  ocaml.4.13.1  default
-```
+There are two kinds of switches:
 
-## Creating a New Switch
+- **Global switches** are named environments stored under `~/.opam/<switch-name>/`. They aren't tied to any project directory. Your `default` switch is a global switch.
+- **Local switches** are tied to a specific project directory and stored in an `_opam/` folder inside it. When you `cd` into a directory with a local switch, opam automatically uses it.
 
-To create a new opam switch, you can use the `opam switch` command followed by the desired switch name and an optional OCaml compiler version. For example, to create a switch named "my_project" with a specific OCaml compiler version, use:
+**For project work, we recommend local switches.** They keep each project's dependencies isolated and make it easy for collaborators to reproduce your setup.
 
-```shell
-opam switch create my_project <compiler-version>
-```
+## Listing Available Compilers
 
-Replace `<compiler-version>` with the version of the OCaml compiler you want to use, e.g. `5.2.0` (see `opam switch list-available` for a list of available OCaml compilers versions).
-
-If you don't specify a compiler, and `my_project` is a directory, opam will choose the default version. If `my_project` is not a directory, opam will consider it as a plain name and try to install a compiler version with the same name.
-
-Next, **activate** your new switch. This will set it as the currently selected switch, so any OCaml-related operations will use this switch. You can activate it by running:
+Before creating a switch, you'll need to pick a compiler version:
 
 ```shell
-opam switch my_project
+opam switch list-available
 ```
 
-Replace `my_project` with the name of your new switch.
+This shows all OCaml compiler versions you can install. Pick the latest stable version unless you have a reason not to.
 
-**Confirm** you've activated it by running:
+## Creating a Global Switch
+
+To create a named global switch:
 
 ```shell
-opam switch
+opam switch create my_switch 5.4.0
 ```
 
-If the output is the name of your new switch, you've successfully activated it! Now you can use it for your OCaml projects and install OCaml packages, libraries, and dependencies specific to this switch without affecting other switches or the system-wide OCaml environment.
+Then update your shell environment:
 
-## Types of Switches
+```shell
+eval $(opam env)
+```
 
-### Global Switches
+This switch is now available from any directory. It lives at `~/.opam/my_switch/`.
 
-Global switches are often used for system-wide OCaml installations and are not tied to a particular project or directory. A switch is created and configured at the system level and is typically used to manage OCaml and its ecosystem on a global scale.
+## Creating a Local Switch
 
-When creating an opam switch, it's global by default unless otherwise configured. You can also explicitly select a global switch by using the opam switch command with the `--global` flag.
+To create a switch tied to your project, run this from inside the project directory:
 
-Opam's **system switch** is a global switch that is associated with the OCaml installation on your operating system. The system switch is accessible across the entire system.
+```shell
+opam switch create . 5.4.0
+```
 
-### Local Switches
+Then update your shell environment:
 
-A local opam switch, on the other hand, is tied to a specific project directory. It is created within the project's directory or subdirectory, so you can manage OCaml and its dependencies in the context of that particular project only.
+```shell
+eval $(opam env)
+```
 
-In other words, local switches provide isolation for project-specific OCaml environments, allowing you to define and manage the specific compiler version and packages needed for a particular project.
+This creates an `_opam/` directory in your project. Whenever you `cd` into this directory, opam will automatically select this switch.
 
-They are particularly useful when you want to ensure that a project uses specific versions of OCaml and its packages without interfering with the system-wide or other project-specific OCaml installations.
+## Listing Your Switches
 
-Local switches are automatically selected based on the current working directory. When you navigate into a directory with an associated local switch, opam uses that switch for any OCaml-related operations within that directory.
+```shell
+opam switch list
+```
 
-## Selecting a Switch
+The arrow `->` marks the currently active switch:
 
-Most package-related commands in opam operate within the context of a selected switch. You can select a switch in several ways:
+```
+#   switch                      compiler      description
+->  /home/user/my_project       ocaml.5.4.0   /home/user/my_project
+    default                     ocaml.5.4.0   default
+```
 
-**Global Selection**: Use the command `opam switch <switch>`. Opam will use this switch for all subsequent commands, unless overridden.
+## Switching Between Switches
 
-**Local Selection**: When working in a directory that contains a switch, it will be automatically selected. Local switches are external to the opam root.
+To manually select a global switch:
 
-**Environment Variable**: Set the `OPAMSWITCH=<switch>` environment variable to choose a switch within a single shell session. Use `eval $(opam env --switch <switch>)` to set the shell environment accordingly.
+```shell
+opam switch set my_switch
+eval $(opam env)
+```
 
-**Command-Line Flag**: Use the `--switch <switch>` command-line flag to specify a switch for a single command.
+The `eval $(opam env)` step is important — it updates your shell's `PATH` and other environment variables so that `ocaml`, `dune`, and other tools point to the right switch. Without it, your shell will still use the previously active switch.
+
+Local switches are selected automatically when you `cd` into their directory, but you still need to run `eval $(opam env)` (or use a tool like [direnv](/docs/opam-path)) to update the shell environment.
+
+## Removing a Switch
+
+To delete a switch you no longer need:
+
+```shell
+opam switch remove my_switch
+```
+
+For a local switch, use the path:
+
+```shell
+opam switch remove /home/user/my_project
+```
 
 ---
 
-> Learn more details and uses of opam switches in the [opam manual's File Hierarchies page](https://opam.ocaml.org/doc/Manual.html) and its [page dedicated to switches](https://opam.ocaml.org/doc/man/opam-switch.html).
+> Learn more about opam switches in the [opam manual](https://opam.ocaml.org/doc/Manual.html) and the [opam-switch reference](https://opam.ocaml.org/doc/man/opam-switch.html).
