@@ -69,11 +69,31 @@ The images are **updated weekly** via an automated pipeline at [images.ci.ocaml.
 
 ## Usage Notes
 
-This is important. If you use the base-images as a base to build upon in a Dockerfile (i.e. `FROM ocaml/opam...`) this will be run as the `opam` user. This can cause permission errors if you try to build somewhere that needs root access. You can either change the user to `root` before building anything or ensure you build somewhere you have access to such as `/home/opam`.
+### Default User is `opam`, Not `root`
 
-When copying files into the image, use:
+When you use these images as a base in a Dockerfile (`FROM ocaml/opam...`), commands run as the `opam` user by default. This can cause permission errors if you try to install system packages or write to directories that require root access. To work around this, either switch to `root` for those steps or ensure you operate within `/home/opam`:
+
+```dockerfile
+FROM ocaml/opam:debian
+
+# Switch to root to install system dependencies
+USER root
+RUN apt-get update && apt-get install -y libgmp-dev
+USER opam
+```
+
+When copying files into the image, set ownership so the `opam` user can access them:
 ```dockerfile
 COPY --chown=opam <SRCs> <DST>
+```
+
+### The `opam-repository` Snapshot May Be Stale
+
+Each image ships with a copy of `opam-repository` from the time the image was built. Since images are rebuilt weekly, the repository may be up to a week out of date. Run `opam update` before installing packages to ensure you have the latest package definitions:
+
+```bash
+opam update
+opam install <package>
 ```
 
 ## Special Tags
