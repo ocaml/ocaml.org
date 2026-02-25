@@ -36,4 +36,4 @@ desire to explore the world of scientific computing, whether to generally
 explore the field in the round, to build applications for particular topics, or
 to deep-dive into how numerical systems are constructed. It does not assume
 strict ordering in reading – readers can simply jump to the topic that
-interests them most. 
+interests them most.

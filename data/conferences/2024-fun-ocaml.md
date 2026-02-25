@@ -89,8 +89,6 @@ FUN OCaml 2024 took place in Berlin, Germany
 
 FUN OCaml homepage: [FUN OCaml](https://fun-ocaml.com)
 
-
 Video recordings are available here:
 * [FUN OCaml 2024 YouTube Playlist](https://youtube.com/playlist?list=PLP3MfTGqcNVJMFcWWDF6VSPJB7zuKN5yQ&si=M4OouS2iS_sOrpzR)
 * [FUN OCaml 2024 Watch OCaml Playlist](https://watch.ocaml.org/w/p/6AFNv2zJg3BcswcFdPMNvP)
-

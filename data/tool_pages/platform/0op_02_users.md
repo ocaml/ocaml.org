@@ -17,7 +17,7 @@ ecosystem while empowering users to achieve their individual goals.
 
 ## (U1) Application Developer
 
-_Builds OCaml applications to solve real-world problems_
+Builds OCaml applications to solve real-world problems.
 
 Application developers using OCaml are focused on building solutions to
 real-world problems. They care deeply about application stability, reliability,
@@ -68,7 +68,7 @@ image classifiers using Owl.
 
 ## (U2) Library Author
 
-_Builds re-usable OCaml components, not directly executable_
+Builds re-usable OCaml components, not directly executable.
 
 Library authors write code consumed by other developers while using other
 people's libraries to build their own. They focus on ensuring that their
@@ -79,7 +79,7 @@ processing, or machine learning, and contribute them to the opam repository for
 the OCaml community to use.
 
 1. **Package Publication**: Publishing packages on package repositories is the
-   primary mean through which Library Authors can share their work. They want
+   primary means through which Library Authors can share their work. They want
    this process to be as intuitive and frictionless as possible so they can
    focus on building their library, writing documentation and engaging the
    community.
@@ -99,7 +99,7 @@ the OCaml community to use.
    Library Authors accept a maintenance cost due to the evolving language and
    ecosystem. Every breaking change in the language or in the library
    dependencies will incur friction. They want this workload to remain as
-   minimal as possible as, ideally to remain unimpacted by any changes to the
+   minimal as possible, ideally to remain unimpacted by any changes to the
    ecosystem, only accepting maintenance costs for updating their libraries when
    needed. Conversely, they want to know the impact a release will have on their
    users: applications or other libraries that depend on theirs.
@@ -124,7 +124,7 @@ the OCaml community to use.
 
 ## (U3) Distribution Manager
 
-_Works on maintaining a Linux distro like Debian or RedHat_
+Works on maintaining a Linux distro like Debian or RedHat.
 
 Distribution managers work on maintaining Unix distributions, such as BSD,
 Debian or Red Hat, and ensuring that OCaml applications, libraries, and tools
@@ -157,7 +157,7 @@ to include in their distributions and ensure they are well-supported and secure.
 
 ## (U4) Newcomer
 
-_Learn the syntax and language features_
+Learns the syntax and language features.
 
 Newcomers are individuals who are new to OCaml or interested in learning the
 language for personal or educational purposes. They are often drawn to OCaml
@@ -169,7 +169,7 @@ receiving guidance from the OCaml community.
 Newcomers come in all shapes and colours; some might have experimented with
 other languages, and for others, this might be their first introduction to CS.
 How one learns OCaml depends on one's affinities and previous experience. What
-they often care most about easily setting up a development environment, having
+they often care most about is easily setting up a development environment, having
 accessible learning resources, and receiving guidance from the OCaml community.
 They might start by experimenting with simple OCaml programs, like a
 command-line calculator, or building basic web applications using a lightweight
@@ -191,7 +191,7 @@ framework.
    Given the huge range of learning needs, Newcomers need to have access to an
    exhaustive library of documentation and resources to learn OCaml, including
    Guides, Tutorials, Language Manual, Package documentation. All of these need
-   to cater for the need to inexperienced developers, as well as provide
+   to cater for the needs of inexperienced developers, as well as provide
    comprehensive information for experienced ones. Newcomers also want their
    learning experience to be enjoyable, by using playgrounds, interactive
    exercises, or beginner-friendly content.

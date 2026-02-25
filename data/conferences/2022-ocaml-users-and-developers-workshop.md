@@ -120,7 +120,7 @@ presentations:
 organising_committee: []
 program_committee: 
   - name: Matija Pretnar
-    affiliation: University of Ljublijana, Solvenia
+    affiliation: University of Ljubljana, Slovenia
     role: chair
   - name: Louis Gesbert
     affiliation: OCamlPro, France
@@ -148,9 +148,8 @@ program_committee:
 
 OCaml Workshop 2022 took place during ICFP 2022, in Ljubljana, Slovenia
 
-ACM Sigplan ICFP page: [OCaml Workskop 2022](https://icfp22.sigplan.org/home/ocaml-2022)
+ACM Sigplan ICFP page: [OCaml Workshop 2022](https://icfp22.sigplan.org/home/ocaml-2022)
 
 The OCaml Users and Developers Workshop brings together the OCaml community, including users of OCaml in industry, academia, hobbyists, and the free software community.
 
 Video recordings can be found on the [@OCamlWorkshops YouTube Channel](https://www.youtube.com/@OCamlWorkshops) and on [Watch OCaml](https://watch.ocaml.org/video-channels/ocaml2022/videos).
-

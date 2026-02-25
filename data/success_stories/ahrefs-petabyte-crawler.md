@@ -27,7 +27,7 @@ The question wasn't just whether they could build a web-scale crawler, but wheth
 
 ## Result
 
-Over a decade later, Ahrefs operates one of the world's most sophisticated web crawling operations. Their OCaml-powered systems maintains an index of **492.7 billion pages** across **500.4 million domains**.
+Over a decade later, Ahrefs operates one of the world's most sophisticated web crawling operations. Their OCaml-powered systems maintain an index of **492.7 billion pages** across **500.4 million domains**.
 
 This technical achievement translates directly to business success. Ahrefs has grown into a **$100M+ ARR company** with **150 employees** managing **4000+ servers**—all while maintaining their original philosophy of operational efficiency. They've become the sector leader in SEO tools, proving that the right technology choices can create sustainable competitive advantages.
 

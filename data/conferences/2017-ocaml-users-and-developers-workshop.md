@@ -141,7 +141,7 @@ and Sébastien Hinderer
 
 Due to the high number of high-quality submissions, we had to have
 more posters than in previous editions to fit a one-day
-schedule. 
+schedule.
 
 ## Call for presentations (past)
 
@@ -209,7 +209,6 @@ mention it at submission time and/or contact the Program Chairs.
 We are planning to publish combined post-proceedings and to
 invite interested authors of selected presentations to expand
 their abstracts for inclusion.
-
 
 ### Questions and contact
 

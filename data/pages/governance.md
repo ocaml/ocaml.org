@@ -172,7 +172,7 @@ domain name itself. Any references to the domain of the community website
 project will include the sub-domain 'www.ocaml.org', even though this is set to
 redirect to [ocaml.org](//ocaml.org).
 
-### B. Initiating a Project 
+### B. Initiating a Project
 
 Any proposal for new work should be raised and discussed on the
 [`ocaml/infrastructure`](https://github.com/ocaml/infrastructure/) GitHub issue
@@ -433,7 +433,7 @@ Best wishes,
 Amir
 -->
 
-**Version 1.0.0 - September 2015**
+## Version 1.0.0 - September 2015
 
 This first version of the document was agreed upon by the incumbent set of
 Maintainers in September 2015. You can look back at the

@@ -14,14 +14,14 @@ In addition to contributing tools and libraries in OCaml and for the
 OCaml community, we are participating in the development of the Tezos
 blockchain in various ways:
 
- - core development,
- - building open-source tooling and libraries for the community (like
+- core development,
+- building open-source tooling and libraries for the community (like
 indexers/crawlers, libraries to interact with the Tezos blockchain,
 etc.),
- - participating in the development of innovative projects for
+- participating in the development of innovative projects for
 our clients,
- - auditing code for our clients,
- - consulting and training.
+- auditing code for our clients,
+- consulting and training.
 
 Functori was founded in 2021 and is based in Paris (France), with
 people working remotely all around the world.

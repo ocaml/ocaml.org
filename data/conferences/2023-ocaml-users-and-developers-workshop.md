@@ -162,9 +162,8 @@ program_committee:
 
 OCaml Workshop 2023 took place during ICFP 2023, in Seattle, Washington, United States.
 
-ACM Sigplan ICFP page: [OCaml Workskop 2023](https://icfp23.sigplan.org/home/ocaml-2023)
+ACM Sigplan ICFP page: [OCaml Workshop 2023](https://icfp23.sigplan.org/home/ocaml-2023)
 
 The OCaml Users and Developers Workshop brings together the OCaml community, including users of OCaml in industry, academia, hobbyists, and the free software community.
 
 Video recordings can be found on the [@OCamlWorkshops YouTube Channel](https://www.youtube.com/@OCamlWorkshops).
-

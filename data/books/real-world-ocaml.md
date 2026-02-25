@@ -34,4 +34,4 @@ system, foreign-function interface, macro language, and the OCaml tools.
 Quickly learn how to put OCaml to work for writing succinct and
 readable code.
 
-The code examples in this books uses Jane Street [core library](https://ocaml.org/p/core/latest).
+The code examples in this book use Jane Street [core library](https://ocaml.org/p/core/latest).
