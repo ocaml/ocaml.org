@@ -80,7 +80,7 @@ val fs : (string * int) list =
 ```
 
 Our objective is to construct the
-Huffman code `c` word for all symbols `s`. In our example, the result could
+Huffman code word for all symbols `s`. In our example, the result could
 be
 `hs = [("a", "0"); ("b", "101"); ("c", "100"); ("d", "111");
 ("e", "1101"); ("f", "1100")]`

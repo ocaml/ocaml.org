@@ -24,7 +24,7 @@ type 'a binary_tree =
       | Empty -> tree_height - depth
       | Node (_, l, _) -> find_missing_left (depth + 1) l in
     let translate_dst = 1 lsl (find_missing_left 0 t) - 1 in
-                        (* remember than 1 lsl a = 2ᵃ *)
+                        (* remember that 1 lsl a = 2ᵃ *)
     let rec layout depth x_root = function
       | Empty -> Empty
       | Node (x, l, r) ->
