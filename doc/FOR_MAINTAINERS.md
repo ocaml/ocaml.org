@@ -1,4 +1,4 @@
-# Information for maintainers
+# Information for Maintainers
 
 ## How we maintain the staging branch
 
@@ -7,8 +7,8 @@ it is close to the main branch with only a few patches applied, some discipline 
 
 1. We squash every patch into a single commit, and
 2. if the patch belongs to an open PR,
-  - we mention the PR number and title in the commit message, and
-  - we mention the commit id and message of the latest commit in that PR in the commit message body
+- we mention the PR number and title in the commit message, and
+- we mention the commit id and message of the latest commit in that PR in the commit message body
 
 This way, looking at the commits on `staging` via `git log` or the GitHub UI, it is obvious where each commit is coming from and what its purpose is. Additionally, this ensures that rebasing on an updated
 `main` branch remains simple.
@@ -17,20 +17,20 @@ This way, looking at the commits on `staging` via `git log` or the GitHub UI, it
 
 Example: Assuming a PR lies in branch `<pr-branch>`
 (e.g. `fix-issue-42`) and has number `<pr-num>` in GitHub (e.g. 43 in
-https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
+<https://github.com/ocaml/ocaml.org/pull/43>), and `origin` is
 `ocaml/ocaml.org.git` at GitHub, here are the steps:
 
 ### Method 1: `git merge`
 
 1. Squash a PR directly onto staging:
   ```sh
-  $ git checkout staging
-  $ git merge --squash <pr-branch>
-  $ git commit -m "<title of PR on GitHub> #<pr-num>"
+  git checkout staging
+  git merge --squash <pr-branch>
+  git commit -m "<title of PR on GitHub> #<pr-num>"
   ```
 
-2. Set the commit message to:
-  ```
+1. Set the commit message to:
+  ```text
   <title of PR on GitHub> #<pr-num>
 
   <message of last commit> <last commit id>
@@ -41,22 +41,22 @@ https://https://github.com/ocaml/ocaml.org/pull/43), and `origin` is
 An alternative method to get a squashed PR onto staging is this:
 1. On the PR branch: create a new branch from the PR branch and squash with `git reset`:
   ```sh
-  $ git checkout -b <new-branch-name>
-  $ git reset <commit id before the first commit of the patch>
-  $ git commit
+  git checkout -b <new-branch-name>
+  git reset <commit id before the first commit of the patch>
+  git commit
   ```
 
-2. Set the commit message to:
-  ```
+1. Set the commit message to:
+  ```text
   <title of PR on GitHub> #<pr-num>
 
   <message of last commit> <last commit id>
   ```
 
-3. Cherry-pick the commit to staging
+1. Cherry-pick the commit to staging
   ```sh
-  $ git checkout staging
-  $ git cherry-pick <commit id>
+  git checkout staging
+  git cherry-pick <commit id>
   ```
 
 ## Remove a PR from staging

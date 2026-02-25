@@ -6,11 +6,11 @@ This guide documents the best way to contribute to the project when adding thing
 
 - **Good First Issues**: if you are either new to the repository or still getting started with OCaml in general, issues marked as a `good first issue` are ideal.
 - **Suggesting Changes**: most of the site content is stored in the `data` directory as Markdown or YAML. To suggest a change or update this content, you can edit those files directly and rebuild the website, detailed in the [HACKING](./HACKING.md) guide. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new website content or code, please [open an issue](https://github.com/ocaml/ocaml.org/issues) to discuss it first.
-- **Implementing Pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is mixture or OCaml and HTML.
+- **Implementing Pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is a mixture of OCaml and HTML.
 
 ## Reporting Bugs
 
-We use GitHub issues to track all bugs and feature requests. Feel free to open an issue over [here](https://github.com/ocaml/ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
+We use GitHub issues to track all bugs and feature requests. Feel free to [open an issue](https://github.com/ocaml/ocaml.org/issues/new) if you have found a bug or wish to see a feature implemented.
 
 Please include images and browser-specific information if the bug is related to some visual aspect of the site. This tends to make it easier to reproduce and fix.
 
@@ -33,7 +33,7 @@ Anyone can contribute to these sections:
 OCaml Platform maintainers can contribute to these sections:
 - [The OCaml Changelog](#content-changelog)
 - [Backstage OCaml](#content-backstage)
-- [Platform Tools Releases](#content-platform-tools-releases)
+- [Platform Tools Releases](#content-platform-tools-release)
 
 The following sections give more details on how to contribute.
 
@@ -47,7 +47,7 @@ For example, to add a university logo associated with an academic institution, y
 
 Videos or other media should not be added to the OCaml.org GitHub repository.
 
-### <a name="ocaml-planet"></a>Add Your RSS Feed or YouTube Channel to the OCaml Planet
+### <a name="ocaml-planet"></a>Add Your RSS Feed or YouTube Channel to the OCaml Planet <!-- markdownlint-disable-line MD013 -->
 
 Anyone can contribute to the [OCaml Planet](https://ocaml.org/ocaml-planet), which is composed of three types of content:
 
@@ -73,7 +73,7 @@ To contribute an individual link to your original blog post to the OCaml Planet,
 
 Create a `.md` file with the following header:
 
-```
+```yaml
 ---
 title: Title of Your Self-Hosted Post Here (title case)
 description: one-sentence description
@@ -130,7 +130,7 @@ A list of courses available at the institution. Each course entry must include:
 
 Location
 - **`lat`**: The latitude of the institution’s location.  
-- **`long`**: The longitude of the institution’s location. 
+- **`long`**: The longitude of the institution’s location.
 
 For instance: [cornell.md](data/academic_institutions/cornell.md).
 
@@ -151,7 +151,7 @@ Locations
 
 Additional Information  
 - **`consortium`**: Indicates whether the organization is part of a consortium (`true` or `false`).  
-- **`featured`**: Indicates whether the organization is highlighted as a featured entity (`true` or `false`). 
+- **`featured`**: Indicates whether the organization is highlighted as a featured entity (`true` or `false`).
 
 For instance: [cryptosense.md](data/industrial_users/cryptosense.md).
 
@@ -267,7 +267,7 @@ To contribute a new post to the Changelog:
 
 As a dual to the OCaml Changelog, Backstage OCaml is a channel TODO
 
-#### Contributing a Post
+#### Contributing a Backstage Post
 
 To contribute a new post to Backstage OCaml:
 
@@ -299,8 +299,7 @@ If you aren't familiar with how to work with Github or would like to learn it, h
 Feel free to use any approach while creating a PR. Here are a few suggestions from the Dev team:
 
 - If you are not sure whether your changes will be accepted or want to discuss the method before delving into it, please create an issue and ask.
-- Clone the repo locally (or continue editing directly in GitHub if the change is small). Checkout
-  out the branch that you created.
+- Clone the repo locally (or continue editing directly in GitHub if the change is small). Check out the branch that you created.
 - Create a draft PR with a small initial commit. Here's how you can [create a draft pull request.](https://github.blog/2019-02-14-introducing-draft-pull-requests/).
 - Continue developing and feel free to ask questions in the PR if you run into obstacles or uncertainty as you make changes.
 - Review your implementation according to the checks noted in the PR template.

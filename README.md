@@ -31,13 +31,13 @@ Before you begin, make sure you have opam (OCaml Package Manager) installed on y
 
 Once opam is installed, you can set up the project with the following command:
 
-```
+```sh
 make switch
 ```
 
 And run it with:
 
-```
+```sh
 make start
 ```
 
