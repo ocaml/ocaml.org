@@ -28,10 +28,10 @@ There are two kinds of switches:
 Before creating a switch, you'll need to pick a compiler version:
 
 ```shell
-opam switch list-available
+opam switch list-available ocaml-base-compiler
 ```
 
-This shows all OCaml compiler versions you can install. Pick the latest stable version unless you have a reason not to.
+This lists all available compiler versions. Pick the latest stable version unless you have a reason not to.
 
 ## Creating a Global Switch
 
@@ -64,6 +64,8 @@ eval $(opam env)
 ```
 
 This creates an `_opam/` directory in your project. Whenever you `cd` into this directory, opam will automatically select this switch.
+
+If the directory contains `.opam` files, opam will automatically install their dependencies into the new switch. You can prevent this with `opam switch create . 5.4.0 --no-install`.
 
 ## Listing Your Switches
 
