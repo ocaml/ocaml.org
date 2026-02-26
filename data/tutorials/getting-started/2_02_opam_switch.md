@@ -33,6 +33,8 @@ opam switch list-available ocaml-base-compiler
 
 This lists all available compiler versions. Pick the latest stable version unless you have a reason not to.
 
+Omitting `ocaml-base-compiler` shows the full list, including compiler variants with additional options enabled (such as flambda optimisations or frame pointers). These are useful for advanced use cases but not needed to get started.
+
 ## Creating a Global Switch
 
 To create a named global switch:
