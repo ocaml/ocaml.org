@@ -107,7 +107,7 @@ want to _find all_ of them. What better name for this than `find_all`?
 
 ```ocaml
 # Hashtbl.find_all my_hash "h";;
-- : string list = ["hard"; "hug"p; "hi"; "hello"]
+- : string list = ["hard"; "hug"; "hi"; "hello"]
 ```
 
 This returns `["hard"; "hug"; "hi"; "hello"]`, demonstrating that hashed key
