@@ -586,12 +586,6 @@ teams:
   - name: "#ocaml.org on the OCaml Discord"
     link: https://discord.gg/cCYQbqN
     kind: discord
-  dev-meeting:
-    date: Weekly on Mondays
-    time: 8:15 AM CET
-    link: https://us06web.zoom.us/j/88375318760?pwd=TUUsVXPFMreM96cnMR3am8oSWj6Yhk.1
-    calendar: https://us06web.zoom.us/meeting/tZwucOyrrzMtHNT2s4W_iVDN-qjfaKEq4ikn/ics
-    notes: https://docs.google.com/document/d/1ricnsicOB35TmuOM86guYr6HWo8A1iyVrHdb0cNxOXg/edit
   members:
   - name: Anil Madhavapeddy
     github: avsm
