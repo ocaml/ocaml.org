@@ -8,8 +8,12 @@ let all () : t list =
          let title = Filename.basename path in
          { title; body })
   |> fun examples ->
-  if List.exists (fun (example : t) -> String.equal example.title "default.ml") examples
+  if
+    List.exists
+      (fun (example : t) -> String.equal example.title "default.ml")
+      examples
   then examples
   else
     failwith
-      "Missing required code example: data/code_examples/default.ml. This file is used by /play."
+      "Missing required code example: data/code_examples/default.ml. This file \
+       is used by /play."
