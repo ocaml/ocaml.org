@@ -192,12 +192,13 @@ let build_month_grid sources (year, month) =
     else
       let start_day = prev_days - first_weekday + 1 in
       List.init first_weekday (fun i ->
+          let day = start_day + i in
           {
             year = prev_y;
             month = prev_m;
-            day = start_day + i;
+            day;
             in_month = false;
-            events = [];
+            events = events_for_date sources (prev_y, prev_m, day);
           })
   in
   let current_cells =
@@ -218,21 +219,33 @@ let build_month_grid sources (year, month) =
   in
   let next_y, next_m = month_delta (year, month) 1 in
   let next_cells =
-    List.init trailing (fun i ->
+      List.init trailing (fun i ->
+        let day = i + 1 in
         {
           year = next_y;
           month = next_m;
-          day = i + 1;
+          day;
           in_month = false;
-          events = [];
+          events = events_for_date sources (next_y, next_m, day);
         })
   in
   prev_cells @ current_cells @ next_cells
 
-let render_event_row (event : event_entry) =
+let render_event_row ~past (event : event_entry) =
+  let text_class, title_class, link_class =
+    if past then
+      ( "text-gray-500 dark:text-gray-400",
+        "text-gray-600 dark:text-gray-300",
+        "text-gray-500 dark:text-gray-400 hover:underline" )
+    else
+      ( "text-content dark:text-dark-content",
+        "text-title dark:text-dark-title",
+        "text-primary dark:text-dark-primary hover:underline" )
+  in
   Printf.sprintf
-    "<div class=\"text-xs leading-tight text-content dark:text-dark-content\"><span class=\"font-semibold text-title dark:text-dark-title\">%s</span><span class=\"ml-1\">%s</span><a class=\"ml-2 text-primary dark:text-dark-primary hover:underline\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Meet</a><a class=\"ml-1 text-primary dark:text-dark-primary hover:underline\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Notes</a></div>"
-    event.team_name event.time_label event.meeting_link event.notes_link
+    "<div class=\"text-xs leading-tight %s\"><span class=\"font-semibold %s\">%s</span><span class=\"ml-1\">%s</span><a class=\"ml-2 %s\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Meet</a><a class=\"ml-1 %s\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Notes</a></div>"
+    text_class title_class event.team_name event.time_label link_class
+    event.meeting_link link_class event.notes_link
 
 let render_modal_event_row (event : event_entry) =
   Printf.sprintf
@@ -263,38 +276,39 @@ let render_day_cell ~today (cell : day_cell) =
     if cell.in_month then "text-title dark:text-dark-title"
     else "text-content dark:text-dark-content opacity-50"
   in
-  if not cell.in_month then
-    Printf.sprintf
-      "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 bg-background dark:bg-dark-background\"><div class=\"text-sm %s\">%d</div></div>"
-      day_class cell.day
-  else
-    let cmp = compare_date (cell.year, cell.month, cell.day) today in
-    let temporal_cell_class, day_number_class =
-      if cmp = 0 then
-        ( "bg-primary/10 dark:bg-dark-primary/20 ring-2 ring-primary \
-           dark:ring-dark-primary",
-          "text-primary dark:text-dark-primary" )
-      else if cmp < 0 then
-        ( "bg-slate-50 dark:bg-dark-card/70",
-          "text-content dark:text-dark-content" )
-      else
-        ( "bg-emerald-50/50 dark:bg-dark-card",
-          "text-title dark:text-dark-title" )
-    in
-    let visible = take 3 cell.events in
-    let hidden = drop 3 cell.events in
-    let visible_html = visible |> List.map render_event_row |> String.concat "\n" in
-    let details_html = cell.events |> List.map render_modal_event_row |> String.concat "\n" in
-    let modal =
-      if hidden = [] then ""
-      else
-        Printf.sprintf
-          "<div x-data=\"{open:false}\" class=\"mt-1\"><button type=\"button\" class=\"text-xs text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=true\">More (%d)</button><div x-show=\"open\" x-cloak class=\"fixed inset-0 z-50\"><div class=\"absolute inset-0 bg-black/50\" x-on:click=\"open=false\"></div><div class=\"absolute inset-0 flex items-center justify-center p-4\"><div class=\"w-full max-w-xl max-h-[80vh] overflow-y-auto rounded-xl bg-white dark:bg-dark-card p-4\"><div class=\"flex items-center justify-between mb-3\"><h3 class=\"font-semibold text-title dark:text-dark-title\">%04d-%02d-%02d meetings</h3><button type=\"button\" class=\"text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=false\">Close</button></div>%s</div></div></div></div>"
-          (List.length hidden) cell.year cell.month cell.day details_html
-    in
-    Printf.sprintf
-      "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 %s\"><div class=\"text-sm font-semibold %s\">%d</div><div class=\"mt-1 space-y-1\">%s</div>%s</div>"
-      temporal_cell_class day_number_class cell.day visible_html modal
+  let cmp = compare_date (cell.year, cell.month, cell.day) today in
+  let is_past = cmp < 0 in
+  let temporal_cell_class, day_number_class =
+    if cmp = 0 then
+      ( "bg-primary/10 dark:bg-dark-primary/20 ring-2 ring-primary \
+         dark:ring-dark-primary",
+        "text-primary dark:text-dark-primary" )
+    else if not cell.in_month then
+      ( "bg-slate-100 dark:bg-dark-background",
+        "text-content dark:text-dark-content opacity-60" )
+    else if is_past then
+      ( "bg-slate-50 dark:bg-dark-card/70",
+        "text-content dark:text-dark-content" )
+    else
+      ( "bg-emerald-50/50 dark:bg-dark-card",
+        "text-title dark:text-dark-title" )
+  in
+  let visible = take 3 cell.events in
+  let hidden = drop 3 cell.events in
+  let visible_html =
+    visible |> List.map (render_event_row ~past:is_past) |> String.concat "\n"
+  in
+  let details_html = cell.events |> List.map render_modal_event_row |> String.concat "\n" in
+  let modal =
+    if hidden = [] then ""
+    else
+      Printf.sprintf
+        "<div x-data=\"{open:false}\" class=\"mt-1\"><button type=\"button\" class=\"text-xs text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=true\">More (%d)</button><div x-show=\"open\" x-cloak class=\"fixed inset-0 z-50\"><div class=\"absolute inset-0 bg-black/50\" x-on:click=\"open=false\"></div><div class=\"absolute inset-0 flex items-center justify-center p-4\"><div class=\"w-full max-w-xl max-h-[80vh] overflow-y-auto rounded-xl bg-white dark:bg-dark-card p-4\"><div class=\"flex items-center justify-between mb-3\"><h3 class=\"font-semibold text-title dark:text-dark-title\">%04d-%02d-%02d meetings</h3><button type=\"button\" class=\"text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=false\">Close</button></div>%s</div></div></div></div>"
+        (List.length hidden) cell.year cell.month cell.day details_html
+  in
+  Printf.sprintf
+    "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 %s\"><div class=\"text-sm font-semibold %s\">%d</div><div class=\"mt-1 space-y-1\">%s</div>%s</div>"
+    temporal_cell_class day_number_class cell.day visible_html modal
 
 let render_month ~today sources (year, month) =
   let weekday_headers = [ "Mon"; "Tue"; "Wed"; "Thu"; "Fri"; "Sat"; "Sun" ] in
