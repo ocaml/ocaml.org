@@ -696,8 +696,16 @@ let code_of_conduct = page Url.code_of_conduct
 let security = page Url.security
 
 let playground _req =
-  let default = Data.Code_example.get "default.ml" in
-  let default_code = default.body in
+  let default_code =
+    Data.Code_example.all
+    |> List.find_opt (fun (example : Data.Code_example.t) ->
+           let title = String.lowercase_ascii example.title in
+           String.equal title "default.ml" || String.equal title "default")
+    |> Option.map (fun (example : Data.Code_example.t) -> example.body)
+    |> Option.value
+         ~default:
+           "(* Unable to load the default code example for the playground. *)"
+  in
   Dream.html (Ocamlorg_frontend.playground ~default_code)
 
 let governance _req =
