@@ -77,7 +77,7 @@ opam switch list
 
 The arrow `->` marks the currently active switch:
 
-```
+```shell
 #   switch                      compiler      description
 ->  /home/user/my_project       ocaml.5.4.0   /home/user/my_project
     default                     ocaml.5.4.0   default
