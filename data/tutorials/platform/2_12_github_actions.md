@@ -1,7 +1,7 @@
 ---
-id: "setup-ocaml"
-title: "OCaml GitHub Action"
-short_title: "GitHub Action"
+id: "using-ocaml-with-github-actions"
+title: "Using OCaml with GitHub Actions"
+short_title: "GitHub Actions"
 description: |
   Using the setup-ocaml GitHub Action to set up CI workflows for OCaml projects
 category: "Additional Tooling"
