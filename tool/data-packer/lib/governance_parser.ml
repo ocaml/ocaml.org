@@ -56,7 +56,9 @@ let recurrence_rule_of_yaml = function
         let ( let* ) = Result.bind in
         let* value = field name in
         match value with
-        | `Float f -> Ok (int_of_float f)
+        | `Float f ->
+            if Float.is_integer f then Ok (int_of_float f)
+            else Error (`Msg ("Invalid integer for field: " ^ name))
         | `String s -> (
             match int_of_string_opt s with
             | Some v -> Ok v
@@ -75,16 +77,32 @@ let recurrence_rule_of_yaml = function
       (match kind with
       | `String "weekly" ->
           let* interval_weeks = int_field "interval_weeks" in
+          let* () =
+            if interval_weeks >= 1 then Ok ()
+            else Error (`Msg "interval_weeks must be >= 1")
+          in
           let* byweekday = field "byweekday" in
           let* byweekday =
             match byweekday with
             | `A weekdays -> parse_weekdays [] weekdays
             | _ -> Error (`Msg "Invalid recurrence field: byweekday")
           in
+          let* () =
+            if byweekday <> [] then Ok ()
+            else Error (`Msg "byweekday must not be empty")
+          in
           Ok (Weekly { interval_weeks; byweekday })
       | `String "monthly_by_nth_weekday" ->
           let* interval_months = int_field "interval_months" in
+          let* () =
+            if interval_months >= 1 then Ok ()
+            else Error (`Msg "interval_months must be >= 1")
+          in
           let* nth = int_field "nth" in
+          let* () =
+            if nth >= 1 && nth <= 5 then Ok ()
+            else Error (`Msg "nth must be between 1 and 5")
+          in
           let* weekday = field "weekday" in
           let* weekday = weekday_of_yaml weekday in
           Ok (Monthly_by_nth_weekday { interval_months; nth; weekday })
@@ -100,7 +118,52 @@ let recurrence_rule_of_yaml = function
            kind=monthly_by_nth_weekday")
 
 type recurrence = [%import: Data_intf.Governance.recurrence]
-[@@deriving of_yaml, show]
+[@@deriving show]
+
+let validate_starts_at starts_at =
+  let is_digit c = c >= '0' && c <= '9' in
+  let expected_len = 19 in
+  let fail msg = Error (`Msg ("Invalid starts_at value '" ^ starts_at ^ "': " ^ msg)) in
+  if String.length starts_at <> expected_len then
+    fail "expected format YYYY-MM-DDTHH:MM:SS"
+  else if
+    not
+      (is_digit starts_at.[0] && is_digit starts_at.[1] && is_digit starts_at.[2]
+     && is_digit starts_at.[3] && starts_at.[4] = '-' && is_digit starts_at.[5]
+     && is_digit starts_at.[6] && starts_at.[7] = '-' && is_digit starts_at.[8]
+     && is_digit starts_at.[9] && starts_at.[10] = 'T'
+     && is_digit starts_at.[11] && is_digit starts_at.[12]
+     && starts_at.[13] = ':' && is_digit starts_at.[14]
+     && is_digit starts_at.[15] && starts_at.[16] = ':'
+     && is_digit starts_at.[17] && is_digit starts_at.[18])
+  then fail "expected format YYYY-MM-DDTHH:MM:SS"
+  else
+    match Ptime.of_rfc3339 (starts_at ^ "+00:00") with
+    | Ok _ -> Ok ()
+    | Error _ ->
+        fail "contains an invalid date or time component"
+
+type recurrence_metadata = {
+  starts_at : string;
+  timezone : string;
+  duration_minutes : int;
+  rule : recurrence_rule;
+}
+[@@deriving of_yaml, stable_record ~version:Data_intf.Governance.recurrence]
+
+let recurrence_of_yaml yml =
+  let ( let* ) = Result.bind in
+  let* recurrence = recurrence_metadata_of_yaml yml in
+  let* () = validate_starts_at recurrence.starts_at in
+  let* () =
+    if String.trim recurrence.timezone <> "" then Ok ()
+    else Error (`Msg "timezone must not be empty")
+  in
+  let* () =
+    if recurrence.duration_minutes >= 1 then Ok ()
+    else Error (`Msg "duration_minutes must be >= 1")
+  in
+  Ok (recurrence_metadata_to_Data_intf_Governance_recurrence recurrence)
 
 type dev_meeting = [%import: Data_intf.Governance.dev_meeting] [@@deriving show]
 
