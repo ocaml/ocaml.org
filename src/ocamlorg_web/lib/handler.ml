@@ -705,7 +705,8 @@ let governance _req =
     (Ocamlorg_frontend.governance ~teams:Data.Governance.teams
        ~working_groups:Data.Governance.working_groups)
 
-let governance_calendar_teams = Data.Governance.teams @ Data.Governance.working_groups
+let governance_calendar_teams =
+  Data.Governance.teams @ Data.Governance.working_groups
 
 type governance_meeting_event = {
   team_name : string;
@@ -758,11 +759,7 @@ let rule_to_ical = function
 
 let compact_ical_datetime s =
   let buf = Buffer.create (String.length s) in
-  String.iter
-    (function
-      | '-' | ':' -> ()
-      | c -> Buffer.add_char buf c)
-    s;
+  String.iter (function '-' | ':' -> () | c -> Buffer.add_char buf c) s;
   Buffer.contents buf
 
 let escape_ical_text s =
@@ -777,7 +774,8 @@ let ical_event event =
   in
   let uid = Digest.to_hex (Digest.string uid_source) ^ "@ocaml.org" in
   String.concat "\r\n"
-    [ "BEGIN:VEVENT";
+    [
+      "BEGIN:VEVENT";
       "UID:" ^ uid;
       "SUMMARY:" ^ escape_ical_text (event.team_name ^ " dev meeting");
       Printf.sprintf "DTSTART;TZID=%s:%s" event.recurrence.timezone dtstart;
@@ -785,26 +783,27 @@ let ical_event event =
       Printf.sprintf "DURATION:PT%dM" event.recurrence.duration_minutes;
       "URL:" ^ event.meeting_link;
       "DESCRIPTION:Notes: " ^ escape_ical_text event.notes_link;
-      "END:VEVENT"
+      "END:VEVENT";
     ]
 
 let governance_dev_meetings_calendar_ical _req =
   let events = governance_all_meeting_events () in
   let body =
     String.concat "\r\n"
-      ([ "BEGIN:VCALENDAR";
+      ([
+         "BEGIN:VCALENDAR";
          "VERSION:2.0";
          "PRODID:-//ocaml.org//Governance Dev Meetings//EN";
-         "CALSCALE:GREGORIAN"
+         "CALSCALE:GREGORIAN";
        ]
-      @ List.map ical_event events
-      @ [ "END:VCALENDAR"; "" ])
+      @ List.map ical_event events @ [ "END:VCALENDAR"; "" ])
   in
   Dream.respond
     ~headers:
-      [ ("Content-Type", "text/calendar; charset=utf-8");
+      [
+        ("Content-Type", "text/calendar; charset=utf-8");
         ( "Content-Disposition",
-          "attachment; filename=\"governance-dev-meetings.ics\"" )
+          "attachment; filename=\"governance-dev-meetings.ics\"" );
       ]
     body
 

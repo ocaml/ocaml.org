@@ -47,9 +47,10 @@ type recurrence_rule = [%import: Data_intf.Governance.recurrence_rule]
 [@@deriving show]
 
 let recurrence_rule_of_yaml = function
-  | `O fields ->
+  | `O fields -> (
       let field name =
-        Option.to_result ~none:(`Msg ("Missing recurrence field: " ^ name))
+        Option.to_result
+          ~none:(`Msg ("Missing recurrence field: " ^ name))
           (List.assoc_opt name fields)
       in
       let int_field name =
@@ -74,7 +75,7 @@ let recurrence_rule_of_yaml = function
       in
       let ( let* ) = Result.bind in
       let* kind = field "kind" in
-      (match kind with
+      match kind with
       | `String "weekly" ->
           let* interval_weeks = int_field "interval_weeks" in
           let* () =
@@ -117,31 +118,42 @@ let recurrence_rule_of_yaml = function
           "Invalid recurrence rule. Expected kind=weekly or \
            kind=monthly_by_nth_weekday")
 
-type recurrence = [%import: Data_intf.Governance.recurrence]
-[@@deriving show]
+type recurrence = [%import: Data_intf.Governance.recurrence] [@@deriving show]
 
 let validate_starts_at starts_at =
   let is_digit c = c >= '0' && c <= '9' in
   let expected_len = 19 in
-  let fail msg = Error (`Msg ("Invalid starts_at value '" ^ starts_at ^ "': " ^ msg)) in
+  let fail msg =
+    Error (`Msg ("Invalid starts_at value '" ^ starts_at ^ "': " ^ msg))
+  in
   if String.length starts_at <> expected_len then
     fail "expected format YYYY-MM-DDTHH:MM:SS"
   else if
     not
-      (is_digit starts_at.[0] && is_digit starts_at.[1] && is_digit starts_at.[2]
-     && is_digit starts_at.[3] && starts_at.[4] = '-' && is_digit starts_at.[5]
-     && is_digit starts_at.[6] && starts_at.[7] = '-' && is_digit starts_at.[8]
-     && is_digit starts_at.[9] && starts_at.[10] = 'T'
-     && is_digit starts_at.[11] && is_digit starts_at.[12]
-     && starts_at.[13] = ':' && is_digit starts_at.[14]
-     && is_digit starts_at.[15] && starts_at.[16] = ':'
-     && is_digit starts_at.[17] && is_digit starts_at.[18])
+      (is_digit starts_at.[0]
+      && is_digit starts_at.[1]
+      && is_digit starts_at.[2]
+      && is_digit starts_at.[3]
+      && starts_at.[4] = '-'
+      && is_digit starts_at.[5]
+      && is_digit starts_at.[6]
+      && starts_at.[7] = '-'
+      && is_digit starts_at.[8]
+      && is_digit starts_at.[9]
+      && starts_at.[10] = 'T'
+      && is_digit starts_at.[11]
+      && is_digit starts_at.[12]
+      && starts_at.[13] = ':'
+      && is_digit starts_at.[14]
+      && is_digit starts_at.[15]
+      && starts_at.[16] = ':'
+      && is_digit starts_at.[17]
+      && is_digit starts_at.[18])
   then fail "expected format YYYY-MM-DDTHH:MM:SS"
   else
     match Ptime.of_rfc3339 (starts_at ^ "+00:00") with
     | Ok _ -> Ok ()
-    | Error _ ->
-        fail "contains an invalid date or time component"
+    | Error _ -> fail "contains an invalid date or time component"
 
 type recurrence_metadata = {
   starts_at : string;

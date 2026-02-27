@@ -252,10 +252,7 @@ module Governance = struct
   }
 
   and recurrence_rule =
-    | Weekly of {
-        interval_weeks : int;
-        byweekday : weekday list;
-      }
+    | Weekly of { interval_weeks : int; byweekday : weekday list }
     | Monthly_by_nth_weekday of {
         interval_months : int;
         nth : int;
