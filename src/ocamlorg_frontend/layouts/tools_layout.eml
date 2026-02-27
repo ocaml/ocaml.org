@@ -1,18 +1,26 @@
 type section =
   | Overview
   | Releases
+  | Infrastructure
 
 let tabs
 ~current =
   let url_of_section = function
     | Overview -> Url.tools
     | Releases -> Url.releases
+    | Infrastructure -> Url.tool_page "ocaml-infrastructure"
   in
   let title_of_section = function
     | Overview -> "Overview"
     | Releases -> "Compiler Releases"
+    | Infrastructure -> "Infrastructure"
   in
-  Layout.subnav_tabs ~title:"Tools" ~current ~sections:[Overview; Releases] ~url_of_section ~title_of_section
+  Layout.subnav_tabs
+    ~title:"Tools"
+    ~current
+    ~sections:[Overview; Releases; Infrastructure]
+    ~url_of_section
+    ~title_of_section
 
 let single_column_layout
 ?use_swiper
