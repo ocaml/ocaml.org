@@ -268,16 +268,16 @@ let render_day_cell (cell : day_cell) =
       "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 bg-background dark:bg-dark-background\"><div class=\"text-sm %s\">%d</div></div>"
       day_class cell.day
   else
-    let visible = take 2 cell.events in
-    let hidden = drop 2 cell.events in
+    let visible = take 3 cell.events in
+    let hidden = drop 3 cell.events in
     let visible_html = visible |> List.map render_event_row |> String.concat "\n" in
     let details_html = cell.events |> List.map render_modal_event_row |> String.concat "\n" in
     let modal =
       if hidden = [] then ""
       else
         Printf.sprintf
-          "<div x-data=\"{open:false}\" class=\"mt-1\"><button type=\"button\" class=\"text-xs text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=true\">Details (%d)</button><div x-show=\"open\" x-cloak class=\"fixed inset-0 z-50\"><div class=\"absolute inset-0 bg-black/50\" x-on:click=\"open=false\"></div><div class=\"absolute inset-0 flex items-center justify-center p-4\"><div class=\"w-full max-w-xl max-h-[80vh] overflow-y-auto rounded-xl bg-white dark:bg-dark-card p-4\"><div class=\"flex items-center justify-between mb-3\"><h3 class=\"font-semibold text-title dark:text-dark-title\">%04d-%02d-%02d meetings</h3><button type=\"button\" class=\"text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=false\">Close</button></div>%s</div></div></div></div>"
-          (List.length cell.events) cell.year cell.month cell.day details_html
+          "<div x-data=\"{open:false}\" class=\"mt-1\"><button type=\"button\" class=\"text-xs text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=true\">More (%d)</button><div x-show=\"open\" x-cloak class=\"fixed inset-0 z-50\"><div class=\"absolute inset-0 bg-black/50\" x-on:click=\"open=false\"></div><div class=\"absolute inset-0 flex items-center justify-center p-4\"><div class=\"w-full max-w-xl max-h-[80vh] overflow-y-auto rounded-xl bg-white dark:bg-dark-card p-4\"><div class=\"flex items-center justify-between mb-3\"><h3 class=\"font-semibold text-title dark:text-dark-title\">%04d-%02d-%02d meetings</h3><button type=\"button\" class=\"text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=false\">Close</button></div>%s</div></div></div></div>"
+          (List.length hidden) cell.year cell.month cell.day details_html
     in
     Printf.sprintf
       "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 bg-white dark:bg-dark-card\"><div class=\"text-sm font-semibold %s\">%d</div><div class=\"mt-1 space-y-1\">%s</div>%s</div>"
@@ -323,7 +323,7 @@ let render ~teams =
       </div>
       <a class="btn" href="<%s Url.governance_dev_meetings_calendar_ical %>">
         <%s! Icons.calendar "w-5 h-5" %>
-        Download iCal
+        <span>Download iCal</span>
       </a>
     </div>
 
