@@ -272,10 +272,6 @@ let drop n xs =
   go n xs
 
 let render_day_cell ~today (cell : day_cell) =
-  let day_class =
-    if cell.in_month then "text-title dark:text-dark-title"
-    else "text-content dark:text-dark-content opacity-50"
-  in
   let cmp = compare_date (cell.year, cell.month, cell.day) today in
   let is_past = cmp < 0 in
   let temporal_cell_class, day_number_class =
