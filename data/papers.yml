@@ -633,8 +633,13 @@ papers:
   - title: "Optimizing Pattern Matching"
     publication: Proceedings of the sixth ACM SIGPLAN International Conference on Functional Programming (ICFP)
     abstract: >
-      All you ever wanted to know about the garbage collector found in Caml
-      Light and OCaml's runtime system.
+      We present improvements to the backtracking technique of pattern-matching
+      compilation. Several optimizations are introduced, such as commutation of
+      patterns, use of exhaustiveness information, and control flow optimization
+      through the use of labeled static exceptions and context information.
+      These optimizations have been integrated in the Objective-Caml compiler.
+      They have shown good results in increasing the speed of pattern-matching
+      intensive programs, without increasing final code size.
     authors:
       - Fabrice Le Fessant
       - Luc Maranget
