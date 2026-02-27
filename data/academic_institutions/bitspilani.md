@@ -8,7 +8,7 @@ continent: Asia
 courses:
     - name: Principles of Programming Languages
       acronym: CS F301
-      url: NA
+      url:
       year: 2024
       teacher: Dhruv Kumar
       lecture_notes: false

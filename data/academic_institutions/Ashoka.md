@@ -8,7 +8,7 @@ continent: Asia
 courses:
     - name: Introduction to Computer Science
       acronym: ICS
-      url: "https://aalok-thakkar.github.io/teaching/ics2025/ics2025.html"
+      url: "https://aalok-thakkar.github.io/teaching/spring2025/ics/index.html"
       year: 2025
       lecture_notes: true
       exercises: true
