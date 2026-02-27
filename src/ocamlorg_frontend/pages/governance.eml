@@ -31,10 +31,12 @@ let render_team_card (team: Data.Governance.team) member_label =
   </div>
 
 let render ~teams ~working_groups =
-Layout.render
+Community_layout.single_column_layout
 ~title:"Governance"
 ~description:"OCaml is a mature, statically-typed, functional programming language. Learn more about its rich history
-and what makes it unique." @@
+and what makes it unique."
+~canonical:Url.governance
+~current:Governance @@
 <div class="w-full border-b intro-section-simple dark:dark-intro-section-simple md:bg-transparent dark:border-none md:bg-[length:cover] py-16 md:bg-[url('/img/governance/hero-background.png')] dark:md:bg-[url('/img/governance/dark-hero-background.png')]">
   <div class="container-fluid">
       <div class="flex md:flex-row flex-col">
