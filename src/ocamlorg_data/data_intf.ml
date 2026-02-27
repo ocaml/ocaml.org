@@ -244,12 +244,33 @@ module Governance = struct
 
   type contact = { name : string; link : string; kind : contact_kind }
 
+  type recurrence = {
+    starts_at : string;
+    timezone : string;
+    duration_minutes : int;
+    rule : recurrence_rule;
+  }
+
+  and recurrence_rule =
+    | Weekly of {
+        interval_weeks : int;
+        byweekday : weekday list;
+      }
+    | Monthly_by_nth_weekday of {
+        interval_months : int;
+        nth : int;
+        weekday : weekday;
+      }
+
+  and weekday = Mon | Tue | Wed | Thu | Fri | Sat | Sun
+
   type dev_meeting = {
     date : string;
     time : string;
     link : string;
     calendar : string option;
     notes : string;
+    recurrences : recurrence list;
   }
 
   type team = {

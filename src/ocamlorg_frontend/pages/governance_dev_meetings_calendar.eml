@@ -1,0 +1,112 @@
+type meeting_entry = {
+  team : Data.Governance.team;
+  meeting : Data.Governance.dev_meeting;
+  recurrence : Data.Governance.recurrence;
+}
+
+let rec flatten_teams acc (team : Data.Governance.team) =
+  let acc = team :: acc in
+  List.fold_left flatten_teams acc team.subteams
+
+let all_teams teams = List.rev (List.fold_left flatten_teams [] teams)
+
+let meeting_entries teams =
+  all_teams teams
+  |> List.concat_map (fun (team : Data.Governance.team) ->
+         match team.dev_meeting with
+         | None -> []
+         | Some meeting ->
+             meeting.recurrences
+             |> List.map (fun recurrence -> { team; meeting; recurrence }))
+
+let rec weekday_code = function
+  | Data.Governance.Mon -> "Mon"
+  | Data.Governance.Tue -> "Tue"
+  | Data.Governance.Wed -> "Wed"
+  | Data.Governance.Thu -> "Thu"
+  | Data.Governance.Fri -> "Fri"
+  | Data.Governance.Sat -> "Sat"
+  | Data.Governance.Sun -> "Sun"
+
+let ordinal n =
+  match n with
+  | 1 -> "1st"
+  | 2 -> "2nd"
+  | 3 -> "3rd"
+  | 4 -> "4th"
+  | _ -> string_of_int n ^ "th"
+
+let recurrence_label (rule : Data.Governance.recurrence_rule) =
+  match rule with
+  | Weekly { interval_weeks; byweekday } ->
+      let days = byweekday |> List.map weekday_code |> String.concat ", " in
+      let freq = if interval_weeks = 1 then "weekly" else "every " ^ string_of_int interval_weeks ^ " weeks" in
+      freq ^ " on " ^ days
+  | Monthly_by_nth_weekday { interval_months; nth; weekday } ->
+      let freq = if interval_months = 1 then "monthly" else "every " ^ string_of_int interval_months ^ " months" in
+      freq ^ " on the " ^ ordinal nth ^ " " ^ weekday_code weekday
+
+let has_weekday rule weekday =
+  match (rule : Data.Governance.recurrence_rule) with
+  | Weekly { byweekday; _ } -> List.mem weekday byweekday
+  | Monthly_by_nth_weekday { weekday = rule_day; _ } -> rule_day = weekday
+
+let weekdays =
+  [
+    (Data.Governance.Mon, "Monday");
+    (Data.Governance.Tue, "Tuesday");
+    (Data.Governance.Wed, "Wednesday");
+    (Data.Governance.Thu, "Thursday");
+    (Data.Governance.Fri, "Friday");
+    (Data.Governance.Sat, "Saturday");
+    (Data.Governance.Sun, "Sunday");
+  ]
+
+let render_entry (entry : meeting_entry) =
+  <div class="rounded-xl border p-4 bg-white dark:bg-dark-card dark:border-dark-separator_30">
+    <div class="text-base font-semibold text-title dark:text-dark-title"><%s entry.team.name %></div>
+    <div class="text-sm text-content dark:text-dark-content"><%s entry.meeting.time %> (<%s entry.recurrence.timezone %>)</div>
+    <div class="text-sm text-content dark:text-dark-content"><%s recurrence_label entry.recurrence.rule %></div>
+    <div class="mt-3 flex flex-wrap gap-3 text-sm">
+      <a class="text-primary dark:text-dark-primary hover:underline" href="<%s entry.meeting.link %>">Meeting link</a>
+      <a class="text-primary dark:text-dark-primary hover:underline" href="<%s entry.meeting.notes %>">Notes</a>
+    </div>
+  </div>
+
+let render_day entries (weekday, weekday_name) =
+  let day_entries =
+    entries |> List.filter (fun entry -> has_weekday entry.recurrence.rule weekday)
+  in
+  <section class="rounded-2xl border p-5 bg-background dark:bg-dark-background dark:border-dark-separator_30">
+    <h2 class="text-xl font-semibold text-title dark:text-dark-title mb-4"><%s weekday_name %></h2>
+    <% if day_entries = [] then ( %>
+    <p class="text-sm text-content dark:text-dark-content">No recurring meetings.</p>
+    <% ) else (
+         day_entries |> List.iter (fun entry -> %>
+    <div class="mb-4 last:mb-0"><%s! render_entry entry %></div>
+    <% )) %>
+  </section>
+
+let render ~teams =
+  let entries = meeting_entries teams in
+  Layout.render
+    ~title:"Governance Dev Meetings Calendar"
+    ~description:
+      "Calendar view of governance team and working-group developer meetings."
+    ~canonical:Url.governance_dev_meetings_calendar @@
+  <div class="container-fluid py-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+      <div>
+        <h1 class="font-bold text-title dark:text-dark-title">Dev meetings calendar</h1>
+        <p class="text-content dark:text-dark-content">Recurring meetings from governance team data.</p>
+      </div>
+      <a class="btn" href="<%s Url.governance_dev_meetings_calendar_ical %>">
+        <%s! Icons.calendar "w-5 h-5" %>
+        Download iCal
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <%s! weekdays |> List.map (render_day entries) |> String.concat "\n" %>
+    </div>
+  </div>

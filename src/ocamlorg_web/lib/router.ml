@@ -65,6 +65,10 @@ let page_routes t =
       Dream.get Url.security Handler.security;
       Dream.get Url.governance Handler.governance;
       Dream.get (Url.governance_team ":id") Handler.governance_team;
+      Dream.get Url.governance_dev_meetings_calendar
+        Handler.governance_dev_meetings_calendar;
+      Dream.get Url.governance_dev_meetings_calendar_ical
+        Handler.governance_dev_meetings_calendar_ical;
       Dream.get Url.governance_policy Handler.governance_policy;
       Dream.get Url.papers Handler.papers;
       Dream.get Url.exercises Handler.exercises;

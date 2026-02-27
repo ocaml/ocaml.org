@@ -50,6 +50,7 @@ let conferences = Conferences.render
 let conference = Conference.render
 let outreachy = Outreachy.render
 let governance ~teams = Governance.render ~teams
+let governance_dev_meetings_calendar ~teams = Governance_dev_meetings_calendar.render ~teams
 let governance_team team = Governance_team.render team
 let logos = Logos.render
 let cookbook = Cookbook.render
