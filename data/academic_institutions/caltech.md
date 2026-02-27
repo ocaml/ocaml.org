@@ -8,8 +8,8 @@ continent: North America
 courses:
     - name: "Compilers"
       acronym: CS 164
-      url: "https://mvanier.github.io/cs164/Fall2024/book/"
-      year: 2024
+      url: "https://mvanier.github.io/cs164/Fall2025/book/"
+      year: 2025
       teacher: Mike Vanier
 location:
      lat: 34.1377
