@@ -258,7 +258,7 @@ let drop n xs =
   in
   go n xs
 
-let render_day_cell (cell : day_cell) =
+let render_day_cell ~today (cell : day_cell) =
   let day_class =
     if cell.in_month then "text-title dark:text-dark-title"
     else "text-content dark:text-dark-content opacity-50"
@@ -268,6 +268,19 @@ let render_day_cell (cell : day_cell) =
       "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 bg-background dark:bg-dark-background\"><div class=\"text-sm %s\">%d</div></div>"
       day_class cell.day
   else
+    let cmp = compare_date (cell.year, cell.month, cell.day) today in
+    let temporal_cell_class, day_number_class =
+      if cmp = 0 then
+        ( "bg-primary/10 dark:bg-dark-primary/20 ring-2 ring-primary \
+           dark:ring-dark-primary",
+          "text-primary dark:text-dark-primary" )
+      else if cmp < 0 then
+        ( "bg-slate-50 dark:bg-dark-card/70",
+          "text-content dark:text-dark-content" )
+      else
+        ( "bg-emerald-50/50 dark:bg-dark-card",
+          "text-title dark:text-dark-title" )
+    in
     let visible = take 3 cell.events in
     let hidden = drop 3 cell.events in
     let visible_html = visible |> List.map render_event_row |> String.concat "\n" in
@@ -280,10 +293,10 @@ let render_day_cell (cell : day_cell) =
           (List.length hidden) cell.year cell.month cell.day details_html
     in
     Printf.sprintf
-      "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 bg-white dark:bg-dark-card\"><div class=\"text-sm font-semibold %s\">%d</div><div class=\"mt-1 space-y-1\">%s</div>%s</div>"
-      day_class cell.day visible_html modal
+      "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 %s\"><div class=\"text-sm font-semibold %s\">%d</div><div class=\"mt-1 space-y-1\">%s</div>%s</div>"
+      temporal_cell_class day_number_class cell.day visible_html modal
 
-let render_month sources (year, month) =
+let render_month ~today sources (year, month) =
   let weekday_headers = [ "Mon"; "Tue"; "Wed"; "Thu"; "Fri"; "Sat"; "Sun" ] in
   let header_html =
     weekday_headers
@@ -294,7 +307,7 @@ let render_month sources (year, month) =
   in
   let cells_html =
     build_month_grid sources (year, month)
-    |> List.map render_day_cell |> String.concat "\n"
+    |> List.map (render_day_cell ~today) |> String.concat "\n"
   in
   Printf.sprintf
     "<section class=\"rounded-2xl border border-separator_20 dark:border-dark-separator_30 p-4\"><h2 class=\"text-2xl font-semibold text-title dark:text-dark-title mb-4\">%s %d</h2><div class=\"grid grid-cols-7\">%s%s</div></section>"
@@ -304,12 +317,17 @@ let current_year_month () =
   let tm = Unix.localtime (Unix.gettimeofday ()) in
   (tm.tm_year + 1900, tm.tm_mon + 1)
 
+let current_date_ymd () =
+  let tm = Unix.localtime (Unix.gettimeofday ()) in
+  (tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday)
+
 let render ~teams =
   let sources = source_entries teams in
+  let today = current_date_ymd () in
   let this_month = current_year_month () in
   let next_month = month_delta this_month 1 in
-  let this_month_html = render_month sources this_month in
-  let next_month_html = render_month sources next_month in
+  let this_month_html = render_month ~today sources this_month in
+  let next_month_html = render_month ~today sources next_month in
   Layout.render
     ~title:"Governance Dev Meetings Calendar"
     ~description:
