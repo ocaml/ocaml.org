@@ -19,7 +19,7 @@ let meeting_entries teams =
              meeting.recurrences
              |> List.map (fun recurrence -> { team; meeting; recurrence }))
 
-let rec weekday_code = function
+let weekday_code = function
   | Data.Governance.Mon -> "Mon"
   | Data.Governance.Tue -> "Tue"
   | Data.Governance.Wed -> "Wed"
@@ -77,14 +77,18 @@ let render_day entries (weekday, weekday_name) =
   let day_entries =
     entries |> List.filter (fun entry -> has_weekday entry.recurrence.rule weekday)
   in
+  let body =
+    if day_entries = [] then
+      "<p class=\"text-sm text-content dark:text-dark-content\">No recurring meetings.</p>"
+    else
+      day_entries
+      |> List.map (fun entry ->
+             "<div class=\"mb-4 last:mb-0\">" ^ render_entry entry ^ "</div>")
+      |> String.concat "\n"
+  in
   <section class="rounded-2xl border p-5 bg-background dark:bg-dark-background dark:border-dark-separator_30">
     <h2 class="text-xl font-semibold text-title dark:text-dark-title mb-4"><%s weekday_name %></h2>
-    <% if day_entries = [] then ( %>
-    <p class="text-sm text-content dark:text-dark-content">No recurring meetings.</p>
-    <% ) else (
-         day_entries |> List.iter (fun entry -> %>
-    <div class="mb-4 last:mb-0"><%s! render_entry entry %></div>
-    <% )) %>
+    <%s! body %>
   </section>
 
 let render ~teams =

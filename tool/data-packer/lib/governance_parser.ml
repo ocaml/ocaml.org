@@ -53,7 +53,7 @@ let recurrence_rule_of_yaml = function
           (List.assoc_opt name fields)
       in
       let int_field name =
-        let open Result.Syntax in
+        let ( let* ) = Result.bind in
         let* value = field name in
         match value with
         | `Float f -> Ok (int_of_float f)
@@ -66,11 +66,11 @@ let recurrence_rule_of_yaml = function
       let rec parse_weekdays acc = function
         | [] -> Ok (List.rev acc)
         | x :: xs ->
-            let open Result.Syntax in
+            let ( let* ) = Result.bind in
             let* weekday = weekday_of_yaml x in
             parse_weekdays (weekday :: acc) xs
       in
-      let open Result.Syntax in
+      let ( let* ) = Result.bind in
       let* kind = field "kind" in
       (match kind with
       | `String "weekly" ->
