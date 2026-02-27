@@ -28,13 +28,18 @@ let href, description =
     ("https://github.com/ocaml/ocaml.org/blob/"^ commit_hash ^"/data/"^ page.fpath,
     "All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.")
 in
+let current_section =
+  if page.category = "OCaml Infrastructure"
+  then Tools_layout.Infrastructure
+  else Tools_layout.Overview
+in
 Tools_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" page.short_title)
 ~description:page.description
 ~canonical
 ~left_sidebar_html:(Some(left_sidebar ~current_page:(page.slug) ~pages))
 ~right_sidebar_html:(Some(right_sidebar page))
-~current:Overview @@
+~current:current_section @@
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_title page %>
     <%s! page.body_html %>
