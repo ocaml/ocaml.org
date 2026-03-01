@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        ocaml-compiler: [5, 4.14]
+        ocaml-compiler: [5, "4.14"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
