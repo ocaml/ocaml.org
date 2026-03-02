@@ -1,0 +1,362 @@
+type source_entry = {
+  team_name : string;
+  meeting_link : string;
+  notes_link : string;
+  recurrence : Data.Governance.recurrence;
+}
+
+type event_entry = {
+  team_name : string;
+  time_label : string;
+  recurrence_label : string;
+  meeting_link : string;
+  notes_link : string;
+}
+
+type day_cell = {
+  year : int;
+  month : int;
+  day : int;
+  in_month : bool;
+  events : event_entry list;
+}
+
+let month_names =
+  [|
+    "January";
+    "February";
+    "March";
+    "April";
+    "May";
+    "June";
+    "July";
+    "August";
+    "September";
+    "October";
+    "November";
+    "December";
+  |]
+
+let month_name m = month_names.(m - 1)
+
+let rec flatten_teams acc (team : Data.Governance.team) =
+  let acc = team :: acc in
+  List.fold_left flatten_teams acc team.subteams
+
+let all_teams teams = List.rev (List.fold_left flatten_teams [] teams)
+
+let source_entries teams =
+  all_teams teams
+  |> List.concat_map (fun (team : Data.Governance.team) ->
+         match team.dev_meeting with
+         | None -> []
+         | Some meeting ->
+             List.map
+               (fun recurrence ->
+                 {
+                   team_name = team.name;
+                   meeting_link = meeting.link;
+                   notes_link = meeting.notes;
+                   recurrence;
+                 })
+               meeting.recurrences)
+
+let parse_ymd s =
+  ( int_of_string (String.sub s 0 4),
+    int_of_string (String.sub s 5 2),
+    int_of_string (String.sub s 8 2) )
+
+let time_label (recurrence : Data.Governance.recurrence) =
+  let starts_at = recurrence.starts_at in
+  if String.length starts_at >= 16 then
+    String.sub starts_at 11 5 ^ " " ^ recurrence.timezone
+  else recurrence.timezone
+
+let weekday_to_int = function
+  | Data.Governance.Mon -> 0
+  | Data.Governance.Tue -> 1
+  | Data.Governance.Wed -> 2
+  | Data.Governance.Thu -> 3
+  | Data.Governance.Fri -> 4
+  | Data.Governance.Sat -> 5
+  | Data.Governance.Sun -> 6
+
+let weekday_to_name = function
+  | Data.Governance.Mon -> "Mon"
+  | Data.Governance.Tue -> "Tue"
+  | Data.Governance.Wed -> "Wed"
+  | Data.Governance.Thu -> "Thu"
+  | Data.Governance.Fri -> "Fri"
+  | Data.Governance.Sat -> "Sat"
+  | Data.Governance.Sun -> "Sun"
+
+let pos_mod a b =
+  let r = a mod b in
+  if r < 0 then r + b else r
+
+let day_number y m d =
+  let y = if m <= 2 then y - 1 else y in
+  let era = if y >= 0 then y / 400 else (y - 399) / 400 in
+  let yoe = y - (era * 400) in
+  let mp = m + if m > 2 then -3 else 9 in
+  let doy = ((153 * mp) + 2) / 5 + d - 1 in
+  let doe = (yoe * 365) + (yoe / 4) - (yoe / 100) + doy in
+  (era * 146097) + doe - 719468
+
+let weekday_index y m d = pos_mod (day_number y m d + 3) 7
+
+let is_leap_year y =
+  ((y mod 4 = 0) && (y mod 100 <> 0)) || (y mod 400 = 0)
+
+let days_in_month y m =
+  match m with
+  | 1 | 3 | 5 | 7 | 8 | 10 | 12 -> 31
+  | 4 | 6 | 9 | 11 -> 30
+  | 2 -> if is_leap_year y then 29 else 28
+  | _ -> 30
+
+let compare_date (y1, m1, d1) (y2, m2, d2) =
+  if y1 <> y2 then Int.compare y1 y2
+  else if m1 <> m2 then Int.compare m1 m2
+  else Int.compare d1 d2
+
+let month_delta (y, m) delta =
+  let idx = ((y * 12) + (m - 1)) + delta in
+  (idx / 12, (idx mod 12) + 1)
+
+let recurrence_label rule =
+  match rule with
+  | Data.Governance.Weekly { interval_weeks; byweekday } ->
+      let days = byweekday |> List.map weekday_to_name |> String.concat "," in
+      if interval_weeks = 1 then "Weekly (" ^ days ^ ")"
+      else "Every " ^ string_of_int interval_weeks ^ " weeks (" ^ days ^ ")"
+  | Data.Governance.Monthly_by_nth_weekday { interval_months; nth; weekday } ->
+      let nth_label =
+        match nth with
+        | 1 -> "1st"
+        | 2 -> "2nd"
+        | 3 -> "3rd"
+        | 4 -> "4th"
+        | _ -> string_of_int nth ^ "th"
+      in
+      if interval_months = 1 then
+        "Monthly (" ^ nth_label ^ " " ^ weekday_to_name weekday ^ ")"
+      else
+        "Every " ^ string_of_int interval_months ^ " months (" ^ nth_label ^ " "
+        ^ weekday_to_name weekday ^ ")"
+
+let matches_recurrence_on_date (recurrence : Data.Governance.recurrence) (y, m, d) =
+  let starts_y, starts_m, starts_d = parse_ymd recurrence.starts_at in
+  if compare_date (y, m, d) (starts_y, starts_m, starts_d) < 0 then false
+  else
+    match recurrence.rule with
+    | Data.Governance.Weekly { interval_weeks; byweekday } ->
+        let weekday_ok = List.exists (fun w -> weekday_to_int w = weekday_index y m d) byweekday in
+        if not weekday_ok then false
+        else
+          let this_week = day_number y m d / 7 in
+          let start_week = day_number starts_y starts_m starts_d / 7 in
+          pos_mod (this_week - start_week) interval_weeks = 0
+    | Data.Governance.Monthly_by_nth_weekday { interval_months; nth; weekday } ->
+        let months_since_start = ((y - starts_y) * 12) + (m - starts_m) in
+        let weekday_ok = weekday_to_int weekday = weekday_index y m d in
+        let nth_in_month = ((d - 1) / 7) + 1 in
+        months_since_start >= 0
+        && pos_mod months_since_start interval_months = 0
+        && weekday_ok && nth_in_month = nth
+
+let events_for_date sources (y, m, d) =
+  sources
+  |> List.filter_map (fun source ->
+         if matches_recurrence_on_date source.recurrence (y, m, d) then
+           Some
+             {
+               team_name = source.team_name;
+               time_label = time_label source.recurrence;
+               recurrence_label = recurrence_label source.recurrence.rule;
+               meeting_link = source.meeting_link;
+               notes_link = source.notes_link;
+             }
+         else None)
+  |> List.sort (fun a b ->
+         let c = String.compare a.time_label b.time_label in
+         if c <> 0 then c else String.compare a.team_name b.team_name)
+
+let build_month_grid sources (year, month) =
+  let first_weekday = weekday_index year month 1 in
+  let current_days = days_in_month year month in
+  let prev_y, prev_m = month_delta (year, month) (-1) in
+  let prev_days = days_in_month prev_y prev_m in
+  let prev_cells =
+    if first_weekday = 0 then []
+    else
+      let start_day = prev_days - first_weekday + 1 in
+      List.init first_weekday (fun i ->
+          let day = start_day + i in
+          {
+            year = prev_y;
+            month = prev_m;
+            day;
+            in_month = false;
+            events = events_for_date sources (prev_y, prev_m, day);
+          })
+  in
+  let current_cells =
+    List.init current_days (fun i ->
+        let day = i + 1 in
+        {
+          year;
+          month;
+          day;
+          in_month = true;
+          events = events_for_date sources (year, month, day);
+        })
+  in
+  let total = List.length prev_cells + List.length current_cells in
+  let trailing =
+    let rem = total mod 7 in
+    if rem = 0 then 0 else 7 - rem
+  in
+  let next_y, next_m = month_delta (year, month) 1 in
+  let next_cells =
+      List.init trailing (fun i ->
+        let day = i + 1 in
+        {
+          year = next_y;
+          month = next_m;
+          day;
+          in_month = false;
+          events = events_for_date sources (next_y, next_m, day);
+        })
+  in
+  prev_cells @ current_cells @ next_cells
+
+let render_event_row ~past (event : event_entry) =
+  let text_class, title_class, link_class =
+    if past then
+      ( "text-gray-500 dark:text-gray-400",
+        "text-gray-600 dark:text-gray-300",
+        "text-gray-500 dark:text-gray-400 hover:underline" )
+    else
+      ( "text-content dark:text-dark-content",
+        "text-title dark:text-dark-title",
+        "text-primary dark:text-dark-primary hover:underline" )
+  in
+  Printf.sprintf
+    "<div class=\"text-xs leading-tight %s\"><span class=\"font-semibold %s\">%s</span><span class=\"ml-1\">%s</span><a class=\"ml-2 %s\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Meet</a><a class=\"ml-1 %s\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Notes</a></div>"
+    text_class title_class event.team_name event.time_label link_class
+    event.meeting_link link_class event.notes_link
+
+let render_modal_event_row (event : event_entry) =
+  Printf.sprintf
+    "<div class=\"py-2 border-b last:border-b-0 border-separator_20 dark:border-dark-separator_30\"><div class=\"font-semibold text-title dark:text-dark-title\">%s</div><div class=\"text-sm text-content dark:text-dark-content\">%s - %s</div><div class=\"mt-1\"><a class=\"text-primary dark:text-dark-primary hover:underline mr-3\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Meeting link</a><a class=\"text-primary dark:text-dark-primary hover:underline\" href=\"%s\" target=\"_blank\" rel=\"noopener\">Notes</a></div></div>"
+    event.team_name event.time_label event.recurrence_label event.meeting_link
+    event.notes_link
+
+let take n xs =
+  let rec go i acc = function
+    | _ when i = 0 -> List.rev acc
+    | [] -> List.rev acc
+    | x :: tl -> go (i - 1) (x :: acc) tl
+  in
+  go n [] xs
+
+let drop n xs =
+  let rec go i ys =
+    if i = 0 then ys
+    else
+      match ys with
+      | [] -> []
+      | _ :: tl -> go (i - 1) tl
+  in
+  go n xs
+
+let render_day_cell ~today (cell : day_cell) =
+  let cmp = compare_date (cell.year, cell.month, cell.day) today in
+  let is_past = cmp < 0 in
+  let temporal_cell_class, day_number_class =
+    if cmp = 0 then
+      ( "bg-primary/10 dark:bg-dark-primary/20 ring-2 ring-primary \
+         dark:ring-dark-primary",
+        "text-primary dark:text-dark-primary" )
+    else if not cell.in_month then
+      ( "bg-slate-100 dark:bg-dark-background",
+        "text-content dark:text-dark-content opacity-60" )
+    else if is_past then
+      ( "bg-slate-50 dark:bg-dark-card/70",
+        "text-content dark:text-dark-content" )
+    else
+      ( "bg-emerald-50/50 dark:bg-dark-card",
+        "text-title dark:text-dark-title" )
+  in
+  let visible = take 3 cell.events in
+  let hidden = drop 3 cell.events in
+  let visible_html =
+    visible |> List.map (render_event_row ~past:is_past) |> String.concat "\n"
+  in
+  let details_html = cell.events |> List.map render_modal_event_row |> String.concat "\n" in
+  let modal =
+    if hidden = [] then ""
+    else
+      Printf.sprintf
+        "<div x-data=\"{open:false}\" class=\"mt-1\"><button type=\"button\" class=\"text-xs text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=true\">More (%d)</button><div x-show=\"open\" x-cloak class=\"fixed inset-0 z-50\"><div class=\"absolute inset-0 bg-black/50\" x-on:click=\"open=false\"></div><div class=\"absolute inset-0 flex items-center justify-center p-4\"><div class=\"w-full max-w-xl max-h-[80vh] overflow-y-auto rounded-xl bg-white dark:bg-dark-card p-4\"><div class=\"flex items-center justify-between mb-3\"><h3 class=\"font-semibold text-title dark:text-dark-title\">%04d-%02d-%02d meetings</h3><button type=\"button\" class=\"text-primary dark:text-dark-primary hover:underline\" x-on:click=\"open=false\">Close</button></div>%s</div></div></div></div>"
+        (List.length hidden) cell.year cell.month cell.day details_html
+  in
+  Printf.sprintf
+    "<div class=\"min-h-[8rem] border border-separator_20 dark:border-dark-separator_30 p-2 %s\"><div class=\"text-sm font-semibold %s\">%d</div><div class=\"mt-1 space-y-1\">%s</div>%s</div>"
+    temporal_cell_class day_number_class cell.day visible_html modal
+
+let render_month ~today sources (year, month) =
+  let weekday_headers = [ "Mon"; "Tue"; "Wed"; "Thu"; "Fri"; "Sat"; "Sun" ] in
+  let header_html =
+    weekday_headers
+    |> List.map (fun day ->
+           "<div class=\"text-xs font-semibold uppercase tracking-wide text-content dark:text-dark-content p-2\">"
+           ^ day ^ "</div>")
+    |> String.concat "\n"
+  in
+  let cells_html =
+    build_month_grid sources (year, month)
+    |> List.map (render_day_cell ~today) |> String.concat "\n"
+  in
+  Printf.sprintf
+    "<section class=\"rounded-2xl border border-separator_20 dark:border-dark-separator_30 p-4\"><h2 class=\"text-2xl font-semibold text-title dark:text-dark-title mb-4\">%s %d</h2><div class=\"grid grid-cols-7\">%s%s</div></section>"
+    (month_name month) year header_html cells_html
+
+let current_year_month () =
+  let tm = Unix.localtime (Unix.gettimeofday ()) in
+  (tm.tm_year + 1900, tm.tm_mon + 1)
+
+let current_date_ymd () =
+  let tm = Unix.localtime (Unix.gettimeofday ()) in
+  (tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday)
+
+let render ~teams =
+  let sources = source_entries teams in
+  let today = current_date_ymd () in
+  let this_month = current_year_month () in
+  let next_month = month_delta this_month 1 in
+  let this_month_html = render_month ~today sources this_month in
+  let next_month_html = render_month ~today sources next_month in
+  Layout.render
+    ~title:"Governance Dev Meetings Calendar"
+    ~description:
+      "Current and next month calendar view of governance developer meetings."
+    ~canonical:Url.governance_dev_meetings_calendar @@
+  <div class="container-fluid py-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+      <div>
+        <h1 class="font-bold text-title dark:text-dark-title">Dev meetings calendar</h1>
+        <p class="text-content dark:text-dark-content">Current and next month view generated from structured governance recurrence data.</p>
+      </div>
+      <a class="btn" href="<%s Url.governance_dev_meetings_calendar_ical %>">
+        <%s! Icons.calendar "w-5 h-5" %>
+        <span>Download iCal</span>
+      </a>
+    </div>
+
+    <div class="space-y-8">
+      <%s! this_month_html %>
+      <%s! next_month_html %>
+    </div>
+  </div>

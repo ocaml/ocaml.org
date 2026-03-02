@@ -237,6 +237,21 @@ teams:
       time: Alternating 9:00 AM CET and 5:00 PM CET (see wiki)
       link: https://us06web.zoom.us/j/85096877776?pwd=cWNhU1dHQ1ZNSjZuOUZCQ0h2by9Udz09
       notes: https://github.com/ocaml/dune/wiki
+      recurrences:
+      - starts_at: "2026-01-07T09:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: weekly
+          interval_weeks: 4
+          byweekday: [wed]
+      - starts_at: "2026-01-21T17:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: weekly
+          interval_weeks: 4
+          byweekday: [wed]
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/dune
@@ -286,6 +301,14 @@ teams:
       time: 2:00 PM CET
       link: https://us06web.zoom.us/j/84185730263?pwd=TTYrY2puc0dST0lBMjZ5ZHNTaThoZz09
       notes: https://github.com/ocaml/opam/wiki#dev-meetings
+      recurrences:
+      - starts_at: "2026-01-05T14:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: weekly
+          interval_weeks: 1
+          byweekday: [mon]
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/opam
@@ -314,6 +337,23 @@ teams:
       time: Alternating 9:00 AM CET and 6:00 PM CET
       link: https://discuss.ocaml.org/search?q=tags%3Adev-meetings%2Beditor
       notes: https://github.com/ocaml/merlin/wiki/Public-dev%E2%80%90meetings
+      recurrences:
+      - starts_at: "2026-01-14T09:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: monthly_by_nth_weekday
+          interval_months: 2
+          nth: 2
+          weekday: wed
+      - starts_at: "2026-02-11T18:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: monthly_by_nth_weekday
+          interval_months: 2
+          nth: 2
+          weekday: wed
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/ocaml-lsp
@@ -342,6 +382,23 @@ teams:
       time: Alternating 9:00 AM CET and 6:00 PM CET
       link: https://discuss.ocaml.org/search?q=tags%3Adev-meetings%2Beditor
       notes: https://github.com/ocaml/merlin/wiki/Public-dev%E2%80%90meetings
+      recurrences:
+      - starts_at: "2026-01-14T09:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: monthly_by_nth_weekday
+          interval_months: 2
+          nth: 2
+          weekday: wed
+      - starts_at: "2026-02-11T18:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: monthly_by_nth_weekday
+          interval_months: 2
+          nth: 2
+          weekday: wed
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/merlin
@@ -370,6 +427,14 @@ teams:
       time: 14:00 / 2:00 PM CET
       link: https://www.google.com/url?q=https://us06web.zoom.us/j/7989424717?pwd%3DLzlUdWVTN3dlcWpHYlVTNjJyc01EZz09&sa=D&source=calendar&ust=1719044946737160&usg=AOvVaw1FuCIyvahK1Go_IG-6j9yT
       notes: https://hackmd.io/WgTSaqlrRoqAlEGLsDcXsA
+      recurrences:
+      - starts_at: "2026-01-07T14:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: weekly
+          interval_weeks: 1
+          byweekday: [wed]
     contacts:
     - name: GitHub
       link: https://github.com/ocaml/odoc
@@ -403,6 +468,15 @@ teams:
       link: https://meet.google.com/bwy-fyqo-dnf
       calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
       notes: https://github.com/ocaml-ppx/ppxlib/wiki
+      recurrences:
+      - starts_at: "2026-01-20T18:00:00"
+        timezone: Europe/Paris
+        duration_minutes: 60
+        rule:
+          kind: monthly_by_nth_weekday
+          interval_months: 1
+          nth: 3
+          weekday: tue
     members:
     - name: Patrick Ferris
       github: patricoferris
@@ -586,6 +660,20 @@ teams:
   - name: "#ocaml.org on the OCaml Discord"
     link: https://discord.gg/cCYQbqN
     kind: discord
+  dev-meeting:
+    date: Weekly on Mondays
+    time: 8:15 AM CET
+    link: https://us06web.zoom.us/j/88375318760?pwd=TUUsVXPFMreM96cnMR3am8oSWj6Yhk.1
+    calendar: https://us06web.zoom.us/meeting/tZwucOyrrzMtHNT2s4W_iVDN-qjfaKEq4ikn/ics
+    notes: https://docs.google.com/document/d/1ricnsicOB35TmuOM86guYr6HWo8A1iyVrHdb0cNxOXg/edit
+    recurrences:
+    - starts_at: "2026-01-05T08:15:00"
+      timezone: Europe/Paris
+      duration_minutes: 60
+      rule:
+        kind: weekly
+        interval_weeks: 1
+        byweekday: [mon]
   members:
   - name: Anil Madhavapeddy
     github: avsm
@@ -616,6 +704,14 @@ working-groups:
     link: "http://meet.google.com/byo-dfiz-dou"
     calendar: "https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
     notes: "https://docs.google.com/document/d/1ZBfbjAkvEkv9ldumpZV5VXrEc_HpPeYjHPW_TiwJe4Q/"
+    recurrences:
+    - starts_at: "2026-01-05T10:00:00"
+      timezone: Europe/London
+      duration_minutes: 60
+      rule:
+        kind: weekly
+        interval_weeks: 2
+        byweekday: [mon]
   members:
   - name: Sudha Parimala
     github: Sudha247
