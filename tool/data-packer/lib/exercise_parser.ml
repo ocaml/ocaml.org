@@ -38,15 +38,15 @@ let split_body body =
     try Some (Str.search_forward (Str.regexp_string marker) body 0)
     with Not_found -> None
   in
-  match (find_section statement_marker, find_section solution_marker) with
-  | Some stmt_pos, Some sol_pos when stmt_pos < sol_pos ->
-      let stmt_start = stmt_pos + String.length statement_marker in
-      let statement =
-        String.sub body stmt_start (sol_pos - stmt_start) |> String.trim
-      in
+  match (find_section solution_marker, find_section statement_marker) with
+  | Some sol_pos, Some stmt_pos when sol_pos < stmt_pos ->
       let sol_start = sol_pos + String.length solution_marker in
       let solution =
-        String.sub body sol_start (String.length body - sol_start)
+        String.sub body sol_start (stmt_pos - sol_start) |> String.trim
+      in
+      let stmt_start = stmt_pos + String.length statement_marker in
+      let statement =
+        String.sub body stmt_start (String.length body - stmt_start)
         |> String.trim
       in
       (statement, solution)
