@@ -155,19 +155,15 @@ module Governance = struct
   type contact = [%import: Data_intf.Governance.contact]
   [@@deriving bin_io, show]
 
-  type weekday = [%import: Data_intf.Governance.weekday]
-  [@@deriving bin_io, show]
-
-  type recurrence_rule = [%import: Data_intf.Governance.recurrence_rule]
-  [@@deriving bin_io, show]
-
-  type recurrence = [%import: Data_intf.Governance.recurrence]
-  [@@deriving bin_io, show]
-
   type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
   [@@deriving bin_io, show]
 
   type team = [%import: Data_intf.Governance.team] [@@deriving bin_io, show]
+end
+
+module Governance_meeting = struct
+  type t = [%import: Data_intf.Governance_meeting.t]
+  [@@deriving bin_io, of_yaml, show]
 end
 
 module Conference = struct
@@ -328,6 +324,7 @@ module All_data = struct
     outreachy : Outreachy.t list;
     governance_teams : Governance.team list;
     governance_working_groups : Governance.team list;
+    governance_meetings : Governance_meeting.t list;
     tool_pages : Tool_page.t list;
   }
   [@@deriving bin_io]
@@ -371,6 +368,7 @@ module All_data = struct
       outreachy = [];
       governance_teams = [];
       governance_working_groups = [];
+      governance_meetings = [];
       tool_pages = [];
     }
 end

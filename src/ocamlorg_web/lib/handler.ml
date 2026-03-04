@@ -705,57 +705,10 @@ let governance _req =
     (Ocamlorg_frontend.governance ~teams:Data.Governance.teams
        ~working_groups:Data.Governance.working_groups)
 
-let governance_calendar_teams =
-  Data.Governance.teams @ Data.Governance.working_groups
-
-type governance_meeting_event = {
-  team_name : string;
-  meeting_link : string;
-  notes_link : string;
-  recurrence : Data.Governance.recurrence;
-}
-
-let rec governance_meeting_events (team : Data.Governance.team) =
-  let from_team_meeting =
-    match team.dev_meeting with
-    | None -> []
-    | Some meeting ->
-        List.map
-          (fun recurrence ->
-            {
-              team_name = team.name;
-              meeting_link = meeting.link;
-              notes_link = meeting.notes;
-              recurrence;
-            })
-          meeting.recurrences
-  in
-  from_team_meeting @ List.concat_map governance_meeting_events team.subteams
-
-let governance_all_meeting_events () =
-  governance_calendar_teams |> List.concat_map governance_meeting_events
-
 let governance_dev_meetings_calendar _req =
   Dream.html
     (Ocamlorg_frontend.governance_dev_meetings_calendar
-       ~teams:governance_calendar_teams)
-
-let weekday_to_ical = function
-  | Data.Governance.Mon -> "MO"
-  | Data.Governance.Tue -> "TU"
-  | Data.Governance.Wed -> "WE"
-  | Data.Governance.Thu -> "TH"
-  | Data.Governance.Fri -> "FR"
-  | Data.Governance.Sat -> "SA"
-  | Data.Governance.Sun -> "SU"
-
-let rule_to_ical = function
-  | Data.Governance.Weekly { interval_weeks; byweekday } ->
-      Printf.sprintf "FREQ=WEEKLY;INTERVAL=%d;BYDAY=%s" interval_weeks
-        (byweekday |> List.map weekday_to_ical |> String.concat ",")
-  | Data.Governance.Monthly_by_nth_weekday { interval_months; nth; weekday } ->
-      Printf.sprintf "FREQ=MONTHLY;INTERVAL=%d;BYDAY=%s;BYSETPOS=%d"
-        interval_months (weekday_to_ical weekday) nth
+       ~meetings:Data.Governance_meeting.all)
 
 let compact_ical_datetime s =
   let buf = Buffer.create (String.length s) in
@@ -767,27 +720,24 @@ let escape_ical_text s =
   let s = String.concat "\\," (String.split_on_char ',' s) in
   String.concat "\\;" (String.split_on_char ';' s)
 
-let ical_event event =
-  let dtstart = compact_ical_datetime event.recurrence.starts_at in
-  let uid_source =
-    event.team_name ^ event.recurrence.starts_at ^ event.meeting_link
-  in
+let ical_event (event : Data.Governance_meeting.t) =
+  let dtstart = compact_ical_datetime event.starts_at in
+  let uid_source = event.team_id ^ event.starts_at ^ event.meeting_link in
   let uid = Digest.to_hex (Digest.string uid_source) ^ "@ocaml.org" in
   String.concat "\r\n"
     [
       "BEGIN:VEVENT";
       "UID:" ^ uid;
       "SUMMARY:" ^ escape_ical_text (event.team_name ^ " dev meeting");
-      Printf.sprintf "DTSTART;TZID=%s:%s" event.recurrence.timezone dtstart;
-      Printf.sprintf "RRULE:%s" (rule_to_ical event.recurrence.rule);
-      Printf.sprintf "DURATION:PT%dM" event.recurrence.duration_minutes;
+      Printf.sprintf "DTSTART;TZID=%s:%s" event.timezone dtstart;
+      Printf.sprintf "DURATION:PT%dM" event.duration_minutes;
       "URL:" ^ event.meeting_link;
       "DESCRIPTION:Notes: " ^ escape_ical_text event.notes_link;
       "END:VEVENT";
     ]
 
 let governance_dev_meetings_calendar_ical _req =
-  let events = governance_all_meeting_events () in
+  let events = Data.Governance_meeting.all in
   let body =
     String.concat "\r\n"
       ([
