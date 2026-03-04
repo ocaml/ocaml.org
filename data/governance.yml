@@ -236,6 +236,8 @@ teams:
       date: Every other Wednesday
       time: Alternating 9:00 AM CET and 5:00 PM CET (see wiki)
       link: https://us06web.zoom.us/j/85096877776?pwd=cWNhU1dHQ1ZNSjZuOUZCQ0h2by9Udz09
+      ical: https://calendar.google.com/calendar/ical/c_5cd698df6784e385b1cdcdc1dbca18c061faa96959a04781566d304dc9ec7319%40group.calendar.google.com/public/basic.ics
+      calendar: https://calendar.google.com/calendar/embed?src=c_5cd698df6784e385b1cdcdc1dbca18c061faa96959a04781566d304dc9ec7319%40group.calendar.google.com
       notes: https://github.com/ocaml/dune/wiki
     contacts:
     - name: GitHub
@@ -401,6 +403,7 @@ teams:
       date: Every third Tuesday
       time: 6:00 PM CET
       link: https://meet.google.com/bwy-fyqo-dnf
+      ical: https://calendar.google.com/calendar/ical/c_b009d08084c20ac304862a7adebbb7f9544b1c102e403210301bcfab7000f23e%40group.calendar.google.com/public/basic.ics
       calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
       notes: https://github.com/ocaml-ppx/ppxlib/wiki
     members:
