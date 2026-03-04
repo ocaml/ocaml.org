@@ -21,11 +21,6 @@ let render_team_member (member : Data.Governance.member) =
   </a>
 
 let render_dev_meeting (dev_meeting : Data.Governance.dev_meeting) _class =
-  let calendar_link =
-    match dev_meeting.calendar with
-    | Some link -> Some link
-    | None -> dev_meeting.ical
-  in
   <div class="gap-4 <%s _class %>">
     <div class="flex gap-1 text-content dark:text-dark-content"><%s dev_meeting.date %> - <%s dev_meeting.time %></div>
     <div class="flex gap-4">
@@ -37,7 +32,7 @@ let render_dev_meeting (dev_meeting : Data.Governance.dev_meeting) _class =
         <%s! Icons.community "w-6 h-6" %>
         Meeting Link
       </a>
-      <% match calendar_link with | None -> () | Some calendar -> %>
+      <% match dev_meeting.calendar with | None -> () | Some calendar -> %>
       <a class="flex gap-1 py-2 font-semibold text-primary dark:text-dark-title hover:underline dark:underline hover:text-primary dark:hover:text-dark-primary" href="<%s calendar %>">
         <%s! Icons.calendar "w-6 h-6" %>
         Calendar Invite
