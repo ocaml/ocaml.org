@@ -40,9 +40,13 @@ let platform_releases_cmd =
   let run () = Platform_release_scraper.scrape () in
   Cmd.v (Cmd.info "platform_releases") Term.(const run $ const ())
 
+let governance_calendars_cmd =
+  let run () = Governance_calendar_scraper.scrape () in
+  Cmd.v (Cmd.info "governance_calendars") Term.(const run $ const ())
+
 let cmds =
   Cmd.group (Cmd.info "data-scrape")
-    [ planet_cmd; video_cmd; platform_releases_cmd ]
+    [ planet_cmd; video_cmd; platform_releases_cmd; governance_calendars_cmd ]
 
 let () =
   Printexc.record_backtrace true;

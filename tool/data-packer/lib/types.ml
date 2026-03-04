@@ -155,6 +155,15 @@ module Governance = struct
   type contact = [%import: Data_intf.Governance.contact]
   [@@deriving bin_io, show]
 
+  type weekday = [%import: Data_intf.Governance.weekday]
+  [@@deriving bin_io, show]
+
+  type recurrence_rule = [%import: Data_intf.Governance.recurrence_rule]
+  [@@deriving bin_io, show]
+
+  type recurrence = [%import: Data_intf.Governance.recurrence]
+  [@@deriving bin_io, show]
+
   type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
   [@@deriving bin_io, show]
 
