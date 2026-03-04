@@ -1,42 +1,61 @@
-(* Governance iCal scraper *)
+(* Governance iCal scraper: exports upcoming meetings to
+   data/governance-meetings.yml *)
 
 open Data_packer.Import
 
-type weekday = Data_intf.Governance.weekday
-type recurrence_rule = Data_intf.Governance.recurrence_rule
-type recurrence = Data_intf.Governance.recurrence
+let governance_file = "governance.yml"
+let output_file = "data/governance-meetings.yml"
+let horizon_days = 365
 
-let governance_file = "data/governance.yml"
+type weekday = Mon | Tue | Wed | Thu | Fri | Sat | Sun
 
-let split_once ~on s =
-  match String.cut s ~on with Some (a, b) -> Some (a, b) | None -> None
+type rule =
+  | Weekly of {
+      interval_weeks : int;
+      byweekday : weekday list;
+      until : string option;
+    }
+  | Monthly_nth_weekday of {
+      interval_months : int;
+      nth : int;
+      weekday : weekday;
+      until : string option;
+    }
+
+type event = {
+  starts_at : string;
+  timezone : string;
+  duration_minutes : int;
+  rule : rule option;
+  exdates : string list;
+  is_override_instance : bool;
+}
+
+type team_calendar = {
+  team_id : string;
+  team_name : string;
+  meeting_link : string;
+  notes_link : string;
+  ical : string;
+}
+
+type meeting = {
+  team_id : string;
+  team_name : string;
+  starts_at : string;
+  timezone : string;
+  duration_minutes : int;
+  meeting_link : string;
+  notes_link : string;
+  ical : string;
+}
+
+let split_once ~on s = String.cut s ~on
 
 let trim_cr s =
   if String.length s > 0 && s.[String.length s - 1] = '\r' then
     String.sub s 0 (String.length s - 1)
   else s
-
-let unfold_ical_lines body =
-  let lines = String.split_on_char '\n' body |> List.map trim_cr in
-  let rec loop acc current = function
-    | [] -> (
-        match current with
-        | None -> List.rev acc
-        | Some line -> List.rev (line :: acc))
-    | line :: rest ->
-        if String.length line > 0 && (line.[0] = ' ' || line.[0] = '\t') then
-          let suffix = String.sub line 1 (String.length line - 1) in
-          let current =
-            match current with
-            | None -> Some suffix
-            | Some x -> Some (x ^ suffix)
-          in
-          loop acc current rest
-        else
-          let acc = match current with None -> acc | Some x -> x :: acc in
-          loop acc (Some line) rest
-  in
-  loop [] None lines
 
 let parse_property line =
   match split_once ~on:":" line with
@@ -52,24 +71,50 @@ let parse_property line =
           in
           Some (String.uppercase_ascii key, params, value))
 
+let unfold_ical_lines body =
+  let lines = String.split_on_char '\n' body |> List.map trim_cr in
+  let rec loop acc current = function
+    | [] -> (
+        match current with None -> List.rev acc | Some x -> List.rev (x :: acc))
+    | line :: rest ->
+        if String.length line > 0 && (line.[0] = ' ' || line.[0] = '\t') then
+          let suffix = String.sub line 1 (String.length line - 1) in
+          let current =
+            match current with
+            | None -> Some suffix
+            | Some x -> Some (x ^ suffix)
+          in
+          loop acc current rest
+        else
+          let acc = match current with None -> acc | Some x -> x :: acc in
+          loop acc (Some line) rest
+  in
+  loop [] None lines
+
 let weekday_of_code = function
-  | "MO" -> Some Data_intf.Governance.Mon
-  | "TU" -> Some Data_intf.Governance.Tue
-  | "WE" -> Some Data_intf.Governance.Wed
-  | "TH" -> Some Data_intf.Governance.Thu
-  | "FR" -> Some Data_intf.Governance.Fri
-  | "SA" -> Some Data_intf.Governance.Sat
-  | "SU" -> Some Data_intf.Governance.Sun
+  | "MO" -> Some Mon
+  | "TU" -> Some Tue
+  | "WE" -> Some Wed
+  | "TH" -> Some Thu
+  | "FR" -> Some Fri
+  | "SA" -> Some Sat
+  | "SU" -> Some Sun
   | _ -> None
 
-let parse_weekday_list value =
-  value |> String.split_on_char ',' |> List.filter_map weekday_of_code
+let weekday_to_unix = function
+  | Sun -> 0
+  | Mon -> 1
+  | Tue -> 2
+  | Wed -> 3
+  | Thu -> 4
+  | Fri -> 5
+  | Sat -> 6
 
 let parse_ical_datetime value =
-  let raw, is_utc =
+  let raw =
     if String.length value > 0 && value.[String.length value - 1] = 'Z' then
-      (String.sub value 0 (String.length value - 1), true)
-    else (value, false)
+      String.sub value 0 (String.length value - 1)
+    else value
   in
   match split_once ~on:"T" raw with
   | None -> Error (`Msg ("Invalid iCal datetime: " ^ value))
@@ -83,28 +128,10 @@ let parse_ical_datetime value =
         if String.length time <> 6 then
           Error (`Msg ("Invalid iCal time component: " ^ value))
         else
-          let starts_at =
-            Printf.sprintf "%s-%s-%sT%s:%s:%s" (String.sub date 0 4)
-              (String.sub date 4 2) (String.sub date 6 2) (String.sub time 0 2)
-              (String.sub time 2 2) (String.sub time 4 2)
-          in
-          Ok (starts_at, is_utc)
-
-let duration_of_times ~dtstart ~dtend =
-  let parse value =
-    match Ptime.of_rfc3339 (value ^ "+00:00") with
-    | Ok (ptime, _, _) -> Ok ptime
-    | Error _ -> Error (`Msg ("Invalid RFC3339 datetime: " ^ value))
-  in
-  match (parse dtstart, parse dtend) with
-  | Ok start_ptime, Ok end_ptime -> (
-      let span = Ptime.diff end_ptime start_ptime in
-      match Ptime.Span.to_int_s span with
-      | None -> Error (`Msg "Unable to compute duration")
-      | Some secs ->
-          if secs <= 0 then Error (`Msg "Non-positive duration")
-          else Ok (secs / 60))
-  | Error e, _ | _, Error e -> Error e
+          Ok
+            (Printf.sprintf "%s-%s-%sT%s:%s:%s" (String.sub date 0 4)
+               (String.sub date 4 2) (String.sub date 6 2) (String.sub time 0 2)
+               (String.sub time 2 2) (String.sub time 4 2))
 
 let parse_duration value =
   if not (String.starts_with ~prefix:"PT" value) then None
@@ -120,6 +147,19 @@ let parse_duration value =
     in
     loop 0 0 0 (String.to_seq body |> List.of_seq)
 
+let duration_from_dtend ~dtstart ~dtend =
+  let parse value =
+    match Ptime.of_rfc3339 (value ^ "+00:00") with
+    | Ok (ptime, _, _) -> Some ptime
+    | Error _ -> None
+  in
+  match (parse dtstart, parse dtend) with
+  | Some start_ptime, Some end_ptime -> (
+      match Ptime.Span.to_int_s (Ptime.diff end_ptime start_ptime) with
+      | Some s when s > 0 -> Some (s / 60)
+      | _ -> None)
+  | _ -> None
+
 let parse_rrule value =
   let pairs =
     value |> String.split_on_char ';'
@@ -127,6 +167,10 @@ let parse_rrule value =
     |> List.map (fun (k, v) -> (String.uppercase_ascii k, v))
   in
   let find k = List.assoc_opt k pairs in
+  let until =
+    Option.bind (find "UNTIL") (fun s ->
+        parse_ical_datetime s |> Result.to_option)
+  in
   match find "FREQ" with
   | Some "WEEKLY" ->
       let interval_weeks =
@@ -134,11 +178,10 @@ let parse_rrule value =
         |> Option.value ~default:1
       in
       let byweekday =
-        find "BYDAY" |> Option.value ~default:"" |> parse_weekday_list
+        find "BYDAY" |> Option.value ~default:"" |> String.split_on_char ','
+        |> List.filter_map weekday_of_code
       in
-      if byweekday = [] then
-        Error (`Msg ("Unsupported weekly RRULE (missing BYDAY): " ^ value))
-      else Ok (Data_intf.Governance.Weekly { interval_weeks; byweekday })
+      Ok (Weekly { interval_weeks; byweekday; until })
   | Some "MONTHLY" -> (
       let interval_months =
         Option.bind (find "INTERVAL") int_of_string_opt
@@ -157,76 +200,77 @@ let parse_rrule value =
       in
       let nth_weekday =
         match find "BYDAY" with
-        | Some byday ->
-            if String.contains byday ',' then None else parse_nth_byday byday
+        | Some byday -> (
+            match parse_nth_byday byday with
+            | Some _ as v -> v
+            | None -> (
+                match
+                  ( weekday_of_code byday,
+                    Option.bind (find "BYSETPOS") int_of_string_opt )
+                with
+                | Some weekday, Some nth when nth >= 1 && nth <= 5 ->
+                    Some (nth, weekday)
+                | _ -> None))
         | None -> None
-      in
-      let nth_weekday =
-        match nth_weekday with
-        | Some _ as v -> v
-        | None -> (
-            match
-              (find "BYDAY", Option.bind (find "BYSETPOS") int_of_string_opt)
-            with
-            | Some day, Some nth -> (
-                match weekday_of_code day with
-                | Some weekday when nth >= 1 && nth <= 5 -> Some (nth, weekday)
-                | _ -> None)
-            | _ -> None)
       in
       match nth_weekday with
       | Some (nth, weekday) ->
-          Ok
-            (Data_intf.Governance.Monthly_by_nth_weekday
-               { interval_months; nth; weekday })
-      | None ->
-          Error
-            (`Msg
-              ("Unsupported monthly RRULE (expected nth weekday): " ^ value)))
+          Ok (Monthly_nth_weekday { interval_months; nth; weekday; until })
+      | None -> Error (`Msg ("Unsupported monthly RRULE: " ^ value)))
   | Some freq -> Error (`Msg ("Unsupported RRULE frequency " ^ freq))
   | None -> Error (`Msg "RRULE missing FREQ")
 
-let parse_event ~calendar_tz properties =
-  let find_prop name =
-    List.find_opt (fun (key, _, _) -> String.equal key name) properties
-  in
-  let ( let* ) = Result.bind in
-  let* _, dtstart_params, dtstart_value =
-    match find_prop "DTSTART" with
-    | Some value -> Ok value
-    | None -> Error (`Msg "RRULE event without DTSTART")
-  in
-  let* starts_at, dtstart_is_utc = parse_ical_datetime dtstart_value in
-  let timezone =
-    match List.assoc_opt "TZID" dtstart_params with
-    | Some tz -> tz
-    | None ->
-        if dtstart_is_utc then "UTC"
-        else Option.value ~default:"UTC" calendar_tz
-  in
-  let duration_minutes =
-    match find_prop "DURATION" with
-    | Some (_, _, duration) -> parse_duration duration
-    | None -> None
-  in
-  let duration_minutes =
-    match (duration_minutes, find_prop "DTEND") with
-    | Some minutes, _ when minutes > 0 -> Ok minutes
-    | _, Some (_, _, dtend_value) ->
-        let* dtend, _ = parse_ical_datetime dtend_value in
-        duration_of_times ~dtstart:starts_at ~dtend
-    | _ -> Ok 60
-  in
-  let* duration_minutes = duration_minutes in
-  let* _, _, rrule_value =
-    match find_prop "RRULE" with
-    | Some value -> Ok value
-    | None -> Error (`Msg "VEVENT is not recurring (missing RRULE)")
-  in
-  let* rule = parse_rrule rrule_value in
-  Ok { Data_intf.Governance.starts_at; timezone; duration_minutes; rule }
+let parse_ymd s =
+  ( int_of_string (String.sub s 0 4),
+    int_of_string (String.sub s 5 2),
+    int_of_string (String.sub s 8 2) )
 
-let parse_recurrences ical_body =
+let days_in_month y m =
+  match m with
+  | 1 | 3 | 5 | 7 | 8 | 10 | 12 -> 31
+  | 4 | 6 | 9 | 11 -> 30
+  | 2 -> if (y mod 4 = 0 && y mod 100 <> 0) || y mod 400 = 0 then 29 else 28
+  | _ -> 30
+
+let unix_noon_of_date (y, m, d) =
+  let tm =
+    {
+      Unix.tm_sec = 0;
+      tm_min = 0;
+      tm_hour = 12;
+      tm_mday = d;
+      tm_mon = m - 1;
+      tm_year = y - 1900;
+      tm_wday = 0;
+      tm_yday = 0;
+      tm_isdst = false;
+    }
+  in
+  fst (Unix.mktime tm)
+
+let add_days (y, m, d) days =
+  let t = unix_noon_of_date (y, m, d) +. float_of_int (days * 86400) in
+  let tm = Unix.localtime t in
+  (tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday)
+
+let date_to_s (y, m, d) = Printf.sprintf "%04d-%02d-%02d" y m d
+
+let today_s () =
+  let tm = Unix.localtime (Unix.gettimeofday ()) in
+  Printf.sprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1) tm.tm_mday
+
+let horizon_s () =
+  let tm = Unix.localtime (Unix.gettimeofday ()) in
+  let y, m, d = (tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday) in
+  add_days (y, m, d) horizon_days |> date_to_s
+
+let date_of_starts_at starts_at = String.sub starts_at 0 10
+
+let within_range ~today ~horizon starts_at =
+  let d = date_of_starts_at starts_at in
+  String.compare d today >= 0 && String.compare d horizon <= 0
+
+let collect_events ical_body =
   let lines = unfold_ical_lines ical_body in
   let calendar_tz =
     lines
@@ -234,6 +278,7 @@ let parse_recurrences ical_body =
            match parse_property line with
            | Some ("X-WR-TIMEZONE", _, value) -> Some value
            | _ -> None)
+    |> Option.value ~default:"UTC"
   in
   let rec collect acc current in_event = function
     | [] -> List.rev acc
@@ -244,204 +289,312 @@ let parse_recurrences ical_body =
         else if in_event then collect acc (line :: current) true rest
         else collect acc current false rest
   in
-  let events = collect [] [] false lines in
-  let recurrences, errors =
-    events
-    |> List.fold_left
-         (fun (ok_acc, err_acc) event_lines ->
-           let properties = List.filter_map parse_property event_lines in
-           match parse_event ~calendar_tz properties with
-           | Ok recurrence -> (recurrence :: ok_acc, err_acc)
-           | Error (`Msg msg) -> (ok_acc, msg :: err_acc))
-         ([], [])
-  in
-  let recurrences =
-    recurrences
-    |> List.sort (fun a b ->
-           let {
-             Data_intf.Governance.starts_at = a_starts_at;
-             timezone = a_timezone;
-             _;
-           } =
-             a
+  let event_blocks = collect [] [] false lines in
+  event_blocks
+  |> List.filter_map (fun block ->
+         let props = List.filter_map parse_property block in
+         let find name =
+           List.find_opt (fun (k, _, _) -> String.equal k name) props
+         in
+         let find_all name =
+           props |> List.filter (fun (k, _, _) -> String.equal k name)
+         in
+         let result =
+           let ( let* ) = Result.bind in
+           let* _, dtstart_params, dtstart =
+             match find "DTSTART" with
+             | Some v -> Ok v
+             | None -> Error (`Msg "VEVENT missing DTSTART")
            in
-           let {
-             Data_intf.Governance.starts_at = b_starts_at;
-             timezone = b_timezone;
-             _;
-           } =
-             b
+           let* starts_at = parse_ical_datetime dtstart in
+           let timezone =
+             List.assoc_opt "TZID" dtstart_params
+             |> Option.value ~default:calendar_tz
            in
-           let c = String.compare a_starts_at b_starts_at in
-           if c <> 0 then c else String.compare a_timezone b_timezone)
+           let duration_minutes =
+             match find "DURATION" with
+             | Some (_, _, d) -> parse_duration d
+             | None -> None
+           in
+           let duration_minutes =
+             match (duration_minutes, find "DTEND") with
+             | Some m, _ when m > 0 -> m
+             | _, Some (_, _, dtend) -> (
+                 match parse_ical_datetime dtend with
+                 | Ok dtend ->
+                     duration_from_dtend ~dtstart:starts_at ~dtend
+                     |> Option.value ~default:60
+                 | Error _ -> 60)
+             | _ -> 60
+           in
+           let* rule =
+             match find "RRULE" with
+             | Some (_, _, value) -> parse_rrule value |> Result.map Option.some
+             | None -> Ok None
+           in
+           let exdates =
+             find_all "EXDATE"
+             |> List.concat_map (fun (_, _, values) ->
+                    String.split_on_char ',' values)
+             |> List.filter_map (fun v ->
+                    parse_ical_datetime v |> Result.to_option)
+           in
+           let is_override_instance = Option.is_some (find "RECURRENCE-ID") in
+           Ok
+             {
+               starts_at;
+               timezone;
+               duration_minutes;
+               rule;
+               exdates;
+               is_override_instance;
+             }
+         in
+         match result with
+         | Ok e -> Some e
+         | Error (`Msg msg) ->
+             prerr_endline ("[governance-calendars] " ^ msg);
+             None)
+
+let starts_at_with_date original_starts_at date_s =
+  date_s
+  ^ String.sub original_starts_at 10 (String.length original_starts_at - 10)
+
+let expand_weekly ~today ~horizon (event : event) interval byweekday until =
+  let start_date = parse_ymd (date_of_starts_at event.starts_at) in
+  let start_unix = unix_noon_of_date start_date in
+  let rec loop date acc =
+    let date_s = date_to_s date in
+    if String.compare date_s horizon > 0 then List.rev acc
+    else
+      let tm = Unix.localtime (unix_noon_of_date date) in
+      let weekday_ok =
+        List.exists (fun w -> weekday_to_unix w = tm.tm_wday) byweekday
+      in
+      let weeks_since_start =
+        int_of_float ((unix_noon_of_date date -. start_unix) /. 604800.)
+      in
+      let starts_at = starts_at_with_date event.starts_at date_s in
+      let until_ok =
+        match until with
+        | None -> true
+        | Some u -> String.compare starts_at u <= 0
+      in
+      let keep =
+        weekday_ok && weeks_since_start >= 0
+        && weeks_since_start mod interval = 0
+        && within_range ~today ~horizon starts_at
+        && until_ok
+        && not (List.mem starts_at event.exdates)
+      in
+      let acc = if keep then starts_at :: acc else acc in
+      loop (add_days date 1) acc
   in
-  (recurrences, List.rev errors)
+  loop start_date []
 
-let weekday_to_yaml = function
-  | Data_intf.Governance.Mon -> `String "mon"
-  | Data_intf.Governance.Tue -> `String "tue"
-  | Data_intf.Governance.Wed -> `String "wed"
-  | Data_intf.Governance.Thu -> `String "thu"
-  | Data_intf.Governance.Fri -> `String "fri"
-  | Data_intf.Governance.Sat -> `String "sat"
-  | Data_intf.Governance.Sun -> `String "sun"
-
-let rule_to_yaml = function
-  | Data_intf.Governance.Weekly { interval_weeks; byweekday } ->
-      `O
-        [
-          ("kind", `String "weekly");
-          ("interval_weeks", `Float (float_of_int interval_weeks));
-          ("byweekday", `A (List.map weekday_to_yaml byweekday));
-        ]
-  | Data_intf.Governance.Monthly_by_nth_weekday
-      { interval_months; nth; weekday } ->
-      `O
-        [
-          ("kind", `String "monthly_by_nth_weekday");
-          ("interval_months", `Float (float_of_int interval_months));
-          ("nth", `Float (float_of_int nth));
-          ("weekday", weekday_to_yaml weekday);
-        ]
-
-let recurrence_to_yaml recurrence =
-  let { Data_intf.Governance.starts_at; timezone; duration_minutes; rule } =
-    recurrence
+let nth_weekday_day_of_month year month nth weekday =
+  let first_wday =
+    (Unix.localtime (unix_noon_of_date (year, month, 1))).tm_wday
   in
+  let target = weekday_to_unix weekday in
+  let offset = (target - first_wday + 7) mod 7 in
+  let day = 1 + offset + ((nth - 1) * 7) in
+  if day > days_in_month year month then None else Some day
+
+let expand_monthly_nth ~today ~horizon (event : event) interval nth weekday
+    until =
+  let y0, m0, _ = parse_ymd (date_of_starts_at event.starts_at) in
+  let start_idx = (y0 * 12) + (m0 - 1) in
+  let yh, mh, _ = parse_ymd horizon in
+  let end_idx = (yh * 12) + (mh - 1) in
+  let rec loop idx acc =
+    if idx > end_idx then List.rev acc
+    else
+      let year = idx / 12 in
+      let month = (idx mod 12) + 1 in
+      let acc =
+        if (idx - start_idx) mod interval <> 0 then acc
+        else
+          match nth_weekday_day_of_month year month nth weekday with
+          | None -> acc
+          | Some day ->
+              let date_s = date_to_s (year, month, day) in
+              let starts_at = starts_at_with_date event.starts_at date_s in
+              let until_ok =
+                match until with
+                | None -> true
+                | Some u -> String.compare starts_at u <= 0
+              in
+              if
+                within_range ~today ~horizon starts_at
+                && String.compare starts_at event.starts_at >= 0
+                && until_ok
+                && not (List.mem starts_at event.exdates)
+              then starts_at :: acc
+              else acc
+      in
+      loop (idx + 1) acc
+  in
+  loop start_idx []
+
+let occurrences_for_event ~today ~horizon (event : event) =
+  if event.is_override_instance then []
+  else
+    match event.rule with
+    | None ->
+        if
+          within_range ~today ~horizon event.starts_at
+          && not (List.mem event.starts_at event.exdates)
+        then [ event.starts_at ]
+        else []
+    | Some (Weekly { interval_weeks; byweekday; until }) ->
+        let byweekday =
+          if byweekday = [] then
+            let wday =
+              (Unix.localtime
+                 (unix_noon_of_date
+                    (parse_ymd (date_of_starts_at event.starts_at))))
+                .tm_wday
+            in
+            let default =
+              match wday with
+              | 0 -> Sun
+              | 1 -> Mon
+              | 2 -> Tue
+              | 3 -> Wed
+              | 4 -> Thu
+              | 5 -> Fri
+              | _ -> Sat
+            in
+            [ default ]
+          else byweekday
+        in
+        expand_weekly ~today ~horizon event interval_weeks byweekday until
+    | Some (Monthly_nth_weekday { interval_months; nth; weekday; until }) ->
+        expand_monthly_nth ~today ~horizon event interval_months nth weekday
+          until
+
+let meeting_to_yaml (meeting : meeting) =
   `O
     [
-      ("starts_at", `String starts_at);
-      ("timezone", `String timezone);
-      ("duration_minutes", `Float (float_of_int duration_minutes));
-      ("rule", rule_to_yaml rule);
+      ("team_id", `String meeting.team_id);
+      ("team_name", `String meeting.team_name);
+      ("starts_at", `String meeting.starts_at);
+      ("timezone", `String meeting.timezone);
+      ("duration_minutes", `Float (float_of_int meeting.duration_minutes));
+      ("meeting_link", `String meeting.meeting_link);
+      ("notes_link", `String meeting.notes_link);
+      ("ical", `String meeting.ical);
     ]
 
-let assoc_set key value fields =
-  let rec loop acc = function
-    | [] -> List.rev ((key, value) :: acc)
-    | (k, _) :: tl when String.equal k key ->
-        List.rev_append acc ((key, value) :: tl)
-    | hd :: tl -> loop (hd :: acc) tl
-  in
-  loop [] fields
+let write_output (meetings : meeting list) =
+  let yaml = `O [ ("meetings", `A (List.map meeting_to_yaml meetings)) ] in
+  match Yaml.to_string yaml with
+  | Ok content ->
+      let oc = open_out output_file in
+      output_string oc content;
+      close_out oc
+  | Error (`Msg msg) -> failwith msg
 
 let assoc_get_string key fields =
   match List.assoc_opt key fields with Some (`String s) -> Some s | _ -> None
 
-let fetch_ical_for_team ~team_id url =
-  try Ok (Http_client.get_sync (Uri.of_string url))
-  with e ->
-    Error
-      (`Msg
-        (Printf.sprintf "[%s] failed to fetch iCal URL %s: %s" team_id url
-           (Printexc.to_string e)))
+let dev_meeting_ical fields =
+  match List.assoc_opt "dev-meeting" fields with
+  | Some (`O dev) -> (
+      match
+        ( assoc_get_string "ical" dev,
+          assoc_get_string "link" dev,
+          assoc_get_string "notes" dev )
+      with
+      | Some ical, Some link, Some notes -> Some (ical, link, notes)
+      | _ -> None)
+  | _ -> None
 
-let rec process_team ?(parent = "") (team : Yaml.value) =
-  let ( let* ) = Result.bind in
+let rec collect_team_calendars ?(parent = "") team : team_calendar list =
   match team with
   | `O fields ->
       let team_id =
         match assoc_get_string "id" fields with
         | Some id -> if parent = "" then id else parent ^ "/" ^ id
-        | None -> if parent = "" then "<unknown-team>" else parent
+        | None -> parent
       in
-      let* fields, updated_count =
-        match List.assoc_opt "dev-meeting" fields with
-        | Some (`O meeting_fields) -> (
-            match assoc_get_string "ical" meeting_fields with
-            | Some ical_url ->
-                let* ical_body = fetch_ical_for_team ~team_id ical_url in
-                let recurrences, warnings = parse_recurrences ical_body in
-                List.iter
-                  (fun warning ->
-                    prerr_endline
-                      (Printf.sprintf "[governance-calendars] [%s] %s" team_id
-                         warning))
-                  warnings;
-                let* () =
-                  if recurrences = [] then
-                    Error
-                      (`Msg
-                        (Printf.sprintf
-                           "[%s] no supported recurring events found in iCal %s"
-                           team_id ical_url))
-                  else Ok ()
-                in
-                let meeting_fields =
-                  assoc_set "recurrences"
-                    (`A (List.map recurrence_to_yaml recurrences))
-                    meeting_fields
-                in
-                Ok (assoc_set "dev-meeting" (`O meeting_fields) fields, 1)
-            | None -> Ok (fields, 0))
-        | _ -> Ok (fields, 0)
+      let team_name =
+        Option.value ~default:team_id (assoc_get_string "name" fields)
       in
-      let* subteams, subteam_updates =
+      let here =
+        match dev_meeting_ical fields with
+        | Some (ical, meeting_link, notes_link) ->
+            [ { team_id; team_name; meeting_link; notes_link; ical } ]
+        | None -> []
+      in
+      let subteams =
         match List.assoc_opt "subteams" fields with
         | Some (`A subteams) ->
-            let* updated_subteams, updates =
-              process_team_list ~parent:team_id subteams
-            in
-            Ok (`A updated_subteams, updates)
-        | _ -> Ok (`A [], 0)
+            subteams |> List.concat_map (collect_team_calendars ~parent:team_id)
+        | _ -> []
       in
-      let fields =
-        match List.assoc_opt "subteams" fields with
-        | Some _ -> assoc_set "subteams" subteams fields
-        | None -> fields
-      in
-      Ok (`O fields, updated_count + subteam_updates)
-  | _ -> Error (`Msg "Expected a team object")
+      here @ subteams
+  | _ -> []
 
-and process_team_list ?(parent = "") teams =
-  let ( let* ) = Result.bind in
-  let rec loop acc updates = function
-    | [] -> Ok (List.rev acc, updates)
-    | team :: tl ->
-        let* updated_team, team_updates = process_team ~parent team in
-        loop (updated_team :: acc) (updates + team_updates) tl
-  in
-  loop [] 0 teams
+let collect_calendars yaml =
+  match yaml with
+  | `O fields ->
+      let teams =
+        match List.assoc_opt "teams" fields with
+        | Some (`A teams) -> teams
+        | _ -> []
+      in
+      let wgs =
+        match List.assoc_opt "working-groups" fields with
+        | Some (`A teams) -> teams
+        | _ -> []
+      in
+      List.concat_map collect_team_calendars (teams @ wgs)
+  | _ -> []
+
+let scrape_calendar (calendar : team_calendar) : meeting list =
+  let body = Http_client.get_sync (Uri.of_string calendar.ical) in
+  let events = collect_events body in
+  let today = today_s () in
+  let horizon = horizon_s () in
+  events
+  |> List.concat_map (fun (event : event) ->
+         occurrences_for_event ~today ~horizon event
+         |> List.map (fun starts_at ->
+                {
+                  team_id = calendar.team_id;
+                  team_name = calendar.team_name;
+                  starts_at;
+                  timezone = event.timezone;
+                  duration_minutes = event.duration_minutes;
+                  meeting_link = calendar.meeting_link;
+                  notes_link = calendar.notes_link;
+                  ical = calendar.ical;
+                }))
 
 let scrape () =
-  let ( let* ) = Result.bind in
-  let result =
-    let* raw =
-      match Data_packer.Utils.read_file (Fpath.v "governance.yml") with
-      | Some content -> Ok content
-      | None -> Error (`Msg "Could not read data/governance.yml")
-    in
-    let* yaml = Yaml.of_string raw in
-    let* updated_yaml, updated_count =
-      match yaml with
-      | `O fields ->
-          let process_key key fields =
-            match List.assoc_opt key fields with
-            | Some (`A teams) ->
-                let* teams, updates = process_team_list teams in
-                Ok (assoc_set key (`A teams) fields, updates)
-            | Some _ ->
-                Error (`Msg ("Expected sequence at top-level key: " ^ key))
-            | None -> Ok (fields, 0)
-          in
-          let* fields, teams_updates = process_key "teams" fields in
-          let* fields, wg_updates = process_key "working-groups" fields in
-          Ok (`O fields, teams_updates + wg_updates)
-      | _ -> Error (`Msg "Expected governance.yml root to be a mapping")
-    in
-    let* output = Yaml.to_string updated_yaml in
-    (if String.equal raw output then
-       print_endline
-         "[governance-calendars] no changes (iCal-derived recurrences already \
-          up-to-date)"
-     else
-       let oc = open_out governance_file in
-       output_string oc output;
-       close_out oc;
-       print_endline
-         (Printf.sprintf
-            "[governance-calendars] updated %d team calendar(s) in %s"
-            updated_count governance_file));
-    Ok ()
+  let yaml = Data_packer.Utils.yaml_file governance_file in
+  let calendars =
+    yaml
+    |> Result.get_ok ~error:(fun (`Msg m) -> failwith m)
+    |> collect_calendars
   in
-  result |> Result.get_ok ~error:(fun (`Msg msg) -> failwith msg)
+  let meetings =
+    calendars
+    |> List.concat_map (fun calendar ->
+           try scrape_calendar calendar
+           with e ->
+             prerr_endline
+               (Printf.sprintf
+                  "[governance-calendars] failed to scrape %s (%s): %s"
+                  calendar.team_id calendar.ical (Printexc.to_string e));
+             [])
+    |> List.sort (fun a b ->
+           let c = String.compare a.starts_at b.starts_at in
+           if c <> 0 then c else String.compare a.team_id b.team_id)
+  in
+  write_output meetings;
+  print_endline
+    (Printf.sprintf "[governance-calendars] wrote %d upcoming meeting(s) to %s"
+       (List.length meetings) output_file)

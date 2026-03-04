@@ -50,10 +50,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          title: '[scrape] Refresh governance calendar recurrences'
+          title: '[scrape] Refresh upcoming governance meetings'
           labels: scrape
           branch: create-pull-request/patch-scrape-governance-calendars
           add-paths: |
-            data/governance.yml
+            data/governance-meetings.yml
           commit-message: |
-            [scrape] Refresh governance calendar recurrences
+            [scrape] Refresh upcoming governance meetings
