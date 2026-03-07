@@ -81,7 +81,9 @@ let compare_slugs s1 s2 =
   in
   let n1, a1 = extract_parts s1 in
   let n2, a2 = extract_parts s2 in
-  let num_cmp = String.compare n1 n2 in
+  let num1 = int_of_string_opt n1 |> Option.value ~default:0 in
+  let num2 = int_of_string_opt n2 |> Option.value ~default:0 in
+  let num_cmp = compare num1 num2 in
   if num_cmp <> 0 then num_cmp else String.compare a1 a2
 
 let all () =
