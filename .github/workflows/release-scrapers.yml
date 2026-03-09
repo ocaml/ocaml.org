@@ -1,0 +1,57 @@
+name: Release Scrapers
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tool/**'
+      - 'src/**'
+      - 'dune-project'
+      - '*.opam'
+      - '.github/workflows/release-scrapers.yml'
+
+jobs:
+  release:
+    name: Build and Release Scraper Binary
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Use OCaml 5.2.0
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.0"
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f
+          opam-disable-sandboxing: true
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libev-dev libonig-dev libcurl4-openssl-dev
+
+      - name: Install opam dependencies
+        run: opam install --deps-only --with-test .
+
+      - name: Build scraper
+        run: opam exec -- dune build tool/data-scrape/bin/scrape.exe
+
+      - name: Delete previous release
+        run: gh release delete scraper-latest --cleanup-tag --yes || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create release
+        run: |
+          gh release create scraper-latest \
+            _build/default/tool/data-scrape/bin/scrape.exe \
+            --title "Scraper (latest)" \
+            --notes "Built from ${{ github.sha }}" \
+            --latest=false
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
