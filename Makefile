@@ -60,18 +60,18 @@ watch: ## Watch for the filesystem and rebuild on every change
 utop: ## Run a REPL and link with the project's libraries
 	opam exec -- dune utop --root . . -- -implicit-bindings
 
+SCRAPE ?= opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe --
+
 .PHONY: scrape_ocaml_planet
 scrape_ocaml_planet:
-	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe -- \
-	  planet $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
-	         $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
-	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe -- \
-	  video $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
-	        $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
+	$(SCRAPE) planet $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
+	                 $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
+	$(SCRAPE) video $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
+	                $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
 
 .PHONY: scrape_platform_releases
 scrape_platform_releases:
-	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe platform_releases
+	$(SCRAPE) platform_releases
 
 .PHONY: docker
 docker: ## Generate docker container

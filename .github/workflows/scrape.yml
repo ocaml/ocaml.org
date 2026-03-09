@@ -10,43 +10,26 @@ jobs:
   scrape:
     name: Run Scrapers
     if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
-
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-        ocaml-compiler:
-          - "5.2.0"
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: ${{ matrix.os != 'macos-latest' }}
-          opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#584630e7a7e27e3cf56158696a3fe94623a0cf4f
-          opam-disable-sandboxing: true
+      - name: Install runtime dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libev4 libonig5
 
-      - name: Install system dependencies
-        run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
-
-      - name: Install opam dependencies
-        run: opam install --deps-only --with-test .
-
-      - name: Build scraper
+      - name: Download scraper binary
         run: |
-          opam exec -- dune build tool/data-scrape/bin/scrape.exe
+          gh release download scraper-latest --pattern scrape.exe
+          chmod +x scrape.exe
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run scrapers
         run: |
           make scrape_ocaml_planet \
+            SCRAPE=./scrape.exe \
             COMMIT_FILE=_scrape_commit.md \
             REPORT_FILE=_scrape_report.md
 
