@@ -248,6 +248,7 @@ module Governance = struct
     date : string;
     time : string;
     link : string;
+    ical : string option;
     calendar : string option;
     notes : string;
   }

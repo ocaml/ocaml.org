@@ -73,6 +73,10 @@ scrape_ocaml_planet:
 scrape_platform_releases:
 	$(SCRAPE) platform_releases
 
+.PHONY: scrape_governance_calendars
+scrape_governance_calendars:
+	opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe governance_calendars
+
 .PHONY: docker
 docker: ## Generate docker container
 	docker build -f Dockerfile . -t ocamlorg:latest
