@@ -397,12 +397,6 @@ teams:
     - name: GitHub
       link: https://github.com/ocaml-ppx/ppxlib
       kind: github
-    dev-meeting:
-      date: Every third Tuesday
-      time: 6:00 PM CET
-      link: https://meet.google.com/bwy-fyqo-dnf
-      calendar: https://calendar.google.com/calendar/u/4?cid=Y19iMDA5ZDA4MDg0YzIwYWMzMDQ4NjJhN2FkZWJiYjdmOTU0NGIxYzEwMmU0MDMyMTAzMDFiY2ZhYjcwMDBmMjNlQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20
-      notes: https://github.com/ocaml-ppx/ppxlib/wiki
     members:
     - name: Patrick Ferris
       github: patricoferris
