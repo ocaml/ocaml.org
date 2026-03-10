@@ -11,6 +11,8 @@ This guide will walk you through a minimum installation of OCaml. That includes 
 
 On this page, you'll find installation instructions for Linux, macOS, Windows, and &ast;BSD for recent OCaml versions. For Docker, Linux instructions apply, except when setting up opam.
 
+**Want to skip installation?** The [OCaml devcontainer](https://github.com/tarides/ocaml-devcontainer) provides a pre-configured OCaml environment that works with VS Code, GitHub Codespaces, or the DevContainer CLI. It is designed for use when quick onboarding matters, such as tutorials and workshops.
+
 **Note**: You'll be installing OCaml and its tools through a [command line interface (CLI), or shell](https://www.youtube.com/watch?v=0PxTAn4g20U)
 
 ## Install opam

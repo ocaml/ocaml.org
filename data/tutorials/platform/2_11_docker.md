@@ -103,6 +103,10 @@ opam install <package>
 - **`archive`** - Contains a snapshot of all source archives for opam-repository (useful for setting up a local cache)
 - **SHA256 hashes** - Used by OCaml-CI for reproducible builds
 
+## Dev Containers
+
+For a development-oriented Docker setup with OCaml LSP, editors, and debugging tools pre-installed, see the [OCaml devcontainer](https://github.com/tarides/ocaml-devcontainer). It works with VS Code, GitHub Codespaces, and the DevContainer CLI.
+
 ## Example: Basic Usage
 
 ```bash

@@ -9,6 +9,8 @@ While the toplevel is great for interactively trying out the language, we will s
 
 OCaml has plugins for many editors, but the most actively maintained are for Visual Studio Code, Emacs, and Vim.
 
+**Note**: The [OCaml devcontainer](https://github.com/tarides/ocaml-devcontainer) ships with OCaml LSP, OCamlFormat, and editor support pre-configured for VS Code, Vim, and Emacs.
+
 ## Visual Studio Code
 
 > TL;DR
