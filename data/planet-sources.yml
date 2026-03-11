@@ -272,3 +272,6 @@
   name: Chris Armstrong
   url: https://www.chrisarmstrong.dev/tags/ocaml/feed.xml
   publish_all: false
+- id: samoht
+  name: Thomas Gazagnaire
+  url: https://gazagnaire.org/feed.xml
