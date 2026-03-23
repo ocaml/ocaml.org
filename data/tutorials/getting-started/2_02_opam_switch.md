@@ -31,7 +31,9 @@ Before creating a switch, you'll need to pick a compiler version:
 opam switch list-available ocaml-base-compiler
 ```
 
-This lists all available compiler versions. Pick the latest stable version unless you have a reason not to.
+This lists all available compiler versions. Pick the latest stable version unless you have a reason not to: as of the time of writing, this is 5.4.1, but you can check this against the [OCaml Releases](https://ocaml.org/releases) website.
+
+If the list doesn't include the newest version, it may be that you installed opam a while ago and haven't updated its list of packages. You can run `opam update` and check again.
 
 Omitting `ocaml-base-compiler` shows the full list, including compiler variants with additional options enabled (such as flambda optimisations or frame pointers). These are useful for advanced use cases but not needed to get started.
 
@@ -40,7 +42,7 @@ Omitting `ocaml-base-compiler` shows the full list, including compiler variants 
 To create a named global switch:
 
 ```shell
-opam switch create my_switch 5.4.0
+opam switch create my_switch 5.4.1
 ```
 
 Then update your shell environment:
@@ -56,7 +58,7 @@ This switch is now available from any directory. It lives at `~/.opam/my_switch/
 To create a switch tied to your project, run this from inside the project directory:
 
 ```shell
-opam switch create . 5.4.0
+opam switch create . 5.4.1
 ```
 
 Then update your shell environment:
@@ -67,7 +69,7 @@ eval $(opam env)
 
 This creates an `_opam/` directory in your project. Whenever you `cd` into this directory, opam will automatically select this switch.
 
-If the directory contains `.opam` files, opam will automatically install their dependencies into the new switch. You can prevent this with `opam switch create . 5.4.0 --no-install`.
+If the directory contains `.opam` files, opam will automatically install their dependencies into the new switch. You can prevent this with `opam switch create . 5.4.1 --no-install`.
 
 ## Listing Your Switches
 
@@ -79,8 +81,8 @@ The arrow `->` marks the currently active switch:
 
 ```shell
 #   switch                      compiler      description
-->  /home/user/my_project       ocaml.5.4.0   /home/user/my_project
-    default                     ocaml.5.4.0   default
+->  /home/user/my_project       ocaml.5.4.1   /home/user/my_project
+    default                     ocaml.5.4.1   default
 ```
 
 ## Switching Between Switches
