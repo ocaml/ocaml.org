@@ -1228,6 +1228,18 @@
   author_uri: https://watch.ocaml.org/
   source_link: https://watch.ocaml.org/
   source_title: Watch OCaml
+- title: Outreachy Demo Day December 2025 Round
+  description: "The OCaml community participated in the December 2025 round of Outreachy
+    internships. We had four interns working on Raven, OCaml-TIFF and YOCaml.\r\n\r\nThis
+    meeting was an opportunity for the interns to present their work and for the community
+    to as..."
+  url: https://watch.ocaml.org/videos/watch/3a11f957-adba-4c97-8618-2965f1829b02
+  thumbnail: https://watch.ocaml.org/lazy-static/thumbnails/230cb832-5098-4130-a28b-f4348502d19a.jpg
+  published: 2026-03-23T14:25:53.180Z
+  author_name: Unknown
+  author_uri: https://watch.ocaml.org/
+  source_link: https://watch.ocaml.org/
+  source_title: Watch OCaml
 - title: Outreachy May 2024 Demo
   description: The OCaml community participated in the May 2024 round of [Outreachy](https://www.outreachy.org/)
     internships. Three interns worked on a range of projects including tools to diff
