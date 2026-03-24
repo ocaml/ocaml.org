@@ -42,58 +42,58 @@ This will launch the version of the OCaml REPL within the context of the current
 
 1. Install `direnv`
 
-Ensure `direnv` is installed on your system. You can install it using a package manager or follow the instructions on the official website.
+   Ensure `direnv` is installed on your system. You can install it using a package manager or follow the instructions on the official website.
 
 1. Setup `direnv` integration
 
-Add the following line to your shell profile (e.g., `~/.bashrc` or `~/.zshrc`):
-```bash
-eval "$(direnv hook <shell>)"
-```
-Replace `<shell>` with your actual shell type (`bash`, `zsh`, `fish`, etc.).
+   Add the following line to your shell profile (e.g., `~/.bashrc` or `~/.zshrc`):
+   ```bash
+   eval "$(direnv hook <shell>)"
+   ```
+   Replace `<shell>` with your actual shell type (`bash`, `zsh`, `fish`, etc.).
 
 1. Configure opam with `direnv`
 
-In your OCaml project directory, create a file named `.envrc` and add the following line to automatically load the opam environment:
-```bash
-eval $(opam env)
-```
+   In your OCaml project directory, create a file named `.envrc` and add the following line to automatically load the opam environment:
+   ```bash
+   eval $(opam env)
+   ```
 
 1. Allow `direnv`
 
-Navigate to your project directory and run the following command to allow `direnv` to load the environment:
-```bash
-direnv allow
-```
+   Navigate to your project directory and run the following command to allow `direnv` to load the environment:
+   ```bash
+   direnv allow
+   ```
 
-This command activates `direnv` for the current directory, ensuring that the opam switch environment is loaded whenever you enter the directory.
+   This command activates `direnv` for the current directory, ensuring that the opam switch environment is loaded whenever you enter the directory.
 
 1. Usage
 
-Now, whenever you navigate to your OCaml project directory, `direnv` will automatically activate the opam switch environment specified in your `.envrc` file. This eliminates the need to manually run `opam env` each time you work on your project.
+   Now, whenever you navigate to your OCaml project directory, `direnv` will automatically activate the opam switch environment specified in your `.envrc` file. This eliminates the need to manually run `opam env` each time you work on your project.
 
 1. Example
 
-Suppose you have an OCaml project in directory `disco` and a local opam switch is associated with it, and a `.envrc` file in that directory containing the following:
-```bash
-eval $(opam env)
-```
-After running `direnv allow`, `direnv` will handle the opam switch activation for you.
+   Suppose you have an OCaml project in directory `disco` and a local opam switch is associated with it, and a `.envrc` file in that directory containing the following:
+   ```bash
+   eval $(opam env)
+   ```
+   After running `direnv allow`, `direnv` will handle the opam switch activation for you.
 
 1. Messages from `direnv`
 
-Whenever entering or leaving a `direnv` managed directory, you will be informed of the actions performed.
+   Whenever entering or leaving a `direnv` managed directory, you will be informed of the actions performed.
 
-On entrance:
-```text
-direnv: loading ~/caml/ocaml.org/.envrc
-direnv: export ~CAML_LD_LIBRARY_PATH ~MANPATH ~OCAML_TOPLEVEL_PATH ~OPAM_SWITCH_PREFIX ~PATH
-```
+   On entrance:
+   ```text
+   direnv: loading ~/caml/ocaml.org/.envrc
+   direnv: export ~CAML_LD_LIBRARY_PATH ~MANPATH ~OCAML_TOPLEVEL_PATH ~OPAM_SWITCH_PREFIX ~PATH
+   ```
 
-On exit:
-```text
-direnv: loading ~/.envrc
-direnv: export ~PATH
-```
+   On exit:
+   ```text
+   direnv: loading ~/.envrc
+   direnv: export ~PATH
+   ```
 
-By using `direnv` in conjunction with opam, you can streamline your development workflow, ensuring that the correct opam switch is automatically set up whenever you work on a specific project.
+   By using `direnv` in conjunction with opam, you can streamline your development workflow, ensuring that the correct opam switch is automatically set up whenever you work on a specific project.
