@@ -50,7 +50,7 @@ If your `dune-project` already declares dependencies, you are ready to go. For e
 To create the lock directory:
 
 ```shell
-$ dune pkg lock
+dune pkg lock
 Solution for dune.lock:
 - alcotest.1.8.0
 - dream.1.0.0~alpha8
@@ -60,15 +60,15 @@ Solution for dune.lock:
 This creates a `dune.lock/` directory in your project root. **Add it to version control:**
 
 ```shell
-$ git add dune.lock/
-$ git commit -m "Add dependency lock files"
+git add dune.lock/
+git commit -m "Add dependency lock files"
 ```
 
 ## The Lock Directory
 
 The `dune.lock/` directory contains one `.pkg` file per locked dependency. Each file records the package version, source location (URL and checksum), and build instructions. For example, `dune.lock/dream.pkg` might contain:
 
-```
+```dune
 (version 1.0.0~alpha8)
 (source (fetch (url https://...) (checksum sha256=...)))
 (build ...)
@@ -81,7 +81,7 @@ The lock directory is a snapshot of your resolved dependency tree. Anyone who cl
 Once the lock directory exists, `dune build` handles everything:
 
 ```shell
-$ dune build
+dune build
 ```
 
 Dune automatically fetches source archives, builds dependencies, and then builds your project. There is no need for `opam install . --deps-only`.
@@ -93,7 +93,7 @@ Fetched sources and build artifacts are stored under `_build/` alongside your pr
 To update all dependencies to their latest compatible versions:
 
 ```shell
-$ dune pkg lock
+dune pkg lock
 ```
 
 This re-runs the solver and updates `dune.lock/`. Review the changes with `git diff dune.lock/` before committing.
@@ -101,7 +101,7 @@ This re-runs the solver and updates `dune.lock/`. Review the changes with `git d
 To see what changed:
 
 ```shell
-$ git diff dune.lock/
+git diff dune.lock/
 ```
 
 ## Adding and Removing Dependencies
@@ -109,7 +109,7 @@ $ git diff dune.lock/
 Edit the `(depends ...)` field in your `dune-project` file, then re-lock:
 
 ```shell
-$ dune pkg lock
+dune pkg lock
 ```
 
 For example, to add `yojson`:
@@ -127,8 +127,8 @@ Dune package management replaces `opam install` for your project's dependencies,
 A minimal setup:
 
 ```shell
-$ opam switch create . ocaml-base-compiler.5.2.1 --deps-only
-$ opam install ocaml-lsp-server ocamlformat utop
+opam switch create . ocaml-base-compiler.5.2.1 --deps-only
+opam install ocaml-lsp-server ocamlformat utop
 ```
 
 Here opam provides the compiler and editor tools, while dune handles all library dependencies. This keeps your switch lightweight.
@@ -140,7 +140,7 @@ Alternatively, if you have a system-installed OCaml compiler, you can skip opam 
 Dune package management is particularly well-suited for LLM coding agents (Claude Code, Cursor, Copilot, etc.) because the build workflow is a single command:
 
 ```shell
-$ dune build
+dune build
 ```
 
 There is no need for `eval $(opam env)` or `opam exec --`. As long as `dune` and `ocaml` are on the `PATH`, the agent can build and test without any environment setup. The lock directory ensures every build resolves to the same dependency versions, regardless of when or where the agent runs.
@@ -173,27 +173,27 @@ The two approaches can coexist. You can use opam for some projects and dune pkg 
 
 ## Troubleshooting
 
-**"No opam-repository configured"**
+### "No opam-repository configured"
 
 Dune reads repository information from opam. Make sure you have run `opam init` at least once and have a repository configured:
 
 ```shell
-$ opam repo list
+opam repo list
 ```
 
-**"Version conflict during locking"**
+### "Version conflict during locking"
 
 If `dune pkg lock` fails with a conflict, check your version constraints in `(depends ...)`. You may need to relax a bound or remove a conflicting dependency.
 
-**"Stale lock file"**
+### "Stale lock file"
 
 If you edited `dune-project` but forgot to re-lock, `dune build` may fail because the lock directory does not match the declared dependencies. Run `dune pkg lock` to update.
 
-**"Package not found"**
+### "Package not found"
 
 The package may not be in the opam repository, or your repository index may be outdated. Update with:
 
 ```shell
-$ opam update
-$ dune pkg lock
+opam update
+dune pkg lock
 ```
