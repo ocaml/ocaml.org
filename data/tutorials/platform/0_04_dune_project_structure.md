@@ -27,7 +27,7 @@ In OCaml, each source file defines a module automatically:
 
 There is no `import` statement or module declaration needed — the file *is* the module. If both `foo.ml` and `foo.mli` exist, the `.mli` controls what is visible to other modules. Anything not listed in the `.mli` is private.
 
-```
+```text
 lib/
   parser.ml      → module Parser (implementation)
   parser.mli     → module Parser (interface — restricts what's visible)
@@ -85,7 +85,7 @@ module Utils = Utils
 
 `(wrapped false)` disables wrapping, exposing all modules at the top level. Avoid this in libraries — it causes hard-to-debug errors when two libraries define modules with the same name:
 
-```
+```text
 Error: The files foo/.foo.objs/byte/utils.cmi
        and bar/.bar.objs/byte/utils.cmi
        make inconsistent assumptions over interface Utils
@@ -135,7 +135,7 @@ Adding `(public_name my_program)` installs the binary.
 The entry point is `test_main.ml`. Run all tests with:
 
 ```shell
-$ dune runtest
+dune runtest
 ```
 
 Use `(tests (names test_a test_b) (libraries ...))` for multiple test executables sharing the same configuration.
@@ -144,7 +144,7 @@ Use `(tests (names test_a test_b) (libraries ...))` for multiple test executable
 
 Here is a small but complete project:
 
-```
+```text
 my_project/
   dune-project
   bin/
@@ -219,7 +219,7 @@ Then install it: `opam install yojson` (or re-lock with `dune pkg lock` if using
 
 Create a new directory with a `dune` file:
 
-```
+```text
 lib/
   utils/
     dune              (library (name utils) (libraries ...))
@@ -244,18 +244,18 @@ Common PPXs: `ppx_deriving` (show, eq, ord, etc.), `ppx_sexp_conv` (S-expression
 
 ## Troubleshooting
 
-**"Unbound module Foo"**
+### "Unbound module Foo"
 
 This almost always means `(libraries ...)` in the `dune` file is missing the library that provides `Foo`. It is a dune configuration issue, not a code error. Check what library provides the module (e.g., `yojson` provides `Yojson`) and add it.
 
-**"Module X is listed in more than one stanza"**
+### "Module X is listed in more than one stanza"
 
 Two stanzas in the same directory both claim the same `.ml` file. Use the `(modules ...)` field to split files between stanzas, or move one stanza to a subdirectory.
 
-**"Inconsistent assumptions over interface X"**
+### "Inconsistent assumptions over interface X"
 
 Two unwrapped libraries both define a module with the same name. Use wrapped libraries (the default) to avoid this.
 
-**Build doesn't pick up a new file**
+### Build doesn't pick up a new file
 
 Dune auto-discovers `.ml` files. If a new file isn't picked up, check that it's in a directory with a `dune` file containing a `library`, `executable`, or `test` stanza.
