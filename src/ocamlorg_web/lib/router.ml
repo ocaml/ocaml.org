@@ -5,8 +5,7 @@ let asset_loader =
     ~read:(fun _root path -> Ocamlorg_static.Asset.read path |> Lwt.return)
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url (Ocamlorg_static.Asset.digest path))
-    ~not_cached:
-      [ "robots.txt"; "/robots.txt"; "llms.txt"; "/llms.txt" ]
+    ~not_cached:[ "robots.txt"; "/robots.txt"; "llms.txt"; "/llms.txt" ]
 
 let media_loader =
   Static.loader
