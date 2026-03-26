@@ -153,12 +153,14 @@ before they get merged.
 
 ### Managing Dependencies
 
-OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in three (3) places:
+OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in the following files:
 
 ```bash
-Dockerfile
 Makefile
-.github/workflows/*.yml
+Dockerfile
+.github/workflows/ci.yml
+.github/workflows/debug-ci.yml
+.github/workflows/release-scrapers.yml
 ```
 
 When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once.
@@ -208,11 +210,27 @@ The following snippet describes the repository structure:
 │   ├── ocamlorg_package
 │   │   The library for constructing opam-repository statistics and information (e.g. rev deps).
 │   │
+│   ├── ocamlorg_static
+│   │   Static file serving.
+│   │
 │   └── ocamlorg_web
 │       The main entry-point of the server.
 │
 ├── tool/
-│   Sources for development tools such as the `ocamlorg_data` code generator.
+│   ├── data-packer
+│   │   Code generator that converts YAML/Markdown data into OCaml modules.
+│   │
+│   ├── data-scrape
+│   │   Scraper for external content (planet feeds, videos, platform releases).
+│   │
+│   ├── static-file-digest
+│   │   Static file digest utility.
+│   │
+│   ├── tailwind
+│   │   Tailwind CSS binary download and integration.
+│   │
+│   └── voodoo_serialize
+│       Serialization tool for package documentation.
 │
 ├── dune
 ├── dune-project
