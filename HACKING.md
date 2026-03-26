@@ -58,6 +58,24 @@ make watch
 
 This will restart the server on filesystem changes.
 
+### Before Submitting a PR
+
+Formatting and linting failures are the most common cause of CI failures. Before pushing, always run:
+
+```bash
+make fmt
+```
+
+This formats OCaml code with ocamlformat and auto-promotes the changes. Commit any files it modifies.
+
+If your PR touches Markdown files, also lint them:
+
+```bash
+npx markdownlint-cli2 '**/*.md'
+```
+
+Markdown lint rules are configured in [`.markdownlint-cli2.jsonc`](./.markdownlint-cli2.jsonc). The CI excludes `data/planet/` and `data/changelog/` from Markdown lint.
+
 ### Running Tests
 
 #### Unit tests

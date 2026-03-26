@@ -19,6 +19,17 @@ make playground    # Build the OCaml Playground
 make docker        # Build docker container
 ```
 
+## Before Submitting a PR
+
+Formatting and linting failures are the #1 cause of CI failures. Always run these before pushing:
+
+```bash
+make fmt                        # Format OCaml code (auto-promotes changes)
+npx markdownlint-cli2 '**/*.md' # Lint Markdown files (config: .markdownlint-cli2.jsonc)
+```
+
+CI checks both on every push/PR. `make fmt` reformats in place; commit any changes it makes. Markdown lint rules are configured in `.markdownlint-cli2.jsonc`. The CI excludes `data/planet/` and `data/changelog/` from Markdown lint.
+
 ## Architecture Overview
 
 This is a Dream-based OCaml web application that serves ocaml.org. The architecture separates data (YAML/Markdown), code generation, and rendering.
