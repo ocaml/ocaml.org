@@ -34,7 +34,7 @@ An opam switch is a self-contained OCaml installation with its own compiler, lib
 You can see exactly what opam would set by running:
 
 ```shell
-$ opam env
+opam env
 ```
 
 This prints shell commands that export these variables. The three methods below differ in *how* and *when* those exports are applied.
@@ -45,12 +45,12 @@ This evaluates opam's output directly in your shell, setting the variables for y
 
 **Linux and macOS (bash or zsh):**
 ```shell
-$ eval "$(opam env)"
+eval "$(opam env)"
 ```
 
 **fish:**
 ```shell
-$ eval (opam env)
+eval (opam env)
 ```
 
 **Windows PowerShell:**
@@ -77,9 +77,9 @@ Most users add this to their shell profile (`~/.bashrc`, `~/.zshrc`, `config.fis
 This runs a single command with the switch environment set, without modifying your shell:
 
 ```shell
-$ opam exec -- dune build
-$ opam exec -- ocaml
-$ opam exec -- ocamlfind list
+opam exec -- dune build
+opam exec -- ocaml
+opam exec -- ocamlfind list
 ```
 
 The `--` separates opam's own arguments from the command to execute. Everything after `--` is run as a subprocess with the correct `PATH`, `CAML_LD_LIBRARY_PATH`, etc.
@@ -87,7 +87,7 @@ The `--` separates opam's own arguments from the command to execute. Everything 
 To target a specific switch:
 
 ```shell
-$ opam exec --switch=4.14.2 -- ocaml --version
+opam exec --switch=4.14.2 -- ocaml --version
 ```
 
 **When to use:** Scripts, Makefiles, CI pipelines, LLM coding agents — any context where you want a self-contained command that doesn't depend on prior shell setup.
@@ -122,7 +122,7 @@ eval $(opam env)
 **4. Allow direnv** to load it:
 
 ```shell
-$ direnv allow
+direnv allow
 ```
 
 Now, whenever you enter the project directory, direnv automatically sets up the switch environment:
@@ -199,7 +199,7 @@ For `OCAMLRUNPARAM` details, see the [debugging](/docs/debugging) and [garbage c
 Standard setup. When running inside **Docker containers**, opam requires sandboxing to be disabled:
 
 ```shell
-$ opam init --disable-sandboxing
+opam init --disable-sandboxing
 ```
 
 ### macOS
@@ -207,7 +207,7 @@ $ opam init --disable-sandboxing
 On **Apple Silicon** (M1/M2/M3/M4), Homebrew installs to `/opt/homebrew`. Opam picks this up automatically, but if you install system C libraries via Homebrew (e.g., `libev`, `gmp`), they are found through `pkg-config`. Ensure `pkg-config` is installed:
 
 ```shell
-$ brew install pkg-config
+brew install pkg-config
 ```
 
 If you encounter issues with C library detection, see the [ARM64 fix](/docs/arm64-fix) page.
@@ -226,16 +226,16 @@ Note that on Windows, opam disables sandboxing by default, and path separators d
 
 ## Troubleshooting
 
-**"Command not found" after installing a package**
+### "Command not found" after installing a package
 
 You installed a package with `opam install` but the command is not found. Either:
 - Run `eval "$(opam env)"` to refresh your shell environment, or
 - Use `opam exec -- <command>` to run it directly
 
-**"Wrong compiler version"**
+### "Wrong compiler version"
 
 Your shell has a stale environment from a different switch. Run `eval "$(opam env)"` again, or use `opam exec --` which always uses the correct switch.
 
-**"Cannot load shared library" / dynamic linking errors**
+### "Cannot load shared library" / dynamic linking errors
 
 The `CAML_LD_LIBRARY_PATH` variable may not be set correctly. This happens when `eval $(opam env)` was not run after installing a package with C stubs. Run `eval "$(opam env)"` or use `opam exec --`.
