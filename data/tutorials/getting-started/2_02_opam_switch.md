@@ -6,6 +6,7 @@ description: |
 category: "Tooling"
 recommended_next_tutorials:
   - "managing-dependencies"
+  - "opam-path"
 ---
 
 ## What Is an opam Switch?
