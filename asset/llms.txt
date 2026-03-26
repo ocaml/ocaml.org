@@ -1,0 +1,129 @@
+# OCaml
+
+> OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety. It is the technology of choice in companies where a single mistake can cost millions and speed matters. [ocaml.org](https://ocaml.org) is the official website for the OCaml community, providing documentation, tutorials, package search, and community resources.
+
+## Documentation
+
+- [Install OCaml](https://ocaml.org/install): How to install OCaml and the OCaml Platform tools
+- [Get Started](https://ocaml.org/docs/get-started): Beginner tutorials for getting up and running
+- [Language](https://ocaml.org/docs/language): Tutorials on OCaml language features
+- [Guides](https://ocaml.org/docs/guides): Advanced how-to guides
+- [Platform Tools](https://ocaml.org/docs/tools): Tutorials on build tools, editors, and CI
+
+## Tutorials: Getting Started
+
+- [Installing OCaml](https://ocaml.org/docs/installing-ocaml): Install the compiler and platform tools
+- [A Tour of OCaml](https://ocaml.org/docs/tour-of-ocaml): Quick overview of OCaml's key features
+- [Your First Program](https://ocaml.org/docs/your-first-program): Write, compile, and run your first OCaml project
+- [Set Up an Editor](https://ocaml.org/docs/set-up-editor): Configure VS Code or other editors for OCaml
+- [Introduction to the Toplevel](https://ocaml.org/docs/toplevel-introduction): Use the interactive OCaml REPL
+
+## Tutorials: Language
+
+- [Values and Functions](https://ocaml.org/docs/values-and-functions): Core concepts of OCaml values and function definitions
+- [Basic Data Types](https://ocaml.org/docs/basic-data-types): Tuples, records, variants, and pattern matching
+- [Loops and Recursion](https://ocaml.org/docs/loops-recursion): Iteration and recursive programming
+- [Lists](https://ocaml.org/docs/lists): Working with OCaml's linked lists
+- [Higher-Order Functions](https://ocaml.org/docs/higher-order-functions): Map, filter, fold, and function composition
+- [Options](https://ocaml.org/docs/options): Handling optional values safely
+- [Mutability and Imperative Control Flow](https://ocaml.org/docs/mutability-imperative-control-flow): Refs, mutable fields, loops
+- [Modules](https://ocaml.org/docs/modules): Structuring code with modules and signatures
+- [Functors](https://ocaml.org/docs/functors): Parameterised modules
+- [Error Handling](https://ocaml.org/docs/error-handling): Result types, exceptions, and best practices
+- [Maps](https://ocaml.org/docs/maps): Functional key-value maps
+- [Sets](https://ocaml.org/docs/sets): Functional sets
+- [Hash Tables](https://ocaml.org/docs/hash-tables): Mutable hash tables
+- [Sequences](https://ocaml.org/docs/sequences): Lazy sequences for efficient iteration
+- [Monads](https://ocaml.org/docs/monads): Monadic programming patterns in OCaml
+- [Garbage Collector](https://ocaml.org/docs/garbage-collector): Understanding OCaml's GC
+
+## Tutorials: Platform
+
+- [Bootstrapping a Dune Project](https://ocaml.org/docs/bootstrapping-a-dune-project): Create a new project with Dune
+- [Managing Dependencies](https://ocaml.org/docs/managing-dependencies): Use opam to manage packages
+- [Running Executables and Tests](https://ocaml.org/docs/running-executables-and-tests-with-dune): Build and test with Dune
+- [Formatting Your Code](https://ocaml.org/docs/formatting-your-code): Auto-format with ocamlformat
+- [Generating Documentation](https://ocaml.org/docs/generating-documentation): Generate docs with odoc
+
+## Tutorials: Guides
+
+- [Debugging](https://ocaml.org/docs/debugging): Debugging techniques and tools
+- [Profiling](https://ocaml.org/docs/profiling): Performance profiling
+- [Calling C Libraries](https://ocaml.org/docs/calling-c-libraries): FFI with C code
+- [Common Errors](https://ocaml.org/docs/common-errors): Frequent mistakes and how to fix them
+- [Data Structures Comparison](https://ocaml.org/docs/data-structures-comparison): Choosing the right data structure
+
+## Language Manual and API
+
+- [OCaml Manual](https://ocaml.org/manual/): The official OCaml compiler manual
+- [Standard Library API](https://ocaml.org/api/): OCaml standard library reference documentation
+
+## Cookbook
+
+- [Cookbook Index](https://ocaml.org/cookbook): Task-based code recipes for common programming tasks
+- [Read and Write Files](https://ocaml.org/cookbook/read-and-write-text-file): File I/O recipes
+- [Deserialise from JSON](https://ocaml.org/cookbook/deserialise-from-json): JSON parsing
+- [Serialise to JSON](https://ocaml.org/cookbook/serialise-to-json): JSON generation
+- [HTTP GET Request](https://ocaml.org/cookbook/http-get-request): Making HTTP requests
+- [HTTP POST/PATCH with Auth](https://ocaml.org/cookbook/http-post-patch-request-bearer-auth): Authenticated HTTP requests
+- [Parse Command-Line Arguments](https://ocaml.org/cookbook/parse-command-line-arguments): CLI argument parsing
+- [Start a Web Server](https://ocaml.org/cookbook/start-a-web-server-hello-world): Basic web server
+- [Web Server with HTML Templates](https://ocaml.org/cookbook/start-a-web-server-html-template): Templated web server
+- [Read CSV](https://ocaml.org/cookbook/read-csv): CSV file parsing
+- [SQLite Create/Insert/Select](https://ocaml.org/cookbook/sqlite-create-insert-select): SQLite database operations
+- [Regular Expressions](https://ocaml.org/cookbook/regex-parse-date): Regex parsing
+- [Random Values](https://ocaml.org/cookbook/generate-random-values): Random number generation
+- [Sorting Lists and Arrays](https://ocaml.org/cookbook/sorting-lists-and-arrays): Sorting recipes
+- [Run Commands and Process stdout](https://ocaml.org/cookbook/run-command-process-stdout): Shell command execution
+- [TCP Client](https://ocaml.org/cookbook/tcp-client): TCP networking
+- [TCP Server](https://ocaml.org/cookbook/tcp-server): TCP server implementation
+
+## Exercises
+
+- [Exercises](https://ocaml.org/exercises): Programming exercises with solutions, from beginner to advanced
+
+## Books and Papers
+
+- [Books](https://ocaml.org/books): Recommended books for learning OCaml
+- [Papers](https://ocaml.org/papers): Academic papers about OCaml and its type system
+
+## Platform and Tools
+
+- [Platform Overview](https://ocaml.org/platform): The OCaml Platform tools ecosystem
+- [Platform Roadmap](https://ocaml.org/tools/platform-roadmap): Current development roadmap
+- [Compiler Release Cycle](https://ocaml.org/tools/compiler-release-cycle): How OCaml releases work
+- [Native Compilation Target](https://ocaml.org/tools/native-target): Native code compilation
+- [JavaScript Target](https://ocaml.org/tools/javascript-target): Compiling OCaml to JavaScript
+- [WebAssembly Target](https://ocaml.org/tools/wasm-target): Compiling OCaml to Wasm
+
+## Packages
+
+- [Package Search](https://ocaml.org/packages): Search the OCaml package repository (opam)
+
+## Releases
+
+- [All Releases](https://ocaml.org/releases): OCaml compiler release history and changelogs
+
+## Community
+
+- [OCaml Planet](https://ocaml.org/ocaml-planet): Aggregated blog posts and videos from the OCaml community
+- [News](https://ocaml.org/news): OCaml community announcements
+- [Events](https://ocaml.org/events): Meetups, conferences, and community events
+- [Conferences](https://ocaml.org/conferences): OCaml Workshop and conference presentations
+- [Jobs](https://ocaml.org/jobs): Job listings in the OCaml ecosystem
+
+## Success Stories
+
+- [Jane Street](https://ocaml.org/success-stories/janestreet): Large-scale trading system built with OCaml
+- [Ahrefs](https://ocaml.org/success-stories/ahrefs-petabyte-crawler): Petabyte-scale web crawler
+- [LexiFi](https://ocaml.org/success-stories/lexifi): Financial contract modelling
+- [Imandra](https://ocaml.org/success-stories/imandra): Automated reasoning and formal verification
+- [Robur](https://ocaml.org/success-stories/robur): Secure unikernel infrastructure
+- [Terrateam](https://ocaml.org/success-stories/terrateam): Infrastructure automation
+
+## About
+
+- [About OCaml](https://ocaml.org/about): What is OCaml and why use it
+- [History of OCaml](https://ocaml.org/history): The origins and evolution of OCaml
+- [Governance](https://ocaml.org/governance): OCaml project governance structure
+- [OCaml Playground](https://ocaml.org/play): Try OCaml in the browser
