@@ -23,7 +23,7 @@ For a catalogue of specific errors and their fixes, see [Common Error Messages](
 
 Every OCaml error has the same structure:
 
-```
+```text
 File "foo.ml", line 5, characters 10-15:
 5 |   let x = "hello"
               ^^^^^^^
@@ -51,7 +51,7 @@ This is especially important for automated tools and LLM coding agents: do not t
 
 The most common error family. The pattern:
 
-```
+```text
 Error: This expression has type X but an expression was expected of type Y
 ```
 
@@ -65,7 +65,7 @@ Example:
 let greeting : string = 42
 ```
 
-```
+```text
 Error: This expression has type "int" but an expression was expected of type
          "string"
 ```
@@ -96,7 +96,7 @@ The error will point at `"hello"` saying it has type `string` but `int` was expe
 
 The second most common family:
 
-```
+```text
 Error: Unbound value foo
 ```
 
@@ -111,7 +111,7 @@ The variable or function doesn't exist where it's used. Common causes:
 
 ### `Unbound module`
 
-```
+```text
 Error: Unbound module Yojson
 ```
 
@@ -126,7 +126,7 @@ Only if the module truly doesn't exist is it a code error.
 
 ### `Unbound type constructor`
 
-```
+```text
 Error: Unbound type constructor foo
 ```
 
@@ -134,7 +134,7 @@ The type name isn't in scope. Usually needs an `open` or a qualified path (`Modu
 
 ### `Unbound record field` / `Unbound constructor`
 
-```
+```text
 Error: Unbound record field x
 ```
 
@@ -153,7 +153,7 @@ let x = 42
 let y = x 3
 ```
 
-```
+```text
 Error: This expression has type "int"
        This is not a function; it cannot be applied.
 ```
@@ -169,7 +169,7 @@ You're passing more arguments than the function accepts. Check the function's si
 
 ### Label issues
 
-```
+```text
 Warning 6 [labels-omitted]: labels name, greeting were omitted in the
 application of this function.
 ```
@@ -187,7 +187,7 @@ let name = function
   | Green -> "green"
 ```
 
-```
+```text
 Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 Blue
@@ -208,7 +208,7 @@ type point = { x : int; y : int; z : int }
 let p = { x = 1; y = 2 }
 ```
 
-```
+```text
 Error: Some record fields are undefined: "z"
 ```
 
@@ -216,7 +216,7 @@ All fields must be provided when constructing a record. Add the missing field.
 
 ### Same field names, different types
 
-```
+```text
 Error: This expression has type { x : int; y : int }
        but an expression was expected of type { x : float; y : float }
 ```
@@ -225,7 +225,7 @@ Two types have fields with the same names but different types. This often happen
 
 ### Not mutable
 
-```
+```text
 Error: The record field x is not mutable
 ```
 
@@ -235,7 +235,7 @@ You're trying to assign (`<-`) to a field that wasn't declared `mutable`. Either
 
 ### Signature mismatch
 
-```
+```text
 Error: Signature mismatch:
        ...
        The value `foo` is required but not provided
@@ -245,7 +245,7 @@ A module doesn't satisfy its signature (`.mli` file or functor argument). Read t
 
 ### Structure vs functor confusion
 
-```
+```text
 Error: This is a functor, it cannot have any components
 ```
 
