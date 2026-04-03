@@ -37,7 +37,7 @@ depends: [
   "timedesc" {>= "2.0.0"}
   "yojson"
   "lwt"
-  "hilite" {>= "0.4.0"}
+  "hilite" {>= "0.6.0"}
   "river"
   "syndic"
   "ounit"
@@ -74,4 +74,6 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
-
+pin-depends: [
+  [ "hilite.0.6.0" "git+https://github.com/patricoferris/hilite#f5368558f765ff6c884fda68acf4d4e9256970b4" ]
+]

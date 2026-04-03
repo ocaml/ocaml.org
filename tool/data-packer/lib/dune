@@ -14,7 +14,7 @@
   bos
   fpath
   cmarkit
-  hilite
+  hilite.markdown
   str
   re
   syndic

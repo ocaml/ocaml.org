@@ -43,8 +43,7 @@ let decode (fpath, (head, body_md)) =
   let modify_categories u =
     let modify_description description =
       Cmarkit.Doc.of_string ~strict:true (String.trim description)
-      |> Hilite.Md.transform
-      |> Cmarkit_html.of_doc ~safe:false
+      |> Markdown.Content.render ~syntax_highlighting:true
     in
     List.map
       (fun cat ->

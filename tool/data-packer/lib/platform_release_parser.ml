@@ -43,9 +43,8 @@ let decode (fname, (head, body)) =
     metadata_of_yaml head |> Result.map_error (Utils.where fname)
   in
   let body_html =
-    Cmarkit_html.of_doc ~safe:false
-      (Hilite.Md.transform
-         (Cmarkit.Doc.of_string ~strict:true (String.trim body)))
+    Markdown.Content.render ~syntax_highlighting:true
+      (Cmarkit.Doc.of_string ~strict:true (String.trim body))
   in
 
   Result.map
@@ -56,8 +55,7 @@ let decode (fname, (head, body)) =
         | Some changelog ->
             Some
               (Cmarkit.Doc.of_string ~strict:true (String.trim changelog)
-              |> Hilite.Md.transform
-              |> Cmarkit_html.of_doc ~safe:false)
+              |> Markdown.Content.render ~syntax_highlighting:true)
       in
       let date, slug_version =
         match Slug.parse_slug slug with

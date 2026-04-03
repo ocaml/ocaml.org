@@ -56,7 +56,7 @@
   yojson
   lwt
   (hilite
-   (>= 0.4.0))
+   (>= 0.6.0))
   river
   syndic
   ounit
