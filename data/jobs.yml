@@ -1,4 +1,11 @@
 jobs:
+  - title: Compilation engineer
+    link: https://www.lasecurecrute.fr/offre-emploi/ingenieur-expert-en-compilation-langages-de-programmation--f-h/normandie/1065497
+    locations:
+      - France
+    publication_date: 2026-04-06
+    company: CNAF
+    company_logo: https://www.lasecurecrute.fr/files/live/sites/lasecurecrute/files/communs/logos-organismes/organismes/207501.png
   - title: Research engineer Stimulus
     link: https://www.3ds.com/fr/careers/jobs/ingenieur-de-recherche-stimulus-ocaml-h-f-534846
     locations:
