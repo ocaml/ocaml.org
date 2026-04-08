@@ -6,7 +6,7 @@ jobs:
     publication_date: 2026-04-06
     company: CNAF
     company_logo: https://www.lasecurecrute.fr/files/live/sites/lasecurecrute/files/communs/logos-organismes/organismes/207501.png
-  - title: Research engineer: static analysis of OCaml programs
+  - title: "Research engineer: static analysis of OCaml programs"
     link: https://jobs.inria.fr/public/classic/fr/offres/2026-09842
     locations:
       - Rennes, France
