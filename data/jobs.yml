@@ -6,6 +6,13 @@ jobs:
     publication_date: 2026-04-06
     company: CNAF
     company_logo: https://www.lasecurecrute.fr/files/live/sites/lasecurecrute/files/communs/logos-organismes/organismes/207501.png
+  - title: Research engineer: static analysis of OCaml programs
+    link: https://jobs.inria.fr/public/classic/fr/offres/2026-09842
+    locations:
+      - Rennes, France
+    publication_date: 2026-03-02
+    company: Inria
+    company_logo: https://www.inria.fr/sites/default/files/2025-04/A_logo-Inria_RF-Inria_Logo_RVB_200x64.jpg
   - title: Research engineer Stimulus
     link: https://www.3ds.com/fr/careers/jobs/ingenieur-de-recherche-stimulus-ocaml-h-f-534846
     locations:
