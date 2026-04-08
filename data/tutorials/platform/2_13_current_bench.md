@@ -89,7 +89,7 @@ let () =
 
 The [cobench](https://github.com/ocurrent/current-bench/tree/main/cobench) library handles timing (via [Bechamel](https://github.com/mirage/bechamel)) and JSON formatting for you. Add it to your dune file:
 
-```
+```lisp
 (executable
  (name my_bench)
  (libraries cobench))
@@ -115,14 +115,14 @@ let () = bench ~quota:1.0 "my-suite" "fibonacci" test_fibo
 
 Use `cb-check` to verify your JSON output before enrolling:
 
-```
+```sh
 opam pin -n cb-check git+https://github.com/ocurrent/current-bench.git
 opam install cb-check
 ```
 
 Then pipe your benchmark output to it:
 
-```
+```sh
 opam exec -- dune exec -- ./bench/main.exe | cb-check
 ```
 
@@ -132,9 +132,14 @@ opam exec -- dune exec -- ./bench/main.exe | cb-check
 
 Your project needs a valid `.opam` file at the root and a `Makefile` with a `bench` target:
 
-```makefile
-bench:
-	dune exec -- ./bench/main.exe
+```sh
+make bench
+```
+
+Where `bench` is a Makefile target such as:
+
+```sh
+dune exec -- ./bench/main.exe
 ```
 
 Make sure JSON goes to **stdout** and all logs go to **stderr** (redirect with `1>&2` if needed).
