@@ -1,4 +1,12 @@
 jobs:
+  - title: Lead Systems Software Engineer
+    link: https://careers.cloud.com/jobs/lead-systems-software-engineer-remote-united-kingdom
+    locations:
+      - Remote
+      - United Kingdom
+    publication_date: 2026-04-08
+    company: Cloud Software Group
+    company_logo: https://www.cloud.com/media_1e40e7d048f0117d4543c940f9e7433b549c08a03.svg
   - title: Compilation engineer
     link: https://www.lasecurecrute.fr/offre-emploi/ingenieur-expert-en-compilation-langages-de-programmation--f-h/normandie/1065497
     locations:
