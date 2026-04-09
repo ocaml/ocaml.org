@@ -122,6 +122,10 @@ Opening an OCaml file should launch an `ocaml-lsp` server, and you can convince 
 
 OCaml-eglot [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md) provides a comprehensive overview of all the functions available in this mode!
 
+#### Structured Navigation and Editing
+
+> **Note:** For advanced structured navigation and editing, OCaml is supported by [Combobulate](https://github.com/mickeynp/combobulate). It leverages `tree-sitter` to provide syntax-aware movement and structural editing for your OCaml code. You can learn more about setting up Combobulate with OCaml in the [Combobulate documentation](https://github.com/mickeynp/combobulate/blob/master/README.rst).
+
 ## Vim
 
 For Vim, we won't use the LSP server but rather directly talk to Merlin.
