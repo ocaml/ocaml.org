@@ -28,7 +28,7 @@ The current members of the SRT are:
 - Hannes Mehnert - [@hannesm](https://github.com/hannesm) - individual, robur.coop
 - Mindy Preston - [@yomimono](https://github.com/yomimono) - individual
 - Joe - [@cfcs](https://github.com/cfcs) - individual
-- Edwin Török - [@edwintorok](https://github.com/edwintorok) - individual
+- Edwin Török - [@edwintorok](https://github.com/edwintorok) - individual, Tarides
 - Nicolás Ojeda Bär - [@nojb](https://github.com/nojb) - LexiFi
 - Louis Roché - [@Khady](https://github.com/Khady) - ahrefs
 - Boning Dong - [@bn-d](https://github.com/bn-d) - Bloomberg
