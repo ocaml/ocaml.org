@@ -242,9 +242,7 @@ let check_if_uptodate project known_tags =
     List.iter
       (fun { github_tag; post } ->
         if not (SSet.mem github_tag known_github_tags) then (
-          let ignore =
-            tag_matches_ignore_patterns ignore_patterns github_tag
-          in
+          let ignore = tag_matches_ignore_patterns ignore_patterns github_tag in
           let experimental = is_prerelease github_tag in
           warn "We don't have the release notes for %S github tag %S\n%!"
             project github_tag;

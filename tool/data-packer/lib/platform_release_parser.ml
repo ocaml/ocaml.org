@@ -97,5 +97,4 @@ let all_including_ignored () =
   |> List.sort (fun (a : t) b -> String.compare b.slug a.slug)
 
 let all () =
-  all_including_ignored ()
-  |> List.filter (fun (t : t) -> not t.ignore)
+  all_including_ignored () |> List.filter (fun (t : t) -> not t.ignore)
