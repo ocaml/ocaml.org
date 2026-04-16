@@ -113,7 +113,9 @@ The project was [presented at the ML Workshop at ICFP 2024](https://icfp24.sigpl
 If you want to try wasm_of_ocaml, the [manual](https://ocsigen.org/js_of_ocaml/latest/manual/wasm_overview) covers setup with Dune. If you're already using js_of_ocaml, it's mostly a matter of adding a `wasm_of_ocaml` stanza:
 
 ```
-opam install js_of_ocaml js_of_ocaml-ppx wasm_of_ocaml wasm_of_ocaml-compiler
+opam install wasm_of_ocaml-compiler js_of_ocaml js_of_ocaml-ppx js_of_ocaml-lwt
 ```
+
+`wasm_of_ocaml-compiler` depends on a system installation of [Binaryen](https://github.com/WebAssembly/binaryen) 119 or later.
 
 Bug reports and contributions go to the [js_of_ocaml repository](https://github.com/ocsigen/js_of_ocaml). Discussion happens on the [OCaml Discuss forum](https://discuss.ocaml.org/).
