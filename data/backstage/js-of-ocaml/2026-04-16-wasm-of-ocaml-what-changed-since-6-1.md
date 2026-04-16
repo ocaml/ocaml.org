@@ -48,19 +48,19 @@ Until now, wasm_of_ocaml has been browser-oriented: the generated Wasm module ex
 
 This PR by Jerome Vouillon adds a `--enable wasi` flag:
 
-```
+```shell
 wasm_of_ocaml --enable wasi foo.byte -o foo.js
 ```
 
 The output still follows the existing convention (a `.js` file and a `.assets/` directory with the `.wasm` code), but the Wasm file can now also be run directly on standalone runtimes. On the [Wizard engine](https://github.com/titzer/wizard-engine) (which supports legacy exception handling):
 
-```
+```shell
 wizeng.x86-64-linux -ext:stack-switching -ext:legacy-eh foo.assets/code.wasm
 ```
 
 For [wasmtime](https://github.com/bytecodealliance/wasmtime) and other runtimes using the newer `exnref`-based exception handling, compile with `--enable exnref`:
 
-```
+```shell
 wasm_of_ocaml --enable wasi --enable exnref foo.byte -o foo.js
 wasmtime -W=all-proposals=y foo.assets/code.wasm
 ```
@@ -77,7 +77,7 @@ The [WebAssembly Stack Switching proposal](https://github.com/WebAssembly/stack-
 
 This PR by Jerome Vouillon adds a `--effects native` flag:
 
-```
+```shell
 wasm_of_ocaml --effects native foo.byte -o foo.js
 ```
 
@@ -112,7 +112,7 @@ The project was [presented at the ML Workshop at ICFP 2024](https://icfp24.sigpl
 
 If you want to try wasm_of_ocaml, the [manual](https://ocsigen.org/js_of_ocaml/latest/manual/wasm_overview) covers setup with Dune. If you're already using js_of_ocaml, it's mostly a matter of adding a `wasm_of_ocaml` stanza:
 
-```
+```shell
 opam install wasm_of_ocaml-compiler js_of_ocaml js_of_ocaml-ppx js_of_ocaml-lwt
 ```
 
