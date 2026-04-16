@@ -195,8 +195,8 @@ let tag_matches_ignore_patterns ignore_patterns github_tag =
       with Not_found -> false)
     ignore_patterns
 
-let write_release_announcement_file project github_tag tags ~ignore ~experimental
-    (post : River.post) =
+let write_release_announcement_file project github_tag tags ~ignore
+    ~experimental (post : River.post) =
   let yyyy_mm_dd =
     River.date post |> Option.get |> Ptime.to_rfc3339
     |> String.split_on_char 'T' |> List.hd
