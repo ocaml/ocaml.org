@@ -171,6 +171,16 @@ let group_releases_by_project all =
       SMap.add t.project_name updated acc)
     SMap.empty all
 
+let is_prerelease github_tag =
+  let tag = String.lowercase_ascii github_tag in
+  let has pattern =
+    try
+      let _ = Str.search_forward (Str.regexp pattern) tag 0 in
+      true
+    with Not_found -> false
+  in
+  has "alpha" || has "beta" || has "rc[0-9]"
+
 let tag_matches_ignore_patterns ignore_patterns github_tag =
   List.exists
     (fun pattern ->
@@ -180,7 +190,7 @@ let tag_matches_ignore_patterns ignore_patterns github_tag =
       with Not_found -> false)
     ignore_patterns
 
-let write_release_announcement_file project github_tag tags ~ignore
+let write_release_announcement_file project github_tag tags ~ignore ~experimental
     (post : River.post) =
   let yyyy_mm_dd =
     River.date post |> Option.get |> Ptime.to_rfc3339
@@ -204,7 +214,7 @@ let write_release_announcement_file project github_tag tags ~ignore
       changelog = None;
       versions = None;
       authors = Some [];
-      experimental = Some false;
+      experimental = Some experimental;
       ignore = Some ignore;
       released_on_github_by;
       github_release_tags =
@@ -230,9 +240,11 @@ let check_if_uptodate project known_tags =
           let ignore =
             tag_matches_ignore_patterns ignore_patterns github_tag
           in
+          let experimental = is_prerelease github_tag in
           warn "We don't have the release notes for %S github tag %S\n%!"
             project github_tag;
-          write_release_announcement_file project github_tag tags ~ignore post))
+          write_release_announcement_file project github_tag tags ~ignore
+            ~experimental post))
       scraped_versions
   in
   match List.assoc_opt project github_project_release_feeds with
