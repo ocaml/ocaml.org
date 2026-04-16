@@ -11,7 +11,7 @@ tutorials: [ "values-and-functions"]
 ## Solution
 
 ```ocaml
-# (* Recall that d divides n iff [n mod d = 0] *)
+# (* Recall that d divides n if [n mod d = 0] *)
   let factors n =
     let rec aux d n =
       if n = 1 then [] else
