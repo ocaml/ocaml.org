@@ -63,7 +63,7 @@ successors are 2\*A and 2\*A+1, respectively, supposed the successors do
 exist. This fact can be used to elegantly construct a complete binary
 tree structure. Write a function `is_complete_binary_tree` with the
 following specification: `is_complete_binary_tree n t` returns `true`
-iff `t` is a complete binary tree with `n` nodes.
+if and only if `t` is a complete binary tree with `n` nodes.
 
 ```ocaml
 # complete_binary_tree [1; 2; 3; 4; 5; 6];;
