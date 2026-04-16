@@ -69,8 +69,10 @@ module Content = struct
   let of_string content =
     Cmarkit.Doc.of_string ~strict:true ~heading_auto_ids:true content
 
-  let render ?(syntax_highlighting = false) doc =
+  let options = Hilite_markdown.Options.(set_ocaml_mdx_syntax true default)
+
+  let render ?(syntax_highlighting = false) ?(options = options) doc =
     if syntax_highlighting then
-      Hilite.Md.transform doc |> Cmarkit_html.of_doc ~safe:false
+      Hilite_markdown.transform ~options doc |> Cmarkit_html.of_doc ~safe:false
     else doc |> Cmarkit_html.of_doc ~safe:false
 end

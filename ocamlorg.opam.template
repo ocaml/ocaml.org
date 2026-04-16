@@ -1,1 +1,3 @@
-
+pin-depends: [
+  [ "hilite.0.6.0" "git+https://github.com/patricoferris/hilite#f5368558f765ff6c884fda68acf4d4e9256970b4" ]
+]

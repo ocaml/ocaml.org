@@ -26,9 +26,8 @@ module Posts = struct
       post_metadata_of_yaml head |> Result.map_error (Utils.where fname)
     in
     let body_html =
-      Cmarkit_html.of_doc ~safe:false
-        (Hilite.Md.transform
-           (Cmarkit.Doc.of_string ~strict:true (String.trim body)))
+      Markdown.Content.render ~syntax_highlighting:true
+        (Cmarkit.Doc.of_string ~strict:true (String.trim body))
     in
 
     Result.map

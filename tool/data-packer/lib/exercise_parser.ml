@@ -56,7 +56,7 @@ let split_body body =
 
 let render_with_highlight md =
   let doc = Cmarkit.Doc.of_string ~strict:true ~heading_auto_ids:true md in
-  Hilite.Md.transform doc |> Cmarkit_html.of_doc ~safe:false
+  Markdown.Content.render ~syntax_highlighting:true doc
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in
