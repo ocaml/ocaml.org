@@ -204,7 +204,7 @@ let write_release_announcement_file project github_tag tags ~ignore
       changelog = None;
       versions = None;
       authors = Some [];
-      experimental = Some ignore;
+      experimental = Some false;
       ignore = Some ignore;
       released_on_github_by;
       github_release_tags =
