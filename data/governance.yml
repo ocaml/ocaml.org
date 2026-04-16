@@ -284,7 +284,7 @@ teams:
     dev-meeting:
       date: Every Monday
       time: 2:00 PM CET
-      link: https://us06web.zoom.us/j/84185730263?pwd=TTYrY2puc0dST0lBMjZ5ZHNTaThoZz09
+      link: https://meet.jit.si/opam-dev-meeting
       notes: https://github.com/ocaml/opam/wiki#dev-meetings
     contacts:
     - name: GitHub
