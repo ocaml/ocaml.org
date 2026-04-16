@@ -11,7 +11,7 @@ The [full changelog](https://github.com/ocsigen/js_of_ocaml/blob/master/CHANGES.
 
 ### The compiler writes Wasm binaries directly now (6.1)
 
-Before 6.1, the compiler emitted [WAT](https://webassembly.github.io/spec/core/text/index.html) (WebAssembly text format) and then converted it to binary via [Binaryen](https://github.com/WebAssembly/binaryen). Since 6.1, it writes `.wasm` binary modules directly, removing a compilation step. WAT output is still available for debugging and is also faster to generate now.
+Before 6.1, the compiler emitted [WAT](https://webassembly.github.io/spec/core/text/index.html) (WebAssembly text format) and then converted it to binary via [Binaryen](https://github.com/WebAssembly/binaryen). Since 6.1, it writes `.wasm` binary modules directly, removing that conversion step. Binaryen is still used downstream for optimization, linking, and dead-code elimination. WAT output is still available for debugging and is also faster to generate now.
 
 ### Better Wasm code generation (6.1-6.3)
 
