@@ -3,7 +3,7 @@ title: "Wasm_of_ocaml: What Changed Since 6.1"
 tags: [wasm, platform]
 ---
 
-[Wasm_of_ocaml](https://github.com/ocsigen/js_of_ocaml) compiles OCaml bytecode to WebAssembly, targeting [WasmGC](https://github.com/WebAssembly/gc) so that OCaml values are managed by the host garbage collector. It lives in the same [repository](https://github.com/ocsigen/js_of_ocaml) as [js_of_ocaml](https://ocsigen.org/js_of_ocaml/) and the two are released together. This post covers the most relevant Wasm changes in versions 6.1 through 6.3, and three open PRs that add WASI support, native effects via Stack Switching, and dynlink/toplevel support.
+[Wasm_of_ocaml](https://ocsigen.org/js_of_ocaml/latest/manual/wasm_overview) compiles OCaml bytecode to WebAssembly, targeting [WasmGC](https://github.com/WebAssembly/gc) so that OCaml values are managed by the host garbage collector. This post covers the most relevant Wasm changes in versions 6.1 through 6.3, and three PRs that add WASI support, native effects via Stack Switching, and dynlink/toplevel support. The Background section at the end has a short recap of where the project fits alongside js_of_ocaml.
 
 ## What changed in 6.1-6.3
 
@@ -24,7 +24,7 @@ Several changes across 6.1-6.3 improve the quality of the generated Wasm code:
 - **Reference unboxing (6.3).** `ref` cells that don't escape a function become Wasm locals instead of heap-allocated mutable [GC structs](https://github.com/WebAssembly/gc/blob/main/proposals/gc/Overview.md).
 - **Specialized comparisons and bigarray ops (6.3).** Instead of dispatching through [`caml_compare`](https://v2.ocaml.org/api/Stdlib.html#VALcompare) or generic bigarray accessors, the compiler emits type-specific Wasm instructions when it can resolve types statically.
 
-There are also shared compiler improvements (benefiting both js_of_ocaml and wasm_of_ocaml): the [inlining pass was rewritten in 6.1](https://github.com/ocsigen/js_of_ocaml/blob/master/CHANGES.md) with better tailcall optimization, deadcode elimination, and arity propagation between compilation units.
+There are also shared compiler improvements (benefiting both js_of_ocaml and wasm_of_ocaml): the inlining pass was rewritten in 6.1 ([#1935](https://github.com/ocsigen/js_of_ocaml/pull/1935), [#2018](https://github.com/ocsigen/js_of_ocaml/pull/2018), [#2027](https://github.com/ocsigen/js_of_ocaml/pull/2027)) with better tailcall optimization, deadcode elimination, and arity propagation between compilation units.
 
 ### Runtime additions (6.1-6.3)
 
@@ -38,9 +38,9 @@ There are also shared compiler improvements (benefiting both js_of_ocaml and was
 
 6.1 dropped OCaml 4.12 and earlier, requires [Dune](https://dune.build/) 3.19, and added preliminary [OCaml 5.4](https://ocaml.org/releases/5.4.0) support. The compiler runs on [Node.js](https://nodejs.org/) 22+ (which has WasmGC support), [CloudFlare Workers](https://developers.cloudflare.com/workers/) (V8 12.0+), and [WasmEdge](https://wasmedge.org/) 0.14.0+.
 
-## Open PRs: Three Features Under Review
+## Three Features in Flight
 
-The three PRs below address the three biggest limitations of wasm_of_ocaml relative to js_of_ocaml: no standalone execution outside the browser, CPS overhead for effects, and no dynlink/toplevel. None are merged yet.
+The three PRs below address the three biggest limitations of wasm_of_ocaml relative to js_of_ocaml: no standalone execution outside the browser, CPS overhead for effects, and no dynlink/toplevel. Dynlink/toplevel ([#2187](https://github.com/ocsigen/js_of_ocaml/pull/2187)) was merged on 2026-04-08; the other two are still open.
 
 ### WASI support ([PR #1831](https://github.com/ocsigen/js_of_ocaml/pull/1831))
 
@@ -52,22 +52,22 @@ This PR by Jerome Vouillon adds a `--enable wasi` flag:
 wasm_of_ocaml --enable wasi foo.byte -o foo.js
 ```
 
-The output still follows the existing convention (a `.js` file and a `.assets/` directory with the `.wasm` code), but the Wasm file can now also be run directly on standalone runtimes:
+The output still follows the existing convention (a `.js` file and a `.assets/` directory with the `.wasm` code), but the Wasm file can now also be run directly on standalone runtimes. On the [Wizard engine](https://github.com/titzer/wizard-engine) (which supports legacy exception handling):
 
 ```
-# Wizard engine (supports legacy exception handling)
 wizeng.x86-64-linux -ext:stack-switching -ext:legacy-eh foo.assets/code.wasm
+```
 
-# wasmtime (uses the newer exnref-based exception handling)
+For [wasmtime](https://github.com/bytecodealliance/wasmtime) and other runtimes using the newer `exnref`-based exception handling, compile with `--enable exnref`:
+
+```
 wasm_of_ocaml --enable wasi --enable exnref foo.byte -o foo.js
 wasmtime -W=all-proposals=y foo.assets/code.wasm
 ```
 
-The `--enable exnref` flag is needed for runtimes like [wasmtime](https://github.com/bytecodealliance/wasmtime) that implement the [newer `exnref`-based exception handling spec](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) rather than the [legacy proposal](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/legacy/Exceptions.md) used by V8/Chrome and the [Wizard engine](https://github.com/titzer/wizard-engine).
+The `--enable exnref` flag selects the [newer `exnref`-based exception handling spec](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/Exceptions.md) rather than the [legacy proposal](https://github.com/WebAssembly/exception-handling/blob/main/proposals/exception-handling/legacy/Exceptions.md) used by V8/Chrome and the Wizard engine.
 
 The implementation is substantial: a WASI-compatible filesystem (`fs.wat`), Unix API bindings covering file operations, process info, time, and permissions (`unix.wat`), a minimal libc (`libc.c`/`libc.wasm`), WASI memory management and errno mapping, and a Node.js wrapper for running WASI binaries under Node.
-
-For OCaml developers, this opens up server-side Wasm, CLI tools distributed as `.wasm` files, and deployment on edge computing platforms that support WASI.
 
 ### Native effects via Stack Switching ([PR #2189](https://github.com/ocsigen/js_of_ocaml/pull/2189))
 
@@ -85,9 +85,9 @@ When enabled, the CPS transformation is skipped entirely. Instead, `perform` sus
 
 This should remove the CPS overhead for code using [Eio](https://github.com/ocaml-multicore/eio), [`Domain.DLS`](https://v2.ocaml.org/api/Domain.DLS.html), or [Lwt](https://github.com/ocsigen/lwt) with its effects backend. Stack Switching is not yet in stable browser releases (Chrome/V8 has it behind a flag), so the CPS path remains the default.
 
-### Dynlink and toplevel support ([PR #2187](https://github.com/ocsigen/js_of_ocaml/pull/2187))
+### Dynlink and toplevel support ([PR #2187](https://github.com/ocsigen/js_of_ocaml/pull/2187), merged 2026-04-08)
 
-One of the most visible limitations of wasm_of_ocaml compared to js_of_ocaml has been the lack of [`Dynlink`](https://v2.ocaml.org/api/Dynlink.html) support, which also means no OCaml toplevel (REPL) in the browser. The [OCaml Playground](https://ocaml.org/play) currently uses js_of_ocaml for exactly this reason.
+One of the most visible limitations of wasm_of_ocaml compared to js_of_ocaml was the lack of [`Dynlink`](https://v2.ocaml.org/api/Dynlink.html) support, which also meant no OCaml toplevel (REPL) in the browser. The [OCaml Playground](https://ocaml.org/play) currently uses js_of_ocaml for exactly this reason.
 
 This PR by Jerome Vouillon adds both. Concretely, it provides:
 
@@ -98,11 +98,15 @@ This PR by Jerome Vouillon adds both. Concretely, it provides:
 - The [Lwt toplevel example](https://github.com/ocsigen/js_of_ocaml/tree/master/toplevel/examples/lwt_toplevel) updated to build with both js_of_ocaml and wasm_of_ocaml.
 - A new test suite (`compiler/tests-dynlink-wasm/`) covering `loadfile`, `loadfile_private`, compile-and-load, effects flags, and plugin dependencies.
 
-As [noted in the PR discussion](https://github.com/ocsigen/js_of_ocaml/pull/2187#issuecomment-2733803989), the virtual filesystem work also allows `compiler/tests-toplevel` to run under Wasm. Once this lands, there's a path to running the [OCaml.org Playground](https://ocaml.org/play) on wasm_of_ocaml instead of js_of_ocaml.
+As [noted in the PR discussion](https://github.com/ocsigen/js_of_ocaml/pull/2187#issuecomment-2733803989), the virtual filesystem work also allows `compiler/tests-toplevel` to run under Wasm. This opens a path to running the [OCaml.org Playground](https://ocaml.org/play) on wasm_of_ocaml instead of js_of_ocaml.
 
 ## Background: Wasm_of_ocaml and OCaml-to-Wasm compilation
 
-[Wasm_of_ocaml](https://github.com/ocsigen/js_of_ocaml) is a fork of [js_of_ocaml](https://ocsigen.org/js_of_ocaml/), written by [Jerome Vouillon](https://github.com/vouillon) and with major contributions from [Hugo Heuzard](https://github.com/hhugo). It compiles OCaml bytecode to WebAssembly, targeting [WasmGC](https://github.com/WebAssembly/gc) (supported in Chrome 119+, Firefox 120+, Safari 18.2+), the [tail-call extension](https://github.com/WebAssembly/tail-call), and the [exception handling extension](https://github.com/WebAssembly/exception-handling). Using WasmGC means OCaml values are managed by the host GC directly; no custom collector is shipped, and JS interop works through shared GC'd references. The project was [presented at the ML Workshop at ICFP 2024](https://icfp24.sigplan.org/details/mlworkshop-2024-papers/10/Wasm_of_ocaml). A separate project, [Wasocaml](https://ocamlpro.com/blog/2022_12_14_wasm_and_ocaml/) by OCamlPro, also targets WasmGC but compiles from the Flambda IR of the native-code compiler rather than from bytecode. Since version 6.0.1 (the [first public release](https://tarides.com/blog/2025-02-19-the-first-wasm-of-ocaml-release-is-out/), February 2025), wasm_of_ocaml and js_of_ocaml share a [single repository](https://github.com/ocsigen/js_of_ocaml) and are released together. Jane Street has reported [2x-8x speedups](https://tarides.com/blog/2025-02-19-the-first-wasm-of-ocaml-release-is-out/) from wasm_of_ocaml over js_of_ocaml on their workloads. The [OCaml.org WebAssembly page](https://ocaml.org/tools/wasm-target) has an overview of all OCaml-to-Wasm compilation options.
+Wasm_of_ocaml started as a fork of [js_of_ocaml](https://ocsigen.org/js_of_ocaml/) by [Jerome Vouillon](https://github.com/vouillon) (with major contributions from [Hugo Heuzard](https://github.com/hhugo)), became a new backend in the js_of_ocaml project, and is now developed alongside it: since version 6.0.1 (the [first public release](https://tarides.com/blog/2025-02-19-the-first-wasm-of-ocaml-release-is-out/), February 2025), wasm_of_ocaml and js_of_ocaml share a [single repository](https://github.com/ocsigen/js_of_ocaml) and are released together.
+
+It targets [WasmGC](https://github.com/WebAssembly/gc) (supported in Chrome 119+, Firefox 120+, and Safari 18.2+), the [tail-call extension](https://github.com/WebAssembly/tail-call), and the [exception handling extension](https://github.com/WebAssembly/exception-handling). Using WasmGC means OCaml values are managed by the host GC directly; no custom collector is shipped, and JS interop works through shared GC'd references.
+
+The project was [presented at the ML Workshop at ICFP 2024](https://icfp24.sigplan.org/details/mlworkshop-2024-papers/10/Wasm_of_ocaml). A separate project, [Wasocaml](https://ocamlpro.com/blog/2022_12_14_wasm_and_ocaml/) by OCamlPro, also targets WasmGC but compiles from the Flambda IR of the native-code compiler rather than from bytecode. Jane Street has reported [2x-8x speedups](https://tarides.com/blog/2025-02-19-the-first-wasm-of-ocaml-release-is-out/) from wasm_of_ocaml over js_of_ocaml on their workloads. The [OCaml.org WebAssembly page](https://ocaml.org/tools/wasm-target) has an overview of all OCaml-to-Wasm compilation options.
 
 ## Getting involved
 
@@ -112,4 +116,4 @@ If you want to try wasm_of_ocaml, the [manual](https://ocsigen.org/js_of_ocaml/l
 opam install js_of_ocaml js_of_ocaml-ppx wasm_of_ocaml wasm_of_ocaml-compiler
 ```
 
-Bug reports and contributions go to the [js_of_ocaml repository](https://github.com/ocsigen/js_of_ocaml). Discussion happens on the [OCaml Discuss forum](https://discuss.ocaml.org/). The [OCaml.org WebAssembly page](https://ocaml.org/tools/wasm-target) has an overview of all OCaml-to-Wasm compilation options.
+Bug reports and contributions go to the [js_of_ocaml repository](https://github.com/ocsigen/js_of_ocaml). Discussion happens on the [OCaml Discuss forum](https://discuss.ocaml.org/).
