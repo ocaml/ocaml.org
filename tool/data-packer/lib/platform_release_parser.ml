@@ -8,6 +8,7 @@ type t = {
   date : string;
   tags : string list;
   experimental : bool;
+  ignore : bool;
   changelog_html : string option;
   body_html : string;
   body : string;
@@ -77,6 +78,7 @@ let decode (fname, (head, body)) =
         date;
         tags = metadata.tags;
         experimental = Option.value ~default:false metadata.experimental;
+        ignore = Option.value ~default:false metadata.ignore;
         changelog_html;
         body_html;
         body;
@@ -90,6 +92,10 @@ let decode (fname, (head, body)) =
       })
     metadata
 
-let all () =
+let all_including_ignored () =
   Utils.map_md_files decode "platform_releases/*/*.md"
   |> List.sort (fun (a : t) b -> String.compare b.slug a.slug)
+
+let all () =
+  all_including_ignored ()
+  |> List.filter (fun (t : t) -> not t.ignore)
