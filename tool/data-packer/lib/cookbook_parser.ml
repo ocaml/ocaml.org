@@ -38,8 +38,7 @@ type metadata = { packages : package list; discussion : string option }
 let render_markdown str =
   str |> String.trim
   |> Cmarkit.Doc.of_string ~strict:true
-  |> Hilite_markdown.transform
-  |> Cmarkit_html.of_doc ~safe:false
+  |> Markdown.Content.render ~syntax_highlighting:true
 
 let decode (tasks : task list) (fpath, (head, body)) =
   let ( let* ) = Result.bind in
