@@ -179,13 +179,18 @@ let is_prerelease github_tag =
       true
     with Not_found -> false
   in
-  has "alpha" || has "beta" || has "rc[0-9]"
+  has "alpha" || has "beta" || has "rc[0-9]" || has "preview"
 
 let tag_matches_ignore_patterns ignore_patterns github_tag =
+  let tag = String.lowercase_ascii github_tag in
   List.exists
     (fun pattern ->
       try
-        let _ = Str.search_forward (Str.regexp_string pattern) github_tag 0 in
+        let _ =
+          Str.search_forward
+            (Str.regexp_string (String.lowercase_ascii pattern))
+            tag 0
+        in
         true
       with Not_found -> false)
     ignore_patterns
