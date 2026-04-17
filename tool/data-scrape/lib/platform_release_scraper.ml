@@ -10,7 +10,11 @@
      dune exec -- tool/data-scrape/bin/scrape.exe platform_releases
     v} *)
 
-type release_feed_entry = { github_feed_url : string; tags : string list }
+type release_feed_entry = {
+  github_feed_url : string;
+  tags : string list;
+  ignore_patterns : string list;
+}
 
 let github_project_release_feeds =
   [
@@ -18,69 +22,85 @@ let github_project_release_feeds =
       {
         github_feed_url = "https://github.com/ocaml-ppx/ocamlformat";
         tags = [ "ocamlformat"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "dune",
       {
         github_feed_url = "https://github.com/ocaml/dune";
         tags = [ "dune"; "platform" ];
+        ignore_patterns = [ "alpha" ];
       } );
     ( "dune-release",
       {
         github_feed_url = "https://github.com/tarides/dune-release";
         tags = [ "dune-release"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "mdx",
       {
         github_feed_url = "https://github.com/realworldocaml/mdx";
         tags = [ "mdx"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "merlin",
       {
         github_feed_url = "https://github.com/ocaml/merlin";
         tags = [ "merlin"; "platform"; "editors" ];
+        ignore_patterns = [];
       } );
     ( "ocaml",
-      { github_feed_url = "https://github.com/ocaml/ocaml"; tags = [ "ocaml" ] }
-    );
+      {
+        github_feed_url = "https://github.com/ocaml/ocaml";
+        tags = [ "ocaml" ];
+        ignore_patterns = [];
+      } );
     ( "ocaml-lsp",
       {
         github_feed_url = "https://github.com/ocaml/ocaml-lsp";
         tags = [ "ocaml-lsp"; "platform"; "editors" ];
+        ignore_patterns = [];
       } );
     ( "ocp-indent",
       {
         github_feed_url = "https://github.com/OCamlPro/ocp-indent";
         tags = [ "ocp-indent"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "odoc",
       {
         github_feed_url = "https://github.com/ocaml/odoc";
         tags = [ "odoc"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "opam",
       {
         github_feed_url = "https://github.com/ocaml/opam/";
         tags = [ "opam"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "opam-publish",
       {
         github_feed_url = "https://github.com/ocaml-opam/opam-publish";
         tags = [ "opam-publish"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "ppxlib",
       {
         github_feed_url = "https://github.com/ocaml-ppx/ppxlib";
         tags = [ "ppxlib"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "utop",
       {
         github_feed_url = "https://github.com/ocaml-community/utop";
         tags = [ "utop"; "platform" ];
+        ignore_patterns = [];
       } );
     ( "omp",
       {
         github_feed_url = "https://github.com/ocaml-ppx/ocaml-migrate-parsetree";
         tags = [ "ocaml-migrate-parsetree"; "platform" ];
+        ignore_patterns = [];
       } );
   ]
 
@@ -151,8 +171,32 @@ let group_releases_by_project all =
       SMap.add t.project_name updated acc)
     SMap.empty all
 
-let write_release_announcement_file project github_tag tags (post : River.post)
-    =
+let is_prerelease github_tag =
+  let tag = String.lowercase_ascii github_tag in
+  let has pattern =
+    try
+      let _ = Str.search_forward (Str.regexp pattern) tag 0 in
+      true
+    with Not_found -> false
+  in
+  has "alpha" || has "beta" || has "rc[0-9]" || has "preview"
+
+let tag_matches_ignore_patterns ignore_patterns github_tag =
+  let tag = String.lowercase_ascii github_tag in
+  List.exists
+    (fun pattern ->
+      try
+        let _ =
+          Str.search_forward
+            (Str.regexp_string (String.lowercase_ascii pattern))
+            tag 0
+        in
+        true
+      with Not_found -> false)
+    ignore_patterns
+
+let write_release_announcement_file project github_tag tags ~ignore
+    ~experimental (post : River.post) =
   let yyyy_mm_dd =
     River.date post |> Option.get |> Ptime.to_rfc3339
     |> String.split_on_char 'T' |> List.hd
@@ -175,8 +219,8 @@ let write_release_announcement_file project github_tag tags (post : River.post)
       changelog = None;
       versions = None;
       authors = Some [];
-      experimental = Some false;
-      ignore = Some false;
+      experimental = Some experimental;
+      ignore = Some ignore;
       released_on_github_by;
       github_release_tags =
         (match
@@ -193,18 +237,22 @@ let write_release_announcement_file project github_tag tags (post : River.post)
 
 let check_if_uptodate project known_tags =
   let known_github_tags = SSet.of_list known_tags in
-  let check repo tags =
+  let check repo tags ignore_patterns =
     let scraped_versions = fetch_github repo in
     List.iter
       (fun { github_tag; post } ->
         if not (SSet.mem github_tag known_github_tags) then (
+          let ignore = tag_matches_ignore_patterns ignore_patterns github_tag in
+          let experimental = is_prerelease github_tag in
           warn "We don't have the release notes for %S github tag %S\n%!"
             project github_tag;
-          write_release_announcement_file project github_tag tags post))
+          write_release_announcement_file project github_tag tags ~ignore
+            ~experimental post))
       scraped_versions
   in
   match List.assoc_opt project github_project_release_feeds with
-  | Some { github_feed_url; tags } -> check github_feed_url tags
+  | Some { github_feed_url; tags; ignore_patterns } ->
+      check github_feed_url tags ignore_patterns
   | None ->
       warn
         "Don't know how to lookup project %S. Please update \
@@ -213,6 +261,6 @@ let check_if_uptodate project known_tags =
         project
 
 let scrape () =
-  Data_packer.Platform_release_parser.all ()
+  Data_packer.Platform_release_parser.all_including_ignored ()
   |> group_releases_by_project
   |> SMap.iter check_if_uptodate
