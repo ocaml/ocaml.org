@@ -66,7 +66,7 @@ may want to define a similar type using sets instead of lists.
  **adjacency-list form**. In our example:
 
 ```ocaml
-let adjacency_example = ['b', ['c'; 'f'];
+# let adjacency_example = ['b', ['c'; 'f'];
                          'c', ['b'; 'f'];
                          'd', [];
                          'f', ['b'; 'c'; 'k'];
