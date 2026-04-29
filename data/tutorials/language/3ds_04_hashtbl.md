@@ -17,7 +17,7 @@ differences that can be weighed when choosing between the two.
 One of the benefits of a hash table over a map is that instead of having a
 logarithmic time complexity (O(log n)), a [`hash
 table`](https://en.wikipedia.org/wiki/Hash_table) is able to retrieve
-information at a nearly instantaneous linear time complexity (O(1)).
+information at a nearly instantaneous constant time complexity (O(1)).
 
 A hash table data structure achieves efficient reads and writes by employing a
 hashing function that converts the key of a key/value pair into an
