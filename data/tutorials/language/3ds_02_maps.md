@@ -10,7 +10,9 @@ category: "Data Structures"
 
 In the most general sense, the [`Map`](/manual/api/Map.html) module lets you create _immutable_ key-value
 [associative array](https://en.wikipedia.org/wiki/Associative_array) for your types. More concretely,
-OCaml's `Map` module is implemented using a binary search tree algorithm to support fast lookups (of O(Log n)).
+OCaml's `Map` module is implemented using a [self-balancing binary search tree
+algorithm](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree)
+to support fast lookups (of O(Log n)).
 
 **Note**: The concept of a `Map` in this tutorial refers to a data structure that stores a
 set of key-value pairs. It is sometimes called a dictionary or an association table. This
@@ -25,6 +27,12 @@ the maps, and a function for comparing them.
 
 For a different implementation of an association table in OCaml's Standard Library, see the tutorial
 on [Hash Tables](/docs/hash-tables).
+Maps offer a functional interface that Hash Tables do not
+and maintain total ordering of the keys, allowing more operations;
+while Hash Tables have better search performance on average.
+For more on their differences and the applications of Maps, see the corresponding
+paragraph on wikipedia: [applications of balanced binary search
+trees](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Applications).
 
 ```ocaml
 # module StringMap = Map.Make(String);;

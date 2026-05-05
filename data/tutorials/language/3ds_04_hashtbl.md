@@ -19,6 +19,12 @@ logarithmic time complexity (O(log n)), a [`hash
 table`](https://en.wikipedia.org/wiki/Hash_table) is able to retrieve
 information at a nearly instantaneous constant time complexity (O(1)).
 
+**Note:** For more details on the differences between Hash Tables and Maps,
+try searching for [comparisons of associative array
+implementations](https://en.wikipedia.org/wiki/Associative_array#Comparison).
+O'Caml Maps use [self-balancing binary search
+trees](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree).
+
 A hash table data structure achieves efficient reads and writes by employing a
 hashing function that converts the key of a key/value pair into an
 algorithmically unique "fingerprint" known as a hash. OCaml has a built-in
