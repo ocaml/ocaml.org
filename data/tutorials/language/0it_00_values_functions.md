@@ -494,7 +494,7 @@ Functions don't have to be bound to a name unless they are [recursive](#recursiv
 - : int -> int = <fun>
 
 # fun s t -> s ^ " " ^ t ;;
-- : string -> string-> string = <fun>
+- : string -> string -> string = <fun>
 
 # function [] -> None | x :: _ -> Some x;;
 - : 'a list -> 'a option = <fun>
