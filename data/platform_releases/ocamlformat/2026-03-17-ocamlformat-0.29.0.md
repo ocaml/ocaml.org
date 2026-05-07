@@ -5,17 +5,6 @@ tags:
 - platform
 contributors:
 changelog: |
-  ### Highlight
-
-  - \* Support OCaml 5.5 syntax
-    (#2772, #2774, #2775, #2777, #2780, #2781, #2782, #2783, @Julow)
-    The update brings several tiny changes, they are listed below.
-
-  - \* Update Odoc's parser to 3.0 (#2757, @Julow)
-    The indentation of code-blocks containing OCaml code is reduced by 2 to avoid
-    changing the generated documentation. The indentation within code-blocks is
-    now significative in Odoc and shows up in generated documentation.
-
   ### Added
 
   - Added option `letop-punning` (#2746, @WardBrian) to control whether
@@ -138,6 +127,6 @@ github_release_tags:
 
 We're happy to announce the release of OCamlFormat 0.29.0.
 
-This release adds support for OCaml 5.5 syntax ([#2772](https://github.com/ocaml-ppx/ocamlformat/pull/2772), [#2774](https://github.com/ocaml-ppx/ocamlformat/pull/2774), [#2775](https://github.com/ocaml-ppx/ocamlformat/pull/2775), [#2777](https://github.com/ocaml-ppx/ocamlformat/pull/2777), [#2780](https://github.com/ocaml-ppx/ocamlformat/pull/2780), [#2781](https://github.com/ocaml-ppx/ocamlformat/pull/2781), [#2782](https://github.com/ocaml-ppx/ocamlformat/pull/2782), [#2783](https://github.com/ocaml-ppx/ocamlformat/pull/2783)) and updates the vendored Odoc parser to 3.0 ([#2757](https://github.com/ocaml-ppx/ocamlformat/pull/2757)), which reduces the indentation of OCaml code-blocks by two and makes indentation within code-blocks significant in generated documentation. The default `ocaml-version` is now 5.4 ([#2750](https://github.com/ocaml-ppx/ocamlformat/pull/2750)), so the `effect` keyword is recognized without extra configuration (code that uses `effect` as an identifier must set `ocaml-version=5.2`). A new `letop-punning` option (`preserve` by default) controls whether bindings like `let+ x = x in ...` are punned to `let+ x in ...` ([#2746](https://github.com/ocaml-ppx/ocamlformat/pull/2746), [#2747](https://github.com/ocaml-ppx/ocamlformat/pull/2747)).
+This release adds support for OCaml 5.5 syntax ([#2772](https://github.com/ocaml-ppx/ocamlformat/pull/2772), [#2774](https://github.com/ocaml-ppx/ocamlformat/pull/2774), [#2775](https://github.com/ocaml-ppx/ocamlformat/pull/2775), [#2777](https://github.com/ocaml-ppx/ocamlformat/pull/2777), [#2780](https://github.com/ocaml-ppx/ocamlformat/pull/2780), [#2781](https://github.com/ocaml-ppx/ocamlformat/pull/2781), [#2782](https://github.com/ocaml-ppx/ocamlformat/pull/2782), [#2783](https://github.com/ocaml-ppx/ocamlformat/pull/2783)); the update brings several tiny formatting changes, listed in the full changelog below. The vendored Odoc parser is updated to 3.0 ([#2757](https://github.com/ocaml-ppx/ocamlformat/pull/2757)): the indentation of OCaml code-blocks is reduced by two to avoid changing the generated documentation, and indentation within code-blocks is now significant in Odoc and shows up in generated documentation. The default `ocaml-version` is now 5.4 ([#2750](https://github.com/ocaml-ppx/ocamlformat/pull/2750)), so the `effect` keyword is recognized without extra configuration (code that uses `effect` as an identifier must set `ocaml-version=5.2`). A new `letop-punning` option (`preserve` by default) controls whether bindings like `let+ x = x in ...` are punned to `let+ x in ...` ([#2746](https://github.com/ocaml-ppx/ocamlformat/pull/2746), [#2747](https://github.com/ocaml-ppx/ocamlformat/pull/2747)).
 
 For more details, see the full changelog below.
