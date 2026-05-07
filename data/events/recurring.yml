@@ -45,7 +45,7 @@ recurring:
     city: "Cambridge"
     location:
       lat: 52.2053
-      long: 0.1218 
+      long: 0.1218
     url: https://www.meetup.com/Cambridge-NonDysFunctional-Programmers/
   - title: "MirageOS Hack Retreat"
     slug: "mirageos-hack-retreat"
@@ -60,7 +60,7 @@ recurring:
     slug: "s-repls-programming-languages-seminar"
     event_type: seminar
     country: "United Kingdom"
-    city: "London"
+    city: "England"
     url: https://srepls.github.io/
   - title: "OCaml Retreat"
     slug: "ocaml-retreat"
@@ -86,3 +86,9 @@ recurring:
     country: "India"
     city: "online"
     url: https://reason-ocaml.in
+  - title: "Caml In The Capital"
+    slug: "caml-in-the-capital"
+    event_type: meetup
+    country: "United Kingdom"
+    city: "London"
+    url: https://caml-in-the-capital.github.io
