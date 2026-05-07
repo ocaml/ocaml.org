@@ -11,19 +11,17 @@ In this February to April 2026 edition, we are excited to bring you the latest o
 
 You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/newsletters/ocaml-platform-newsletter-7305270694567661568/)!
 
+**If you only read three things**: OCaml 5.5.0~beta1 with a relocatable compiler; the OCaml 5.4.1 / 4.14.3 security patches (Marshal hardening); the OCamlFormat 0.29.0 upgrade caveat (CI diff churn).
+
 **Highlights:**
 
-- **OCaml 5.5.0 reaches beta**: After three alpha releases — the second alpha was unreleased due to a bootstrapping issue with the relocatable compiler — OCaml 5.5.0~beta1 lands on April 20, 2026. Headline language additions include modular explicits, polymorphic function parameters, and generalised local bindings. The relocatable compiler is the standout deployment-side change: the compiler can be moved between directories without losing functionality, simplifying packaging and binary distribution. Most associated tools are now available in preview form, and a final release is targeted for May.
-- **Security: OCaml 5.4.1 and 4.14.3 harden Marshal**: Maintenance releases on February 17 patch [OSEC-2026-01](https://github.com/ocaml/security-advisories/) by hardening `intern.c` against malicious inputs, plus correctness fixes including a long-standing miscompilation of unsafe int32/int64/nativeint array accesses present since 4.04, a `Lazy.force` race fix on 4.14, and a memory-corruption fix on demarshaling exceptions.
-- **Dune 3.22 series**: 3.22.0 (Mar 19) sandboxes `(test)`/`(tests)` stanzas by default, adds the long-requested `dune runtest <file>` for individual tests, introduces a `DUNE_JOBS` env var, migrates the cache layout under `$DUNE_CACHE_ROOT/db`, fixes Windows cache handling, ships the `dune-action-trace` library and OxCaml parameterised library support. 3.22.1 fixes a `dune test` crash regression for workspaces without a "default" context. 3.22.2 reverts a 3.22.0 `--diff-command` regression that replaced missing files with `/dev/null`.
-- **Editor tools sync up for OCaml 5.5**: The dual stable release of OCaml-LSP 1.26.0 and Merlin 5.7.0-504 (April 10) ships an experimental `refactor-extract-region` / `ocamllsp/refactorExtract` command, a new `locate_types` custom request for navigating to types appearing inside a hovered type, and `textDocument/rangeFormatting` support, plus several signature-help UX fixes. Preview releases (`merlin v5.7-505~preview`, `ocaml-lsp 1.26.0-5.5~preview`) and a Merlin 5.7.1-504 patch round out the period.
-- **OCamlFormat 0.29.0**: OCaml 5.5 syntax support, the vendored Odoc parser updated to 3.0, a new `letop-punning` option, and the default `ocaml-version` raised to 5.4. **Heads-up for teams gating CI on `ocamlformat --check`**: four `*`-marked formatting changes will produce diff churn on first run; review carefully before merging.
-- **opam 2.5.1**: Security fix (OSEC-2026-03) for `.install` field destinations escaping their scope, plus several other bug fixes.
-- **opam-publish 3.0.0**: Major release with breaking changes — cmdliner 2.0 prefix-matching is gone, the deprecated `--split` option has been removed, and the `github-unix` dependency has been dropped. Quality-of-life fixes also remove long-standing release-script friction: the default branch is now queried from upstream (so forks that have migrated to `main` work), and the fork name is queried from GitHub (so forks not named `opam-repository` are supported).
-- **dune-release 2.2.1**: Adds a `--prerelease` CLI flag for marking GitHub releases as prereleases.
-- **ppxlib 0.38.0**: OCaml 5.5 support, plus support for OCaml 5.4 labeled tuples and bivariant type parameters, new APIs for floating-attribute PPXes, and a behavior change where duplicate attributes now raise instead of looping silently.
-- **utop 2.17.0**: OCaml 5.5 support, and `utop.el` decoupled from `tuareg-mode` so other Emacs major modes (e.g. `neocaml`) can integrate via a new compatibility alist.
-- **MDX 2.5.2**: Toplevel-support compatibility fix for OCaml 5.5.
+- **OCaml 5.5.0 reaches beta** (Apr 20). The relocatable compiler — movable between directories without breaking — is the headline deployment-side change, simplifying packaging and binary distribution. New language features land too: modular explicits, polymorphic function parameters, generalised local bindings. Final release targeted for May; tools are in preview now.
+- **Security: OCaml 5.4.1 / 4.14.3** (Feb 17) patch OSEC-2026-01 by hardening Marshal (`intern.c`) against malicious inputs. Anyone deserialising untrusted data should upgrade. opam 2.5.1 (Apr 16) ships OSEC-2026-03 (`.install` paths escaping their scope) — distribution maintainers should upgrade or backport.
+- **Dune 3.22.0** (Mar 19): tests `(test)`/`(tests)` are now sandboxed by default — may surface latent flakiness on upgrade. Long-requested `dune runtest <file>` runs individual tests. New `DUNE_JOBS` env var; cache layout migrates to `$DUNE_CACHE_ROOT/db`. 3.22.1 / 3.22.2 follow with regression fixes.
+- **Editor tools dual release** (Apr 10) — OCaml-LSP 1.26.0 + Merlin 5.7.0-504. New: `refactor-extract-region` (extract to let-binding), `locate_types` (jump to types inside a hovered type), `textDocument/rangeFormatting`. Preview builds for OCaml 5.5 also shipped.
+- **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax support, Odoc parser to 3.0, default `ocaml-version=5.4`. **Heads-up**: four `*`-marked formatting changes will produce diff churn on first run — teams gating CI on `ocamlformat --check` should plan a deliberate upgrade.
+- **opam-publish 3.0.0** (Feb 20): major release with breaking changes — cmdliner 2.0 ends prefix-matching, `--split` is removed. Quality-of-life: default-branch and fork-name auto-detection (release scripts targeting forks renamed to `main` now work).
+- **Other releases**: ppxlib 0.38.0 (PPX support for OCaml 5.5 + 5.4 labeled tuples and bivariant type parameters), utop 2.17.0 (OCaml 5.5 + `utop.el` decoupled from `tuareg-mode`), MDX 2.5.2 (OCaml 5.5 compatibility), dune-release 2.2.1 (`--prerelease` flag).
 
 **Stable Releases:**
 
@@ -56,27 +54,18 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 ### Maintenance Releases: 5.4.1 and 4.14.3
 
-[OCaml 5.4.1 and 4.14.3](https://ocaml.org/changelog/2026-02-17-ocaml-541-and-4143) (February 17, 2026) are maintenance releases of the 5.4 and 4.14 stable branches, headlined by [OSEC-2026-01](https://github.com/ocaml/security-advisories/): the `intern.c` Marshal implementation has been hardened against malicious inputs. Anyone deserialising untrusted data should upgrade.
-
-Other notable correctness fixes:
-
-- **4.14.3 #13448**: code-generation bug on unsafe `int32`/`int64`/`nativeint` array accesses, present since OCaml 4.04. A long-standing miscompilation now fixed.
-- **4.14.3 #13430**: memory-safety fix on `Lazy.force` races.
-- **4.14.3 #14007**: memory-corruption fix on exceptions raised during demarshaling.
-- **5.4.1 #14010**: miscompilation/liveness errors in string operations.
-- **5.4.1 #14417**: nested `-pack` fix on macOS.
-- **5.4.1 TSan fixes** (#14065, #14213, #14255): GCC 15 build, shadow-stack crashes, many-argument C calls — relevant to anyone using ThreadSanitizer with OCaml 5.
+[OCaml 5.4.1 and 4.14.3](https://ocaml.org/changelog/2026-02-17-ocaml-541-and-4143) (February 17, 2026) are maintenance releases of the 5.4 and 4.14 stable branches. The headline is [OSEC-2026-01](https://github.com/ocaml/security-advisories/): the `intern.c` Marshal implementation has been hardened against malicious inputs — anyone deserialising untrusted data should upgrade. The releases also ship several correctness fixes, including a long-standing miscompilation of unsafe int32/int64/nativeint array accesses present since 4.04 (4.14.3 #13448), a `Lazy.force` race fix (#13430), a demarshal-exception memory-corruption fix (#14007), and TSan-related fixes for OCaml 5 users (5.4.1 #14065/#14213/#14255). See the release notes for the full list.
 
 ### OCaml 5.5.0 Progresses to Beta
 
 The OCaml 5.5.0 release cycle moved through three alphas and into a first beta during this period. **5.5.0 is the first OCaml release in a while to ship multiple notable language extensions**, and the first to ship a relocatable compiler.
 
-**Headline language and runtime features in 5.5.0:**
+**Headline features in 5.5.0:**
 
-- **Modular explicits**: function arguments can now carry a module signature dependency (`(module M : S) -> t[M]`), enabling module-dependent function arguments without full functor syntax.
-- **Polymorphic function parameters**: functions can now take arguments with explicit polymorphic types (e.g. `(getter : 'a. 'a t -> 'a)`), enabling clean ST-monad-style and rank-2 patterns previously requiring records.
-- **Generalised local bindings**: `let module`, `let exception`, `let open`, and `let type` are now supported in expressions in more contexts.
-- **Relocatable compiler**: the compiler and its associated tools can be moved/copied between directories after installation without breaking functionality. Significant for opam, Docker, sandboxed installs, and binary distribution. (See [the relocatable-OCaml announcement](https://discuss.ocaml.org/t/relocatable-ocaml/17253) referenced in the previous newsletter.)
+- **Relocatable compiler** (deployment-side): the compiler and its associated tools can be moved/copied between directories after installation without breaking functionality. Significant for opam, Docker, sandboxed installs, and binary distribution. (See [the relocatable-OCaml announcement](https://discuss.ocaml.org/t/relocatable-ocaml/17253) referenced in the previous newsletter.)
+- **Modular explicits** (language): function arguments can now carry a module signature dependency (`(module M : S) -> t[M]`), enabling module-dependent function arguments without full functor syntax.
+- **Polymorphic function parameters** (language): functions can now take arguments with explicit polymorphic types (e.g. `(getter : 'a. 'a t -> 'a)`), enabling clean ST-monad-style and rank-2 patterns previously requiring records.
+- **Generalised local bindings** (language): `let module`, `let exception`, `let open`, and `let type` are now supported in expressions in more contexts.
 - **Standard library expansions**: notably `String.split_*`, `String.replace_*`, `String.includes`, `Option.product`, `List.split_map`, `Lazy.Mutexed`.
 
 **Release timeline:**
@@ -152,6 +141,8 @@ Four Dune releases shipped during this period: a 3.21 patch and the 3.22.x serie
 
 ### Merlin and OCaml-LSP
 
+This is the cycle in which Merlin and OCaml-LSP graduate from "navigate and complete" to "navigate, complete, and refactor" — the April 10 dual release lands first-class refactor-extract, type-aware navigation, and range formatting, all available to any LSP client. Two OCaml 5.5 preview builds and a 5.4-series patch round out the period.
+
 A coordinated [dual release of OCaml-LSP 1.26.0 and Merlin 5.7.0-504](https://ocaml.org/changelog/2026-04-10-merlin-570-504) shipped on April 10, 2026, together with two preview releases for the OCaml 5.5 series.
 
 **[Merlin 5.7-505~preview](https://ocaml.org/backstage/2026-02-27-merlin-v57-505preview) (Feb 27)** — preview release for the OCaml 5.5 series. Highlights:
@@ -202,14 +193,7 @@ A coordinated [dual release of OCaml-LSP 1.26.0 and Merlin 5.7.0-504](https://oc
 
 ### ppxlib
 
-[ppxlib 0.38.0](https://ocaml.org/changelog/2026-03-20-ppxlib-0380) (March 20, 2026) is a substantive release for PPX maintainers and downstream library authors:
-
-- OCaml 5.5 support ([#622](https://github.com/ocaml-ppx/ppxlib/pull/622)).
-- OCaml 5.4 labeled tuples support ([#607](https://github.com/ocaml-ppx/ppxlib/pull/607)) and bivariant type parameters ([#629](https://github.com/ocaml-ppx/ppxlib/pull/629)) — PPXes can now be used alongside these new 5.4 language features.
-- New API: `Attribute.Floating.declare_with_attr_loc` / `.declare_with_name_loc` ([#631](https://github.com/ocaml-ppx/ppxlib/pull/631)) for PPX authors writing floating attributes.
-- Effect pattern utilities ([#624](https://github.com/ocaml-ppx/ppxlib/pull/624)) — new `Ast_builder` / `Ast_pattern` helpers, plus a migration bug fix for `ppat_effects` between 5.4 and 5.3.
-- **Behavior change**: duplicate attributes now raise instead of looping silently ([#613](https://github.com/ocaml-ppx/ppxlib/pull/613)) — could surface latent bugs in user code that previously hung.
-- Bug fix: `Location.none` no longer inserted into `Longident`s on 5.4+ ([#619](https://github.com/ocaml-ppx/ppxlib/pull/619)).
+[ppxlib 0.38.0](https://ocaml.org/changelog/2026-03-20-ppxlib-0380) (March 20, 2026) adds OCaml 5.5 support ([#622](https://github.com/ocaml-ppx/ppxlib/pull/622)) and rounds out OCaml 5.4 PPX coverage with labeled tuples ([#607](https://github.com/ocaml-ppx/ppxlib/pull/607)) and bivariant type parameters ([#629](https://github.com/ocaml-ppx/ppxlib/pull/629)). **PPX maintainers**: a behavior change ([#613](https://github.com/ocaml-ppx/ppxlib/pull/613)) raises on duplicate attributes instead of looping silently, which could surface latent bugs in user code; new floating-attribute APIs ([#631](https://github.com/ocaml-ppx/ppxlib/pull/631)) and effect-pattern helpers ([#624](https://github.com/ocaml-ppx/ppxlib/pull/624)) are also worth a look.
 
 ### utop
 
