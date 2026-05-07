@@ -23,6 +23,10 @@ github_release_tags:
 
 We're happy to announce the release of opam-publish 3.0.0.
 
-This major release contains breaking changes: the deprecated `--split` option has been removed ([#194](https://github.com/ocaml-opam/opam-publish/pull/194)), and following the upgrade to cmdliner 2.0, option names can no longer be abbreviated to an unambiguous prefix (for example, `--dry` is no longer accepted as an alias of `--dry-run`) ([#202](https://github.com/ocaml-opam/opam-publish/pull/202)). The `github-unix` dependency has also been dropped ([#196](https://github.com/ocaml-opam/opam-publish/pull/196)).
+This major release contains breaking changes:
+
+- The deprecated `--split` option has been removed ([#194](https://github.com/ocaml-opam/opam-publish/pull/194)).
+- Following the upgrade to cmdliner 2.0, option names can no longer be abbreviated to an unambiguous prefix (for example, `--dry` is no longer accepted as an alias of `--dry-run`) ([#202](https://github.com/ocaml-opam/opam-publish/pull/202)).
+- The `github-unix` dependency has been dropped ([#196](https://github.com/ocaml-opam/opam-publish/pull/196)).
 
 For more details, see the full changelog below.
