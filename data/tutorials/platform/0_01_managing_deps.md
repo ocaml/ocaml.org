@@ -21,7 +21,7 @@ opam update
 Then install the project's dependencies:
 
 ```shell
-opam install . --deps-only --with-test --with-doc
+opam install . --deps-only --with-test --with-doc --with-dev-setup
 ```
 
 If you prefer to install your dependencies in a global switch instead, select it first:
@@ -29,7 +29,7 @@ If you prefer to install your dependencies in a global switch instead, select it
 ```shell
 opam switch set <switch_name>
 eval $(opam env)
-opam install . --deps-only --with-test --with-doc
+opam install . --deps-only --with-test --with-doc --with-dev-setup
 ```
 
 Once the dependencies have been installed successfully, and assuming the project uses Dune as the build system, you can compile it with:
@@ -185,6 +185,7 @@ Each dependency in opam can be tagged with a flag to indicate when it is needed:
 - **Build** (`build`): used only to build the project
 - **Test** (`with-test`): used only to run tests
 - **Documentation** (`with-doc`): used only to generate documentation
+- **Development** (`with-dev-setup`): used for development
 
 In `dune-project`, flags look like this:
 
