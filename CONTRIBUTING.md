@@ -99,6 +99,14 @@ If you notice that a job opportunity is outdated (e.g., already fulfilled or not
 
 > Contribute to the [Success Stories](https://ocaml.org/success-stories).
 
+Success stories are drafted by the ocaml.org maintainers through an interview with the featured company. They cannot be contributed by third parties.
+
+If your company would like to be featured, please [open an issue](https://github.com/ocaml/ocaml.org/issues/new) or otherwise reach out to a maintainer.
+
+If you know a company that uses OCaml and might be a good fit, please [open an issue](https://github.com/ocaml/ocaml.org/issues/new) so a maintainer can reach out.
+
+The remainder of this section documents the file format used by maintainers when adding a new success story to the repository.
+
 You can contribute a new success story by adding a Markdown file in [data/success_stories/](data/success_stories/). For instance: [janestreet.md](data/success_stories/janestreet.md).
 
 The success stories should be structured in the following way:
@@ -137,6 +145,12 @@ For instance: [cornell.md](data/academic_institutions/cornell.md).
 ### <a name="content-industrial-user"></a>Add an Industrial User
 
 > Contribute to the [Industrial Users](https://ocaml.org/industrial-users).
+
+Companies are welcome to add themselves to the list.
+
+**If you are not affiliated with the company you want to add, please contact the company first and get their approval before opening a pull request.** Listings display the company's logo and make a public claim about their use of OCaml, which raises trademark and other legal concerns. A public citation that the company uses OCaml is *not* required, but the company's explicit approval *is*.
+
+If you've come across a company that uses OCaml and don't want to reach out yourself, please [open an issue](https://github.com/ocaml/ocaml.org/issues/new) so a maintainer can contact them.
 
 Add a new industrial user by creating a new Markdown file in [data/industrial_users/](data/industrial_users/). When submitting an industrial user to our webpage, please structure the data as follows:
   
