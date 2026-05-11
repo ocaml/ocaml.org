@@ -122,8 +122,8 @@ Do not use dashes in names; use underscores instead. For example: `x_plus_y` wor
 Bindings can be given special comments (sometimes called "docstrings") that editors and tooling treat as related to the binding. These are denoted by adding a second `*` to the opening of the comment. For example:
 
 ```ocaml
-(** Feet in a mile *)
-let feet = 5280;;
+# (** Feet in a mile *)
+  let feet = 5280;;
 val feet : int = 5280
 ```
 
