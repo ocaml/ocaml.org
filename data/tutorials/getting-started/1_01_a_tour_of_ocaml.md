@@ -96,7 +96,9 @@ val u : int list = [1; 2; 3; 4]
 
 (`let` and `val` are explained next in the [Bindings](#bindings) section)
 
-The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]`. Note that the first list has been given a name using the `let … = …` construction, which is detailed below. The most primitive operation on lists is to add a new element at the front of an existing list. This is done using the “cons” operator, written with the double colon operator `::`.
+The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]`. Note that the first list has been given a name (u) using the `let … = …` construction. 
+
+The most primitive operation on lists is to add a new element at the front of an existing list. This is done using the double colon `::`, "cons" operator.
 
 ```ocaml
 # 9 :: u;;
@@ -110,7 +112,9 @@ In OCaml, `if … then … else …` is not a statement; it is an expression.
 - : int = 10
 ```
 
-The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions. The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
+The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions. The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. 
+
+Also note parentheses are not needed here, around the `if`, which is often the case in OCaml.
 
 ## Bindings
 
@@ -126,9 +130,11 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are _immutable_, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
+Bindings in OCaml are _immutable_, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. 
 
-There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
+It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
+
+Inside a lexical scope, names have a single value (the one it was bound to with `let`). There is no ambiguity as there is no overloading in OCaml.
 
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
 
