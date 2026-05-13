@@ -19,7 +19,15 @@ Please ensure you've installed OCaml and set up the environment, as described on
 We recommend that you execute the examples we provide, and to experiment with them, to get a feel for coding in OCaml.
 To do this, you can use UTop (Universal Toplevel).
 
-UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`. For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
+UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`.
+
+The examples below follow a simple format. The first line is your input into UTop. The second line is the output from UTop.
+```ocaml
+# 50 + 50;;
+- : int = 100
+```
+
+For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
 
 Some of the examples in this tour include comments. Comments in OCaml start with `(*` and end with `*)` and can be nested. Since they are ignored by OCaml, they can be used anywhere whitespace is permitted. When entering the code below into UTop, the comments can be left out. Here are some examples:
 
@@ -55,7 +63,7 @@ Let's start with a simple expression:
 - : int = 2500
 ```
 
-In OCaml, everything has a value, and every value has a type. The above example says, “`50 * 50` is an expression that has type `int` (integer) and evaluates to `2500`.” Since it is an anonymous expression, the character `-` appears instead of a name.
+In OCaml, everything has a value, and every value has a type. The above example says, the input “`50 * 50` is an expression that has type `int` (integer) and evaluates to `2500`.” Since it is an anonymous expression, the character `-` appears instead of a name, in the output.
 
 The double semicolon `;;` at the end tells the toplevel to evaluate and print the result of the given phrase.
 
