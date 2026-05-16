@@ -2972,6 +2972,27 @@
   author_uri: https://www.youtube.com/channel/UCwG9512Wm7jSS6Iqshz4Dpg
   source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLyrlk8Xaylp7Tq5-ZN6jkir-sYrhGi_0E
   source_title: OCAML Workshop at ICFP 2023
+- title: Performance Engineering on Hard Mode with Andrew Hunter
+  url: https://www.youtube.com/watch/uXLRWkdi0o8?version=3
+  thumbnail: https://i2.ytimg.com/vi/uXLRWkdi0o8/hqdefault.jpg
+  description: "Andrew Hunter makes code really, really fast. Before joining Jane
+    Street, he worked for seven years at Google on multithreaded architecture, and
+    was a tech lead for tcmalloc, Google\u2019s world-class scalable malloc implementation.
+    In this episode, Andrew and Ron discuss how, paradoxically, it can be easier to
+    optimize systems at hyperscale because of the impact that even miniscule changes
+    can have. Finding performance wins in trading systems\u2014which operate at a
+    smaller scale, but which have bursty, low-latency workloads\u2014is often trickier.
+    Andrew explains how he approaches the problem, including his favorite profiling
+    techniques and tools for visualizing traces; the unique challenges of optimizing
+    OCaml versus C++; and when you should and shouldn\u2019t care about nanoseconds.
+    They also touch on the joys of musical theater, and how to pass an interview when
+    you\u2019re sleep-deprived.\n\nYou can find the transcript for this episode along
+    with links to related work at https://signalsandthreads.com/performance-engineering-on-hard-mode/."
+  published: 2023-11-29T17:57:04+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: "Talking with Louis Roche\u0301 about OCaml and Ahrefs"
   url: https://www.youtube.com/watch/o2u9irv1tnE
   thumbnail: https://i4.ytimg.com/vi/o2u9irv1tnE/hqdefault.jpg
@@ -3022,6 +3043,23 @@
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
+- title: The Future of Programming with Richard Eisenberg
+  url: https://www.youtube.com/watch/K6_fvDxookQ?version=3
+  thumbnail: https://i4.ytimg.com/vi/K6_fvDxookQ/hqdefault.jpg
+  description: "Richard Eisenberg is one of the core maintainers of Haskell. He recently
+    joined Jane Street\u2019s Tools and Compilers team, where he hacks on the OCaml
+    compiler. He and Ron discuss the powerful language feature that got him into PL
+    design in the first place\u2014dependent types\u2014and its role in a world where
+    AIs can (somewhat) competently write your code for you. They also discuss the
+    differences between Haskell and OCaml; the perils of trying to make a language
+    that works for everybody; and how best a company like Jane Street can collaborate
+    with the open source community.\n\nYou can find the transcript for this episode
+    and all past episodes at signalsandthreads.com."
+  published: 2023-05-18T15:34:11+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: 'emelletv #18 with KC about OCaml, Multicore and runtimes'
   url: https://www.youtube.com/watch/eSLdBuaVSFM
   thumbnail: https://i2.ytimg.com/vi/eSLdBuaVSFM/hqdefault.jpg
