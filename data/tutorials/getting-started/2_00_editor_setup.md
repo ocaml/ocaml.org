@@ -124,7 +124,7 @@ OCaml-eglot [README](https://github.com/tarides/ocaml-eglot/blob/main/README.md)
 
 #### Structured Navigation and Editing
 
-> **Note:** For advanced structured navigation and editing, OCaml is supported by [Combobulate](https://github.com/mickeynp/combobulate). It leverages `tree-sitter` to provide syntax-aware movement and structural editing for your OCaml code. You can learn more about setting up Combobulate with OCaml in the [Combobulate documentation](https://github.com/mickeynp/combobulate/blob/master/README.rst).
+**Note:** For advanced structured navigation and editing, OCaml is supported by [Combobulate](https://github.com/mickeynp/combobulate). It leverages `tree-sitter` to provide syntax-aware movement and structural editing for your OCaml code. You can learn more about setting up Combobulate with OCaml in the [Combobulate documentation](https://github.com/mickeynp/combobulate/blob/master/README.rst).
 
 ## Vim
 
