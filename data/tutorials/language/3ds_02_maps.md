@@ -27,9 +27,10 @@ the maps, and a function for comparing them.
 
 For a different implementation of an association table in OCaml's Standard Library, see the tutorial
 on [Hash Tables](/docs/hash-tables).
-Maps offer a functional interface that Hash Tables do not
-and maintain total ordering of the keys, allowing more operations;
-while Hash Tables have better search performance on average.
+
+`Map` offers a functional interface that `Hashtbl` does not.
+`Map` also maintain total ordering of the keys, allowing more operations;
+while hash tables have better search performance on average.
 For more on their differences and the applications of Maps, see the corresponding
 paragraph on wikipedia: [applications of balanced binary search
 trees](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Applications).
