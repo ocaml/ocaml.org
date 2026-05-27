@@ -5,7 +5,7 @@ tags: [wasm, platform]
 
 [WASI](https://wasi.dev/) (the WebAssembly System Interface) lets WebAssembly modules run on standalone runtimes, without a browser, or JavaScript host.  A working WASI backend for [wasm_of_ocaml](https://ocsigen.org/js_of_ocaml/latest/manual/wasm_overview) has been sitting on a branch as [PR #1831](https://github.com/ocsigen/js_of_ocaml/pull/1831), authored by [Jérôme Vouillon](https://github.com/vouillon). The prototype works today, but no one that we know of is currently using it in production, and that's the main thing stopping it from moving forward.
 
-Completing this work would enable OCaml to officially run on standalone Wasm runtimes (serverless functions, plugin sandboxes, edge compute, CLI tools shipped as portable `.wasm` binaries).
+Completing this work would enable OCaml to officially run on standalone Wasm runtimes: serverless functions (e.g. [Fermyon Spin](https://www.fermyon.com/spin)), plugin sandboxes (e.g. [Shopify Functions](https://shopify.dev/docs/apps/build/functions/programming-languages/webassembly-for-functions)), edge compute (e.g. [Fastly Compute](https://www.fastly.com/products/edge-compute)), and CLI tools shipped as portable `.wasm` binaries (run on [Wasmtime](https://wasmtime.dev/) or [Wasmer](https://wasmer.io/)).
 
 ## What works today (on the Branch)
 
