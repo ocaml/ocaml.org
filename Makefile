@@ -40,6 +40,10 @@ start: all ## Run the produced executable
 test: ## Run the unit tests
 	opam exec -- dune build --root . @runtest
 
+.PHONY: test_code_examples
+test_code_examples: ## Checks exercices and tutorials code blocks
+	opam exec -- dune runtest data
+
 .PHONY: clean
 clean: ## Clean build artifacts and other generated files
 	opam exec -- dune clean --root .
