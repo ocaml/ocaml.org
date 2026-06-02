@@ -5,7 +5,9 @@ tags: [wasm, platform]
 
 [WASI](https://wasi.dev/) (the WebAssembly System Interface) lets WebAssembly modules run on standalone runtimes, without a browser, or JavaScript host.  A working WASI backend for [wasm_of_ocaml](https://ocsigen.org/js_of_ocaml/latest/manual/wasm_overview) has been sitting on a branch as [PR #1831](https://github.com/ocsigen/js_of_ocaml/pull/1831), authored by [Jérôme Vouillon](https://github.com/vouillon). The prototype works today, but no one that we know of is currently using it in production, and that's the main thing stopping it from moving forward.
 
-Completing this work would enable OCaml to officially run on standalone Wasm runtimes: serverless functions (e.g. [Fermyon Spin](https://www.fermyon.com/spin)), plugin sandboxes (e.g. [Shopify Functions](https://shopify.dev/docs/apps/build/functions/programming-languages/webassembly-for-functions)), edge compute (e.g. [Fastly Compute](https://www.fastly.com/products/edge-compute)), and CLI tools shipped as portable `.wasm` binaries (run on [Wasmtime](https://wasmtime.dev/) or [Wasmer](https://wasmer.io/)).
+The good news is that WASI itself is a solved problem here: the backend targets [WASI preview1](https://github.com/WebAssembly/WASI/blob/main/legacy/preview1/docs.md), which essentially every runtime supports. The output already runs fully on the [Wizard engine](https://github.com/titzer/wizard-engine) today, and on [Wasmtime](https://wasmtime.dev/) and Node for code that doesn't use effects.
+
+What unlocks the rest is a handful of WebAssembly *proposals* maturing across the ecosystem — Wasm GC, tail calls, exception handling, and [stack switching](https://github.com/WebAssembly/stack-switching) (used for OCaml's effects). These are landing engine by engine, and as they stabilize OCaml is poised to target the whole class of standalone Wasm runtimes: serverless functions (e.g. [Fermyon Spin](https://www.fermyon.com/spin)), plugin sandboxes (e.g. [Shopify Functions](https://shopify.dev/docs/apps/build/functions/programming-languages/webassembly-for-functions)), edge compute (e.g. [Fastly Compute](https://www.fastly.com/products/edge-compute)), and portable CLI `.wasm` binaries (e.g. [Wasmer](https://wasmer.io/)). Since Spin and Fastly are both built on Wasmtime, progress there carries straight through to those platforms.
 
 ## What works today (on the Branch)
 
@@ -28,7 +30,7 @@ wasm_of_ocaml --enable wasi --enable exnref foo.byte -o foo.js
 wasmtime -W=all-proposals=y foo.assets/code.wasm
 ```
 
-The generated `foo.js` also works as a Node wrapper that runs the WASI binary under Node's WASI support. CI exercises all three paths: Wizard, wasmtime, and Node.
+The generated `foo.js` also works as a Node wrapper that runs the WASI binary under Node's WASI support. CI exercises all three paths: Wizard, wasmtime, and Node. Note that only Wizard runs effect-using programs unflagged — wasmtime and Node cover the rest, since neither yet ships GC-integrated stack switching in a stable build.
 
 Under the hood, the PR adds around 5,600 lines across 100+ files: a WASI-compatible virtual filesystem (`fs.wat`), Unix bindings covering file operations, process info, time, and permissions, a small libc in `libc.c`, WASI memory management and errno mapping, and the Node wrapper. It's substantial work, and it's already standing on its own in CI against real runtimes.
 
