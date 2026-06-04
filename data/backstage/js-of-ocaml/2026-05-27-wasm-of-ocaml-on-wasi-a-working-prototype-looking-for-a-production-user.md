@@ -20,17 +20,17 @@ wasm_of_ocaml --enable wasi foo.byte -o foo.js
 The output is the usual `foo.js` plus a `foo.assets/` directory containing the `.wasm` binary. Run the binary directly on the [Wizard engine](https://github.com/titzer/wizard-engine):
 
 ```shell
-wizeng.x86-64-linux -ext:stack-switching foo.assets/code.wasm
+wizeng.x86-64-linux --ext:stack-switching foo.assets/code.wasm
 ```
 
-The same output also runs on [wasmtime](https://github.com/bytecodealliance/wasmtime). The newer `exnref`-based exception handling is now the default when producing WASI binaries, so no extra compile-time flags are needed:
+The same output also runs on [wasmtime](https://github.com/bytecodealliance/wasmtime) (a recent dev build). The newer `exnref`-based exception handling is now the default when producing WASI binaries, so no extra compile-time flags are needed:
 
 ```shell
 wasm_of_ocaml --enable wasi foo.byte -o foo.js
 wasmtime -W=all-proposals=y foo.assets/code.wasm
 ```
 
-The generated `foo.js` also works as a Node wrapper that runs the WASI binary under Node's WASI support. CI exercises all three paths: Wizard, wasmtime, and Node. Note that only Wizard runs effect-using programs unflagged; on wasmtime and Node, effects need to be compiled with `--effects=cps`, since neither yet ships GC-integrated stack switching in a stable build.
+The generated `foo.js` also works as a Node wrapper that runs the WASI binary under Node's WASI support. CI exercises all three paths: Wizard, wasmtime, and Node. Note that effect-using programs need an explicit effects backend: Wizard runs them compiled with `--effects=native`, while wasmtime and Node need `--effects=cps`, since neither yet ships GC-integrated stack switching in a stable build.
 
 Under the hood, the PR adds around 5,200 lines across 90 files: a WASI-compatible virtual filesystem (`fs.wat`), Unix bindings covering file operations, process info, time, and permissions, a small libc in `libc.c`, WASI memory management and errno mapping, and the Node wrapper. It's substantial work, and it's already standing on its own in CI against real runtimes.
 
