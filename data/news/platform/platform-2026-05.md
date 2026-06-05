@@ -20,7 +20,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 - **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, and generalised local bindings; final release expected soon.
 - **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03) — upgrade if you deserialise untrusted data or maintain a distribution.
 - **Dune 3.22–3.23**: tests are now sandboxed by default (watch for latent flakiness), `dune runtest <file>` runs individual tests, and 3.23 adds automatic dependency locking.
-- **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add their first refactoring action (extract-region), type-aware navigation, and range formatting.
+- **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add a code-extraction refactoring, type-aware navigation, and range formatting.
 - **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4` — expect one-time formatting churn if you gate CI on `ocamlformat --check`.
 - **opam-publish 3.0.0** (Feb 20): a breaking cmdliner 2.0 upgrade (no more prefix-matching), plus default-branch and fork-name auto-detection.
 - **Other releases**: Odoc 3.2.0 / 3.2.1, ppxlib 0.38.0, utop 2.17.0, and MDX 2.5.2 all shipped OCaml 5.5 support; dune-release 2.2.1 adds a `--prerelease` flag.
@@ -107,7 +107,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 **[Dune 3.22.0](https://ocaml.org/changelog/2026-03-19-dune3220) (Mar 19)** — the main release of the cycle. Highlights:
 
 - **Tests sandboxed by default**: `(test)` and `(tests)` stanzas — along with Melange rules, `mdx`, and `ocamllex`/`ocamlyacc` — are now sandboxed by default. This affects nearly every project and may surface latent test flakiness or path assumptions on upgrade.
-- **`dune runtest <file>` runs individual tests** ([#13064](https://github.com/ocaml/dune/pull/13064)), closing a six-year-old request: `runtest` is no longer all-or-nothing for `(tests)` and inline tests.
+- **`dune runtest <file>` runs individual tests** ([#13064](https://github.com/ocaml/dune/pull/13064)), closing a request open since 2018: `runtest` is no longer all-or-nothing for `(tests)` and inline tests.
 - **A new `DUNE_JOBS` environment variable** controls concurrency; `INSIDE_DUNE` no longer does (a minor breaking change for anyone who relied on it).
 - **`$DUNE_CACHE_ROOT` layout migration**: the cache now lives under `$DUNE_CACHE_ROOT/db`. Users who set the variable should move its contents manually to avoid a full cache invalidation.
 - **A C-stubs rebuild fix** for a silent correctness bug where stale stubs could cause segfaults — worth flagging for anyone shipping bindings.
@@ -160,13 +160,13 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 ### Merlin and OCaml-LSP
 
-This is the cycle in which Merlin and OCaml-LSP graduate from "navigate and complete" to "navigate, complete, and refactor". A coordinated dual release of [OCaml-LSP 1.26.0](https://ocaml.org/changelog/2026-04-10-ocaml-lsp-1260) and [Merlin 5.7.0-504](https://ocaml.org/changelog/2026-04-10-merlin-570-504) shipped on April 10, 2026, preceded by two OCaml 5.5 preview builds and followed by a 5.4-series patch.
+The headline this cycle is a new code-extraction refactoring for Merlin and OCaml-LSP, joined by type-aware navigation and range formatting. A coordinated dual release of [OCaml-LSP 1.26.0](https://ocaml.org/changelog/2026-04-10-ocaml-lsp-1260) and [Merlin 5.7.0-504](https://ocaml.org/changelog/2026-04-10-merlin-570-504) was announced on April 10, 2026, preceded by two OCaml 5.5 preview builds and followed by a 5.4-series patch.
 
 **Two OCaml 5.5 preview builds** came first: [Merlin 5.7-505~preview](https://ocaml.org/backstage/2026-02-27-merlin-v57-505preview) (Feb 27) and [OCaml-LSP 1.26.0-5.5~preview](https://ocaml.org/backstage/2026-03-19-ocaml-lsp-1260-55preview) (Mar 19). Between them they carry the `locate-types` groundwork for type-aware navigation, a new `destruct` custom request, configuration of Merlin via build systems other than dune (through the `OCAMLLSP_PROJECT_BUILD_SYSTEM` and `OCAMLLSP_PROJECT_ROOT` environment variables), `ocamlformat`-formatted signature help, and several signature-help and autocompletion fixes.
 
 **[Merlin 5.7.0-504 + OCaml-LSP 1.26.0](https://ocaml.org/changelog/2026-04-10-merlin-570-504) (Apr 10)** — the paired stable release, with three new user-visible capabilities available to any LSP client:
 
-- **Refactor: extract region** — a new [`refactor-extract-region`](https://github.com/ocaml/merlin/pull/1948) command (with a matching `ocamllsp/refactorExtract` request) extracts a selected region into a fresh let-binding (experimental). This is the first dedicated refactoring action in Merlin and OCaml-LSP.
+- **Refactor: extract region** — a new [`refactor-extract-region`](https://github.com/ocaml/merlin/pull/1948) command (with a matching `ocamllsp/refactorExtract` request) extracts a selected region into a fresh let-binding (experimental) — a new refactoring action alongside the existing rename, type-annotation, and destruct support.
 - **Type-aware navigation** — a new `locate_types` request lets editors jump to the definitions of types appearing inside a hovered type.
 - **Range formatting** — OCaml-LSP now supports `textDocument/rangeFormatting`, i.e. format-selection.
 
@@ -189,7 +189,7 @@ The release also improves type-enclosing on class- and object-related items and 
 - The default `ocaml-version` is now 5.4, so the `effect` keyword is recognised without extra configuration. **Caveat**: codebases that use `effect` as an identifier must now set `ocaml-version=5.2`, or builds will break.
 - A new `letop-punning` option (`preserve` by default) controls whether bindings like `let+ x = x in ...` are punned to `let+ x in ...`.
 
-**Heads-up: expect formatting churn on first run.** Four changes to default formatting will produce diffs when re-running `ocamlformat` over an existing codebase — chiefly adjustments to `begin … end` and match-case indentation, plus indentation tweaks from the OCaml 5.5 syntax work. Teams gating CI on `ocamlformat --check` should review the diffs before merging.
+**Heads-up: expect formatting churn on first run.** Several changes to default formatting will produce diffs when re-running `ocamlformat` over an existing codebase — chiefly adjustments to `begin … end` and match-case indentation, plus indentation tweaks from the OCaml 5.5 syntax work. Teams gating CI on `ocamlformat --check` should review the diffs before merging.
 
 A representative example — the body and `end` of a nested `begin … end` now gain two spaces of indentation:
 
@@ -238,7 +238,7 @@ A new Backstage post, [Wasm_of_ocaml: What Changed Since 6.1](https://ocaml.org/
 
 - The compiler now writes `.wasm` binary modules directly, instead of emitting WAT and converting it via Binaryen (still a required system dependency); WAT output remains available for debugging.
 - Improved Wasm code generation across 6.1–6.3.
-- In-progress work covered by three PRs: WASI support, native effects via stack switching, and dynlink/toplevel support.
+- Three larger features tracked since the post: dynlink/toplevel support and native effects (via stack switching) have since landed, with WASI support still in progress.
 
 ---
 
