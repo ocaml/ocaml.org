@@ -510,6 +510,15 @@ let academic_institutions req =
 
 let about _req = Dream.html (Ocamlorg_frontend.about ())
 
+let ocaml_workshop_2026 _req =
+  Dream.html (Ocamlorg_frontend.ocaml_workshop_2026 ())
+
+let ocaml_workshop_2026_cfp _req =
+  Dream.html (Ocamlorg_frontend.ocaml_workshop_2026_cfp ())
+
+let ocaml_workshop_2026_committee _req =
+  Dream.html (Ocamlorg_frontend.ocaml_workshop_2026_committee ())
+
 let books req =
   let language = Dream.query req "language" in
   let pricing = Dream.query req "pricing" in
