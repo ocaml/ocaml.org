@@ -1,0 +1,101 @@
+let render () =
+Workshop_layout.single_column_layout
+~title:"OCaml Workshop 2026"
+~description:"OCaml Workshop 2026, part of FPW'26 in Paris on 24 August 2026."
+~canonical:Url.ocaml_workshop_2026
+~current:Home @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <div class="flex flex-col lg:flex-row justify-between items-center">
+      <div>
+        <h1 class="font-bold mb-3 text-title dark:text-dark-title">OCaml Workshop 2026</h1>
+        <div class="flex flex-col md:flex-row">
+          <div class="flex items-center">
+            <%s! Icons.map_pin "h-5 w-5 text-primary dark:text-dark-primary" %>
+            <p class="text-content dark:text-dark-content text-xl ml-2">Paris, France</p>
+          </div>
+          <div class="flex items-center md:ml-6">
+            <%s! Icons.calendar "h-5 w-5 text-primary dark:text-dark-primary" %>
+            <p class="text-content dark:text-dark-content text-xl ml-2">24 August 2026 (morning + afternoon)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-background dark:bg-dark-background">
+  <div class="container-fluid">
+    <div class="flex flex-col lg:flex-row justify-between mt-10 gap-10">
+      <div class="prose dark:prose-invert prose-orange max-w-2xl">
+        <p>The OCaml Workshop welcomes a broad audience of OCaml users ranging from enthusiasts who are discovering the magic of OCaml to wizards well-proficient in the cast of unsafe spells. Their common denominator is their passion for OCaml and the desire to learn more, connect with fellow OCamlers, and collectively find ways to improve the language.</p>
+        <p>This edition is part of <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html">Functional Programming Workshops (FPW) 2026</a> in Paris, alongside other workshops and events. This is a departure from the usual habit of having the OCaml Workshop co-located with ICFP. Because some FPW'26 events are bi-located with ICFP, the events will take place at roughly the same dates.</p>
+
+        <h2>Venue</h2>
+        <p>Amphithéâtre Buffon, 15 rue Hélène Brion, Université Paris Cité, 75013 Paris.</p>
+        <p>The OCaml Workshop takes place at a separate venue from the rest of FPW'26, approximately 30 minutes away from INRIA Paris where the other workshops are held.</p>
+
+        <h2>Registration</h2>
+        <p>Coming soon.</p>
+
+        <h2>Other FPW'26 events</h2>
+        <p>The OCaml Workshop is one of several events gathered under <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html">FPW'26</a>:</p>
+        <ul>
+          <li><a href="https://icfp26.sigplan.org/home/hope-2026">HOPE</a> — Higher-Order Programming with Effects (Mon 24 Aug, bi-located with ICFP'26)</li>
+          <li><a href="https://conf.researchr.org/series/fproper">FProPer</a> — Functional Programming for Productivity and Performance (Mon 24 Aug)</li>
+          <li><a href="https://tydeworkshop.org/2026">TyDe</a> — Type-Driven Development (Wed 26 – Thu 27 Aug)</li>
+          <li><a href="https://icfp26.sigplan.org/home/mlfamilyworkshop-2026#About">ML Family Workshop</a> (Fri 28 Aug, bi-located with ICFP'26)</li>
+        </ul>
+        <p>The <a href="https://www.haskell.org/haskell-symposium/">Haskell Symposium</a> remains at ICFP this year with no physical presence in Paris.</p>
+        <p>The ML Family Workshop in particular may be of interest to OCaml attendees: it is language-agnostic and more research-oriented than the OCaml Workshop, which focuses on the OCaml ecosystem. Authors whose submissions fit both venues are welcome to indicate this at submission time or reach out to the program chairs.</p>
+
+        <h2>Past editions</h2>
+        <ul>
+          <li><a href="<%s Url.conference "ocaml-workshop-2025" %>">OCaml Workshop 2025</a></li>
+          <li><a href="<%s Url.conference "ocaml-workshop-2024" %>">OCaml Workshop 2024</a></li>
+          <li><a href="<%s Url.conference "ocaml-workshop-2023" %>">OCaml Workshop 2023</a></li>
+          <li><a href="<%s Url.conferences %>">All past workshops</a></li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0 lg:w-96 flex-shrink-0">
+        <h3 class="font-bold text-title dark:text-dark-title">Important Dates</h3>
+        <div class="flex items-center">
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">1 Jul</div>
+          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-title dark:text-dark-title px-4 py-2">
+            <div class="text-xs font-semibold">UPCOMING</div>
+            <div>Submission deadline (AoE)</div>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">27 Jul</div>
+          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-title dark:text-dark-title px-4 py-2">
+            <div class="text-xs font-semibold">UPCOMING</div>
+            <div>Speaker notification</div>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">24 Aug</div>
+          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-title dark:text-dark-title px-4 py-2">
+            <div class="text-xs font-semibold">UPCOMING</div>
+            <div>Workshop</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-col gap-3">
+          <a href="<%s Url.ocaml_workshop_2026_cfp %>" class="btn">
+            Call for Talks
+            <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
+          </a>
+          <a href="https://types-hotcrp.paris.inria.fr/ocaml26/" class="btn btn-ghost">
+            Submit a Talk
+            <%s! Icons.arrow_top_right_on_square "h-5 w-5 inline-block" %>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

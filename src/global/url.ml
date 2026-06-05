@@ -102,3 +102,6 @@ let github_opam_file package_name package_version =
     package_name package_name package_version
 
 let is_ocaml_yet id = Printf.sprintf "/docs/is-ocaml-%s-yet" id
+let ocaml_workshop_2026 = "/ocaml-workshop-2026"
+let ocaml_workshop_2026_cfp = "/ocaml-workshop-2026/cfp"
+let ocaml_workshop_2026_committee = "/ocaml-workshop-2026/committee"

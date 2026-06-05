@@ -1,0 +1,84 @@
+type section =
+  | Home
+  | Cfp
+  | Committee
+
+let url_of_section = function
+  | Home -> Url.ocaml_workshop_2026
+  | Cfp -> Url.ocaml_workshop_2026_cfp
+  | Committee -> Url.ocaml_workshop_2026_committee
+
+let title_of_section = function
+  | Home -> "Home"
+  | Cfp -> "Call for Talks"
+  | Committee -> "Program Committee"
+
+let sections = [Home; Cfp; Committee]
+
+let workshop_header ~current =
+  <header class="h-20 flex items-center bg-sand dark:bg-dark-background_navigation">
+    <nav class="container-fluid wide header flex justify-between items-center gap-5 xl:gap-8">
+      <ul class="order-0 items-center flex text-content font-medium dark:text-title dark:text-opacity-60 dark:font-semibold">
+        <li style="width:132px">
+          <a href="<%s Url.index %>" class="block pb-2" aria-label="ocaml.org">
+            <img src="<%s Ocamlorg_static.Asset.url "logo-with-name.svg" %>" width="132" alt="OCaml logo" class="dark:hidden">
+            <img src="<%s Ocamlorg_static.Asset.url "logo-with-name-white.svg" %>" width="132" alt="OCaml logo" class="hidden dark:inline">
+          </a>
+        </li>
+      </ul>
+      <ul class="order-1 mr-auto ml-2 lg:ml-6 items-center flex flex-wrap font-medium dark:text-white dark:text-opacity-60 dark:font-semibold">
+        <% sections |> List.iter (fun s -> %>
+        <li><%s! Header.menu_link ~active:(s = current) ~href:(url_of_section s) ~title:(title_of_section s) () %></li>
+        <% ); %>
+      </ul>
+      <ul class="order-3 hidden lg:flex items-center">
+        <li>
+          <a href="https://types-hotcrp.paris.inria.fr/ocaml26/" class="border border-primary dark:border-dark-primary text-primary dark:text-dark-primary font-bold py-2.5 px-7 whitespace-nowrap rounded">
+            Submit a Talk
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+let footer () =
+  <footer class="bg-[#EAE6DC] dark:bg-dark-card border-t border-separator_30 dark:border-dark-separator_30">
+    <div class="container-fluid wide pt-16 pb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <div class="flex flex-col gap-2 text-sm text-content dark:text-dark-content">
+        <div>
+          Hosted on <a href="<%s Url.index %>" class="text-primary dark:text-dark-primary hover:underline">ocaml.org</a>.
+        </div>
+        <div>
+          Part of <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html" class="text-primary dark:text-dark-primary hover:underline">FPW'26</a> · Paris, 24 August 2026
+        </div>
+      </div>
+      <div x-data class="flex w-full md:w-auto">
+        <%s! Footer.LightDarkModeSwitch.render %>
+      </div>
+    </div>
+    <%s! Footer.LightDarkModeSwitch.script %>
+  </footer>
+
+let single_column_layout
+?use_swiper
+?styles
+~title
+~description
+~canonical
+~current
+inner_html
+=
+  Layout.base
+  ?use_swiper
+  ?styles
+  ~title
+  ~description
+  ~canonical
+  ~show_header:false
+  ~footer_html:(footer ()) @@
+  <%s! workshop_header ~current %>
+  <div class="bg-background dark:bg-dark-background">
+    <div class="flex-1 z-0 min-w-0">
+      <%s! inner_html %>
+    </div>
+  </div>

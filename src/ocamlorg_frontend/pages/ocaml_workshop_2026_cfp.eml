@@ -1,0 +1,85 @@
+let render () =
+Workshop_layout.single_column_layout
+~title:"OCaml Workshop 2026 — Call for Talks"
+~description:"Submit a talk proposal to the OCaml Workshop 2026, part of FPW'26 in Paris."
+~canonical:Url.ocaml_workshop_2026_cfp
+~current:Cfp @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <a href="<%s Url.ocaml_workshop_2026 %>" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group">
+      <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %>
+      Back to OCaml Workshop 2026
+    </a>
+    <h1 class="font-bold mb-3 text-title dark:text-dark-title">Call for Talks</h1>
+  </div>
+</div>
+
+<div class="bg-background dark:bg-dark-background">
+  <div class="container-fluid">
+    <div class="flex flex-col lg:flex-row justify-between mt-10 gap-10">
+      <div class="prose dark:prose-invert prose-orange max-w-2xl">
+        <h2>Scope</h2>
+        <p>The OCaml Workshop welcomes a broad audience of OCaml users ranging from enthusiasts who are discovering the magic of OCaml to wizards well-proficient in the cast of unsafe spells. Their common denominator is their passion for OCaml and the desire to learn more, connect with fellow OCamlers, and collectively find ways to improve the language.</p>
+        <p>We invite talk proposals just as broad: <strong>anything OCaml related</strong> is welcome!</p>
+        <p>The topics are not limited to the following, but, to give an idea, examples from previous years include: OCaml editing tools, verified OCaml artefacts, interoperability between OCaml and other languages, the OCaml code of conduct, compiler optimisations, OS portability, OCaml testing frameworks, packages for concurrency in OCaml, etc.</p>
+        <p>The full catalogue from previous editions can be accessed through the links below:</p>
+        <ul>
+          <li><a href="<%s Url.conference "ocaml-workshop-2025" %>">2025</a></li>
+          <li><a href="<%s Url.conference "ocaml-workshop-2024" %>">2024</a></li>
+          <li><a href="<%s Url.conference "ocaml-workshop-2023" %>">2023</a></li>
+          <li><a href="<%s Url.conference "ocaml-workshop-2022" %>">2022</a></li>
+          <li><a href="<%s Url.conference "ocaml-workshop-2021" %>">2021</a></li>
+        </ul>
+
+        <h2>Format</h2>
+        <p>In addition to the <strong>Standard Talk</strong> format of 20 minutes, we allow the following formats:</p>
+        <ul>
+          <li><strong>Demo.</strong> 30 minutes tutorial-style demonstration of a tool.</li>
+          <li><strong>Informed Position.</strong> 20 minutes presentation on topics in the design space of OCaml (such as, but not limited to, the inclusion or removal of a feature).</li>
+          <li><strong>Experience Report.</strong> 20 minutes report on the use of OCaml or a tool.</li>
+        </ul>
+
+        <h2>Submission</h2>
+        <p>Please submit a description of the talk (typically two to three pages long; it could also be less or more): the problems that are addressed and the solutions or methods that are proposed. If you believe the delivery itself is a unique feature of the talk, please feel free to also include a description of how you plan to deliver the talk.</p>
+        <p>LaTeX-produced PDFs are common but not required.</p>
+        <p>Last year's accepted presentations are available <a href="https://icfp25.sigplan.org/home/ocaml-2025#event-overview">online</a>.</p>
+
+        <h2>Evaluation Criteria</h2>
+        <p>We will evaluate submissions according to:</p>
+        <ul>
+          <li>Relevance for the OCaml community</li>
+          <li>Rigor and soundness</li>
+          <li>Novelty</li>
+          <li>Clarity</li>
+          <li>Potential to deliver an engaging and informative presentation</li>
+        </ul>
+
+        <h2>Recommendations on LLM Usage</h2>
+        <p>Proposals largely written by LLMs are not acceptable and will be desk-rejected. The use of LLMs to correct grammar and enhance style is perfectly fine (especially if English is not your first language), but their use to produce material directly is dangerous and unprofessional, and undermines both authorship and reviewer effort.</p>
+      </div>
+
+      <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0 lg:w-96 flex-shrink-0">
+        <h3 class="font-bold text-title dark:text-dark-title">Important Dates</h3>
+        <div class="flex items-center">
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">1 Jul</div>
+          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-title dark:text-dark-title px-4 py-2">
+            <div class="text-xs font-semibold">SUBMISSION DEADLINE (AoE)</div>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">27 Jul</div>
+          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-title dark:text-dark-title px-4 py-2">
+            <div class="text-xs font-semibold">SPEAKER NOTIFICATION</div>
+          </div>
+        </div>
+
+        <a href="https://types-hotcrp.paris.inria.fr/ocaml26/" class="btn">
+          Submit a Talk
+          <%s! Icons.arrow_top_right_on_square "h-5 w-5 inline-block" %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

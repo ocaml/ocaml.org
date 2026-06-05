@@ -1,0 +1,58 @@
+let chairs = [
+  "Paulo de Vilhena";
+  "Sudha Parimala";
+]
+
+let members = [
+  "Clément Allain";
+  "Pedro Carrott";
+  "Simon Cruanes";
+  "Marko Doko";
+  "Patrick Ferris";
+  "Jean-Christophe Filliâtre";
+  "Sadiq Jaffer";
+  "Robbert Krebbers";
+  "Vincent Laviron";
+  "Tim McGilchrist";
+  "António Monteiro";
+  "Carine Morel";
+  "Andreas Rossberg";
+  "Vimala Soundarapandian";
+  "Jérôme Vouillon";
+  "John Whitington";
+]
+
+let render () =
+Workshop_layout.single_column_layout
+~title:"OCaml Workshop 2026 — Program Committee"
+~description:"Program committee of the OCaml Workshop 2026."
+~canonical:Url.ocaml_workshop_2026_committee
+~current:Committee @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <a href="<%s Url.ocaml_workshop_2026 %>" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group">
+      <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %>
+      Back to OCaml Workshop 2026
+    </a>
+    <h1 class="font-bold mb-3 text-title dark:text-dark-title">Program Committee</h1>
+  </div>
+</div>
+
+<div class="w-full deep-blue-gradient dark:section-blue-gradient">
+  <div class="container-fluid pt-6 pb-12">
+    <p class="uppercase text-sm text-dark-content dark:text-dark-content tracking-widest font-medium my-4">OCaml Workshop 2026</p>
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2">Co-Chairs</h2>
+    <ul class="grid grid-cols-1 md:grid-cols-2 mt-4">
+      <% chairs |> List.iter (fun name -> %>
+        <li class="mb-4"><p class="text-dark-content"><span class="mr-2">•</span><span class="font-bold mr-2"><%s name %></span></p></li>
+      <% ); %>
+    </ul>
+
+    <h2 class="font-bold text-2xl text-white dark:text-dark-title mb-2 mt-8">Program Committee</h2>
+    <ul class="grid grid-cols-1 md:grid-cols-2 mt-4">
+      <% members |> List.iter (fun name -> %>
+        <li class="mb-4"><p class="text-dark-content"><span class="mr-2">•</span><span class="font-bold mr-2"><%s name %></span></p></li>
+      <% ); %>
+    </ul>
+  </div>
+</div>

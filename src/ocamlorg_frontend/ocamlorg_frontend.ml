@@ -55,3 +55,6 @@ let logos = Logos.render
 let cookbook = Cookbook.render
 let cookbook_task = Cookbook_task.render
 let cookbook_recipe = Cookbook_recipe.render
+let ocaml_workshop_2026 = Ocaml_workshop_2026.render
+let ocaml_workshop_2026_cfp = Ocaml_workshop_2026_cfp.render
+let ocaml_workshop_2026_committee = Ocaml_workshop_2026_committee.render

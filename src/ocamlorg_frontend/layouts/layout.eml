@@ -53,6 +53,7 @@ let base
 ?canonical
 ?alternate
 ?(active_top_nav_item: Header.nav_item option)
+?(show_header = true)
 ?(footer_html = "")
 inner =
   let social_media_image_url =
@@ -139,7 +140,9 @@ inner =
       </div>
       <% ); %>
 
+      <% if show_header then ( %>
       <%s! Header.render ~show_get_started ?active_top_nav_item () %>
+      <% ); %>
       <main class="bg-background dark:bg-dark-background"><%s! inner %></main>
 
       <button class="fixed bottom-8 right-10 md:bottom-[5rem] lg:bottom-[8.37rem] lg:right-[6.5rem] border-0 hidden focus:outline-none z-50 rounded-full shadow-custom p-4 bg-primary dark:bg-dark-primary" onclick="scrollToTop()" id="scrollToTop" title="Scroll to top"><%s! Icons.arrow_up "h-6 w-6"%></button>
