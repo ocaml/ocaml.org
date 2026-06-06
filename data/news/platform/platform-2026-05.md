@@ -1,7 +1,7 @@
 ---
 title: "Platform Newsletter: February to May 2026"
 description: "OCaml Platform Feb-May 2026: OCaml 5.5.0~beta1 with relocatable compiler and modular explicits, Dune 3.22 and 3.23 series with sandboxed tests and auto-locking, OCaml-LSP 1.26.0 + Merlin 5.7.0-504, OCamlFormat 0.29.0, Odoc 3.2.0, opam 2.5.1 security release, opam-publish 3.0.0, dune-release 2.2.1, ppxlib 0.38.0, utop 2.17.0, MDX 2.5.2"
-date: "2026-06-05"
+date: "2026-06-10"
 tags: [platform]
 ---
 
