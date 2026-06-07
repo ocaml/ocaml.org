@@ -1,6 +1,6 @@
 ---
 title: "Platform Newsletter: February to May 2026"
-description: "OCaml Platform Feb-May 2026: OCaml 5.5.0~beta1 with relocatable compiler and modular explicits, Dune 3.22 and 3.23 series with sandboxed tests and auto-locking, OCaml-LSP 1.26.0 + Merlin 5.7.0-504, OCamlFormat 0.29.0, Odoc 3.2.0, opam 2.5.1 security release, opam-publish 3.0.0, dune-release 2.2.1, ppxlib 0.38.0, utop 2.17.0, MDX 2.5.2"
+description: "OCaml Platform Feb-May 2026: OCaml 5.5.0~beta1 with relocatable compiler and modular explicits, Dune 3.22 and 3.23 series with sandboxed tests, OCaml-LSP 1.26.0 + Merlin 5.7.0-504, OCamlFormat 0.29.0, Odoc 3.2.0, opam 2.5.1 security release, opam-publish 3.0.0, dune-release 2.2.1, ppxlib 0.38.0, utop 2.17.0, MDX 2.5.2"
 date: "2026-06-10"
 tags: [platform]
 ---
@@ -19,7 +19,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 - **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, and generalised local bindings; final release expected soon.
 - **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03) — upgrade if you deserialise untrusted data or maintain a distribution.
-- **Dune 3.22–3.23**: tests are now sandboxed by default (watch for latent flakiness), `dune runtest <file>` runs individual tests, and 3.23 adds automatic dependency locking.
+- **Dune 3.22–3.23**: tests are now sandboxed by default (watch for latent flakiness), `dune runtest <file>` runs individual tests, and 3.23 improves automatic dependency locking in watch mode.
 - **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add a code-extraction refactoring, type-aware navigation, and range formatting.
 - **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4` — expect one-time formatting churn if you gate CI on `ocamlformat --check`.
 - **opam-publish 3.0.0** (Feb 20): a breaking cmdliner 2.0 upgrade (no more prefix-matching), plus default-branch and fork-name auto-detection.
@@ -64,7 +64,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 ### OCaml 5.5.0 Progresses to Beta
 
-The OCaml 5.5.0 release cycle moved through three alphas and into a first beta during this period. **5.5.0 is the first OCaml release in a while to ship multiple notable language extensions**, and the first to ship a relocatable compiler.
+The OCaml 5.5.0 release cycle moved through three alphas and into a first beta during this period. **5.5.0 ships a particularly notable batch of language extensions**, and is the first to ship a relocatable compiler.
 
 **Headline features in 5.5.0:**
 
@@ -116,7 +116,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 **[Dune 3.23.0](https://ocaml.org/changelog/2026-05-05-dune3230) (May 5)** — a feature release. Highlights:
 
-- **Automatic dependency locking** ([#14066](https://github.com/ocaml/dune/pull/14066)): in watch mode, Dune now detects changes to `(depends)` and re-locks automatically — part of the ongoing Dune package-management work.
+- **Automatic dependency locking in watch mode** ([#14066](https://github.com/ocaml/dune/pull/14066)): Dune now picks up changes to `(depends)` and re-locks automatically — part of the ongoing Dune package-management work.
 - **Union `(dirs)` stanzas**: with `(lang dune 3.23)`, multiple `(dirs ..)` stanzas in a single `dune` file are combined rather than conflicting.
 - **`dune clean` and `dune promote` refinements**: `dune clean` accepts arguments to remove specific targets from `_build`, and `dune promote` promotes all paths that are a prefix of the one given.
 - **opam-file generation fixes**: a `menhir` lower bound is injected when the menhir extension is used, `dune subst` no longer duplicates an existing `version:` field, and redundant `dune` version bounds are de-duplicated.
@@ -166,7 +166,7 @@ The headline this cycle is a new code-extraction refactoring for Merlin and OCam
 
 **[Merlin 5.7.0-504 + OCaml-LSP 1.26.0](https://ocaml.org/changelog/2026-04-10-merlin-570-504) (Apr 10)** — the paired stable release, with three new user-visible capabilities available to any LSP client:
 
-- **Refactor: extract region** — a new [`refactor-extract-region`](https://github.com/ocaml/merlin/pull/1948) command (with a matching `ocamllsp/refactorExtract` request) extracts a selected region into a fresh let-binding (experimental) — a new refactoring action alongside the existing rename, type-annotation, and destruct support.
+- **Refactor: extract region** — a new [`refactor-extract-region`](https://github.com/ocaml/merlin/pull/1948) command (with a matching `ocamllsp/refactorExtract` request) extracts a selected region into a fresh let-binding (experimental) — a new region-extraction refactoring alongside the existing rename, type-annotation, and destruct support.
 - **Type-aware navigation** — a new `locate_types` request lets editors jump to the definitions of types appearing inside a hovered type.
 - **Range formatting** — OCaml-LSP now supports `textDocument/rangeFormatting`, i.e. format-selection.
 
