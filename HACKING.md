@@ -58,6 +58,24 @@ make watch
 
 This will restart the server on filesystem changes.
 
+### Before Submitting a PR
+
+Formatting and linting failures are the most common cause of CI failures. Before pushing, always run:
+
+```bash
+make fmt
+```
+
+This formats OCaml code with ocamlformat and auto-promotes the changes. Commit any files it modifies. OCamlFormat is pinned to 0.26.2 (in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`); with any other version installed, `make fmt` aborts with a version-mismatch error instead of reformatting, so run `make deps` to install the pinned version.
+
+If your PR touches Markdown files, also lint them:
+
+```bash
+npx markdownlint-cli2 '**/*.md'
+```
+
+Markdown lint rules are configured in [`.markdownlint-cli2.jsonc`](./.markdownlint-cli2.jsonc). The CI excludes `data/planet/` and `data/changelog/` from Markdown lint.
+
 ### Running Tests
 
 #### Unit tests
@@ -153,12 +171,14 @@ before they get merged.
 
 ### Managing Dependencies
 
-OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in three (3) places:
+OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in the following files:
 
 ```bash
-Dockerfile
 Makefile
-.github/workflows/*.yml
+Dockerfile
+.github/workflows/ci.yml
+.github/workflows/debug-ci.yml
+.github/workflows/release-scrapers.yml
 ```
 
 When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once.
@@ -172,9 +192,8 @@ opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
 Once this is done, you can run `opam update` and `opam upgrade`. If OCamlFormat
-was upgraded in the process, the files `.ocamlformat` and
-`.github/workflows/ci.yml` must be modified with the currently installed version
-of OCamlFormat.
+was upgraded in the process, its version must be updated together in
+`.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`.
 
 ### Handling the Tailwind CSS
 
@@ -200,7 +219,7 @@ The following snippet describes the repository structure:
 │   │   Project wide definitions
 │   │
 │   ├── ocamlorg_data
-│   │   The result of compiling all of the information in `/data` into OCaml modules.
+│   │   Accessor layer over the packed `data/` blob (`data.bin`); types defined in `data_intf.ml`.
 │   │
 │   ├── ocamlorg_frontend
 │   │   All of the front-end code primarily using .eml files (OCaml + HTML).
@@ -208,11 +227,27 @@ The following snippet describes the repository structure:
 │   ├── ocamlorg_package
 │   │   The library for constructing opam-repository statistics and information (e.g. rev deps).
 │   │
+│   ├── ocamlorg_static
+│   │   Static file serving.
+│   │
 │   └── ocamlorg_web
 │       The main entry-point of the server.
 │
 ├── tool/
-│   Sources for development tools such as the `ocamlorg_data` code generator.
+│   ├── data-packer
+│   │   Packs YAML/Markdown data from `data/` into the `data.bin` binary blob.
+│   │
+│   ├── data-scrape
+│   │   Scraper for external content (planet feeds, videos, platform releases).
+│   │
+│   ├── static-file-digest
+│   │   Static file digest utility.
+│   │
+│   ├── tailwind
+│   │   Tailwind CSS binary download and integration.
+│   │
+│   └── voodoo_serialize
+│       Serialization tool for package documentation.
 │
 ├── dune
 ├── dune-project
