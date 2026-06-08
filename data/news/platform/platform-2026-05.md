@@ -18,7 +18,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 **Highlights:**
 
 - **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, generalised local bindings, and garbage-collector improvements; final release expected soon.
-- **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03) — upgrade if you deserialise untrusted data or maintain a distribution.
+- **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03) — review your code and upgrade if you deserialise untrusted data, or upgrade if you maintain a distribution. These are the most prominent of several advisories published this period; [check the published security issues](https://osv.dev/list?q=&ecosystem=opam) and upgrade if you use an affected package, and you can [subscribe to security announcements](https://ocaml.org/security#mailing-list-for-security-announcements).
 - **Dune 3.22–3.23**: sandboxing is now on by default for tests, user rules, and inline runners (watch for latent flakiness); 3.22 adds build tracing and OxCaml parameterised-library support; 3.23 stops auto-promoting generated opam files (run `dune promote`).
 - **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add a code-extraction refactoring, type-aware navigation, and range formatting.
 - **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4` — expect one-time formatting churn if you gate CI on `ocamlformat --check`.
@@ -60,7 +60,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 ### Maintenance Releases: 5.4.1 and 4.14.3
 
-[OCaml 5.4.1 and 4.14.3](https://ocaml.org/changelog/2026-02-17-ocaml-541-and-4143) (February 17, 2026) are maintenance releases of the 5.4 and 4.14 stable branches. The headline is [OSEC-2026-01](https://github.com/ocaml/security-advisories/): the `intern.c` Marshal implementation has been hardened against malicious inputs — anyone deserialising untrusted data should upgrade. The releases also ship several correctness fixes, including a long-standing miscompilation of unsafe int32/int64/nativeint array accesses present since 4.04, a `Lazy.force` race fix, a demarshal-exception memory-corruption fix, and TSan-related fixes for OCaml 5 users. See the release notes for the full list.
+[OCaml 5.4.1 and 4.14.3](https://ocaml.org/changelog/2026-02-17-ocaml-541-and-4143) (February 17, 2026) are maintenance releases of the 5.4 and 4.14 stable branches. The headline is [OSEC-2026-01](https://osv.dev/vulnerability/OSEC-2026-01): the `intern.c` Marshal implementation has been hardened against malicious inputs — anyone deserialising untrusted data should review their code and upgrade. The releases also ship several correctness fixes, including a long-standing miscompilation of unsafe int32/int64/nativeint array accesses present since 4.04, a `Lazy.force` race fix, a demarshal-exception memory-corruption fix, and TSan-related fixes for OCaml 5 users. See the release notes for the full list.
 
 ### OCaml 5.5.0 Progresses to Beta
 
@@ -75,7 +75,14 @@ The OCaml 5.5.0 release cycle moved through three alphas and into a first beta d
 - **Garbage-collector improvements** (runtime): a batch of work from an ongoing GC-pacing overhaul has landed in 5.5.0 — improving how the major collector accounts for and schedules its work — with the broader effort tracked in [#14324](https://github.com/ocaml/ocaml/issues/14324) and continuing toward 5.6.
 - **Standard library expansions**: notably `String.split_*`, `String.replace_*`, `String.includes`, `Option.product`, `List.split_map`, `Lazy.Mutexed`.
 
-**Feature spotlight: modular explicits.** Modular explicits are the most significant of the new language features. A function can now take a module as an explicit argument and let its later parameter and return types depend on it — previously expressible only by packing and unpacking first-class modules by hand. The example below sorts a list using whichever `Set` implementation is passed in:
+**Feature spotlight: modular explicits.** Modular explicits are the most significant of the new language features. A function can now take a module as an explicit argument and let its later parameter and return types depend on it. Before 5.5 you could already express this, but you had to take the module as a first-class-module argument and thread its element type through a locally abstract type by hand. Here is how the list-sorting example — sort using whichever `Set` implementation is passed in — looked on 4.14:
+
+```ocaml
+let sort (type a) (module MSet : Set.S with type elt = a) li =
+  MSet.elements (List.fold_right MSet.add li MSet.empty)
+```
+
+Note the explicit `(type a)` and `with type elt = a`, binding the module's element type so the return type can refer to it. It is manageable here, but becomes tedious once several type parameters need binding. With modular explicits in 5.5, that boilerplate disappears:
 
 ```ocaml
 let sort (module MSet : Set.S) li =
@@ -105,7 +112,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 **[Dune 3.21.1](https://ocaml.org/changelog/2026-02-11-dune-3211) (Feb 11)** — a small patch: a Melange `-p <PKG>` package-mask fix (relevant to scoped release/CI builds), and `dune promote` no longer starts the RPC server.
 
-**[Dune 3.22.0](https://ocaml.org/changelog/2026-03-19-dune3220) (Mar 19)** — the main release of the cycle. Highlights:
+**[Dune 3.22.0](https://ocaml.org/changelog/2026-03-19-dune3220) (Mar 19)** — a bigger release. Highlights:
 
 - **Build tracing**: new functionality to inspect and diagnose the build process, plus a public `dune-action-trace` library so custom actions can emit trace events and a `dune trace cat` subcommand to read the output.
 - **odoc documentation in Markdown**: a new `@doc-markdown` build alias generates odoc output as Markdown.
@@ -133,7 +140,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 [opam 2.5.1](https://ocaml.org/changelog/2026-04-16-opam-2-5-1) (April 16, 2026) is primarily a security release.
 
-- **Security fix (OSEC-2026-03)**: `.install` fields containing destination paths that try to escape their scope are now rejected (reported by @andrew). Distribution maintainers are advised to upgrade or backport.
+- **Security fix ([OSEC-2026-03](https://osv.dev/vulnerability/OSEC-2026-03))**: `.install` fields containing destination paths that try to escape their scope are now rejected (reported by @andrew). Distribution maintainers are advised to upgrade or backport.
 - A `depexts`-to-`nix-build` string-injection fix on `os-family=nixos` (thanks to @RyanGibb).
 - Restored distribution detection on Gentoo, with support for single-quoted values in `/etc/os-release`.
 - A fix for rare potential GC corruptions (thanks to @avsm).
