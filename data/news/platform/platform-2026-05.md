@@ -13,8 +13,6 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 **The throughline this quarter is OCaml 5.5.** Its first alphas and a beta arrived between February and April, bringing a relocatable compiler and a notable batch of language features — and the rest of the Platform moved in lockstep to be ready for it. OCamlFormat, ppxlib, utop, MDX, Odoc, and the Merlin / OCaml-LSP previews all shipped 5.5-compatible releases this period, so that by the time the compiler lands, the tools are already there. The urgent exception to the "5.5 readiness" story is security: two advisories (OCaml 5.4.1 / 4.14.3 and opam 2.5.1) warrant attention regardless of which compiler you run.
 
-**If you only read three things**: OCaml 5.5.0~beta1 with a relocatable compiler; the OCaml 5.4.1 / 4.14.3 security patches (Marshal hardening); the OCamlFormat 0.29.0 upgrade caveat (CI diff churn).
-
 **Highlights:**
 
 - **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, generalised local bindings, and garbage-collector improvements; final release expected soon.
@@ -203,7 +201,7 @@ The release also improves type-enclosing on class- and object-related items and 
 
 Put all the formatting changes in a single dedicated commit and add the full commit hash into a file named `.git-blame-ignore-revs`.
 
-Then, use it like this: `git blame --ignore-revs-file=.git-blame-ignore-revs ..` or add it to the local configuration: `git config blame.ignoreRevsFile .git-blame-ignore-revs`. GitHub does this automatically in its web UI.
+Then, use it like this: `git blame --ignore-revs-file=.git-blame-ignore-revs <file>` or add it to the local configuration: `git config blame.ignoreRevsFile .git-blame-ignore-revs`. GitHub does this automatically in its web UI.
 
 If you do this in a GitHub Pull Request, make sure not to use "Squash and merge" or "Rebase and merge" as these will change the commit hash in the main branch. See the [documentation](https://docs.github.com/en/repositories/working-with-files/using-files/viewing-and-understanding-files#ignore-commits-in-the-blame-view) from GitHub.
 
