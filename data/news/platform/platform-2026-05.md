@@ -17,9 +17,9 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 **Highlights:**
 
-- **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, and generalised local bindings; final release expected soon.
+- **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, generalised local bindings, and garbage-collector improvements; final release expected soon.
 - **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03) — upgrade if you deserialise untrusted data or maintain a distribution.
-- **Dune 3.22–3.23**: tests are now sandboxed by default (watch for latent flakiness), `dune runtest <file>` runs individual tests, and 3.23 improves automatic dependency locking in watch mode.
+- **Dune 3.22–3.23**: sandboxing is now on by default for tests, user rules, and inline runners (watch for latent flakiness); 3.22 adds build tracing and OxCaml parameterised-library support; 3.23 stops auto-promoting generated opam files (run `dune promote`).
 - **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add a code-extraction refactoring, type-aware navigation, and range formatting.
 - **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4` — expect one-time formatting churn if you gate CI on `ocamlformat --check`.
 - **opam-publish 3.0.0** (Feb 20): a breaking cmdliner 2.0 upgrade (no more prefix-matching), plus default-branch and fork-name auto-detection.
@@ -72,6 +72,7 @@ The OCaml 5.5.0 release cycle moved through three alphas and into a first beta d
 - **Modular explicits** (language): function arguments can now carry a module signature dependency (`(module M : S) -> t[M]`), enabling module-dependent function arguments without full functor syntax.
 - **Polymorphic function parameters** (language): functions can now take arguments with explicit polymorphic types (e.g. `(getter : 'a. 'a t -> 'a)`), enabling clean ST-monad-style and rank-2 patterns previously requiring records.
 - **Generalised local bindings** (language): `let module`, `let exception`, `let open`, and `let type` are now supported in expressions in more contexts.
+- **Garbage-collector improvements** (runtime): a batch of work from an ongoing GC-pacing overhaul has landed in 5.5.0 — improving how the major collector accounts for and schedules its work — with the broader effort tracked in [#14324](https://github.com/ocaml/ocaml/issues/14324) and continuing toward 5.6.
 - **Standard library expansions**: notably `String.split_*`, `String.replace_*`, `String.includes`, `Option.product`, `List.split_map`, `Lazy.Mutexed`.
 
 **Feature spotlight: modular explicits.** Modular explicits are the most significant of the new language features. A function can now take a module as an explicit argument and let its later parameter and return types depend on it — previously expressible only by packing and unpacking first-class modules by hand. The example below sorts a list using whichever `Set` implementation is passed in:
@@ -106,22 +107,23 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 **[Dune 3.22.0](https://ocaml.org/changelog/2026-03-19-dune3220) (Mar 19)** — the main release of the cycle. Highlights:
 
+- **Build tracing**: new functionality to inspect and diagnose the build process, plus a public `dune-action-trace` library so custom actions can emit trace events and a `dune trace cat` subcommand to read the output.
+- **odoc documentation in Markdown**: a new `@doc-markdown` build alias generates odoc output as Markdown.
+- **OxCaml parameterised libraries**: full support for OxCaml's parameterised libraries.
 - **Tests sandboxed by default**: `(test)` and `(tests)` stanzas — along with Melange rules, `mdx`, and `ocamllex`/`ocamlyacc` — are now sandboxed by default. This affects nearly every project and may surface latent test flakiness or path assumptions on upgrade.
 - **`dune runtest <file>` runs individual tests** ([#13064](https://github.com/ocaml/dune/pull/13064)), closing a request open since 2018: `runtest` is no longer all-or-nothing for `(tests)` and inline tests.
-- **A new `DUNE_JOBS` environment variable** controls concurrency; `INSIDE_DUNE` no longer does (a minor breaking change for anyone who relied on it).
-- **`$DUNE_CACHE_ROOT` layout migration**: the cache now lives under `$DUNE_CACHE_ROOT/db`. Users who set the variable should move its contents manually to avoid a full cache invalidation.
-- **A C-stubs rebuild fix** for a silent correctness bug where stale stubs could cause segfaults — worth flagging for anyone shipping bindings.
 
 **[Dune 3.22.1](https://ocaml.org/changelog/2026-04-06-dune3221) (Apr 6)** and **[3.22.2](https://ocaml.org/changelog/2026-04-14-dune3222) (Apr 14)** are regression fixes: a `dune test` crash in workspaces without a context named "default", and a `--diff-command` change that again passes non-existent files to the diff command rather than `/dev/null`.
 
 **[Dune 3.23.0](https://ocaml.org/changelog/2026-05-05-dune3230) (May 5)** — a feature release. Highlights:
 
-- **Automatic dependency locking in watch mode** ([#14066](https://github.com/ocaml/dune/pull/14066)): Dune now picks up changes to `(depends)` and re-locks automatically — part of the ongoing Dune package-management work.
-- **Union `(dirs)` stanzas**: with `(lang dune 3.23)`, multiple `(dirs ..)` stanzas in a single `dune` file are combined rather than conflicting.
-- **`dune clean` and `dune promote` refinements**: `dune clean` accepts arguments to remove specific targets from `_build`, and `dune promote` promotes all paths that are a prefix of the one given.
-- **opam-file generation fixes**: a `menhir` lower bound is injected when the menhir extension is used, `dune subst` no longer duplicates an existing `version:` field, and redundant `dune` version bounds are de-duplicated.
+- **Generated opam files are no longer auto-promoted** ([#14108](https://github.com/ocaml/dune/pull/14108)) — a breaking change: Dune no longer writes generated `.opam` files back into the source tree on build; you now update them explicitly with `dune promote`. Worth flagging for release scripts and any CI that checks committed opam files are in sync.
+- **`c_library_flags` in `foreign_stubs`** ([#13484](https://github.com/ocaml/dune/pull/13484)): `foreign_stubs` now accepts `c_library_flags`, for finer control over how C stubs are linked.
+- **Sandboxing extended**: user rules and inline test runners are now sandboxed by default, continuing the sandboxing-by-default work begun in 3.22.
+- **Promotion and diffing improvements**: numerous refinements, including sandboxed diff promotions and directory-level diffing.
+- **Minimum OCaml to build Dune is now 4.14**: this concerns only building Dune itself from source on older compilers, not projects that use Dune.
 
-**[Dune 3.23.1](https://ocaml.org/changelog/2026-05-19-dune3231) (May 19)** — a patch release that narrows two of those opam-file changes (the `menhir` bound is now only added to a dependency the user already declared, and the version-bound de-duplication is gated on `(lang dune 3.23)`), restores the secondary-compiler fallback for packages capped below OCaml 4.14, and fixes the NetBSD bootstrap.
+**[Dune 3.23.1](https://ocaml.org/changelog/2026-05-19-dune3231) (May 19)** — a patch release that narrows two of 3.23.0's opam-file-generation changes (a `menhir` lower bound is now added only to a dependency the user already declared, and version-bound de-duplication is gated on `(lang dune 3.23)`), restores the secondary-compiler fallback for packages capped below OCaml 4.14, and fixes the NetBSD bootstrap.
 
 **Dune Maintained by**: Rudi Grinberg (@rgrinberg, Jane Street), Nicolás Ojeda Bär (@nojb, LexiFi), Marek Kubica (@Leonidas-from-XIV, Tarides), Ali Caglayan (@Alizter, Tarides), Stephen Sherratt (@gridbugs, Tarides), Antonio Nuno Monteiro (@anmonteiro), Sudha Parimala (@Sudha247, Tarides), Ambre Suhamy (@ElectreAAS, Tarides), Puneeth Chaganti (@punchagan, Tarides)
 
