@@ -1,7 +1,11 @@
 .DEFAULT_GOAL := all
 
+.PHONY: help
+help: ## Show this help message (list common targets)
+	@awk 'BEGIN {FS = ":.*## "; printf "Run a target with: make <target>\n\nCommon targets:\n"} /^[a-zA-Z_-]+:.*## / {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
 .PHONY: all
-all:
+all: ## Build the project (default target)
 	opam exec -- dune build --root .
 
 .PHONY: deps
@@ -25,7 +29,7 @@ build: ## Build the project, including non installable libraries and executables
 	opam exec -- dune build --root .
 
 .PHONY: playground
-playground:
+playground: ## Build the OCaml Playground
 	make build -C playground
 
 .PHONY: install

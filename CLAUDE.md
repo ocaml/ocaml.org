@@ -4,20 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Build and Development Commands
 
-```bash
-make switch        # Create local opam switch and install dependencies (first-time setup)
-make deps          # Install dependencies in current switch (if using global switch)
-make build         # Build the project
-make start         # Build and run the server
-make watch         # Run server with auto-reload on file changes
-make test          # Run unit tests
-make fmt           # Format code with ocamlformat
-make clean         # Clean build artifacts
-make doc           # Generate odoc documentation
-make utop          # Run a REPL linked to project libraries
-make playground    # Build the OCaml Playground
-make docker        # Build docker container
-```
+Run `make help` to list the available targets. First-time setup is `make switch` (creates a local opam switch bound to the pinned opam-repository, then installs dependencies); `make watch` runs the server with auto-reload.
 
 ## Before Submitting a PR
 
@@ -28,7 +15,11 @@ make fmt                        # Format OCaml code (auto-promotes changes)
 npx markdownlint-cli2 '**/*.md' # Lint Markdown files (config: .markdownlint-cli2.jsonc)
 ```
 
-CI checks both on every push/PR. `make fmt` reformats in place; commit any changes it makes. Markdown lint rules are configured in `.markdownlint-cli2.jsonc`. The CI excludes `data/planet/` and `data/changelog/` from Markdown lint.
+CI checks both on every push/PR. `make fmt` auto-promotes changes in place; commit any files it touches.
+
+**OCamlFormat is pinned to 0.26.2** (in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`). With any other version installed, `make fmt` does *not* reformat — OCamlFormat's default version check aborts with a `version mismatch` error and exits non-zero. Install the pinned binary via `make deps` (or `opam install ocamlformat=0.26.2`).
+
+Markdown lint rules live in `.markdownlint-cli2.jsonc`; CI lints only changed files and skips `data/planet/` and `data/changelog/`.
 
 ## Architecture Overview
 
@@ -37,20 +28,21 @@ This is a Dream-based OCaml web application that serves ocaml.org. The architect
 ### Data Flow
 
 1. **Content** lives in `data/` as YAML and Markdown files (tutorials, books, jobs, events, etc.)
-2. **Data packer** (`tool/data-packer/`) transforms data into OCaml modules at build time
-3. **Generated modules** appear in `src/ocamlorg_data/data.ml` (e.g., `data/books/*.md` → book entries in `data.ml`)
+2. **Data packer** (`tool/data-packer/`) packs the YAML/Markdown into a binary blob, `data.bin`, at build time
+3. The blob is embedded in the binary via an `.incbin` assembly directive; `src/ocamlorg_data/data.ml` deserializes it lazily (`bin_prot`) and exposes hand-written accessor modules (`Book`, `Changelog`, …)
 4. **Frontend** (`src/ocamlorg_frontend/`) uses `.eml` templates (Dream's HTML templating) to render pages
 5. **Web server** (`src/ocamlorg_web/`) handles routing and serves the site
 6. **Data scraper** (`tool/data-scrape/`) fetches external content (planet feeds, videos, platform releases)
 
 ### Key Source Directories
 
-- `src/ocamlorg_data/` - `data_intf.ml` defines data types (edit this); `data.ml` is generated (don't edit)
+- `src/ocamlorg_data/` - `data_intf.ml` defines the data types; `data.ml` is the hand-written accessor layer over the deserialized blob. The build artifact `data.bin` is generated from `data/` (never committed)
 - `src/ocamlorg_frontend/pages/` - EML templates (OCaml + HTML) for all pages
 - `src/ocamlorg_web/lib/` - Dream server, routing, handlers
 - `src/ocamlorg_package/` - Package management and opam-repository integration
 - `src/ocamlorg_static/` - Static file serving
-- `tool/data-packer/` - Code generator that converts YAML/Markdown data into OCaml modules
+- `src/global/` - Project-wide definitions (URL helpers, ppx import)
+- `tool/data-packer/` - Packs YAML/Markdown data into the `data.bin` blob
 - `tool/data-scrape/` - Scraper for external content (planet feeds, videos, platform releases)
 
 ### The EML Templating System
@@ -59,17 +51,11 @@ Pages use `.eml` files which are preprocessed by `dream_eml`. These mix OCaml co
 - OCaml expressions: `<%s variable %>` or `<% code %>`
 - Templates are in `src/ocamlorg_frontend/pages/`
 
-### Adding or Modifying Content
+### Working with `data/`
 
-Most site content is in `data/`. After editing:
-- Changes to `data/` files require a rebuild (`make build`) to regenerate `src/ocamlorg_data/data.ml`
-- The data packer enforces structure via types in `src/ocamlorg_data/data_intf.ml`
+Site content lives in `data/` as YAML and Markdown — one subdirectory per content type (`books/`, `tutorials/`, …) plus top-level `.yml` files (`jobs.yml`, `governance.yml`, …). The data packer enforces structure via the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. After editing, `make build` repacks the `data.bin` blob.
 
-### The `data/` Directory
-
-The `data/` directory contains site content as YAML and Markdown files. Subdirectories include: academic_institutions, backstage, books, changelog, code_examples, conferences, cookbook, events, exercises, industrial_users, is_ocaml_yet, media, news, pages, planet, platform_releases, releases, success_stories, tool_pages, tutorials. Top-level YAML files include jobs.yml, governance.yml, papers.yml, tools.yml, etc.
-
-Some content is scraped automatically (planet posts, videos, platform releases) — see CI Workflows below.
+**Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, and `data/platform_releases/` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
 
 ### Tailwind CSS
 
@@ -89,34 +75,32 @@ The opam repository is pinned to a specific commit in the following files, which
 - `.github/workflows/debug-ci.yml`
 - `.github/workflows/release-scrapers.yml`
 
-After updating the pin, run `opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>`, then `opam update && opam upgrade`. If OCamlFormat is upgraded, update `.ocamlformat` and `.github/workflows/ci.yml` accordingly.
+After updating the pin, run `opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>`, then `opam update && opam upgrade`. If OCamlFormat is upgraded in the process, update its version in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml` together.
 
 ## Environment Variables
+
+Defined in `src/ocamlorg_web/lib/config.ml` and `src/ocamlorg_package/lib/config.ml`. The ones you typically override when running locally:
 
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
 | `OCAMLORG_HTTP_PORT` | `8080` | HTTP server port |
-| `OCAMLORG_DOC_URL` | `https://sage.ci.dev/current/` | Package documentation server URL |
-| `OCAMLORG_REPO_PATH` | `~/.cache/ocamlorg/opam-repository` | Path to local opam-repository clone |
-| `OCAMLORG_PKG_STATE_PATH` | `~/.cache/ocamlorg/package.state` | Path to package state cache file |
-| `OCAMLORG_PACKAGE_CACHES_TTL` | `3600` | Package cache time-to-live in seconds |
-| `OCAMLORG_OPAM_POLLING` | `3600` | Opam repository polling interval in seconds |
-| `OCAMLORG_MANUAL_PATH` | `html-compiler-manuals` | Path to OCaml compiler manual HTML files |
-| `OCAMLORG_V2_PATH` | `data/v2` | Path to v2 data files |
+| `OCAMLORG_DOC_URL` | `https://sage.ci.dev/current/` | External package-documentation server (see below) |
+| `OCAMLORG_REPO_PATH` | `~/.cache/ocamlorg/opam-repository` | Local opam-repository clone |
+| `OCAMLORG_PKG_STATE_PATH` | `~/.cache/ocamlorg/package.state` | Package state cache file |
+
+The remaining variables (`OCAMLORG_PACKAGE_CACHES_TTL`, `OCAMLORG_OPAM_POLLING`, `OCAMLORG_MANUAL_PATH`, `OCAMLORG_V2_PATH`) are tuning/path overrides rarely changed in development.
 
 ## CI Workflows
 
-- **ci.yml** — Build, test, and format check on push/PR to `main` (Ubuntu + macOS, OCaml 5.2.0)
-- **markdown-lint.yml** — Lint changed Markdown files on push/PR (excludes `data/planet/` and `data/changelog/`)
-- **scrape.yml** — Daily scrape of OCaml Planet feeds and videos, opens a PR with new content
-- **scrape_platform_releases.yml** — Daily scrape of OCaml Platform releases, opens a PR with new content
-- **release-scrapers.yml** — Builds and publishes the scraper binary on push to `main` (when `tool/`, `src/`, or build files change)
+Two gate every PR: **ci.yml** (build + test + `make fmt` check; Ubuntu + macOS, OCaml 5.2.0) and **markdown-lint.yml** (lints changed `*.md`, skipping `data/planet/` and `data/changelog/`).
+
+The rest are automation: **scrape.yml** and **scrape_platform_releases.yml** run daily and open PRs with newly scraped content; **release-scrapers.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
 
 ## Deployment
 
-- `main` branch deploys to https://ocaml.org/
-- `staging` branch deploys to https://staging.ocaml.org/
-- Pipeline managed by [ocurrent-deployer](https://github.com/ocurrent/ocurrent-deployer), monitor at https://deploy.ci.ocaml.org/?repo=ocaml/ocaml.org
+- `main` branch deploys to <https://ocaml.org/>
+- `staging` branch deploys to <https://staging.ocaml.org/>
+- Pipeline managed by [ocurrent-deployer](https://github.com/ocurrent/ocurrent-deployer), monitor at <https://deploy.ci.ocaml.org/?repo=ocaml/ocaml.org>
 
 ### Package Documentation
 

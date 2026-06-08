@@ -66,7 +66,7 @@ Formatting and linting failures are the most common cause of CI failures. Before
 make fmt
 ```
 
-This formats OCaml code with ocamlformat and auto-promotes the changes. Commit any files it modifies.
+This formats OCaml code with ocamlformat and auto-promotes the changes. Commit any files it modifies. OCamlFormat is pinned to 0.26.2 (in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`); with any other version installed, `make fmt` aborts with a version-mismatch error instead of reformatting, so run `make deps` to install the pinned version.
 
 If your PR touches Markdown files, also lint them:
 
@@ -192,9 +192,8 @@ opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
 Once this is done, you can run `opam update` and `opam upgrade`. If OCamlFormat
-was upgraded in the process, the files `.ocamlformat` and
-`.github/workflows/ci.yml` must be modified with the currently installed version
-of OCamlFormat.
+was upgraded in the process, its version must be updated together in
+`.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`.
 
 ### Handling the Tailwind CSS
 
@@ -220,7 +219,7 @@ The following snippet describes the repository structure:
 │   │   Project wide definitions
 │   │
 │   ├── ocamlorg_data
-│   │   The result of compiling all of the information in `/data` into OCaml modules.
+│   │   Accessor layer over the packed `data/` blob (`data.bin`); types defined in `data_intf.ml`.
 │   │
 │   ├── ocamlorg_frontend
 │   │   All of the front-end code primarily using .eml files (OCaml + HTML).
@@ -236,7 +235,7 @@ The following snippet describes the repository structure:
 │
 ├── tool/
 │   ├── data-packer
-│   │   Code generator that converts YAML/Markdown data into OCaml modules.
+│   │   Packs YAML/Markdown data from `data/` into the `data.bin` binary blob.
 │   │
 │   ├── data-scrape
 │   │   Scraper for external content (planet feeds, videos, platform releases).
