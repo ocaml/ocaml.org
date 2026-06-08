@@ -199,27 +199,13 @@ The release also improves type-enclosing on class- and object-related items and 
 - The default `ocaml-version` is now 5.4, so the `effect` keyword is recognised without extra configuration. **Caveat**: codebases that use `effect` as an identifier must now set `ocaml-version=5.2`, or builds will break.
 - A new `letop-punning` option (`preserve` by default) controls whether bindings like `let+ x = x in ...` are punned to `let+ x in ...`.
 
-**Heads-up: expect formatting churn on first run.** Several changes to default formatting will produce diffs when re-running `ocamlformat` over an existing codebase — chiefly adjustments to `begin … end` and match-case indentation, plus indentation tweaks from the OCaml 5.5 syntax work. Teams gating CI on `ocamlformat --check` should review the diffs before merging.
+**Tip:** Ignore formatting commits in `git blame`:
 
-A representative example — the body and `end` of a nested `begin … end` now gain two spaces of indentation:
+Put all the formatting changes in a single dedicated commit and add the full commit hash into a file named `.git-blame-ignore-revs`.
 
-```ocaml
-(* before — 0.28 *)
-begin match () with
-| () -> begin
-  f x
-end
-end
+Then, use it like this: `git blame --ignore-revs-file=.git-blame-ignore-revs ..` or add it to the local configuration: `git config blame.ignoreRevsFile .git-blame-ignore-revs`. GitHub does this automatically in its web UI.
 
-(* after — 0.29 *)
-begin match () with
-| () -> begin
-    f x
-  end
-end
-```
-
-Most projects will see a one-time reformat like this on the first `ocamlformat 0.29` run; we recommend upgrading in a dedicated commit so the reformatting stays isolated from unrelated changes.
+If you do this in a GitHub Pull Request, make sure not to use "Squash and merge" or "Rebase and merge" as these will change the commit hash in the main branch. See the [documentation](https://docs.github.com/en/repositories/working-with-files/using-files/viewing-and-understanding-files#ignore-commits-in-the-blame-view) from GitHub.
 
 ### Odoc
 
@@ -244,7 +230,7 @@ Most projects will see a one-time reformat like this on the first `ocamlformat 0
 
 ## WebAssembly
 
-A new Backstage post, [Wasm_of_ocaml: What Changed Since 6.1](https://ocaml.org/backstage/2026-04-16-wasm-of-ocaml-what-changed-since-6-1) (Apr 16), surveys the WebAssembly backend across js_of_ocaml 6.1–6.3. `wasm_of_ocaml` compiles OCaml bytecode to WebAssembly, targeting [WasmGC](https://github.com/WebAssembly/gc) so that OCaml values are managed by the host garbage collector. Highlights since 6.1:
+A new [Backstage OCaml](https://ocaml.org/backstage) post, [Wasm_of_ocaml: What Changed Since 6.1](https://ocaml.org/backstage/2026-04-16-wasm-of-ocaml-what-changed-since-6-1) (Apr 16), surveys the WebAssembly backend across js_of_ocaml 6.1–6.3. `wasm_of_ocaml` compiles OCaml bytecode to WebAssembly, targeting [WasmGC](https://github.com/WebAssembly/gc) so that OCaml values are managed by the host garbage collector. Highlights since 6.1:
 
 - The compiler now writes `.wasm` binary modules directly, instead of emitting WAT and converting it via Binaryen (still a required system dependency); WAT output remains available for debugging.
 - Improved Wasm code generation across 6.1–6.3.
