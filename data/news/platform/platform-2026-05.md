@@ -148,7 +148,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 [opam-publish 3.0.0](https://ocaml.org/changelog/2026-02-20-opam-publish-300) (February 20, 2026) is a major release with breaking changes and quality-of-life improvements:
 
-- **Breaking**: the deprecated `--split` option has been removed, and, following the upgrade to cmdliner 2.0, option names can no longer be abbreviated to an unambiguous prefix (for example, `--dry` is no longer accepted for `--dry-run`). The `github-unix` dependency has also been dropped.
+- **Breaking**: the deprecated `--split` option has been removed; following the upgrade to cmdliner 2.0, option names can no longer be abbreviated to an unambiguous prefix (for example, `--dry` is no longer accepted for `--dry-run`). The `github-unix` dependency has also been dropped.
 - **Default-branch auto-detection**: opam-publish no longer hardcodes `master`; it queries upstream for the default branch. This silently fixes failures against opam-repository forks that have migrated to `main`, which is relevant to release scripts and CI.
 - **Fork-name auto-detection**: supports users whose fork of opam-repository isn't named `opam-repository`.
 
