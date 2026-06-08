@@ -80,6 +80,7 @@ The OCaml 5.5.0 release cycle moved through three alphas and into a first beta d
 ```ocaml
 let sort (type a) (module MSet : Set.S with type elt = a) li =
   MSet.elements (List.fold_right MSet.add li MSet.empty)
+(* val sort : (module Set.S with type elt = 'a) -> 'a list -> 'a list *)
 ```
 
 Note the explicit `(type a)` and `with type elt = a`, binding the module's element type so the return type can refer to it. It is manageable here, but becomes tedious once several type parameters need binding. With modular explicits in 5.5, that boilerplate disappears:
