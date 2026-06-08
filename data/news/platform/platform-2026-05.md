@@ -21,7 +21,7 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 - **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03) — review your code and upgrade if you deserialise untrusted data, or upgrade if you maintain a distribution. These are the most prominent of several advisories published this period; [check the published security issues](https://osv.dev/list?q=&ecosystem=opam) and upgrade if you use an affected package, and you can [subscribe to security announcements](https://ocaml.org/security#mailing-list-for-security-announcements).
 - **Dune 3.22–3.23**: sandboxing is now on by default for tests, user rules, and inline runners (watch for latent flakiness); 3.22 adds build tracing and OxCaml parameterised-library support; 3.23 stops auto-promoting generated opam files (run `dune promote`).
 - **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add a code-extraction refactoring, type-aware navigation, and range formatting.
-- **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4` — expect one-time formatting churn if you gate CI on `ocamlformat --check`.
+- **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4`.
 - **opam-publish 3.0.0** (Feb 20): a breaking cmdliner 2.0 upgrade (no more prefix-matching), plus default-branch and fork-name auto-detection.
 - **Other releases**: Odoc 3.2.0 / 3.2.1, ppxlib 0.38.0, utop 2.17.0, and MDX 2.5.2 all shipped OCaml 5.5 support; dune-release 2.2.1 adds a `--prerelease` flag.
 
@@ -196,7 +196,7 @@ The release also improves type-enclosing on class- and object-related items and 
 
 - Support for OCaml 5.5 syntax.
 - The vendored Odoc parser is updated to 3.0: the indentation of OCaml code-blocks is reduced by two (to avoid changing generated documentation), and indentation within code-blocks is now significant in Odoc.
-- The default `ocaml-version` is now 5.4, so the `effect` keyword is recognised without extra configuration. **Caveat**: codebases that use `effect` as an identifier must now set `ocaml-version=5.2`, or builds will break.
+- The default `ocaml-version` is now 5.4, so the `effect` keyword is recognised without extra configuration. **Caveat**: codebases that use `effect` as an identifier must now set `ocaml-version=5.2`.
 - A new `letop-punning` option (`preserve` by default) controls whether bindings like `let+ x = x in ...` are punned to `let+ x in ...`.
 
 **Tip:** Ignore formatting commits in `git blame`:
