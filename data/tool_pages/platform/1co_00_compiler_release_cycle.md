@@ -38,7 +38,6 @@ either a prerelease or development tag
   tags of the form +dev%i-%date used by the compiler for its development
   versions.
 
-
 ## When Are New Versions Released?
 
 Since OCaml 4.03, we are using a time-based release schedule:
@@ -69,7 +68,6 @@ prerelease testing.
 Users are strongly encouraged to switch to the last bugfix versions as soon as
 possible. We make this easy by doing our best to avoid any regression there.
 
-
 ## Exceptional LTS Versions
 
 Switching from OCaml 4 to OCaml 5 required a full rewrite of the OCaml runtime.
@@ -79,6 +77,10 @@ This has negatively affected the stability of the releases of OCaml 5 in terms o
 - Supported OS
 - Performance stability
 - Number of runtime bugs
+
+Owing to the large number of changes, especially to the garbage collector,
+OCaml 4.14 (the final release in the OCaml 4.x series, originally released in
+March 2022) remains supported for the time being.
 
 To keep a stable version easily available, we are exceptionally maintaining
 OCaml 4.14 as a long term support version of OCaml. New bugfix versions of OCaml
