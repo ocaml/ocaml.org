@@ -23,7 +23,7 @@ The output is the usual `foo.js` plus a `foo.assets/` directory containing the `
 wizeng.x86-64-linux --ext:stack-switching foo.assets/code.wasm
 ```
 
-The same output also runs on [wasmtime](https://github.com/bytecodealliance/wasmtime) (a recent dev build). The newer `exnref`-based exception handling is now the default when producing WASI binaries, so no extra compile-time flags are needed:
+The same output also runs on [wasmtime](https://github.com/bytecodealliance/wasmtime). The newer `exnref`-based exception handling is now the default when producing WASI binaries, so no extra compile-time flags are needed:
 
 ```shell
 wasm_of_ocaml --enable wasi foo.byte -o foo.js
