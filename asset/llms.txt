@@ -114,12 +114,12 @@
 
 ## Success Stories
 
-- [Jane Street](https://ocaml.org/success-stories/janestreet): Large-scale trading system built with OCaml
-- [Ahrefs](https://ocaml.org/success-stories/ahrefs-petabyte-crawler): Petabyte-scale web crawler
-- [LexiFi](https://ocaml.org/success-stories/lexifi): Financial contract modelling
-- [Imandra](https://ocaml.org/success-stories/imandra): Automated reasoning and formal verification
-- [Robur](https://ocaml.org/success-stories/robur): Secure unikernel infrastructure
-- [Terrateam](https://ocaml.org/success-stories/terrateam): Infrastructure automation
+- [Jane Street](https://ocaml.org/success-stories/large-scale-trading-system): OCaml's largest commercial user — 500+ OCaml programmers and 30M+ lines of OCaml power systems that safely trade billions of dollars a day. Jane Street built and open-sourced Dune, Core, and Async.
+- [Ahrefs](https://ocaml.org/success-stories/petabyte-scale-web-crawling-and-data-processing): The world's third-largest web crawler, written in OCaml — 492.7 billion pages indexed across 500.4 million domains, serving 500 billion backend requests/day over 100+ PB of storage. A lean 150-person, $100M+ ARR company runs 4000+ servers on 1.5M lines of OCaml.
+- [LexiFi](https://ocaml.org/success-stories/modeling-language-for-finance): Two decades of OCaml behind a leading derivatives-modelling platform. A small team has evolved a large codebase since the 2000s; LexiFi's contract-algebra technology is integrated into Bloomberg terminals.
+- [Imandra](https://ocaml.org/success-stories/financial-compliance-with-automated-reasoning): Automated reasoning built entirely in OCaml. Goldman Sachs, Citi, DARPA, and the US Navy run Imandra's formally verified models in production, compressing FIX-protocol certification from days to hours.
+- [Robur](https://ocaml.org/success-stories/secure-internet-services-with-ocaml-and-mirageos): A worker-owned collective building secure, resource-efficient MirageOS unikernels in OCaml — including a TLS stack, Mirage-Crypto, an OpenVPN implementation, and DNS and CalDav servers that run as unikernels.
+- [Terrateam](https://ocaml.org/success-stories/infrastructure-as-code-platform): Open-source Infrastructure-as-Code SaaS built in OCaml, handling many concurrent GitHub/Terraform workflows with minimal CPU and memory across a small number of containers.
 
 ## About
 
