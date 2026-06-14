@@ -13,13 +13,13 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 **Highlights:**
 
-- **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, generalised local bindings, and garbage-collector improvements; final release expected soon.
+- **OCaml 5.5.0 reaches beta** (Apr 20): a relocatable compiler plus modular explicits, polymorphic function parameters, generalised local bindings, and garbage-collector improvements; the upstream 5.5.0-rc1 tag has since been created, but no final stable release has been published yet.
 - **Security**: OCaml 5.4.1 / 4.14.3 (Feb 17) harden Marshal against malicious input (OSEC-2026-01) and opam 2.5.1 (Apr 16) blocks `.install` path escapes (OSEC-2026-03). Review your code and upgrade if you deserialise untrusted data, or upgrade if you maintain a distribution. These are the most prominent of several advisories published this period; [check the published security issues](https://osv.dev/list?q=&ecosystem=opam) and upgrade if you use an affected package, and you can [subscribe to security announcements](https://ocaml.org/security#mailing-list-for-security-announcements).
-- **Dune 3.22–3.23**: sandboxing is now on by default for tests, user rules, and inline runners (watch for latent flakiness); 3.22 adds build tracing and OxCaml parameterised-library support; 3.23 stops auto-promoting generated opam files (run `dune promote`).
+- **Dune 3.22–3.23**: sandboxing is now on by default for tests, user rules, and inline test-runner generation; 3.22 adds build tracing and OxCaml parameterised-library support; 3.23 stops auto-promoting generated opam files (run `dune promote`).
 - **Editor tools** (Apr 10): OCaml-LSP 1.26.0 + Merlin 5.7.0-504 add a code-extraction refactoring, type-aware navigation, and range formatting.
 - **OCamlFormat 0.29.0** (Mar 17): OCaml 5.5 syntax and a new default `ocaml-version=5.4`.
 - **opam-publish 3.0.0** (Feb 20): a breaking cmdliner 2.0 upgrade (no more prefix-matching), plus default-branch and fork-name auto-detection.
-- **Other releases**: Odoc 3.2.0 / 3.2.1, ppxlib 0.38.0, utop 2.17.0, and MDX 2.5.2 all shipped OCaml 5.5 support; dune-release 2.2.1 adds a `--prerelease` flag.
+- **Other releases**: Odoc 3.2.0, ppxlib 0.38.0, utop 2.17.0, and MDX 2.5.2 shipped OCaml 5.5 support; Odoc 3.2.1 fixed OCaml 5.5 documentation regressions; dune-release 2.2.1 adds a `--prerelease` flag.
 
 **Stable Releases:**
 
@@ -56,15 +56,15 @@ You can [subscribe to this newsletter on LinkedIn](https://www.linkedin.com/news
 
 ### Maintenance Releases: 5.4.1 and 4.14.3
 
-[OCaml 5.4.1 and 4.14.3](https://ocaml.org/changelog/2026-02-17-ocaml-541-and-4143) (February 17, 2026) are maintenance releases of the 5.4 and 4.14 stable branches. The headline is [OSEC-2026-01](https://osv.dev/vulnerability/OSEC-2026-01): the `intern.c` Marshal implementation has been hardened against malicious inputs. Anyone deserialising untrusted data should review their code and upgrade. The releases also ship several correctness fixes, including a long-standing miscompilation of unsafe int32/int64/nativeint array accesses present since 4.04, a `Lazy.force` race fix, a demarshal-exception memory-corruption fix, and TSan-related fixes for OCaml 5 users. See the release notes for the full list.
+[OCaml 5.4.1 and 4.14.3](https://ocaml.org/changelog/2026-02-17-ocaml-541-and-4143) (February 17, 2026) are maintenance releases of the 5.4 and 4.14 stable branches. The headline is [OSEC-2026-01](https://osv.dev/vulnerability/OSEC-2026-01): the `intern.c` Marshal implementation has been hardened against malicious inputs. Anyone deserialising untrusted data should review their code and upgrade. The 4.14.3 release also fixes a long-standing miscompilation of unsafe int32/int64/nativeint array accesses present since 4.04, a `Lazy.force` race, and a demarshal-exception memory-corruption issue; the 5.4.1 release adds OCaml 5-specific fixes including TSan fixes, a macOS `-pack` fix, and a string-operation miscompilation fix. See the release notes for the full list.
 
 ### OCaml 5.5.0 Progresses to Beta
 
-The OCaml 5.5.0 release cycle moved through three alphas and into a first beta during this period. **5.5.0 ships a particularly notable batch of language extensions**, and is the first to ship a relocatable compiler.
+The OCaml 5.5.0 release cycle moved through two announced alphas, an unreleased alpha2 tag, and into a first beta during this period. **5.5.0 ships a particularly notable batch of language extensions**, and is the first to ship a relocatable compiler.
 
 **Headline features in 5.5.0:**
 
-- **Relocatable compiler** (deployment-side): the compiler and its associated tools can be moved/copied between directories after installation without breaking functionality. Significant for opam, Docker, sandboxed installs, and binary distribution. (See [the relocatable-OCaml announcement](https://discuss.ocaml.org/t/relocatable-ocaml/17253) referenced in the previous newsletter.)
+- **Relocatable compiler** (deployment-side): the compiler and its associated tools can be moved/copied between directories after installation without breaking functionality. This makes installed compiler trees easier to reuse or redistribute. (See [the relocatable-OCaml announcement](https://discuss.ocaml.org/t/relocatable-ocaml/17253) referenced in the previous newsletter.)
 - **Modular explicits** (language): function arguments can now carry a module signature dependency (`(module M : S) -> t[M]`), enabling module-dependent function arguments without full functor syntax.
 - **Polymorphic function parameters** (language): functions can now take arguments with explicit polymorphic types (e.g. `(getter : 'a. 'a t -> 'a)`), enabling clean ST-monad-style and rank-2 patterns previously requiring records.
 - **Generalised local bindings** (language): `let module`, `let exception`, `let open`, and `let type` are now supported in expressions in more contexts.
@@ -97,7 +97,7 @@ The `MSet.elt` in the inferred type refers back to the module argument, so the r
 - [5.5.0~alpha1](https://ocaml.org/backstage/2026-02-27-ocaml-550-alpha1) (Feb 27) - first alpha, opening the bug-hunting window.
 - 5.5.0~alpha2 - tagged but unreleased: an unforeseen interaction between the relocatable compiler and bootstrapping was discovered before the release was finalised.
 - [5.5.0~alpha3](https://ocaml.org/backstage/2026-03-26-ocaml-550-alpha3) (Mar 26) - fixes the bootstrap issue, alongside a type-soundness restoration, a register-allocator miscompilation fix, and an s390x heap-corruption fix.
-- [5.5.0~beta1](https://ocaml.org/backstage/2026-04-20-ocaml-550-beta1) (Apr 20) - most developer tools are now available (at least in preview form). Compared to the last alpha, beta1 fixes two runtime bugs (ephemerons; the bytecode interpreter), two type-system bugs (classes; module-dependent functions), and three warning/error-message bugs. The release announcement explicitly invites users to test their libraries and programs against 5.5.0 in preparation for the final release, expected soon.
+- [5.5.0~beta1](https://ocaml.org/backstage/2026-04-20-ocaml-550-beta1) (Apr 20) - most developer tools are now available (at least in preview form). Compared to the last alpha, beta1 fixes two runtime bugs (ephemerons; the bytecode interpreter), two type-system bugs (classes; module-dependent functions), and three warning/error-message bugs. The release announcement explicitly invites users to test their libraries and programs against 5.5.0 in preparation for the final release; the upstream 5.5.0-rc1 tag has since been created, but no final stable release has been published yet.
 
 The [release readiness meta-issue](https://github.com/ocaml/opam-repository/issues/29463) tracks ongoing work on the surrounding ecosystem.
 
@@ -114,7 +114,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 - **Build tracing**: new functionality to inspect and diagnose the build process, plus a public `dune-action-trace` library so custom actions can emit trace events and a `dune trace cat` subcommand to read the output.
 - **odoc documentation in Markdown**: a new `@doc-markdown` build alias generates odoc output as Markdown.
 - **OxCaml parameterised libraries**: full support for OxCaml's parameterised libraries.
-- **Tests sandboxed by default**: `(test)` and `(tests)` stanzas (along with Melange rules, `mdx`, and `ocamllex`/`ocamlyacc`) are now sandboxed by default. This affects nearly every project and may surface latent test flakiness or path assumptions on upgrade.
+- **Tests sandboxed by default**: `(test)` and `(tests)` stanzas (along with Melange rules, `mdx`, and `ocamllex`/`ocamlyacc`) are now sandboxed by default. This may affect many projects with tests or generated-code rules and may surface latent filesystem or path assumptions on upgrade.
 - **`dune runtest <file>` runs individual tests** ([#13064](https://github.com/ocaml/dune/pull/13064)), closing a request open since 2018: `runtest` is no longer all-or-nothing for `(tests)` and inline tests.
 
 **[Dune 3.22.1](https://ocaml.org/changelog/2026-04-06-dune3221) (Apr 6)** and **[3.22.2](https://ocaml.org/changelog/2026-04-14-dune3222) (Apr 14)** are regression fixes: a `dune test` crash in workspaces without a context named "default", and a `--diff-command` change that again passes non-existent files to the diff command rather than `/dev/null`.
@@ -123,7 +123,7 @@ Six Dune releases shipped during this period: a 3.21 patch, the 3.22.x series, a
 
 - **Generated opam files are no longer auto-promoted** ([#14108](https://github.com/ocaml/dune/pull/14108)): a breaking change. Dune no longer writes generated `.opam` files back into the source tree on build; you now update them explicitly with `dune promote`. Worth flagging for release scripts and any CI that checks committed opam files are in sync.
 - **`c_library_flags` in `foreign_stubs`** ([#13484](https://github.com/ocaml/dune/pull/13484)): `foreign_stubs` now accepts `c_library_flags`, for finer control over how C stubs are linked.
-- **Sandboxing extended**: user rules and inline test runners are now sandboxed by default, continuing the sandboxing-by-default work begun in 3.22.
+- **Sandboxing extended**: user rules and inline test-runner generation are now sandboxed by default, continuing the sandboxing-by-default work begun in 3.22.
 - **Promotion and diffing improvements**: numerous refinements, including sandboxed diff promotions and directory-level diffing.
 - **Minimum OCaml to build Dune is now 4.14**: this concerns only building Dune itself from source on older compilers, not projects that use Dune.
 
@@ -170,19 +170,15 @@ The headline this cycle is a new code-extraction refactoring for Merlin and OCam
 
 **Two OCaml 5.5 preview builds** came first: [Merlin 5.7-505~preview](https://ocaml.org/backstage/2026-02-27-merlin-v57-505preview) (Feb 27) and [OCaml-LSP 1.26.0-5.5~preview](https://ocaml.org/backstage/2026-03-19-ocaml-lsp-1260-55preview) (Mar 19). Between them they carry the `locate-types` groundwork for type-aware navigation, a new `destruct` custom request, configuration of Merlin via build systems other than dune (through the `OCAMLLSP_PROJECT_BUILD_SYSTEM` and `OCAMLLSP_PROJECT_ROOT` environment variables), `ocamlformat`-formatted signature help, and several signature-help and autocompletion fixes.
 
-**[Merlin 5.7.0-504 + OCaml-LSP 1.26.0](https://ocaml.org/changelog/2026-04-10-merlin-570-504) (Apr 10)** - the paired stable release, with three new user-visible capabilities available to any LSP client:
+**[Merlin 5.7.0-504 + OCaml-LSP 1.26.0](https://ocaml.org/changelog/2026-04-10-merlin-570-504) (Apr 10)** - the paired stable release, with three new user-visible capabilities exposed through standard LSP support or OCaml-LSP custom requests:
 
 - **Refactor: extract region**: a new [`refactor-extract-region`](https://github.com/ocaml/merlin/pull/1948) command (with a matching `ocamllsp/refactorExtract` request) extracts a selected region into a fresh let-binding (experimental). It is a new region-extraction refactoring alongside the existing rename, type-annotation, and destruct support.
-- **Type-aware navigation**: a new `locate_types` request lets editors jump to the definitions of types appearing inside a hovered type.
+- **Type-aware navigation**: a new `ocamllsp/locateTypes` custom request lets editors jump to the definitions of types appearing inside a hovered type.
 - **Range formatting**: OCaml-LSP now supports `textDocument/rangeFormatting`, i.e. format-selection.
 
 The release also improves type-enclosing on class- and object-related items and fixes a cluster of signature-help bugs. The Backstage post [Improved Signature Help in Merlin](https://ocaml.org/backstage/2026-04-15-improved-signature-help-in-merlin) walks through the signature-help changes from a user's perspective.
 
 **[Merlin 5.7.1-504](https://ocaml.org/changelog/2026-04-30-merlin-v571-504) (Apr 30)** - a 5.4-series patch that fixes a typer cache-invalidation bug (Merlin now picks up newly created `.cmi` files, for instance when Dune builds a new module) and shrinks on-disk index files.
-
-**OCaml-LSP Server maintained by**: Ulysse Gérard (@voodoos, Tarides), Xavier Van de Woestyne (@xvw, Tarides), Rudi Grinberg (@rgrinberg, Jane Street)
-
-**Merlin maintained by**: Ulysse Gérard (@voodoos, Tarides), Xavier Van de Woestyne (@xvw, Tarides), Muluh Godson (@PizieDust, Tarides)
 
 ## Code Quality and Documentation
 
@@ -215,7 +211,7 @@ If you do this in a GitHub Pull Request, make sure not to use "Squash and merge"
 
 ### ppxlib
 
-[ppxlib 0.38.0](https://ocaml.org/changelog/2026-03-20-ppxlib-0380) (March 20, 2026) adds OCaml 5.5 support, and changes the approach to getting there. It is the first ppxlib release to use the team's [new strategy for supporting future compilers](https://discuss.ocaml.org/t/ann-ppxlib-support-for-future-compilers/17430): instead of bumping ppxlib's internal AST (the change behind the ecosystem breakage around the 5.2 bump and ppxlib 0.36.0), support for every compiler `>= 5.3` now encodes new language constructs into the existing AST. The payoff is that adding a new compiler no longer forces a breaking ppxlib release across the PPX ecosystem. New `Ast_builder` and `Ast_pattern` helpers let PPX authors produce and match the encoded constructs (labeled tuples, bivariant type parameters, and effect patterns), documented in a [new compatibility manual section](https://ocaml-ppx.github.io/ppxlib/ppxlib/compatibility.html#future_compilers). One behaviour change to note: duplicate attributes now raise instead of looping silently, which may surface latent bugs in existing PPXs.
+[ppxlib 0.38.0](https://ocaml.org/changelog/2026-03-20-ppxlib-0380) (March 20, 2026) adds OCaml 5.5 support, and changes the approach to getting there. It is the first ppxlib release to use the team's [new strategy for supporting future compilers](https://discuss.ocaml.org/t/ann-ppxlib-support-for-future-compilers/17430): instead of bumping ppxlib's internal AST (the change behind the ecosystem breakage around the 5.2 bump and ppxlib 0.36.0), support for every compiler `>= 5.3` now encodes new language constructs into the existing AST. The payoff is that adding a new compiler no longer forces a breaking ppxlib release across the PPX ecosystem. New `Ast_builder` and `Ast_pattern` helpers let PPX authors produce and match encoded labeled tuples and effect patterns, while bivariant type parameters are also supported; these are documented in a [new compatibility manual section](https://ocaml-ppx.github.io/ppxlib/ppxlib/compatibility.html#future_compilers). One behaviour change to note: duplicate attributes now raise instead of looping silently, which may surface latent bugs in existing PPXs.
 
 ### utop
 
@@ -230,7 +226,7 @@ A new [Backstage OCaml](https://ocaml.org/backstage) post, [Wasm_of_ocaml: What 
 
 - The compiler now writes `.wasm` binary modules directly, instead of emitting WAT and converting it via Binaryen (still a required system dependency); WAT output remains available for debugging.
 - Improved Wasm code generation across 6.1–6.3.
-- Three larger features tracked since the post: dynlink/toplevel support and native effects (via stack switching) have since landed, with WASI support still in progress.
+- The three larger features tracked in the post have now landed: dynlink/toplevel support (merged Apr 8), native effects via stack switching (May 28), and WASI support (Jun 12). Check js_of_ocaml release notes before relying on them in a released package.
 
 ---
 
