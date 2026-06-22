@@ -211,7 +211,11 @@ If you do this in a GitHub Pull Request, make sure not to use "Squash and merge"
 
 ### ppxlib
 
-[ppxlib 0.38.0](https://ocaml.org/changelog/2026-03-20-ppxlib-0380) (March 20, 2026) adds OCaml 5.5 support, and changes the approach to getting there. It is the first ppxlib release to use the team's [new strategy for supporting future compilers](https://discuss.ocaml.org/t/ann-ppxlib-support-for-future-compilers/17430): instead of bumping ppxlib's internal AST (the change behind the ecosystem breakage around the 5.2 bump and ppxlib 0.36.0), support for every compiler `>= 5.3` now encodes new language constructs into the existing AST. The payoff is that adding a new compiler no longer forces a breaking ppxlib release across the PPX ecosystem. New `Ast_builder` and `Ast_pattern` helpers let PPX authors produce and match encoded labeled tuples and effect patterns, while bivariant type parameters are also supported; these are documented in a [new compatibility manual section](https://ocaml-ppx.github.io/ppxlib/ppxlib/compatibility.html#future_compilers). One behaviour change to note: duplicate attributes now raise instead of looping silently, which may surface latent bugs in existing PPXs.
+[ppxlib 0.38.0](https://ocaml.org/changelog/2026-03-20-ppxlib-0380) (March 20, 2026) adds OCaml 5.5 support, and changes the approach to getting there.
+It is the first ppxlib release to use the team's [new strategy for supporting future compilers](https://discuss.ocaml.org/t/ann-ppxlib-support-for-future-compilers/17430): instead of bumping ppxlib's internal AST (the change behind the ecosystem breakage around the 5.2 bump and ppxlib 0.36.0), support for every compiler `>= 5.3` now encodes new language constructs into the existing AST.
+The payoff is that adding a new compiler no longer forces a breaking ppxlib release across the PPX ecosystem.
+New `Ast_builder` and `Ast_pattern` helpers let PPX authors produce and match encoded labeled tuples and effect patterns, while bivariant type parameters are also supported; these are documented in a [new compatibility manual section](https://ocaml-ppx.github.io/ppxlib/ppxlib/compatibility.html#future_compilers).
+One behaviour change to note: duplicate attributes now raise instead of looping silently, which may surface latent bugs in existing PPXs.
 
 ### utop
 
