@@ -70,6 +70,11 @@ let news_post v = "/news/" ^ v
 let jobs = "/jobs"
 let governance = "/governance"
 let governance_team id = "/governance/" ^ id
+let governance_dev_meetings_calendar = "/governance/dev-meetings-calendar"
+
+let governance_dev_meetings_calendar_ical =
+  "/governance/dev-meetings-calendar.ics"
+
 let carbon_footprint = "/policies/carbon-footprint"
 let privacy_policy = "/policies/privacy-policy"
 let governance_policy = "/policies/governance"
