@@ -91,22 +91,34 @@ let get_all_videos () =
   in
   aux data
 
+let source_id = "watch.ocaml.org"
+
 let scrape yaml_file =
   let old_count = List.length (all ()) in
-  let watch =
-    get_all_videos ()
-    |> List.stable_sort (fun w1 w2 ->
-           String.compare w1.Data_packer.Vid.title w2.Data_packer.Vid.title)
-  in
-  let yaml = to_yaml watch in
-  let output =
-    Yaml.pp Format.str_formatter yaml;
-    Format.flush_str_formatter ()
-  in
-  let oc = open_out yaml_file in
-  Printf.fprintf oc "%s" output;
-  close_out oc;
-  let new_count = List.length watch - old_count in
-  if new_count > 0 then
-    [ Scrape_report.Video_update { file = yaml_file; new_count } ]
-  else []
+  (* A failure of the watch.ocaml.org source (e.g. network outage or expired TLS
+     certificate) must not abort the whole scrape: report it as an error and
+     leave the existing yaml file untouched so we don't lose data. *)
+  match get_all_videos () with
+  | exception e ->
+      let message = Printexc.to_string e in
+      Printf.eprintf " [WARN] Could not fetch %s videos: %s\n%!" source_id
+        message;
+      [ Scrape_report.Error { source_id; message } ]
+  | videos ->
+      let watch =
+        videos
+        |> List.stable_sort (fun w1 w2 ->
+               String.compare w1.Data_packer.Vid.title w2.Data_packer.Vid.title)
+      in
+      let yaml = to_yaml watch in
+      let output =
+        Yaml.pp Format.str_formatter yaml;
+        Format.flush_str_formatter ()
+      in
+      let oc = open_out yaml_file in
+      Printf.fprintf oc "%s" output;
+      close_out oc;
+      let new_count = List.length watch - old_count in
+      if new_count > 0 then
+        [ Scrape_report.Video_update { file = yaml_file; new_count } ]
+      else []
