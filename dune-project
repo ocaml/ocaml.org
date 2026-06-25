@@ -22,7 +22,7 @@
 
 (generate_opam_files true)
 
-(using mdx 0.1)
+(using mdx 0.2)
 
 (package
   (name tailwindcss) (allow_empty))
