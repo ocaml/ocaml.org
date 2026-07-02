@@ -61,7 +61,7 @@ Workshop_layout.single_column_layout
       <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0 lg:w-96 flex-shrink-0">
         <h3 class="font-bold text-title dark:text-dark-title">Important Dates</h3>
         <div class="flex items-center">
-          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">1 Jul</div>
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">13 Jul</div>
           <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
           <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-white px-4 py-2">
             <div class="text-xs font-semibold">UPCOMING</div>
@@ -69,7 +69,7 @@ Workshop_layout.single_column_layout
           </div>
         </div>
         <div class="flex items-center">
-          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">27 Jul</div>
+          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">3 Aug</div>
           <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
           <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-white px-4 py-2">
             <div class="text-xs font-semibold">UPCOMING</div>
