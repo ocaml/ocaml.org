@@ -20,6 +20,16 @@ let documentation_href (package : Package.package) version =
     Printf.sprintf "/manual/%s/index.html" (ocaml_manual_version version)
   else Printf.sprintf "/p/%s/%s/doc/index.html" package.name version
 
+let is_ocaml_compiler_package name =
+  List.mem name
+    [
+      "ocaml";
+      "ocaml-compiler";
+      "ocaml-base-compiler";
+      "ocaml-system";
+      "ocaml-variants";
+    ]
+
 let render_statuses ~is_latest ~is_selected item =
   let previous = not is_latest && not (is_discouraged item) in
   let badges =
@@ -28,7 +38,7 @@ let render_statuses ~is_latest ~is_selected item =
          Some
            (status_badge
               "border-primary bg-primary_25 text-title dark:border-dark-primary dark:bg-dark-primary_10 dark:text-dark-title"
-              "Latest")
+              "Latest URL target")
        else None);
       (if previous then
          Some
@@ -127,8 +137,24 @@ Layout.render
     <h1 class="text-2xl font-medium text-title dark:text-dark-title"><%s package.name %> opam package versions (<%i List.length package.versions %>)</h1>
   </div>
   <div class="container-fluid">
+    <% if is_ocaml_compiler_package package.name then ( %>
+      <aside aria-labelledby="official-ocaml-releases-title"
+        class="mb-6 max-w-3xl rounded border-l-4 border-primary bg-primary_25 p-5 text-content dark:border-dark-primary dark:bg-dark-primary_10 dark:text-dark-content">
+        <h2 id="official-ocaml-releases-title" class="text-lg font-semibold text-title dark:text-dark-title">Official OCaml releases</h2>
+        <p class="mt-2">
+          This page is an opam package listing, not the list of official OCaml releases.
+          It may include compiler versions that have not been officially released.
+        </p>
+        <a href="<%s Url.releases %>"
+          class="mt-2 inline-flex min-h-[44px] items-center font-medium text-primary underline underline-offset-4 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-dark-primary dark:focus-visible:outline-dark-primary">
+          View official OCaml releases
+        </a>
+      </aside>
+    <% ); %>
     <p class="max-w-3xl text-content dark:text-dark-content">
-      On ocaml.org, the <code>latest</code> URL points to version <strong><%s package.latest_version %></strong>.
+      This page lists package versions found in opam-repository.
+      On ocaml.org, the <code>latest</code> URL currently points to version <strong><%s package.latest_version %></strong>;
+      this does not indicate an upstream release status.
       Versions marked Avoided or Deprecated are not normally selected by opam.
     </p>
     <div class="mt-4 overflow-x-auto">
@@ -142,7 +168,7 @@ Layout.render
             <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Links</th>
           </tr>
         </thead>
-        <%s! render_group "Latest version" latest_versions %>
+        <%s! render_group "Version selected by the latest URL" latest_versions %>
         <%s! render_group "Previous versions" previous_versions %>
         <%s! render_group "Versions not normally selected by opam" discouraged_versions %>
       </table>
