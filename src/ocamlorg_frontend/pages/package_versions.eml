@@ -7,6 +7,19 @@ let is_discouraged item =
 let status_badge class_ label =
   <span class="inline-flex items-center whitespace-nowrap rounded border px-2 py-1 text-xs font-medium <%s class_ %>"><%s label %></span>
 
+let ocaml_manual_version version =
+  match String.split_on_char '.' version with
+  | major :: minor :: _ ->
+      let minor = List.hd (String.split_on_char '~' minor) in
+      let minor = List.hd (String.split_on_char '+' minor) in
+      Printf.sprintf "%s.%s" major minor
+  | _ -> version
+
+let documentation_href (package : Package.package) version =
+  if package.name = "ocaml" then
+    Printf.sprintf "/manual/%s/index.html" (ocaml_manual_version version)
+  else Printf.sprintf "/p/%s/%s/doc/index.html" package.name version
+
 let render_statuses ~is_latest ~is_selected item =
   let previous = not is_latest && not (is_discouraged item) in
   let badges =
@@ -83,7 +96,7 @@ let render_row (item : Package.version_summary) =
       </time>
     </td>
     <td class="rounded-r text-left text-sm <%s cell_background %>">
-      <a href="/p/<%s package.name %>/<%s item.version %>/doc/index.html"
+      <a href="<%s documentation_href package item.version %>"
         class="inline-flex min-h-[44px] items-center gap-2 p-4 font-medium text-primary hover:underline focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary dark:text-dark-primary dark:focus-visible:outline-dark-primary">
         <span aria-hidden="true"><%s! Icons.document "h-5 w-5"; %></span>
         Documentation
