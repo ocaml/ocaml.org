@@ -41,7 +41,7 @@ let render_package_and_version
     | Overview _ -> Url.Package.overview package.name ?version
     | Documentation _ -> Url.Package.documentation package.name ?version ?hash ?page
   in
-  let version_options (v: Package.version_with_publication_date) =
+  let version_options (v: Package.version_summary) =
     <% if v.version = package.latest_version then ( %>
     <option value="<%s url None %>" <%s if package.version = Latest then "selected" else "" %>>
       <%s "latest (" ^ package.latest_version ^ ")" %>

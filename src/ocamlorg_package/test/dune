@@ -1,3 +1,3 @@
 (tests
- (names package_info_test)
- (libraries alcotest ocamlorg_package))
+ (names package_info_test package_versions_test)
+ (libraries alcotest ocamlorg_package opam-format))

@@ -890,7 +890,7 @@ module Package_helper = struct
         authors = List.map owner info.authors;
         maintainers = List.map owner info.maintainers;
         license = info.license;
-        publication = info.publication;
+        opam_repository_date = info.publication;
         homepages = info.Ocamlorg_package.Info.homepage;
         source =
           Option.map
@@ -904,11 +904,20 @@ module Package_helper = struct
   (** Query all the versions of a package. *)
   let versions state name =
     Ocamlorg_package.get_versions state name
-    |> List.map (fun (v : Ocamlorg_package.version_with_publication_date) ->
+    |> List.map (fun (v : Ocamlorg_package.version_summary) ->
+           let statuses =
+             List.map
+               (function
+                 | Ocamlorg_package.Avoided -> Ocamlorg_frontend.Package.Avoided
+                 | Ocamlorg_package.Deprecated ->
+                     Ocamlorg_frontend.Package.Deprecated)
+               v.statuses
+           in
            Ocamlorg_frontend.Package.
              {
                version = Ocamlorg_package.Version.to_string v.version;
-               publication = v.publication;
+               opam_repository_date = v.opam_repository_date;
+               statuses;
              })
 
   let search_index_digest ~kind state name =

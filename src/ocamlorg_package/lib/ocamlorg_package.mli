@@ -179,12 +179,15 @@ val stats : state -> Statistics.t option
 val get_by_name : state -> Name.t -> t list option
 (** Get the list of packages with the given name. *)
 
-type version_with_publication_date = {
+type version_status = Avoided | Deprecated
+
+type version_summary = {
   version : Version.t;
-  publication : float;
+  opam_repository_date : float;
+  statuses : version_status list;
 }
 
-val get_versions : state -> Name.t -> version_with_publication_date list
+val get_versions : state -> Name.t -> version_summary list
 (** Get the list of versions for a package name, newest coming first. *)
 
 val get_latest : state -> Name.t -> t option

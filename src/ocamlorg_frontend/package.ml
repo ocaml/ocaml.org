@@ -1,6 +1,12 @@
 type version = Latest | Specific of string
 type documentation_status = Success | Failure | Unknown
-type version_with_publication_date = { version : string; publication : float }
+type version_status = Avoided | Deprecated
+
+type version_summary = {
+  version : string;
+  opam_repository_date : float;
+  statuses : version_status list;
+}
 
 type package = {
   name : string;
@@ -8,13 +14,13 @@ type package = {
   description : string;
   license : string;
   version : version;
-  versions : version_with_publication_date list;
+  versions : version_summary list;
   latest_version : string;
   tags : string list;
   rev_deps : string list;
   authors : Data.Opam_user.t list;
   maintainers : Data.Opam_user.t list;
-  publication : float;
+  opam_repository_date : float;
   homepages : string list;
   source : (string * string list) option;
       (* TODO: these should be part of package.json coming from voodoo, but they
