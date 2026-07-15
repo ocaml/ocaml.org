@@ -14,11 +14,6 @@ Package_layout.render
 ~left_sidebar_html:""
 ~right_sidebar_html:"" @@
   let version = Package.url_version package in
-  let docs_ci_issue_url =
-    Printf.sprintf "https://github.com/ocurrent/ocaml-docs-ci/issues/new?title=Missing+documentation+for+%s+%s&body=Documentation+is+missing+for+package+[%s](https://ocaml.org/p/%s/%s)+version+%s"
-      package.name (Package.render_version package)
-      package.name package.name (Package.render_version package) (Package.render_version package)
-  in
   <div class="sm:flex max-w-max mx-auto">
     <p class="text-4xl font-extrabold text-primary sm:text-5xl">404</p>
     <div class="sm:ml-6">
@@ -36,11 +31,11 @@ Package_layout.render
           class="btn">
           Go To Package Overview
         </a>
-        <a href="<%s docs_ci_issue_url %>"
+        <a href="<%s package.documentation_status_url %>"
           class="btn btn-ghost"
           target="_blank"
           rel="noopener noreferrer">
-          Report Missing Docs
+          View Documentation Build Status
         </a>
       </div>
     </div>

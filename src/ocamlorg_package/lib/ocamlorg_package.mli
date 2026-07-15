@@ -143,6 +143,11 @@ module Documentation : sig
     pkg ->
     string option Lwt.t
   (** Retrieve the hash digest of the search index of a given package. *)
+
+  val doc_status_url : string -> string -> string
+  (** [doc_status_url name version] is the URL of the page on the documentation
+      build server reporting the documentation build status of the given package
+      version. *)
 end
 
 module Package_info = Package_info
