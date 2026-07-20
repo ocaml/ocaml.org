@@ -1,3 +1,27 @@
+- title: Presenting styled-ppx 1.0 with CSS static extraction for OCaml
+  url: https://www.youtube.com/watch/DohRI4IV__k?version=3
+  thumbnail: https://i1.ytimg.com/vi/DohRI4IV__k/hqdefault.jpg
+  description: 'styled-ppx is a ppx and a library that brings styled components to
+    Melange and OCaml/Reason with type-safe CSS and static extraction.
+
+
+    Previously styled-ppx relied on emotion.sh, and from now on, it does not.
+
+
+    styled-ppx documentation: https://styled-ppx.vercel.app
+
+    github repo: https://github.com/davesnx/styled-ppx
+
+
+    Remote conf talk releasing styled-ppx (6 years ago!): https://www.youtube.com/watch?v=ekHCBZiCviM
+
+
+    GambiConf: How to mimic a JavaScript feature and over-engineering CSS https://www.youtube.com/watch?v=uc5K7Yx0GvQ'
+  published: 2026-07-15T17:04:51+00:00
+  author_name: David Sancho
+  author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
+  source_title: Emelle TV
 - title: A Vision for OCaml in the AI Era - Thibaut Mattio - FUN OCaml 2025
   url: https://www.youtube.com/watch/BAvXqd0QeVM?version=3
   thumbnail: https://i3.ytimg.com/vi/BAvXqd0QeVM/hqdefault.jpg
