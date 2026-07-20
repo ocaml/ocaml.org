@@ -5,7 +5,11 @@ let opam_polling =
 
 let documentation_url =
   Sys.getenv_opt "OCAMLORG_DOC_URL"
-  |> Option.value ~default:"https://sage.ci.dev/current/"
+  |> Option.value ~default:"https://dill.caelum.ci.dev/profiles/full/docs/"
+
+let documentation_status_url =
+  Sys.getenv_opt "OCAMLORG_DOC_STATUS_URL"
+  |> Option.value ~default:"https://dill.caelum.ci.dev/profiles/full/"
 
 let package_caches_ttl =
   env_with_default "OCAMLORG_PACKAGE_CACHES_TTL" "3600" |> float_of_string

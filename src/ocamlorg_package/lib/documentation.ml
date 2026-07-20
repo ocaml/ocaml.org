@@ -249,11 +249,16 @@ end = struct
     Hashtbl.find_opt cache (name, version, kind)
 end
 
-let package_url ~kind name version =
+let generic_url base ~kind name version =
   match kind with
-  | `Package -> Config.documentation_url ^ "p/" ^ name ^ "/" ^ version ^ "/"
-  | `Universe s ->
-      Config.documentation_url ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
+  | `Package -> base ^ "p/" ^ name ^ "/" ^ version ^ "/"
+  | `Universe s -> base ^ "u/" ^ s ^ "/" ^ name ^ "/" ^ version ^ "/"
+
+let package_url ~kind name version =
+  generic_url Config.documentation_url ~kind name version
+
+let doc_status_url name version =
+  generic_url Config.documentation_status_url ~kind:`Package name version
 
 let sidebar ~kind (t : Package.t) =
   let package_url =
