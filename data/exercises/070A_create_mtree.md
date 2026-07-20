@@ -26,7 +26,6 @@ val add_string_of_tree : Buffer.t -> char mult_tree -> unit = <fun>
     let buf = Buffer.create 128 in
     add_string_of_tree buf t;
     Buffer.contents buf;;
-
 val string_of_tree : char mult_tree -> string = <fun>
 
 # let tree_of_string s =
