@@ -1,50 +1,177 @@
+let has_status status (item : Package.version_summary) =
+  List.mem status item.statuses
+
+let is_discouraged item =
+  has_status Package.Avoided item || has_status Package.Deprecated item
+
+let status_badge class_ label =
+  <span class="inline-flex items-center whitespace-nowrap rounded border px-2 py-1 text-xs font-medium <%s class_ %>"><%s label %></span>
+
+let ocaml_manual_version version =
+  match String.split_on_char '.' version with
+  | major :: minor :: _ ->
+      let minor = List.hd (String.split_on_char '~' minor) in
+      let minor = List.hd (String.split_on_char '+' minor) in
+      Printf.sprintf "%s.%s" major minor
+  | _ -> version
+
+let documentation_href (package : Package.package) version =
+  if package.name = "ocaml" then
+    Printf.sprintf "/manual/%s/index.html" (ocaml_manual_version version)
+  else Printf.sprintf "/p/%s/%s/doc/index.html" package.name version
+
+let is_ocaml_compiler_package name =
+  List.mem name
+    [
+      "ocaml";
+      "ocaml-compiler";
+      "ocaml-base-compiler";
+      "ocaml-system";
+      "ocaml-variants";
+    ]
+
+let render_statuses ~is_latest ~is_selected item =
+  let previous = not is_latest && not (is_discouraged item) in
+  let badges =
+    [
+      (if is_latest then
+         Some
+           (status_badge
+              "border-primary bg-primary_25 text-title dark:border-dark-primary dark:bg-dark-primary_10 dark:text-dark-title"
+              "Latest URL target")
+       else None);
+      (if previous then
+         Some
+           (status_badge
+              "border-gray-300 bg-gray-100 text-title dark:border-gray-500 dark:bg-gray-700 dark:text-dark-title"
+              "Previous")
+       else None);
+      (if has_status Package.Avoided item then
+         Some
+           (status_badge
+              "border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100"
+              "Avoided by opam")
+       else None);
+      (if has_status Package.Deprecated item then
+         Some
+           (status_badge
+              "border-red-600 bg-red-100 text-red-900 dark:border-red-500 dark:bg-red-900 dark:text-red-100"
+              "Deprecated by opam")
+       else None);
+      (if is_selected then
+         Some
+           (status_badge
+              "border-title bg-white text-title dark:border-dark-title dark:bg-dark-card dark:text-dark-title"
+              "Selected")
+       else None);
+    ]
+    |> List.filter_map Fun.id
+  in
+  <span class="flex flex-wrap gap-2"><%s! String.concat "" badges %></span>
+
 let render
 (package : Package.package)
 =
+let selected_version = Package.specific_version package in
+let latest_versions, remaining_versions =
+  List.partition
+    (fun (item : Package.version_summary) ->
+      item.version = package.latest_version)
+    package.versions
+in
+let discouraged_versions, previous_versions =
+  List.partition is_discouraged remaining_versions
+in
+let render_row (item : Package.version_summary) =
+  let is_latest = item.version = package.latest_version in
+  let is_selected = selected_version = item.version in
+  let cell_background =
+    if is_selected then
+      "bg-primary_25 dark:bg-dark-primary_10"
+    else "bg-white dark:bg-dark-card"
+  in
+  <tr>
+    <th scope="row" class="rounded-l text-left text-title dark:text-dark-title <%s cell_background %>">
+      <a href="/p/<%s package.name %>/<%s item.version %>" aria-current="<%s if is_selected then "page" else "false" %>"
+        class="inline-flex min-h-[44px] items-center p-4 text-base hover:underline focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary dark:focus-visible:outline-dark-primary">
+        <%s item.version %>
+      </a>
+    </th>
+    <td class="p-4 text-left text-title dark:text-dark-title <%s cell_background %>">
+      <%s! render_statuses ~is_latest ~is_selected item %>
+    </td>
+    <td class="p-4 text-left text-sm text-title dark:text-dark-title <%s cell_background %>">
+      <time datetime="<%s Utils.iso_date_of_timestamp item.opam_repository_date %>">
+        <%s Utils.human_date_of_timestamp item.opam_repository_date %>
+      </time>
+    </td>
+    <td class="rounded-r text-left text-sm <%s cell_background %>">
+      <a href="<%s documentation_href package item.version %>"
+        class="inline-flex min-h-[44px] items-center gap-2 p-4 font-medium text-primary hover:underline focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary dark:text-dark-primary dark:focus-visible:outline-dark-primary">
+        <span aria-hidden="true"><%s! Icons.document "h-5 w-5"; %></span>
+        Documentation
+      </a>
+    </td>
+  </tr>
+in
+let render_group title versions =
+  match versions with
+  | [] -> ""
+  | versions ->
+      <tbody>
+        <tr>
+          <th colspan="4" scope="rowgroup" class="pb-1 pt-6 text-left text-lg font-semibold text-title dark:text-dark-title"><%s title %></th>
+        </tr>
+        <%s! versions |> List.map render_row |> String.concat "" %>
+      </tbody>
+in
 Layout.render
-~title:(Printf.sprintf "%s Versions" package.name)
-~description:"Package Versions" @@
-let version = Package.specific_version package in
-<div class="bg-default dark:bg-dark-default py-8">
+~title:(Printf.sprintf "%s opam package versions" package.name)
+~description:(Printf.sprintf "Versions and opam status for the %s package" package.name) @@
+<div class="py-8">
   <div class="container-fluid flex items-center gap-2">
-    <a href="/p/<%s package.name %>" class="h-11 w-11 m-5 border-primary border-2 rounded-full flex items-center justify-center"><%s! Icons.arrow_left "h-6 w-6 text-primary"; %></a>
-    <h1 class="text-2xl text-title dark:text-dark-title font-medium"><%s package.name %> Versions (<%i List.length package.versions %>) </h1>
+    <a href="/p/<%s package.name %>" aria-label="Back to <%s package.name %> package"
+      class="m-5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-dark-primary dark:focus-visible:outline-dark-primary">
+      <span aria-hidden="true"><%s! Icons.arrow_left "h-6 w-6 text-primary dark:text-dark-primary"; %></span>
+    </a>
+    <h1 class="text-2xl font-medium text-title dark:text-dark-title"><%s package.name %> opam package versions (<%i List.length package.versions %>)</h1>
   </div>
-  <div class="container-fluid flex justify-center">
-    <table class="table-auto border-separate border-spacing-y-6">
-        <thead class="container-fluid text-md text-lighter text-left">
-            <tr class="py-4">
-                <th class="hidden sm:table-cell text-left text-title dark:text-dark-title font-normal border-b-2 border-gray-200 dark:border-gray-400 py-4 pl-3 md:pr-14"><%s! Icons.bars_3 "h-5 w-5"; %></th>
-                <th class="text-left text-title dark:text-dark-title font-normal border-b-2 border-gray-200 dark:border-gray-400 px-5 md:pr-12">Version</th>
-                <th class="text-left text-title dark:text-dark-title font-normal border-b-2 border-gray-200 dark:border-gray-400 md:pr-14">Release Date</th>
-                <th class="text-left text-title dark:text-dark-title font-normal border-b-2 border-gray-200 dark:border-gray-400 px-5 md:pr-14">Links</th>
-            </tr>
-        </thead>
-        <tbody>
-          <% package.versions |> List.iter (fun (item: Package.version_with_publication_date) -> %>
-          <tr class="tr-selected">
-            <td class="hidden sm:table-cell text-left font-normal py-5 px-4 <%s if version = item.version then "bg-primary-200 rounded-l" else "" %>">
-              <% if version = item.version then ( %><div class="bg-primary dark:bg-dark-primary h-3 w-3 rounded-full"></div><% ) else ( %><div class="bg-gray-200 dark:bg-gray-400 h-2 w-2 rounded-full ml-0.5"></div><% ); %>
-              <div class="absolute h-[4.5rem] pl-1">
-                <% if List.nth package.versions (List.length package.versions -1) <> item then ( %>
-                <div class="-ml-px w-1 border-solid border-r-2 border-gray-200 dark:border-gray-400 h-full"></div>
-                <% ); %>
-              </div>
-            </td>
-            <td class="text-left text-title dark:text-dark-title bg-primary-200">
-              <a href="/p/<%s package.name %>/<%s item.version %>" class="p-5 hover:no-underline hover:text-primary focus:text-primary focus:no-underline <%s if version = item.version then "font-bold focus:font-bold" else "" %> text-base md:mr-10">
-                <%s item.version %>
-              </a>
-            </td>
-            <td class="pr-4 text-left text-title dark:text-dark-title text-sm bg-primary-200">
-              <%s Utils.human_date_of_timestamp item.publication %>
-            </td>
-            <td class="text-left text-sm bg-primary-200 rounded-r">
-              <a href="/p/<%s package.name %>/<%s item.version %>/doc/index.html" class="text-primary dark:text-dark-primary flex items-center p-2 font-medium sm:p-4"><%s! Icons.document "h-5 w-5"; %> Documentation</a>
-            </td>
+  <div class="container-fluid">
+    <% if is_ocaml_compiler_package package.name then ( %>
+      <aside aria-labelledby="official-ocaml-releases-title"
+        class="mb-6 max-w-3xl rounded border-l-4 border-primary bg-primary_25 p-5 text-content dark:border-dark-primary dark:bg-dark-primary_10 dark:text-dark-content">
+        <h2 id="official-ocaml-releases-title" class="text-lg font-semibold text-title dark:text-dark-title">Official OCaml releases</h2>
+        <p class="mt-2">
+          This page is an opam package listing, not the list of official OCaml releases.
+          It may include compiler versions that have not been officially released.
+        </p>
+        <a href="<%s Url.releases %>"
+          class="mt-2 inline-flex min-h-[44px] items-center font-medium text-primary underline underline-offset-4 focus-visible:rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-dark-primary dark:focus-visible:outline-dark-primary">
+          View official OCaml releases
+        </a>
+      </aside>
+    <% ); %>
+    <p class="max-w-3xl text-content dark:text-dark-content">
+      This page lists package versions found in opam-repository.
+      On ocaml.org, the <code>latest</code> URL currently points to version <strong><%s package.latest_version %></strong>;
+      this does not indicate an upstream release status.
+      Versions marked Avoided or Deprecated are not normally selected by opam.
+    </p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[48rem] table-auto border-separate border-spacing-y-3">
+        <caption class="sr-only">Versions and opam status for the <%s package.name %> package</caption>
+        <thead class="text-left">
+          <tr>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Version</th>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Status</th>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Added to opam-repository</th>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Links</th>
           </tr>
-          <% ); %>
-        </tbody>
-    </table>
+        </thead>
+        <%s! render_group "Version selected by the latest URL" latest_versions %>
+        <%s! render_group "Previous versions" previous_versions %>
+        <%s! render_group "Versions not normally selected by opam" discouraged_versions %>
+      </table>
+    </div>
   </div>
 </div>
