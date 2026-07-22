@@ -168,6 +168,9 @@
 - id: szacchiroli
   name: Stefano Zacchiroli
   url: https://upsilon.cc/~zack/tags/ocaml/index.rss
+- id: vouillon
+  name: Jérôme Vouillon
+  url: https://vouillon.github.io/blog/tags/ocaml/index.xml
 - id: talex5
   name: Thomas Leonard
   url: http://roscidus.com/blog/blog/categories/ocaml/atom.xml
