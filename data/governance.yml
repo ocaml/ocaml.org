@@ -172,9 +172,6 @@ teams:
   - name: Daniel Bünzli
     github: dbuenzli
     role: Member
-  - name: Simon Cruanes
-    github: c-cube
-    role: Member
   - name: Kate Deplaix
     github: kit-ty-kate
     role: Member
