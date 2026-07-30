@@ -23,7 +23,7 @@ Package_layout.render
         <p class="mt-3 text-sm text-content dark:text-dark-content">
           Package documentation is generated automatically by
           <a href="https://github.com/ocurrent/ocaml-docs-ci" class="text-primary dark:text-dark-primary hover:underline">ocaml-docs-ci</a>.
-          If you believe this is an error, please report it to the documentation CI project.
+          If it is missing or failed to build, the documentation build status page linked below has the details.
         </p>
       </div>
       <div class="mt-10 flex flex-wrap gap-3 sm:border-l sm:border-transparent sm:pl-6">
