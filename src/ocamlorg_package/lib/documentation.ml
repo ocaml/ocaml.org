@@ -257,9 +257,9 @@ let generic_url base ~kind name version =
 let package_url ~kind name version =
   generic_url Config.documentation_url ~kind name version
 
-(* Build status is tracked per package version, not per universe (universes
-   only disambiguate cross-reference link targets), so the status URL always
-   uses the [`Package] form even when reached from a universe doc page. *)
+(* Build status is tracked per package version, not per universe (universes only
+   disambiguate cross-reference link targets), so the status URL always uses the
+   [`Package] form even when reached from a universe doc page. *)
 let doc_status_url name version =
   generic_url Config.documentation_status_url ~kind:`Package name version
 
