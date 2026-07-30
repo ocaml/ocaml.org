@@ -62,7 +62,7 @@ Layout.base
             </li>
             <% | Unknown -> ( %>
             <li class="flex flex-auto">
-              <span aria-label="Documentation status is unknown" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-separator_20 dark:border-dark-separator_30 <%s (match path with | Documentation _ -> "bg-primary dark:bg-dark-primary text-title dark:text-dark-title" | _ -> "text-title dark:text-dark-title bg-sand dark:bg-dark-card")%>"><%s! Icons.error "" %> No Docs</span>
+              <a href="<%s package.documentation_status_url %>" target="_blank" rel="noopener noreferrer" title="Documentation status is unknown — check the build status" aria-label="Documentation status is unknown — check the build status" class="w-full h-10 flex justify-center gap-2 rounded-r-lg p-1 items-center font-semibold border border-l-0 border-separator_20 dark:border-dark-separator_30 <%s (match path with | Documentation _ -> "bg-primary dark:bg-dark-primary text-title dark:text-dark-title" | _ -> "text-title dark:text-dark-title bg-sand dark:bg-dark-card")%>"><%s! Icons.error "" %> No Docs</a>
             </li>
             <% )
             | Failure -> ( %>

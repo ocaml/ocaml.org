@@ -899,6 +899,10 @@ module Package_helper = struct
             info.Ocamlorg_package.Info.url;
         documentation_status =
           Option.value ~default:Unknown documentation_status;
+        documentation_status_url =
+          Ocamlorg_package.Documentation.doc_status_url
+            (Ocamlorg_package.Name.to_string name)
+            (Ocamlorg_package.Version.to_string version);
       }
 
   (** Query all the versions of a package. *)

@@ -24,6 +24,8 @@ type package = {
          option; changes_filename : string option; license_filename : string
          option;*)
   documentation_status : documentation_status;
+  documentation_status_url : string;
+      (** URL of the documentation build status page on the docs build server. *)
 }
 
 let specific_version package =
