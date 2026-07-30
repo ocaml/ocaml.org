@@ -32,6 +32,7 @@ The current members of the SRT are:
 - Nicolás Ojeda Bär - [@nojb](https://github.com/nojb) - LexiFi
 - Louis Roché - [@Khady](https://github.com/Khady) - ahrefs
 - Boning Dong - [@bn-d](https://github.com/bn-d) - Bloomberg
+- Reynir Björnsson [@reynir](https://github.com/reynir) - robur.coop
 
 The SRT is an initiative of the [OCaml Software Foundation](https://ocaml-sf.org/)
 

@@ -157,6 +157,9 @@ teams:
   - name: Boning Dong
     github: bn-d
     role: Member
+  - name: Reynir Reynir
+    github: reynir
+    role: Member
 - id: library
   name: Standard Library
   description: The Standard Library Team is in charge of shepherding, reviewing
