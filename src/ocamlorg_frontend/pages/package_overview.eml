@@ -220,8 +220,8 @@ let render
             <% ); %>
           <% ); %>
           <div class="flex-grow"></div>
-          <h2 class="font-semibold text-base text-content dark:text-dark-content">Published:
-            <span class="font-normal"><%s Utils.human_date_of_timestamp package.publication %></span>
+          <h2 class="font-semibold text-base text-content dark:text-dark-content">Added to opam-repository:
+            <time datetime="<%s Utils.iso_date_of_timestamp package.opam_repository_date %>" class="font-normal"><%s Utils.human_date_of_timestamp package.opam_repository_date %></time>
           </h2>
         </div>
 

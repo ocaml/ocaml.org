@@ -114,8 +114,8 @@ let render ~total ~search ~(pagination_info : Pagination.t) (packages : Package.
                 <span>Used by <%d List.length package.rev_deps %> other packages</span>
               </div>
               <div class="flex items-center gap-1">
-                <%s! Icons.calendar "h-5 w-5"; %>
-                <span><%s Utils.human_date_of_timestamp package.publication %></span>
+                <span aria-hidden="true"><%s! Icons.calendar "h-5 w-5"; %></span>
+                <span>Added to opam-repository <time datetime="<%s Utils.iso_date_of_timestamp package.opam_repository_date %>"><%s Utils.human_date_of_timestamp package.opam_repository_date %></time></span>
               </div>
             </div>
           </li>

@@ -113,19 +113,22 @@ let save_state t =
     (fun () -> Marshal.to_channel channel t [])
     ~finally:(fun () -> close_out channel)
 
+let has_flag flag (info : Info.t) = List.exists (( = ) flag) info.flags
+
+let is_discouraged info =
+  has_flag OpamTypes.Pkgflag_AvoidVersion info
+  || has_flag OpamTypes.Pkgflag_Deprecated info
+
+let select_latest versions =
+  let _, preferred = Version.Map.partition (fun _ -> is_discouraged) versions in
+  match Version.Map.max_binding_opt preferred with
+  | Some package -> Some package
+  | None -> Version.Map.max_binding_opt versions
+
 let get_latest' packages name =
-  Name.Map.find_opt name packages
-  |> Option.map (fun versions ->
-         let avoid_version _ (info : Info.t) =
-           List.exists (( = ) OpamTypes.Pkgflag_AvoidVersion) info.flags
-         in
-         let avoided, packages = Version.Map.partition avoid_version versions in
-         let version, info =
-           match Version.Map.max_binding_opt packages with
-           | None -> Version.Map.max_binding avoided
-           | Some (version, info) -> (version, info)
-         in
-         { version; info; name })
+  Option.bind (Name.Map.find_opt name packages) (fun versions ->
+      select_latest versions
+      |> Option.map (fun (version, info) -> { version; info; name }))
 
 let time_it_lwt name f =
   let open Lwt.Syntax in
@@ -188,10 +191,10 @@ let init ?(disable_polling = false) () =
   state
 
 let all_latest t =
-  t.packages
-  |> Name.Map.map Version.Map.max_binding
-  |> Name.Map.bindings
-  |> List.map (fun (name, (version, info)) -> { name; version; info })
+  t.packages |> Name.Map.bindings
+  |> List.filter_map (fun (name, versions) ->
+         select_latest versions
+         |> Option.map (fun (version, info) -> { name; version; info }))
 
 let stats t = t.stats
 
@@ -200,17 +203,32 @@ let get_by_name t name =
   |> Option.map Version.Map.bindings
   |> Option.map (List.map (fun (version, info) -> { name; version; info }))
 
-type version_with_publication_date = {
+type version_status = Avoided | Deprecated
+
+type version_summary = {
   version : Version.t;
-  publication : float;
+  opam_repository_date : float;
+  statuses : version_status list;
 }
+
+let version_statuses info =
+  let status flag value statuses =
+    if has_flag flag info then value :: statuses else statuses
+  in
+  []
+  |> status OpamTypes.Pkgflag_Deprecated Deprecated
+  |> status OpamTypes.Pkgflag_AvoidVersion Avoided
 
 let get_versions t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map (fun p ->
          p |> Version.Map.bindings
          |> List.map (fun (version, info) ->
-                { version; publication = info.Info.publication }))
+                {
+                  version;
+                  opam_repository_date = info.Info.publication;
+                  statuses = version_statuses info;
+                }))
   |> Option.value ~default:[]
   |> List.sort (fun v1 v2 -> Version.compare v2.version v1.version)
 
