@@ -18,6 +18,7 @@ Workshop_layout.single_column_layout
   <div class="container-fluid">
     <div class="flex flex-col lg:flex-row justify-between mt-10 gap-10">
       <div class="prose dark:prose-invert prose-orange max-w-2xl">
+        <p><strong>The call for talks is now closed. We are no longer accepting talk submissions.</strong></p>
         <h2>Scope</h2>
         <p>The OCaml Workshop welcomes a broad audience of OCaml users ranging from enthusiasts who are discovering the magic of OCaml to wizards well-proficient in the cast of unsafe spells. Their common denominator is their passion for OCaml and the desire to learn more, connect with fellow OCamlers, and collectively find ways to improve the language.</p>
         <p>We invite talk proposals just as broad: <strong>anything OCaml related</strong> is welcome!</p>
@@ -74,11 +75,6 @@ Workshop_layout.single_column_layout
             <div class="text-xs font-semibold">SPEAKER NOTIFICATION</div>
           </div>
         </div>
-
-        <a href="https://types-hotcrp.paris.inria.fr/ocaml26/" class="btn">
-          Submit a Talk
-          <%s! Icons.arrow_top_right_on_square "h-5 w-5 inline-block" %>
-        </a>
       </div>
     </div>
   </div>

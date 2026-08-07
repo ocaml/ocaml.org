@@ -32,11 +32,10 @@ Workshop_layout.single_column_layout
         <p>This edition is part of <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html">Functional Programming Workshops (FPW) 2026</a> in Paris, alongside other workshops and events. This is a departure from the usual habit of having the OCaml Workshop co-located with ICFP. Because some FPW'26 events are bi-located with ICFP, the events will take place at roughly the same dates.</p>
 
         <h2>Venue</h2>
-        <p>Amphithéâtre Buffon, 15 rue Hélène Brion, Université Paris Cité, 75013 Paris.</p>
-        <p>The OCaml Workshop takes place at a separate venue from the rest of FPW'26, approximately 30 minutes away from INRIA Paris where the other workshops are held.</p>
+        <p>INRIA Paris, 48 rue Barrault, 75013 Paris.</p>
 
         <h2>Registration</h2>
-        <p>Coming soon.</p>
+        <p><a href="https://forms.gle/f7fKvJ5RCzaqVHn56">Register here</a></p>
 
         <h2>Other FPW'26 events</h2>
         <p>The OCaml Workshop is one of several events gathered under <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html">FPW'26</a>:</p>
@@ -61,18 +60,18 @@ Workshop_layout.single_column_layout
       <div class="flex flex-col space-y-6 relative mt-4 lg:mt-0 lg:w-96 flex-shrink-0">
         <h3 class="font-bold text-title dark:text-dark-title">Important Dates</h3>
         <div class="flex items-center">
-          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">12 Jul</div>
-          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
-          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-white px-4 py-2">
-            <div class="text-xs font-semibold">UPCOMING</div>
+          <div class="text-content dark:text-dark-content font-semibold w-20 text-right">12 Jul</div>
+          <div class="bg-separator_20 dark:bg-dark-separator_30 h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-separator_20 dark:bg-dark-separator_30 flex-1 rounded-xl text-content dark:text-dark-content px-4 py-2">
+            <div class="text-xs font-semibold">DONE</div>
             <div>Submission deadline (AoE)</div>
           </div>
         </div>
         <div class="flex items-center">
-          <div class="text-primary dark:text-dark-primary font-semibold w-20 text-right">3 Aug</div>
-          <div class="bg-primary dark:bg-dark-primary h-5 w-5 rounded-full mx-2"></div>
-          <div class="bg-primary dark:bg-dark-primary flex-1 rounded-xl text-white px-4 py-2">
-            <div class="text-xs font-semibold">UPCOMING</div>
+          <div class="text-content dark:text-dark-content font-semibold w-20 text-right">3 Aug</div>
+          <div class="bg-separator_20 dark:bg-dark-separator_30 h-5 w-5 rounded-full mx-2"></div>
+          <div class="bg-separator_20 dark:bg-dark-separator_30 flex-1 rounded-xl text-content dark:text-dark-content px-4 py-2">
+            <div class="text-xs font-semibold">DONE</div>
             <div>Speaker notification</div>
           </div>
         </div>
@@ -89,10 +88,6 @@ Workshop_layout.single_column_layout
           <a href="<%s Url.ocaml_workshop_2026_cfp %>" class="btn">
             Call for Talks
             <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
-          </a>
-          <a href="https://types-hotcrp.paris.inria.fr/ocaml26/" class="btn btn-ghost">
-            Submit a Talk
-            <%s! Icons.arrow_top_right_on_square "h-5 w-5 inline-block" %>
           </a>
         </div>
       </div>
