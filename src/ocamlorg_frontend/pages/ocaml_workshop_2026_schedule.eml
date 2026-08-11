@@ -1,0 +1,98 @@
+type item =
+  | Talk of string * string * string (* session, time, title *)
+  | Break of string * string (* time, label *)
+
+let schedule = [
+  Break ("08:45-09:00", "Opening");
+  Talk ("1", "09:00-09:25", "A new workflow to build unikernels in OCaml");
+  Talk ("1", "09:25-09:50", "Compiling FFI-heavy OCaml to WebAssembly: An Experience Report on MOPSA");
+  Talk ("1", "09:50-10:00", "Security-team address (by Edwin Török)");
+  Break ("10:00-10:30", "Coffee break");
+  Talk ("2", "10:30-10:55", "A Capability Type System for OCaml");
+  Talk ("2", "10:55-11:20", "Runtime Types at LexiFi: Experience Report");
+  Talk ("2", "11:20-11:45", "PPXs That Reach Their Destinations");
+  Break ("11:45-14:15", "Lunch break");
+  Talk ("3", "14:15-14:40", "Slipshow: chill coding with OCaml");
+  Talk ("3", "14:40-15:05", "When Type Checking Goes Wrong, but Keeps Going");
+  Break ("15:05-15:40", "Hydration break");
+  Talk ("4", "15:40-16:00", "JSON parsing in OxCaml: fast, but not too fast");
+  Talk ("4", "16:05-16:30", "A new implementation of Short-paths");
+  Break ("16:30-17:00", "Coffee break");
+  Talk ("5", "17:00-17:25", "Towards a Benchmarking Service for OCaml");
+  Talk ("5", "17:25-17:50", "First Class Docs in OCaml");
+]
+
+let session_rowspan session =
+  schedule
+  |> List.filter (function Talk (s, _, _) -> s = session | Break _ -> false)
+  |> List.length
+
+let first_of_session i session =
+  i = 0
+  || (match List.nth schedule (i - 1) with
+      | Talk (s, _, _) -> s <> session
+      | Break _ -> true)
+
+let talk_row_first session time title =
+  <tr>
+    <td rowspan="<%s string_of_int (session_rowspan session) %>" class="rounded-l p-4 align-middle text-center text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s session %></td>
+    <td class="p-4 text-left text-sm whitespace-nowrap text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s time %></td>
+    <td class="rounded-r p-4 text-left font-medium text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s title %></td>
+  </tr>
+
+let talk_row_rest time title =
+  <tr>
+    <td class="p-4 text-left text-sm whitespace-nowrap text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s time %></td>
+    <td class="rounded-r p-4 text-left font-medium text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s title %></td>
+  </tr>
+
+let break_row time label =
+  <tr>
+    <td class="rounded-l p-4"></td>
+    <td class="p-4 text-left text-sm whitespace-nowrap text-content dark:text-dark-content italic"><%s time %></td>
+    <td class="rounded-r p-4 text-left text-content dark:text-dark-content italic"><%s label %></td>
+  </tr>
+
+let render_row i item =
+  match item with
+  | Talk (session, time, title) ->
+      if first_of_session i session then talk_row_first session time title
+      else talk_row_rest time title
+  | Break (time, label) -> break_row time label
+
+let render () =
+Workshop_layout.single_column_layout
+~title:"OCaml Workshop 2026 — Schedule"
+~description:"Schedule of the OCaml Workshop 2026, part of FPW'26 in Paris on 24 August 2026."
+~canonical:Url.ocaml_workshop_2026_schedule
+~current:Schedule @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <a href="<%s Url.ocaml_workshop_2026 %>" class="text-primary dark:text-dark-primary hover:text-primary pr-2 mb-3 flex mt-4 items-center dark:hover:text-dark-primary hover:underline group">
+      <%s! Icons.chevron_left "h-5 w-5 text-primary dark:text-dark-primary group-hover:text-primary group-hover:underline dark:group-hover:text-dark-primary" %>
+      Back to OCaml Workshop 2026
+    </a>
+    <h1 class="font-bold mb-3 text-title dark:text-dark-title">Schedule</h1>
+  </div>
+</div>
+
+<div class="bg-background dark:bg-dark-background">
+  <div class="container-fluid">
+    <p class="mt-10 text-content dark:text-dark-content">All times are local to Paris (CEST). The workshop takes place on Monday, 24 August 2026.</p>
+    <div class="mt-4 mb-10 overflow-x-auto">
+      <table class="w-full min-w-[32rem] max-w-4xl table-auto border-separate border-spacing-y-3">
+        <caption class="sr-only">Timetable of the OCaml Workshop 2026</caption>
+        <thead class="text-left">
+          <tr>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title w-24">Session</th>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title w-36">Time</th>
+            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%s! schedule |> List.mapi render_row |> String.concat "" %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

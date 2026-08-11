@@ -1,19 +1,22 @@
 type section =
   | Home
+  | Schedule
   | Cfp
   | Committee
 
 let url_of_section = function
   | Home -> Url.ocaml_workshop_2026
+  | Schedule -> Url.ocaml_workshop_2026_schedule
   | Cfp -> Url.ocaml_workshop_2026_cfp
   | Committee -> Url.ocaml_workshop_2026_committee
 
 let title_of_section = function
   | Home -> "Home"
+  | Schedule -> "Schedule"
   | Cfp -> "Call for Talks"
   | Committee -> "Program Committee"
 
-let sections = [Home; Cfp; Committee]
+let sections = [Home; Schedule; Cfp; Committee]
 
 let workshop_header ~current =
   <header class="h-20 flex items-center bg-sand dark:bg-dark-background_navigation">

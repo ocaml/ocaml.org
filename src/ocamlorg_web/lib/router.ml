@@ -78,6 +78,8 @@ let page_routes t =
       Dream.get Url.playground Handler.playground;
       Dream.get Url.logos Handler.logos;
       Dream.get Url.ocaml_workshop_2026 Handler.ocaml_workshop_2026;
+      Dream.get Url.ocaml_workshop_2026_schedule
+        Handler.ocaml_workshop_2026_schedule;
       Dream.get Url.ocaml_workshop_2026_cfp Handler.ocaml_workshop_2026_cfp;
       Dream.get Url.ocaml_workshop_2026_committee
         Handler.ocaml_workshop_2026_committee;
