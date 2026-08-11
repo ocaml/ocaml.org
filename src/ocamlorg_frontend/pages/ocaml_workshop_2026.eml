@@ -37,6 +37,9 @@ Workshop_layout.single_column_layout
         <h2>Registration</h2>
         <p><a href="https://forms.gle/f7fKvJ5RCzaqVHn56">Register here</a></p>
 
+        <h2>Schedule</h2>
+        <p>The workshop runs a full day with five sessions of talks. See the <a href="<%s Url.ocaml_workshop_2026_schedule %>">full schedule</a>.</p>
+
         <h2>Other FPW'26 events</h2>
         <p>The OCaml Workshop is one of several events gathered under <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html">FPW'26</a>:</p>
         <ul>
@@ -85,6 +88,10 @@ Workshop_layout.single_column_layout
         </div>
 
         <div class="mt-6 flex flex-col gap-3">
+          <a href="<%s Url.ocaml_workshop_2026_schedule %>" class="btn">
+            Schedule
+            <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
+          </a>
           <a href="<%s Url.ocaml_workshop_2026_cfp %>" class="btn">
             Call for Talks
             <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
