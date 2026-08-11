@@ -311,7 +311,7 @@ end = struct
     Re.compile atom
 
   let to_request str =
-    let str = String.lowercase_ascii str in
+    let str = String.case_fold str in
     let to_constraint = function
       | [ _; s ] -> Any s
       | [ _; "tag:"; s ] -> Tag s
@@ -329,7 +329,7 @@ end = struct
         |> to_constraint)
       g
 
-  let match_ f s pattern = f (String.lowercase_ascii @@ s) pattern
+  let match_ f s pattern = f (String.case_fold @@ s) pattern
 
   let match_tag ?(f = String.contains_s) pattern package =
     List.exists (fun tag -> match_ f tag pattern) package.info.tags
