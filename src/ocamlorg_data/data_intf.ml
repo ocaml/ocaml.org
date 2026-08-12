@@ -248,6 +248,7 @@ module Governance = struct
     date : string;
     time : string;
     link : string;
+    ical : string option;
     calendar : string option;
     notes : string;
   }
@@ -260,6 +261,19 @@ module Governance = struct
     dev_meeting : dev_meeting option;
     members : member list;
     subteams : team list;
+  }
+end
+
+module Governance_meeting = struct
+  type t = {
+    team_id : string;
+    team_name : string;
+    starts_at : string;
+    timezone : string;
+    duration_minutes : int;
+    meeting_link : string;
+    notes_link : string;
+    ical : string;
   }
 end
 

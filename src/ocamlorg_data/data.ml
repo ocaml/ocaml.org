@@ -182,6 +182,12 @@ module Governance = struct
     List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
 end
 
+module Governance_meeting = struct
+  include Data_intf.Governance_meeting
+
+  let all = data.governance_meetings
+end
+
 module Industrial_user = struct
   include Data_intf.Industrial_user
 
