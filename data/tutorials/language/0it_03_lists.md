@@ -262,7 +262,7 @@ true, the second those for which it is false.
 Note that the documentation for
 [`filter`](/manual/api/List.html#VALfilter)  and
 [`partition`](/manual/api/List.html#VALpartition) tells us that the
-order of the input is preserved in the output. Where this is not stated it the
+order of the input is preserved in the output. Where this is not stated in the
 documentation, it cannot be assumed.
 
 ### Association Lists
