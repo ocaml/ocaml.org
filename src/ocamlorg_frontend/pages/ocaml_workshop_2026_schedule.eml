@@ -1,63 +1,209 @@
+type talk = {
+  session : string;
+  time : string;
+  title : string;
+  authors : (string * string) list; (* name, affiliation ("" = none) *)
+  abstract : string list; (* paragraphs *)
+}
+
 type item =
-  | Talk of string * string * string (* session, time, title *)
-  | Break of string * string (* time, label *)
+  | Talk of talk
+  | Break of string * string
 
 let schedule = [
   Break ("08:45-09:00", "Opening");
-  Talk ("1", "09:00-09:25", "A new workflow to build unikernels in OCaml");
-  Talk ("1", "09:25-09:50", "Compiling FFI-heavy OCaml to WebAssembly: An Experience Report on MOPSA");
-  Talk ("1", "09:50-10:00", "Security-team address (by Edwin Török)");
+  Talk {
+    session = "1";
+    time = "09:00-09:25";
+    title = "A new workflow to build unikernels in OCaml";
+    authors = [
+      ("Romain Calascibetta", "Robur");
+      ("Reynir Björnsson", "Robur");
+      ("Hannes Mehnert", "Robur");
+    ];
+    abstract = [
+      "For several years now, Robur has been working to develop unikernels using the MirageOS framework, which it maintains on a daily basis. However, the technical choices that shaped the workflow have shown their limitations in terms of technology, user experience, and maintenance. As a result, for the past two years, Robur has been exploring a new approach to developing unikernels that addresses both technical challenges (static linking of an OCaml binary and cross-compilation of C stubs) and improvements to the user experience (libraries and APIs, integration with an existing ecosystem, and long-term maintainability).";
+      "This talk will focus on this new workflow through practical examples, explaining its objectives (to “democratize” unikernel development for everyone) as well as a retrospective on past limitations related to the MirageOS framework.";
+    ];
+  };
+  Talk {
+    session = "1";
+    time = "09:25-09:50";
+    title = "Compiling FFI-heavy OCaml to WebAssembly: An Experience Report on MOPSA";
+    authors = [ ("Reda Boudrouss", "Sorbonne Université") ];
+    abstract = [
+      "Many large OCaml applications do not consist of OCaml code alone. They depend on native C and C++ libraries accessed through the OCaml foreign function interface (FFI), where bindings often manipulate OCaml values directly and rely on the runtime's data representation and memory layout. This coupling is what makes such applications hard to bring to the browser. How to port them together with their entire native dependency stack remains largely unexplored.";
+      "OCaml programs run either as machine code from the native compiler or as bytecode interpreted by the OCaml runtime. Neither runs in a browser, so the existing browser backends translate the program ahead of time, to JavaScript (js_of_ocaml) or to WebAssembly (wasm_of_ocaml). All of them compile the OCaml code alone and leave the C and C++ behind, the FFI included.";
+      "Rather than translating the program, we compile the OCaml runtime itself, together with the complete native dependency stack, to WebAssembly with Emscripten as a single statically linked module, and interpret the unmodified bytecode on top of it. Linking the runtime supplies the primitives the FFI stubs call. The bytecode's external calls are bound through a static primitive table, the mechanism behind OCaml's statically linked (custom) executables, instead of the dynamic loading the runtime performs at startup. Neither the hand-written FFI code nor the CamlIDL-generated stubs are modified.";
+      "This paper reports on our experience doing so for MOPSA, a static analyzer that combines OCaml with LLVM/Clang, GMP, MPFR, Apron, and CamlIDL-generated bindings, running it entirely inside a web browser.";
+    ];
+  };
+  Talk {
+    session = "1";
+    time = "09:50-10:00";
+    title = "Security-team address (by Edwin Török)";
+    authors = [];
+    abstract = [];
+  };
   Break ("10:00-10:30", "Coffee break");
-  Talk ("2", "10:30-10:55", "A Capability Type System for OCaml");
-  Talk ("2", "10:55-11:20", "Runtime Types at LexiFi: Experience Report");
-  Talk ("2", "11:20-11:45", "PPXs That Reach Their Destinations");
+  Talk {
+    session = "2";
+    time = "10:30-10:55";
+    title = "A Capability Type System for OCaml";
+    authors = [ ("Yoann Padioleau", "") ];
+    abstract = [
+      "Cap.ml is a small library providing capability types to use in a disciplined manner the UNIX system calls behind standard library functions such as Sys.command, Unix.fork, or even Stdlib.open_in. When combined with the use of the Semgrep tool and capability rules, it can offer stronger guarantees on a codebase.";
+    ];
+  };
+  Talk {
+    session = "2";
+    time = "10:55-11:20";
+    title = "Runtime Types at LexiFi: Experience Report";
+    authors = [ ("Nicolas Ojeda Bär", "LexiFi") ];
+    abstract = [
+      "LexiFi has maintained a fork of OCaml for 25 years, extending vanilla OCaml with support for \"runtime types\". Recently there has been renewed interest in this feature. To help inform the public discussion, we propose a presentation giving an overview of this feature as it exists inside LexiFi.";
+    ];
+  };
+  Talk {
+    session = "2";
+    time = "11:20-11:45";
+    title = "PPXs That Reach Their Destinations";
+    authors = [
+      ("Gabriel Radanne", "Inria Lyon");
+      ("Ludovic Henrio", "CNRS");
+      ("Yannick Zakowski", "Inria Paris");
+      ("Emma Nardino", "ENS Lyon");
+    ];
+    abstract = [
+      "Since OCaml 4.14 and the implementation of Tail Modulo Constructor [1, 3] in OCaml, the compiler is able to manipulate Destinations and to transform functions in Destination Passing Style. Destinations corresponds roughly to C-style output-arguments and are often implemented directly as write-once pointers. They are very useful to build complex data-structure piece-wise, by leaving holes in the structure that will be filled by later function calls.";
+      "Such destinations can be used to implement interesting syntactic transformation, such as Tail Modulo Async/Await, or language-integrated memoisation. In a recent RFC, we thus argue for exposing destinations as first class object via a new compiler-supported library. This talk will present our proposal along with several use-cases and debate some implementation choices.";
+    ];
+  };
   Break ("11:45-14:15", "Lunch break");
-  Talk ("3", "14:15-14:40", "Slipshow: chill coding with OCaml");
-  Talk ("3", "14:40-15:05", "When Type Checking Goes Wrong, but Keeps Going");
+  Talk {
+    session = "3";
+    time = "14:15-14:40";
+    title = "Slipshow: chill coding with OCaml";
+    authors = [ ("Paul-Elliot Anglès d'Auriac", "Slipshow/Tarides") ];
+    abstract = [
+      "Slipshow is a presentation tool, that includes a markdown compiler, a presentation engine running in the browser, an LSP server with a preview server, a stroke editor akin to a video editor, and many other features. In this experience report, we'll see how it evolved from a single Javascript file to what it is now, thanks to the OCaml language, its compiler, tooling, and a high quality library ecosystem.";
+    ];
+  };
+  Talk {
+    session = "3";
+    time = "14:40-15:05";
+    title = "When Type Checking Goes Wrong, but Keeps Going";
+    authors = [ ("Xavier Van De Woestyne", "Tarides") ];
+    abstract = [
+      "An interactive editing environment for a programming language closely resembles the front-end of its compiler. Merlin, the recommended Language Server for OCaml[1], therefore embeds a modified copy of the OCaml front-end. Unlike a compiler, which analyzes complete and syntactically valid programs, an editor continuously operates on incomplete programs that are temporarily inconsistent or ill-typed. To bridge this gap, Merlin relies on two recovery mechanisms. Parsing Recovery synthesizes AST nodes that allow parsing to continue after syntax errors, while Typing Recovery synthesizes typed AST nodes that allow type checking to continue after type errors. These mechanisms are currently implemented as a collection of patches maintained on top of each supported version of the OCaml type-checker.";
+      "This presentation describes the work that led to the integration of the Typing Recovery mechanism directly into the OCaml type-checker, in order to reduce divergence between Merlin and the compiler, simplify code maintenance, and align their evolution cycles.";
+    ];
+  };
   Break ("15:05-15:40", "Hydration break");
-  Talk ("4", "15:40-16:05", "JSON parsing in OxCaml: fast, but not too fast");
-  Talk ("4", "16:05-16:30", "A new implementation of Short-paths");
+  Talk {
+    session = "4";
+    time = "15:40-16:05";
+    title = "JSON parsing in OxCaml: fast, but not too fast";
+    authors = [ ("Artem Pianykh", "Meta") ];
+    abstract = [
+      "OxCaml provides stack allocation, unboxed types and layouts, SIMD vector types, and bit-manipulation intrinsics. These features promise more explicit control over allocation, representation, and SIMD code than OCaml programmers usually have. In our parser, that control was valuable, but the result was not C++ in OCaml syntax; it was a faster OCaml program with OCaml-shaped tradeoffs.";
+      "This talk describes lessons learned while implementing a simdjson-style JSON parser in OxCaml. The resulting parser is over 5x faster than existing OCaml parsers such as Yojson and Jsont, while still exposing a conventional Json.t API that users can pattern match on. In our benchmarks, the convenient tree API reaches 76% of RapidJSON's throughput, though it remains roughly 4x slower than the C++ simdjson implementation; a lower-level tape representation edges past RapidJSON and reaches 38% of simdjson throughput.";
+      "We report which features worked directly, where integration required extra care, and which language and library extensions would help downstream users build performance-critical OCaml applications.";
+    ];
+  };
+  Talk {
+    session = "4";
+    time = "16:05-16:30";
+    title = "A new implementation of Short-paths";
+    authors = [
+      ("Ulysse Gérard", "Tarides");
+      ("Paul Elliot Anglès d'Auriac", "Tarides");
+      ("Leo White", "Jane Street");
+    ];
+    abstract = [
+      "The OCaml type system, and its module system in particular, is eminently malleable. One of the consequences of this flexibility is that the same entities can often be referred to by multiple names. Short-paths is the feature that tries to find the shortest path before printing something. Two implementations of short-paths already exist: one in the compiler and one in Merlin. Both are unsatisfying in different ways and in this talk we describe a new blank-slate implementation of that should surpass them in correctness and performances.";
+    ];
+  };
   Break ("16:30-17:00", "Coffee break");
-  Talk ("5", "17:00-17:25", "Towards a Benchmarking Service for OCaml");
-  Talk ("5", "17:25-17:50", "First Class Docs in OCaml");
+  Talk {
+    session = "5";
+    time = "17:00-17:25";
+    title = "Towards a Benchmarking Service for OCaml";
+    authors = [
+      ("Luis Eduardo de Souza Amorim", "Tarides");
+      ("Tim McGilchrist", "Tarides");
+    ];
+    abstract = [
+      "In this talk, we discuss our efforts to implement a new benchmarking system for OCaml, with the aim of building a successor to the Sandmark suite as a comprehensive community-facing OCaml performance tracking system. We take inspiration from the consolidated DaCapo benchmark framework for Java, collecting macro-benchmarks from a diverse set of OCaml real-world applications. In the talk, we explain why this benchmarking system is a crucial part of keeping track of performance regressions, how our benchmarking setup is structured, and some preliminary outcomes from our initial prototype. We end the talk by presenting the next steps for our project.";
+    ];
+  };
+  Talk {
+    session = "5";
+    time = "17:25-17:50";
+    title = "First Class Docs in OCaml";
+    authors = [ ("Jon Ludlam", "University of Cambridge") ];
+    abstract = [
+      "OCaml's centrally-generated documentation site, ocaml.org, serves API documentation for almost every opam package, complete with rendered source, type-aware search and cross-package links. Locally, however, documentation remains second class: building the docs for a project and its dependencies requires slow, non-incremental tooling that must rediscover information the build system already had. We propose a simple change with far-reaching consequences: each package should build and install its own odoc files, just as it installs its compiled artifacts today. This removes the discovery problem that complicates every existing documentation driver, and makes first-class experiences straightforward to build: documentation available on install, fast incremental rebuilds with actionable errors in the IDE, CI checks for broken docs, and local search. We survey the current documentation pipeline, describe the challenges facing per-package build rules, and outline a migration path, including an opam-hook-based emulation that is usable today.";
+    ];
+  };
 ]
-
-let session_rowspan session =
-  schedule
-  |> List.filter (function Talk (s, _, _) -> s = session | Break _ -> false)
-  |> List.length
 
 let first_of_session i session =
   i = 0
   || (match List.nth schedule (i - 1) with
-      | Talk (s, _, _) -> s <> session
+      | Talk t -> t.session <> session
       | Break _ -> true)
 
-let talk_row_first session time title =
+let session_header_row session =
   <tr>
-    <td rowspan="<%s string_of_int (session_rowspan session) %>" class="rounded-l p-4 align-middle text-center text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s session %></td>
-    <td class="p-4 text-left text-sm whitespace-nowrap text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s time %></td>
-    <td class="rounded-r p-4 text-left font-medium text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s title %></td>
+    <td colspan="2" class="rounded p-4 text-left text-sm font-semibold uppercase tracking-wide text-primary dark:text-dark-primary">Session <%s session %></td>
   </tr>
 
-let talk_row_rest time title =
-  <tr>
-    <td class="p-4 text-left text-sm whitespace-nowrap text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s time %></td>
-    <td class="rounded-r p-4 text-left font-medium text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s title %></td>
-  </tr>
+let format_authors authors =
+  authors
+  |> List.map (fun (name, affiliation) ->
+      if affiliation = "" then name else Printf.sprintf "%s (%s)" name affiliation)
+  |> String.concat ", "
+
+let talk_row (t : talk) =
+  match t.abstract with
+  | [] ->
+    <tr>
+      <td class="rounded-l p-4 text-left text-sm whitespace-nowrap text-title dark:text-dark-title bg-white dark:bg-dark-card w-36"><%s t.time %></td>
+      <td class="rounded-r p-4 text-left font-medium text-title dark:text-dark-title bg-white dark:bg-dark-card"><%s t.title %></td>
+    </tr>
+  | abstract ->
+    <tr>
+      <td class="rounded-l p-4 text-left text-sm whitespace-nowrap text-title dark:text-dark-title bg-white dark:bg-dark-card w-36 align-top"><%s t.time %></td>
+      <td class="rounded-r p-4 text-left text-title dark:text-dark-title bg-white dark:bg-dark-card">
+        <details>
+          <summary class="flex items-start justify-between gap-3 font-medium">
+            <span>
+              <%s t.title %>
+              <span class="block text-sm italic font-normal text-content dark:text-dark-content mt-1"><%s (format_authors t.authors) %></span>
+            </span>
+            <%s! Icons.chevron_down "h-5 w-5 flex-shrink-0" %>
+          </summary>
+          <div class="mt-3 space-y-3 text-sm font-normal text-content dark:text-dark-content">
+            <% abstract |> List.iter (fun paragraph -> %>
+            <p><%s paragraph %></p>
+            <% ); %>
+          </div>
+        </details>
+      </td>
+    </tr>
 
 let break_row time label =
   <tr>
-    <td class="rounded-l p-4"></td>
-    <td class="p-4 text-left text-sm whitespace-nowrap text-content dark:text-dark-content italic"><%s time %></td>
+    <td class="rounded-l p-4 text-left text-sm whitespace-nowrap text-content dark:text-dark-content italic w-36"><%s time %></td>
     <td class="rounded-r p-4 text-left text-content dark:text-dark-content italic"><%s label %></td>
   </tr>
 
 let render_row i item =
   match item with
-  | Talk (session, time, title) ->
-      if first_of_session i session then talk_row_first session time title
-      else talk_row_rest time title
+  | Talk t ->
+      let header = if first_of_session i t.session then session_header_row t.session else "" in
+      header ^ talk_row t
   | Break (time, label) -> break_row time label
 
 let render () =
@@ -84,7 +230,6 @@ Workshop_layout.single_column_layout
         <caption class="sr-only">Timetable of the OCaml Workshop 2026</caption>
         <thead class="text-left">
           <tr>
-            <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title w-24">Session</th>
             <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title w-36">Time</th>
             <th scope="col" class="border-b-2 border-gray-200 px-4 py-4 font-normal text-title dark:border-gray-400 dark:text-dark-title">Activity</th>
           </tr>
