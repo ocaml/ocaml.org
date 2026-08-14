@@ -15,7 +15,7 @@ let schedule = [
   Talk ("3", "14:15-14:40", "Slipshow: chill coding with OCaml");
   Talk ("3", "14:40-15:05", "When Type Checking Goes Wrong, but Keeps Going");
   Break ("15:05-15:40", "Hydration break");
-  Talk ("4", "15:40-16:00", "JSON parsing in OxCaml: fast, but not too fast");
+  Talk ("4", "15:40-16:05", "JSON parsing in OxCaml: fast, but not too fast");
   Talk ("4", "16:05-16:30", "A new implementation of Short-paths");
   Break ("16:30-17:00", "Coffee break");
   Talk ("5", "17:00-17:25", "Towards a Benchmarking Service for OCaml");
