@@ -1,2 +1,40 @@
-(mdx
- (files *.md))
+; Tutorial markdown lives in per-topic subdirectories. The mdx stanza only
+; tests files in its own directory, so a (subdir ...) is needed for each.
+;
+; The tested set is listed explicitly, per subdirectory. It is the set of
+; tutorials that currently pass mdx. The remaining tutorials need an editorial
+; pass before they can be tested (compiler-version-specific output, code blocks
+; authored in a non-mdx-compatible style, cross-block state, blocks that write
+; files or run external tools) and are tracked as a follow-up rather than
+; silently skipped block by block. The platform/ subdirectory has no tutorial
+; with testable OCaml blocks yet, so it has no stanza.
+
+(subdir
+ getting-started
+ (mdx
+  (files 1_00_install_OCaml.md 3_03_ocaml_playground.md)
+  (libraries unix)))
+
+(subdir
+ guides
+ (mdx
+  (files
+   0tt_00_formatting_text.md
+   0tt_01_command_line_arguments.md
+   0tt_02_file_manipulation.md
+   0tt_03_calling_c_libraries.md
+   0tt_04_calling_fortran_libraries.md
+   1wf_00_using_the_ocaml_compiler_toolchain.md
+   1wf_05_garbage_collection.md
+   rs_00_guidelines.md)
+  (libraries unix)))
+
+(subdir
+ language
+ (mdx
+  (files
+   1ms_02_first_class_modules.md
+   3ds_04_hashtbl.md
+   4ad_00_metaprogramming.md
+   5rt_00_memory_representation.md)
+  (libraries unix)))
