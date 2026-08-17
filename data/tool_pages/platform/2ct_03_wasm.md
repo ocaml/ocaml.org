@@ -20,7 +20,7 @@ WebAssembly is a binary instruction format designed as a portable compilation ta
 
 ### wasm_of_ocaml
 
-[wasm_of_ocaml](https://github.com/ocsigen/js_of_ocaml/blob/master/README_wasm_of_ocaml.md) compiles OCaml bytecode to WebAssembly. It provides:
+[wasm_of_ocaml](https://github.com/ocsigen/js_of_ocaml/blob/master/README_wasm_of_ocaml.md) compiles OCaml bytecode to WebAssembly GC (Wasm-GC). It provides:
 - Full OCaml language support, including the standard library and OCaml 5 effects
 - Compatibility with existing OCaml libraries
 - Integration with JavaScript through Js_of_ocaml-style bindings
