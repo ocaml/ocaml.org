@@ -172,7 +172,7 @@ let group_releases_by_project all =
     SMap.empty all
 
 let is_prerelease github_tag =
-  let tag = String.lowercase_ascii github_tag in
+  let tag = Ocamlorg.Import.String.case_fold github_tag in
   let has pattern =
     try
       let _ = Str.search_forward (Str.regexp pattern) tag 0 in
@@ -182,13 +182,13 @@ let is_prerelease github_tag =
   has "alpha" || has "beta" || has "rc[0-9]" || has "preview"
 
 let tag_matches_ignore_patterns ignore_patterns github_tag =
-  let tag = String.lowercase_ascii github_tag in
+  let tag = Ocamlorg.Import.String.case_fold github_tag in
   List.exists
     (fun pattern ->
       try
         let _ =
           Str.search_forward
-            (Str.regexp_string (String.lowercase_ascii pattern))
+            (Str.regexp_string (Ocamlorg.Import.String.case_fold pattern))
             tag 0
         in
         true
