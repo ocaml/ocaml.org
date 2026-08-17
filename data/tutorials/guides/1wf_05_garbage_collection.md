@@ -266,7 +266,7 @@ Finally, we have some test code. I won't reproduce the test code here, but you
 can download the complete program and test code
 [objcache.ml](/media/tutorials/objcache.ml) and compile it with:
 
-<!-- $MDX dir=examples -->
+<!-- $MDX skip -->
 ```sh
 ocamlc unix.cma objcache.ml -o objcache
 ```
