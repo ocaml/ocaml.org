@@ -40,6 +40,9 @@ Workshop_layout.single_column_layout
         <h2>Schedule</h2>
         <p>The workshop runs a full day with five sessions of talks. See the <a href="<%s Url.ocaml_workshop_2026_schedule %>">full schedule</a>.</p>
 
+        <h2>Livestream</h2>
+        <p>Can't make it in person? Watch the workshop live: <a href="https://webinaire.numerique.gouv.fr/meeting/signin/invite/45142/hash/9a0687884090287169e418dc7f10c8980f5a9c23">join the livestream</a>.</p>
+
         <h2>Other FPW'26 events</h2>
         <p>The OCaml Workshop is one of several events gathered under <a href="https://www.irif.fr/~scherer/events/fpw-2026/announce.html">FPW'26</a>:</p>
         <ul>
@@ -94,6 +97,10 @@ Workshop_layout.single_column_layout
           </a>
           <a href="<%s Url.ocaml_workshop_2026_cfp %>" class="btn">
             Call for Talks
+            <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
+          </a>
+          <a href="https://webinaire.numerique.gouv.fr/meeting/signin/invite/45142/hash/9a0687884090287169e418dc7f10c8980f5a9c23" class="btn">
+            Livestream
             <%s! Icons.chevron_right "h-5 w-5 inline-block" %>
           </a>
         </div>
