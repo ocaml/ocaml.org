@@ -5,6 +5,18 @@ open Data_packer.Import
 (* external RSS feeds that we aggregate - they will all be scraped by the
    scrape.yml workflow *)
 
+(* Connection timeout (seconds) for feed and post fetches. River's built-in
+   default is 3s, which is too aggressive for many feeds and causes spurious
+   scrape failures. *)
+let timeout = 30.
+
+(* Some feed hosts reject requests with an empty/default User-Agent. *)
+let user_agent = "ocaml.org planet aggregator (+https://ocaml.org)"
+
+(* Number of times to attempt a feed fetch before giving up on the source, to
+   absorb transient network/DNS/5xx failures. *)
+let max_attempts = 3
+
 module Source = struct
   type t = {
     id : string;
@@ -93,8 +105,8 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
                || is_sub_ignore_case "caml" title)
         then (
           let url = String.trim (Uri.to_string url) in
-          let preview_image = River.seo_image post in
-          let description = River.meta_description post in
+          let preview_image = River.seo_image ~timeout ~user_agent post in
+          let description = River.meta_description ~timeout ~user_agent post in
           let author = River.author post in
           let metadata : Post.metadata =
             {
@@ -120,9 +132,22 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
           None))
   else None
 
+(* Fetch a feed, retrying with exponential backoff on failure. The final attempt
+   lets the exception propagate to [scrape_source]'s handler, which records the
+   source as an error for this run. *)
+let rec fetch_with_retry ?(attempt = 1) (source : Data_intf.Blog.source) =
+  try River.fetch ~timeout ~user_agent { name = source.name; url = source.url }
+  with e when attempt < max_attempts ->
+    let delay = 2. ** float_of_int attempt in
+    print_endline
+      (Printf.sprintf "retry %d/%d for %s in %.0fs: %s" attempt
+         (max_attempts - 1) source.id delay (Printexc.to_string e));
+    Unix.sleepf delay;
+    fetch_with_retry ~attempt:(attempt + 1) source
+
 let scrape_source (source : Data_intf.Blog.source) : Scrape_report.entry list =
   try
-    [ River.fetch { name = source.name; url = source.url } ]
+    [ fetch_with_retry source ]
     |> River.posts
     |> List.filter_map (scrape_post ~source)
   with e ->

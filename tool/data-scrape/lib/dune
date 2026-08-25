@@ -18,6 +18,7 @@
   ; XML for youtube scraper
   xmlm
   ; Common utilities
+  unix
   uri
   yaml
   str
