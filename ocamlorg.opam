@@ -43,6 +43,7 @@ depends: [
   "ounit"
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
+  "uucp"
   "ppx_deriving_yaml"
   "ppx_import"
   "ppx_stable"
@@ -76,4 +77,7 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   [ "hilite.0.6.0" "git+https://github.com/patricoferris/hilite#f5368558f765ff6c884fda68acf4d4e9256970b4" ]
+  # Temporary pin for PR tarides/river#16 (expose ?timeout/?user_agent).
+  # Replace with a version constraint once river >= 0.5 is released to opam.
+  [ "river.0.4" "git+https://github.com/tarides/river#c5e889d30e4ef9bcca0d6ad64fe2ab05005023be" ]
 ]
