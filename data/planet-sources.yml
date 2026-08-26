@@ -135,6 +135,12 @@
 - id: mirage
   name: MirageOS
   url: https://mirage.io/feed.xml
+# Feed is dead (see #3753); disabled so it is no longer scraped, but the
+# already-archived posts are kept.
+- id: ocaml-book
+  name: OCaml Book
+  url: http://ocaml-book.com/blog?format=rss
+  disabled: true
 - id: ocamllabs
   name: OCaml Labs compiler hacking
   url: http://ocamllabs.io/compiler-hacking/rss.xml
@@ -210,6 +216,12 @@
   name: Romain Calascibetta
   url: https://blog.osau.re/feed.xml
   publish_all: false
+# Feed is dead (see #3753); disabled so it is no longer scraped, but the
+# already-archived posts are kept.
+- id: emilpriver
+  name: Emil Privér
+  url: https://priver.dev/tags/ocaml/index.xml
+  disabled: true
 - id: melange
   name: Melange Blog
   url: https://melange.re/blog/feed.rss
