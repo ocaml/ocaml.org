@@ -127,9 +127,13 @@
   name: Mike McClurg
   url: https://mcclurmc.wordpress.com/feed/
   publish_all: false
+# repair: the feed is valid Atom but embeds unclosed HTML void elements
+# (<img>) in its type="xhtml" content, which strict XML parsing rejects.
+# river's ~repair self-closes them before parsing. See tarides/river#17, #3753.
 - id: mirage
   name: MirageOS
   url: https://mirage.io/feed.xml
+  repair: true
 - id: ocaml-book
   name: OCaml Book
   url: http://ocaml-book.com/blog?format=rss

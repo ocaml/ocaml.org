@@ -12,6 +12,7 @@ module Source = struct
     url : string;
     publish_all : bool option;
     disabled : bool option;
+    repair : bool option; (* scrape-only; ignored when building site data *)
   }
   [@@deriving of_yaml]
 
@@ -27,7 +28,7 @@ module Source = struct
       in
       Ok
         (sources
-        |> List.map (fun { id; name; url; publish_all; disabled } ->
+        |> List.map (fun { id; name; url; publish_all; disabled; repair = _ } ->
                {
                  Data_intf.Blog.id;
                  name;

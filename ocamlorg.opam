@@ -77,13 +77,15 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   [ "hilite.0.6.0" "git+https://github.com/patricoferris/hilite#f5368558f765ff6c884fda68acf4d4e9256970b4" ]
-  # river's ?timeout/?user_agent API (tarides/river#16, ships in 0.5) is
-  # delivered via this git pin. A plain "river" {>= "0.5"} constraint would NOT
-  # work: ocaml.org builds against a frozen opam-repository snapshot (pinned in
-  # Makefile, Dockerfile and the CI workflows), so a newly published river 0.5
-  # is unreachable there. opam honours pin-depends regardless of that snapshot,
-  # which is why this git pin is the delivery mechanism, not a stopgap. Drop it
-  # only when the opam-repository pin is bumped to a commit that includes
-  # river >= 0.5, adding "river" {>= "0.5"} at that point.
-  [ "river.0.5" "git+https://github.com/tarides/river#28281fefebb0633bdaf326c3733dd00b3e153133" ]
+  # river's ?timeout/?user_agent (tarides/river#16) and ?repair
+  # (tarides/river#17) APIs are delivered via this git pin. A plain
+  # "river" {>= "0.5"} constraint would NOT work: ocaml.org builds against a
+  # frozen opam-repository snapshot (pinned in Makefile, Dockerfile and the CI
+  # workflows), so a newly published river is unreachable there. opam honours
+  # pin-depends regardless of that snapshot, which is why this git pin is the
+  # delivery mechanism, not a stopgap. The pin is a fork branch = river 0.5
+  # (timeout) plus ~repair, pending tarides/river#17; repoint it to
+  # tarides/river once that merges, and drop it once the opam-repository pin is
+  # bumped to a commit that includes ~repair, adding "river" {>= ...} then.
+  [ "river.0.5" "git+https://github.com/cuihtlauac/river#8159e71e9a4847882a9da9b61c05b23ac065a0d2" ]
 ]
