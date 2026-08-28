@@ -161,6 +161,11 @@ module Governance = struct
   type team = [%import: Data_intf.Governance.team] [@@deriving bin_io, show]
 end
 
+module Governance_meeting = struct
+  type t = [%import: Data_intf.Governance_meeting.t]
+  [@@deriving bin_io, of_yaml, show]
+end
+
 module Conference = struct
   type role = [%import: Data_intf.Conference.role] [@@deriving bin_io, show]
 
@@ -319,6 +324,7 @@ module All_data = struct
     outreachy : Outreachy.t list;
     governance_teams : Governance.team list;
     governance_working_groups : Governance.team list;
+    governance_meetings : Governance_meeting.t list;
     tool_pages : Tool_page.t list;
   }
   [@@deriving bin_io]
@@ -362,6 +368,7 @@ module All_data = struct
       outreachy = [];
       governance_teams = [];
       governance_working_groups = [];
+      governance_meetings = [];
       tool_pages = [];
     }
 end
