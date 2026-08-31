@@ -108,7 +108,10 @@ Package docs under `/p/<package>/<version>/doc/` are served from an external doc
 
 ## Pushing to contributor forks
 
-When pushing fixes to cross-repository PRs (contributor forks), Git LFS lock
-verification fails over SSH because we lack HTTPS credentials for the fork.
+When pushing fixes to a contributor's fork you don't own, git-lfs lock
+verification fails: pushing over SSH, git-lfs calls the fork's LFS locks API,
+but you have no lock authorization on a repo you don't own, so it returns 403
+and aborts the push. This is not a gap in your account's rights — you are not
+meant to hold lock rights on a third party's fork.
 
-Workaround: `GIT_LFS_SKIP_PUSH=1 git push <remote> HEAD:<branch>`
+Bypass the lock check: `GIT_LFS_SKIP_PUSH=1 git push <remote> HEAD:<branch>`
