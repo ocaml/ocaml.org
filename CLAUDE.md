@@ -105,3 +105,13 @@ The rest are automation: **scrape.yml** and **scrape_platform_releases.yml** run
 ### Package Documentation
 
 Package docs under `/p/<package>/<version>/doc/` are served from an external documentation server (`https://sage.ci.dev/current/`) built by [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci). Configurable via `OCAMLORG_DOC_URL`.
+
+## Pushing to contributor forks
+
+When pushing fixes to a contributor's fork you don't own, git-lfs lock
+verification fails: pushing over SSH, git-lfs calls the fork's LFS locks API,
+but you have no lock authorization on a repo you don't own, so it returns 403
+and aborts the push. This is not a gap in your account's rights — you are not
+meant to hold lock rights on a third party's fork.
+
+Bypass the lock check: `GIT_LFS_SKIP_PUSH=1 git push <remote> HEAD:<branch>`
