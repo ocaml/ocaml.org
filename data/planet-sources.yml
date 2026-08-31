@@ -212,10 +212,13 @@
 - id: robur.coop
   name: Robur Cooperative
   url: https://blog.robur.coop/feed.xml
+# Feed is dead (blog.osau.re no longer resolves, see #3753); disabled so it is
+# no longer scraped, but the already-archived posts are kept.
 - id: dinosaure
   name: Romain Calascibetta
   url: https://blog.osau.re/feed.xml
   publish_all: false
+  disabled: true
 # Feed is dead (see #3753); disabled so it is no longer scraped, but the
 # already-archived posts are kept.
 - id: emilpriver
@@ -289,3 +292,8 @@
 - id: samoht
   name: Thomas Gazagnaire
   url: https://gazagnaire.org/feed.xml
+# Mixed OCaml/Scala blog; publish_all: false keeps only the caml-related posts.
+- id: gilwath
+  name: Benjamin Thuillier
+  url: https://gilwath.com/atom.xml
+  publish_all: false
