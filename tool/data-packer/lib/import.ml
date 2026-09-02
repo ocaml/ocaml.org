@@ -14,7 +14,9 @@ module String = struct
     with Exit -> true
 
   let is_sub_ignore_case pattern text =
-    contains_s (lowercase_ascii text) (lowercase_ascii pattern)
+    contains_s
+      (Ocamlorg.Import.String.case_fold text)
+      (Ocamlorg.Import.String.case_fold pattern)
 
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
