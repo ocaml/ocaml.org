@@ -232,9 +232,12 @@
   name: Dmitrii Kovanikov
   url: https://chshersh.com/atom.xml
   publish_all: false
+# Feed is dead (soap.coffee no longer resolves, see #3753); disabled so it is
+# no longer scraped, but the already-archived posts are kept.
 - id: lthms
   name: "Thomas Letan’s Blog"
   url: https://soap.coffee/~lthms/tags/ocaml.xml
+  disabled: true
 - id: debajyatidey
   name: Debajyati's Blog
   url: https://debajyatidey.hashnode.dev/rss.xml
