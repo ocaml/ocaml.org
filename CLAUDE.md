@@ -57,6 +57,8 @@ Site content lives in `data/` as YAML and Markdown — one subdirectory per cont
 
 **Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, and `data/platform_releases/` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
 
+**When you rename or remove `data/` content, update `asset/llms.txt` too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:`/`id:` (not its filename), and CI never checks them, so stale links break silently.
+
 ### Tailwind CSS
 
 CSS uses Tailwind. The binary is downloaded by Dune during build. Run `dune install tailwind` to persist it in the local switch across `dune clean`.
