@@ -224,7 +224,7 @@ module Opam_user = struct
     { name; email; github_username; avatar }
 
   let find_by_name s =
-    let pattern = String.lowercase_ascii s in
+    let pattern = Ocamlorg.Import.String.case_fold s in
     let contains s1 s2 =
       try
         let len = String.length s2 in
@@ -236,7 +236,7 @@ module Opam_user = struct
     in
     all
     |> List.find_opt (fun { name; _ } ->
-           contains pattern (String.lowercase_ascii name))
+           contains pattern (Ocamlorg.Import.String.case_fold name))
 end
 
 module Outreachy = struct

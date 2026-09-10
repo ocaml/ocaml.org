@@ -434,8 +434,8 @@ let academic_institutions req =
   let resource_type = Dream.query req "resource_type" in
   let search_user pattern t =
     let open Data.Academic_institution in
-    let pattern = String.lowercase_ascii pattern in
-    let name_is_s { name; _ } = String.lowercase_ascii name = pattern in
+    let pattern = String.case_fold pattern in
+    let name_is_s { name; _ } = String.case_fold name = pattern in
     let name_contains_s { name; _ } = String.is_sub_ignore_case pattern name in
     let score user =
       if name_is_s user then -1
