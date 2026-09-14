@@ -579,4 +579,4 @@ preprocessor binary, even if the PPXs come from different packages.
 ### Writing a PPX
 
 If you want to write your own PPX, the place to start is [ppxlib's
-documentation](https://ocaml.org/p/ppxlib/0.27.0/doc/index.html).
+documentation](https://ocaml.org/p/ppxlib/latest/doc/index.html).
