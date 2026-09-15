@@ -14,6 +14,13 @@ let documentation_status_url =
 let package_caches_ttl =
   env_with_default "OCAMLORG_PACKAGE_CACHES_TTL" "3600" |> float_of_string
 
+(* Upper bound on the size (in bytes) of a single response fetched from the
+   documentation backend. Prevents a pathologically large artifact (e.g. a
+   multi-hundred-MB odoc search index) from being buffered into memory and
+   OOM-killing the server. See ocaml/ocaml.org#3765. Default: 50 MB. *)
+let max_doc_fetch_bytes =
+  env_with_default "OCAMLORG_MAX_DOC_FETCH_BYTES" "52428800" |> int_of_string
+
 let default_cache_dir =
   match Sys.os_type with
   | "Unix" -> Fpath.(v (Sys.getenv "HOME") / ".cache" / "ocamlorg")

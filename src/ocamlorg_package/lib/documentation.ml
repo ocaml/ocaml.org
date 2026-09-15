@@ -8,8 +8,16 @@ module Status = struct
     failed : bool;
     files : string list;
     redirections : redirection list;
+    search_index_digest : string option; [@default None]
+        (* Optional: digest of the odoc search index (doc/index.js), computed by
+           ocaml-docs-ci / voodoo. When present, ocaml.org uses it directly
+           instead of downloading the whole index to hash it. See
+           ocaml/ocaml.org#3765 and ocurrent/ocaml-docs-ci#193. *)
   }
-  [@@deriving yojson]
+  [@@deriving yojson { strict = false }]
+  (* [strict = false]: tolerate unknown fields so the docs backend can extend
+     status.json (e.g. adding [search_index_digest]) without breaking parsing on
+     older/newer deployments. *)
 
   let has_file (v : t) (options : string list) : string option =
     let children = v.files in
@@ -113,13 +121,52 @@ let http_get url =
       let* response, body =
         Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
       in
+      let max_bytes = Config.max_doc_fetch_bytes in
+      (* Reject an over-large response rather than buffering it whole. We do not
+         drain the body on rejection: draining would still transfer every byte;
+         dropping it lets the connection be torn down so we stop pulling the
+         payload. See ocaml/ocaml.org#3765. *)
+      let too_large n =
+        Logs.warn (fun m ->
+            m "Response too large (%d bytes > %d limit) for %s" n max_bytes url);
+        Lwt.return
+          (Error
+             (`Msg
+               (Printf.sprintf "response too large (> %d bytes) for %s"
+                  max_bytes url)))
+      in
       match Cohttp.Code.(code_of_status response.status |> is_success) with
-      | true ->
-          let+ body = Cohttp_lwt.Body.to_string body in
-          Ok body
       | false ->
           let+ () = Cohttp_lwt.Body.drain_body body in
-          Error (`Msg ("Failed to fetch " ^ url)))
+          Error (`Msg ("Failed to fetch " ^ url))
+      | true -> (
+          match
+            Cohttp.Header.get response.headers "content-length"
+            |> Fun.flip Option.bind int_of_string_opt
+          with
+          | Some n when n > max_bytes -> too_large n
+          | _ ->
+              (* No trustworthy Content-Length: stream and enforce the cap as we
+                 read, so a chunked or mislabelled response can't blow up
+                 memory. *)
+              let buf = Buffer.create 65536 in
+              let exception Too_large in
+              Lwt.catch
+                (fun () ->
+                  let* () =
+                    Cohttp_lwt.Body.to_stream body
+                    |> Lwt_stream.iter_s (fun chunk ->
+                           if
+                             Buffer.length buf + String.length chunk > max_bytes
+                           then raise Too_large
+                           else (
+                             Buffer.add_string buf chunk;
+                             Lwt.return_unit))
+                  in
+                  Lwt.return (Ok (Buffer.contents buf)))
+                (function
+                  | Too_large -> too_large (Buffer.length buf)
+                  | e -> Lwt.reraise e)))
     (function
       | e ->
           Logs.err (fun m -> m "%s" (Printexc.to_string e));
@@ -241,7 +288,9 @@ end = struct
   let add name version kind sidebar =
     let name = Name.to_string name in
     let version = Version.to_string version in
-    Hashtbl.add cache (name, version, kind) sidebar
+    (* [replace], not [add]: concurrent misses for the same key would otherwise
+       accumulate duplicate entries in this never-expiring cache. *)
+    Hashtbl.replace cache (name, version, kind) sidebar
 
   let get name version kind =
     let name = Name.to_string name in
@@ -364,37 +413,6 @@ type doc_cache = {
 let doc_cache_empty =
   { doc_status_cache = Name.Map.empty; search_index_cache = Name.Map.empty }
 
-(* TODO: should be computed by ocaml-docs-ci / voodoo and be part of
-   status.json *)
-let search_index_digest ~kind state t : string option Lwt.t =
-  let open Lwt.Syntax in
-  let get_and_cache () =
-    let+ content = search_index ~kind t in
-    let digest =
-      match content with Some s -> Some (s |> Digest.string) | _ -> None
-    in
-    let entry = { hash_digest = digest; time = Unix.gettimeofday () } in
-    state.search_index_cache <-
-      Name.Map.update t.name
-        (Version.Map.add t.version entry)
-        (Version.Map.singleton t.version entry)
-        state.search_index_cache;
-    digest
-  in
-
-  let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.package_caches_ttl
-  in
-
-  match
-    Name.Map.find_opt t.name state.search_index_cache
-    |> Option.map (Version.Map.find_opt t.version)
-    |> Option.value ~default:None
-  with
-  | None -> get_and_cache ()
-  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
-  | Some { hash_digest; _ } -> Lwt.return hash_digest
-
 let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   let open Lwt.Syntax in
   let package_url =
@@ -438,3 +456,45 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   | None -> get_and_cache ()
   | Some { time; _ } when has_cache_expired time -> get_and_cache ()
   | Some { documentation_status; _ } -> Lwt.return documentation_status
+
+let search_index_digest ~kind state t : string option Lwt.t =
+  let open Lwt.Syntax in
+  (* Downloads the whole search index just to hash it. Only reached when the
+     backend does not publish the digest in status.json; see the status-first
+     branch below, ocaml/ocaml.org#3765 and ocurrent/ocaml-docs-ci#193. *)
+  let get_and_cache () =
+    let+ content = search_index ~kind t in
+    let digest =
+      match content with Some s -> Some (s |> Digest.string) | _ -> None
+    in
+    let entry = { hash_digest = digest; time = Unix.gettimeofday () } in
+    state.search_index_cache <-
+      Name.Map.update t.name
+        (Version.Map.add t.version entry)
+        (Version.Map.singleton t.version entry)
+        state.search_index_cache;
+    digest
+  in
+
+  let has_cache_expired time =
+    Unix.gettimeofday () -. time > Config.package_caches_ttl
+  in
+
+  let from_index_download () =
+    match
+      Name.Map.find_opt t.name state.search_index_cache
+      |> Option.map (Version.Map.find_opt t.version)
+      |> Option.value ~default:None
+    with
+    | None -> get_and_cache ()
+    | Some { time; _ } when has_cache_expired time -> get_and_cache ()
+    | Some { hash_digest; _ } -> Lwt.return hash_digest
+  in
+
+  (* Prefer the digest published in status.json: it avoids downloading the
+     (potentially huge) search index. Fall back to downloading and hashing only
+     when the backend doesn't provide it. *)
+  let* status = status ~kind state t in
+  match Option.bind status (fun s -> s.Status.search_index_digest) with
+  | Some _ as digest -> Lwt.return digest
+  | None -> from_index_download ()
