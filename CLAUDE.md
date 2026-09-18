@@ -84,7 +84,7 @@ Defined in `src/ocamlorg_web/lib/config.ml` and `src/ocamlorg_package/lib/config
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
 | `OCAMLORG_HTTP_PORT` | `8080` | HTTP server port |
-| `OCAMLORG_DOC_URL` | `https://sage.ci.dev/current/` | External package-documentation server (see below) |
+| `OCAMLORG_DOC_URL` | `https://dill.caelum.ci.dev/profiles/full/docs/` | External package-documentation server (see below) |
 | `OCAMLORG_REPO_PATH` | `~/.cache/ocamlorg/opam-repository` | Local opam-repository clone |
 | `OCAMLORG_PKG_STATE_PATH` | `~/.cache/ocamlorg/package.state` | Package state cache file |
 
@@ -104,7 +104,7 @@ The rest are automation: **scrape.yml** and **scrape_platform_releases.yml** run
 
 ### Package Documentation
 
-Package docs under `/p/<package>/<version>/doc/` are served from an external documentation server (`https://sage.ci.dev/current/`) built by [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci). Configurable via `OCAMLORG_DOC_URL`.
+Package docs under `/p/<package>/<version>/doc/` are served from an external documentation server (`https://dill.caelum.ci.dev/profiles/full/docs/`) built by [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci). Configurable via `OCAMLORG_DOC_URL`.
 
 ## Pushing to contributor forks
 
