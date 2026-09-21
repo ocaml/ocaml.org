@@ -250,9 +250,14 @@
   name: Jon Ludlam's Blog at recoil.org
   url: https://jon.recoil.org/atom.xml
   publish_all: false
+# repair: the feed is valid XML but one entry ("Modular Explicits in OCaml")
+# has <published> and no <updated>, which Atom requires, so strict parsing
+# rejects the whole feed. river's ~repair defaults the missing <updated> to the
+# entry's <published> before parsing. See tarides/river#20 (in river 0.6), #3753.
 - id: patricoferris
   name: Patrick Ferris' OCaml Blog
   url: https://patrick.sirref.org/ocaml-blog/atom.xml
+  repair: true
 - id: dra27
   name: David Allsopp's Blog
   url: https://www.dra27.uk/feed.xml

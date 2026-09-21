@@ -24,12 +24,17 @@ module Source = struct
     url : string;
     publish_all : bool option;
     disabled : bool option;
+    repair : bool option;
   }
   [@@deriving yaml]
 
   type sources = t list [@@deriving yaml]
 
-  let all () : Data_intf.Blog.source list =
+  (* A site [Blog.source] together with scrape-only options that are not part of
+     the published data model. *)
+  type resolved = { source : Data_intf.Blog.source; repair : bool }
+
+  let all () : resolved list =
     let file = "planet-sources.yml" in
     let result =
       let ( let* ) = Result.bind in
@@ -39,14 +44,18 @@ module Source = struct
       in
       Ok
         (sources
-        |> List.map (fun { id; name; url; publish_all; disabled } ->
+        |> List.map (fun { id; name; url; publish_all; disabled; repair } ->
                {
-                 Data_intf.Blog.id;
-                 name;
-                 url;
-                 description = "";
-                 publish_all = Option.value ~default:true publish_all;
-                 disabled = Option.value ~default:false disabled;
+                 source =
+                   {
+                     Data_intf.Blog.id;
+                     name;
+                     url;
+                     description = "";
+                     publish_all = Option.value ~default:true publish_all;
+                     disabled = Option.value ~default:false disabled;
+                   };
+                 repair = Option.value ~default:false repair;
                }))
     in
     result
@@ -135,19 +144,23 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
 (* Fetch a feed, retrying with exponential backoff on failure. The final attempt
    lets the exception propagate to [scrape_source]'s handler, which records the
    source as an error for this run. *)
-let rec fetch_with_retry ?(attempt = 1) (source : Data_intf.Blog.source) =
-  try River.fetch ~timeout ~user_agent { name = source.name; url = source.url }
+let rec fetch_with_retry ?(attempt = 1) ~repair (source : Data_intf.Blog.source)
+    =
+  try
+    River.fetch ~timeout ~user_agent ~repair
+      { name = source.name; url = source.url }
   with e when attempt < max_attempts ->
     let delay = 2. ** float_of_int attempt in
     print_endline
       (Printf.sprintf "retry %d/%d for %s in %.0fs: %s" attempt
          (max_attempts - 1) source.id delay (Printexc.to_string e));
     Unix.sleepf delay;
-    fetch_with_retry ~attempt:(attempt + 1) source
+    fetch_with_retry ~attempt:(attempt + 1) ~repair source
 
-let scrape_source (source : Data_intf.Blog.source) : Scrape_report.entry list =
+let scrape_source ({ source; repair } : Source.resolved) :
+    Scrape_report.entry list =
   try
-    [ fetch_with_retry source ]
+    [ fetch_with_retry ~repair source ]
     |> River.posts
     |> List.filter_map (scrape_post ~source)
   with e ->
@@ -157,5 +170,5 @@ let scrape_source (source : Data_intf.Blog.source) : Scrape_report.entry list =
 
 let scrape () : Scrape_report.entry list =
   Source.all ()
-  |> List.filter (fun ({ disabled; _ } : Data_intf.Blog.source) -> not disabled)
+  |> List.filter (fun ({ source; _ } : Source.resolved) -> not source.disabled)
   |> List.concat_map scrape_source
