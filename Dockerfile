@@ -22,9 +22,14 @@ RUN cd ~/opam-repository && git reset --hard 8cdfa3296d9bc7d93273f46eb2438757e4f
 
 WORKDIR /home/opam
 
-# Install opam dependencies
+# Install opam dependencies.
+# OPAMSOLVERTIMEOUT is raised from the 60s default: this base image's bundled
+# solver needs ~55s on ocaml.org's large dependency graph, which regressed to a
+# timeout once the fixed river git pin was replaced by a "river" {>= "0.6"}
+# constraint. GitHub Actions (setup-ocaml) solves the same request well within
+# 60s; only this Docker solver is close to the limit, so give it headroom.
 COPY --chown=opam ocamlorg.opam .
-RUN opam install . --deps-only
+RUN OPAMSOLVERTIMEOUT=300 opam install . --deps-only
 
 # Build project
 COPY --chown=opam . .

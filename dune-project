@@ -57,7 +57,8 @@
   lwt
   (hilite
    (>= 0.6.0))
-  river
+  (river
+   (>= 0.6))
   syndic
   ounit
   (alcotest :with-test)
@@ -65,6 +66,7 @@
    (and
     :with-test
     (>= 1.10.0)))
+  uucp
   ; tools/data-packer
   ppx_deriving_yaml
   ppx_import
