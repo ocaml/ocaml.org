@@ -137,6 +137,11 @@ let graphql_route t =
       Dream.get "/graphiql" (Dream.graphiql "/graphql");
     ]
 
+(* MCP server (issue #3775), gated by OCAMLORG_MCP_ENABLED. Not compressed: the
+   POST responses are small JSON-RPC and the GET is an SSE stream. *)
+let mcp_route =
+  Dream.scope "" [] (if Config.mcp_enabled then Ocamlorg_mcp.routes () else [])
+
 let ( let+ ) x f = Lwt.map f x
 
 let middleware_text_utf8 handler request =
@@ -167,6 +172,7 @@ let router t =
       page_routes t;
       package_route t;
       graphql_route t;
+      mcp_route;
       sitemap_routes;
       Dream.scope ""
         [ Dream_encoding.compress; middleware_text_utf8 ]
