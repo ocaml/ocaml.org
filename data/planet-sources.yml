@@ -39,7 +39,7 @@
   publish_all: false
 - id: inria
   name: Caml INRIA
-  url: http://caml.inria.fr/news.en.rss
+  url: https://caml.inria.fr/news.en.rss
 - id: coherentpdf
   name: Coherent Graphics
   url: https://coherentpdf.com/blog/?tag=ocaml&feed=rss2
@@ -78,7 +78,7 @@
   publish_all: false
 - id: gallium
   name: Gagallium
-  url: http://gallium.inria.fr/blog/index.rss
+  url: https://gallium.inria.fr/blog/index.rss
   publish_all: false
 - id: gaius
   name: Gaius Hammond
