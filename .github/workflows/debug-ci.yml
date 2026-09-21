@@ -28,7 +28,7 @@ jobs:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
           dune-cache: ${{ matrix.os != 'macos-latest' }}
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#b3b872a94fa79b28ee160b900b3713b3f8ba4dbb
+            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
           opam-disable-sandboxing: true
 
       - name: Install system dependencies (Linux)
