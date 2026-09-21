@@ -1,0 +1,3 @@
+(tests
+ (names mcp_test)
+ (libraries alcotest yojson ocamlorg_mcp))

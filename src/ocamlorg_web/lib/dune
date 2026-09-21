@@ -4,6 +4,7 @@
   ocamlorg.global
   ocamlorg_package
   ocamlorg_frontend
+  ocamlorg_mcp
   dream
   dream-accept
   dream-encoding

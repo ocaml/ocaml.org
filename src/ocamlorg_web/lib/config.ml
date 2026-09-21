@@ -9,3 +9,6 @@ let manual_path =
   env_with_default "OCAMLORG_MANUAL_PATH" "html-compiler-manuals"
 
 let v2_path = env_with_default "OCAMLORG_V2_PATH" "data/v2"
+
+(* MCP server endpoint (issue #3775). Off by default while it stabilises. *)
+let mcp_enabled = env_with_default "OCAMLORG_MCP_ENABLED" "false" |> to_bool
