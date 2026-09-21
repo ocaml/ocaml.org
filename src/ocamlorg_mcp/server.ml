@@ -7,7 +7,21 @@ let server_info =
 (* We only advertise the tools capability for now. *)
 let capabilities = `Assoc [ ("tools", `Assoc [ ("listChanged", `Bool false) ]) ]
 
-let dispatch (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t =
+(* Build the [tools/call] result payload (the [content]/[isError] object, sans
+   the per-request JSON-RPC [id], so it is safe to cache across requests). *)
+let call_result (tool : Tool.t) arguments : Yojson.Safe.t =
+  match tool.handler arguments with
+  | Ok content ->
+      `Assoc [ ("content", `List content); ("isError", `Bool false) ]
+  | Error msg ->
+      (* Tool errors are reported in-band, not as JSON-RPC errors. *)
+      `Assoc
+        [
+          ("content", `List [ Tool.text_content msg ]); ("isError", `Bool true);
+        ]
+
+let dispatch ?cache (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t
+    =
   match req.method_ with
   | "initialize" ->
       let result =
@@ -32,25 +46,23 @@ let dispatch (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t =
           | None ->
               Protocol.error_response id ~code:Protocol.invalid_params
                 ~message:("unknown tool: " ^ name)
-          | Some tool -> (
+          | Some tool ->
               let arguments =
                 Option.value ~default:(`Assoc [])
                   (Protocol.member_opt "arguments" req.params)
               in
-              match tool.handler arguments with
-              | Ok content ->
-                  Protocol.ok_response id
-                    (`Assoc
-                      [ ("content", `List content); ("isError", `Bool false) ])
-              | Error msg ->
-                  (* Tool errors are reported in-band, not as JSON-RPC
-                     errors. *)
-                  Protocol.ok_response id
-                    (`Assoc
-                      [
-                        ("content", `List [ Tool.text_content msg ]);
-                        ("isError", `Bool true);
-                      ])))
+              let result =
+                match (cache, tool.cacheable) with
+                | Some cache, true ->
+                    let key =
+                      "tools/call:" ^ tool.name ^ ":"
+                      ^ Yojson.Safe.to_string arguments
+                    in
+                    Cache.find_or_compute cache ~now:(Unix.gettimeofday ()) ~key
+                      (fun () -> call_result tool arguments)
+                | _ -> call_result tool arguments
+              in
+              Protocol.ok_response id result)
       | _ ->
           Protocol.error_response id ~code:Protocol.invalid_params
             ~message:"missing tool name")
@@ -58,7 +70,7 @@ let dispatch (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t =
       Protocol.error_response id ~code:Protocol.method_not_found
         ~message:("unknown method: " ^ m)
 
-let handle (body : string) : string option =
+let handle ?cache (body : string) : string option =
   let error_json id ~code ~message =
     Some (Yojson.Safe.to_string (Protocol.error_response id ~code ~message))
   in
@@ -73,4 +85,4 @@ let handle (body : string) : string option =
           match req.id with
           | None ->
               None (* notification: process side effects (none yet), no reply *)
-          | Some id -> Some (Yojson.Safe.to_string (dispatch req id))))
+          | Some id -> Some (Yojson.Safe.to_string (dispatch ?cache req id))))

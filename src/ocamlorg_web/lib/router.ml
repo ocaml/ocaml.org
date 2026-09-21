@@ -140,7 +140,12 @@ let graphql_route t =
 (* MCP server (issue #3775), gated by OCAMLORG_MCP_ENABLED. Not compressed: the
    POST responses are small JSON-RPC and the GET is an SSE stream. *)
 let mcp_route =
-  Dream.scope "" [] (if Config.mcp_enabled then Ocamlorg_mcp.routes () else [])
+  Dream.scope "" []
+    (if Config.mcp_enabled then
+       Ocamlorg_mcp.routes ~rate_limit:Config.mcp_rate_limit
+         ~rate_window:Config.mcp_rate_window ~cache_max:Config.mcp_cache_max
+         ~cache_ttl:Config.mcp_cache_ttl ()
+     else [])
 
 let ( let+ ) x f = Lwt.map f x
 

@@ -1,11 +1,15 @@
 (* Streamable HTTP transport for MCP over Dream: JSON-RPC 2.0 over HTTP POST,
    plus a GET that opens the (optional) server->client SSE stream. This is the
-   transport remote MCP clients speak. *)
+   transport remote MCP clients speak.
 
-let post_handler request =
+   The [/mcp] routes are wrapped in a per-IP rate-limit middleware and share an
+   in-app response cache (the edge Varnish passes POST uncached), both built
+   once per server from the config passed by the router. *)
+
+let post_handler cache request =
   let open Lwt.Syntax in
   let* body = Dream.body request in
-  match Server.handle body with
+  match Server.handle ~cache body with
   | None ->
       (* Notification: acknowledge with no body. *)
       Dream.respond ~status:`Accepted ""
@@ -28,4 +32,16 @@ let get_handler _request =
       let* () = Dream.write stream ": ocaml.org MCP endpoint\n\n" in
       Dream.flush stream)
 
-let routes () = [ Dream.post "/mcp" post_handler; Dream.get "/mcp" get_handler ]
+let routes ~rate_limit ~rate_window ~cache_max ~cache_ttl () =
+  let limiter =
+    Rate_limiter.create ~max_requests:rate_limit
+      ~window_seconds:(float_of_int rate_window) ()
+  in
+  let cache =
+    Cache.create ~max_entries:cache_max ~ttl:(float_of_int cache_ttl)
+  in
+  [
+    Dream.scope ""
+      [ Rate_limiter.middleware limiter ]
+      [ Dream.post "/mcp" (post_handler cache); Dream.get "/mcp" get_handler ];
+  ]
