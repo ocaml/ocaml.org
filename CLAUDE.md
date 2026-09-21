@@ -71,9 +71,27 @@ The opam repository is pinned to a specific commit in the following files, which
 
 - `Makefile`
 - `Dockerfile`
+- `.devcontainer/Dockerfile`
+- `dune-workspace`
 - `.github/workflows/ci.yml`
 - `.github/workflows/debug-ci.yml`
 - `.github/workflows/release-scrapers.yml`
+
+### Choosing the pin commit: stay at or below the base image's opam-repo tip
+
+`Dockerfile` and `.devcontainer/Dockerfile` both derive from an `ocaml/opam` base image, which bundles a full (non-shallow) clone of opam-repository frozen at some tip. They select the pin with `git reset --hard <sha>` / `git checkout <sha>` **without a `git fetch`**, so the commit must already be present in that bundled clone:
+
+- **At or below the base image's tip** → the commit is in local history, so plain checkout works with **no network fetch** — the fast path, and preferable because these images rebuild frequently on ocaml-ci.
+- **Beyond the base image's tip** → checkout fails with `Could not parse object` (a fast Docker-build failure that only surfaces in the `deployability` check, not in GitHub Actions, whose setup-ocaml fetches the commit directly). Recovering requires prepending `git fetch origin <sha> &&` to the reset/checkout, which costs a full opam-repository download on every build.
+
+So the default is to pin to the base image's current opam-repo tip. Find it with:
+
+```bash
+docker run --rm ocaml/opam:alpine-3.21-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'   # production Dockerfile
+docker run --rm ocaml/opam:debian-ocaml-5.2  sh -c 'cd ~/opam-repository && git rev-parse HEAD'        # .devcontainer
+```
+
+The two base images can sit at different tips; pick a commit at or below the **older** of the two so both build without a fetch. Only pin beyond the tip (and add the `git fetch`) if you specifically need a package version newer than the base image snapshot.
 
 After updating the pin, run `opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>`, then `opam update && opam upgrade`. If OCamlFormat is upgraded in the process, update its version in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml` together.
 

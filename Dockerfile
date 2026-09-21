@@ -14,8 +14,11 @@ RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
 RUN sudo mv /usr/bin/opam-2.2 /usr/bin/opam && opam update
 RUN opam option --global 'archive-mirrors+="https://opam.ocaml.org/cache"'
 
-# Branch freeze was opam-repo HEAD at the time of commit
-RUN cd ~/opam-repository && git reset --hard 584630e7a7e27e3cf56158696a3fe94623a0cf4f && opam update
+# Pin the opam-repository. This commit is the tip already bundled in the
+# ocaml/opam base image, so `git reset --hard` finds it locally and needs no
+# network fetch. Keep the pin at or below the base image's opam-repo tip; a
+# newer commit would require adding `git fetch origin <sha>` before the reset.
+RUN cd ~/opam-repository && git reset --hard b3b872a94fa79b28ee160b900b3713b3f8ba4dbb && opam update
 
 WORKDIR /home/opam
 
