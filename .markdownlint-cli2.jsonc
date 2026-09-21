@@ -27,5 +27,13 @@
         "MD051": false,
         // Allow any table column style (compact, padded, etc.)
         "MD060": false
-    }
+    },
+    // Externally-authored, machine-managed content: release announcements are
+    // pasted from Discuss/forum posts by package authors, and planet/changelog
+    // are scraped. Don't nitpick their style (matches the CI workflow skips).
+    "ignores": [
+        "data/planet/**/*.md",
+        "data/changelog/**/*.md",
+        "data/platform_releases/**/*.md"
+    ]
 }

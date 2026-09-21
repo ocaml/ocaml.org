@@ -16,6 +16,7 @@ jobs:
           **/*.md
           !data/planet/**/*.md
           !data/changelog/**/*.md
+          !data/platform_releases/**/*.md
         separator: ","
     - uses: DavidAnson/markdownlint-cli2-action@v24.2.0
       if: steps.changed-files.outputs.any_changed == 'true'
