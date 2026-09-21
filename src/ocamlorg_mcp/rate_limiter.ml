@@ -4,6 +4,24 @@
    and no-auth, so this is the abuse guard that keeps agent fan-out from
    starving the shared service until an isolated deployment lands.
 
+   Why in-app, and how this differs from the in-app response cache ({!Cache}):
+
+   Caching is *forced* in-app. MCP is JSON-RPC over HTTP POST, and stock Varnish
+   passes POST uncached (confirmed live in Phase 1). That is a method property —
+   the edge cache cannot help a POST without custom VCL — so an in-app cache is
+   the only lever we have.
+
+   Rate limiting is *not* forced in-app by that same argument: a proxy sees
+   POSTs fine, so an edge rate limiter (Caddy/Varnish) would happily throttle
+   MCP traffic. It lives in-app because there is nothing at the edge to fall
+   back on today — no VCL/Caddy config in this repo, stock Varnish 6.0 has no
+   built-in throttle (it needs a vmod), and standard Caddy has no rate_limit
+   directive — and because MCP wants its *own* bucket, independent of website
+   traffic (the "isolated deployment" checklist item on #3775).
+
+   End state is defense-in-depth: this MCP-scoped in-app bucket, backstopped by
+   a coarse edge limit added later in the external ocurrent-deployer config.
+
    Dream/Lwt is cooperatively scheduled and [check] is fully synchronous (no
    promise is awaited between the read and the mutation), so the plain [Hashtbl]
    needs no mutex. *)

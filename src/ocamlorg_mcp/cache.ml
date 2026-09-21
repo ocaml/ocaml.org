@@ -1,7 +1,8 @@
 (* In-app response cache for the MCP endpoint (issue #3775, Phase 2). MCP is
-   JSON-RPC over HTTP POST, which the edge Varnish passes uncached, so this is
-   the only response cache we control. Bounded FIFO with a TTL, keyed on a
-   canonical [(method, params)] string.
+   JSON-RPC over HTTP POST, which stock Varnish passes uncached, so this is the
+   only response cache we control (see {!Rate_limiter} for how this Varnish
+   bypass forces caching in-app but does *not* likewise force rate limiting).
+   Bounded FIFO with a TTL, keyed on a canonical [(method, params)] string.
 
    The no-op [ping] tool is not cacheable, so Phase 2 registers no entries; the
    substrate is here for Blocks A/B to opt deterministic tools into. As with the
