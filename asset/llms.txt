@@ -4,6 +4,7 @@
 
 ## Documentation
 
+- [Learn OCaml](https://ocaml.org/docs): Entry point to all documentation and tutorials
 - [Install OCaml](https://ocaml.org/install): How to install OCaml and the OCaml Platform tools
 - [Get Started](https://ocaml.org/docs/get-started): Beginner tutorials for getting up and running
 - [Language](https://ocaml.org/docs/language): Tutorials on OCaml language features
@@ -17,6 +18,7 @@
 - [Your First Program](https://ocaml.org/docs/your-first-program): Write, compile, and run your first OCaml project
 - [Set Up an Editor](https://ocaml.org/docs/set-up-editor): Configure VS Code or other editors for OCaml
 - [Introduction to the Toplevel](https://ocaml.org/docs/toplevel-introduction): Use the interactive OCaml REPL
+- [OCaml on Windows](https://ocaml.org/docs/ocaml-on-windows): Installing and using OCaml on Windows
 
 ## Tutorials: Language
 
@@ -25,16 +27,24 @@
 - [Loops and Recursion](https://ocaml.org/docs/loops-recursion): Iteration and recursive programming
 - [Lists](https://ocaml.org/docs/lists): Working with OCaml's linked lists
 - [Higher-Order Functions](https://ocaml.org/docs/higher-order-functions): Map, filter, fold, and function composition
+- [Labelled and Optional Arguments](https://ocaml.org/docs/labels): Functions with labelled and optional arguments
 - [Options](https://ocaml.org/docs/options): Handling optional values safely
 - [Mutability and Imperative Control Flow](https://ocaml.org/docs/mutability-imperative-control-flow): Refs, mutable fields, loops
 - [Modules](https://ocaml.org/docs/modules): Structuring code with modules and signatures
 - [Functors](https://ocaml.org/docs/functors): Parameterised modules
+- [First-Class Modules](https://ocaml.org/docs/first-class-modules): Passing modules as ordinary values
 - [Error Handling](https://ocaml.org/docs/error-handling): Result types, exceptions, and best practices
+- [Arrays](https://ocaml.org/docs/arrays): Fixed-size mutable arrays
 - [Maps](https://ocaml.org/docs/maps): Functional key-value maps
 - [Sets](https://ocaml.org/docs/sets): Functional sets
 - [Hash Tables](https://ocaml.org/docs/hash-tables): Mutable hash tables
 - [Sequences](https://ocaml.org/docs/sequences): Lazy sequences for efficient iteration
+- [Memoization](https://ocaml.org/docs/memoization): Caching function results
 - [Monads](https://ocaml.org/docs/monads): Monadic programming patterns in OCaml
+- [Operators](https://ocaml.org/docs/operators): Using and defining custom operators
+- [Objects](https://ocaml.org/docs/objects): OCaml's object system
+- [Preprocessors and PPXs](https://ocaml.org/docs/metaprogramming): Metaprogramming with PPX rewriters
+- [Memory Representation of Values](https://ocaml.org/docs/memory-representation): How OCaml values are laid out in memory
 - [Garbage Collector](https://ocaml.org/docs/garbage-collector): Understanding OCaml's GC
 
 ## Tutorials: Platform
@@ -103,6 +113,7 @@
 ## Releases
 
 - [All Releases](https://ocaml.org/releases): OCaml compiler release history and changelogs
+- [Changelog](https://ocaml.org/changelog): Release announcements for the compiler and platform tools
 
 ## Community
 
@@ -111,6 +122,8 @@
 - [Events](https://ocaml.org/events): Meetups, conferences, and community events
 - [Conferences](https://ocaml.org/conferences): OCaml Workshop and conference presentations
 - [Jobs](https://ocaml.org/jobs): Job listings in the OCaml ecosystem
+- [Industrial Users](https://ocaml.org/industrial-users): Companies using OCaml in production
+- [Academic Users](https://ocaml.org/academic-users): Universities teaching OCaml and using it in research
 
 ## Success Stories
 
