@@ -14,6 +14,13 @@ let routes = Transport.routes
     testing. *)
 let handle = Server.handle
 
+module Tool = Tool
+(** A tool the server exposes: name, description, JSON-Schema for arguments, and
+    a JSON-in/JSON-out handler. Feature blocks in the web layer build {!Tool.t}
+    values over their own data and inject them via [~tools] on {!routes}, so
+    this library stays dependency-isolated (it never sees [ocamlorg_package]).
+    See {!Tool}. *)
+
 module Backend = Backend
 (** SSRF allowlist: the choke point every future backend-fetching tool (Block B)
     must route outbound URLs through. See {!Backend}. *)

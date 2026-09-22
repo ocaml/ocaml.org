@@ -37,6 +37,3 @@ let ping : t =
     handler = (fun _args -> Ok [ text_content "pong" ]);
     cacheable = false;
   }
-
-let registry : t list = [ ping ]
-let find name = List.find_opt (fun t -> t.name = name) registry

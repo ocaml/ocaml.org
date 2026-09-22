@@ -223,6 +223,59 @@ let test_backend_allowlist () =
   | Error _ -> ()
   | Ok _ -> Alcotest.fail "non-https should be rejected"
 
+(* --- Tool injection (Phase 3): the registry is [ping] plus tools injected by
+   the web layer. Here we inject a dummy tool directly, without pulling package
+   data into this isolated library's tests. --- *)
+
+let handle_tools tools body =
+  match Ocamlorg_mcp.handle ~tools body with
+  | Some s -> Yojson.Safe.from_string s
+  | None -> `Null
+
+let dummy_tool : Ocamlorg_mcp.Tool.t =
+  {
+    name = "echo";
+    description = "test tool";
+    input_schema =
+      `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
+    handler = (fun _ -> Ok [ Ocamlorg_mcp.Tool.text_content "hello" ]);
+    cacheable = false;
+  }
+
+let tool_names tools =
+  List.filter_map
+    (fun t -> match member_exn "name" t with `String s -> Some s | _ -> None)
+    tools
+
+let test_injected_tools_list () =
+  let resp = handle_tools [ dummy_tool ] (req ~id:10 "tools/list" None) in
+  let tools =
+    match member_exn "result" resp |> member_exn "tools" with
+    | `List l -> l
+    | _ -> []
+  in
+  Alcotest.(check int) "ping + injected" 2 (List.length tools);
+  let names = tool_names tools in
+  Alcotest.(check bool) "has ping" true (List.mem "ping" names);
+  Alcotest.(check bool) "has injected echo" true (List.mem "echo" names)
+
+let test_injected_tool_call () =
+  let params = `Assoc [ ("name", `String "echo"); ("arguments", `Assoc []) ] in
+  let result =
+    handle_tools [ dummy_tool ] (req ~id:11 "tools/call" (Some params))
+    |> member_exn "result"
+  in
+  (match member_exn "isError" result with
+  | `Bool b -> Alcotest.(check bool) "not error" false b
+  | _ -> Alcotest.fail "missing isError");
+  let text =
+    match member_exn "content" result with
+    | `List (block :: _) -> (
+        match member_exn "text" block with `String s -> s | _ -> "")
+    | _ -> ""
+  in
+  check_string "echo text" "hello" text
+
 let () =
   Alcotest.run "ocamlorg_mcp"
     [
@@ -251,4 +304,11 @@ let () =
         ] );
       ( "backend",
         [ Alcotest.test_case "allowlist" `Quick test_backend_allowlist ] );
+      ( "injection",
+        [
+          Alcotest.test_case "tools/list includes injected" `Quick
+            test_injected_tools_list;
+          Alcotest.test_case "tools/call dispatches to injected" `Quick
+            test_injected_tool_call;
+        ] );
     ]
