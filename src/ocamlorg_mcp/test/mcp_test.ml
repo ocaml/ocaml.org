@@ -133,9 +133,13 @@ let test_rate_limit_window () =
 let test_rate_limit_strip_port () =
   (* The IP key must drop the source port, else a fresh port per connection
      defeats the limiter. *)
-  Alcotest.(check string) "ipv4:port" "127.0.0.1" (Rl.strip_port "127.0.0.1:55732");
+  Alcotest.(check string)
+    "ipv4:port" "127.0.0.1"
+    (Rl.strip_port "127.0.0.1:55732");
   Alcotest.(check string) "bracketed v6" "::1" (Rl.strip_port "[::1]:443");
-  Alcotest.(check string) "bare v6 kept" "2001:db8::1" (Rl.strip_port "2001:db8::1");
+  Alcotest.(check string)
+    "bare v6 kept" "2001:db8::1"
+    (Rl.strip_port "2001:db8::1");
   Alcotest.(check string) "bare ipv4 kept" "10.0.0.1" (Rl.strip_port "10.0.0.1")
 
 let test_rate_limit_reset () =
