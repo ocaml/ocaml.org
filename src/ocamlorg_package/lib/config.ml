@@ -14,6 +14,12 @@ let documentation_status_url =
 let package_caches_ttl =
   env_with_default "OCAMLORG_PACKAGE_CACHES_TTL" "3600" |> float_of_string
 
+(* Maximum number of entries in each of the bounded docs-ci caches (sidebars and
+   rendered doc pages). Bounds memory under a wide spread of packages/versions;
+   entries expire after [package_caches_ttl]. *)
+let doc_cache_max =
+  env_with_default "OCAMLORG_DOC_CACHE_MAX" "1000" |> int_of_string
+
 let default_cache_dir =
   match Sys.os_type with
   | "Unix" -> Fpath.(v (Sys.getenv "HOME") / ".cache" / "ocamlorg")

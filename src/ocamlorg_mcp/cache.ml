@@ -36,12 +36,22 @@ let store t ~now ~key value =
     Queue.push key t.order);
   Hashtbl.replace t.table key { value; stored = now }
 
+(* Return the cached value for [key] if present and unexpired, else [None].
+   Split from [store] so callers with an asynchronous (Lwt) or fallible compute
+   can decide whether the freshly computed value is worth caching — the MCP
+   dispatch caches only successful tool results, never in-band errors. Time is
+   injected for testability. *)
+let find t ~now ~key =
+  match Hashtbl.find_opt t.table key with
+  | Some e when now -. e.stored < t.ttl -> Some e.value
+  | _ -> None
+
 (* Return the cached value for [key] if present and unexpired, otherwise run
    [compute], store, and return its result. Time is injected for testability. *)
 let find_or_compute t ~now ~key compute =
-  match Hashtbl.find_opt t.table key with
-  | Some e when now -. e.stored < t.ttl -> e.value
-  | _ ->
+  match find t ~now ~key with
+  | Some value -> value
+  | None ->
       let value = compute () in
       store t ~now ~key value;
       value

@@ -2,8 +2,11 @@
    exercise the JSON-RPC handshake and error handling without a running
    server. *)
 
+(* [Ocamlorg_mcp.handle] is now [Lwt]-returning (Block B's docs tools fetch
+   asynchronously); these protocol tests drive it synchronously with
+   [Lwt_main.run]. *)
 let handle body =
-  match Ocamlorg_mcp.handle body with
+  match Lwt_main.run (Ocamlorg_mcp.handle body) with
   | Some s -> Yojson.Safe.from_string s
   | None -> `Null
 
@@ -88,13 +91,14 @@ let test_unknown_method () =
 let test_notification_no_reply () =
   Alcotest.(check bool)
     "no reply" true
-    (Ocamlorg_mcp.handle
-       (Yojson.Safe.to_string
-          (`Assoc
-            [
-              ("jsonrpc", `String "2.0");
-              ("method", `String "notifications/initialized");
-            ]))
+    (Lwt_main.run
+       (Ocamlorg_mcp.handle
+          (Yojson.Safe.to_string
+             (`Assoc
+               [
+                 ("jsonrpc", `String "2.0");
+                 ("method", `String "notifications/initialized");
+               ])))
     = None)
 
 let test_invalid_json () =
@@ -227,8 +231,8 @@ let test_backend_allowlist () =
    the web layer. Here we inject a dummy tool directly, without pulling package
    data into this isolated library's tests. --- *)
 
-let handle_tools tools body =
-  match Ocamlorg_mcp.handle ~tools body with
+let handle_tools ?cache tools body =
+  match Lwt_main.run (Ocamlorg_mcp.handle ?cache ~tools body) with
   | Some s -> Yojson.Safe.from_string s
   | None -> `Null
 
@@ -238,7 +242,8 @@ let dummy_tool : Ocamlorg_mcp.Tool.t =
     description = "test tool";
     input_schema =
       `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
-    handler = (fun _ -> Ok [ Ocamlorg_mcp.Tool.text_content "hello" ]);
+    handler =
+      (fun _ -> Lwt.return (Ok [ Ocamlorg_mcp.Tool.text_content "hello" ]));
     cacheable = false;
   }
 
@@ -276,6 +281,59 @@ let test_injected_tool_call () =
   in
   check_string "echo text" "hello" text
 
+(* --- Async handlers + cache-only-on-success (Block B). A cacheable tool's
+   handler may be asynchronous and may fail transiently; a successful result is
+   served from the cache on the next identical call, but an in-band error is
+   never cached. --- *)
+
+let is_error result =
+  match member_exn "isError" result with `Bool b -> b | _ -> false
+
+(* A cacheable tool whose async handler fails the first time then succeeds,
+   counting its invocations so the test can prove errors are not cached. *)
+let flaky_tool calls : Ocamlorg_mcp.Tool.t =
+  {
+    name = "flaky";
+    description = "fails once, then succeeds";
+    input_schema =
+      `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
+    handler =
+      (fun _ ->
+        incr calls;
+        Lwt.return
+          (if !calls = 1 then Error "transient"
+           else Ok [ Ocamlorg_mcp.Tool.text_content "ok" ]));
+    cacheable = true;
+  }
+
+let call_flaky ?cache calls =
+  let params = `Assoc [ ("name", `String "flaky"); ("arguments", `Assoc []) ] in
+  handle_tools ?cache
+    [ flaky_tool calls ]
+    (req ~id:20 "tools/call" (Some params))
+  |> member_exn "result"
+
+let test_async_error_not_cached () =
+  let cache = C.create ~max_entries:8 ~ttl:1000. in
+  let calls = ref 0 in
+  let first = call_flaky ~cache calls in
+  Alcotest.(check bool) "first call errors" true (is_error first);
+  let second = call_flaky ~cache calls in
+  (* The error was not cached, so the handler ran again and now succeeds. *)
+  Alcotest.(check bool) "second call recomputed" false (is_error second);
+  Alcotest.(check int) "handler ran twice" 2 !calls
+
+let test_async_success_cached () =
+  let cache = C.create ~max_entries:8 ~ttl:1000. in
+  let calls = ref 0 in
+  let _ = call_flaky ~cache calls in
+  (* calls = 1 (error). Succeed and cache on the second call... *)
+  let _ = call_flaky ~cache calls in
+  (* calls = 2 (success, cached). A third identical call is served from
+     cache. *)
+  let _ = call_flaky ~cache calls in
+  Alcotest.(check int) "success served from cache" 2 !calls
+
 let () =
   Alcotest.run "ocamlorg_mcp"
     [
@@ -310,5 +368,12 @@ let () =
             test_injected_tools_list;
           Alcotest.test_case "tools/call dispatches to injected" `Quick
             test_injected_tool_call;
+        ] );
+      ( "async",
+        [
+          Alcotest.test_case "in-band error is not cached" `Quick
+            test_async_error_not_cached;
+          Alcotest.test_case "successful result is cached" `Quick
+            test_async_success_cached;
         ] );
     ]

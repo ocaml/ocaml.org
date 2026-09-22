@@ -4,5 +4,6 @@ val opam_polling : int
 val documentation_url : string
 val documentation_status_url : string
 val package_caches_ttl : float
+val doc_cache_max : int
 val opam_repository_path : Fpath.t
 val package_state_path : Fpath.t

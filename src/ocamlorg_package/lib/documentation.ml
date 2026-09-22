@@ -222,32 +222,56 @@ let doc_from_string s =
       { uses_katex = false; breadcrumbs; toc = []; content }
   | _ -> raise (Invalid_argument "malformed .html.json file")
 
-module Sidebar_cache : sig
-  val add :
-    Name.t ->
-    Version.t ->
-    [ `Package | `Universe of string ] ->
-    Ocamlorg_frontend.Navmap.t ->
-    unit
+(* Bounded FIFO + TTL cache for docs-ci responses (issue #3775, Block B). The
+   docs backend is proxied uncached: sidebars used to be memoised in an
+   unbounded table (via [Hashtbl.add], which also stacked duplicate keys on
+   re-fetch), and rendered doc pages were fetched on every request. This bounds
+   both and expires entries so documentation rebuilds are eventually picked up.
+   Access is synchronous under cooperative Lwt scheduling, so the [Hashtbl] and
+   [Queue] need no lock; two concurrent misses may both fetch (harmless). *)
+module Bounded_cache : sig
+  type 'a t
 
-  val get :
-    Name.t ->
-    Version.t ->
-    [ `Package | `Universe of string ] ->
-    Ocamlorg_frontend.Navmap.t option
+  val create : max_entries:int -> ttl:float -> 'a t
+  val find : 'a t -> key:string -> 'a option
+  val add : 'a t -> key:string -> 'a -> unit
 end = struct
-  let cache = Hashtbl.create 100
+  type 'a entry = { value : 'a; stored : float }
 
-  let add name version kind sidebar =
-    let name = Name.to_string name in
-    let version = Version.to_string version in
-    Hashtbl.add cache (name, version, kind) sidebar
+  type 'a t = {
+    max_entries : int;
+    ttl : float;
+    table : (string, 'a entry) Hashtbl.t;
+    order : string Queue.t; (* insertion order, for FIFO eviction *)
+  }
 
-  let get name version kind =
-    let name = Name.to_string name in
-    let version = Version.to_string version in
-    Hashtbl.find_opt cache (name, version, kind)
+  let create ~max_entries ~ttl =
+    { max_entries; ttl; table = Hashtbl.create 256; order = Queue.create () }
+
+  let rec evict_to_cap t =
+    if Hashtbl.length t.table >= t.max_entries && not (Queue.is_empty t.order)
+    then (
+      let oldest = Queue.pop t.order in
+      Hashtbl.remove t.table oldest;
+      evict_to_cap t)
+
+  let find t ~key =
+    match Hashtbl.find_opt t.table key with
+    | Some e when Unix.gettimeofday () -. e.stored < t.ttl -> Some e.value
+    | _ -> None
+
+  let add t ~key value =
+    if not (Hashtbl.mem t.table key) then (
+      evict_to_cap t;
+      Queue.push key t.order);
+    Hashtbl.replace t.table key { value; stored = Unix.gettimeofday () }
 end
+
+let kind_key = function `Package -> "p" | `Universe s -> "u:" ^ s
+
+let sidebar_cache : Ocamlorg_frontend.Navmap.t Bounded_cache.t =
+  Bounded_cache.create ~max_entries:Config.doc_cache_max
+    ~ttl:Config.package_caches_ttl
 
 let generic_url base ~kind name version =
   match kind with
@@ -268,7 +292,12 @@ let sidebar ~kind (t : Package.t) =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
   let open Lwt.Syntax in
-  match Sidebar_cache.get t.name t.version kind with
+  let key =
+    Name.to_string t.name ^ "|"
+    ^ Version.to_string t.version
+    ^ "|" ^ kind_key kind
+  in
+  match Bounded_cache.find sidebar_cache ~key with
   | Some sidebar -> Lwt.return sidebar
   | None -> (
       let url = package_url ^ "doc/sidebar.json" in
@@ -279,7 +308,9 @@ let sidebar ~kind (t : Package.t) =
           match Sidebar.of_yojson json with
           | Ok x ->
               let x = List.map Sidebar.to_navmap x in
-              Sidebar_cache.add t.name t.version kind x;
+              (* Cache only a non-empty sidebar; [[]] is also the parse/fetch
+                 failure sentinel below, which must not be pinned. *)
+              if x <> [] then Bounded_cache.add sidebar_cache ~key x;
               x
           | Error msg ->
               Logs.info (fun m -> m "Failed to parse sidebar at %s: %s" url msg);
@@ -288,22 +319,36 @@ let sidebar ~kind (t : Package.t) =
           Logs.info (fun m -> m "Failed to fetch sidebar at %s" url);
           [])
 
+(* The rendered doc page is keyed on its full fetch URL, which already encodes
+   name/version/kind/path uniquely. *)
+let page_cache : t Bounded_cache.t =
+  Bounded_cache.create ~max_entries:Config.doc_cache_max
+    ~ttl:Config.package_caches_ttl
+
 let odoc_page ~url =
   let open Lwt.Syntax in
-  let* content = http_get url in
-  match content with
-  | Ok content ->
-      let maybe_doc =
-        try Some (doc_from_string content)
-        with Invalid_argument err ->
-          Logs.err (fun m -> m "Invalid documentation page: %s" err);
-          None
-      in
-      Logs.info (fun m -> m "Found documentation page for %s" url);
-      Lwt.return maybe_doc
-  | Error _ ->
-      Logs.info (fun m -> m "Failed to fetch documentation page for %s" url);
-      Lwt.return None
+  match Bounded_cache.find page_cache ~key:url with
+  | Some doc -> Lwt.return (Some doc)
+  | None -> (
+      let* content = http_get url in
+      match content with
+      | Ok content ->
+          let maybe_doc =
+            try Some (doc_from_string content)
+            with Invalid_argument err ->
+              Logs.err (fun m -> m "Invalid documentation page: %s" err);
+              None
+          in
+          (* Cache only a successful parse; a transient fetch/parse failure
+             ([None]) must not be pinned for the whole TTL. *)
+          Option.iter
+            (fun doc -> Bounded_cache.add page_cache ~key:url doc)
+            maybe_doc;
+          Logs.info (fun m -> m "Found documentation page for %s" url);
+          Lwt.return maybe_doc
+      | Error _ ->
+          Logs.info (fun m -> m "Failed to fetch documentation page for %s" url);
+          Lwt.return None)
 
 let documentation_page ~kind (t : Package.t) path =
   let package_url =

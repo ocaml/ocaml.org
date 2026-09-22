@@ -8,9 +8,12 @@ let server_info =
 let capabilities = `Assoc [ ("tools", `Assoc [ ("listChanged", `Bool false) ]) ]
 
 (* Build the [tools/call] result payload (the [content]/[isError] object, sans
-   the per-request JSON-RPC [id], so it is safe to cache across requests). *)
-let call_result (tool : Tool.t) arguments : Yojson.Safe.t =
-  match tool.handler arguments with
+   the per-request JSON-RPC [id], so it is safe to cache across requests). The
+   handler is [Lwt]-returning (Block B's docs tools fetch asynchronously). *)
+let call_result (tool : Tool.t) arguments : Yojson.Safe.t Lwt.t =
+  let open Lwt.Syntax in
+  let+ result = tool.handler arguments in
+  match result with
   | Ok content ->
       `Assoc [ ("content", `List content); ("isError", `Bool false) ]
   | Error msg ->
@@ -20,8 +23,17 @@ let call_result (tool : Tool.t) arguments : Yojson.Safe.t =
           ("content", `List [ Tool.text_content msg ]); ("isError", `Bool true);
         ]
 
+(* [true] iff a tools/call result object is an in-band error, which we must not
+   cache (a docs-ci fetch may fail transiently). *)
+let is_error_result = function
+  | `Assoc fields -> (
+      match List.assoc_opt "isError" fields with
+      | Some (`Bool b) -> b
+      | _ -> false)
+  | _ -> false
+
 let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
-    Yojson.Safe.t =
+    Yojson.Safe.t Lwt.t =
   (* The effective registry is [ping] plus any tools injected by the web layer
      (Block A onward). [ping] stays first and is always present, so the isolated
      library keeps a working handshake even with no tools injected. *)
@@ -36,47 +48,60 @@ let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
             ("serverInfo", server_info);
           ]
       in
-      Protocol.ok_response id result
+      Lwt.return (Protocol.ok_response id result)
   | "ping" ->
       (* JSON-RPC-level ping (distinct from the "ping" tool): empty result. *)
-      Protocol.ok_response id (`Assoc [])
+      Lwt.return (Protocol.ok_response id (`Assoc []))
   | "tools/list" ->
       let tools = List.map Tool.to_json registry in
-      Protocol.ok_response id (`Assoc [ ("tools", `List tools) ])
+      Lwt.return (Protocol.ok_response id (`Assoc [ ("tools", `List tools) ]))
   | "tools/call" -> (
       match Protocol.member_opt "name" req.params with
       | Some (`String name) -> (
           match List.find_opt (fun (t : Tool.t) -> t.name = name) registry with
           | None ->
-              Protocol.error_response id ~code:Protocol.invalid_params
-                ~message:("unknown tool: " ^ name)
+              Lwt.return
+                (Protocol.error_response id ~code:Protocol.invalid_params
+                   ~message:("unknown tool: " ^ name))
           | Some tool ->
+              let open Lwt.Syntax in
               let arguments =
                 Option.value ~default:(`Assoc [])
                   (Protocol.member_opt "arguments" req.params)
               in
-              let result =
+              let+ result =
                 match (cache, tool.cacheable) with
-                | Some cache, true ->
+                | Some cache, true -> (
+                    let now = Unix.gettimeofday () in
                     let key =
                       "tools/call:" ^ tool.name ^ ":"
                       ^ Yojson.Safe.to_string arguments
                     in
-                    Cache.find_or_compute cache ~now:(Unix.gettimeofday ()) ~key
-                      (fun () -> call_result tool arguments)
+                    match Cache.find cache ~now ~key with
+                    | Some value -> Lwt.return value
+                    | None ->
+                        let+ value = call_result tool arguments in
+                        (* Cache only successful results; a transient docs-ci
+                           failure must not be pinned for the whole TTL. *)
+                        if not (is_error_result value) then
+                          Cache.store cache ~now ~key value;
+                        value)
                 | _ -> call_result tool arguments
               in
               Protocol.ok_response id result)
       | _ ->
-          Protocol.error_response id ~code:Protocol.invalid_params
-            ~message:"missing tool name")
+          Lwt.return
+            (Protocol.error_response id ~code:Protocol.invalid_params
+               ~message:"missing tool name"))
   | m ->
-      Protocol.error_response id ~code:Protocol.method_not_found
-        ~message:("unknown method: " ^ m)
+      Lwt.return
+        (Protocol.error_response id ~code:Protocol.method_not_found
+           ~message:("unknown method: " ^ m))
 
-let handle ?cache ?(tools = []) (body : string) : string option =
+let handle ?cache ?(tools = []) (body : string) : string option Lwt.t =
   let error_json id ~code ~message =
-    Some (Yojson.Safe.to_string (Protocol.error_response id ~code ~message))
+    Lwt.return
+      (Some (Yojson.Safe.to_string (Protocol.error_response id ~code ~message)))
   in
   match Yojson.Safe.from_string body with
   | exception _ ->
@@ -88,6 +113,9 @@ let handle ?cache ?(tools = []) (body : string) : string option =
       | Ok req -> (
           match req.id with
           | None ->
-              None (* notification: process side effects (none yet), no reply *)
+              (* notification: process side effects (none yet), no reply *)
+              Lwt.return None
           | Some id ->
-              Some (Yojson.Safe.to_string (dispatch ?cache ~tools req id))))
+              let open Lwt.Syntax in
+              let+ response = dispatch ?cache ~tools req id in
+              Some (Yojson.Safe.to_string response)))
