@@ -188,7 +188,7 @@ end);;
 
 We name the resulting module `CISS` (short for "Case Insensitive String Set").
 
-You can see that this module has the intended behavior:
+You can see that this module has the intended behaviour:
 
 ```ocaml
 # CISS.singleton "hello" |> CISS.add "HELLO" |> CISS.to_list;;
