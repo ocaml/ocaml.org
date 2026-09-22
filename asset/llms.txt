@@ -62,8 +62,6 @@
 - [Calling C Libraries](https://ocaml.org/docs/calling-c-libraries): FFI with C code
 - [Common Errors](https://ocaml.org/docs/common-errors): Frequent mistakes and how to fix them
 - [Data Structures Comparison](https://ocaml.org/docs/data-structures-comparison): Choosing the right data structure
-- [Is OCaml Web Yet?](https://ocaml.org/docs/is-ocaml-web-yet): Survey of OCaml's web development ecosystem
-- [Is OCaml GUI Yet?](https://ocaml.org/docs/is-ocaml-gui-yet): Survey of OCaml's GUI development ecosystem
 
 ## Language Manual and API
 
