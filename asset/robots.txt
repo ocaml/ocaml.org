@@ -36,3 +36,5 @@ Disallow: /p/
 
 User-agent: *
 Allow: /
+
+Sitemap: https://ocaml.org/sitemap.xml
