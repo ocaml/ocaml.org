@@ -7,6 +7,10 @@ type t = {
   description : string;
   input_schema : Yojson.Safe.t;
   handler : Yojson.Safe.t -> (Yojson.Safe.t list, string) result;
+  cacheable : bool;
+      (* whether identical [tools/call] arguments always yield the same result,
+         so the response may be served from {!Cache}. Deterministic data tools
+         (Blocks A/B) set this; [ping] does not. *)
 }
 
 (* A text content block, the simplest MCP result content type. *)
@@ -31,6 +35,7 @@ let ping : t =
     input_schema =
       `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
     handler = (fun _args -> Ok [ text_content "pong" ]);
+    cacheable = false;
   }
 
 let registry : t list = [ ping ]
