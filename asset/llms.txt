@@ -62,6 +62,8 @@
 - [Calling C Libraries](https://ocaml.org/docs/calling-c-libraries): FFI with C code
 - [Common Errors](https://ocaml.org/docs/common-errors): Frequent mistakes and how to fix them
 - [Data Structures Comparison](https://ocaml.org/docs/data-structures-comparison): Choosing the right data structure
+- [Is OCaml Web Yet?](https://ocaml.org/docs/is-ocaml-web-yet): Survey of OCaml's web development ecosystem
+- [Is OCaml GUI Yet?](https://ocaml.org/docs/is-ocaml-gui-yet): Survey of OCaml's GUI development ecosystem
 
 ## Language Manual and API
 
@@ -103,13 +105,18 @@
 - [Platform Roadmap](https://ocaml.org/tools/platform-roadmap): Current development roadmap
 - [Compiler Release Cycle](https://ocaml.org/tools/compiler-release-cycle): How OCaml releases work
 - [Native Compilation Target](https://ocaml.org/tools/native-target): Native code compilation
+- [Bytecode Target](https://ocaml.org/tools/bytecode-target): Portable bytecode compilation
 - [JavaScript Target](https://ocaml.org/tools/javascript-target): Compiling OCaml to JavaScript
 - [WebAssembly Target](https://ocaml.org/tools/wasm-target): Compiling OCaml to Wasm
+- [Unikernels Target](https://ocaml.org/tools/unikernel-target): Building MirageOS unikernels
+- [The Opam Repository](https://ocaml.org/tools/opam-repository): The central package registry for OCaml
+- [OCaml Infrastructure](https://ocaml.org/tools/ocaml-infrastructure): Tools and services running the OCaml ecosystem
 
 ## Packages
 
 - [Package Search](https://ocaml.org/packages): Search the OCaml package repository (opam)
-- [GraphQL API](https://ocaml.org/graphql): Query opam package metadata via GraphQL (POST requests; interactive explorer at [/graphiql](https://ocaml.org/graphiql))
+- [Package Pages](https://ocaml.org/p/dream/latest): Every opam package has a page at `https://ocaml.org/p/<name>/<version>` (or `latest`) with its README, dependencies, reverse dependencies, and API documentation under `/doc/`
+- [GraphQL API](https://ocaml.org/graphiql): Query opam package metadata — including dependencies, reverse dependencies, and conflicts — by POSTing GraphQL queries to `https://ocaml.org/graphql` (this link is the interactive explorer)
 
 ## Releases
 
@@ -118,6 +125,7 @@
 
 ## Community
 
+- [Community Hub](https://ocaml.org/community): Where to ask questions and get involved
 - [OCaml Planet](https://ocaml.org/ocaml-planet): Aggregated blog posts and videos from the OCaml community
 - [News](https://ocaml.org/news): OCaml community announcements
 - [Events](https://ocaml.org/events): Meetups, conferences, and community events
@@ -125,6 +133,7 @@
 - [Jobs](https://ocaml.org/jobs): Job listings in the OCaml ecosystem
 - [Industrial Users](https://ocaml.org/industrial-users): Companies using OCaml in production
 - [Academic Users](https://ocaml.org/academic-users): Universities teaching OCaml and using it in research
+- [Community Resources](https://ocaml.org/resources): Forums, chat, mailing lists, and other community spaces
 
 ## Feeds (Atom)
 
@@ -148,4 +157,5 @@
 - [About OCaml](https://ocaml.org/about): What is OCaml and why use it
 - [History of OCaml](https://ocaml.org/history): The origins and evolution of OCaml
 - [Governance](https://ocaml.org/governance): OCaml project governance structure
+- [Security](https://ocaml.org/security): How to report security vulnerabilities in OCaml
 - [OCaml Playground](https://ocaml.org/play): Try OCaml in the browser
