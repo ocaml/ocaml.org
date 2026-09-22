@@ -305,3 +305,6 @@
   name: Benjamin Thuillier
   url: https://gilwath.com/atom.xml
   publish_all: false
+- id: thefunc
+  name: The Functional Programmer
+  url: https://www.funcp.org/feed-ocaml.xml
