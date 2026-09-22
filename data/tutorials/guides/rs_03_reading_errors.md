@@ -432,6 +432,16 @@ Warnings can also be disabled at build level: pass `-w -26` to the compiler, or 
 
 The specification also accepts mnemonic names (`-w -unused-var`), which are more readable in build files. Prefer the attribute forms over build-level flags: a `dune`-wide disable hides every future occurrence of the warning, including the ones that would have caught real bugs.
 
+Disabling is not the only answer to Dune's fatal-by-default warnings. If you want the build to succeed while you are still experimenting, keep the warnings visible but turn off only their fatality with `-warn-error -a`:
+
+```dune
+(library
+ (name mylib)
+ (flags (:standard -warn-error -a)))
+```
+
+The warnings still print, but they no longer stop the build. This beats building with `--profile release` (where warnings are also non-fatal) when non-fatal warnings are all you want, because switching profiles changes optimisation and other settings too.
+
 **`-warn-error`**: in CI or strict builds, `-warn-error +a` turns all warnings into errors. If your code compiles locally but fails in CI, check for warnings.
 
 The complete list of warnings, their mnemonic names, and the `-w` option syntax are in the [warning reference section of the OCaml manual](/manual/comp.html#s:comp-warnings).
