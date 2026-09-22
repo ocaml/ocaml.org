@@ -126,6 +126,14 @@
 - [Industrial Users](https://ocaml.org/industrial-users): Companies using OCaml in production
 - [Academic Users](https://ocaml.org/academic-users): Universities teaching OCaml and using it in research
 
+## Feeds (Atom)
+
+- [OCaml Planet Feed](https://ocaml.org/planet.xml): Blog posts aggregated nightly from across the OCaml ecosystem
+- [News Feed](https://ocaml.org/news.xml): OCaml community announcements
+- [Changelog Feed](https://ocaml.org/changelog.xml): Compiler and platform tool release announcements
+- [Events Feed](https://ocaml.org/events.xml): Upcoming meetups and conferences
+- [Jobs Feed](https://ocaml.org/jobs.xml): Job listings in the OCaml ecosystem
+
 ## Success Stories
 
 - [Jane Street](https://ocaml.org/success-stories/large-scale-trading-system): OCaml's largest commercial user — 500+ OCaml programmers and 30M+ lines of OCaml power systems that safely trade billions of dollars a day. Jane Street built and open-sourced Dune, Core, and Async.
