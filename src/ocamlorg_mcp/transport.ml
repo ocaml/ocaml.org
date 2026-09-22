@@ -6,10 +6,10 @@
    in-app response cache (the edge Varnish passes POST uncached), both built
    once per server from the config passed by the router. *)
 
-let post_handler cache request =
+let post_handler ~tools cache request =
   let open Lwt.Syntax in
   let* body = Dream.body request in
-  match Server.handle ~cache body with
+  match Server.handle ~cache ~tools body with
   | None ->
       (* Notification: acknowledge with no body. *)
       Dream.respond ~status:`Accepted ""
@@ -32,7 +32,7 @@ let get_handler _request =
       let* () = Dream.write stream ": ocaml.org MCP endpoint\n\n" in
       Dream.flush stream)
 
-let routes ~rate_limit ~rate_window ~cache_max ~cache_ttl () =
+let routes ?(tools = []) ~rate_limit ~rate_window ~cache_max ~cache_ttl () =
   let limiter =
     Rate_limiter.create ~max_requests:rate_limit
       ~window_seconds:(float_of_int rate_window) ()
@@ -43,5 +43,8 @@ let routes ~rate_limit ~rate_window ~cache_max ~cache_ttl () =
   [
     Dream.scope ""
       [ Rate_limiter.middleware limiter ]
-      [ Dream.post "/mcp" (post_handler cache); Dream.get "/mcp" get_handler ];
+      [
+        Dream.post "/mcp" (post_handler ~tools cache);
+        Dream.get "/mcp" get_handler;
+      ];
   ]

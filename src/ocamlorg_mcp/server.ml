@@ -20,8 +20,12 @@ let call_result (tool : Tool.t) arguments : Yojson.Safe.t =
           ("content", `List [ Tool.text_content msg ]); ("isError", `Bool true);
         ]
 
-let dispatch ?cache (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t
-    =
+let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
+    Yojson.Safe.t =
+  (* The effective registry is [ping] plus any tools injected by the web layer
+     (Block A onward). [ping] stays first and is always present, so the isolated
+     library keeps a working handshake even with no tools injected. *)
+  let registry = Tool.ping :: tools in
   match req.method_ with
   | "initialize" ->
       let result =
@@ -37,12 +41,12 @@ let dispatch ?cache (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t
       (* JSON-RPC-level ping (distinct from the "ping" tool): empty result. *)
       Protocol.ok_response id (`Assoc [])
   | "tools/list" ->
-      let tools = List.map Tool.to_json Tool.registry in
+      let tools = List.map Tool.to_json registry in
       Protocol.ok_response id (`Assoc [ ("tools", `List tools) ])
   | "tools/call" -> (
       match Protocol.member_opt "name" req.params with
       | Some (`String name) -> (
-          match Tool.find name with
+          match List.find_opt (fun (t : Tool.t) -> t.name = name) registry with
           | None ->
               Protocol.error_response id ~code:Protocol.invalid_params
                 ~message:("unknown tool: " ^ name)
@@ -70,7 +74,7 @@ let dispatch ?cache (req : Protocol.request) (id : Protocol.id) : Yojson.Safe.t
       Protocol.error_response id ~code:Protocol.method_not_found
         ~message:("unknown method: " ^ m)
 
-let handle ?cache (body : string) : string option =
+let handle ?cache ?(tools = []) (body : string) : string option =
   let error_json id ~code ~message =
     Some (Yojson.Safe.to_string (Protocol.error_response id ~code ~message))
   in
@@ -85,4 +89,5 @@ let handle ?cache (body : string) : string option =
           match req.id with
           | None ->
               None (* notification: process side effects (none yet), no reply *)
-          | Some id -> Some (Yojson.Safe.to_string (dispatch ?cache req id))))
+          | Some id ->
+              Some (Yojson.Safe.to_string (dispatch ?cache ~tools req id))))
