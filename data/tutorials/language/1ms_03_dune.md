@@ -108,7 +108,7 @@ Here are the different names:
 The `dune describe` command allows having a look at the project's module structure. Here is its output:
 
 ```lisp
-((root /home/cuihtlauac/caml/mixtli-dune)
+((root /home/user/mixtli)
  (build_context _build/default)
  (executables
   ((names (cloud))
