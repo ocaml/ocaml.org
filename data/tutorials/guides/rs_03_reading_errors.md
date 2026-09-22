@@ -404,6 +404,34 @@ Warnings don't stop compilation but often indicate real problems. Note that the 
 | 32 | `unused-value-declaration` | Top-level value never used nor exported | Remove it, or add it to the `.mli` |
 | 33 | `unused-open` | `open` that is never used | Remove the `open` |
 
+### Silencing a Warning
+
+The fixes in the table are the preferred response: they remove the warning's cause. When you have judged a warning acceptable instead — say, a binding kept deliberately even though it is unused — silence it explicitly, and as narrowly as possible, so the warning keeps protecting the rest of the code.
+
+Attributes scope the silencing to a piece of code. On a single binding, use `[@warning ...]` with the warning number prefixed by `-`:
+
+```ocaml
+let () =
+  let[@warning "-26"] retries = 3 in
+  print_endline "connecting"
+```
+
+On a top-level definition, attach `[@@warning "-27"]` after the definition; to silence a warning for the whole rest of a file, use a floating attribute on a line of its own, which also accepts several numbers at once:
+
+```ocaml
+[@@@warning "-26-27"]
+```
+
+Warnings can also be disabled at build level: pass `-w -26` to the compiler, or set the flags for a whole library or executable in its `dune` stanza:
+
+```dune
+(library
+ (name mylib)
+ (flags (:standard -w -26-27)))
+```
+
+The specification also accepts mnemonic names (`-w -unused-var`), which are more readable in build files. Prefer the attribute forms over build-level flags: a `dune`-wide disable hides every future occurrence of the warning, including the ones that would have caught real bugs.
+
 **`-warn-error`**: in CI or strict builds, `-warn-error +a` turns all warnings into errors. If your code compiles locally but fails in CI, check for warnings.
 
 The complete list of warnings, their mnemonic names, and the `-w` option syntax are in the [warning reference section of the OCaml manual](/manual/comp.html#s:comp-warnings).
