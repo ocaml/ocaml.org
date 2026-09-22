@@ -109,6 +109,7 @@
 ## Packages
 
 - [Package Search](https://ocaml.org/packages): Search the OCaml package repository (opam)
+- [GraphQL API](https://ocaml.org/graphql): Query opam package metadata via GraphQL (POST requests; interactive explorer at [/graphiql](https://ocaml.org/graphiql))
 
 ## Releases
 
