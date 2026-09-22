@@ -19,7 +19,7 @@ In the following toy project, we create an OCaml library for the World Meteorolo
 
 We use unique terms for different elements of our project to avoid ambiguity. For instance, the directory containing the file `cloud.ml` isn't named `cloud`. A different term is used. We also use the Spanish word "nube" and the [Nahuatl](https://en.wikipedia.org/wiki/Nahuatl) word "mixtli," where both terms mean "cloud."
 
-**Note**: The other terms we use are classifications of clouds. These include "[cumulus](https://en.wikipedia.org/wiki/Cumulus_cloud)" (fluffy), "[nimbus](https://en.wiktionary.org/wiki/nimbus)" (precipitating), "[cumulonimbus](https://en.wikipedia.org/wiki/Cumulonimbus_cloud)" (fluffy and precipitating), "[nimbostratus](https://en.wikipedia.org/wiki/Nimbostratus_cloud)" (flat, amorphous and precipitating), and "[altocumulus](https://en.wikipedia.org/wiki/Altocumulus_cloud)" (high altitude and fluffy).
+**Note**: The other terms we use are classifications of clouds. These include "[cumulus](https://en.wikipedia.org/wiki/Cumulus_cloud)" (fluffy), "[nimbus](https://en.wiktionary.org/wiki/nimbus)" (precipitating), "[cumulonimbus](https://en.wikipedia.org/wiki/Cumulonimbus_cloud)" (fluffy and precipitating), "[nimbostratus](https://en.wikipedia.org/wiki/Nimbostratus_cloud)" (flat, amorphous, and precipitating), and "[altocumulus](https://en.wikipedia.org/wiki/Altocumulus_cloud)" (high altitude and fluffy).
 
 ## Minimum Project Setup
 
@@ -108,7 +108,7 @@ Here are the different names:
 The `dune describe` command allows having a look at the project's module structure. Here is its output:
 
 ```lisp
-((root /home/cuihtlauac/caml/mixtli-dune)
+((root /home/user/mixtli)
  (build_context _build/default)
  (executables
   ((names (cloud))
