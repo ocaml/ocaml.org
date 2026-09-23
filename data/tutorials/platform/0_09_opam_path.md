@@ -9,6 +9,8 @@ prerequisite_tutorials:
   - "opam-switch-introduction"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## Introduction
 
 OCaml tools — the compiler, build system, LSP server, formatter — are installed inside an [opam switch](/docs/opam-switch-introduction). Your shell needs to know where to find them. There are three ways to do this:
