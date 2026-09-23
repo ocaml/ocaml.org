@@ -7,6 +7,8 @@ description: |
 category: "Additional Tooling"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## What is OCaml-CI?
 
 OCaml-CI is a continuous integration service specifically designed for OCaml projects hosted on GitHub (and GitLab). It's built on the [OCurrent](https://github.com/ocurrent/ocurrent) pipeline framework and is hosted at [ocaml.ci.dev](https://ocaml.ci.dev).

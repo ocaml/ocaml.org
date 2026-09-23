@@ -8,6 +8,8 @@ prerequisite_tutorials:
   - "opam-switch-introduction"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## Installing Existing Dependencies
 
 We recommend installing a project's dependencies in a [local opam switch](/docs/opam-switch-introduction) to sandbox your development environment. If you haven't created one yet, run `opam switch create .` from your project directory first.
