@@ -8,7 +8,7 @@ prerequisite_tutorials:
   - "opam-switch-introduction"
 ---
 
-This tutorial was written with AI assistance and reviewed for accuracy by the OCaml.org team.
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
 
 ## Installing Existing Dependencies
 

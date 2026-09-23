@@ -7,7 +7,7 @@ description: |
 category: "Additional Tooling"
 ---
 
-This tutorial was written with AI assistance and reviewed for accuracy by the OCaml.org team.
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
 
 ## `setup-ocaml`
 

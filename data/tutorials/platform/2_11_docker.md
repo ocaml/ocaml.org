@@ -7,7 +7,7 @@ description: |
 category: "Additional Tooling"
 ---
 
-This tutorial was written with AI assistance and reviewed for accuracy by the OCaml.org team.
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
 
 The [`ocaml/opam`](https://hub.docker.com/r/ocaml/opam) Docker images provide pre-built OCaml environments across a wide range of Linux distributions, Windows variants, and architectures. They are primarily built and maintained for OCaml's continuous integration systems (ocaml-ci, opam-repo-ci, opam-health-check), but they can also be used as a base for your own CI pipelines or for quickly trying out different OCaml versions. Note that because these images are designed for CI, they have some characteristics (such as a non-root default user and a potentially stale `opam-repository` snapshot) that require extra steps when used for development workflows.
 

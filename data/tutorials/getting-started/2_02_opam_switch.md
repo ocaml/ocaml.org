@@ -8,7 +8,7 @@ recommended_next_tutorials:
   - "managing-dependencies"
 ---
 
-This tutorial was written with AI assistance and reviewed for accuracy by the OCaml.org team.
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
 
 ## What Is an opam Switch?
 
