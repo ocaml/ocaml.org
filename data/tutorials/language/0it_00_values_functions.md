@@ -300,7 +300,7 @@ val email : string = "jane@example.com"
 val phone : int = 1234567890
 ```
 
-Notice that `contact` is now available at the top-level as a bound variable:
+Notice that `contact` is now available at the top-level as a bound name:
 
 ```ocaml
 # contact;;
@@ -311,7 +311,7 @@ Notice that `contact` is now available at the top-level as a bound variable:
 
 When pattern matching, it is possible to discard or ignore values that are not desired. The method by which this is done depends on the data structure being destructured.
 
-Continuing from the above `jane` record example, we can simply omit the `zip` field in the pattern if we don't want to bind it to a variable:
+Continuing from the above `jane` record example, we can simply omit the `zip` field in the pattern if we don't want to bind it to a name:
 
 ```ocaml
 # let { name; street; city; contact = (email, phone) } = john;;

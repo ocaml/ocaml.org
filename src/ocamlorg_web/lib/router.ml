@@ -5,7 +5,7 @@ let asset_loader =
     ~read:(fun _root path -> Ocamlorg_static.Asset.read path |> Lwt.return)
     ~digest:(fun _root path ->
       Option.map Dream.to_base64url (Ocamlorg_static.Asset.digest path))
-    ~not_cached:[ "robots.txt"; "/robots.txt" ]
+    ~not_cached:[ "robots.txt"; "/robots.txt"; "llms.txt"; "/llms.txt" ]
 
 let media_loader =
   Static.loader
@@ -137,6 +137,16 @@ let graphql_route t =
       Dream.get "/graphiql" (Dream.graphiql "/graphql");
     ]
 
+(* MCP server (issue #3775), gated by OCAMLORG_MCP_ENABLED. Not compressed: the
+   POST responses are small JSON-RPC and the GET is an SSE stream. *)
+let mcp_route t =
+  Dream.scope "" []
+    (if Config.mcp_enabled then
+       Ocamlorg_mcp.routes ~tools:(Mcp_tools.tools t)
+         ~rate_limit:Config.mcp_rate_limit ~rate_window:Config.mcp_rate_window
+         ~cache_max:Config.mcp_cache_max ~cache_ttl:Config.mcp_cache_ttl ()
+     else [])
+
 let ( let+ ) x f = Lwt.map f x
 
 let middleware_text_utf8 handler request =
@@ -167,6 +177,7 @@ let router t =
       page_routes t;
       package_route t;
       graphql_route t;
+      mcp_route t;
       sitemap_routes;
       Dream.scope ""
         [ Dream_encoding.compress; middleware_text_utf8 ]

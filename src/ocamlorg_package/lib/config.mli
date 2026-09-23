@@ -10,5 +10,6 @@ val max_doc_fetch_bytes : int
     backend, to avoid buffering a pathologically large artifact into memory.
     Overridable via [OCAMLORG_MAX_DOC_FETCH_BYTES]. *)
 
+val doc_cache_max : int
 val opam_repository_path : Fpath.t
 val package_state_path : Fpath.t

@@ -21,6 +21,12 @@ let package_caches_ttl =
 let max_doc_fetch_bytes =
   env_with_default "OCAMLORG_MAX_DOC_FETCH_BYTES" "52428800" |> int_of_string
 
+(* Maximum number of entries in each of the bounded docs-ci caches (sidebars and
+   rendered doc pages). Bounds memory under a wide spread of packages/versions;
+   entries expire after [package_caches_ttl]. *)
+let doc_cache_max =
+  env_with_default "OCAMLORG_DOC_CACHE_MAX" "1000" |> int_of_string
+
 let default_cache_dir =
   match Sys.os_type with
   | "Unix" -> Fpath.(v (Sys.getenv "HOME") / ".cache" / "ocamlorg")

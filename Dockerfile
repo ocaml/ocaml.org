@@ -62,6 +62,7 @@ RUN git config --global --add safe.directory /var/opam-repository
 ENV DREAM_VERBOSITY=info \
     OCAMLORG_HTTP_PORT=8080 \
     OCAMLORG_MANUAL_PATH=/manual \
+    OCAMLORG_MCP_ENABLED=true \
     OCAMLORG_PKG_STATE_PATH=/var/package.state \
     OCAMLORG_REPO_PATH=/var/opam-repository/ \
     OCAMLORG_V2_PATH=/v2
