@@ -13,6 +13,8 @@ recommended_next_tutorials:
   - "debugging"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## Introduction
 
 OCaml's compiler produces precise, structured error messages. Once you learn to read them systematically, they tell you exactly what's wrong — and often suggest the fix. This tutorial teaches a method for reading any OCaml error, then walks through the most common error families.
