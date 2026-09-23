@@ -2,7 +2,7 @@
 id: "mcp-server"
 short_title: "MCP Server"
 title: "The ocaml.org MCP Server: OCaml Package Data for AI Assistants"
-description: "A hosted Model Context Protocol endpoint that lets AI assistants query opam package dependency information."
+description: "A hosted Model Context Protocol endpoint that lets AI assistants query opam package dependency and documentation information."
 category: "OCaml Infrastructure"
 ---
 
@@ -25,9 +25,10 @@ ocaml.org already computes and holds no per-session state.
 
 ## Available tools
 
-The first capability shipped is package **dependency** information, which
-ocaml.org can answer authoritatively because it already computes it in memory
-for every package in the opam repository.
+### Package dependencies
+
+ocaml.org can answer these authoritatively because it already computes
+dependency information in memory for every package in the opam repository.
 
 - **`ocaml_package_dependencies`** — the direct dependencies (with their version
   constraints), optional dependencies and conflicts of a package. Takes a
@@ -36,11 +37,29 @@ for every package in the opam repository.
   package ("used by"), each with its version constraint and latest release, plus
   a total count. Takes the same arguments.
 
+### API and module documentation
+
+These reuse ocaml.org's existing documentation backend, so they return the same
+rendered odoc content served on package pages.
+
+- **`ocaml_package_documentation`** — a documentation overview of a package: its
+  synopsis, description, license, homepage, tags, documentation build status,
+  and the libraries and top-level modules it exposes. Each library and module
+  comes with a `path` you can hand to the next tool. Takes a `package` name and
+  an optional `version` (defaulting to the latest *documented* version).
+- **`ocaml_module_documentation`** — the rendered documentation of a single
+  module page: its preamble and signatures as odoc HTML, along with the page's
+  table of contents and breadcrumbs. Takes a `package`, an optional `version`,
+  and a `path` (for example `Lwt/index.html`, as returned by
+  `ocaml_package_documentation`).
+
 Each tool returns a JSON document. For example, asking
 `ocaml_package_dependencies` about `dream` returns that package's resolved
-version alongside its `dependencies`, `optional` and `conflicts` lists.
+version alongside its `dependencies`, `optional` and `conflicts` lists; asking
+`ocaml_package_documentation` about `lwt` returns its synopsis and the list of
+modules to drill into with `ocaml_module_documentation`.
 
-More tools — API and module documentation, and documentation search — are
+Further tools — documentation search by name and by type signature — are
 planned; see the [tracking issue](https://github.com/ocaml/ocaml.org/issues/3775)
 for the roadmap.
 

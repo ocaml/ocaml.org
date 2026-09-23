@@ -1,12 +1,15 @@
 (* An MCP tool: a name, a human description, a JSON-Schema for its arguments,
    and a handler turning call arguments into result content (or an error message
-   reported in-band, per the MCP tools/call convention). *)
+   reported in-band, per the MCP tools/call convention). The handler is
+   [Lwt]-returning: Block A's dependency tools read in-memory state and just
+   [Lwt.return] their result, but Block B's docs tools fetch docs-ci
+   asynchronously. *)
 
 type t = {
   name : string;
   description : string;
   input_schema : Yojson.Safe.t;
-  handler : Yojson.Safe.t -> (Yojson.Safe.t list, string) result;
+  handler : Yojson.Safe.t -> (Yojson.Safe.t list, string) result Lwt.t;
   cacheable : bool;
       (* whether identical [tools/call] arguments always yield the same result,
          so the response may be served from {!Cache}. Deterministic data tools
@@ -34,6 +37,6 @@ let ping : t =
     description = "No-op health check. Returns \"pong\".";
     input_schema =
       `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
-    handler = (fun _args -> Ok [ text_content "pong" ]);
+    handler = (fun _args -> Lwt.return (Ok [ text_content "pong" ]));
     cacheable = false;
   }

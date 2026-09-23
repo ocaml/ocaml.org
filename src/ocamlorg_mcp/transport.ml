@@ -9,7 +9,8 @@
 let post_handler ~tools cache request =
   let open Lwt.Syntax in
   let* body = Dream.body request in
-  match Server.handle ~cache ~tools body with
+  let* response = Server.handle ~cache ~tools body in
+  match response with
   | None ->
       (* Notification: acknowledge with no body. *)
       Dream.respond ~status:`Accepted ""
