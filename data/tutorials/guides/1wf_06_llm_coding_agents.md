@@ -9,6 +9,8 @@ prerequisite_tutorials:
   - "opam-path"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## Introduction
 
 LLM coding agents (Claude Code, Cursor, GitHub Copilot, etc.) can be productive with OCaml. The type system catches many agent mistakes at compile time, and the module system makes codebases navigable. But agents need specific configuration and tooling to work well — OCaml has less training data than mainstream languages, and the toolchain has conventions that agents don't always know.
