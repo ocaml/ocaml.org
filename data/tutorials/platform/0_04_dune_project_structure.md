@@ -12,6 +12,8 @@ recommended_next_tutorials:
   - "creating-libraries"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## Introduction
 
 A dune project is a directory tree with a `dune-project` file at the root and `dune` files in subdirectories. Each `dune` file tells dune what to build from the source files in that directory.
