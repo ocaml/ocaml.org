@@ -77,6 +77,45 @@ let replace_all ~sub ~by s =
     done;
     Buffer.contents b
 
+(* Strip invisible / control characters that carry *hidden* instructions (as
+   opposed to the active-markup exfiltration the escaping/defang handles): C0
+   controls (bar tab/newline), DEL, and the Unicode zero-width and bidi
+   overrides an author could use to smuggle text past a human reviewer while the
+   model still reads it. Operates on UTF-8 bytes, matching the specific
+   sequences: U+200B–200F, U+202A–202E, U+2060, U+2066–2069 (E2 80/81 ..),
+   U+FEFF (EF BB BF), U+061C (D8 9C). *)
+let strip_invisible s =
+  let n = String.length s in
+  let b = Buffer.create n in
+  let i = ref 0 in
+  while !i < n do
+    let c = s.[!i] in
+    let code = Char.code c in
+    if code = 0xE2 && !i + 2 < n then
+      let c1 = Char.code s.[!i + 1] and c2 = Char.code s.[!i + 2] in
+      if
+        (c1 = 0x80 && ((c2 >= 0x8B && c2 <= 0x8F) || (c2 >= 0xAA && c2 <= 0xAE)))
+        || (c1 = 0x81 && (c2 = 0xA0 || (c2 >= 0xA6 && c2 <= 0xA9)))
+      then i := !i + 3
+      else (
+        Buffer.add_char b c;
+        incr i)
+    else if
+      code = 0xEF
+      && !i + 2 < n
+      && Char.code s.[!i + 1] = 0xBB
+      && Char.code s.[!i + 2] = 0xBF
+    then i := !i + 3 (* U+FEFF ZWNBSP / BOM *)
+    else if code = 0xD8 && !i + 1 < n && Char.code s.[!i + 1] = 0x9C then
+      i := !i + 2 (* U+061C ALM *)
+    else if code = 0x7F || (code < 0x20 && c <> '\t' && c <> '\n' && c <> '\r')
+    then incr i (* C0 controls / DEL *)
+    else (
+      Buffer.add_char b c;
+      incr i)
+  done;
+  Buffer.contents b
+
 (* HTML-escape every piece of doc-derived text we emit. odoc docs legitimately
    contain HTML/XML examples (e.g. dream's own XSS docs mention "<script>"), and
    Markup.ml decodes the source entities back to raw "<"/">"; if we re-emitted
@@ -97,6 +136,12 @@ let escape s =
    auto-fetched image. Breaking "](" defuses both image and inline-link syntax.
    (Angle-bracket autolinks are already dead once "<" is escaped.) *)
 let defang s = replace_all ~sub:"](" ~by:"] (" s
+
+(* A free-text field not derived from HTML (e.g. a package [synopsis] /
+   [description]): still attacker-authored, so give it the same treatment as
+   body prose — strip invisibles, escape, defang — but keep newlines (no
+   whitespace collapse). Exposed for the overview tool's prose fields. *)
+let sanitize_field s = defang (escape (strip_invisible s))
 let is_ws c = c = ' ' || c = '\t' || c = '\n' || c = '\r'
 
 (* Collapse whitespace runs to a single space (used outside <pre>, where odoc's
@@ -118,6 +163,7 @@ let collapse_ws s =
 (* Doc text ready for the body: whitespace-collapsed (outside <pre>), escaped,
    and defanged. *)
 let clean_text ~pre s =
+  let s = strip_invisible s in
   let s = if pre then s else collapse_ws s in
   defang (escape s)
 
@@ -351,7 +397,7 @@ let finalize_anchor st =
          Still record them in [references]. *)
       (match r with
       | Some (Source _) -> ()
-      | _ -> emit st (defang (escape text)));
+      | _ -> emit st (sanitize_field text));
       match r with
       | None -> ()
       | Some r ->

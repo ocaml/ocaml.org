@@ -68,6 +68,32 @@ let literal_tag_escaped () =
     "escaped form present" true
     (contains ~needle:"&lt;script&gt;" b)
 
+let invisible_stripped () =
+  (* U+200B zero-width space, U+202E RLO, a C0 control, U+FEFF BOM: hidden-text
+     smuggling vectors that must not survive. *)
+  let b = body "<p>ig\xe2\x80\x8bnore\xe2\x80\xae\x07 me\xef\xbb\xbf</p>" in
+  Alcotest.(check bool)
+    "no zero-width" false
+    (contains ~needle:"\xe2\x80\x8b" b);
+  Alcotest.(check bool)
+    "no RLO override" false
+    (contains ~needle:"\xe2\x80\xae" b);
+  Alcotest.(check bool) "no BOM" false (contains ~needle:"\xef\xbb\xbf" b);
+  Alcotest.(check bool) "no C0 control" false (contains ~needle:"\x07" b);
+  Alcotest.(check bool) "visible text kept" true (contains ~needle:"ignore" b)
+
+let sanitize_field_test () =
+  (* Free-text overview fields (synopsis/description) get the same treatment. *)
+  let s =
+    M.sanitize_field
+      "hi <script>x</script> ![a](http://e/x) zero\xe2\x80\x8bwidth"
+  in
+  Alcotest.(check bool) "escaped tag" false (contains ~needle:"<script" s);
+  Alcotest.(check bool) "defanged join" false (contains ~needle:"](" s);
+  Alcotest.(check bool)
+    "zero-width gone" false
+    (contains ~needle:"\xe2\x80\x8b" s)
+
 (* --- reference extraction & cross-dependency navigation --- *)
 
 let is_module ~pkg ~ver ~path ?fragment r =
@@ -205,6 +231,9 @@ let () =
           Alcotest.test_case "angle autolink defanged" `Quick
             angle_autolink_defanged;
           Alcotest.test_case "literal tag escaped" `Quick literal_tag_escaped;
+          Alcotest.test_case "invisible chars stripped" `Quick
+            invisible_stripped;
+          Alcotest.test_case "sanitize_field" `Quick sanitize_field_test;
         ] );
       ( "references",
         [

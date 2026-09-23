@@ -345,15 +345,21 @@ let package_documentation state : Tool.t =
             let libraries, modules =
               libraries_and_modules ~name ~version sidebar
             in
+            (* synopsis/description are attacker-authored free text; sanitise
+               them like doc prose (strip invisibles, escape, defang). *)
+            let sanitize = Mcp_doc_html.sanitize_field in
             ok_json
               (json_common pkg
               @ [
-                  ("synopsis", `String info.synopsis);
-                  ("description", `String info.description);
+                  ("content_trust", `String "community-authored-untrusted");
+                  ("synopsis", `String (sanitize info.synopsis));
+                  ("description", `String (sanitize info.description));
                   ("license", `String info.license);
                   ( "homepage",
                     `List (List.map (fun h -> `String h) info.homepage) );
-                  ("tags", `List (List.map (fun t -> `String t) info.tags));
+                  ( "tags",
+                    `List (List.map (fun t -> `String (sanitize t)) info.tags)
+                  );
                   ( "documentation_status",
                     `String (documentation_status_string status) );
                   ("libraries", libraries);
