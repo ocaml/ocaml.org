@@ -245,6 +245,7 @@ let dummy_tool : Ocamlorg_mcp.Tool.t =
     handler =
       (fun _ -> Lwt.return (Ok [ Ocamlorg_mcp.Tool.text_content "hello" ]));
     cacheable = false;
+    annotations = None;
   }
 
 let tool_names tools =
@@ -304,6 +305,7 @@ let flaky_tool calls : Ocamlorg_mcp.Tool.t =
           (if !calls = 1 then Error "transient"
            else Ok [ Ocamlorg_mcp.Tool.text_content "ok" ]));
     cacheable = true;
+    annotations = None;
   }
 
 let call_flaky ?cache calls =

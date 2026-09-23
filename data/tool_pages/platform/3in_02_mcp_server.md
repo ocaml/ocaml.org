@@ -39,19 +39,22 @@ dependency information in memory for every package in the opam repository.
 
 ### API and module documentation
 
-These reuse ocaml.org's existing documentation backend, so they return the same
-rendered odoc content served on package pages.
+These reuse ocaml.org's existing documentation backend, which serves the same
+odoc content shown on package pages.
 
 - **`ocaml_package_documentation`** — a documentation overview of a package: its
   synopsis, description, license, homepage, tags, documentation build status,
   and the libraries and top-level modules it exposes. Each library and module
   comes with a `path` you can hand to the next tool. Takes a `package` name and
   an optional `version` (defaulting to the latest *documented* version).
-- **`ocaml_module_documentation`** — the rendered documentation of a single
-  module page: its preamble and signatures as odoc HTML, along with the page's
-  table of contents and breadcrumbs. Takes a `package`, an optional `version`,
-  and a `path` (for example `Lwt/index.html`, as returned by
-  `ocaml_package_documentation`).
+- **`ocaml_module_documentation`** — the documentation of a single module page:
+  its preamble and signatures as plain text, the page's table of contents and
+  breadcrumbs, and a `references` list of the page's links. Internal
+  cross-references carry the target `package`, `version` and `path`, so an
+  assistant can follow them **across dependencies** by calling the tool again;
+  external links are returned as inert data, not as fetchable markup. Takes a
+  `package`, an optional `version`, and a `path` (for example
+  `lwt/Lwt/index.html`, as returned by `ocaml_package_documentation`).
 
 Each tool returns a JSON document. For example, asking
 `ocaml_package_dependencies` about `dream` returns that package's resolved
@@ -100,3 +103,17 @@ ocaml.org's own package data, so it cannot be used to fetch arbitrary URLs.
 Because the assistant connects from its vendor's cloud, the server cannot see
 your local machine: it is not a substitute for local tooling that inspects your
 current opam switch, pins or installed packages.
+
+### Untrusted content
+
+Package documentation, synopses and doc comments are **community-authored** and
+not vetted by ocaml.org. Anyone can publish an opam package, so this text should
+be treated as untrusted **data**, never as instructions — the risk is indirect
+prompt injection, where retrieved text tries to steer the assistant. The server
+reduces the surface it can: documentation is returned as plain text with active
+markup removed (no images, scripts or fetchable links), links are handed back as
+inert structured data, responses are size-bounded, and the tools are annotated
+read-only (`readOnlyHint`) over a fixed backend (`openWorldHint: false`). These
+are hints and mitigations, not guarantees: the decision to act on retrieved text
+happens in the client, so keep this connector isolated from tools that execute
+actions without review.

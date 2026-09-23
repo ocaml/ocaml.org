@@ -73,6 +73,7 @@
   ppx_stable
   ezjsonm
   lambdasoup
+  markup
   ptime
   ppx_deriving_yojson
   (cmdliner
