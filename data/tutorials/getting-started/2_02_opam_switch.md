@@ -8,6 +8,8 @@ recommended_next_tutorials:
   - "managing-dependencies"
 ---
 
+This tutorial was written with AI assistance and reviewed for accuracy by the OCaml.org team.
+
 ## What Is an opam Switch?
 
 An opam switch is an isolated OCaml environment. Each switch has its own OCaml compiler, installed packages, and binaries, all independent from other switches. This is similar to Python's `virtualenv` or Node's `nvm`: you can have multiple OCaml setups side by side without them interfering with each other.
