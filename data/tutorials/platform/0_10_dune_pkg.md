@@ -10,6 +10,8 @@ prerequisite_tutorials:
   - "opam-path"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## Introduction
 
 Dune has built-in package management that can handle your project's dependencies directly, without a separate `opam install` step. Instead of installing packages into an opam switch, dune solves dependencies, writes a **lock directory** to your project, and builds everything — including dependencies — when you run `dune build`.
