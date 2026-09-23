@@ -3,6 +3,10 @@ module Handler = Handler
 
 module Graphql = Graphql
 
+(* Exposed for tests: the Block B doc-HTML sanitiser / reference extractor
+   (issue #3775). *)
+module Mcp_doc_html = Mcp_doc_html
+
 (* Set up basic logging for logs that would happen before Dream is set up. *)
 let () =
   Logs.set_reporter (Logs.format_reporter ());
