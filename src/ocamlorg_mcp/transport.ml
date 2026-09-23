@@ -17,21 +17,17 @@ let post_handler ~tools cache request =
   | Some response ->
       Dream.respond ~headers:[ ("Content-Type", "application/json") ] response
 
-(* Minimal SSE endpoint. The Streamable HTTP GET stream carries server-initiated
-   messages; we hold it open with an initial comment. Real server-push arrives
-   with later feature blocks. *)
+(* The Streamable HTTP GET stream carries server-initiated messages over
+   [text/event-stream]. We have no server-push feature yet, so we decline the
+   GET with 405 rather than opening a stream that closes immediately: the
+   spec-sanctioned signal that this endpoint is POST-only, which strict clients
+   (Gemini among them) rely on. When real server-push lands, replace this with a
+   [Dream.stream] handler emitting [Content-Type: text/event-stream]. *)
 let get_handler _request =
-  Dream.stream
-    ~headers:
-      [
-        ("Content-Type", "text/event-stream");
-        ("Cache-Control", "no-cache");
-        ("Connection", "keep-alive");
-      ]
-    (fun stream ->
-      let open Lwt.Syntax in
-      let* () = Dream.write stream ": ocaml.org MCP endpoint\n\n" in
-      Dream.flush stream)
+  Dream.respond ~status:`Method_Not_Allowed
+    ~headers:[ ("Allow", "POST") ]
+    "GET is not supported: this MCP endpoint has no server-initiated stream; \
+     use POST."
 
 let routes ?(tools = []) ~rate_limit ~rate_window ~cache_max ~cache_ttl () =
   let limiter =
