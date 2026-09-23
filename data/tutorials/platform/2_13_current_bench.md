@@ -9,6 +9,8 @@ prerequisite_tutorials:
   - "bootstrapping-a-dune-project"
 ---
 
+This tutorial was written with AI assistance and reviewed by the OCaml.org team.
+
 ## What Is current-bench?
 
 [current-bench](https://github.com/ocurrent/current-bench) is a continuous benchmarking service for OCaml projects, hosted at [bench.ci.dev](https://bench.ci.dev). Built on the [OCurrent](https://github.com/ocurrent/ocurrent) pipeline framework (like [OCaml-CI](/docs/ocaml-ci)), it runs benchmarks on every PR and push, tracks results over time, and surfaces performance regressions in a web dashboard.
