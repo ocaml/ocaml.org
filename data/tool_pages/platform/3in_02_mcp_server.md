@@ -1,16 +1,19 @@
 ---
-id: "mcp-server"
+id: "docs-mcp"
 short_title: "MCP Server"
 title: "The ocaml.org MCP Server: OCaml Package Data for AI Assistants"
 description: "A hosted Model Context Protocol endpoint that lets AI assistants query opam package dependency and documentation information."
 category: "OCaml Infrastructure"
 ---
 
+This page was written with AI assistance and reviewed by the OCaml.org team.
+
 ocaml.org hosts a public [Model Context Protocol](https://modelcontextprotocol.io)
-(MCP) server that lets AI assistants — such as Claude, ChatGPT and Gemini, in
-both their web apps and local clients — query OCaml package data directly. The
-server is reached over public HTTPS from the assistant's side, so wiring it in
-takes only a URL: there is no local install and no OCaml environment required.
+(MCP) server that lets AI assistants — such as Claude, ChatGPT, Gemini or
+Mistral, in both their web apps and local clients — query OCaml package data
+directly. The server is reached over public HTTPS from the assistant's side, so
+wiring it in takes only a URL: there is no local install and no OCaml
+environment required.
 
 The endpoint is:
 
@@ -27,7 +30,7 @@ ocaml.org already computes and holds no per-session state.
 
 ### Package dependencies
 
-ocaml.org can answer these authoritatively because it already computes
+ocaml.org can answer these because it already computes
 dependency information in memory for every package in the opam repository.
 
 - **`ocaml_package_dependencies`** — the direct dependencies (with their version
@@ -62,47 +65,167 @@ version alongside its `dependencies`, `optional` and `conflicts` lists; asking
 `ocaml_package_documentation` about `lwt` returns its synopsis and the list of
 modules to drill into with `ocaml_module_documentation`.
 
-Further tools — documentation search by name and by type signature — are
-planned; see the [tracking issue](https://github.com/ocaml/ocaml.org/issues/3775)
-for the roadmap.
-
 ## Connecting your assistant
 
 Whether you can add a remote MCP server, and where, depends on your assistant
-and plan. The steps below cover the three most common clients.
+and plan. Two things hold across all of them: the server speaks Streamable
+HTTP, and it is public and **unauthenticated** — you add it with just the URL,
+with no API key and no OAuth step. That last point matters in one place: a
+client that *requires* OAuth for custom servers (currently the consumer Gemini
+app) cannot attach a no-auth endpoint like this one, so there you fall back to
+the command-line tool.
 
-### Claude
+Each vendor is covered twice below: once for its command-line (coding) tool, and
+once for its web or desktop app, since the two often differ in how — and whether
+— a custom server can be added. GitHub Copilot, which spans several editors
+rather than a single model, has its own section at the end.
 
-Remote MCP connectors are available to Claude users on all plans, in both
-[Claude.ai](https://claude.ai) and Claude Code. In the web or desktop app, open
-**Settings → Connectors → Add custom connector**, give it a name (for example
-"ocaml.org") and paste the URL `https://ocaml.org/mcp`. In Claude Code, run:
+### Anthropic (Claude)
+
+#### Claude Code (command line)
+
+Claude Code speaks Streamable HTTP to remote servers. Add the endpoint with:
 
 ```bash
-claude mcp add --transport http ocaml-org https://ocaml.org/mcp
+claude mcp add --transport http --scope user ocaml-org https://ocaml.org/mcp
 ```
 
-### ChatGPT
+The `--scope user` flag makes the connector available across all your projects;
+without it, `claude mcp add` registers the server for the current project only.
+See the [Claude Code MCP documentation](https://code.claude.com/docs/en/mcp).
 
-ChatGPT reaches custom MCP servers through **Developer Mode**. Enable it under
-**Settings → Connectors → Advanced → Developer mode**, then add a new connector
-pointing at `https://ocaml.org/mcp`. Custom connector availability depends on
-your ChatGPT plan.
+#### Claude.ai (web and desktop)
 
-### Gemini
+Open **Settings → Connectors → Add custom connector**, give it a name (for
+example "ocaml.org") and paste `https://ocaml.org/mcp`. Custom connectors are
+available on every plan, with two limits worth knowing: the Free plan is capped
+at a single custom connector, and on Team and Enterprise only an Owner can add
+one, and only if the organisation has enabled custom connectors. See
+[Get started with custom connectors](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
 
-Gemini's support for custom MCP servers is oriented towards its enterprise and
-developer tooling (for example the Gemini CLI and Vertex AI Agent Engine) rather
-than the consumer app. Point your MCP-capable Gemini client at
-`https://ocaml.org/mcp` following its connector configuration.
+### OpenAI (ChatGPT and Codex)
+
+#### Codex (command line)
+
+Codex supports remote Streamable HTTP servers. Add the endpoint with:
+
+```bash
+codex mcp add ocaml-org --url https://ocaml.org/mcp
+```
+
+This writes to the global `~/.codex/config.toml`, so it applies to all your
+sessions; a project-local `.codex/config.toml` scopes it to one directory. See
+the [Codex MCP documentation](https://developers.openai.com/codex/mcp).
+
+#### ChatGPT (web)
+
+Custom MCP servers require **Developer Mode**: enable it under **Settings → Apps
+& Connectors → Advanced → Developer mode**, then add a connector pointing at
+`https://ocaml.org/mcp`. Developer Mode is available on the Plus, Pro, Business,
+Enterprise and Edu plans — **not** the free tier — and accepts only remote
+HTTPS servers (there is no local/stdio option). Note that Developer Mode grants
+full read/write MCP access, so review anything you connect. See
+[Developer mode and MCP apps in ChatGPT](https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt).
+
+### Google (Gemini)
+
+#### Gemini CLI (command line)
+
+Add a server under `mcpServers` in the user-level `~/.gemini/settings.json`
+(global, across all projects; a project-local `.gemini/settings.json` scopes it
+to one directory), using `httpUrl` for a Streamable HTTP server:
+
+```json
+{
+  "mcpServers": {
+    "ocaml-org": { "httpUrl": "https://ocaml.org/mcp" }
+  }
+}
+```
+
+See [MCP servers with the Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md).
+Google's newer agentic client, [Antigravity](https://antigravity.google/docs/mcp/),
+manages MCP servers in much the same way.
+
+#### Gemini app (web)
+
+The consumer Gemini app requires **OAuth** for custom MCP servers, so the
+public, unauthenticated ocaml.org endpoint cannot be added there. Use the Gemini
+CLI above, or a
+[Gemini Enterprise (Vertex AI) setup](https://docs.cloud.google.com/gemini/enterprise/docs/connectors/custom-mcp-server/set-up-custom-mcp-server),
+instead.
+
+### Mistral (Le Chat and Vibe)
+
+#### Mistral Vibe (command line)
+
+Mistral's command-line coding agent,
+[Mistral Vibe](https://docs.mistral.ai/vibe/code/cli/mcp-servers), supports MCP
+servers over `http`/`streamable-http`/`stdio`. Add a server under `mcp_servers`
+in its global `config.toml` with the URL `https://ocaml.org/mcp` (see the docs
+for the exact transport keys), then browse configured servers from within Vibe
+with `/mcp` or `/connectors`.
+
+#### Le Chat (web)
+
+Open **Intelligence → Connectors → Add connector → Add custom connector** and
+enter `https://ocaml.org/mcp`. Custom remote connectors are available on all Le
+Chat plans; on organisation plans an admin controls which connectors members may
+use. See [Using MCP connectors with Le Chat](https://help.mistral.ai/en/articles/393511-using-my-mcp-connectors-with-le-chat).
+
+### GitHub Copilot (VS Code, CLI and coding agent)
+
+Copilot connects to remote Streamable HTTP servers across all its surfaces, and
+because this endpoint needs no authentication you can skip the OAuth step its
+documentation describes for authenticated servers.
+
+In **VS Code** (agent mode, VS Code 1.101 or later), add a workspace
+`.vscode/mcp.json` — note the root key is `servers`, not `mcpServers` — then turn
+on **Agent mode** in the Copilot Chat input:
+
+```json
+{
+  "servers": {
+    "ocaml-org": { "type": "http", "url": "https://ocaml.org/mcp" }
+  }
+}
+```
+
+In the **Copilot CLI**, run `/mcp add` and give the name `ocaml-org`, type
+`http`, and URL `https://ocaml.org/mcp`. The **Copilot coding agent** — the one
+that runs on github.com and opens pull requests — also supports remote MCP
+servers, configured in the repository or organisation Copilot settings.
+
+See [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers),
+[Adding MCP servers for the Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers),
+and [Extending Copilot with MCP](https://docs.github.com/copilot/customizing-copilot/using-model-context-protocol/extending-copilot-chat-with-mcp).
+
+## Local and open-weight models
+
+MCP is a client-side protocol and it is model-agnostic: the server never knows
+which model is calling it. The endpoint therefore works just as well behind a
+locally-run, open-weight model (Llama, Mistral, Qwen, and so on) as behind a
+hosted one — what matters is that the *client* speaks Streamable HTTP MCP. A
+runner such as Ollama, LM Studio or llama.cpp serves the model, and an
+MCP-capable harness in front of it — LM Studio itself, Cline, Continue, Goose,
+LibreChat, or Mistral Vibe pointed at a local provider — makes the tool calls
+and holds the connector.
+
+Two caveats. First, running the model locally does not make the connection
+local: the request to `https://ocaml.org/mcp` still leaves your machine over
+HTTPS; only the model inference is local. Second, tool use is demanding —
+smaller local models are often less reliable at deciding when to call a tool and
+at chaining several calls (for example, following a module's cross-references
+across dependencies), so results vary with the model.
 
 ## Notes
 
 The endpoint is public and rate-limited per client. It only ever reads from
 ocaml.org's own package data, so it cannot be used to fetch arbitrary URLs.
-Because the assistant connects from its vendor's cloud, the server cannot see
-your local machine: it is not a substitute for local tooling that inspects your
-current opam switch, pins or installed packages.
+When the assistant connects from its vendor's cloud, the server cannot see
+your local machine. This is not the case when using a local coding agent. In all
+cases, it is not a substitute for local tooling that inspects your current opam
+switch, pins or installed packages.
 
 ### Untrusted content
 

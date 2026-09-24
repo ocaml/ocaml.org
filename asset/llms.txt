@@ -115,7 +115,7 @@
 - [Package Search](https://ocaml.org/packages): Search the OCaml package repository (opam)
 - [Package Pages](https://ocaml.org/p/dream/latest): Every opam package has a page at `https://ocaml.org/p/<name>/<version>` (or `latest`) with its README, dependencies, reverse dependencies, and API documentation under `/doc/`
 - [GraphQL API](https://ocaml.org/graphiql): Query opam package metadata — including dependencies, reverse dependencies, and conflicts — by POSTing GraphQL queries to `https://ocaml.org/graphql` (this link is the interactive explorer)
-- [MCP Server](https://ocaml.org/tools/mcp-server): A hosted Model Context Protocol endpoint at `https://ocaml.org/mcp` (Streamable HTTP) that lets AI assistants query opam package dependency data (`ocaml_package_dependencies`, `ocaml_package_reverse_dependencies`) and documentation (`ocaml_package_documentation`, `ocaml_module_documentation`) (this link is the setup guide)
+- [MCP Server](https://ocaml.org/tools/docs-mcp): A hosted Model Context Protocol endpoint at `https://ocaml.org/mcp` (Streamable HTTP) that lets AI assistants query opam package dependency data (`ocaml_package_dependencies`, `ocaml_package_reverse_dependencies`) and documentation (`ocaml_package_documentation`, `ocaml_module_documentation`) (this link is the setup guide)
 
 ## Releases
 
