@@ -120,15 +120,20 @@ let strip_invisible s =
    contain HTML/XML examples (e.g. dream's own XSS docs mention "<script>"), and
    Markup.ml decodes the source entities back to raw "<"/">"; if we re-emitted
    those verbatim, a client rendering the body as Markdown-with-raw-HTML would
-   treat "<script>"/"<style>"/event handlers as live markup. Escaping "&<>"
-   guarantees no raw tag can form anywhere in the body — in prose or after a
-   code-fence breakout — so the strip's safety does not depend on the consumer's
-   renderer. ("&" first, so "<"→"&lt;" is not re-escaped.) *)
+   treat "<script>"/"<style>"/event handlers as live markup. Escaping "&" and
+   "<" guarantees no raw tag — and no angle-bracket autolink — can form anywhere
+   in the body, in prose or after a code-fence breakout, so the strip's safety
+   does not depend on the consumer's renderer. ("&" first, so "<"→"&lt;" is not
+   re-escaped.)
+
+   We deliberately do NOT escape ">": a tag or autolink can only open with "<",
+   so once that is gone ">" is inert (a lone leading ">" is at most a Markdown
+   blockquote, not an active-markup or exfiltration vector). Leaving it raw
+   keeps OCaml signatures — where "->" is pervasive — readable instead of
+   littering the body with "-&gt;", which also wastes the very tokens this strip
+   exists to save. *)
 let escape s =
-  s
-  |> replace_all ~sub:"&" ~by:"&amp;"
-  |> replace_all ~sub:"<" ~by:"&lt;"
-  |> replace_all ~sub:">" ~by:"&gt;"
+  s |> replace_all ~sub:"&" ~by:"&amp;" |> replace_all ~sub:"<" ~by:"&lt;"
 
 (* Neutralise the one Markdown construct escaping doesn't cover: the "](" join
    of an image/inline-link. We never emit links ourselves, but doc text may
@@ -421,20 +426,22 @@ let on_start st name attrs =
   else if List.mem name dropped then st.drop_depth <- st.drop_depth + 1
   else (
     st.stack <- name :: st.stack;
-    match name with
-    | "a" when st.anchor = None ->
-        st.anchor <- Some (find_href attrs, Buffer.create 32)
-    | _ when st.anchor <> None -> () (* inside a link: capture text only *)
-    | "pre" ->
-        st.pre_depth <- st.pre_depth + 1;
-        emit st "\n\n```\n"
-    | _ when heading_level name <> None ->
-        emit st
-          ("\n\n" ^ String.make (Option.get (heading_level name)) '#' ^ " ")
-    | "li" -> emit st "\n- "
-    | "p" | "div" | "section" | "ul" | "ol" | "table" | "tr" -> emit st "\n\n"
-    | "br" -> emit st "\n"
-    | _ -> ())
+    if name = "a" && st.anchor = None then
+      st.anchor <- Some (find_href attrs, Buffer.create 32)
+    else if st.anchor <> None then () (* inside a link: capture text only *)
+    else
+      match heading_level name with
+      | Some level -> emit st ("\n\n" ^ String.make level '#' ^ " ")
+      | None -> (
+          match name with
+          | "pre" ->
+              st.pre_depth <- st.pre_depth + 1;
+              emit st "\n\n```\n"
+          | "li" -> emit st "\n- "
+          | "p" | "div" | "section" | "ul" | "ol" | "table" | "tr" ->
+              emit st "\n\n"
+          | "br" -> emit st "\n"
+          | _ -> ()))
 
 let on_end st =
   if st.drop_depth > 0 then st.drop_depth <- st.drop_depth - 1
