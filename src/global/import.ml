@@ -11,8 +11,24 @@ module String = struct
       false
     with Exit -> true
 
+  let case_fold s =
+    let buf = Buffer.create (length s * 2) in
+    let rec loop i max =
+      if i > max then Buffer.contents buf
+      else
+        let dec = get_utf_8_uchar s i in
+        let u = Uchar.utf_decode_uchar dec in
+        (match Uucp.Case.Fold.fold u with
+        | `Self -> Buffer.add_utf_8_uchar buf u
+        | `Uchars us -> List.iter (Buffer.add_utf_8_uchar buf) us);
+        loop (i + Uchar.utf_decode_length dec) max
+    in
+    loop 0 (length s - 1)
+
+  let caseless_equal a b = case_fold a = case_fold b
+
   let is_sub_ignore_case pattern text =
-    contains_s (lowercase_ascii text) (lowercase_ascii pattern)
+    contains_s (case_fold text) (case_fold pattern)
 
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =
