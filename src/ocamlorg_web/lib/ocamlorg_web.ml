@@ -7,6 +7,12 @@ module Graphql = Graphql
    (issue #3775). *)
 module Mcp_doc_html = Mcp_doc_html
 
+(* Exposed for tests: the MCP tool assembly (issue #3775), so the red-team
+   transport test can drive the production sanitisation projections
+   ([sanitized_doc_fields] / [sanitized_overview_fields]) end to end through the
+   JSON-RPC transport. *)
+module Mcp_tools = Mcp_tools
+
 (* Set up basic logging for logs that would happen before Dream is set up. *)
 let () =
   Logs.set_reporter (Logs.format_reporter ());

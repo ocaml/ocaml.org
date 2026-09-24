@@ -225,6 +225,41 @@ let json_common pkg =
 let ok_json fields =
   Ok [ Tool.text_content (Yojson.Safe.to_string (`Assoc fields)) ]
 
+(* --- Sanitised projections of untrusted, community-authored content. ---
+
+   These wrap the {!Mcp_doc_html} sanitiser into the JSON field lists the docs
+   tools emit, and carry the [content_trust] label. They are factored out of the
+   handlers (a) to keep the two untrusted surfaces — a rendered module page and
+   the free-text overview fields — sanitised the same way, and (b) so the
+   red-team transport test (#3775, #3797 follow-up) can drive the exact
+   production sanitisation path over a fixture page, end to end through the
+   JSON-RPC transport. *)
+
+(* The security-relevant projection of a rendered doc page: the escaped/defanged
+   body and the deduplicated, inert reference list. *)
+let sanitized_doc_fields ~package ~version ~path ~html =
+  let safe = Mcp_doc_html.transform ~package ~version ~path ~html () in
+  [
+    ("content_trust", `String "community-authored-untrusted");
+    ("content", `String safe.body);
+    ("truncated", `Bool safe.truncated);
+    ( "references",
+      `List (List.map Mcp_doc_html.reference_to_json safe.references) );
+    ("references_truncated", `Bool safe.references_truncated);
+  ]
+
+(* The free-text overview fields (synopsis/description/tags) are
+   attacker-authored; sanitise them like doc prose (strip invisibles, escape,
+   defang). *)
+let sanitized_overview_fields ~synopsis ~description ~tags =
+  let sanitize = Mcp_doc_html.sanitize_field in
+  [
+    ("content_trust", `String "community-authored-untrusted");
+    ("synopsis", `String (sanitize synopsis));
+    ("description", `String (sanitize description));
+    ("tags", `List (List.map (fun t -> `String (sanitize t)) tags));
+  ]
+
 (* docs-ci sidebar hrefs are full site paths, e.g.
    "/p/lwt/5.9.0/doc/Lwt/index.html". The [documentation_page] accessor wants
    the part relative to the doc root ("Lwt/index.html"), which is what the
@@ -345,21 +380,14 @@ let package_documentation state : Tool.t =
             let libraries, modules =
               libraries_and_modules ~name ~version sidebar
             in
-            (* synopsis/description are attacker-authored free text; sanitise
-               them like doc prose (strip invisibles, escape, defang). *)
-            let sanitize = Mcp_doc_html.sanitize_field in
             ok_json
               (json_common pkg
+              @ sanitized_overview_fields ~synopsis:info.synopsis
+                  ~description:info.description ~tags:info.tags
               @ [
-                  ("content_trust", `String "community-authored-untrusted");
-                  ("synopsis", `String (sanitize info.synopsis));
-                  ("description", `String (sanitize info.description));
                   ("license", `String info.license);
                   ( "homepage",
                     `List (List.map (fun h -> `String h) info.homepage) );
-                  ( "tags",
-                    `List (List.map (fun t -> `String (sanitize t)) info.tags)
-                  );
                   ( "documentation_status",
                     `String (documentation_status_string status) );
                   ("libraries", libraries);
@@ -490,29 +518,17 @@ let module_documentation state : Tool.t =
                     let version =
                       Package.Version.to_string (Package.version pkg)
                     in
-                    let safe =
-                      Mcp_doc_html.transform ~package:name ~version ~path
-                        ~html:d.content ()
-                    in
                     ok_json
                       (json_common pkg
                       @ [
                           ("path", `String path);
                           ("uses_katex", `Bool d.uses_katex);
-                          ( "content_trust",
-                            `String "community-authored-untrusted" );
                           ( "breadcrumbs",
                             `List (List.map breadcrumb_json d.breadcrumbs) );
                           ("toc", `List (List.map doc_toc_json d.toc));
-                          ("content", `String safe.body);
-                          ("truncated", `Bool safe.truncated);
-                          ( "references",
-                            `List
-                              (List.map Mcp_doc_html.reference_to_json
-                                 safe.references) );
-                          ( "references_truncated",
-                            `Bool safe.references_truncated );
-                        ])));
+                        ]
+                      @ sanitized_doc_fields ~package:name ~version ~path
+                          ~html:d.content)));
     cacheable = true;
     annotations = Some Tool.read_only_annotations;
   }
