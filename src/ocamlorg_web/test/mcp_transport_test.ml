@@ -207,7 +207,7 @@ let module_documentation_neutralised () =
     ];
   Alcotest.(check bool)
     "entity-encoded tag re-escaped" true
-    (contains ~needle:"&lt;script&gt;" body);
+    (contains ~needle:"&lt;script>" body);
   (* The phishing link is present only as an inert External reference. *)
   let has_external_phish =
     List.exists
@@ -288,7 +288,7 @@ let overview_fields_neutralised () =
   in
   Alcotest.(check bool)
     "synopsis script re-escaped" true
-    (contains ~needle:"&lt;script&gt;" synopsis);
+    (contains ~needle:"&lt;script>" synopsis);
   Alcotest.(check bool)
     "synopsis has no raw tag" false
     (contains ~needle:"<script" synopsis)

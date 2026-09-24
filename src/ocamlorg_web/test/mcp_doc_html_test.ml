@@ -60,13 +60,13 @@ let angle_autolink_defanged () =
 
 let literal_tag_escaped () =
   (* A tag that was an entity in the source (odoc code/prose about HTML),
-     decoded by the parser, must be re-escaped so no raw tag reaches a Markdown
-     renderer. *)
+     decoded by the parser, must have its "<" re-escaped so no raw tag reaches a
+     Markdown renderer. ">" is left raw (inert without a "<"). *)
   let b = body "<p>Dream.html_escape protects &lt;script&gt; tags.</p>" in
   Alcotest.(check bool) "no raw <script" false (contains ~needle:"<script" b);
   Alcotest.(check bool)
     "escaped form present" true
-    (contains ~needle:"&lt;script&gt;" b)
+    (contains ~needle:"&lt;script>" b)
 
 let invisible_stripped () =
   (* U+200B zero-width space, U+202E RLO, a C0 control, U+FEFF BOM: hidden-text
@@ -188,7 +188,11 @@ let dedup () =
 let code_block_preserved () =
   let b = body "<pre>val bind : 'a t -> ('a -> 'b t) -> 'b t</pre>" in
   Alcotest.(check bool) "fenced" true (contains ~needle:"```" b);
-  Alcotest.(check bool) "signature kept" true (contains ~needle:"val bind :" b)
+  Alcotest.(check bool) "signature kept" true (contains ~needle:"val bind :" b);
+  (* ">" is left unescaped, so OCaml arrows survive verbatim rather than turning
+     into "-&gt;". *)
+  Alcotest.(check bool) "arrow verbatim" true (contains ~needle:"-> ('a ->" b);
+  Alcotest.(check bool) "no escaped arrow" false (contains ~needle:"&gt;" b)
 
 let truncation () =
   let big = "<p>" ^ String.make 5000 'x' ^ "</p>" in
