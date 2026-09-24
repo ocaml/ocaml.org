@@ -58,6 +58,7 @@
   tutorial_parser
   cookbook_parser
   governance_parser
+  governance_meeting_parser
   is_ocaml_yet_parser
   outreachy_parser
   tool_page_parser

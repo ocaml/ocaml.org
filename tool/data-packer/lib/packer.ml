@@ -60,6 +60,7 @@ let load_all () =
   let outreachy = Outreachy_parser.all () in
   let governance_teams = Governance_parser.teams () in
   let governance_working_groups = Governance_parser.working_groups () in
+  let governance_meetings = Governance_meeting_parser.all () in
   let tool_pages = Tool_page_parser.all () in
   {
     All_data.testimonials;
@@ -99,5 +100,6 @@ let load_all () =
     outreachy;
     governance_teams;
     governance_working_groups;
+    governance_meetings;
     tool_pages;
   }

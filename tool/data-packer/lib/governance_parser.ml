@@ -28,8 +28,21 @@ let contact_kind_of_yaml = function
 type contact = [%import: Data_intf.Governance.contact]
 [@@deriving of_yaml, show]
 
-type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
-[@@deriving of_yaml, show]
+type dev_meeting = [%import: Data_intf.Governance.dev_meeting] [@@deriving show]
+
+type dev_meeting_metadata = {
+  date : string;
+  time : string;
+  link : string;
+  ical : string option; [@default None]
+  calendar : string option; [@default None]
+  notes : string;
+}
+[@@deriving of_yaml, stable_record ~version:Data_intf.Governance.dev_meeting]
+
+let dev_meeting_of_yaml yml =
+  yml |> dev_meeting_metadata_of_yaml
+  |> Result.map dev_meeting_metadata_to_Data_intf_Governance_dev_meeting
 
 type team_metadata = {
   id : string;

@@ -86,6 +86,12 @@ module Governance : sig
   val get_by_id : string -> team option
 end
 
+module Governance_meeting : sig
+  include module type of Governance_meeting
+
+  val all : t list
+end
+
 module Industrial_user : sig
   include module type of Industrial_user
 
