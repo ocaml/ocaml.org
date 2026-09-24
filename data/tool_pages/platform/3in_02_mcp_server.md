@@ -1,7 +1,7 @@
 ---
 id: "docs-mcp"
-short_title: "MCP Server"
-title: "The ocaml.org MCP Server: OCaml Package Data for AI Assistants"
+short_title: "Docs MCP Server"
+title: "ocaml.org MCP server: Package Data for AI Assistants"
 description: "A hosted Model Context Protocol endpoint that lets AI assistants query opam package dependency and documentation information."
 category: "OCaml Infrastructure"
 ---
@@ -20,11 +20,6 @@ The endpoint is:
 ```text
 https://ocaml.org/mcp
 ```
-
-It speaks Streamable HTTP (JSON-RPC 2.0 over an HTTP `POST`, with a companion
-`GET` for the server-to-client stream), which is the transport remote MCP
-clients use. The server is public, read-only and stateless: it exposes data
-ocaml.org already computes and holds no per-session state.
 
 ## Available tools
 
@@ -155,23 +150,29 @@ CLI above, or a
 [Gemini Enterprise (Vertex AI) setup](https://docs.cloud.google.com/gemini/enterprise/docs/connectors/custom-mcp-server/set-up-custom-mcp-server),
 instead.
 
-### Mistral (Le Chat and Vibe)
+### Mistral (Vibe)
 
-#### Mistral Vibe (command line)
+Mistral folded its Le Chat assistant and its coding agent into a single product,
+**Mistral Vibe**, with two relevant modes: Vibe Work (the web and mobile
+assistant, formerly Le Chat) and Vibe Code (the coding mode, available as a
+command-line tool, a VS Code extension and a web interface).
 
-Mistral's command-line coding agent,
-[Mistral Vibe](https://docs.mistral.ai/vibe/code/cli/mcp-servers), supports MCP
-servers over `http`/`streamable-http`/`stdio`. Add a server under `mcp_servers`
-in its global `config.toml` with the URL `https://ocaml.org/mcp` (see the docs
-for the exact transport keys), then browse configured servers from within Vibe
-with `/mcp` or `/connectors`.
+#### Vibe Code (command line)
 
-#### Le Chat (web)
+Vibe Code supports MCP servers over `http`/`streamable-http`/`stdio`. Add a
+server under `mcp_servers` in its `config.toml` with the URL
+`https://ocaml.org/mcp` (see the docs for the exact transport keys), then browse
+configured servers from within Vibe with `/mcp` or `/connectors`. See
+[MCP servers in Vibe Code](https://docs.mistral.ai/vibe/code/cli/mcp-servers).
 
-Open **Intelligence → Connectors → Add connector → Add custom connector** and
-enter `https://ocaml.org/mcp`. Custom remote connectors are available on all Le
-Chat plans; on organisation plans an admin controls which connectors members may
-use. See [Using MCP connectors with Le Chat](https://help.mistral.ai/en/articles/393511-using-my-mcp-connectors-with-le-chat).
+#### Vibe Work (web)
+
+Open the **Connectors** page, click **+ Add Connector**, switch to the **Custom
+MCP Connector** tab, then enter a connector name and the server URL
+`https://ocaml.org/mcp` and click **Connect** (a no-auth server like this one is
+detected automatically). Adding a connector is an administrator-only action; on
+the Free, Pro and Student plans the account owner is the administrator by
+default. See [MCP connectors in Vibe Work](https://docs.mistral.ai/vibe/work/connectors/mcp-connectors).
 
 ### GitHub Copilot (VS Code, CLI and coding agent)
 
@@ -219,6 +220,11 @@ at chaining several calls (for example, following a module's cross-references
 across dependencies), so results vary with the model.
 
 ## Notes
+
+The server speaks Streamable HTTP (JSON-RPC 2.0 over an HTTP `POST`, with a
+companion `GET` for the server-to-client stream), which is the transport remote
+MCP clients use. It is read-only and stateless: it exposes data ocaml.org
+already computes and holds no per-session state.
 
 The endpoint is public and rate-limited per client. It only ever reads from
 ocaml.org's own package data, so it cannot be used to fetch arbitrary URLs.
