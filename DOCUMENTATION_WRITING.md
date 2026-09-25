@@ -49,7 +49,7 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 ## Common Phrases
 
 - "Binding a value to a name" = declaring a variable
-- `'a` in a type expression (e.g. `'a -> 'a`) is a *type variable* called "alpha." It is a *type parameter* only when it names the parameter slot of a parameterised type (`type 'a list`) — the two are not synonyms: a parameter can be a wildcard `_`, and `... as 'a` is a type variable with no parameter.
+- `'a` (called "alpha") is always a *type variable*: it stands for an unknown type inside a type expression (e.g. `'a -> 'a`). *Type parameter* isn't a second kind of thing — it's a *role* a type variable can play, the parameter slot a type operator takes, as in `type 'a list`. So don't treat the two as synonyms: a type parameter need not even be a variable, it can be a wildcard `_` (`type _ t = int`).
 - Pass a function as a value to another function as a parameter - not a "function value"
   
 ## Things to Avoid

@@ -708,7 +708,7 @@ val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 In the OCaml community, as well as in the larger functional programming community, the word _polymorphism_ is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism and has a name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it is sometimes necessary to distinguish them.
 
 Here are the terms applicable to data types:
-1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators. In a definition like `type 'a option = …`, `'a` is the operator's _type parameter_. This is not the same as a _type variable_, which is what `'a` is called when it stands in the type of a value or function, as in the identity function's `'a -> 'a`. The two usually coincide but need not: a type parameter can be a wildcard (`type _ t = int`), and a type variable can appear with no parameter in sight (as in `(x : int * string as 'a)`).
+1. `'a list`, `'a option`, and `'a tree` are very often said to be polymorphic types. Formally, `bool list` or `int option` are the types, whilst `list` and `option` are [type operators](https://en.wikipedia.org/wiki/Type_constructor) that take a type parameter and result in a type. This is a form of [parametric polymorphism](https://en.wikipedia.org/wiki/Parametric_polymorphism). `'a list` and `'a option` denote [type families](https://en.wikipedia.org/wiki/Type_family), which are all the types created by applying type parameters to the operators.
 
 <!--
 
@@ -718,6 +718,25 @@ issue - "The polymorphic variants tutorial is unreleased, so the best at this po
 
 2. OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are covered in [another tutorial](docs/labels#more-variants-polymorphic-variants).
 -->
+
+The terms _type variable_ and _type parameter_ are close, but they name different things. A _type variable_, written `'a` or `'b`, stands for an unknown type inside a type expression. A _type parameter_ is a role: the slot a type operator takes before it yields a type. The same `'a` can appear in either role:
+
+```ocaml
+# type 'a t = 'a -> 'a;;
+type 'a t = 'a -> 'a
+
+# let id x = x;;
+val id : 'a -> 'a = <fun>
+```
+
+In `type 'a t`, the leading `'a` is a type parameter: the slot the operator `t` takes. In the identity function's type `'a -> 'a`, there is no such operator, so its `'a` is a type variable filling no parameter role. In other words, `'a` is always a type variable; being a type parameter is a role it plays with respect to a type operator.
+
+A type parameter need not be bound to a type variable. The wildcard `_` is an anonymous binder, a name that must not be referred to, so the following declares a type operator whose parameter is deliberately left unused:
+
+```ocaml
+# type _ t = int;;
+type _ t = int
+```
 
 ### Records
 
