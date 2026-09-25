@@ -186,7 +186,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 - : 'a array = [||]
 ```
 
-Remember, `'a` ("alpha") is a type parameter that will be replaced by another type.
+Remember, `'a` ("alpha") is a type variable that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 
@@ -367,7 +367,7 @@ The second expression is function application. The argument `9` is applied, and 
 
 The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its argument can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
-Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
+Remember, the `'a` is a _type variable_, so values of any type can be passed to the function and their type replaces the type variable. The identity function has the same input and output type, whatever it may be.
 
 The following example shows that the identity function can apply to arguments of different types:
 
@@ -718,6 +718,25 @@ issue - "The polymorphic variants tutorial is unreleased, so the best at this po
 
 2. OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are covered in [another tutorial](docs/labels#more-variants-polymorphic-variants).
 -->
+
+The terms _type variable_ and _type parameter_ are close, but they name different things. A _type variable_, written `'a` or `'b`, stands for an unknown type inside a type expression. A _type parameter_ is a role: the slot a type operator takes before it yields a type. The same `'a` can appear in either role:
+
+```ocaml
+# type 'a t = 'a -> 'a;;
+type 'a t = 'a -> 'a
+
+# let id x = x;;
+val id : 'a -> 'a = <fun>
+```
+
+In `type 'a t`, the leading `'a` is a type parameter: the slot the operator `t` takes. In the identity function's type `'a -> 'a`, there is no such operator, so its `'a` is a type variable filling no parameter role. In other words, `'a` is always a type variable; being a type parameter is a role it plays with respect to a type operator.
+
+A type parameter need not be bound to a type variable. The wildcard `_` is an anonymous binder, a name that must not be referred to, so the following declares a type operator whose parameter is deliberately left unused:
+
+```ocaml
+# type _ t = int;;
+type _ t = int
+```
 
 ### Records
 
