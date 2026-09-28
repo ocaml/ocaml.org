@@ -6,6 +6,11 @@ description: "A hosted Model Context Protocol endpoint that lets AI assistants q
 category: "OCaml Infrastructure"
 ---
 
+> **Experimental / beta.** The ocaml.org MCP server is a new, experimental
+> service. It may change, be rate-limited more tightly, or be taken down without
+> notice while it stabilises, and it is not guaranteed to be available on every
+> deployment.
+
 This page was written with AI assistance and reviewed by the OCaml.org team.
 
 ocaml.org hosts a public [Model Context Protocol](https://modelcontextprotocol.io)

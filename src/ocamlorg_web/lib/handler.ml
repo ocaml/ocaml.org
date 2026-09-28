@@ -763,14 +763,28 @@ let resources _req =
 
 let tools req = Dream.redirect req ~code:307 Url.platform
 
+(* The "docs-mcp" tool page documents the /mcp endpoint, which is itself gated
+   by [Config.mcp_enabled] in the router. Keep the page in lock-step with the
+   endpoint: when the MCP server is disabled, neither the page nor its sidebar
+   link should appear. *)
+let visible_tool_pages () =
+  if Config.mcp_enabled then Data.Tool_page.all
+  else
+    List.filter
+      (fun (p : Data.Tool_page.t) -> p.slug <> "docs-mcp")
+      Data.Tool_page.all
+
 let tools_platform _req =
   let tools = Data.Tool.all in
-  Dream.html (Ocamlorg_frontend.tools_platform ~pages:Data.Tool_page.all tools)
+  Dream.html
+    (Ocamlorg_frontend.tools_platform ~pages:(visible_tool_pages ()) tools)
 
 let tool_page commit_hash req =
   let slug = Dream.param req "id" in
-  let</>? page = Data.Tool_page.get_by_slug slug in
-  let pages = Data.Tool_page.all in
+  let pages = visible_tool_pages () in
+  let</>? page =
+    List.find_opt (fun (p : Data.Tool_page.t) -> p.slug = slug) pages
+  in
   Dream.html
     (Ocamlorg_frontend.tool_page commit_hash ~pages
        ~canonical:(Url.tool_page page.slug) page)
