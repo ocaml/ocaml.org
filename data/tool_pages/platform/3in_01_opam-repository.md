@@ -6,6 +6,8 @@ description: "Breakdown of How the Opam Respository Works"
 category: "OCaml Infrastructure"
 ---
 
+This page was written with AI assistance and reviewed by the OCaml.org team.
+
 The [opam repository](https://github.com/ocaml/opam-repository) is the central package registry for the OCaml ecosystem, hosting over 4,500 packages and processing nearly 200 new packages and releases each month. It operates as a curated Git repository containing package metadata rather than the packages themselves.
 
 Source Code: [opam-repository](https://github.com/ocaml/opam-repository)
