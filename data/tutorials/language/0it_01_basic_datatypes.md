@@ -719,25 +719,6 @@ issue - "The polymorphic variants tutorial is unreleased, so the best at this po
 2. OCaml has something called _Polymorphic Variants_. Although the types `option`, `list`, and `tree` are variants and polymorphic, they aren't polymorphic variants. They are type-parametrised variants. We stick to this usage and say the variants in this section are polymorphic. OCaml polymorphic variants are covered in [another tutorial](docs/labels#more-variants-polymorphic-variants).
 -->
 
-The terms _type variable_ and _type parameter_ are close, but they name different things. A _type variable_, written `'a` or `'b`, stands for an unknown type inside a type expression. A _type parameter_ is a role: the slot a type operator takes before it yields a type. The same `'a` can appear in either role:
-
-```ocaml
-# type 'a t = 'a -> 'a;;
-type 'a t = 'a -> 'a
-
-# let id x = x;;
-val id : 'a -> 'a = <fun>
-```
-
-In `type 'a t`, the leading `'a` is a type parameter: the slot the operator `t` takes. In the identity function's type `'a -> 'a`, there is no such operator, so its `'a` is a type variable filling no parameter role. In other words, `'a` is always a type variable; being a type parameter is a role it plays with respect to a type operator.
-
-A type parameter need not be bound to a type variable. The wildcard `_` is an anonymous binder, a name that must not be referred to, so the following declares a type operator whose parameter is deliberately left unused:
-
-```ocaml
-# type _ t = int;;
-type _ t = int
-```
-
 ### Records
 
 Records are like tuples in that several values are bundled together. In a tuple, elements are identified by their position in the corresponding product type. They are either first, second, third, or at some other position. In a record, each element has a name and a value. This name-value pair is known as a field. That's why record types must be declared before being used.
