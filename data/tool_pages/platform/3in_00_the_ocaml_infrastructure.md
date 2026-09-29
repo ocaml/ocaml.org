@@ -6,6 +6,8 @@ description: "An overview of the services that belong to the OCaml Infrastructur
 category: "OCaml Infrastructure"
 ---
 
+This page was written with AI assistance and reviewed by the OCaml.org team.
+
 The OCaml ecosystem is supported by a [robust infrastructure built around OCurrent](https://github.com/ocurrent/overview). The OCaml Infrastructure powers many essential services that OCaml developers rely on daily.
 
 ## What is OCurrent?
