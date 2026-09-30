@@ -25,6 +25,8 @@ Markdown lint rules live in `.markdownlint-cli2.jsonc`; CI lints only changed fi
 
 This is a Dream-based OCaml web application that serves ocaml.org. The architecture separates data (YAML/Markdown), code generation, and rendering.
 
+The stack is Lwt-based (Dream is Lwt-only) — do not introduce Eio dependencies.
+
 ### Data Flow
 
 1. **Content** lives in `data/` as YAML and Markdown files (tutorials, books, jobs, events, etc.)
