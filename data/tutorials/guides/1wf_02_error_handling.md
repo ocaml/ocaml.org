@@ -673,12 +673,12 @@ Madhavapeddy's OCaml YAML library](https://github.com/avsm/ocaml-yaml):
 
 ```ocaml
 let file_opt = File.read_opt path in
-let file_res = Option.to_result ~none:(`Msg "File not found") file_opt in begin
-  let* yaml = Yaml.of_string file_res in
+begin
+  let* file = Option.to_result ~none:(`Msg "File not found") file_opt in
+  let* yaml = Yaml.of_string file in
   let* found_opt = Yaml.Util.find key yaml in
-  let* found = Option.to_result ~none:(`Msg (key ^ ", key not found")) found_opt in
-  found
-end |> Result.map_error (Printf.sprintf "%s, error: %s: " path)
+  Option.to_result ~none:(`Msg (key ^ ", key not found")) found_opt
+end |> Result.map_error (fun (`Msg e) -> Printf.sprintf "%s, error: %s" path e)
 ```
 
 Here are the types of the involved functions:
@@ -834,7 +834,7 @@ File.read_opt path
 >>= Yaml.of_string
 >>= Yaml.Util.find key
 >>= Option.to_result ~none:(`Msg (key ^ ", key not found"))
-|> Result.map_error (Printf.sprintf "%s, error: %s: " path)
+|> Result.map_error (fun (`Msg e) -> Printf.sprintf "%s, error: %s" path e)
 ```
 
 By the way, this style is called [tacit
