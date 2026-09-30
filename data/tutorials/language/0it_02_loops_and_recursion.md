@@ -238,8 +238,22 @@ val product : int list -> int = <fun>
 - : int = 3628800
 ```
 
-That was easy! Notice that I've accidentally come up with a way to do
-mathematical factorials:
+That was easy! To turn it into something more interesting, I first need a
+`range` function that builds the list of integers between two bounds. I'll come
+back to how it works in the [Recursion](#recursion) section below; for now, here
+it is:
+
+```ocaml
+# let rec range a b =
+    if a > b then []
+    else a :: range (a + 1) b;;
+val range : int -> int -> int list = <fun>
+# range 1 10;;
+- : int list = [1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
+```
+
+Notice that I've accidentally come up with a way to do mathematical factorials,
+since `range 1 n` is the list of integers from `1` to `n`:
 
 ```ocaml
 # let fact n = product (range 1 n);;
