@@ -81,9 +81,6 @@
   xmlm
   uri
   ; tools/data-packer (experimental)
-  bin_prot
-  ppx_bin_prot
-  bigstringaf
   re))
 
 (dialect

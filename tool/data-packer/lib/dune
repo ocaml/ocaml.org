@@ -2,10 +2,7 @@
  (name data_packer)
  (public_name ocamlorg.data_packer)
  (libraries
-  bin_prot
-  ppx_sexp_conv.runtime-lib
   ppx_stable
-  bigstringaf
   ocamlorg.data_intf
   ocamlorg.global
   yaml
@@ -27,9 +24,8 @@
   markdown
   utils
   slug
-  ; Type definitions with bin_io support
+  ; Type definitions
   types
-  ptime_bin_prot
   ; Search utilities
   search
   ; Video type (shared with scrapers)
@@ -76,9 +72,4 @@
   unpacker
   data_packer)
  (preprocess
-  (staged_pps
-   ppx_import
-   ppx_bin_prot
-   ppx_deriving_yaml
-   ppx_stable
-   ppx_deriving.show)))
+  (staged_pps ppx_import ppx_deriving_yaml ppx_stable ppx_deriving.show)))
