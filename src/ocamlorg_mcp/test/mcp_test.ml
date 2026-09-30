@@ -320,6 +320,40 @@ let test_async_success_cached () =
   let _ = call_flaky ~cache calls in
   Alcotest.(check int) "success served from cache" 2 !calls
 
+(* A cacheable tool that always succeeds, counting invocations. Used to prove
+   the cache key is canonical: arguments differing only in key order must hit
+   the same entry rather than recompute. *)
+let counting_tool calls : Ocamlorg_mcp.Tool.t =
+  {
+    name = "count";
+    description = "always succeeds";
+    input_schema =
+      `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
+    handler =
+      (fun _ ->
+        incr calls;
+        Lwt.return (Ok [ Ocamlorg_mcp.Tool.text_content "ok" ]));
+    cacheable = true;
+    annotations = None;
+  }
+
+let call_count ?cache calls arguments =
+  let params = `Assoc [ ("name", `String "count"); ("arguments", arguments) ] in
+  handle_tools ?cache
+    [ counting_tool calls ]
+    (req ~id:21 "tools/call" (Some params))
+  |> member_exn "result"
+
+let test_cache_key_canonical () =
+  let cache = C.create ~max_entries:8 ~ttl:1000. in
+  let calls = ref 0 in
+  let a = `Assoc [ ("x", `Int 1); ("y", `Assoc [ ("p", `Int 3) ]) ] in
+  (* Same arguments, top-level and nested keys reordered. *)
+  let b = `Assoc [ ("y", `Assoc [ ("p", `Int 3) ]); ("x", `Int 1) ] in
+  let _ = call_count ~cache calls a in
+  let _ = call_count ~cache calls b in
+  Alcotest.(check int) "reordered keys share a cache entry" 1 !calls
+
 let () =
   Alcotest.run "ocamlorg_mcp"
     [
@@ -359,5 +393,7 @@ let () =
             test_async_error_not_cached;
           Alcotest.test_case "successful result is cached" `Quick
             test_async_success_cached;
+          Alcotest.test_case "cache key is canonical" `Quick
+            test_cache_key_canonical;
         ] );
     ]

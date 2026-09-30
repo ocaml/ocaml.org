@@ -1,5 +1,6 @@
-(* Streamable HTTP transport for MCP over Dream: JSON-RPC 2.0 over HTTP POST,
-   plus a GET that opens the (optional) server->client SSE stream. This is the
+(* Streamable HTTP transport for MCP over Dream: JSON-RPC 2.0 over HTTP POST.
+   The GET is reserved for the (optional) server->client SSE stream, but we have
+   no server-push yet, so it returns 405 (see [get_handler]). This is the
    transport remote MCP clients speak.
 
    The [/mcp] routes are wrapped in a per-IP rate-limit middleware and share an

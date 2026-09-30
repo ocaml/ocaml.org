@@ -32,6 +32,19 @@ let is_error_result = function
       | _ -> false)
   | _ -> false
 
+(* Canonicalise a JSON value for the cache key: recursively sort object keys so
+   arguments that differ only in key order hit the same entry. Array order is
+   significant and preserved. (Extra/unknown fields still change the key — they
+   change the arguments as far as this generic layer can tell.) *)
+let rec canonical_json : Yojson.Safe.t -> Yojson.Safe.t = function
+  | `Assoc fields ->
+      `Assoc
+        (fields
+        |> List.map (fun (k, v) -> (k, canonical_json v))
+        |> List.sort (fun (a, _) (b, _) -> String.compare a b))
+  | `List items -> `List (List.map canonical_json items)
+  | scalar -> scalar
+
 let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
     Yojson.Safe.t Lwt.t =
   (* The effective registry is [ping] plus any tools injected by the web layer
@@ -75,7 +88,7 @@ let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
                     let now = Unix.gettimeofday () in
                     let key =
                       "tools/call:" ^ tool.name ^ ":"
-                      ^ Yojson.Safe.to_string arguments
+                      ^ Yojson.Safe.to_string (canonical_json arguments)
                     in
                     match Cache.find cache ~now ~key with
                     | Some value -> Lwt.return value
