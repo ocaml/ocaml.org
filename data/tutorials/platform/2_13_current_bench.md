@@ -58,7 +58,7 @@ current-bench expects JSON on stdout with this structure:
 |-------|----------|-------|
 | `results[].name` | yes | Test identifier (shown in the dashboard) |
 | `metric.name` | yes | Unique within the test |
-| `metric.value` | yes | A number, array of numbers, or `{"min":_, "avg":_, "max":_}` |
+| `metric.value` | yes | A number or an array of numbers |
 | `metric.units` | yes | e.g. `"s"`, `"MB"`, `"ops/sec"` |
 | `metric.trend` | no | `"lower-is-better"` or `"higher-is-better"` |
 | `metric.description` | no | Explanation of the metric |
@@ -111,7 +111,7 @@ let test_fibo () =
 let () = bench ~quota:1.0 "my-suite" "fibonacci" test_fibo
 ```
 
-`Cobench.bench` runs the function repeatedly for the given time quota, measures throughput, and prints the JSON to stdout. For more control, the library also provides `metric`, `of_metrics`, `of_results`, and `to_json` functions &mdash; see the [cobench interface](https://github.com/ocurrent/current-bench/blob/main/cobench/cobench.mli).
+`Cobench.bench` runs the function repeatedly for the given time quota, measures its execution time (in milliseconds), and prints the JSON to stdout. For more control, the library also provides `metric`, `of_metrics`, `of_results`, and `to_json` functions &mdash; see the [cobench interface](https://github.com/ocurrent/current-bench/blob/main/cobench/cobench.mli).
 
 ### Validating Output
 
@@ -150,9 +150,9 @@ Make sure JSON goes to **stdout** and all logs go to **stderr** (redirect with `
 
 Install [ocaml-benchmarks](https://github.com/marketplace/ocaml-benchmarks) from the GitHub Marketplace. Select **"Only select repositories"** and choose the repository you want to benchmark.
 
-### Step 3: Get Approved
+### Step 3: Request Enrollment
 
-Enrollment is currently manual. Contact the current-bench maintainers (Tarides) to request approval. They will notify you once your repository is activated.
+current-bench does not currently accept enrollment for community projects on the hosted instance. If you'd like your repository benchmarked there, [open an issue](https://github.com/ocurrent/current-bench/issues/new) to register your interest. In the meantime, you can run your own instance — see [Self-Hosting](#self-hosting) below.
 
 ### Step 4: View Results
 
@@ -221,7 +221,7 @@ Instead of using the built-in worker, you can run benchmarks on your own infrast
 ```sh
 curl -X POST \
   -H 'Authorization: Bearer <token>' \
-  https://your-server:8081/benchmarks/metrics \
+  https://your-server/benchmarks/metrics \
   --data-raw '{
     "repo_owner": "your-org",
     "repo_name": "your-repo",
@@ -235,7 +235,7 @@ curl -X POST \
 
 API tokens are configured per-repository in `production.conf`. The `run_at` field must be RFC 3339, and either `branch` or `pull_number` must be provided.
 
-For the complete self-hosting guide including GitHub App setup, worker configuration, and database migrations, see the [self-hosting documentation](https://github.com/ocurrent/current-bench/blob/main/doc/self_hosting.md).
+For the complete self-hosting guide including GitHub App setup, worker configuration, and database migrations, see the [HACKING guide](https://github.com/ocurrent/current-bench/blob/main/HACKING.md).
 
 ## References
 
