@@ -97,7 +97,7 @@ If you notice that a job opportunity is outdated (e.g., already fulfilled or not
 
 ### <a name="content-success-story"></a>Add a Success Story
 
-> Contribute to the [Success Stories](https://ocaml.org/success-stories).
+> Contribute to the [Success Stories](https://ocaml.org/industrial-users).
 
 Success stories are drafted by the ocaml.org maintainers through an interview with the featured company. They cannot be contributed by third parties.
 
@@ -116,7 +116,7 @@ The success stories should be structured in the following way:
 - The solution you implemented, which should describe the role OCaml played in solving the challenge
 - A post-mortem describing the results you had after implementing the solution
 
-You can read [Ahref's Success Story](https://ocaml.org/success-stories/peta-byte-scale-web-crawler) for a good example.
+You can read [Ahref's Success Story](https://ocaml.org/success-stories/peta-byte-scale-web-crawling-and-data-processing) for a good example.
 
 ### <a name="content-academic-user"></a>Add an Academic User
 

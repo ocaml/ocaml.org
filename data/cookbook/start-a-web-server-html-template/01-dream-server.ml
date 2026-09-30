@@ -8,7 +8,7 @@ discussion: |
   This example uses Dream, a simple and type-safe web framework for OCaml.
   To avoid errors, the file name should end with `.eml.ml`.
   Set the dune file following the guide here:
-  [Dream Template](https://aantron.github.io/dream/#templates)
+  [Dream Template](https://camlworks.github.io/dream/#templates)
 ---
 
 (* The server:
