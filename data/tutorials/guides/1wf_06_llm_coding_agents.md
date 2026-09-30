@@ -44,7 +44,7 @@ Most agents read a project-level configuration file to learn how to work with th
 | Agent | File |
 |-------|------|
 | Claude Code | `CLAUDE.md` |
-| Cursor | `.cursorrules` |
+| Cursor | `.cursor/rules/` (or legacy `.cursorrules`) |
 | GitHub Copilot | `.github/copilot-instructions.md` |
 
 The content should be similar regardless of agent. Here's what to include:
@@ -141,7 +141,7 @@ Agents have limited OCaml training data. [MCP (Model Context Protocol)](https://
 
 ### ocaml-docs MCP server
 
-The [`ocaml-docs`](https://github.com/emillon/ocaml-docs-mcp) MCP server provides:
+The experimental [`ocaml-docs-mcp`](https://github.com/Blue-Berry/ocaml-docs-mcp) MCP server provides:
 - **Package search**: find packages by keyword
 - **Module documentation**: look up function signatures and doc comments
 - **API lookup**: find what a specific function does
