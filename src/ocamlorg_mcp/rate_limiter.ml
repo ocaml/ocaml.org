@@ -84,11 +84,13 @@ let strip_port s =
         String.sub s 0 i (* ipv4:port *)
     | _ -> s
 
-(* Client IP behind the Caddy -> Varnish -> app proxy chain. Those proxies
-   append to [X-Forwarded-For], so the leftmost entry is the original client; we
-   fall back to the immediate peer. This is best-effort: [X-Forwarded-For] is
-   client-spoofable, but Caddy rewrites it at the edge, which is adequate for
-   abuse throttling. *)
+(* Best-effort client IP for rate-limit bucketing. A trusted reverse proxy in
+   front of the app records the originating client as the leftmost
+   [X-Forwarded-For] entry, so we use that and fall back to the immediate peer.
+   [X-Forwarded-For] is client-spoofable on its own, so this relies on the
+   deployment's edge to set or sanitise the header before forwarding — a
+   deployment detail this code does not enforce. Adequate for abuse
+   throttling. *)
 let client_ip request =
   let peer =
     match Dream.header request "X-Forwarded-For" with
