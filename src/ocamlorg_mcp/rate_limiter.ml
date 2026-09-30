@@ -1,8 +1,8 @@
 (* Per-origin rate limiting for the MCP endpoint (issue #3775, Phase 2). A
    fixed-window in-memory counter keyed on client IP: at most [max_requests]
-   requests per rolling [window_seconds] window per IP. The endpoint is public
-   and no-auth, so this is the abuse guard that keeps agent fan-out from
-   starving the shared service until an isolated deployment lands.
+   requests per [window_seconds] window per IP. The endpoint is public and
+   no-auth, so this is the abuse guard that keeps agent fan-out from starving
+   the shared service until an isolated deployment lands.
 
    Why in-app, and how this differs from the in-app response cache ({!Cache}):
 

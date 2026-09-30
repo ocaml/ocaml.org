@@ -138,7 +138,8 @@ let graphql_route t =
     ]
 
 (* MCP server (issue #3775), gated by OCAMLORG_MCP_ENABLED. Not compressed: the
-   POST responses are small JSON-RPC and the GET is an SSE stream. *)
+   POST responses are small JSON-RPC and the GET returns 405 (no server-push
+   yet). *)
 let mcp_route t =
   Dream.scope "" []
     (if Config.mcp_enabled then

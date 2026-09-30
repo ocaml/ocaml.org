@@ -226,9 +226,10 @@ across dependencies), so results vary with the model.
 
 ## Notes
 
-The server speaks Streamable HTTP (JSON-RPC 2.0 over an HTTP `POST`, with a
-companion `GET` for the server-to-client stream), which is the transport remote
-MCP clients use. It is read-only and stateless: it exposes data ocaml.org
+The server speaks Streamable HTTP (JSON-RPC 2.0 over an HTTP `POST`; the
+companion `GET` for the server-to-client stream is reserved but not yet
+implemented, so it returns `405 Method Not Allowed`), which is the transport
+remote MCP clients use. It is read-only and stateless: it exposes data ocaml.org
 already computes and holds no per-session state.
 
 The endpoint is public and rate-limited per client. It only ever reads from
