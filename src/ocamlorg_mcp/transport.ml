@@ -4,7 +4,18 @@
 
    The [/mcp] routes are wrapped in a per-IP rate-limit middleware and share an
    in-app response cache (the edge Varnish passes POST uncached), both built
-   once per server from the config passed by the router. *)
+   once per server from the config passed by the router.
+
+   No [Origin] validation (issue #3813). The spec (2025-06-18) recommends it to
+   blunt DNS-rebinding, but that threat model defends a loopback server that
+   trusts privileged local state: a victim's browser is tricked into reaching a
+   local endpoint that grants access it would deny a real cross-origin caller.
+   This endpoint has nothing to protect that way -- it is public, read-only,
+   no-auth, and holds no per-session state, so a rebound request reads only
+   already-public data and carries no credentials to abuse. A strict [Origin]
+   allowlist would also reject legitimate browser-based MCP clients. Revisit if
+   that calculus changes: when server-push (the GET SSE stream below) or any
+   session/auth state lands, [Origin] validation becomes worthwhile. *)
 
 let post_handler ~tools cache request =
   let open Lwt.Syntax in
