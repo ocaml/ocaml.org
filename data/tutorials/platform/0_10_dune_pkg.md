@@ -20,7 +20,7 @@ This approach offers:
 
 - **Reproducibility**: lock files pin exact versions and go into version control
 - **Simplicity**: one tool (`dune`) handles both building and dependency management
-- **Agent-friendliness**: no environment setup needed beyond having `dune` and a compiler on `PATH`
+- **No environment setup**: builds need only `dune` and a compiler on `PATH`
 
 Dune package management uses the same [opam repository](https://opam.ocaml.org/packages/) as the source for available packages.
 
@@ -28,13 +28,21 @@ Dune package management uses the same [opam repository](https://opam.ocaml.org/p
 
 ## Prerequisites
 
-- **Dune 3.17** or later (check with `dune --version`)
-- An **opam repository** configured. Dune reads repository information from your opam configuration, so `opam init` must have been run at least once.
-- A `dune-project` file with a `(depends ...)` field listing your dependencies
+- **Dune 3.20** or later (check with `dune --version`); this tutorial uses 3.21
+- A `dune-project` file with a `(package ...)` stanza declaring your dependencies
+
+Dune package management does not require opam to be initialised. By default, Dune fetches packages directly from the community [`ocaml/opam-repository`](https://github.com/ocaml/opam-repository) (plus the [`ocaml-dune/opam-overlays`](https://github.com/ocaml-dune/opam-overlays) repository, which carries dune-compatible builds of some packages) on GitHub.
 
 ## Setting Up a Project
 
-If your `dune-project` already declares dependencies, you are ready to go. For example:
+Package management is enabled per workspace. Create a `dune-workspace` file at your project root containing:
+
+```dune
+(lang dune 3.21)
+(pkg enabled)
+```
+
+Then declare your dependencies in `dune-project` with a `(package ...)` stanza. For example:
 
 ```dune
 (lang dune 3.17)
@@ -129,17 +137,17 @@ Dune package management replaces `opam install` for your project's dependencies,
 A minimal setup:
 
 ```shell
-opam switch create . ocaml-base-compiler.5.2.1 --deps-only
+opam switch create . ocaml-base-compiler.5.2.1 --no-install
 opam install ocaml-lsp-server ocamlformat utop
 ```
 
-Here opam provides the compiler and editor tools, while dune handles all library dependencies. This keeps your switch lightweight.
+`--no-install` creates the local switch with just the compiler, without installing the project's dependencies into it (dune handles those). opam then provides the editor tools, keeping the switch lightweight.
 
-Alternatively, if you have a system-installed OCaml compiler, you can skip opam switches entirely and let dune manage everything.
+Alternatively, if you already have a compiler available — from a system package, or provisioned by dune itself — you can skip opam switches entirely and let dune manage everything.
 
 ## LLM Coding Agents
 
-Dune package management is particularly well-suited for LLM coding agents (Claude Code, Cursor, Copilot, etc.) because the build workflow is a single command:
+Because the entire build workflow is a single command with no environment setup, dune package management works well in automated environments such as CI and LLM coding agents:
 
 ```shell
 dune build
@@ -175,13 +183,9 @@ The two approaches can coexist. You can use opam for some projects and dune pkg 
 
 ## Troubleshooting
 
-### "No opam-repository configured"
+### Repository or "package not found while locking" errors
 
-Dune reads repository information from opam. Make sure you have run `opam init` at least once and have a repository configured:
-
-```shell
-opam repo list
-```
+By default Dune fetches packages from `ocaml/opam-repository` and `ocaml-dune/opam-overlays` on GitHub — it does not use your opam configuration. If locking cannot reach a repository, check your network access to GitHub, or your custom repository settings if you overrode the defaults in `dune-workspace`.
 
 ### "Version conflict during locking"
 
@@ -193,9 +197,8 @@ If you edited `dune-project` but forgot to re-lock, `dune build` may fail becaus
 
 ### "Package not found"
 
-The package may not be in the opam repository, or your repository index may be outdated. Update with:
+The package may not exist in `ocaml/opam-repository` (or the overlays), or it may be published under a different name. Dune fetches the latest repository state each time you lock, so re-running the lock picks up newly published packages:
 
 ```shell
-opam update
 dune pkg lock
 ```
