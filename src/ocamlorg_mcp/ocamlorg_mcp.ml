@@ -21,10 +21,6 @@ module Tool = Tool
     this library stays dependency-isolated (it never sees [ocamlorg_package]).
     See {!Tool}. *)
 
-module Backend = Backend
-(** SSRF allowlist: the choke point every future backend-fetching tool (Block B)
-    must route outbound URLs through. See {!Backend}. *)
-
 module Rate_limiter = Rate_limiter
 (** Per-IP rate limiter guarding the [/mcp] route. See {!Rate_limiter}. *)
 
