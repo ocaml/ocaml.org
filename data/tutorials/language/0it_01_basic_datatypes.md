@@ -186,7 +186,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 - : 'a array = [||]
 ```
 
-Remember, `'a` ("alpha") is a type parameter that will be replaced by another type.
+Remember, `'a` ("alpha") is a type variable that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 
@@ -367,7 +367,7 @@ The second expression is function application. The argument `9` is applied, and 
 
 The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its argument can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
-Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
+Remember, the `'a` is a _type variable_, so values of any type can be passed to the function and their type replaces the type variable. The identity function has the same input and output type, whatever it may be.
 
 The following example shows that the identity function can apply to arguments of different types:
 
