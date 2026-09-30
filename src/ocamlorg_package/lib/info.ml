@@ -160,11 +160,10 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
     url =
       url opam
       |> Option.map (fun url ->
-             {
-               uri = OpamUrl.to_string (OpamFile.URL.url url);
-               checksum =
-                 OpamFile.URL.checksum url |> List.map OpamHash.to_string;
-             });
+          {
+            uri = OpamUrl.to_string (OpamFile.URL.url url);
+            checksum = OpamFile.URL.checksum url |> List.map OpamHash.to_string;
+          });
     publication;
     flags = flags opam;
   }

@@ -20,9 +20,9 @@ let contact_kind_of_yaml = function
       | Ok str ->
           Error
             (`Msg
-              ("\"" ^ str
-             ^ "\" is not a valid contact_kind! valid options are: github, \
-                email, discord, chat, forum"))
+               ("\"" ^ str
+              ^ "\" is not a valid contact_kind! valid options are: github, \
+                 email, discord, chat, forum"))
       | Error _ -> Error (`Msg "Invalid Yaml value"))
 
 type contact = [%import: Data_intf.Governance.contact]

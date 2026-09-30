@@ -25,17 +25,12 @@ type metadata = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:t ~remove:[ intro; highlights ]
-      ~modify:[ is_latest; is_lts ]
-      ~add:
-        [
-          intro_md;
-          intro_html;
-          highlights_md;
-          highlights_html;
-          body_md;
-          body_html;
-        ]]
+  stable_record ~version:t ~remove:[ intro; highlights ]
+    ~modify:[ is_latest; is_lts ]
+    ~add:
+      [
+        intro_md; intro_html; highlights_md; highlights_html; body_md; body_html;
+      ]]
 
 let of_metadata m =
   metadata_to_t m ~intro_md:m.intro

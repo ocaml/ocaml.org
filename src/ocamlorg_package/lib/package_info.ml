@@ -68,8 +68,8 @@ let rec of_module ?parent (v : Voodoo_serialize.Package_info.Module.t) :
   let submodules =
     v.submodules |> List.to_seq
     |> Seq.map (fun v ->
-           let submodule = of_module ~parent:module' v in
-           (submodule.name, submodule))
+        let submodule = of_module ~parent:module' v in
+        (submodule.name, submodule))
     |> String.Map.of_seq
   in
   module'.submodules <- submodules;

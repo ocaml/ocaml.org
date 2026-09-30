@@ -30,5 +30,5 @@ let decode (fpath, (head, body)) =
 let all () =
   Utils.map_md_files decode "news/*/*.md"
   |> List.sort (fun (n1 : t) (n2 : t) ->
-         (* Sort by date descending *)
-         String.compare n2.date n1.date)
+      (* Sort by date descending *)
+      String.compare n2.date n1.date)

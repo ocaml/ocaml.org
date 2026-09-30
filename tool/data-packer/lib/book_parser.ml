@@ -44,5 +44,5 @@ let decode (fpath, (head, body)) =
 let all () =
   Utils.map_md_files decode "books/*.md"
   |> Stdlib.List.sort (fun (b1 : t) (b2 : t) ->
-         (* Sort the books by reversed publication date. *)
-         Stdlib.String.compare b2.published b1.published)
+      (* Sort the books by reversed publication date. *)
+      Stdlib.String.compare b2.published b1.published)

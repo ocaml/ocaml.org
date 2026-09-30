@@ -18,8 +18,8 @@ type metadata = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:t ~remove:[ id ] ~modify:[ short_title ]
-      ~add:[ slug; fpath; toc; body_md; body_html ]]
+  stable_record ~version:t ~remove:[ id ] ~modify:[ short_title ]
+    ~add:[ slug; fpath; toc; body_md; body_html ]]
 
 let of_metadata m =
   metadata_to_t m ~slug:m.id ~modify_short_title:(function
