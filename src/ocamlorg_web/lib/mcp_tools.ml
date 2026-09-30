@@ -399,9 +399,11 @@ let package_documentation state : Tool.t =
 
 (* A doc-relative path is safe iff it is a plain relative path over odoc's URL
    alphabet: no leading "/", no ".." segment, no scheme (":" is excluded), no
-   backslash. This is the SSRF/traversal guard — [documentation.ml] builds the
-   URL from the fixed [Config.documentation_url], so the risk is not an
-   arbitrary host but a path escaping the package's doc tree. *)
+   backslash. This is the sole SSRF/traversal guard for the docs tools: the
+   outbound URL is built inside [Ocamlorg_package.Documentation] from the fixed
+   [Config.documentation_url] host (the MCP layer never sees or chooses the
+   host), so the risk is not an arbitrary host but a path escaping the package's
+   doc tree — which this check blocks. *)
 let contains_dotdot s =
   let n = String.length s in
   let rec go i =

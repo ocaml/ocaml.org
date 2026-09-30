@@ -211,22 +211,6 @@ let test_cache_eviction () =
   in
   Alcotest.(check bool) "oldest evicted" true !recomputed
 
-(* --- Backend SSRF allowlist (Phase 2). --- *)
-
-module B = Ocamlorg_mcp.Backend
-
-let test_backend_allowlist () =
-  let t = B.create [ "https://dill.caelum.ci.dev/profiles/full/docs/" ] in
-  (match B.check_url t "https://dill.caelum.ci.dev/p/foo/index.html" with
-  | Ok _ -> ()
-  | Error e -> Alcotest.fail ("expected allow, got: " ^ e));
-  (match B.check_url t "https://evil.example.com/x" with
-  | Error _ -> ()
-  | Ok _ -> Alcotest.fail "off-list host should be rejected");
-  match B.check_url t "http://dill.caelum.ci.dev/x" with
-  | Error _ -> ()
-  | Ok _ -> Alcotest.fail "non-https should be rejected"
-
 (* --- Tool injection (Phase 3): the registry is [ping] plus tools injected by
    the web layer. Here we inject a dummy tool directly, without pulling package
    data into this isolated library's tests. --- *)
@@ -362,8 +346,6 @@ let () =
           Alcotest.test_case "expiry" `Quick test_cache_expiry;
           Alcotest.test_case "eviction" `Quick test_cache_eviction;
         ] );
-      ( "backend",
-        [ Alcotest.test_case "allowlist" `Quick test_backend_allowlist ] );
       ( "injection",
         [
           Alcotest.test_case "tools/list includes injected" `Quick
