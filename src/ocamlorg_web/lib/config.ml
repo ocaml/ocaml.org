@@ -15,9 +15,15 @@ let mcp_enabled = env_with_default "OCAMLORG_MCP_ENABLED" "false" |> to_bool
 
 (* Per-IP rate limit on the /mcp route: [mcp_rate_limit] requests per
    [mcp_rate_window] seconds. Public no-auth endpoint, so this bounds agent
-   fan-out on the shared service. *)
+   fan-out on the shared service.
+
+   The default is deliberately generous because web connectors (claude.ai,
+   ChatGPT, ...) reach the endpoint from a small pool of vendor egress IPs, so
+   many unrelated users share one IP-keyed bucket (issue #3812). With no auth
+   there is no per-user key downstream of the connector, so the only lever is a
+   larger shared bucket; abuse is backstopped by the planned edge limiter. *)
 let mcp_rate_limit =
-  env_with_default "OCAMLORG_MCP_RATE_LIMIT" "60" |> int_of_string
+  env_with_default "OCAMLORG_MCP_RATE_LIMIT" "300" |> int_of_string
 
 let mcp_rate_window =
   env_with_default "OCAMLORG_MCP_RATE_WINDOW" "60" |> int_of_string

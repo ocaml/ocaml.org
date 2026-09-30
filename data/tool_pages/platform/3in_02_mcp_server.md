@@ -231,7 +231,10 @@ companion `GET` for the server-to-client stream), which is the transport remote
 MCP clients use. It is read-only and stateless: it exposes data ocaml.org
 already computes and holds no per-session state.
 
-The endpoint is public and rate-limited per client. It only ever reads from
+The endpoint is public and rate-limited per client IP, currently 300 requests
+per minute. Web connectors reach it from a shared pool of vendor egress
+addresses, so that budget is shared across everyone connecting through the same
+vendor. It only ever reads from
 ocaml.org's own package data, so it cannot be used to fetch arbitrary URLs.
 When the assistant connects from its vendor's cloud, the server cannot see
 your local machine. This is not the case when using a local coding agent. In all
