@@ -25,7 +25,7 @@ let () =
     let elapsed = Unix.gettimeofday () -. start in
     total_pack_time := !total_pack_time +. elapsed;
     (* Force evaluation *)
-    ignore (Bigstringaf.length buf)
+    ignore (Bytes.length buf)
   done;
 
   let avg_pack_time = !total_pack_time /. float_of_int iterations in

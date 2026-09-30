@@ -2,21 +2,17 @@
 
 open Types
 
-let pack_to_buffer data =
-  let buf = Bigstringaf.create (1024 * 1024 * 128) in
-  (* 128 MiB initial *)
-  let pos = All_data.bin_write_t buf ~pos:0 data in
-  Bigstringaf.sub buf ~off:0 ~len:pos
+(* PROTOTYPE: serialise with Marshal instead of bin_prot. Safe because the
+   packer (writer) and the server (reader) are always the same build/compiler,
+   and data.bin is regenerated on every build. No per-type deriver needed. *)
+let pack_to_buffer data = Marshal.to_bytes data []
 
 let pack_to_file ~output data =
   let buf = pack_to_buffer data in
   let oc = open_out_bin output in
-  (* Write as raw bytes *)
-  for i = 0 to Bigstringaf.length buf - 1 do
-    output_char oc (Bigstringaf.get buf i)
-  done;
+  output_bytes oc buf;
   close_out oc;
-  Printf.eprintf "Packed %d bytes to %s\n" (Bigstringaf.length buf) output
+  Printf.eprintf "Packed %d bytes to %s\n" (Bytes.length buf) output
 
 let load_all () =
   let testimonials = Testimonial_parser.all () in

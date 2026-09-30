@@ -7,7 +7,10 @@ include Ptime_bin_prot
 (* Simple types *)
 
 module Testimonial = struct
-  type t = [%import: Data_intf.Testimonial.t] [@@deriving bin_io, of_yaml, show]
+  (* PROTOTYPE: bin_io deriver dropped — the blob is now serialised with
+     Marshal, which needs no per-type deriver. of_yaml (pack-time parsing) and
+     show stay. This single type demonstrates the deriver is now optional. *)
+  type t = [%import: Data_intf.Testimonial.t] [@@deriving of_yaml, show]
 end
 
 module Job = struct
@@ -321,7 +324,7 @@ module All_data = struct
     governance_working_groups : Governance.team list;
     tool_pages : Tool_page.t list;
   }
-  [@@deriving bin_io]
+  (* PROTOTYPE: no bin_io — the aggregate is serialised with Marshal. *)
 
   let empty =
     {
