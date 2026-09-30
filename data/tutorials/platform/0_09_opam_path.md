@@ -65,6 +65,8 @@ eval (opam env)
 for /f "tokens=*" %i in ('opam env') do @%i
 ```
 
+At the interactive prompt use `%i` as shown; inside a `.bat`/`.cmd` script, double it to `%%i`.
+
 Most users add this to their shell profile (`~/.bashrc`, `~/.zshrc`, `config.fish`, etc.) so the environment is configured automatically on every new shell.
 
 **When to use:** Interactive development. You open a terminal, the environment is ready.
