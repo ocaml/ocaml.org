@@ -11,8 +11,7 @@
   cmarkit
   markup
   ocamlorg.data
-  timedesc
-  mirage-kv-mem))
+  timedesc))
 
 (rule
  (deps (universe))

@@ -40,7 +40,6 @@
   cohttp-lwt-unix
   bos
   crunch
-  mirage-kv-mem
   dream-accept
   dream-encoding
   (graphql
@@ -60,19 +59,16 @@
   (river
    (>= 0.6))
   syndic
-  ounit
   (alcotest :with-test)
   (mdx
    (and
     :with-test
     (>= 1.10.0)))
-  uucp
   ; tools/data-packer
   ppx_deriving_yaml
   ppx_import
   ppx_stable
   ezjsonm
-  lambdasoup
   markup
   ptime
   ppx_deriving_yojson
