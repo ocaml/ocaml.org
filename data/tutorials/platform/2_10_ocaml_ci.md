@@ -15,7 +15,7 @@ OCaml-CI is a continuous integration service specifically designed for OCaml pro
 
 ## How It Works
 
-OCaml-CI uses metadata from the project's `opam` and `dune` files to work out what to build, and it also uses caching to make builds fast. It takes the information in the project's `.opam` files to automatically test against multiple OCaml versions and OS platforms. This is the beauty of OCaml-CI &mdash; it leverages the existing OCaml ecosystem metadata rather than requiring yet another configuration format.
+OCaml-CI uses metadata from the project's `opam` and `dune` files to work out what to build, and it caches intermediate steps to make builds fast. It reads the project's `.opam` files to automatically test against multiple OCaml versions and OS platforms. This is a key advantage of OCaml-CI: it reuses the existing OCaml ecosystem metadata rather than requiring yet another configuration format.
 
 The pipeline operates as follows:
 
@@ -100,7 +100,7 @@ Or install it as `ocaml-ci`.
 ```bash
 $ ocaml-ci mirage/irmin
 615364620f4233cb82a96144824eb6ad5d1104f0 refs/heads/1.4 (passed)
-e0fcf0d336544650ca5237b356cfce4a48378245 refs/heads/master (passed)
+e0fcf0d336544650ca5237b356cfce4a48378245 refs/heads/main (passed)
 6c46d1de5e67a3f504fc55af1d644d852c946533 refs/heads/mirage-dev (passed)
 28421a152e8e19b3fb5048670629e7e01d0fbea6 refs/pull/523/head (passed)
 ...
@@ -110,18 +110,21 @@ b2d4b06f94d13384ae08eb06439ce9c6066419cd refs/pull/815/head (failed)
 **List build variants for a specific ref:**
 ```bash
 $ ocaml-ci mirage/irmin refs/heads/main
-alpine-3.10-ocaml-4.08
+debian-12-ocaml-5.2
+debian-12-ocaml-5.1
+alpine-3.20-ocaml-5.2
+macos-homebrew-ocaml-5.2
 ```
 
 **View the build log (follows if still running):**
 ```bash
-$ ocaml-ci mirage/irmin refs/heads/master alpine-3.10-ocaml-4.08 log
+$ ocaml-ci mirage/irmin refs/heads/main debian-12-ocaml-5.2 log
 [...]
 - Test Successful in 17.643s. 99 tests run.
 -> compiled  irmin-unix.dev
 -> installed irmin-unix.dev
 Done.
-2019-09-25 14:55.57: Job succeeded
+Job succeeded
 ```
 
 **Other actions:**
@@ -138,22 +141,12 @@ For convenience:
 
 Example:
 ```bash
-ocaml-ci mirage/irmin pull/867 alpine-3.10-ocaml-4.08 cancel
+ocaml-ci mirage/irmin pull/867 debian-12-ocaml-5.2 cancel
 ```
 
-## Main Sources of OCaml-CI Documentation
+## Further Reading
 
-1. **Getting Started page**: [https://ocaml.ci.dev/getting-started](https://ocaml.ci.dev/getting-started)
-   - Very brief, covers only the basic setup steps
-
-2. **GitHub README**: [https://github.com/ocurrent/ocaml-ci](https://github.com/ocurrent/ocaml-ci)
-   - The most comprehensive source
-   - Covers how the pipeline works, installation, setup, CLI usage, and deployment
-   - This is where most of the technical details in my first answer came from
-
-3. **Tarides Blog Post**: [https://tarides.com/blog/2023-07-12-ocaml-ci-renovated/](https://tarides.com/blog/2023-07-12-ocaml-ci-renovated/)
-   - Covers the value proposition, experimental builds, lower-bounds testing, and the 2022 UI renovation
-   - Good overview of features but not a step-by-step guide
-
-4. **OCaml Discuss thread**: [Best practices for CI in 2023](https://discuss.ocaml.org/t/best-practices-for-continuous-integration-ci-in-2023/12380)
-   - Community discussion with practical tips
+- [OCaml-CI Getting Started](https://ocaml.ci.dev/getting-started) — a brief walkthrough of the basic setup steps.
+- [OCaml-CI README](https://github.com/ocurrent/ocaml-ci) — the most comprehensive reference, covering how the pipeline works, installation, setup, CLI usage, and deployment.
+- [OCaml-CI, Renovated](https://tarides.com/blog/2023-07-12-ocaml-ci-renovated/) on the Tarides blog — the value proposition, experimental builds, lower-bounds testing, and the 2022 UI renovation.
+- [Best Practices for Continuous Integration (CI) in 2023](https://discuss.ocaml.org/t/best-practices-for-continuous-integration-ci-in-2023/12380) — a community discussion with practical tips.
