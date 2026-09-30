@@ -153,7 +153,8 @@ end
 module Package_info = Package_info
 
 val mockup_state : t list -> state
-(** [mockup_state ts] produces the opam-repository state from a list of packages *)
+(** [mockup_state ts] produces the opam-repository state from a list of packages
+*)
 
 val name : t -> Name.t
 (** Get the name of a package. *)
@@ -165,7 +166,8 @@ val info : t -> Info.t
 (** Get the info of a package. *)
 
 val create : name:Name.t -> version:Version.t -> Info.t -> t
-(** This is added to enable demo test package to use Package.t with abstraction *)
+(** This is added to enable demo test package to use Package.t with abstraction
+*)
 
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default

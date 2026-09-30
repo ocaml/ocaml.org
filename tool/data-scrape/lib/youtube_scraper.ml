@@ -72,9 +72,9 @@ let walk_mrss xml =
     let tweak url =
       url |> String.split_on_char '/'
       |> List.filter_map (function
-           | "?version=3" -> None
-           | "v" -> Some "watch"
-           | str -> Some str)
+        | "?version=3" -> None
+        | "v" -> Some "watch"
+        | str -> Some str)
       |> String.concat "/"
     in
     match (Xmlm.input xml, tags) with
@@ -184,29 +184,28 @@ let scrape yaml_file =
     let sources = Array.to_seq sources in
     sources
     |> Seq.concat_map (fun src ->
-           try
-             let feed =
-               src |> source_to_url
-               |> Http_client.get_sync ~max_random_delay:180.0
-             in
-             Xmlm.make_input (`String (0, feed))
-             |> walk_mrss
-             |> Seq.unfold (feed_entry src [])
-             |> Seq.filter (fun video ->
-                    src.publish_all
-                    || String.(
-                         is_sub_ignore_case "caml" video.Data_packer.Vid.title
-                         || is_sub_ignore_case "caml"
-                              video.Data_packer.Vid.description))
-           with e ->
-             let message = Printexc.to_string e in
-             Printf.eprintf " [WARN] Could not fetch %s %s %s\n%!" src.name
-               (source_to_url src |> Uri.to_string)
-               message;
-             errors :=
-               Scrape_report.Error { source_id = source_to_id src; message }
-               :: !errors;
-             Seq.empty)
+        try
+          let feed =
+            src |> source_to_url |> Http_client.get_sync ~max_random_delay:180.0
+          in
+          Xmlm.make_input (`String (0, feed))
+          |> walk_mrss
+          |> Seq.unfold (feed_entry src [])
+          |> Seq.filter (fun video ->
+              src.publish_all
+              || String.(
+                   is_sub_ignore_case "caml" video.Data_packer.Vid.title
+                   || is_sub_ignore_case "caml"
+                        video.Data_packer.Vid.description))
+        with e ->
+          let message = Printexc.to_string e in
+          Printf.eprintf " [WARN] Could not fetch %s %s %s\n%!" src.name
+            (source_to_url src |> Uri.to_string)
+            message;
+          errors :=
+            Scrape_report.Error { source_id = source_to_id src; message }
+            :: !errors;
+          Seq.empty)
     |> VideoSet.of_seq |> Result.ok
   in
   match fetched with
@@ -215,7 +214,7 @@ let scrape yaml_file =
         VideoSet.union fetched scraped
         |> VideoSet.to_seq |> List.of_seq
         |> List.sort (fun a b ->
-               compare b.Data_packer.Vid.published a.Data_packer.Vid.published)
+            compare b.Data_packer.Vid.published a.Data_packer.Vid.published)
       in
       let new_count =
         VideoSet.cardinal (VideoSet.union fetched scraped)

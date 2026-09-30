@@ -139,8 +139,8 @@ let http_get url =
         Lwt.return
           (Error
              (`Msg
-               (Printf.sprintf "response too large (> %d bytes) for %s"
-                  max_bytes url)))
+                (Printf.sprintf "response too large (> %d bytes) for %s"
+                   max_bytes url)))
       in
       let* response, body =
         Cohttp_lwt_unix.Connection.call conn ~headers `GET uri
@@ -173,12 +173,11 @@ let http_get url =
                   let* () =
                     Cohttp_lwt.Body.to_stream body
                     |> Lwt_stream.iter_s (fun chunk ->
-                           if
-                             Buffer.length buf + String.length chunk > max_bytes
-                           then raise Too_large
-                           else (
-                             Buffer.add_string buf chunk;
-                             Lwt.return_unit))
+                        if Buffer.length buf + String.length chunk > max_bytes
+                        then raise Too_large
+                        else (
+                          Buffer.add_string buf chunk;
+                          Lwt.return_unit))
                   in
                   close ();
                   Lwt.return (Ok (Buffer.contents buf)))
@@ -189,8 +188,8 @@ let http_get url =
                       Lwt.reraise e)))
     (function
       | e ->
-          Logs.err (fun m -> m "%s" (Printexc.to_string e));
-          Lwt.return (Error (`Msg (Printexc.to_string e))))
+      Logs.err (fun m -> m "%s" (Printexc.to_string e));
+      Lwt.return (Error (`Msg (Printexc.to_string e))))
 
 (* Fetch a resource's ETag with a headers-only HEAD, transferring no body. dill
    serves a per-version ETag for doc assets (verified on [doc/index.js]); it is
@@ -209,15 +208,15 @@ let head_etag url =
       if Cohttp.Code.(code_of_status response.status |> is_success) then
         Cohttp.Header.get response.headers "etag"
         |> Option.map (fun s ->
-               let s =
-                 if String.length s >= 2 && String.sub s 0 2 = "W/" then
-                   String.sub s 2 (String.length s - 2)
-                 else s
-               in
-               let n = String.length s in
-               if n >= 2 && s.[0] = '"' && s.[n - 1] = '"' then
-                 String.sub s 1 (n - 2)
-               else s)
+            let s =
+              if String.length s >= 2 && String.sub s 0 2 = "W/" then
+                String.sub s 2 (String.length s - 2)
+              else s
+            in
+            let n = String.length s in
+            if n >= 2 && s.[0] = '"' && s.[n - 1] = '"' then
+              String.sub s 1 (n - 2)
+            else s)
         |> Lwt.return
       else Lwt.return None)
     (fun e ->

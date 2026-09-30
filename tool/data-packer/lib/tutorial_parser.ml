@@ -50,10 +50,9 @@ type metadata = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:t ~remove:[ id ]
-      ~modify:
-        [ recommended_next_tutorials; prerequisite_tutorials; short_title ]
-      ~add:[ slug; fpath; section; toc; body_md; body_html ]]
+  stable_record ~version:t ~remove:[ id ]
+    ~modify:[ recommended_next_tutorials; prerequisite_tutorials; short_title ]
+    ~add:[ slug; fpath; section; toc; body_md; body_html ]]
 
 let of_metadata m =
   metadata_to_t m ~slug:m.id
@@ -93,7 +92,7 @@ let decode (fpath, (head, body_md)) =
     List.nth (Stdlib.String.split_on_char '/' fpath) 1
     |> section_of_string
     |> Result.get_ok ~error:(fun (`Msg msg) ->
-           Exn.Decode_error (fpath ^ ":" ^ msg))
+        Exn.Decode_error (fpath ^ ":" ^ msg))
   in
   let doc = Markdown.Content.of_string body_md in
   let toc = Markdown.Toc.generate ~start_level:2 ~max_level:4 doc in
@@ -120,7 +119,7 @@ module TutorialSearch = struct
       section =
         section
         |> Option.map (fun (s : Search.section) ->
-               { title = s.title; id = s.id });
+            { title = s.title; id = s.id });
       content = content |> List.map Search.block_to_string |> String.concat "\n";
       slug = metadata.id;
     }
