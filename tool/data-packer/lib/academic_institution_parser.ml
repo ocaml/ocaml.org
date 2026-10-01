@@ -2,7 +2,6 @@
    ood-gen/lib/academic_institution.ml *)
 
 open Import
-include Ptime_bin_prot (* Brings in shadowed Ptime module with bin_io *)
 
 (* Intermediate type for YAML parsing - last_check is string *)
 type course_metadata = {

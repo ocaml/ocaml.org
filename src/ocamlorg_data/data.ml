@@ -1,7 +1,7 @@
 (* Data module using binary blob embedding
  *
  * The blob is embedded in the binary via .incbin assembly directive and
- * deserialized lazily on first access using bin_prot.
+ * deserialized lazily on first access using Marshal (PROTOTYPE).
  *)
 
 (* ============================================================
@@ -24,12 +24,17 @@ let all_data : Data_packer.Types.All_data.t Lazy.t =
      if not (get_blob_check ()) then
        failwith "Data blob is not properly initialized";
 
-     (* Get the blob as a bigstring for bin_prot *)
-     let buf : Bigstringaf.t = get_blob_raw () in
-     let pos_ref = ref 0 in
-
-     (* Deserialize using bin_prot *)
-     Data_packer.Types.All_data.bin_read_t buf ~pos_ref)
+     (* PROTOTYPE: copy the embedded blob into bytes and deserialize with
+        Marshal. Type-safe by construction here: the same build's packer wrote
+        it with the identical Data_packer.Types.All_data.t, and data.bin is
+        regenerated on every build. *)
+     let ba = get_blob_raw () in
+     let len = Bigarray.Array1.dim ba in
+     let b = Bytes.create len in
+     for i = 0 to len - 1 do
+       Bytes.unsafe_set b i (Bigarray.Array1.unsafe_get ba i)
+     done;
+     (Marshal.from_bytes b 0 : Data_packer.Types.All_data.t))
 
 (* Force deserialization once at module load time *)
 let data = Lazy.force all_data
