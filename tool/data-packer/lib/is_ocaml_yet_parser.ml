@@ -19,8 +19,8 @@ type category_meta = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:category ~add:[ slug ] ~modify:[ description ],
-    show]
+  stable_record ~version:category ~add:[ slug ] ~modify:[ description ],
+  show]
 
 type metadata = {
   id : string;
@@ -30,8 +30,8 @@ type metadata = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:t ~add:[ body_html ] ~modify:[ categories ],
-    show]
+  stable_record ~version:t ~add:[ body_html ] ~modify:[ categories ],
+  show]
 
 let decode (fpath, (head, body_md)) =
   let metadata =

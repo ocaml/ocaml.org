@@ -44,12 +44,12 @@ let handle_raw tools body =
 let tools_call_req ~id ~name ~arguments =
   Yojson.Safe.to_string
     (`Assoc
-      [
-        ("jsonrpc", `String "2.0");
-        ("id", `Int id);
-        ("method", `String "tools/call");
-        ("params", `Assoc [ ("name", `String name); ("arguments", arguments) ]);
-      ])
+       [
+         ("jsonrpc", `String "2.0");
+         ("id", `Int id);
+         ("method", `String "tools/call");
+         ("params", `Assoc [ ("name", `String name); ("arguments", arguments) ]);
+       ])
 
 (* Parse the outer response, checking the JSON-RPC envelope, then decode the
    inner (double-encoded) tool payload from [result.content[0].text]. *)
@@ -155,11 +155,11 @@ let module_documentation_neutralised () =
       (tools_call_req ~id ~name:"ocaml_module_documentation"
          ~arguments:
            (`Assoc
-             [
-               ("package", `String "dream");
-               ("version", `String "1.0.0~alpha8");
-               ("path", `String "dream/Dream/index.html");
-             ]))
+              [
+                ("package", `String "dream");
+                ("version", `String "1.0.0~alpha8");
+                ("path", `String "dream/Dream/index.html");
+              ]))
   in
   (* On the wire: no active/fetchable markup survived the framing. *)
   List.iter

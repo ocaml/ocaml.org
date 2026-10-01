@@ -95,10 +95,10 @@ let test_notification_no_reply () =
        (Ocamlorg_mcp.handle
           (Yojson.Safe.to_string
              (`Assoc
-               [
-                 ("jsonrpc", `String "2.0");
-                 ("method", `String "notifications/initialized");
-               ])))
+                [
+                  ("jsonrpc", `String "2.0");
+                  ("method", `String "notifications/initialized");
+                ])))
     = None)
 
 let test_invalid_json () =

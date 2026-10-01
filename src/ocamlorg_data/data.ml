@@ -51,7 +51,7 @@ module Academic_institution = struct
   let featured =
     all
     |> List.filter (fun institution ->
-           match institution.featured with Some true -> true | _ -> false)
+        match institution.featured with Some true -> true | _ -> false)
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
@@ -127,7 +127,7 @@ module Cookbook = struct
   let get_tasks_by_category ~category_slug =
     tasks
     |> List.filter (fun (x : task) ->
-           List.(x.category_path |> rev |> hd) = category_slug)
+        List.(x.category_path |> rev |> hd) = category_slug)
 
   let get_by_task ~task_slug =
     all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
@@ -241,7 +241,7 @@ module Opam_user = struct
     in
     all
     |> List.find_opt (fun { name; _ } ->
-           contains pattern (String.lowercase_ascii name))
+        contains pattern (String.lowercase_ascii name))
 end
 
 module Outreachy = struct
