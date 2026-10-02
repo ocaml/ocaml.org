@@ -46,6 +46,16 @@ Progress and per-arm means go to stderr; the per-(query,arm) CSV goes to stdout:
 query,arm,p1,mrr,ndcg5,ndcg10,latency_ms
 ```
 
+Pass `--show` to also dump each arm's top-10 ranked list per query to stderr,
+with the judge grade in parentheses — for eyeballing *where* the arms diverge
+(aggregate nDCG can rise while the visible top results get worse):
+
+```sh
+ANTHROPIC_API_KEY=... \
+  dune exec tool/search-bench/bench.exe -- tool/search-bench/queries.csv --show \
+  > runs/bench.csv 2> runs/bench.lists
+```
+
 The tool reads the on-disk package-state cache
 (`OCAMLORG_PKG_STATE_PATH`, default `~/.cache/ocamlorg/package.state`) via
 `Ocamlorg_package.load_cached` — no opam-repository clone, no background

@@ -245,9 +245,13 @@ let top_k = 10 (* pooling depth and nDCG cut *)
 let name_depth = 50 (* how deep to keep names for MRR *)
 
 let () =
+  let args = Array.to_list Sys.argv |> List.tl in
+  let show_lists = List.mem "--show" args in
+  let positional =
+    List.filter (fun a -> String.length a < 2 || String.sub a 0 2 <> "--") args
+  in
   let query_file =
-    if Array.length Sys.argv > 1 then Sys.argv.(1)
-    else "tool/search-bench/queries.csv"
+    match positional with f :: _ -> f | [] -> "tool/search-bench/queries.csv"
   in
   let state = P.load_cached () in
   let all = P.all_latest state in
@@ -413,4 +417,33 @@ let () =
       Printf.eprintf
         "arm=%-8s  p@1=%.3f  mrr=%.3f  ndcg@10=%.3f  latency_ms(mean)=%.3f\n%!"
         label (mean p1) (mean mrr) (mean ndcg10) (mean lat))
-    arms
+    arms;
+
+  (* --show: dump the top-k ranked list of each arm per query to stderr, with
+     the judge grade (if any) in parentheses, for eyeballing where the arms
+     diverge. nDCG can rise while the visible top results get worse, so read the
+     lists, not only the aggregates. *)
+  if show_lists then (
+    prerr_endline "\n=== ranked lists (top 10, grade in parens) ===";
+    List.iter
+      (fun (query, _expected, per_arm) ->
+        Printf.eprintf "\n# %s\n%!" query;
+        let grades = Hashtbl.find_opt grades_by_query query in
+        List.iter
+          (fun (label, names, _dt) ->
+            Printf.eprintf "  [%s]\n" label;
+            List.iteri
+              (fun i n ->
+                if i < top_k then
+                  let g =
+                    match grades with
+                    | Some tbl -> (
+                        match Hashtbl.find_opt tbl n with
+                        | Some g -> Printf.sprintf " (%.0f)" g
+                        | None -> "")
+                    | None -> ""
+                  in
+                  Printf.eprintf "    %2d. %s%s\n" (i + 1) n g)
+              names)
+          per_arm)
+      results)
