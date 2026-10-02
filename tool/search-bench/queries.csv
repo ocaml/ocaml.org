@@ -1,15 +1,18 @@
 # Search-ranking benchmark query set.
 #
-# Format:  query[,expected-package]
-#   - "query,expected"  is a known-item (navigational) query: the expected
-#     package must rank first (precision@1) / high (MRR). Free, no judge.
-#   - "query"           is a topic/need query graded by the LLM judge (nDCG).
+# Format:  query[,expected-package[,split]]
+#   - "query,expected"       known-item (navigational): the expected package
+#                            must rank first (p@1) / high (MRR). Free, no judge.
+#   - "query"                topic/need query, graded by the LLM judge (nDCG).
+#   - split ∈ {train,holdout}  optional 3rd column for tuning vs reporting.
+#     Untagged queries run in every split. Tune params on train (--split train),
+#     report the headline on the untouched holdout (--split holdout).
 #
 # Lines starting with '#' and blank lines are ignored. Keep this set small and
 # representative; for real evidence, replace it with q= values mined from the
 # server access logs (see README).
 
-# --- navigational / known-item (expected package pinned) ---
+# --- navigational / known-item (expected package pinned; run in every split) ---
 yojson,yojson
 dune,dune
 lwt,lwt
@@ -21,19 +24,21 @@ logs,logs
 ppxlib,ppxlib
 alcotest,alcotest
 
-# --- topic / need (judge-graded) ---
-json parser
-http client
-command line parser
-date and time
-web framework
-sql database
-regular expressions
-logging library
-unit testing
-terminal colors
-parser combinator
-cryptography
-http server
-yaml parser
-concurrency
+# --- topic / need (judge-graded) — train split (tune params here) ---
+json parser,,train
+command line parser,,train
+date and time,,train
+web framework,,train
+sql database,,train
+regular expressions,,train
+logging library,,train
+cryptography,,train
+yaml parser,,train
+
+# --- topic / need (judge-graded) — holdout split (report here) ---
+http client,,holdout
+unit testing,,holdout
+terminal colors,,holdout
+parser combinator,,holdout
+http server,,holdout
+concurrency,,holdout
