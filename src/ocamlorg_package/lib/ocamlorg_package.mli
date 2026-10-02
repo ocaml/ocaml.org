@@ -171,6 +171,12 @@ val init : ?disable_polling:bool -> unit -> state
 (** [init ()] initialises the opam-repository state. By default
     [disable_polling] is set to [false], but can be disabled for tests. *)
 
+val load_cached : unit -> state
+(** Load the package state from the on-disk cache ([OCAMLORG_PKG_STATE_PATH])
+    without starting any background polling or opam-repository update. Intended
+    for offline tooling such as [tool/search-bench]; returns an empty state if
+    the cache is missing or stale. *)
+
 val all_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and
     versions of the packages are read from the file system, the metadata are
@@ -207,13 +213,28 @@ val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
+type ranking =
+  | Default
+  | Bm25f
+      (** Ranking model used to order the matched packages. [Default] is the
+          historical binary-presence scorer; [Bm25f] is the experimental BM25F
+          arm (term-frequency saturation, length normalisation and IDF) kept
+          behind this flag so it can be benchmarked against [Default] before
+          becoming the default. Both rank the exact same matched set — only the
+          order differs. *)
+
 val search :
   is_author_match:(string -> string -> bool) ->
   ?sort_by_popularity:bool ->
+  ?ranking:ranking ->
   state ->
   string ->
   t list
 (** Search package that match the given string.
+
+    [ranking] selects the scoring model (default [Default]). With [Bm25f] the
+    popularity prior is always folded in multiplicatively, so
+    [sort_by_popularity] is ignored.
 
     Packages returned contain the string either in the name, tags, synopsis or
     description. They are ordered in the following way:
