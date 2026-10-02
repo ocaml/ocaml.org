@@ -275,6 +275,25 @@ let is_latest_version t name version =
   | None -> false
   | Some pkg -> pkg.version = version
 
+type bm25f_params = {
+  k1 : float;
+  b : float;
+  boosts : float array;
+  use_idf : bool;
+  use_lennorm : bool;
+  exact_bonus : bool;
+}
+
+let default_bm25f_params =
+  {
+    k1 = 1.2;
+    b = 0.75;
+    boosts = [| 4.0; 1.5; 1.0; 1.5; 1.0 |];
+    use_idf = true;
+    use_lennorm = true;
+    exact_bonus = true;
+  }
+
 module Search : sig
   type search_request
 
@@ -290,10 +309,13 @@ module Search : sig
   (** BM25F ranking (experimental arm, benchmarked by [tool/search-bench]).
       [corpus_stats] holds the corpus-wide document frequencies and average
       field lengths; compute it once over [all_latest] and reuse it across
-      queries. *)
+      queries. It depends only on the corpus, not on [bm25f_params], so one
+      [corpus_stats] can be reused across parameter arms. *)
 
   val corpus_stats : t list -> corpus_stats
-  val compare_bm25f : corpus_stats -> search_request -> t -> t -> int
+
+  val compare_bm25f :
+    bm25f_params -> corpus_stats -> search_request -> t -> t -> int
 end = struct
   type search_constraint =
     | Tag of string
@@ -482,20 +504,6 @@ end = struct
     | 4 -> String.concat " " package.info.authors
     | _ -> ""
 
-  (* Field boosts roughly mirror the discrete weights of the legacy scorer (name
-     dominant, synopsis/tags above description/authors), but here the BM25
-     saturation and IDF do the within-field work. *)
-  let field_boost = function
-    | 0 -> 4.0
-    | 1 -> 1.5
-    | 2 -> 1.0
-    | 3 -> 1.5
-    | 4 -> 1.0
-    | _ -> 1.0
-
-  let k1 = 1.2
-  let b = 0.75
-
   type corpus_stats = {
     n_docs : int;
     df : (string, int) Hashtbl.t;  (** docs containing the term in any field *)
@@ -530,12 +538,14 @@ end = struct
             float_of_int len_sum.(f) /. float_of_int n);
     }
 
-  let idf stats term =
-    let n = float_of_int stats.n_docs in
-    let nq =
-      float_of_int (try Hashtbl.find stats.df term with Not_found -> 0)
-    in
-    log (1.0 +. ((n -. nq +. 0.5) /. (nq +. 0.5)))
+  let idf p stats term =
+    if not p.use_idf then 1.0
+    else
+      let n = float_of_int stats.n_docs in
+      let nq =
+        float_of_int (try Hashtbl.find stats.df term with Not_found -> 0)
+      in
+      log (1.0 +. ((n -. nq +. 0.5) /. (nq +. 0.5)))
 
   let tf term toks =
     List.fold_left (fun a t -> if String.equal t term then a + 1 else a) 0 toks
@@ -551,7 +561,7 @@ end = struct
   let constraint_text = function
     | Any s | Name s | Synopsis s | Description s | Tag s | Author s -> s
 
-  let bm25f_score stats request package =
+  let bm25f_score p stats request package =
     let field_toks =
       Array.init n_fields (fun f -> tokenize (field_text package f))
     in
@@ -560,9 +570,15 @@ end = struct
       let tf = float_of_int (tf term field_toks.(f)) in
       if tf = 0.0 then 0.0
       else
-        let avg = if stats.avg_len.(f) = 0.0 then 1.0 else stats.avg_len.(f) in
-        let norm = 1.0 -. b +. (b *. float_of_int field_len.(f) /. avg) in
-        field_boost f *. tf *. (k1 +. 1.0) /. (tf +. (k1 *. norm))
+        let norm =
+          if not p.use_lennorm then 1.0
+          else
+            let avg =
+              if stats.avg_len.(f) = 0.0 then 1.0 else stats.avg_len.(f)
+            in
+            1.0 -. p.b +. (p.b *. float_of_int field_len.(f) /. avg)
+        in
+        p.boosts.(f) *. tf *. (p.k1 +. 1.0) /. (tf +. (p.k1 *. norm))
     in
     let total =
       List.fold_left
@@ -571,39 +587,43 @@ end = struct
           let terms = tokenize (constraint_text c) in
           List.fold_left
             (fun acc term ->
-              let w = idf stats term in
+              let w = idf p stats term in
               List.fold_left
                 (fun acc f -> acc +. (w *. score_term_field term f))
                 acc fields)
             acc terms)
         0.0 request
     in
-    (* Exact name / tag bonuses preserve the known-item navigational behaviour
-       the legacy [exact_name]/[exact_tag] weights provided. *)
-    let qjoined =
-      String.concat " " (List.map constraint_text request)
-      |> String.lowercase_ascii
-    in
-    let name_l = String.lowercase_ascii (Name.to_string package.name) in
-    let total = if String.equal name_l qjoined then total +. 100.0 else total in
-    if
-      List.exists
-        (fun t -> String.equal (String.lowercase_ascii t) qjoined)
-        package.info.tags
-    then total +. 10.0
-    else total
+    if not p.exact_bonus then total
+    else
+      (* Exact name / tag bonuses preserve the known-item navigational behaviour
+         the legacy [exact_name]/[exact_tag] weights provided. *)
+      let qjoined =
+        String.concat " " (List.map constraint_text request)
+        |> String.lowercase_ascii
+      in
+      let name_l = String.lowercase_ascii (Name.to_string package.name) in
+      let total =
+        if String.equal name_l qjoined then total +. 100.0 else total
+      in
+      if
+        List.exists
+          (fun t -> String.equal (String.lowercase_ascii t) qjoined)
+          package.info.tags
+      then total +. 10.0
+      else total
 
-  let adjust_bm25f_by_popularity stats request p =
-    bm25f_score stats request p
-    *. (1.0 +. log (1.0 +. float_of_int (List.length p.info.rev_deps)))
+  let adjust_bm25f_by_popularity p stats request pkg =
+    bm25f_score p stats request pkg
+    *. (1.0 +. log (1.0 +. float_of_int (List.length pkg.info.rev_deps)))
 
-  let compare_bm25f stats request p1 p2 =
-    let s1 = adjust_bm25f_by_popularity stats request p1 in
-    let s2 = adjust_bm25f_by_popularity stats request p2 in
+  let compare_bm25f p stats request p1 p2 =
+    let s1 = adjust_bm25f_by_popularity p stats request p1 in
+    let s2 = adjust_bm25f_by_popularity p stats request p2 in
     Float.compare s2 s1
 end
 
-type ranking = Default | Bm25f
+type ranking = Default | Bm25f of bm25f_params
 
 (* BM25F needs corpus-wide stats (document frequencies, average field lengths).
    They only change when the package set changes, so memoise them keyed on the
@@ -621,7 +641,7 @@ let search ~is_author_match ?(sort_by_popularity = false) ?(ranking = Default) t
     | Default ->
         Search.(if sort_by_popularity then compare_by_popularity else compare)
           request
-    | Bm25f ->
+    | Bm25f params ->
         let stats =
           match !bm25f_stats_cache with
           | Some (key, s) when key = t.opam_repository_commit -> s
@@ -630,7 +650,7 @@ let search ~is_author_match ?(sort_by_popularity = false) ?(ranking = Default) t
               bm25f_stats_cache := Some (t.opam_repository_commit, s);
               s
         in
-        Search.compare_bm25f stats request
+        Search.compare_bm25f params stats request
   in
   List.sort compare candidates
 

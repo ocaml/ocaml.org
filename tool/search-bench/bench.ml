@@ -270,13 +270,34 @@ let () =
     |> List.map (fun p -> P.Name.to_string (P.name p))
   in
 
-  (* arms: label, search function *)
+  (* arms: label, search function. BM25F arms are built by overriding
+     [default_bm25f_params]; all share one corpus-stats build (stats are
+     parameter-independent), so ablation/sweeps cost no extra stats work. The
+     full set only runs with [--ablate]; the default run keeps current vs the
+     baseline bm25f so the CSV stays small. *)
+  let base = P.default_bm25f_params in
+  let bm25f label params =
+    (label, fun q -> P.search ~is_author_match ~ranking:(P.Bm25f params) state q)
+  in
+  let current =
+    ( "current",
+      fun q -> P.search ~is_author_match ~sort_by_popularity:true state q )
+  in
   let arms =
-    [
-      ( "current",
-        fun q -> P.search ~is_author_match ~sort_by_popularity:true state q );
-      ("bm25f", fun q -> P.search ~is_author_match ~ranking:P.Bm25f state q);
-    ]
+    if List.mem "--ablate" args then
+      [
+        current;
+        bm25f "bm25f" base;
+        bm25f "no-idf" { base with use_idf = false };
+        bm25f "no-lennorm" { base with use_lennorm = false };
+        bm25f "no-exact" { base with exact_bonus = false };
+        bm25f "flat-boost" { base with boosts = [| 1.; 1.; 1.; 1.; 1. |] };
+        bm25f "k1-2.0" { base with k1 = 2.0 };
+        bm25f "b-0.0" { base with b = 0.0 };
+        bm25f "b-0.4" { base with b = 0.4 };
+        bm25f "b-1.0" { base with b = 1.0 };
+      ]
+    else [ current; bm25f "bm25f" base ]
   in
 
   (* Warm each arm once so BM25F's one-time corpus-stats build is excluded from
