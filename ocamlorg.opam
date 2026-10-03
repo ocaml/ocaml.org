@@ -25,6 +25,7 @@ depends: [
   "cohttp-lwt-unix"
   "bos"
   "crunch"
+  "dream" {>= "1.0.0~alpha8"}
   "dream-accept"
   "dream-encoding"
   "graphql" {>= "0.14.0"}
@@ -71,4 +72,15 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   [ "hilite.0.6.0" "git+https://github.com/patricoferris/hilite#f5368558f765ff6c884fda68acf4d4e9256970b4" ]
+  # gluten fd-leak fix (mtelvers/gluten branch fix/io-loop-close-on-exn-0.5.2,
+  # cherry-picked onto upstream 0.5.2). Released gluten-lwt-unix skips
+  # Lwt_unix.close when shutdown raises ENOTCONN on a peer-reset socket, and
+  # its IO loop never closes the socket when a read/write loop raises, so every
+  # client that disconnects mid-request leaks one fd. Under slow upstream doc
+  # fetches this exhausted the fd limit and took the site down (2026-10-03).
+  # Dream >= 1.0.0~alpha8 consumes gluten from opam rather than vendoring it,
+  # which is why the dream dependency requires alpha8.
+  [ "gluten.0.5.2" "git+https://github.com/mtelvers/gluten.git#8cbce6d903b3e779b1fc3f505ae8702d858ad3a2" ]
+  [ "gluten-lwt.0.5.2" "git+https://github.com/mtelvers/gluten.git#8cbce6d903b3e779b1fc3f505ae8702d858ad3a2" ]
+  [ "gluten-lwt-unix.0.5.2" "git+https://github.com/mtelvers/gluten.git#8cbce6d903b3e779b1fc3f505ae8702d858ad3a2" ]
 ]
