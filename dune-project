@@ -40,6 +40,8 @@
   cohttp-lwt-unix
   bos
   crunch
+  (dream
+   (>= 1.0.0~alpha8))
   dream-accept
   dream-encoding
   (graphql
