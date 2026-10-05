@@ -144,9 +144,54 @@ Example:
 ocaml-ci mirage/irmin pull/867 debian-12-ocaml-5.2 cancel
 ```
 
+## Self-Hosting
+
+The hosted instance at [ocaml.ci.dev](https://ocaml.ci.dev) requires allowlist approval. If you need full control, you can run your own OCaml-CI instance.
+
+A self-hosted deployment consists of three core services: the **CI service** (processes GitHub webhooks and generates build pipelines), a **web UI**, and a **Caddy** reverse proxy. Builds are dispatched to an [OCluster](https://github.com/ocurrent/ocluster) scheduler with one or more workers.
+
+### Quick Start
+
+Build the Docker images:
+
+```sh
+git clone --recursive https://github.com/ocurrent/ocaml-ci.git
+cd ocaml-ci
+docker build -t ocaml-ci-service .
+docker build -f Dockerfile.web -t ocaml-ci-web .
+```
+
+Then [create a GitHub App](https://github.com/settings/apps/new) with these permissions:
+
+- **Checks**: Read/Write
+- **Commit statuses**: Read/Write
+- **Contents**: Read-only
+- **Pull requests**: Read-only
+- **Events**: Create, Pull request, Push
+
+Note the App ID and download the private key. Create Docker secrets for the private key, webhook secret, and an OCluster submission capability file:
+
+```sh
+docker swarm init --advertise-addr 127.0.0.1:2377 --listen-addr 127.0.0.1:2377
+docker secret create my-ci-github-key my-ci.private-key.pem
+docker secret create my-ci-webhook-secret my-ci-webhook-secret
+docker secret create ocaml-ci-submission.cap cluster.cap
+```
+
+Deploy using a Docker stack file that wires the services together:
+
+```sh
+docker stack deploy my-ci --compose-file stack.yml
+```
+
+The `--github-account-allowlist` flag on the CI service controls which GitHub accounts can use your instance.
+
+For the complete deployment guide including Caddy configuration, stack file examples, and OCluster setup, see the [Docker deployment documentation](https://github.com/ocurrent/ocaml-ci/blob/master/doc/docker-deployment.md).
+
 ## Further Reading
 
 - [OCaml-CI Getting Started](https://ocaml.ci.dev/getting-started) — a brief walkthrough of the basic setup steps.
 - [OCaml-CI README](https://github.com/ocurrent/ocaml-ci) — the most comprehensive reference, covering how the pipeline works, installation, setup, CLI usage, and deployment.
+- [Docker deployment guide](https://github.com/ocurrent/ocaml-ci/blob/master/doc/docker-deployment.md) — step-by-step self-hosting instructions with Docker Swarm and Caddy.
 - [OCaml-CI, Renovated](https://tarides.com/blog/2023-07-12-ocaml-ci-renovated/) on the Tarides blog — the value proposition, experimental builds, lower-bounds testing, and the 2022 UI renovation.
 - [Best Practices for Continuous Integration (CI) in 2023](https://discuss.ocaml.org/t/best-practices-for-continuous-integration-ci-in-2023/12380) — a community discussion with practical tips.
