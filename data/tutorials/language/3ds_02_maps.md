@@ -54,7 +54,7 @@ be defined when we create our first map.
 
 ## Creating a Map
 
-The `StringMap` module has an `empty` value that has a type parameter `'a` in
+The `StringMap` module has an `empty` value that has a type variable `'a` in
 its type: `empty : 'a t`.
 
 This means that we can use `empty` to create new empty maps where the value is of any type.

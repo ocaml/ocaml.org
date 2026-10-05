@@ -49,15 +49,16 @@ Especially since the release of OCaml 5.0 with Multicore support, perhaps our bi
 ## Common Phrases
 
 - "Binding a value to a name" = declaring a variable
-- `'a` is a type parameter called "alpha." It is not a *type variable* (because the term *variable* is a forbidden word).
+- `'a` (called "alpha") is always a *type variable*: it stands for an unknown type inside a type expression (e.g. `'a -> 'a`). *Type parameter* isn't a second kind of thing — it's a *role* a type variable can play, the parameter slot a type operator takes, as in `type 'a list`. So don't treat the two as synonyms: a type parameter need not even be a variable, it can be a wildcard `_` (`type _ t = int`).
 - Pass a function as a value to another function as a parameter - not a "function value"
   
 ## Things to Avoid
 
 1. Don't use the same letter for different things, i.e., when talking about a type parameter `'a`, don't have a name `a` nearby. In fact, since `a` can easily be confused with `'a` (alpha), start with `f` when using letters as parameters.
-1. Never use the term "variable," instead
+1. Don't call a `let`-bound entity a "variable." Instead:
     a. Names and values (binding = a value is bound to a name)
-    b. Type parameter
+    b. For a mutable cell, use "reference" (`ref`)
+    c. The only correct "variable" in OCaml is a *type variable*: `'a` ranging over types in a type expression
 1. Use “parameter” and “argument” appropriately. Parameters occur in function declarations. Arguments are values that functions are applied to.
 1. Don't use math, computer science, or programming language theory terminology without reason and explanation.
 
