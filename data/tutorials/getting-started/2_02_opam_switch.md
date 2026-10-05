@@ -28,7 +28,9 @@ To create a new opam switch, you can use the `opam switch` command followed by t
 opam switch create my_project <compiler-version>
 ```
 
-Replace `<compiler-version>` with the version of the OCaml compiler you want to use, e.g. `5.2.0` (see `opam switch list-available` for a list of available OCaml compilers versions).
+Replace `<compiler-version>` with the version of the OCaml compiler you want to use, e.g. `5.4.1` (run `opam switch list-available` for a list of available OCaml compiler versions). Pick the latest stable version unless you have a reason not to; you can check the newest release against the [OCaml Releases](https://ocaml.org/releases) website.
+
+If the list doesn't include the newest version, it may be that you installed opam a while ago and haven't updated its list of packages. You can run `opam update` and check again.
 
 If you don't specify a compiler, and `my_project` is a directory, opam will choose the default version. If `my_project` is not a directory, opam will consider it as a plain name and try to install a compiler version with the same name.
 
