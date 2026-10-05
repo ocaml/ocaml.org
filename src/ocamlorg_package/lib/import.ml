@@ -10,6 +10,9 @@ module String = struct
       done;
       false
     with Exit -> true
+
+  let case_fold = Ocamlorg.Import.String.case_fold
+  let caseless_equal = Ocamlorg.Import.String.caseless_equal
 end
 
 module List = struct

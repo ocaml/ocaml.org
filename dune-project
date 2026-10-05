@@ -66,6 +66,7 @@
    (and
     :with-test
     (>= 1.10.0)))
+  uucp
   ; tools/data-packer
   ppx_deriving_yaml
   ppx_import

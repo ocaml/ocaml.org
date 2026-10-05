@@ -1,3 +1,4 @@
 (library
  (name ocamlorg)
- (public_name ocamlorg.global))
+ (public_name ocamlorg.global)
+ (libraries uucp))
