@@ -19,7 +19,16 @@ Please ensure you've installed OCaml and set up the environment, as described on
 We recommend that you execute the examples we provide, and to experiment with them, to get a feel for coding in OCaml.
 To do this, you can use UTop (Universal Toplevel).
 
-UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`. For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
+UTop allows users to interact with OCaml by reading and evaluating OCaml phrases, like expressions or value definitions, and printing the result on the screen. Use the `utop` command to run UTop. Exit it by pressing `Ctrl+D`.
+
+The examples below follow a simple format. The first line is your input into UTop. The second line is the output from UTop.
+
+```ocaml
+# 50 + 50;;
+- : int = 100
+```
+
+For more information, you can read the [Introduction to the OCaml Toplevel](/docs/toplevel-introduction).
 
 Some of the examples in this tour include comments. Comments in OCaml start with `(*` and end with `*)` and can be nested. Since they are ignored by OCaml, they can be used anywhere whitespace is permitted. When entering the code below into UTop, the comments can be left out. Here are some examples:
 
@@ -55,7 +64,7 @@ Let's start with a simple expression:
 - : int = 2500
 ```
 
-In OCaml, everything has a value, and every value has a type. The above example says, “`50 * 50` is an expression that has type `int` (integer) and evaluates to `2500`.” Since it is an anonymous expression, the character `-` appears instead of a name.
+In OCaml, everything has a value, and every value has a type. The above example says, the input “`50 * 50` is an expression that has type `int` (integer) and evaluates to `2500`.” Since it is an anonymous expression, the character `-` appears instead of a name, in the output (Note that this is different from `_` in the input that we will address later).
 
 The double semicolon `;;` at the end tells the toplevel to evaluate and print the result of the given phrase.
 
@@ -85,7 +94,11 @@ val u : int list = [1; 2; 3; 4]
 - : string list = ["this"; "is"; "mambo"]
 ```
 
-The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]` (pronounced “nil”). Note that the first list has been given a name using the `let … = …` construction, which is detailed below. The most primitive operation on lists is to add a new element at the front of an existing list. This is done using the “cons” operator, written with the double colon operator `::`.
+(`let` and `val` are explained next in the [Bindings](#bindings) section)
+
+The lists' types, `int list` and `string list`, have been inferred from the type of their elements. Lists can be empty `[]`. Note that the first list has been given a name (u) using the `let … = …` construction. 
+
+The most primitive operation on lists is to add a new element at the front of an existing list. This is done using the double colon `::`, "cons" operator.
 
 ```ocaml
 # 9 :: u;;
@@ -99,7 +112,11 @@ In OCaml, `if … then … else …` is not a statement; it is an expression.
 - : int = 10
 ```
 
-The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions. The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. Also note parentheses are not needed here, which is often the case in OCaml.
+The source beginning at `if` and ending at `5` is parsed as a single integer expression that is multiplied by 2. OCaml has no need for two different test constructions. The [ternary conditional operator](https://en.wikipedia.org/wiki/Ternary_conditional_operator) and the `if … then … else …` are the same. 
+
+Also note parentheses are not needed here, around the `if`, which is often the case in OCaml.
+
+## Bindings
 
 Values can be given names using the `let` keyword. This is called _binding_ a value to a name. For example:
 
@@ -113,9 +130,11 @@ val x : int = 50
 
 When entering `let x = 50;;`, OCaml responds with `val x : int = 50`, meaning that `x` is an identifier bound to value `50`. So `x * x;;` evaluates to the same as `50 * 50;;`.
 
-Bindings in OCaml are _immutable_, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
+Bindings in OCaml are _immutable_, meaning that the value assigned to a name never changes. Although `x` is often called a variable, it is not the case. It is in fact a constant. Using over-simplifying but acceptable words, all variables are immutable in OCaml. 
 
-There is no overloading in OCaml, so inside a lexical scope, names have a single value, which only depends on its definition.
+It is possible to give names to values that can be updated. In OCaml, this is called a _reference_ and will be discussed in the [Working With Mutable State](/docs/tour-of-ocaml#working-with-mutable-state) section.
+
+Inside a lexical scope, names have a single value (the one it was bound to with `let`). There is no ambiguity as there is no overloading in OCaml.
 
 Do not use dashes in names; use underscores instead. For example: `x_plus_y` works, `x-plus-y` does not.
 
