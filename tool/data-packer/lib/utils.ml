@@ -40,11 +40,9 @@ let read_from_dir glob =
     Bos.OS.Path.matches Fpath.(root_dir // file_pattern)
     |> Result.get_ok ~error:(fun (`Msg msg) -> failwith msg)
     |> Stdlib.List.filter_map (fun x ->
-           read_file x
-           |> Option.map (fun y ->
-                  ( x |> Fpath.rem_prefix root_dir |> Option.get
-                    |> Fpath.to_string,
-                    y )))
+        read_file x
+        |> Option.map (fun y ->
+            (x |> Fpath.rem_prefix root_dir |> Option.get |> Fpath.to_string, y)))
   in
   if Stdlib.List.length results = 0 then
     failwith

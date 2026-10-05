@@ -26,7 +26,7 @@ type metadata = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:t ~add:[ statement; solution ] ~modify:[ tutorials ]]
+  stable_record ~version:t ~add:[ statement; solution ] ~modify:[ tutorials ]]
 
 let of_metadata m = metadata_to_t m ~modify_tutorials:(Option.value ~default:[])
 

@@ -193,8 +193,8 @@ let init ?(disable_polling = false) () =
 let all_latest t =
   t.packages |> Name.Map.bindings
   |> List.filter_map (fun (name, versions) ->
-         select_latest versions
-         |> Option.map (fun (version, info) -> { name; version; info }))
+      select_latest versions
+      |> Option.map (fun (version, info) -> { name; version; info }))
 
 let stats t = t.stats
 
@@ -222,13 +222,13 @@ let version_statuses info =
 let get_versions t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map (fun p ->
-         p |> Version.Map.bindings
-         |> List.map (fun (version, info) ->
-                {
-                  version;
-                  opam_repository_date = info.Info.publication;
-                  statuses = version_statuses info;
-                }))
+      p |> Version.Map.bindings
+      |> List.map (fun (version, info) ->
+          {
+            version;
+            opam_repository_date = info.Info.publication;
+            statuses = version_statuses info;
+          }))
   |> Option.value ~default:[]
   |> List.sort (fun v1 v2 -> Version.compare v2.version v1.version)
 

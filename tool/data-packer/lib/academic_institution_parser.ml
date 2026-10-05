@@ -72,8 +72,8 @@ type metadata = {
 }
 [@@deriving
   of_yaml,
-    stable_record ~version:Data_intf.Academic_institution.t
-      ~add:[ body_md; body_html; slug ]]
+  stable_record ~version:Data_intf.Academic_institution.t
+    ~add:[ body_md; body_html; slug ]]
 
 type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
 

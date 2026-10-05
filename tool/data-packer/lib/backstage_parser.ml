@@ -14,8 +14,8 @@ module Posts = struct
   }
   [@@deriving
     of_yaml,
-      stable_record ~version:post ~modify:[ authors ]
-        ~add:[ slug; body_html; body; date ]]
+    stable_record ~version:post ~modify:[ authors ]
+      ~add:[ slug; body_html; body; date ]]
 
   let of_post_metadata m =
     post_metadata_to_post m ~modify_authors:(Option.value ~default:[])
@@ -72,7 +72,7 @@ let all () =
   let releases =
     Platform_release_parser.all ()
     |> List.filter (fun (a : Platform_release_parser.t) ->
-           a.experimental = true)
+        a.experimental = true)
     |> List.map platform_tools_release_to_release
   in
   let posts = Posts.all () in
