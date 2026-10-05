@@ -154,7 +154,7 @@ Other Merlin commands for Vim are available and you can checkout their usage on 
 
 ## Neovim
 
-Neovim comes with an LSP client.
+Neovim comes with an LSP client, which provides standard editing features such as completion, code navigation, and diagnostics. Advanced Merlin features are available through the dedicated [`ocaml.nvim` plugin](https://github.com/tarides/ocaml.nvim), presented at the end of this section.
 
 One note here is that `ocaml-lsp-server` is sensitive to versioning, and often does not play well with the sometimes outdated sources in Mason, a popular package manager for language services. We recommend you install the LSP server directly in the switch, and point your Neovim config to use that.
 
@@ -257,3 +257,7 @@ Add this to your `nvim-lspconfig` setup.
 ```
 
 There is no need to pass more settings to `setup` because `nvim-lspconfig` provides reasonable defaults. See [the nvim-lspconfig OCaml LSP configuration](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ocamllsp.lua) for more info.
+
+### Advanced Merlin Features With ocaml.nvim
+
+The LSP setup above covers the standard editing features. For Merlin features beyond the scope of LSP — such as type enclosing with adjustable scope and verbosity, jumping between typed holes and filling them with valid substitutions, switching between or inferring `.mli` files, and searching definitions by type or polarity — you can additionally install the [`ocaml.nvim` plugin](https://github.com/tarides/ocaml.nvim). It requires `ocamllsp` to be installed and enabled, as described above. The [project's README](https://github.com/tarides/ocaml.nvim#readme) has up-to-date installation instructions (using the built-in `vim.pack` plugin manager or `lazy.nvim`) along with the complete list of commands and default key bindings.
