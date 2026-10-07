@@ -307,4 +307,4 @@
   publish_all: false
 - id: grm
   name: grim.cargocut.org
-  url: http://grim.cargocut.org/atom.xml
+  url: https://grim.cargocut.org/atom.xml
