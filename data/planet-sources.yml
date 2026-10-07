@@ -305,3 +305,6 @@
   name: Benjamin Thuillier
   url: https://gilwath.com/atom.xml
   publish_all: false
+- id: grm
+  name: grim.cargocut.org
+  url: http://grim.cargocut.org/atom.xml
