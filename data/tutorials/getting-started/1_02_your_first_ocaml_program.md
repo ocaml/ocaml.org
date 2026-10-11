@@ -252,7 +252,7 @@ A more detailed introduction to modules can be found at [Modules](/docs/modules)
 
 ## Installing and Using Modules From a Package
 
-OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/up-and-ready) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
+OCaml has an active community of open-source contributors. Most projects are available using the opam package manager, which you installed in the [Install OCaml](/docs/installing-ocaml) tutorial. The following section shows you how to install and use a package from opam's open-source repository.
 
 To illustrate this, let's update our `hello` project to parse a string containing an [S-expression](https://en.wikipedia.org/wiki/S-expression) and print back to a string, both using [Sexplib](https://github.com/janestreet/sexplib). First, update the package list for opam by running `opam update`. Then, install the `Sexplib` package with this command:
 
