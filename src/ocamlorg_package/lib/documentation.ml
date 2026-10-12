@@ -122,8 +122,8 @@ let http_get url =
           Error (`Msg ("Failed to fetch " ^ url)))
     (function
       | e ->
-          Logs.err (fun m -> m "%s" (Printexc.to_string e));
-          Lwt.return (Error (`Msg (Printexc.to_string e))))
+      Logs.err (fun m -> m "%s" (Printexc.to_string e));
+      Lwt.return (Error (`Msg (Printexc.to_string e))))
 
 open Package
 

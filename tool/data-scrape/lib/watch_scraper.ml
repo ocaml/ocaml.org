@@ -108,7 +108,7 @@ let scrape yaml_file =
       let watch =
         videos
         |> List.stable_sort (fun w1 w2 ->
-               String.compare w1.Data_packer.Vid.title w2.Data_packer.Vid.title)
+            String.compare w1.Data_packer.Vid.title w2.Data_packer.Vid.title)
       in
       let yaml = to_yaml watch in
       let output =

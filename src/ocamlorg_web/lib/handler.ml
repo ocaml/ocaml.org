@@ -79,23 +79,23 @@ let community _req =
               |> Option.get >= current_date)
       Data.Event.all
     |> (match query with
-       | None | Some "All" -> fun e -> e
-       | _ ->
-           List.filter (fun (event : Data.Event.t) ->
-               match selected_event with
-               | None -> false
-               | Some eventType -> event.event_type = eventType))
+      | None | Some "All" -> fun e -> e
+      | _ ->
+          List.filter (fun (event : Data.Event.t) ->
+              match selected_event with
+              | None -> false
+              | Some eventType -> event.event_type = eventType))
     |> Ocamlorg.Import.List.take 6
   in
   let event_types =
     Data.Event.all
     |> List.map (fun (event : Data.Event.t) ->
-           match event.event_type with
-           | Meetup -> "Meetup"
-           | Conference -> "Conference"
-           | Seminar -> "Seminar"
-           | Hackathon -> "Hackathon"
-           | Retreat -> "Retreat")
+        match event.event_type with
+        | Meetup -> "Meetup"
+        | Conference -> "Conference"
+        | Seminar -> "Seminar"
+        | Hackathon -> "Hackathon"
+        | Retreat -> "Retreat")
     |> List.sort_uniq String.compare
   in
   let events = (upcoming_events, event_types) in
@@ -283,7 +283,7 @@ let backstage req =
   let tags =
     Data.Backstage.all
     |> List.concat_map (fun (change : Data.Backstage.t) ->
-           tags_from_backstage_entry change)
+        tags_from_backstage_entry change)
     |> List.sort_uniq String.compare
   in
   let backstage_entries =
@@ -328,7 +328,7 @@ let changelog req =
   let tags =
     Data.Changelog.all
     |> List.concat_map (fun (change : Data.Changelog.t) ->
-           tags_from_change change)
+        tags_from_change change)
     |> List.sort_uniq String.compare
   in
   let changelog_entries =
@@ -580,7 +580,7 @@ let releases req =
     t
     |> List.filter (fun p -> version_contains_s p)
     |> List.sort (fun release_1 release_2 ->
-           compare (score release_1) (score release_2))
+        compare (score release_1) (score release_2))
   in
   let search = Dream.query req "q" in
   let releases =
@@ -611,7 +611,7 @@ let conferences _req =
            || Option.is_some e.ends
               && e.ends
                  |> Option.map (fun (e : Data.Event.utc_datetime) ->
-                        e.yyyy_mm_dd)
+                     e.yyyy_mm_dd)
                  |> Option.get >= current_date))
       Data.Event.all
     |> Ocamlorg.Import.List.take 6
@@ -687,7 +687,7 @@ let jobs req =
   let locations =
     Data.Job.all
     |> List.concat_map (fun (job : Data.Job.t) ->
-           List.filter (( <> ) "Remote") job.locations)
+        List.filter (( <> ) "Remote") job.locations)
     |> List.sort_uniq String.compare
   in
 
@@ -747,7 +747,7 @@ let papers req =
     t
     |> List.filter (fun p -> title_contains_s p)
     |> List.sort (fun paper_1 paper_2 ->
-           compare (score paper_1) (score paper_2))
+        compare (score paper_1) (score paper_2))
   in
   let search = Dream.query req "q" in
   let papers =
@@ -865,7 +865,7 @@ let cookbook_recipe req =
   let other_recipes_for_this_task =
     Data.Cookbook.all
     |> List.filter (fun (c : Data.Cookbook.t) ->
-           c.task.slug = recipe.task.slug && c.slug <> recipe.slug)
+        c.task.slug = recipe.task.slug && c.slug <> recipe.slug)
   in
   Dream.html
     (Ocamlorg_frontend.cookbook_recipe recipe other_recipes_for_this_task)
@@ -926,20 +926,20 @@ module Package_helper = struct
   let versions state name =
     Ocamlorg_package.get_versions state name
     |> List.map (fun (v : Ocamlorg_package.version_summary) ->
-           let statuses =
-             List.map
-               (function
-                 | Ocamlorg_package.Avoided -> Ocamlorg_frontend.Package.Avoided
-                 | Ocamlorg_package.Deprecated ->
-                     Ocamlorg_frontend.Package.Deprecated)
-               v.statuses
-           in
-           Ocamlorg_frontend.Package.
-             {
-               version = Ocamlorg_package.Version.to_string v.version;
-               opam_repository_date = v.opam_repository_date;
-               statuses;
-             })
+        let statuses =
+          List.map
+            (function
+              | Ocamlorg_package.Avoided -> Ocamlorg_frontend.Package.Avoided
+              | Ocamlorg_package.Deprecated ->
+                  Ocamlorg_frontend.Package.Deprecated)
+            v.statuses
+        in
+        Ocamlorg_frontend.Package.
+          {
+            version = Ocamlorg_package.Version.to_string v.version;
+            opam_repository_date = v.opam_repository_date;
+            statuses;
+          })
 
   let search_index_digest ~kind state name =
     let open Lwt.Syntax in
@@ -973,8 +973,7 @@ module Package_helper = struct
     in
     package
     |> Option.map (fun package ->
-           ( package,
-             frontend_package t package ~on_latest_url:(version = "latest") ))
+        (package, frontend_package t package ~on_latest_url:(version = "latest")))
 
   let package_sidebar_data ~kind t package =
     let open Lwt.Syntax in
@@ -1027,18 +1026,18 @@ let is_ocaml_yet t id req =
   let packages =
     meta.categories
     |> List.concat_map (fun (category : Data.Is_ocaml_yet.category) ->
-           category.packages)
+        category.packages)
     |> List.filter_map (fun (p : Data.Is_ocaml_yet.package) ->
-           let name = Ocamlorg_package.Name.of_string p.name in
-           (* FIXME: Failure *)
-           match Ocamlorg_package.get_latest t name with
-           | Some x -> Some x
-           | None ->
-               if p.extern = None then
-                 Dream.error (fun log ->
-                     log ~request:req "Package not found: %s"
-                       (Ocamlorg_package.Name.to_string name));
-               None)
+        let name = Ocamlorg_package.Name.of_string p.name in
+        (* FIXME: Failure *)
+        match Ocamlorg_package.get_latest t name with
+        | Some x -> Some x
+        | None ->
+            if p.extern = None then
+              Dream.error (fun log ->
+                  log ~request:req "Package not found: %s"
+                    (Ocamlorg_package.Name.to_string name));
+            None)
     |> List.map (Package_helper.frontend_package t)
     |> List.map (fun pkg -> (pkg.Ocamlorg_frontend.Package.name, pkg))
     |> List.to_seq |> Hashtbl.of_seq
@@ -1060,15 +1059,15 @@ let packages state _req =
   let stats =
     Ocamlorg_package.stats state
     |> Option.map (fun (t : Ocamlorg_package.Statistics.t) ->
-           Ocamlorg_frontend.Package.
-             {
-               nb_packages = t.nb_packages;
-               nb_update_week = t.nb_update_week;
-               nb_packages_month = t.nb_packages_month;
-               newest_packages = List.map package_pair t.newest_packages;
-               recently_updated = List.map package t.recently_updated;
-               most_revdeps = List.map package_pair t.most_revdeps;
-             })
+        Ocamlorg_frontend.Package.
+          {
+            nb_packages = t.nb_packages;
+            nb_update_week = t.nb_update_week;
+            nb_packages_month = t.nb_packages_month;
+            newest_packages = List.map package_pair t.newest_packages;
+            recently_updated = List.map package t.recently_updated;
+            most_revdeps = List.map package_pair t.most_revdeps;
+          })
   in
   Dream.html (Ocamlorg_frontend.packages stats)
 
@@ -1182,23 +1181,23 @@ let package_overview t kind req =
   let rev_dependencies =
     package_info.Ocamlorg_package.Info.rev_deps
     |> List.map (fun (name, x, version) ->
-           Ocamlorg_frontend.Package_overview.
-             {
-               name = Ocamlorg_package.Name.to_string name;
-               cstr = x;
-               version = Some (Ocamlorg_package.Version.to_string version);
-             })
+        Ocamlorg_frontend.Package_overview.
+          {
+            name = Ocamlorg_package.Name.to_string name;
+            cstr = x;
+            version = Some (Ocamlorg_package.Version.to_string version);
+          })
   in
   let dependencies :
       Ocamlorg_frontend.Package_overview.dependency_or_conflict list =
     package_info.Ocamlorg_package.Info.dependencies
     |> List.map (fun (name, x) ->
-           Ocamlorg_frontend.Package_overview.
-             {
-               name = Ocamlorg_package.Name.to_string name;
-               cstr = x;
-               version = None;
-             })
+        Ocamlorg_frontend.Package_overview.
+          {
+            name = Ocamlorg_package.Name.to_string name;
+            cstr = x;
+            version = None;
+          })
   in
   let dev_dependencies, dependencies =
     dependencies
@@ -1211,12 +1210,12 @@ let package_overview t kind req =
   let conflicts =
     package_info.Ocamlorg_package.Info.conflicts
     |> List.map (fun (name, x) ->
-           Ocamlorg_frontend.Package_overview.
-             {
-               name = Ocamlorg_package.Name.to_string name;
-               cstr = x;
-               version = None;
-             })
+        Ocamlorg_frontend.Package_overview.
+          {
+            name = Ocamlorg_package.Name.to_string name;
+            cstr = x;
+            version = None;
+          })
   in
   let title_with_number title number =
     title ^ if number > 0 then " (" ^ string_of_int number ^ ")" else ""

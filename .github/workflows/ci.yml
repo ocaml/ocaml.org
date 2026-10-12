@@ -50,7 +50,7 @@ jobs:
         run: opam install --deps-only --with-test .
 
       - name: Install ocamlformat
-        run: opam install ocamlformat.0.26.2
+        run: opam install ocamlformat.0.29.0
 
       - name: Build project
         run: make
