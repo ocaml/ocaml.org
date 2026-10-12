@@ -45,7 +45,7 @@ In this chapter, we'll cover the following topics:
 The details of the remainder of the compilation process, which gets
 all the way to executable code comes next, in [The Compiler Backend:
 Byte Code And Native
-Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code).
+Code](/docs/compiler-backend).
 
 ## An Overview of the Toolchain
 
@@ -1249,4 +1249,4 @@ You'll rarely need to look at this raw output from the compiler unless you're
 building IDE tools, or are hacking on extensions to the
 core compiler itself. However, it's useful to know that this intermediate
 form exists before we delve further into the code generation process next, in
-[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend#the-compiler-backend-byte-code-and-native-code).
+[The Compiler Backend: Byte Code And Native Code](/docs/compiler-backend).

@@ -791,7 +791,7 @@ Consider this code:
 Error: Unbound module Analytics
 ```
 
-A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/manual/api/Array.html) module. See the [Module Inclusion](docs/modules#module-inclusion) part of the [Modules](docs/modules) tutorial for details about this pattern.
+A module called `Array` is defined; it shadows and includes the [`Stdlib.Array`](/manual/api/Array.html) module. See the [Module Inclusion](/docs/modules#module-inclusion) part of the [Modules](/docs/modules) tutorial for details about this pattern.
 
 To understand why this code is bad, figure out that `Analytics.collect` is a function that makes a network connection to transmit data to a remote server.
 

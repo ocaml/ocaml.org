@@ -91,7 +91,7 @@ Despite these caveats, some interesting points emerge from reading it:
   are created via `setglobal`, and OCaml values are constructed by
   `makeblock`.  The blocks are the runtime values you should remember
   from [Memory Representation Of
-  Values](/docs/runtime-memory-layout#memory-representation-of-values).
+  Values](/docs/memory-representation).
 
 - The pattern match has turned into a switch case that jumps to the
   right case depending on the header tag of `v`. Recall that variants
