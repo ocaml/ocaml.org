@@ -678,7 +678,7 @@ In the end, the only type construction that does not reduce to a variant is the 
 
 #### User-Defined Polymorphic Types
 
-The previous section showed how OCaml's predefined polymorphic types are defined as variants. You can define your own in exactly the same way. The following type could be used to render a setting in a GUI. Three cases are possible:
+The previous section showed how several of OCaml's predefined polymorphic types are defined as variants. You can define your own in exactly the same way. The following type could be used to render a setting in a GUI. Three cases are possible:
 
 - `User_defined` means the user can pick a value.
 - `Policy_defined` means a value is enforced by the system.
