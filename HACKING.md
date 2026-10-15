@@ -150,6 +150,16 @@ The following environment variables can be used to configure the server:
 | `OCAMLORG_MANUAL_PATH` | `html-compiler-manuals` | Path to OCaml compiler manual HTML files |
 | `OCAMLORG_V2_PATH` | `data/v2` | Path to v2 data files |
 
+### Package Metadata and State
+
+The server does not build an opam switch for the packages it displays, and it never runs `opam install` or compiles any package. All package information comes from a local git clone of [opam-repository](https://github.com/ocaml/opam-repository) at `OCAMLORG_REPO_PATH`, kept current by a periodic `git pull` (interval `OCAMLORG_OPAM_POLLING`).
+
+At startup the server parses the opam files in that clone and computes the derived metadata — synopsis, authors, licence, dependencies, reverse dependencies, publication dates — entirely in memory. Reverse dependencies, for instance, come from inverting the parsed dependency graph, not from querying opam.
+
+Parsing and computing this for the whole repository is expensive, so the result is serialised to the cache file at `OCAMLORG_PKG_STATE_PATH` (`package.state`). On the next start the server loads that cache instead of re-parsing. The cache is stamped with an internal version number and is rebuilt automatically whenever the opam-repository clone advances past the commit it was built from, or when that version number changes.
+
+The only package artefacts that come from elsewhere are the rendered documentation pages, which are fetched from an external server — see [External Services](#external-services) below.
+
 ### External Services
 
 #### Package Documentation
@@ -228,7 +238,7 @@ The following snippet describes the repository structure:
 │   │   All of the front-end code primarily using .eml files (OCaml + HTML).
 │   │
 │   ├── ocamlorg_package
-│   │   The library for constructing opam-repository statistics and information (e.g. rev deps).
+│   │   Reads the local opam-repository clone and computes package metadata (stats, dependencies, rev deps), cached to `package.state`. No packages are built or installed.
 │   │
 │   ├── ocamlorg_static
 │   │   Static file serving.
