@@ -1,3 +1,37 @@
+- title: Trustworthy Human-AI Collaboration in a Live Type-Theoretic Computational
+    Commons
+  url: https://www.youtube.com/watch/fB_lklm7xgU?version=3
+  thumbnail: https://i3.ytimg.com/vi/fB_lklm7xgU/hqdefault.jpg
+  description: "Rooted in Cyrus Omar's group's work on the Hazel live programming
+    environment, this talk presents a vision for a \"live type-theoretic computational
+    commons\": a shared monorepo where humans and swarms of AI agents make verifiable
+    progress on parallel coding tasks. The collaboration model combines novel editing
+    primitives (e.g. CRDT-based structure editing and Unison-style versioning) with
+    familiar type-theoretic structure (e.g. OCaml-style modules and interfaces, Isabelle-style
+    proofs).\n\nTwo research problems take center stage. First, large-scale collaboration
+    requires that incomplete programs remain continuously analyzable and executable
+    \u2014 Cyrus will present recent foundational work on live, incremental type checking
+    and evaluation of programs with typed holes. Second, as agent swarms grow in size
+    and ambition, giving them direct terminal access to our machines and data becomes
+    more risky. He will present a type-theoretic object-capability architecture that
+    provably bounds agent behavior, with per-task capability signatures shaped by
+    humans and weak AI supervisors to enforce the principle of least authority.\n\n00:00:00
+    \u2013 Feedback loops, from pianos to compilers\n00:03:29 \u2013 The gap problem
+    in dev tools\n00:05:07 \u2013 A live demo of Hazel: writing quicksort\n00:06:19
+    \u2013 Holes, error recovery, and live probes\n00:10:14 \u2013 \"Oops, all threes\":
+    debugging with real data\n00:12:42 \u2013 Demo questions: purity, holes, and call
+    frames\n00:25:56 \u2013 Graphical notation: tables, dials, and music\n00:29:26
+    \u2013 Agentic harnesses and swarms of agents\n00:33:33 \u2013 Incrementality:
+    re-execution and type checking\n00:36:56 \u2013 Live incremental IDEs for AI agents\n00:41:19
+    \u2013 Collaborative editing for thousands of agents: Grove and Unison\n00:44:32
+    \u2013 \"Dangerously skip permissions\" and object capabilities\n00:47:02 \u2013
+    A live computational commons, from Wikipedia to climate models\n00:50:24 \u2013
+    Audience Q&A"
+  published: 2026-09-11T13:32:24+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJoWyXnJ2BWpse5HuiYibNYs
+  source_title: Jane Street - Tech Talks
 - title: Presenting styled-ppx 1.0 with CSS static extraction for OCaml
   url: https://www.youtube.com/watch/DohRI4IV__k?version=3
   thumbnail: https://i1.ytimg.com/vi/DohRI4IV__k/hqdefault.jpg
