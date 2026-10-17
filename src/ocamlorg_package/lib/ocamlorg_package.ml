@@ -190,6 +190,8 @@ let init ?(disable_polling = false) () =
       else poll_for_opam_packages ~polling:Config.opam_polling state);
   state
 
+let load_cached () = try_load_state ()
+
 let all_latest t =
   t.packages |> Name.Map.bindings
   |> List.filter_map (fun (name, versions) ->
@@ -283,6 +285,15 @@ module Search : sig
 
   val compare : search_request -> t -> t -> int
   val compare_by_popularity : search_request -> t -> t -> int
+
+  type corpus_stats
+  (** BM25F ranking (experimental arm, benchmarked by [tool/search-bench]).
+      [corpus_stats] holds the corpus-wide document frequencies and average
+      field lengths; compute it once over [all_latest] and reuse it across
+      queries. *)
+
+  val corpus_stats : t list -> corpus_stats
+  val compare_bm25f : corpus_stats -> search_request -> t -> t -> int
 end = struct
   type search_constraint =
     | Tag of string
@@ -425,16 +436,203 @@ end = struct
     let s1 = adjust_score_by_popularity query p1 in
     let s2 = adjust_score_by_popularity query p2 in
     Float.compare s2 s1
+
+  (* --- BM25F ranking (experimental arm) ---------------------------------
+
+     The existing scorer above is binary-presence: a term contributes 0 or 1 per
+     field regardless of how often it occurs, so among the boolean-AND matched
+     set ranking is largely decided by the popularity prior. BM25F replaces that
+     textual score with term-frequency saturation (k1), per-field length
+     normalisation (b) and inverse document frequency, while keeping the
+     popularity prior as a multiplicative factor on top. Matching, query parsing
+     and field scoping are unchanged: this is a pure re-ordering of the same
+     result set. See [tool/search-bench] for the measurement harness. *)
+
+  let tokenize s =
+    let s = String.lowercase_ascii s in
+    let buf = Buffer.create 16 in
+    let acc = ref [] in
+    let flush () =
+      if Buffer.length buf > 0 then (
+        acc := Buffer.contents buf :: !acc;
+        Buffer.clear buf)
+    in
+    String.iter
+      (fun c ->
+        if (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') then
+          Buffer.add_char buf c
+        else flush ())
+      s;
+    flush ();
+    List.rev !acc
+
+  let n_fields = 5
+
+  let f_name = 0
+  and f_synopsis = 1
+  and f_description = 2
+  and f_tags = 3
+  and f_authors = 4
+
+  let field_text (package : t) = function
+    | 0 -> Name.to_string package.name
+    | 1 -> package.info.synopsis
+    | 2 -> package.info.description
+    | 3 -> String.concat " " package.info.tags
+    | 4 -> String.concat " " package.info.authors
+    | _ -> ""
+
+  (* Field boosts roughly mirror the discrete weights of the legacy scorer (name
+     dominant, synopsis/tags above description/authors), but here the BM25
+     saturation and IDF do the within-field work. *)
+  let field_boost = function
+    | 0 -> 4.0
+    | 1 -> 1.5
+    | 2 -> 1.0
+    | 3 -> 1.5
+    | 4 -> 1.0
+    | _ -> 1.0
+
+  let k1 = 1.2
+  let b = 0.75
+
+  type corpus_stats = {
+    n_docs : int;
+    df : (string, int) Hashtbl.t;  (** docs containing the term in any field *)
+    avg_len : float array;  (** average length per field *)
+  }
+
+  let corpus_stats packages =
+    let df = Hashtbl.create 50_000 in
+    let len_sum = Array.make n_fields 0 in
+    let n_docs = ref 0 in
+    List.iter
+      (fun package ->
+        incr n_docs;
+        let seen = Hashtbl.create 64 in
+        for f = 0 to n_fields - 1 do
+          let toks = tokenize (field_text package f) in
+          len_sum.(f) <- len_sum.(f) + List.length toks;
+          List.iter (fun t -> Hashtbl.replace seen t ()) toks
+        done;
+        Hashtbl.iter
+          (fun t () ->
+            let cur = try Hashtbl.find df t with Not_found -> 0 in
+            Hashtbl.replace df t (cur + 1))
+          seen)
+      packages;
+    let n = max 1 !n_docs in
+    {
+      n_docs = n;
+      df;
+      avg_len =
+        Array.init n_fields (fun f ->
+            float_of_int len_sum.(f) /. float_of_int n);
+    }
+
+  let idf stats term =
+    let n = float_of_int stats.n_docs in
+    let nq =
+      float_of_int (try Hashtbl.find stats.df term with Not_found -> 0)
+    in
+    log (1.0 +. ((n -. nq +. 0.5) /. (nq +. 0.5)))
+
+  let tf term toks =
+    List.fold_left (fun a t -> if String.equal t term then a + 1 else a) 0 toks
+
+  let constraint_fields = function
+    | Any _ -> [ f_name; f_synopsis; f_description; f_tags; f_authors ]
+    | Name _ -> [ f_name ]
+    | Synopsis _ -> [ f_synopsis ]
+    | Description _ -> [ f_description ]
+    | Tag _ -> [ f_tags ]
+    | Author _ -> [ f_authors ]
+
+  let constraint_text = function
+    | Any s | Name s | Synopsis s | Description s | Tag s | Author s -> s
+
+  let bm25f_score stats request package =
+    let field_toks =
+      Array.init n_fields (fun f -> tokenize (field_text package f))
+    in
+    let field_len = Array.map List.length field_toks in
+    let score_term_field term f =
+      let tf = float_of_int (tf term field_toks.(f)) in
+      if tf = 0.0 then 0.0
+      else
+        let avg = if stats.avg_len.(f) = 0.0 then 1.0 else stats.avg_len.(f) in
+        let norm = 1.0 -. b +. (b *. float_of_int field_len.(f) /. avg) in
+        field_boost f *. tf *. (k1 +. 1.0) /. (tf +. (k1 *. norm))
+    in
+    let total =
+      List.fold_left
+        (fun acc c ->
+          let fields = constraint_fields c in
+          let terms = tokenize (constraint_text c) in
+          List.fold_left
+            (fun acc term ->
+              let w = idf stats term in
+              List.fold_left
+                (fun acc f -> acc +. (w *. score_term_field term f))
+                acc fields)
+            acc terms)
+        0.0 request
+    in
+    (* Exact name / tag bonuses preserve the known-item navigational behaviour
+       the legacy [exact_name]/[exact_tag] weights provided. *)
+    let qjoined =
+      String.concat " " (List.map constraint_text request)
+      |> String.lowercase_ascii
+    in
+    let name_l = String.lowercase_ascii (Name.to_string package.name) in
+    let total = if String.equal name_l qjoined then total +. 100.0 else total in
+    if
+      List.exists
+        (fun t -> String.equal (String.lowercase_ascii t) qjoined)
+        package.info.tags
+    then total +. 10.0
+    else total
+
+  let adjust_bm25f_by_popularity stats request p =
+    bm25f_score stats request p
+    *. (1.0 +. log (1.0 +. float_of_int (List.length p.info.rev_deps)))
+
+  let compare_bm25f stats request p1 p2 =
+    let s1 = adjust_bm25f_by_popularity stats request p1 in
+    let s2 = adjust_bm25f_by_popularity stats request p2 in
+    Float.compare s2 s1
 end
 
-let search ~is_author_match ?(sort_by_popularity = false) t query =
-  let compare =
-    Search.(if sort_by_popularity then compare_by_popularity else compare)
-  in
+type ranking = Default | Bm25f
+
+(* BM25F needs corpus-wide stats (document frequencies, average field lengths).
+   They only change when the package set changes, so memoise them keyed on the
+   opam-repository commit. The default ranking never touches this. *)
+let bm25f_stats_cache = ref None
+
+let search ~is_author_match ?(sort_by_popularity = false) ?(ranking = Default) t
+    query =
   let request = Search.to_request query in
-  all_latest t
-  |> List.filter (Search.match_request ~is_author_match request)
-  |> List.sort (compare request)
+  let candidates =
+    all_latest t |> List.filter (Search.match_request ~is_author_match request)
+  in
+  let compare =
+    match ranking with
+    | Default ->
+        Search.(if sort_by_popularity then compare_by_popularity else compare)
+          request
+    | Bm25f ->
+        let stats =
+          match !bm25f_stats_cache with
+          | Some (key, s) when key = t.opam_repository_commit -> s
+          | _ ->
+              let s = Search.corpus_stats (all_latest t) in
+              bm25f_stats_cache := Some (t.opam_repository_commit, s);
+              s
+        in
+        Search.compare_bm25f stats request
+  in
+  List.sort compare candidates
 
 module Documentation = struct
   include Documentation
