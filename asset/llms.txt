@@ -107,8 +107,6 @@
 - [JavaScript Target](https://ocaml.org/tools/javascript-target): Compiling OCaml to JavaScript
 - [WebAssembly Target](https://ocaml.org/tools/wasm-target): Compiling OCaml to Wasm
 - [Unikernels Target](https://ocaml.org/tools/unikernel-target): Building MirageOS unikernels
-- [The Opam Repository](https://ocaml.org/tools/opam-repository): The central package registry for OCaml
-- [OCaml Infrastructure](https://ocaml.org/tools/ocaml-infrastructure): Tools and services running the OCaml ecosystem
 
 ## Packages
 
