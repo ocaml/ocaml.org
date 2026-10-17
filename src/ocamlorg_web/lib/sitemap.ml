@@ -19,6 +19,7 @@ let urls =
     Url.exercises;
     Url.getting_started;
     Url.governance;
+    Url.governance_dev_meetings_calendar;
     Url.governance_policy;
     Url.index;
     Url.industrial_users;
