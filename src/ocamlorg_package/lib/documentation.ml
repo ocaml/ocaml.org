@@ -204,6 +204,19 @@ let head_etag url =
       Logs.warn (fun m -> m "HEAD %s failed: %s" url (Printexc.to_string e));
       Lwt.return None)
 
+(* Does a resource exist? A headers-only HEAD, so no body is transferred. Used
+   to decide whether a package has a search index without downloading it. *)
+let head_ok url =
+  let open Lwt.Syntax in
+  Logs.info (fun m -> m "HEAD %s" url);
+  Lwt.catch
+    (fun () ->
+      let* response = Cohttp_lwt_unix.Client.head (Uri.of_string url) in
+      Lwt.return Cohttp.Code.(code_of_status response.status |> is_success))
+    (fun e ->
+      Logs.warn (fun m -> m "HEAD %s failed: %s" url (Printexc.to_string e));
+      Lwt.return false)
+
 open Package
 
 type toc = { title : string; href : string; children : toc list }
@@ -486,6 +499,21 @@ let search_index ~kind (t : Package.t) =
   | Error _ ->
       Logs.info (fun m -> m "Failed to fetch search index at %s" url);
       Lwt.return None
+
+(* The browser loads the odoc search index straight from the documentation
+   backend (dill), rather than having ocaml.org fetch the whole [index.js] into
+   memory and re-serve it. [package_url] already points at the backend, so this
+   is the public URL the [<script>] tag uses. We only confirm the index exists
+   (a headers-only HEAD, no body), returning [None] when it doesn't so the
+   search box is hidden. See ocaml/ocaml.org#3765. *)
+let search_index_url ~kind (t : Package.t) : string option Lwt.t =
+  let open Lwt.Syntax in
+  let url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+    ^ "doc/index.js"
+  in
+  let+ exists = head_ok url in
+  if exists then Some url else None
 
 (* TODO: this needs to be computed in ocaml-docs-ci / voodoo and be part of the
    documentation status information *)

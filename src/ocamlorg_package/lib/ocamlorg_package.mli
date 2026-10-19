@@ -137,6 +137,11 @@ module Documentation : sig
     kind:[< `Package | `Universe of string ] -> pkg -> string option Lwt.t
   (** Retrieve the search index of a given package. *)
 
+  val search_index_url :
+    kind:[< `Package | `Universe of string ] -> pkg -> string option Lwt.t
+  (** The documentation-backend URL of a package's search index, for the browser
+      to load directly. [None] when the package has no search index. *)
+
   val search_index_digest :
     kind:[< `Package | `Universe of string ] ->
     state ->
