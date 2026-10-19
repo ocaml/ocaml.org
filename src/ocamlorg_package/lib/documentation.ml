@@ -172,6 +172,38 @@ let http_get url =
           Logs.err (fun m -> m "%s" (Printexc.to_string e));
           Lwt.return (Error (`Msg (Printexc.to_string e))))
 
+(* Fetch a resource's ETag with a headers-only HEAD, transferring no body. dill
+   serves a per-version ETag for doc assets (verified on [doc/index.js]); it is
+   a ready-made content fingerprint, so we can use it as a cache-busting token
+   for the search index without ever downloading the (potentially huge) body.
+   The value is opaque — downstream it is base64url-encoded into a URL and never
+   compared server-side — so we only normalise away the optional weak-validator
+   [W/] prefix and surrounding quotes to keep the token stable. See
+   ocaml/ocaml.org#3765. *)
+let head_etag url =
+  let open Lwt.Syntax in
+  Logs.info (fun m -> m "HEAD %s" url);
+  Lwt.catch
+    (fun () ->
+      let* response = Cohttp_lwt_unix.Client.head (Uri.of_string url) in
+      if Cohttp.Code.(code_of_status response.status |> is_success) then
+        Cohttp.Header.get response.headers "etag"
+        |> Option.map (fun s ->
+               let s =
+                 if String.length s >= 2 && String.sub s 0 2 = "W/" then
+                   String.sub s 2 (String.length s - 2)
+                 else s
+               in
+               let n = String.length s in
+               if n >= 2 && s.[0] = '"' && s.[n - 1] = '"' then
+                 String.sub s 1 (n - 2)
+               else s)
+        |> Lwt.return
+      else Lwt.return None)
+    (fun e ->
+      Logs.warn (fun m -> m "HEAD %s failed: %s" url (Printexc.to_string e));
+      Lwt.return None)
+
 open Package
 
 type toc = { title : string; href : string; children : toc list }
@@ -500,30 +532,43 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   | Some { time; _ } when has_cache_expired time -> get_and_cache ()
   | Some { documentation_status; _ } -> Lwt.return documentation_status
 
-let search_index_digest ~kind state t : string option Lwt.t =
+let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
   let open Lwt.Syntax in
-  (* Downloads the whole search index just to hash it. Only reached when the
-     backend does not publish the digest in status.json; see the status-first
-     branch below, ocaml/ocaml.org#3765 and ocurrent/ocaml-docs-ci#193. *)
+  let index_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+    ^ "doc/index.js"
+  in
+  (* Produce a cache-busting token for the search index. Prefer dill's ETag (a
+     per-version fingerprint from a headers-only HEAD, so no body is
+     transferred); only when no ETag is served do we fall back to downloading
+     and hashing the (size-capped) index. The token is opaque —
+     base64url-encoded into a URL and never compared server-side — so any value
+     that changes with the content works. See ocaml/ocaml.org#3765 and
+     ocurrent/ocaml-docs-ci#193. *)
+  let compute_token () =
+    let* etag = head_etag index_url in
+    match etag with
+    | Some _ as token -> Lwt.return token
+    | None ->
+        let+ content = search_index ~kind t in
+        Option.map Digest.string content
+  in
   let get_and_cache () =
-    let+ content = search_index ~kind t in
-    let digest =
-      match content with Some s -> Some (s |> Digest.string) | _ -> None
-    in
-    let entry = { hash_digest = digest; time = Unix.gettimeofday () } in
+    let+ token = compute_token () in
+    let entry = { hash_digest = token; time = Unix.gettimeofday () } in
     state.search_index_cache <-
       Name.Map.update t.name
         (Version.Map.add t.version entry)
         (Version.Map.singleton t.version entry)
         state.search_index_cache;
-    digest
+    token
   in
 
   let has_cache_expired time =
     Unix.gettimeofday () -. time > Config.package_caches_ttl
   in
 
-  let from_index_download () =
+  let from_backend () =
     match
       Name.Map.find_opt t.name state.search_index_cache
       |> Option.map (Version.Map.find_opt t.version)
@@ -534,10 +579,10 @@ let search_index_digest ~kind state t : string option Lwt.t =
     | Some { hash_digest; _ } -> Lwt.return hash_digest
   in
 
-  (* Prefer the digest published in status.json: it avoids downloading the
-     (potentially huge) search index. Fall back to downloading and hashing only
-     when the backend doesn't provide it. *)
+  (* Prefer the digest published in status.json (no network beyond the status
+     fetch we already cache). Otherwise fall back to the backend: ETag first,
+     then hashing. *)
   let* status = status ~kind state t in
   match Option.bind status (fun s -> s.Status.search_index_digest) with
   | Some _ as digest -> Lwt.return digest
-  | None -> from_index_download ()
+  | None -> from_backend ()
