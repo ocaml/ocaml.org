@@ -1099,13 +1099,6 @@ module Package_helper = struct
             statuses;
           })
 
-  let search_index_digest ~kind state name =
-    let open Lwt.Syntax in
-    let* search_index_digest =
-      Ocamlorg_package.Documentation.search_index_digest ~kind state name
-    in
-    search_index_digest |> Option.map Dream.to_base64url |> Lwt.return
-
   let frontend_package ?on_latest_url ?documentation_status state
       (package : Ocamlorg_package.t) : Ocamlorg_frontend.Package.package =
     let name = Ocamlorg_package.name package
@@ -1340,8 +1333,8 @@ let package_overview t kind req =
   in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
 
-  let* search_index_digest =
-    Package_helper.search_index_digest ~kind t package
+  let* search_index_url =
+    Ocamlorg_package.Documentation.search_index_url ~kind package
   in
 
   let package_info = Ocamlorg_package.info package in
@@ -1467,8 +1460,8 @@ let package_overview t kind req =
       ]
   in
   Dream.html
-    (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
-       ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
+    (Ocamlorg_frontend.package_overview ~sidebar_data ~readme ~search_index_url
+       ~toc ~deps_and_conflicts frontend_package)
 
 let package_versions t _kind req =
   let</>? name =
@@ -1536,7 +1529,7 @@ let package_documentation t kind req =
       let response_404_page =
         Dream.html ~code:404
           (Ocamlorg_frontend.package_documentation_not_found ~page:path
-             ~search_index_digest:None
+             ~search_index_url:None
              ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation [])
              frontend_package)
       in
@@ -1554,8 +1547,8 @@ let package_documentation t kind req =
                  (Ocamlorg_package.Name.to_string name))
       else response_404_page
   | Some doc ->
-      let* search_index_digest =
-        Package_helper.search_index_digest ~kind t package
+      let* search_index_url =
+        Ocamlorg_package.Documentation.search_index_url ~kind package
       in
       let local_toc = Package_helper.frontend_toc doc.toc in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
@@ -1582,7 +1575,7 @@ let package_documentation t kind req =
       in
       Dream.html
         (Ocamlorg_frontend.package_documentation ?hash ~page:(Some path)
-           ~search_index_digest ~path:breadcrumb_path ~local_toc
+           ~search_index_url ~path:breadcrumb_path ~local_toc
            ~content:doc.content frontend_package)
 
 (* The documentation sidebar (the package's module tree) as a standalone HTML
@@ -1678,8 +1671,8 @@ let package_file t kind req =
     "doc" :: (Dream.path [@ocaml.warning "-3"]) req |> String.concat "/"
   in
   let* sidebar_data = Package_helper.package_sidebar_data ~kind t package in
-  let* search_index_digest =
-    Package_helper.search_index_digest ~kind t package
+  let* search_index_url =
+    Ocamlorg_package.Documentation.search_index_url ~kind package
   in
   let* maybe_doc = Ocamlorg_package.Documentation.file ~kind package path in
   let</>? doc = maybe_doc in
@@ -1687,7 +1680,7 @@ let package_file t kind req =
   let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
     (Ocamlorg_frontend.package_overview_file ~sidebar_data ~content
-       ~search_index_digest ~content_title:path ~toc frontend_package)
+       ~search_index_url ~content_title:path ~toc frontend_package)
 
 let package_search_index t kind req =
   let</>? name =
