@@ -13,12 +13,25 @@ deps: create_switch ## Install development dependencies
 	opam install -y ocamlformat=0.29.0 ocaml-lsp-server
 	opam install -y --deps-only --with-test --with-doc .
 
+# Package(s) defining the switch invariant (the compiler). Override to add a
+# compiler variant — e.g. frame pointers, so `perf`/flame graphs can unwind the
+# OCaml stack when profiling the server:
+#   make switch SWITCH_PACKAGES="ocaml.5.5.1,ocaml-option-fp"
+# (or just `make switch_fp`). Frame pointers cost a register (~1-3%), so they
+# are opt-in and deliberately not the default — CI and the Dockerfile build
+# without them.
+SWITCH_PACKAGES ?= ocaml.5.5.1
+
 .PHONY: create_switch
 create_switch: ## Create switch and pinned opam repo
-	opam switch create . 5.5.1 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+	opam switch create . --no-install --packages=$(SWITCH_PACKAGES) --repos pin=git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
 
 .PHONY: switch
 switch: deps ## Create an opam switch and install development dependencies
+
+.PHONY: switch_fp
+switch_fp: ## Like `switch`, but with frame pointers (for profiling)
+	$(MAKE) switch SWITCH_PACKAGES="ocaml.5.5.1,ocaml-option-fp"
 
 .PHONY: lock
 lock: ## Generate a lock file
