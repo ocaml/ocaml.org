@@ -286,7 +286,13 @@ let doc_from_string s =
         uses_katex;
         breadcrumbs;
         toc = List.map toc_of_json json_toc;
-        content = header ^ preamble ^ content;
+        (* [String.concat], not [header ^ preamble ^ content]: the [^] chain
+           allocates an intermediate [header ^ preamble] and then re-copies it
+           into the result, so it copies the prefix twice. [String.concat]
+           pre-sizes the result and blits each part once. These are per-doc-page
+           strings, so halving the copies trims GC churn under crawler load. See
+           ocaml/ocaml.org#3765. *)
+        content = String.concat "" [ header; preamble; content ];
       }
   | `Assoc
       [
