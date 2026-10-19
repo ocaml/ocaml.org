@@ -291,7 +291,13 @@ let doc_from_string s =
            into the result, so it copies the prefix twice. [String.concat]
            pre-sizes the result and blits each part once. These are per-doc-page
            strings, so halving the copies trims GC churn under crawler load. See
-           ocaml/ocaml.org#3765. *)
+           ocaml/ocaml.org#3765.
+
+           A fully churn-free version would keep the three parts and write them
+           as separate chunks to the response, never materialising this combined
+           string — but that means changing [content] to carry the parts, giving
+           the page template three slots instead of one, and updating the other
+           consumers (readme, package overview). Out of scope here. *)
         content = String.concat "" [ header; preamble; content ];
       }
   | `Assoc
