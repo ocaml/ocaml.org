@@ -17,7 +17,7 @@ npx markdownlint-cli2 '**/*.md' # Lint Markdown files (config: .markdownlint-cli
 
 CI checks both on every push/PR. `make fmt` auto-promotes changes in place; commit any files it touches.
 
-**OCamlFormat is pinned to 0.26.2** (in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`). With any other version installed, `make fmt` does *not* reformat — OCamlFormat's default version check aborts with a `version mismatch` error and exits non-zero. Install the pinned binary via `make deps` (or `opam install ocamlformat=0.26.2`).
+**OCamlFormat is pinned to 0.29.0** (in `.ocamlformat`, `Makefile`, `.devcontainer/Dockerfile`, `.github/workflows/ci.yml`, and `.github/workflows/debug-ci.yml`). With any other version installed, `make fmt` does *not* reformat — OCamlFormat's default version check aborts with a `version mismatch` error and exits non-zero. Install the pinned binary via `make deps` (or `opam install ocamlformat=0.29.0`). (0.26.2 and earlier cap at `ocaml < 5.4` and will not install on the 5.5 switch.)
 
 Markdown lint rules live in `.markdownlint-cli2.jsonc`; CI lints only changed files and skips `data/planet/` and `data/changelog/`.
 
@@ -114,7 +114,7 @@ The remaining variables (`OCAMLORG_PACKAGE_CACHES_TTL`, `OCAMLORG_OPAM_POLLING`,
 
 ## CI Workflows
 
-Two gate every PR: **ci.yml** (build + test + `make fmt` check; Ubuntu + macOS, OCaml 5.2.0) and **markdown-lint.yml** (lints changed `*.md`, skipping `data/planet/` and `data/changelog/`).
+Two gate every PR: **ci.yml** (build + test + `make fmt` check; Ubuntu + macOS, OCaml 5.5.1) and **markdown-lint.yml** (lints changed `*.md`, skipping `data/planet/` and `data/changelog/`).
 
 The rest are automation: **scrape.yml** and **scrape_platform_releases.yml** run daily and open PRs with newly scraped content; **release-scrapers.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
 

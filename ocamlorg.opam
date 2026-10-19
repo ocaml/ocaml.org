@@ -83,4 +83,9 @@ pin-depends: [
   [ "gluten.0.5.2" "git+https://github.com/mtelvers/gluten.git#8cbce6d903b3e779b1fc3f505ae8702d858ad3a2" ]
   [ "gluten-lwt.0.5.2" "git+https://github.com/mtelvers/gluten.git#8cbce6d903b3e779b1fc3f505ae8702d858ad3a2" ]
   [ "gluten-lwt-unix.0.5.2" "git+https://github.com/mtelvers/gluten.git#8cbce6d903b3e779b1fc3f505ae8702d858ad3a2" ]
+  # ppx_import 5.5 support landed on the v1.x branch but is unreleased (the
+  # 1.12.0 in opam-repository is OCaml 5.4 only). Pin the v1.x commit so the
+  # package builds on OCaml 5.5. Stopgap: drop this once ppx_import cuts a
+  # release with 5.5 support (ocaml-ppx/ppx_import#106, blocked on #107).
+  [ "ppx_import.1.12.0" "git+https://github.com/ocaml-ppx/ppx_import.git#4fffec8af4167e61a2bf934653ef8847ed472283" ]
 ]

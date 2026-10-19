@@ -23,10 +23,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Use OCaml 5.2.0
+      - name: Use OCaml 5.5.1
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2.0"
+          ocaml-compiler: "5.5.1"
           dune-cache: true
           opam-repositories: |
             pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
