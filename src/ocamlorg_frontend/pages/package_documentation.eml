@@ -1,5 +1,6 @@
 let sidebar
 ~str_path
+?universe
 ~local_toc
 ~global_toc
 (package : Package.package)
@@ -11,7 +12,7 @@ let sidebar
     </div><% ); %>
     <div class="space-y-6 flex flex-col overflow-x:scroll">
       <div>
-      <%s! Navmap.render ~package ~path:str_path global_toc %>
+      <%s! Navmap.render ~package ?universe ~path:str_path global_toc %>
       </div>
     </div>
   </div>
@@ -29,6 +30,7 @@ let right_sidebar
 let render
 ~(path: Package_breadcrumbs.path)
 ~page
+?universe
 ~local_toc
 ~global_toc
 ~content
@@ -56,7 +58,7 @@ Package_layout.render
 ~documentation_status:Success
 ~canonical:(Url.Package.documentation package.name ~version:(Package.specific_version package) ~page:(Url.Package.documentation ?version:(Some (Package.specific_version package)) package.name))
 ~styles:["css/main.css"; "css/doc.css"]
-~left_sidebar_html:(sidebar ~str_path ~local_toc ~global_toc package)
+~left_sidebar_html:(sidebar ~str_path ?universe ~local_toc ~global_toc package)
 ~right_sidebar_html:(right_sidebar ~local_toc) @@
 <div id="htmx-content">
   <%s! Package_breadcrumbs.render ~path %>

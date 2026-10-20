@@ -1403,8 +1403,11 @@ let package_documentation t kind req =
         Ocamlorg_frontend.Package_breadcrumbs.Documentation
           (List.map doc_breadcrumb_to_library_path_item breadcrumbs)
       in
+      let universe =
+        match kind with `Package -> None | `Universe h -> Some h
+      in
       Dream.html
-        (Ocamlorg_frontend.package_documentation ~page:(Some path)
+        (Ocamlorg_frontend.package_documentation ~page:(Some path) ?universe
            ~search_index_digest ~path:breadcrumb_path ~local_toc ~global_toc
            ~content:doc.content frontend_package)
 
