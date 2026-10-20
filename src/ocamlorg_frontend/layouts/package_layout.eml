@@ -14,7 +14,7 @@ let render
 ?page
 ~(package : Package.package)
 ~(documentation_status: Package.documentation_status)
-~(search_index_digest: string option)
+~(search_index_url: string option)
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
@@ -75,7 +75,7 @@ Layout.base
 
         <div id="in-package-search" class="relative w-full">
           <div class="flex w-full items-center overflow-hidden">
-            <% if Option.is_some search_index_digest then (%>
+            <% if Option.is_some search_index_url then (%>
               <input id="in-package-search-input" type="search" name="q" class="min-w-0 focus:border-primary dark:focus:border-dark-primary focus:ring-0 bg-white dark:bg-dark-card text-title dark:text-dark-title border-primary dark:border-dark-primary h-10 rounded-l-md appearance-none px-4 flex-grow placeholder-text-content dark:placeholder:text-dark-content"
                 tabindex="1"
                 autocomplete="off"
@@ -127,7 +127,7 @@ Layout.base
   </div>
 </div>
 <%s! Toc.script %>
-<% (match search_index_digest with | Some(digest) -> %>
+<% (match search_index_url with | Some(search_index_url) -> %>
 <script src="<%s Ocamlorg_static.Asset. url "vendors/minisearch.min.js" %>"></script>
 <script>
   function Fuse() {}
@@ -258,7 +258,7 @@ Layout.base
 
     function user_interacts() {
       let scriptTag = document.createElement("script");
-      scriptTag.src = "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
+      scriptTag.src = "<%s search_index_url %>";
       scriptTag.addEventListener("load", init_search);
       document.body.appendChild(scriptTag);
 
