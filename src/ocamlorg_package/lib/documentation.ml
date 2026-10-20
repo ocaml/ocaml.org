@@ -8,8 +8,16 @@ module Status = struct
     failed : bool;
     files : string list;
     redirections : redirection list;
+    search_index_digest : string option; [@default None]
+        (* Optional: digest of the odoc search index (doc/index.js), computed by
+           ocaml-docs-ci / voodoo. When present, ocaml.org uses it directly
+           instead of downloading the whole index to hash it. See
+           ocaml/ocaml.org#3765 and ocurrent/ocaml-docs-ci#193. *)
   }
-  [@@deriving yojson]
+  [@@deriving yojson { strict = false }]
+  (* [strict = false]: tolerate unknown fields so the docs backend can extend
+     status.json (e.g. adding [search_index_digest]) without breaking parsing on
+     older/newer deployments. *)
 
   let has_file (v : t) (options : string list) : string option =
     let children = v.files in
@@ -100,30 +108,121 @@ type documentation_status_cache_entry = {
 let http_get url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "GET %s" url);
+  let headers =
+    Cohttp.Header.of_list
+      [
+        ( "Accept",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" );
+      ]
+  in
+  let uri = Uri.of_string url in
+  let max_bytes = Config.max_doc_fetch_bytes in
   Lwt.catch
     (fun () ->
-      let headers =
-        Cohttp.Header.of_list
-          [
-            ( "Accept",
-              "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-            );
-          ]
+      (* We drive the connection explicitly rather than through
+         [Cohttp_lwt_unix.Client.get] so that we can [Connection.close] it on
+         the reject paths. cohttp tears a connection down only once its response
+         body stream has been fully consumed, so simply dropping an over-large
+         body leaks the socket for the life of the process (the same class of
+         fd-exhaustion seen on 2026-10-03). An explicit close drops the socket
+         without reading the rest of the payload. See ocaml/ocaml.org#3765. *)
+      let ctx = Lazy.force Cohttp_lwt_unix.Net.default_ctx in
+      let* endp = Cohttp_lwt_unix.Net.resolve ~ctx uri in
+      let* conn =
+        Cohttp_lwt_unix.Connection.connect ~ctx ~persistent:false endp
+      in
+      let close () = Cohttp_lwt_unix.Connection.close conn in
+      let too_large n =
+        Logs.warn (fun m ->
+            m "Response too large (%d bytes > %d limit) for %s" n max_bytes url);
+        close ();
+        Lwt.return
+          (Error
+             (`Msg
+               (Printf.sprintf "response too large (> %d bytes) for %s"
+                  max_bytes url)))
       in
       let* response, body =
-        Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
+        Cohttp_lwt_unix.Connection.call conn ~headers `GET uri
       in
       match Cohttp.Code.(code_of_status response.status |> is_success) with
-      | true ->
-          let+ body = Cohttp_lwt.Body.to_string body in
-          Ok body
       | false ->
-          let+ () = Cohttp_lwt.Body.drain_body body in
-          Error (`Msg ("Failed to fetch " ^ url)))
+          close ();
+          Lwt.return (Error (`Msg ("Failed to fetch " ^ url)))
+      | true -> (
+          let content_length =
+            Cohttp.Header.get response.headers "content-length"
+            |> Fun.flip Option.bind int_of_string_opt
+          in
+          match content_length with
+          | Some n when n > max_bytes -> too_large n
+          | _ ->
+              (* Stream the body, enforcing the cap as we read, so a chunked or
+                 mislabelled response can't blow up memory. Pre-size the buffer
+                 from Content-Length when present to avoid repeated doublings on
+                 the hot path. *)
+              let initial =
+                match content_length with
+                | Some n when n > 0 && n <= max_bytes -> n
+                | _ -> 65536
+              in
+              let buf = Buffer.create initial in
+              let exception Too_large in
+              Lwt.catch
+                (fun () ->
+                  let* () =
+                    Cohttp_lwt.Body.to_stream body
+                    |> Lwt_stream.iter_s (fun chunk ->
+                           if
+                             Buffer.length buf + String.length chunk > max_bytes
+                           then raise Too_large
+                           else (
+                             Buffer.add_string buf chunk;
+                             Lwt.return_unit))
+                  in
+                  close ();
+                  Lwt.return (Ok (Buffer.contents buf)))
+                (function
+                  | Too_large -> too_large (Buffer.length buf)
+                  | e ->
+                      close ();
+                      Lwt.reraise e)))
     (function
       | e ->
           Logs.err (fun m -> m "%s" (Printexc.to_string e));
           Lwt.return (Error (`Msg (Printexc.to_string e))))
+
+(* Fetch a resource's ETag with a headers-only HEAD, transferring no body. dill
+   serves a per-version ETag for doc assets (verified on [doc/index.js]); it is
+   a ready-made content fingerprint, so we can use it as a cache-busting token
+   for the search index without ever downloading the (potentially huge) body.
+   The value is opaque — downstream it is base64url-encoded into a URL and never
+   compared server-side — so we only normalise away the optional weak-validator
+   [W/] prefix and surrounding quotes to keep the token stable. See
+   ocaml/ocaml.org#3765. *)
+let head_etag url =
+  let open Lwt.Syntax in
+  Logs.info (fun m -> m "HEAD %s" url);
+  Lwt.catch
+    (fun () ->
+      let* response = Cohttp_lwt_unix.Client.head (Uri.of_string url) in
+      if Cohttp.Code.(code_of_status response.status |> is_success) then
+        Cohttp.Header.get response.headers "etag"
+        |> Option.map (fun s ->
+               let s =
+                 if String.length s >= 2 && String.sub s 0 2 = "W/" then
+                   String.sub s 2 (String.length s - 2)
+                 else s
+               in
+               let n = String.length s in
+               if n >= 2 && s.[0] = '"' && s.[n - 1] = '"' then
+                 String.sub s 1 (n - 2)
+               else s)
+        |> Lwt.return
+      else Lwt.return None)
+    (fun e ->
+      Logs.warn (fun m -> m "HEAD %s failed: %s" url (Printexc.to_string e));
+      Lwt.return None)
 
 open Package
 
@@ -207,7 +306,19 @@ let doc_from_string s =
         uses_katex;
         breadcrumbs;
         toc = List.map toc_of_json json_toc;
-        content = header ^ preamble ^ content;
+        (* [String.concat], not [header ^ preamble ^ content]: the [^] chain
+           allocates an intermediate [header ^ preamble] and then re-copies it
+           into the result, so it copies the prefix twice. [String.concat]
+           pre-sizes the result and blits each part once. These are per-doc-page
+           strings, so halving the copies trims GC churn under crawler load. See
+           ocaml/ocaml.org#3765.
+
+           A fully churn-free version would keep the three parts and write them
+           as separate chunks to the response, never materialising this combined
+           string — but that means changing [content] to carry the parts, giving
+           the page template three slots instead of one, and updating the other
+           consumers (readme, package overview). Out of scope here. *)
+        content = String.concat "" [ header; preamble; content ];
       }
   | `Assoc
       [
@@ -409,37 +520,6 @@ type doc_cache = {
 let doc_cache_empty =
   { doc_status_cache = Name.Map.empty; search_index_cache = Name.Map.empty }
 
-(* TODO: should be computed by ocaml-docs-ci / voodoo and be part of
-   status.json *)
-let search_index_digest ~kind state t : string option Lwt.t =
-  let open Lwt.Syntax in
-  let get_and_cache () =
-    let+ content = search_index ~kind t in
-    let digest =
-      match content with Some s -> Some (s |> Digest.string) | _ -> None
-    in
-    let entry = { hash_digest = digest; time = Unix.gettimeofday () } in
-    state.search_index_cache <-
-      Name.Map.update t.name
-        (Version.Map.add t.version entry)
-        (Version.Map.singleton t.version entry)
-        state.search_index_cache;
-    digest
-  in
-
-  let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.package_caches_ttl
-  in
-
-  match
-    Name.Map.find_opt t.name state.search_index_cache
-    |> Option.map (Version.Map.find_opt t.version)
-    |> Option.value ~default:None
-  with
-  | None -> get_and_cache ()
-  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
-  | Some { hash_digest; _ } -> Lwt.return hash_digest
-
 let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   let open Lwt.Syntax in
   let package_url =
@@ -483,3 +563,58 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   | None -> get_and_cache ()
   | Some { time; _ } when has_cache_expired time -> get_and_cache ()
   | Some { documentation_status; _ } -> Lwt.return documentation_status
+
+let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
+  let open Lwt.Syntax in
+  let index_url =
+    package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
+    ^ "doc/index.js"
+  in
+  (* Produce a cache-busting token for the search index. Prefer dill's ETag (a
+     per-version fingerprint from a headers-only HEAD, so no body is
+     transferred); only when no ETag is served do we fall back to downloading
+     and hashing the (size-capped) index. The token is opaque —
+     base64url-encoded into a URL and never compared server-side — so any value
+     that changes with the content works. See ocaml/ocaml.org#3765 and
+     ocurrent/ocaml-docs-ci#193. *)
+  let compute_token () =
+    let* etag = head_etag index_url in
+    match etag with
+    | Some _ as token -> Lwt.return token
+    | None ->
+        let+ content = search_index ~kind t in
+        Option.map Digest.string content
+  in
+  let get_and_cache () =
+    let+ token = compute_token () in
+    let entry = { hash_digest = token; time = Unix.gettimeofday () } in
+    state.search_index_cache <-
+      Name.Map.update t.name
+        (Version.Map.add t.version entry)
+        (Version.Map.singleton t.version entry)
+        state.search_index_cache;
+    token
+  in
+
+  let has_cache_expired time =
+    Unix.gettimeofday () -. time > Config.package_caches_ttl
+  in
+
+  let from_backend () =
+    match
+      Name.Map.find_opt t.name state.search_index_cache
+      |> Option.map (Version.Map.find_opt t.version)
+      |> Option.value ~default:None
+    with
+    | None -> get_and_cache ()
+    | Some { time; _ } when has_cache_expired time -> get_and_cache ()
+    | Some { hash_digest; _ } -> Lwt.return hash_digest
+  in
+
+  (* Prefer the digest published in status.json (no network beyond the status
+     fetch we already cache). Otherwise fall back to the backend: ETag first,
+     then hashing. *)
+  let* status = status ~kind state t in
+  match Option.bind status (fun s -> s.Status.search_index_digest) with
+  | Some _ as digest -> Lwt.return digest
+  | None -> from_backend ()
