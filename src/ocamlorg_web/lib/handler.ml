@@ -1375,12 +1375,10 @@ let package_documentation t kind req =
                  (Ocamlorg_package.Name.to_string name))
       else response_404_page
   | Some doc ->
-      let* sidebar = Ocamlorg_package.Documentation.sidebar ~kind package in
       let* search_index_digest =
         Package_helper.search_index_digest ~kind t package
       in
       let local_toc = Package_helper.frontend_toc doc.toc in
-      let (global_toc : Ocamlorg_frontend.Navmap.toc list) = sidebar in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
         let breadcrumbs = doc.breadcrumbs in
         let doc_breadcrumb_to_library_path_item
@@ -1404,9 +1402,84 @@ let package_documentation t kind req =
           (List.map doc_breadcrumb_to_library_path_item breadcrumbs)
       in
       Dream.html
-        (Ocamlorg_frontend.package_documentation ~page:(Some path)
-           ~search_index_digest ~path:breadcrumb_path ~local_toc ~global_toc
+        (Ocamlorg_frontend.package_documentation ?hash ~page:(Some path)
+           ~search_index_digest ~path:breadcrumb_path ~local_toc
            ~content:doc.content frontend_package)
+
+(* The documentation sidebar (the package's module tree) as a standalone HTML
+   fragment, loaded by each documentation page with htmx. It is the same for
+   every page of a package version and is often megabytes of HTML, so it is
+   served with a cache lifetime and Varnish answers all but the first request
+   for it; see [Ocamlorg_frontend.Navmap.render_tree]. *)
+let package_documentation_sidebar t kind req =
+  let</>? name =
+    Ocamlorg_package.Name.of_string_opt @@ Dream.param req "name"
+  in
+  let version_from_url = Dream.param req "version" in
+  let</>? package, frontend_package =
+    Package_helper.of_name_version t name version_from_url
+  in
+  let open Lwt.Syntax in
+  let kind =
+    match kind with
+    | Package -> `Package
+    | Universe -> `Universe (Dream.param req "hash")
+  in
+  let hash = match kind with `Package -> None | `Universe u -> Some u in
+  let* sidebar = Ocamlorg_package.Documentation.sidebar ~kind package in
+  (* An empty tree is also what a failed fetch from docs-ci produces, so do not
+     let caches hold on to it for long. *)
+  let max_age = if sidebar = [] then 60 else 600 in
+  (* Content tag for the fragment, computed from the (small, already-cached)
+     sidebar *data* rather than the rendered HTML — so a revalidation after
+     [max_age] can be answered with 304, skipping the ~1 MB tree render. The
+     digest changes when the tree changes (a docs rebuild); [render_version]
+     busts it when the navmap template itself changes. (dill serves its own ETag
+     for sidebar.json — verified — so a later change could key off that instead
+     of this local digest.) *)
+  let render_version = "1" in
+  let etag =
+    Printf.sprintf "\"nav%s-%s\"" render_version
+      (Digest.to_hex (Digest.string (Marshal.to_string sidebar [])))
+  in
+  (* stale-while-revalidate: Varnish/browsers serve the slightly-stale tree
+     instantly while refreshing in the background, so expiry never blocks a
+     request and a docs rebuild still propagates within the day. *)
+  let cache_control =
+    Printf.sprintf "public, max-age=%d, stale-while-revalidate=86400" max_age
+  in
+  (* If-None-Match uses the weak comparison (RFC 7232, 3.2): Varnish re-tags the
+     object as weak (W/"...") when it gzips it, and sends that form back when it
+     revalidates, so an exact match would re-render on every expiry. *)
+  let etag_matches inm =
+    inm = "*"
+    || String.split_on_char ',' inm
+       |> List.exists (fun tag ->
+              let tag = String.trim tag in
+              let tag =
+                if String.starts_with ~prefix:"W/" tag then
+                  String.sub tag 2 (String.length tag - 2)
+                else tag
+              in
+              tag = etag)
+  in
+  match Dream.header req "If-None-Match" with
+  | Some inm when etag_matches inm ->
+      Lwt.return
+        (Dream.response ~code:304
+           ~headers:[ ("Cache-Control", cache_control); ("ETag", etag) ]
+           "")
+  | _ ->
+      Lwt.return
+        (Dream.response
+           ~headers:
+             [
+               ("Content-Type", "text/html; charset=utf-8");
+               ("Cache-Control", cache_control);
+               ("ETag", etag);
+             ]
+           (Ocamlorg_frontend.Navmap.render_tree ~package:frontend_package ?hash
+              sidebar))
 
 let package_file t kind req =
   let</>? name =

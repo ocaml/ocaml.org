@@ -1,7 +1,7 @@
 let sidebar
+?hash
 ~str_path
 ~local_toc
-~global_toc
 (package : Package.package)
 =
   <div class="flex flex-col font-normal text-content dark:text-dark-content" id="htmx-sidebar">
@@ -11,7 +11,7 @@ let sidebar
     </div><% ); %>
     <div class="space-y-6 flex flex-col overflow-x:scroll">
       <div>
-      <%s! Navmap.render ~package ~path:str_path global_toc %>
+      <%s! Navmap.render_placeholder ~package ?hash ~path:str_path () %>
       </div>
     </div>
   </div>
@@ -27,10 +27,10 @@ let right_sidebar
     </div>
 
 let render
+?hash
 ~(path: Package_breadcrumbs.path)
 ~page
 ~local_toc
-~global_toc
 ~content
 (package : Package.package)
 =
@@ -56,7 +56,7 @@ Package_layout.render
 ~documentation_status:Success
 ~canonical:(Url.Package.documentation package.name ~version:(Package.specific_version package) ~page:(Url.Package.documentation ?version:(Some (Package.specific_version package)) package.name))
 ~styles:["css/main.css"; "css/doc.css"]
-~left_sidebar_html:(sidebar ~str_path ~local_toc ~global_toc package)
+~left_sidebar_html:(sidebar ?hash ~str_path ~local_toc package)
 ~right_sidebar_html:(right_sidebar ~local_toc) @@
 <div id="htmx-content">
   <%s! Package_breadcrumbs.render ~path %>

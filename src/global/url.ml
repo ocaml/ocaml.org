@@ -11,6 +11,9 @@ module Package : sig
   val documentation :
     ?hash:string -> ?version:string -> ?page:string -> string -> string
 
+  val documentation_sidebar :
+    ?hash:string -> ?version:string -> string -> string
+
   val file :
     ?hash:string -> ?version:string -> filepath:string -> string -> string
 
@@ -28,6 +31,7 @@ end = struct
   let documentation ?hash ?version ?(page = "index.html") =
     base ?hash ?version ("/doc/" ^ page)
 
+  let documentation_sidebar ?hash ?version = base ?hash ?version "/doc-sidebar"
   let file ?hash ?version ~filepath = base ?hash ?version ("/" ^ filepath)
   let search_index ?version ~digest = base ?version ("/search-index/" ^ digest)
 end

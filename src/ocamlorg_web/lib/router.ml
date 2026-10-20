@@ -113,6 +113,13 @@ let package_route t =
            ~version:":version")
         ((Handler.package_documentation t) Handler.Universe);
       Dream.get
+        (Url.Package.documentation_sidebar ":name" ~version:":version")
+        ((Handler.package_documentation_sidebar t) Handler.Package);
+      Dream.get
+        (Url.Package.documentation_sidebar ~hash:":hash" ":name"
+           ~version:":version")
+        ((Handler.package_documentation_sidebar t) Handler.Universe);
+      Dream.get
         (Url.Package.search_index ":name" ~version:":version" ~digest:":digest")
         ((Handler.package_search_index t) Handler.Package);
       Dream.get

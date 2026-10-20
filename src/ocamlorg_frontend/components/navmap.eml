@@ -47,24 +47,35 @@ let icon_style = function
 
 let id_of_path path = path |> List.map (fun x -> Format.sprintf "%S" (Base64.encode_string x)) |> String.concat ", "
 
-let rec nested_render ~prefix_path ~path (item : toc) =
+(* The tree is rendered without any knowledge of the current page, so that one
+   rendering serves every page of a package version: it is fetched by the page
+   as a separate, cacheable fragment (see [render_placeholder]). Everything
+   that depends on the current page -- highlighting the active path, opening
+   the branch that leads to it, and only listing a module-less library while
+   no other library is selected -- is decided client-side by Alpine from the
+   [active] array that the placeholder provides. *)
+let on_active_path = "idPath.every((v, i) => v === active[i])"
+
+let rec nested_render ~prefix_path (item : toc) =
+  let prefix_path = item.title :: prefix_path in
+  let id_path = id_of_path (List.rev prefix_path) in
   match item.children with
   | [] ->
-    let fragment = match path with
-      | v :: _ -> v
-      | [] -> ""
-    in
-    let prefix_path = item.title :: prefix_path in
     let active_style = "bg-gray-200 dark:bg-dark-tertiary_bt_hover font-medium" in
-    if fragment != "" && item.kind = Library && fragment != item.title then "" else
-    <div x-data='{idPath:[<%s! id_of_path (List.rev prefix_path) %>]}' class="box-border border pl-1 ml-1 border-transparent" :class="{ '<%s active_style %>' : idPath.every((v, i) => v === active[i])}">
+    (* [active[0]] is the library of the current page, or "" on an .mld page. *)
+    let leaf_library_visibility =
+      if item.kind = Library then
+        " x-show=\"!active.length || active[0] === '' || active[0] === idPath[0]\""
+      else ""
+    in
+    <div x-data='{idPath:[<%s! id_path %>]}'<%s! leaf_library_visibility %> class="box-border border pl-1 ml-1 border-transparent" :class="{ '<%s active_style %>' : <%s on_active_path %>}">
       <div class="flex flex-nowrap" title="<%s kind_title item.kind ^ " " ^ item.title %>">
         <% (match item.href with | None -> %>
-          <span class="no-expand"><span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span></span>
+          <span class="no-expand"><span class="<%s icon_style item.kind %>" :class="<%s on_active_path %> ? '' : 'opacity-80'"></span></span>
           <span class="sm <%s title_style %>"><%s! item.title %></span>
         <% | Some href -> %>
         <a href="<%s href %>" x-on:click="open = true ; active = idPath" <%s! htmx_attributes %> class="flex">
-        <span class="no-expand"><span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span></span>
+        <span class="no-expand"><span class="<%s icon_style item.kind %>" :class="<%s on_active_path %> ? '' : 'opacity-80'"></span></span>
         </a>
         <a href="<%s href %>" x-on:click="open = true ; active = idPath" <%s! htmx_attributes %> class="<%s title_style %> overflow-hidden truncate text-title dark:text-dark-title transition-colors hover:text-primary">
           <%s! item.title %>
@@ -73,22 +84,18 @@ let rec nested_render ~prefix_path ~path (item : toc) =
       </div>
     </div>
   | children ->
-    let default_open, path, fragment = match path with
-      | v :: _ when v = "" -> (true, [], v) (* if we are on a mld page (empty string), we ignore the rest of the path *)
-      | v :: rest when v = item.title -> (true, rest, v)
-      | v :: _ -> (item.kind = Library && (List.length item.children <= 2), [], v)
-      | [] -> (item.kind = Library && (List.length item.children <= 2), [], "")
-    in
-    let prefix_path = item.title :: prefix_path in
+    (* Small libraries start open; the branch leading to the current page is
+       opened on load, and on an .mld page every top-level entry is. *)
+    let open_by_default = item.kind = Library && (List.length children <= 2) in
     let active_style = "bg-gray-100 dark:bg-dark-tertiary_bt_hover font-medium dark:font-semibold" in
-    <div x-data="{ open: <%s if default_open then "true" else "false" %> }">
-      <div x-data='{idPath:[<%s! id_of_path (List.rev prefix_path) %>]}' class="box-border border border-transparent cursor-pointer pl-1 ml-1" :class="{ 'nav-expand': open, '<%s active_style %>' : idPath.every((v, i) => v === active[i])}">
+    <div x-data='{idPath:[<%s! id_path %>], open: <%s if open_by_default then "true" else "false" %>}' x-init="open = open || (active[0] === '' ? idPath.length === 1 : <%s on_active_path %>)">
+      <div class="box-border border border-transparent cursor-pointer pl-1 ml-1" :class="{ 'nav-expand': open, '<%s active_style %>' : <%s on_active_path %>}">
         <div class="flex flex-nowrap items-center" title="<%s kind_title item.kind ^ " " ^ item.title %>">
           <span class="icon-expand" x-on:click="open = ! open" :class="open ? 'open' : ''" >
-            <span class="<%s if item.title = fragment then "" else "opacity-80" %> <%s icon_style item.kind %>"></span>
+            <span class="<%s icon_style item.kind %>" :class="<%s on_active_path %> ? '' : 'opacity-80'"></span>
           </span>
           <% (match item.href with | None -> %>
-            <span x-on:click="open = ! open" class="<%s title_style %> <%s if item.title = fragment then "white-200" else "gray-900" %>">
+            <span x-on:click="open = ! open" class="<%s title_style %>" :class="<%s on_active_path %> ? 'white-200' : 'gray-900'">
               <%s! item.title %> 
             </span>
             <span x-on:click="open = ! open" class="arrow-expand mr-2" :class="open ? 'open' : ''"><%s! Icons.chevron_down "h-5 w-5" %></span>
@@ -103,46 +110,58 @@ let rec nested_render ~prefix_path ~path (item : toc) =
       <ul x-show="open" class="ml-2.5 border-l border-white transition-colors">
         <% children |> List.iter begin fun item -> %>
           <li>
-            <%s! nested_render ~prefix_path ~path item %>
+            <%s! nested_render ~prefix_path item %>
           </li>
         <% end; %>
       </ul>
     </div>
 
-
-let render
+(* The page-independent sidebar fragment for a package version: served from
+   its own URL ([Url.Package.documentation_sidebar]) with a cache lifetime, so
+   Varnish and browsers serve it for every page of the package instead of the
+   backend rendering, copying and compressing the whole module tree (often
+   megabytes) into every documentation page. *)
+let render_tree
 ~(package: Package.package)
-~path
+?hash
 (maptoc : t)
 =
   let version = Package.url_version package in
-  <div x-cloak class="navmap pb-12" x-data='{active:[<%s! id_of_path path %>]}'>
-    <% (match maptoc with [] ->  %>
-    <span class="block py-2 text-gray-700">Package contains no libraries</span>
-    <% | _ -> %>
-      <a class="py-1 font-medium text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary transition-colors" href="<%s Url.Package.documentation package.name ?version %>">
-        package <%s package.name %>
-      </a>
-    <ul>
-      <% maptoc |> List.iter begin fun item -> %>
-      <li class="pl-0.5">
-        <%s! nested_render ~prefix_path:[] ~path item %>
-      </li>
-      <% end; %>
-    </ul>
-    <% ); %>
-  </div>
   <% (match maptoc with [] ->  %>
+  <span class="block py-2 text-gray-700">Package contains no libraries</span>
   <% | _ -> %>
-    <div class="py-24 text-title dark:text-dark-title">
-    Legend:<br>
-    <span class="<%s icon_style Page %>" style="display:inline-block;color:white"></span>Page<br>
-    <span class="<%s icon_style Library %>" style="display:inline-block;color:white"></span>Library<br>
-    <span class="<%s icon_style Module %>" style="display:inline-block;color:white"></span>Module<br>
-    <span class="<%s icon_style Module_type %>" style="display:inline-block;color:white"></span>Module type<br>
-    <span class="<%s icon_style Parameter %>" style="display:inline-block;color:white"></span>Parameter<br>
-    <span class="<%s icon_style Class %>" style="display:inline-block;color:white"></span>Class<br>
-    <span class="<%s icon_style Class_type %>" style="display:inline-block;color:white"></span>Class type<br>
-    <span class="<%s icon_style Source %>" style="display:inline-block;color:white"></span>Source
-    </div>
+    <a class="py-1 font-medium text-content dark:text-dark-content hover:text-primary dark:hover:text-dark-primary transition-colors" href="<%s Url.Package.documentation ?hash ?version package.name %>">
+      package <%s package.name %>
+    </a>
+  <ul>
+    <% maptoc |> List.iter begin fun item -> %>
+    <li class="pl-0.5">
+      <%s! nested_render ~prefix_path:[] item %>
+    </li>
+    <% end; %>
+  </ul>
+  <div class="py-24 text-title dark:text-dark-title">
+  Legend:<br>
+  <span class="<%s icon_style Page %>" style="display:inline-block;color:white"></span>Page<br>
+  <span class="<%s icon_style Library %>" style="display:inline-block;color:white"></span>Library<br>
+  <span class="<%s icon_style Module %>" style="display:inline-block;color:white"></span>Module<br>
+  <span class="<%s icon_style Module_type %>" style="display:inline-block;color:white"></span>Module type<br>
+  <span class="<%s icon_style Parameter %>" style="display:inline-block;color:white"></span>Parameter<br>
+  <span class="<%s icon_style Class %>" style="display:inline-block;color:white"></span>Class<br>
+  <span class="<%s icon_style Class_type %>" style="display:inline-block;color:white"></span>Class type<br>
+  <span class="<%s icon_style Source %>" style="display:inline-block;color:white"></span>Source
+  </div>
   <% ); %>
+
+(* What a documentation page embeds instead of the tree: the current page's
+   path for Alpine, and an htmx trigger that loads the shared fragment. htmx's
+   in-page navigation does not swap this element, so the fragment is fetched
+   once per full page load, and from the browser cache after that. *)
+let render_placeholder
+~(package: Package.package)
+?hash
+~path
+()
+=
+  let version = Package.url_version package in
+  <div x-cloak class="navmap pb-12" x-data='{active:[<%s! id_of_path path %>]}' hx-get="<%s Url.Package.documentation_sidebar ?hash ?version package.name %>" hx-trigger="load" hx-swap="innerHTML"></div>
