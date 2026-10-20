@@ -1,3 +1,7 @@
 (tests
- (names package_info_test package_versions_test documentation_status_test)
+ (names
+  package_info_test
+  package_versions_test
+  documentation_status_test
+  search_ranking_test)
  (libraries alcotest ocamlorg_package opam-format yojson))

@@ -213,15 +213,35 @@ val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
+type bm25f_params = {
+  k1 : float;  (** term-frequency saturation *)
+  b : float;  (** length-normalisation strength *)
+  boosts : float array;
+      (** per-field boost, length 5: name, synopsis, description, tags, authors *)
+  use_idf : bool;  (** when false, the IDF factor is forced to 1.0 *)
+  use_lennorm : bool;
+      (** when false, length normalisation is forced to 1.0 ([b] ignored) *)
+  exact_bonus : bool;
+      (** when false, the exact-name/exact-tag bonuses are dropped *)
+}
+(** Tunable BM25F coefficients. Used by [tool/search-bench] to ablate components
+    and sweep parameters without recompiling. *)
+
+val default_bm25f_params : bm25f_params
+(** The shipped defaults (k1=1.2, b=0.75, boosts [|4.;1.5;1.;1.5;1.|], all
+    components enabled). [Bm25f default_bm25f_params] reproduces the baseline
+    BM25F arm. *)
+
 type ranking =
   | Default
-  | Bm25f
+  | Bm25f of bm25f_params
       (** Ranking model used to order the matched packages. [Default] is the
-          historical binary-presence scorer; [Bm25f] is the experimental BM25F
-          arm (term-frequency saturation, length normalisation and IDF) kept
-          behind this flag so it can be benchmarked against [Default] before
-          becoming the default. Both rank the exact same matched set — only the
-          order differs. *)
+          historical binary-presence scorer; [Bm25f params] is the experimental
+          BM25F arm (term-frequency saturation, length normalisation and IDF)
+          kept behind this flag so it can be benchmarked against [Default]
+          before becoming the default. Pass [default_bm25f_params] for the
+          baseline. Both rank the exact same matched set — only the order
+          differs. *)
 
 val search :
   is_author_match:(string -> string -> bool) ->
