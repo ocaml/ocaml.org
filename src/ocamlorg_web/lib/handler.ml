@@ -1430,15 +1430,41 @@ let package_documentation_sidebar t kind req =
   (* An empty tree is also what a failed fetch from docs-ci produces, so do not
      let caches hold on to it for long. *)
   let max_age = if sidebar = [] then 60 else 600 in
-  Lwt.return
-    (Dream.response
-       ~headers:
-         [
-           ("Content-Type", "text/html; charset=utf-8");
-           ("Cache-Control", Printf.sprintf "public, max-age=%d" max_age);
-         ]
-       (Ocamlorg_frontend.Navmap.render_tree ~package:frontend_package ?hash
-          sidebar))
+  (* Content tag for the fragment, computed from the (small, already-cached)
+     sidebar *data* rather than the rendered HTML — so a revalidation after
+     [max_age] can be answered with 304, skipping the ~1 MB tree render. The
+     digest changes when the tree changes (a docs rebuild); [render_version]
+     busts it when the navmap template itself changes. (dill serves its own ETag
+     for sidebar.json — verified — so a later change could key off that instead
+     of this local digest.) *)
+  let render_version = "1" in
+  let etag =
+    Printf.sprintf "\"nav%s-%s\"" render_version
+      (Digest.to_hex (Digest.string (Marshal.to_string sidebar [])))
+  in
+  (* stale-while-revalidate: Varnish/browsers serve the slightly-stale tree
+     instantly while refreshing in the background, so expiry never blocks a
+     request and a docs rebuild still propagates within the day. *)
+  let cache_control =
+    Printf.sprintf "public, max-age=%d, stale-while-revalidate=86400" max_age
+  in
+  match Dream.header req "If-None-Match" with
+  | Some inm when inm = etag ->
+      Lwt.return
+        (Dream.response ~code:304
+           ~headers:[ ("Cache-Control", cache_control); ("ETag", etag) ]
+           "")
+  | _ ->
+      Lwt.return
+        (Dream.response
+           ~headers:
+             [
+               ("Content-Type", "text/html; charset=utf-8");
+               ("Cache-Control", cache_control);
+               ("ETag", etag);
+             ]
+           (Ocamlorg_frontend.Navmap.render_tree ~package:frontend_package ?hash
+              sidebar))
 
 let package_file t kind req =
   let</>? name =
