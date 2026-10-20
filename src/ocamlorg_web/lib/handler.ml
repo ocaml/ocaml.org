@@ -1448,8 +1448,23 @@ let package_documentation_sidebar t kind req =
   let cache_control =
     Printf.sprintf "public, max-age=%d, stale-while-revalidate=86400" max_age
   in
+  (* If-None-Match uses the weak comparison (RFC 7232, 3.2): Varnish re-tags the
+     object as weak (W/"...") when it gzips it, and sends that form back when it
+     revalidates, so an exact match would re-render on every expiry. *)
+  let etag_matches inm =
+    inm = "*"
+    || String.split_on_char ',' inm
+       |> List.exists (fun tag ->
+              let tag = String.trim tag in
+              let tag =
+                if String.starts_with ~prefix:"W/" tag then
+                  String.sub tag 2 (String.length tag - 2)
+                else tag
+              in
+              tag = etag)
+  in
   match Dream.header req "If-None-Match" with
-  | Some inm when inm = etag ->
+  | Some inm when etag_matches inm ->
       Lwt.return
         (Dream.response ~code:304
            ~headers:[ ("Cache-Control", cache_control); ("ETag", etag) ]
