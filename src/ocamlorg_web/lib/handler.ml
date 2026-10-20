@@ -1197,13 +1197,14 @@ let package_overview t kind req =
   let rev_deps_total = List.length rev_dependencies in
   let rev_deps_max = 100 in
   let show_all_rev_deps = Dream.query req "used-by" = Some "all" in
+  let hash = match kind with `Package -> None | `Universe h -> Some h in
   let rev_dependencies, rev_deps_more_url =
     if show_all_rev_deps || rev_deps_total <= rev_deps_max then
       (rev_dependencies, None)
     else
       ( List.take rev_deps_max rev_dependencies,
         Some
-          (Url.Package.overview ~version:version_from_url
+          (Url.Package.overview ?hash ~version:version_from_url
              (Ocamlorg_package.Name.to_string name)
           ^ "?used-by=all#used-by") )
   in
