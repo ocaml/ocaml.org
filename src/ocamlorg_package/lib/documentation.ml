@@ -108,48 +108,65 @@ type documentation_status_cache_entry = {
 let http_get url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "GET %s" url);
+  let headers =
+    Cohttp.Header.of_list
+      [
+        ( "Accept",
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" );
+      ]
+  in
+  let uri = Uri.of_string url in
+  let max_bytes = Config.max_doc_fetch_bytes in
   Lwt.catch
     (fun () ->
-      let headers =
-        Cohttp.Header.of_list
-          [
-            ( "Accept",
-              "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-            );
-          ]
+      (* We drive the connection explicitly rather than through
+         [Cohttp_lwt_unix.Client.get] so that we can [Connection.close] it on
+         the reject paths. cohttp tears a connection down only once its response
+         body stream has been fully consumed, so simply dropping an over-large
+         body leaks the socket for the life of the process (the same class of
+         fd-exhaustion seen on 2026-10-03). An explicit close drops the socket
+         without reading the rest of the payload. See ocaml/ocaml.org#3765. *)
+      let ctx = Lazy.force Cohttp_lwt_unix.Net.default_ctx in
+      let* endp = Cohttp_lwt_unix.Net.resolve ~ctx uri in
+      let* conn =
+        Cohttp_lwt_unix.Connection.connect ~ctx ~persistent:false endp
       in
-      let* response, body =
-        Cohttp_lwt_unix.Client.get ~headers (Uri.of_string url)
-      in
-      let max_bytes = Config.max_doc_fetch_bytes in
-      (* Reject an over-large response rather than buffering it whole. We do not
-         drain the body on rejection: draining would still transfer every byte;
-         dropping it lets the connection be torn down so we stop pulling the
-         payload. See ocaml/ocaml.org#3765. *)
+      let close () = Cohttp_lwt_unix.Connection.close conn in
       let too_large n =
         Logs.warn (fun m ->
             m "Response too large (%d bytes > %d limit) for %s" n max_bytes url);
+        close ();
         Lwt.return
           (Error
              (`Msg
                (Printf.sprintf "response too large (> %d bytes) for %s"
                   max_bytes url)))
       in
+      let* response, body =
+        Cohttp_lwt_unix.Connection.call conn ~headers `GET uri
+      in
       match Cohttp.Code.(code_of_status response.status |> is_success) with
       | false ->
-          let+ () = Cohttp_lwt.Body.drain_body body in
-          Error (`Msg ("Failed to fetch " ^ url))
+          close ();
+          Lwt.return (Error (`Msg ("Failed to fetch " ^ url)))
       | true -> (
-          match
+          let content_length =
             Cohttp.Header.get response.headers "content-length"
             |> Fun.flip Option.bind int_of_string_opt
-          with
+          in
+          match content_length with
           | Some n when n > max_bytes -> too_large n
           | _ ->
-              (* No trustworthy Content-Length: stream and enforce the cap as we
-                 read, so a chunked or mislabelled response can't blow up
-                 memory. *)
-              let buf = Buffer.create 65536 in
+              (* Stream the body, enforcing the cap as we read, so a chunked or
+                 mislabelled response can't blow up memory. Pre-size the buffer
+                 from Content-Length when present to avoid repeated doublings on
+                 the hot path. *)
+              let initial =
+                match content_length with
+                | Some n when n > 0 && n <= max_bytes -> n
+                | _ -> 65536
+              in
+              let buf = Buffer.create initial in
               let exception Too_large in
               Lwt.catch
                 (fun () ->
@@ -163,10 +180,13 @@ let http_get url =
                              Buffer.add_string buf chunk;
                              Lwt.return_unit))
                   in
+                  close ();
                   Lwt.return (Ok (Buffer.contents buf)))
                 (function
                   | Too_large -> too_large (Buffer.length buf)
-                  | e -> Lwt.reraise e)))
+                  | e ->
+                      close ();
+                      Lwt.reraise e)))
     (function
       | e ->
           Logs.err (fun m -> m "%s" (Printexc.to_string e));
