@@ -1,0 +1,39 @@
+# Search-ranking benchmark query set.
+#
+# Format:  query[,expected-package]
+#   - "query,expected"  is a known-item (navigational) query: the expected
+#     package must rank first (precision@1) / high (MRR). Free, no judge.
+#   - "query"           is a topic/need query graded by the LLM judge (nDCG).
+#
+# Lines starting with '#' and blank lines are ignored. Keep this set small and
+# representative; for real evidence, replace it with q= values mined from the
+# server access logs (see README).
+
+# --- navigational / known-item (expected package pinned) ---
+yojson,yojson
+dune,dune
+lwt,lwt
+cmdliner,cmdliner
+cohttp,cohttp
+re,re
+fmt,fmt
+logs,logs
+ppxlib,ppxlib
+alcotest,alcotest
+
+# --- topic / need (judge-graded) ---
+json parser
+http client
+command line parser
+date and time
+web framework
+sql database
+regular expressions
+logging library
+unit testing
+terminal colors
+parser combinator
+cryptography
+http server
+yaml parser
+concurrency
