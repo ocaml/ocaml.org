@@ -42,6 +42,17 @@ module Status = struct
   let license (v : t) = has_file v license_names
   let readme (v : t) = has_file v readme_names
   let changelog (v : t) = has_file v changelog_names
+
+  (* [files] lists every file of the package's documentation, often thousands of
+     names, but is only ever searched for the README, LICENSE and CHANGES names
+     above. [slim] keeps just those, so a cached status record stays small. *)
+  let slim (v : t) : t =
+    let is_special_file x =
+      match Fpath.of_string x with
+      | Ok p -> is_special Fpath.(p |> rem_ext |> filename)
+      | Error _ -> false
+    in
+    { v with files = List.filter is_special_file v.files }
 end
 
 module Sidebar = struct
@@ -99,11 +110,6 @@ module Sidebar = struct
     in
     navmap_of_sidebar s
 end
-
-type documentation_status_cache_entry = {
-  documentation_status : Status.t option;
-  time : float;
-}
 
 let http_get url =
   let open Lwt.Syntax in
@@ -509,16 +515,27 @@ let search_index ~kind (t : Package.t) =
 
 (* TODO: this needs to be computed in ocaml-docs-ci / voodoo and be part of the
    documentation status information *)
-type search_index_cache_entry = { hash_digest : string option; time : float }
-
+(* Per package version caches of the docs-ci build status and of the search
+   index token. Both hold at most [doc_cache_max] entries (FIFO) and expire
+   after [package_caches_ttl], like the page and sidebar caches. A cached [None]
+   records a failed fetch so it is not retried on every request. *)
 type doc_cache = {
-  mutable doc_status_cache :
-    documentation_status_cache_entry Version.Map.t Name.Map.t;
-  mutable search_index_cache : search_index_cache_entry Version.Map.t Name.Map.t;
+  doc_status_cache : Status.t option Bounded_cache.t;
+  search_index_cache : string option Bounded_cache.t;
 }
 
-let doc_cache_empty =
-  { doc_status_cache = Name.Map.empty; search_index_cache = Name.Map.empty }
+let doc_cache_create () =
+  {
+    doc_status_cache =
+      Bounded_cache.create ~max_entries:Config.doc_cache_max
+        ~ttl:Config.package_caches_ttl;
+    search_index_cache =
+      Bounded_cache.create ~max_entries:Config.doc_cache_max
+        ~ttl:Config.package_caches_ttl;
+  }
+
+let version_key (t : Package.t) =
+  Name.to_string t.name ^ "|" ^ Version.to_string t.version
 
 let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   let open Lwt.Syntax in
@@ -526,43 +543,25 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
 
-  let get_and_cache () =
-    let+ content = http_get (package_url ^ "status.json") in
-    let status =
-      match content with
-      | Ok s -> (
-          match s |> Yojson.Safe.from_string |> Status.of_yojson with
-          | Ok status -> Some status
-          | Error e ->
-              Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
-              None)
-      | Error (`Msg e) ->
-          Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
-          None
-    in
-    let status_entry =
-      { documentation_status = status; time = Unix.gettimeofday () }
-    in
-    state.doc_status_cache <-
-      Name.Map.update t.name
-        (Version.Map.add t.version status_entry)
-        (Version.Map.singleton t.version status_entry)
-        state.doc_status_cache;
-    status
-  in
-
-  let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.package_caches_ttl
-  in
-
-  match
-    Name.Map.find_opt t.name state.doc_status_cache
-    |> Option.map (Version.Map.find_opt t.version)
-    |> Option.value ~default:None
-  with
-  | None -> get_and_cache ()
-  | Some { time; _ } when has_cache_expired time -> get_and_cache ()
-  | Some { documentation_status; _ } -> Lwt.return documentation_status
+  let key = version_key t in
+  match Bounded_cache.find state.doc_status_cache ~key with
+  | Some status -> Lwt.return status
+  | None ->
+      let+ content = http_get (package_url ^ "status.json") in
+      let status =
+        match content with
+        | Ok s -> (
+            match s |> Yojson.Safe.from_string |> Status.of_yojson with
+            | Ok status -> Some (Status.slim status)
+            | Error e ->
+                Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
+                None)
+        | Error (`Msg e) ->
+            Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
+            None
+      in
+      Bounded_cache.add state.doc_status_cache ~key status;
+      status
 
 let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
   let open Lwt.Syntax in
@@ -585,30 +584,14 @@ let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
         let+ content = search_index ~kind t in
         Option.map Digest.string content
   in
-  let get_and_cache () =
-    let+ token = compute_token () in
-    let entry = { hash_digest = token; time = Unix.gettimeofday () } in
-    state.search_index_cache <-
-      Name.Map.update t.name
-        (Version.Map.add t.version entry)
-        (Version.Map.singleton t.version entry)
-        state.search_index_cache;
-    token
-  in
-
-  let has_cache_expired time =
-    Unix.gettimeofday () -. time > Config.package_caches_ttl
-  in
-
   let from_backend () =
-    match
-      Name.Map.find_opt t.name state.search_index_cache
-      |> Option.map (Version.Map.find_opt t.version)
-      |> Option.value ~default:None
-    with
-    | None -> get_and_cache ()
-    | Some { time; _ } when has_cache_expired time -> get_and_cache ()
-    | Some { hash_digest; _ } -> Lwt.return hash_digest
+    let key = version_key t in
+    match Bounded_cache.find state.search_index_cache ~key with
+    | Some token -> Lwt.return token
+    | None ->
+        let+ token = compute_token () in
+        Bounded_cache.add state.search_index_cache ~key token;
+        token
   in
 
   (* Prefer the digest published in status.json (no network beyond the status
