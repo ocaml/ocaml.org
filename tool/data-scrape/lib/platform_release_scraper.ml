@@ -6,9 +6,7 @@
 
     A scraper is provided to check whether platform tools release announcements
     are missing. Run it like this:
-    {v
-     dune exec -- tool/data-scrape/bin/scrape.exe platform_releases
-    v} *)
+    {v  dune exec -- tool/data-scrape/bin/scrape.exe platform_releases v} *)
 
 type release_feed_entry = {
   github_feed_url : string;
@@ -157,9 +155,9 @@ let fetch_github repo =
   [ River.fetch { River.name = repo; url = repo ^ "/releases.atom" } ]
   |> River.posts
   |> List.filter_map (fun post ->
-         River.link post
-         |> Option.map github_release_tag_from_url
-         |> Option.map (fun github_tag -> { github_tag; post }))
+      River.link post
+      |> Option.map github_release_tag_from_url
+      |> Option.map (fun github_tag -> { github_tag; post }))
 
 let group_releases_by_project all =
   List.fold_left

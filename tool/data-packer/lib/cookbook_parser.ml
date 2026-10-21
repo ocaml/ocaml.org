@@ -29,11 +29,10 @@ type category_metadata = {
 type metadata = { packages : package list; discussion : string option }
 [@@deriving
   of_yaml,
-    stable_record ~version:t
-      ~add:
-        [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
-      ~remove:[ discussion ],
-    show]
+  stable_record ~version:t
+    ~add:[ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
+    ~remove:[ discussion ],
+  show]
 
 let render_markdown str =
   str |> String.trim
@@ -76,11 +75,11 @@ let decode (tasks : task list) (fpath, (head, body)) =
 |})
     |> extract_explanation_code_pairs
     |> List.map (fun (c : code_block_with_explanation) ->
-           let code =
-             Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
-           in
-           let explanation = c.explanation |> render_markdown in
-           { explanation; code })
+        let code =
+          Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
+        in
+        let explanation = c.explanation |> render_markdown in
+        { explanation; code })
   in
   Result.map
     (fun (metadata : metadata) ->
@@ -103,12 +102,12 @@ let all_categories_and_tasks () =
     let cat_tasks =
       meta_cat.tasks |> Option.value ~default:[]
       |> List.map (fun (t : task_metadata) : task ->
-             {
-               title = t.title;
-               slug = t.slug;
-               category_path = List.rev (cat_slug :: path);
-               description = t.description |> Option.map render_markdown;
-             })
+          {
+            title = t.title;
+            slug = t.slug;
+            category_path = List.rev (cat_slug :: path);
+            description = t.description |> Option.map render_markdown;
+          })
     in
     let subcategories_tasks, subcategories =
       List.fold_left
