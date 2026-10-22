@@ -556,3 +556,57 @@ end
 module Planet = struct
   type entry = BlogPost of Blog.post | Video of Video.t
 end
+
+(* The aggregated data structure embedded in data.bin.
+
+   This is the runtime-facing definition: Data.all_data deserialises the blob to
+   this type with Marshal, with no dependency on the build-time data-packer. It
+   must stay structurally identical (same fields, same order) to
+   Data_packer.Types.All_data.t, which the packer builds and Marshals — the two
+   are bridged structurally by Marshal, exactly as before this type existed. If
+   you add/reorder a field here, mirror it in tool/data-packer/lib/types.ml. *)
+module All_data = struct
+  type t = {
+    (* Simple YAML data *)
+    testimonials : Testimonial.t list;
+    academic_testimonials : Academic_testimonial.t list;
+    jobs : Job.t list;
+    opam_users : Opam_user.t list;
+    resources : Resource.t list;
+    featured_resources : Resource.t list;
+    videos : Video.t list;
+    (* Markdown-based content *)
+    academic_institutions : Academic_institution.t list;
+    books : Book.t list;
+    code_examples : Code_examples.t list;
+    papers : Paper.t list;
+    tools : Tool.t list;
+    releases : Release.t list;
+    release_latest : Release.t option;
+    release_lts : Release.t option;
+    success_stories : Success_story.t list;
+    industrial_users : Industrial_user.t list;
+    news : News.t list;
+    events : Event.t list;
+    recurring_events : Event.recurring_event list;
+    exercises : Exercise.t list;
+    pages : Page.t list;
+    conferences : Conference.t list;
+    tutorials : Tutorial.t list;
+    tutorial_search_documents : Tutorial.search_document list;
+    (* Complex data structures *)
+    changelog : Changelog.t list;
+    backstage : Backstage.t list;
+    planet : Planet.entry list;
+    blog_sources : Blog.source list;
+    blog_posts : Blog.post list;
+    cookbook_recipes : Cookbook.t list;
+    cookbook_tasks : Cookbook.task list;
+    cookbook_top_categories : Cookbook.category list;
+    is_ocaml_yet : Is_ocaml_yet.t list;
+    outreachy : Outreachy.t list;
+    governance_teams : Governance.team list;
+    governance_working_groups : Governance.team list;
+    tool_pages : Tool_page.t list;
+  }
+end
