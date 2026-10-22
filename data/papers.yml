@@ -683,7 +683,7 @@ papers:
     year: 2008
     links:
       - description: "Download PDF"
-        uri: https://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf
+        uri: https://web.archive.org/web/20141011042432/http://cufp.org/archive/2008/slides/MadhavapeddyAnil.pdf
     featured: false
   - title: "Chemoinformatics and Structural Bioinformatics in OCaml"
     publication: Journal of Cheminformatics
