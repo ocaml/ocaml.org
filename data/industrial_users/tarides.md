@@ -26,9 +26,6 @@ cybersecurity, space and other regulated industries.
   migration to OCaml), team extension, support and maintenance, training, and
   testing and verification.
 - **Ecosystem:** our engineers contribute to the OCaml compiler and are among
-  the maintainers of the [OCaml Platform](https://ocaml.org/platform) tools
-  (including Merlin, odoc and Dune) and of OCaml.org.
-- **Ecosystem:** our engineers contribute to the OCaml compiler and are among
   the maintainers of the [OCaml Platform](https://ocaml.org/platform) and of
   OCaml.org.
 - **Open-source projects we maintain:** developer tools including
