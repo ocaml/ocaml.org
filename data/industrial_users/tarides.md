@@ -28,10 +28,15 @@ cybersecurity, space and other regulated industries.
 - **Ecosystem:** our engineers contribute to the OCaml compiler and are among
   the maintainers of the [OCaml Platform](https://ocaml.org/platform) tools
   (including Merlin, odoc and Dune) and of OCaml.org.
-- **Open-source projects we maintain:** [MirageOS](https://mirage.io), a
-  library operating system for secure unikernels; [Irmin](https://irmin.org),
-  a Git-like data store; and Ortac, for testing OCaml code against Gospel
-  specifications (ETAPS 2025 Best Tool Paper).
+- **Ecosystem:** our engineers contribute to the OCaml compiler and are among
+  the maintainers of the [OCaml Platform](https://ocaml.org/platform) and of
+  OCaml.org.
+- **Open-source projects we maintain:** developer tools including
+  [Merlin](https://github.com/ocaml/merlin), [odoc](https://github.com/ocaml/odoc),
+  [Dune](https://dune.build) and [js_of_ocaml](https://github.com/ocsigen/js_of_ocaml);
+  [MirageOS](https://mirage.io), a library operating system for secure
+  unikernels; [Irmin](https://irmin.org), a Git-like data store; and Ortac, for
+  testing OCaml code against Gospel specifications (ETAPS 2025 Best Tool Paper).
 
 Our teams are in Paris, Cambridge and Chennai, and remote work is possible.
 See our [services](https://tarides.com/services/) and
