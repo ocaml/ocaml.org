@@ -1,0 +1,3 @@
+(test
+ (name bounded_cache_test)
+ (libraries alcotest bounded_cache))

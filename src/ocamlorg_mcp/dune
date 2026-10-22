@@ -1,3 +1,3 @@
 (library
  (name ocamlorg_mcp)
- (libraries dream lwt yojson unix))
+ (libraries bounded_cache dream lwt yojson unix))
