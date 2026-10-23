@@ -14,9 +14,7 @@
  (name data_intf)
  (public_name ocamlorg.data_intf)
  (modules data_intf)
- (libraries ptime)
- (preprocess
-  (pps ppx_deriving_yaml ppx_deriving.show)))
+ (libraries ptime))
 
 ; ============================================================
 ; Step 1: Pack data into binary format
