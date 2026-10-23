@@ -339,51 +339,13 @@ let doc_from_string s =
       { uses_katex = false; breadcrumbs; toc = []; content }
   | _ -> raise (Invalid_argument "malformed .html.json file")
 
-(* Bounded FIFO + TTL cache for docs-ci responses (issue #3775, Block B). The
-   docs backend is proxied uncached: sidebars used to be memoised in an
-   unbounded table (via [Hashtbl.add], which also stacked duplicate keys on
-   re-fetch), and rendered doc pages were fetched on every request. This bounds
-   both and expires entries so documentation rebuilds are eventually picked up.
-   Access is synchronous under cooperative Lwt scheduling, so the [Hashtbl] and
-   [Queue] need no lock; two concurrent misses may both fetch (harmless). *)
-module Bounded_cache : sig
-  type 'a t
-
-  val create : max_entries:int -> ttl:float -> 'a t
-  val find : 'a t -> key:string -> 'a option
-  val add : 'a t -> key:string -> 'a -> unit
-end = struct
-  type 'a entry = { value : 'a; stored : float }
-
-  type 'a t = {
-    max_entries : int;
-    ttl : float;
-    table : (string, 'a entry) Hashtbl.t;
-    order : string Queue.t; (* insertion order, for FIFO eviction *)
-  }
-
-  let create ~max_entries ~ttl =
-    { max_entries; ttl; table = Hashtbl.create 256; order = Queue.create () }
-
-  let rec evict_to_cap t =
-    if Hashtbl.length t.table >= t.max_entries && not (Queue.is_empty t.order)
-    then (
-      let oldest = Queue.pop t.order in
-      Hashtbl.remove t.table oldest;
-      evict_to_cap t)
-
-  let find t ~key =
-    match Hashtbl.find_opt t.table key with
-    | Some e when Unix.gettimeofday () -. e.stored < t.ttl -> Some e.value
-    | _ -> None
-
-  let add t ~key value =
-    if not (Hashtbl.mem t.table key) then (
-      evict_to_cap t;
-      Queue.push key t.order);
-    Hashtbl.replace t.table key { value; stored = Unix.gettimeofday () }
-end
-
+(* The docs-ci response caches (sidebars, rendered pages, per-version build
+   status and search-index tokens) all use the shared {!Bounded_cache}: the docs
+   backend is proxied uncached, so these bound memory and expire entries so
+   documentation rebuilds are eventually picked up. Access is synchronous under
+   cooperative Lwt scheduling, so the cache needs no lock; two concurrent misses
+   may both fetch (harmless). The clock is passed in per call. *)
+let now () = Unix.gettimeofday ()
 let kind_key = function `Package -> "p" | `Universe s -> "u:" ^ s
 
 let sidebar_cache : Ocamlorg_frontend.Navmap.t Bounded_cache.t =
@@ -414,7 +376,7 @@ let sidebar ~kind (t : Package.t) =
     ^ Version.to_string t.version
     ^ "|" ^ kind_key kind
   in
-  match Bounded_cache.find sidebar_cache ~key with
+  match Bounded_cache.find sidebar_cache ~now:(now ()) ~key with
   | Some sidebar -> Lwt.return sidebar
   | None -> (
       let url = package_url ^ "doc/sidebar.json" in
@@ -427,7 +389,8 @@ let sidebar ~kind (t : Package.t) =
               let x = List.map Sidebar.to_navmap x in
               (* Cache only a non-empty sidebar; [[]] is also the parse/fetch
                  failure sentinel below, which must not be pinned. *)
-              if x <> [] then Bounded_cache.add sidebar_cache ~key x;
+              if x <> [] then
+                Bounded_cache.store sidebar_cache ~now:(now ()) ~key x;
               x
           | Error msg ->
               Logs.info (fun m -> m "Failed to parse sidebar at %s: %s" url msg);
@@ -444,7 +407,7 @@ let page_cache : t Bounded_cache.t =
 
 let odoc_page ~url =
   let open Lwt.Syntax in
-  match Bounded_cache.find page_cache ~key:url with
+  match Bounded_cache.find page_cache ~now:(now ()) ~key:url with
   | Some doc -> Lwt.return (Some doc)
   | None -> (
       let* content = http_get url in
@@ -459,7 +422,8 @@ let odoc_page ~url =
           (* Cache only a successful parse; a transient fetch/parse failure
              ([None]) must not be pinned for the whole TTL. *)
           Option.iter
-            (fun doc -> Bounded_cache.add page_cache ~key:url doc)
+            (fun doc ->
+              Bounded_cache.store page_cache ~now:(now ()) ~key:url doc)
             maybe_doc;
           Logs.info (fun m -> m "Found documentation page for %s" url);
           Lwt.return maybe_doc
@@ -544,7 +508,7 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   in
 
   let key = version_key t in
-  match Bounded_cache.find state.doc_status_cache ~key with
+  match Bounded_cache.find state.doc_status_cache ~now:(now ()) ~key with
   | Some status -> Lwt.return status
   | None ->
       let+ content = http_get (package_url ^ "status.json") in
@@ -560,7 +524,7 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
             Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
             None
       in
-      Bounded_cache.add state.doc_status_cache ~key status;
+      Bounded_cache.store state.doc_status_cache ~now:(now ()) ~key status;
       status
 
 let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
@@ -586,11 +550,11 @@ let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
   in
   let from_backend () =
     let key = version_key t in
-    match Bounded_cache.find state.search_index_cache ~key with
+    match Bounded_cache.find state.search_index_cache ~now:(now ()) ~key with
     | Some token -> Lwt.return token
     | None ->
         let+ token = compute_token () in
-        Bounded_cache.add state.search_index_cache ~key token;
+        Bounded_cache.store state.search_index_cache ~now:(now ()) ~key token;
         token
   in
 
