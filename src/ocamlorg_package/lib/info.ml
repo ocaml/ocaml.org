@@ -2,7 +2,7 @@ type url = { uri : string; checksum : string list }
 
 (* This is used to invalidate the package state cache if one of the types
    [Info.t] or [Ocamlorg_package.state] has changed. *)
-let version = "4"
+let version = "5"
 
 type t = {
   synopsis : string;

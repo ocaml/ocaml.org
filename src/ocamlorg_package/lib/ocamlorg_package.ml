@@ -31,7 +31,7 @@ let mockup_state (pkgs : t list) =
     packages;
     opam_repository_commit = None;
     stats = None;
-    docs = Documentation.doc_cache_empty;
+    docs = Documentation.doc_cache_create ();
   }
 
 let read_versions package_name versions =
@@ -102,7 +102,7 @@ let try_load_state () =
       version = Info.version;
       packages = Name.Map.empty;
       stats = None;
-      docs = Documentation.doc_cache_empty;
+      docs = Documentation.doc_cache_create ();
     }
 
 let save_state t =
