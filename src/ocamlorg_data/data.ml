@@ -18,7 +18,7 @@ external get_blob_raw :
   = "caml_ocamlorg_data_blob"
 
 (* Lazy deserialization - happens once on first access *)
-let all_data : Data_packer.Types.All_data.t Lazy.t =
+let all_data : Data_intf.All_data.t Lazy.t =
   lazy
     ((* Verify blob is valid *)
      if not (get_blob_check ()) then
@@ -26,15 +26,15 @@ let all_data : Data_packer.Types.All_data.t Lazy.t =
 
      (* PROTOTYPE: copy the embedded blob into bytes and deserialize with
         Marshal. Type-safe by construction here: the same build's packer wrote
-        it with the identical Data_packer.Types.All_data.t, and data.bin is
-        regenerated on every build. *)
+        it with Data_packer.Types.All_data.t, which is structurally identical to
+        Data_intf.All_data.t, and data.bin is regenerated on every build. *)
      let ba = get_blob_raw () in
      let len = Bigarray.Array1.dim ba in
      let b = Bytes.create len in
      for i = 0 to len - 1 do
        Bytes.unsafe_set b i (Bigarray.Array1.unsafe_get ba i)
      done;
-     (Marshal.from_bytes b 0 : Data_packer.Types.All_data.t))
+     (Marshal.from_bytes b 0 : Data_intf.All_data.t))
 
 (* Force deserialization once at module load time *)
 let data = Lazy.force all_data

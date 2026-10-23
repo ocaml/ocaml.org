@@ -257,7 +257,13 @@ module Planet = struct
   [@@deriving show]
 end
 
-(* The aggregated data structure containing all types *)
+(* The aggregated data structure containing all types.
+
+   Keep this structurally identical (same fields, same order) to
+   Data_intf.All_data.t: the packer Marshals a value of this type into data.bin,
+   and the runtime (Data.all_data) deserialises it as Data_intf.All_data.t with
+   no dependency on this build-time library. If you add/reorder a field here,
+   mirror it in src/ocamlorg_data/data_intf.ml. *)
 module All_data = struct
   type t = {
     (* Simple YAML data *)
