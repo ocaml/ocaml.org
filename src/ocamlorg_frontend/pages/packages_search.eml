@@ -16,6 +16,22 @@ let render ~total ~search ~(pagination_info : Pagination.t) (packages : Package.
           %>
         </form>
 
+        <%s! if search = "" then "" else {js|
+        <div id="search-analytics" data-query="|js} ^ Dream.html_escape search ^ {js|" hidden></div>
+        <script>
+          // Aggregate, privacy-preserving search-term capture via the site's
+          // existing Plausible analytics (results page only, not per-keystroke).
+          // Feeds the search-ranking benchmark query set; see
+          // tool/search-bench/mine_queries.sh.
+          window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
+          (function () {
+            var el = document.getElementById("search-analytics");
+            var q = el && el.getAttribute("data-query");
+            if (q) { window.plausible("Search", { props: { query: q } }); }
+          })();
+        </script>
+        |js} %>
+
         <div class="prose max-w-5xl">
           <h1 class="font-bold text-title dark:text-dark-content text-2xl mb-5 md:mb-0">
             <% (match total with
