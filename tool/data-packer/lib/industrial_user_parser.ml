@@ -2,7 +2,7 @@
 
 open Import
 
-type t = [%import: Data_intf.Industrial_user.t] [@@deriving show]
+type t = Data_intf.Industrial_user.t
 
 type metadata = {
   name : string;

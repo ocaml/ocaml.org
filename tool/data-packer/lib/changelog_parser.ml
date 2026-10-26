@@ -2,9 +2,9 @@
 
 open Import
 
-type release = [%import: Data_intf.Changelog.release] [@@deriving show]
-type post = [%import: Data_intf.Changelog.post] [@@deriving show]
-type t = [%import: Data_intf.Changelog.t] [@@deriving show]
+type release = Data_intf.Changelog.release
+type post = Data_intf.Changelog.post
+type t = Data_intf.Changelog.t
 
 module Posts = struct
   type post_metadata = {
@@ -66,7 +66,9 @@ let platform_tools_release_to_release (r : Platform_release_parser.t) : release
   }
 
 let all () =
-  let slug_of_t r = match r with Release r -> r.slug | Post p -> p.slug in
+  let slug_of_t (r : t) =
+    match r with Release r -> r.slug | Post p -> p.slug
+  in
   let releases =
     Platform_release_parser.all ()
     |> List.filter (fun (a : Platform_release_parser.t) ->
@@ -74,5 +76,6 @@ let all () =
     |> List.map platform_tools_release_to_release
   in
   let posts = Posts.all () in
-  List.map (fun x -> Release x) releases @ List.map (fun x -> Post x) posts
+  List.map (fun x : t -> Release x) releases
+  @ List.map (fun x : t -> Post x) posts
   |> List.sort (fun (a : t) b -> String.compare (slug_of_t b) (slug_of_t a))

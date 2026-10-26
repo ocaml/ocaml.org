@@ -2,8 +2,8 @@
 
 open Import
 
-type t = [%import: Data_intf.Video.t] [@@deriving of_yaml, show]
-type video_list = t list [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Video.t] [@@deriving of_yaml]
+type video_list = t list [@@deriving of_yaml]
 
 let load_video_file file : t list =
   let ( let* ) = Result.bind in

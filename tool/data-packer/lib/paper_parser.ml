@@ -2,8 +2,8 @@
 
 open Import
 
-type link = [%import: Data_intf.Paper.link] [@@deriving of_yaml, show]
-type t = [%import: Data_intf.Paper.t] [@@deriving show]
+type link = [%import: Data_intf.Paper.link] [@@deriving of_yaml]
+type t = Data_intf.Paper.t
 
 type metadata = {
   title : string;

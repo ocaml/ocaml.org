@@ -2,9 +2,10 @@
 
 open Import
 
-type event_type = [%import: Data_intf.Event.event_type] [@@deriving show]
+type event_type = Data_intf.Event.event_type
 
-let event_type_of_string = function
+let event_type_of_string : string -> (event_type, [> `Msg of string ]) result =
+  function
   | "meetup" -> Ok Meetup
   | "conference" -> Ok Conference
   | "seminar" -> Ok Seminar
@@ -16,15 +17,20 @@ let event_type_of_yaml = function
   | `String s -> event_type_of_string s
   | _ -> Error (`Msg "Expected a string for event type")
 
-type location = [%import: Data_intf.Event.location] [@@deriving of_yaml, show]
+let string_of_event_type : event_type -> string = function
+  | Meetup -> "Meetup"
+  | Conference -> "Conference"
+  | Seminar -> "Seminar"
+  | Hackathon -> "Hackathon"
+  | Retreat -> "Retreat"
+
+type location = [%import: Data_intf.Event.location] [@@deriving of_yaml]
 
 type recurring_event = [%import: Data_intf.Event.recurring_event]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type utc_datetime = [%import: Data_intf.Event.utc_datetime]
-[@@deriving of_yaml, show]
-
-type t = [%import: Data_intf.Event.t] [@@deriving show]
+type utc_datetime = [%import: Data_intf.Event.utc_datetime] [@@deriving of_yaml]
+type t = Data_intf.Event.t
 
 let recurring_event_all () : recurring_event list =
   Utils.yaml_sequence_file recurring_event_of_yaml "events/recurring.yml"
@@ -46,8 +52,7 @@ type metadata = {
   of_yaml,
     stable_record ~version:t
       ~add:[ slug; body_md; body_html; recurring_event ]
-      ~remove:[ recurring_event_slug ] ~set:[ event_type ],
-    show { with_path = false }]
+      ~remove:[ recurring_event_slug ] ~set:[ event_type ]]
 
 let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
 
@@ -88,9 +93,9 @@ let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
                  "Event %s (%s) has type %s but its linked recurring event %s \
                   has type %s"
                  metadata.title metadata.starts.yyyy_mm_dd
-                 (show_event_type from_upcoming)
+                 (string_of_event_type from_upcoming)
                  (Option.get metadata.recurring_event_slug)
-                 (show_event_type from_recurring))
+                 (string_of_event_type from_recurring))
         | Some _, Some from_recurring -> from_recurring
       in
       of_metadata ~body_md ~body_html ~recurring_event ~event_type metadata)

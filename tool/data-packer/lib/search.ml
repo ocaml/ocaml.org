@@ -3,7 +3,6 @@
 open Import
 
 type section = { title : string; id : string }
-[@@deriving show { with_path = false }]
 
 let id_to_href id =
   match id with

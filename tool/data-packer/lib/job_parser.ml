@@ -2,7 +2,7 @@
 
 open Import
 
-type t = [%import: Data_intf.Job.t] [@@deriving of_yaml, show]
+type t = [%import: Data_intf.Job.t] [@@deriving of_yaml]
 
 let all () =
   let job_date j = Option.value ~default:"1970-01-01" j.publication_date in
