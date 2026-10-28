@@ -253,20 +253,27 @@ let doc_exists t name version =
       | _ -> Lwt.return None)
 
 let latest_documented_version t name =
-  let rec aux vlist =
+  let rec aux fuel vlist =
     let open Lwt.Syntax in
     match vlist with
     | [] -> Lwt.return None
+    | _ when fuel <= 0 ->
+        (* Give up rather than probe every version: on a cold cache each step is
+           one sequential status.json fetch against the docs backend. See
+           ocaml/ocaml.org#3888. *)
+        Lwt.return None
     | _ -> (
         let version = List.hd vlist in
         let* doc = doc_exists t name version in
         match doc with
         | Some version -> Lwt.return (Some version)
-        | None -> aux (List.tl vlist))
+        | None -> aux (fuel - 1) (List.tl vlist))
   in
   match get_versions t name with
   | [] -> Lwt.return None
-  | vlist -> aux (vlist |> List.map (fun v -> v.version))
+  | vlist ->
+      aux Config.latest_documented_version_depth
+        (vlist |> List.map (fun v -> v.version))
 
 let is_latest_version t name version =
   match get_latest t name with

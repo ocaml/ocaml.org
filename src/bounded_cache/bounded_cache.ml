@@ -1,4 +1,4 @@
-type 'a entry = { value : 'a; stored : float }
+type 'a entry = { value : 'a; expires : float }
 
 type 'a t = {
   max_entries : int;
@@ -21,14 +21,15 @@ let rec evict_to_cap t =
 
 let find t ~now ~key =
   match Hashtbl.find_opt t.table key with
-  | Some e when now -. e.stored < t.ttl -> Some e.value
+  | Some e when now < e.expires -> Some e.value
   | _ -> None
 
-let store t ~now ~key value =
+let store ?ttl t ~now ~key value =
+  let ttl = Option.value ttl ~default:t.ttl in
   if not (Hashtbl.mem t.table key) then (
     evict_to_cap t;
     Queue.push key t.order);
-  Hashtbl.replace t.table key { value; stored = now }
+  Hashtbl.replace t.table key { value; expires = now +. ttl }
 
 let find_or_compute t ~now ~key compute =
   match find t ~now ~key with

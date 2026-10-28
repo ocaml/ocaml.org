@@ -81,6 +81,27 @@ let test_expired_overwrite () =
     "overwritten value" (Some 2)
     (C.find t ~now:20. ~key:"k")
 
+let test_per_entry_ttl () =
+  (* [?ttl] on store overrides the cache-wide default for that entry only
+     (negative caching); a later default store on the same key restores the full
+     TTL. *)
+  let t = C.create ~max_entries:8 ~ttl:100. in
+  C.store t ~ttl:10. ~now:0. ~key:"neg" 1;
+  C.store t ~now:0. ~key:"pos" 2;
+  Alcotest.(check opt_int)
+    "short-ttl entry fresh" (Some 1)
+    (C.find t ~now:9.9 ~key:"neg");
+  Alcotest.(check opt_int)
+    "short-ttl entry expired" None
+    (C.find t ~now:10. ~key:"neg");
+  Alcotest.(check opt_int)
+    "default-ttl entry unaffected" (Some 2)
+    (C.find t ~now:10. ~key:"pos");
+  C.store t ~now:10. ~key:"neg" 3;
+  Alcotest.(check opt_int)
+    "re-store with default ttl" (Some 3)
+    (C.find t ~now:109. ~key:"neg")
+
 let () =
   Alcotest.run "bounded_cache"
     [
@@ -92,5 +113,6 @@ let () =
           test_case "re-store keeps FIFO position" test_restore_keeps_position;
           test_case "find_or_compute" test_find_or_compute;
           test_case "expired key overwrite" test_expired_overwrite;
+          test_case "per-entry ttl override" test_per_entry_ttl;
         ] );
     ]
