@@ -24,8 +24,12 @@
    past [max_body] bytes with 413 before it can cost us memory or downstream
    [Yojson]/[canonical_json] work (issue #3884). *)
 let payload_too_large () =
+  (* We respond without draining the rest of the (oversized) body — draining
+     would reintroduce the very work we are refusing. On HTTP/1.1 an undrained
+     body desyncs a keep-alive connection, so we ask for the connection to be
+     closed rather than reused. *)
   Dream.respond ~status:`Payload_Too_Large
-    ~headers:[ ("Content-Type", "application/json") ]
+    ~headers:[ ("Content-Type", "application/json"); ("Connection", "close") ]
     {|{"error":"request body too large"}|}
 
 (* Read the request body, aborting once more than [max_body] bytes have arrived.
@@ -53,8 +57,13 @@ let read_body_capped ~max_body request =
       match chunk with
       | None -> Lwt.return_some (Buffer.contents buf)
       | Some s ->
-          Buffer.add_string buf s;
-          if Buffer.length buf > max_body then Lwt.return_none else loop ()
+          (* Check before buffering so the high-water mark never exceeds
+             [max_body]: a single oversized chunk is rejected without first
+             copying it into [buf]. *)
+          if Buffer.length buf + String.length s > max_body then Lwt.return_none
+          else (
+            Buffer.add_string buf s;
+            loop ())
     in
     loop ()
 
