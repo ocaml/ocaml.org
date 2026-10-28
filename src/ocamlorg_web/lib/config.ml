@@ -35,3 +35,8 @@ let mcp_cache_ttl =
 
 let mcp_cache_max =
   env_with_default "OCAMLORG_MCP_CACHE_MAX" "1024" |> int_of_string
+
+(* Max accepted /mcp request-body size in bytes; larger bodies get 413 (issue
+   #3884). A JSON-RPC request is small, so 1 MB is generous. *)
+let mcp_max_body =
+  env_with_default "OCAMLORG_MCP_MAX_BODY" "1048576" |> int_of_string
