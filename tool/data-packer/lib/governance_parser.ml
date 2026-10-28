@@ -2,12 +2,11 @@
 
 open Import
 
-type member = [%import: Data_intf.Governance.member] [@@deriving of_yaml, show]
+type member = [%import: Data_intf.Governance.member] [@@deriving of_yaml]
+type contact_kind = Data_intf.Governance.contact_kind
 
-type contact_kind = [%import: Data_intf.Governance.contact_kind]
-[@@deriving show]
-
-let contact_kind_of_yaml = function
+let contact_kind_of_yaml : _ -> (contact_kind, [> `Msg of string ]) result =
+  function
   | `String "github" -> Ok GitHub
   | `String "email" -> Ok Email
   | `String "discord" -> Ok Discord
@@ -25,11 +24,10 @@ let contact_kind_of_yaml = function
                 email, discord, chat, forum"))
       | Error _ -> Error (`Msg "Invalid Yaml value"))
 
-type contact = [%import: Data_intf.Governance.contact]
-[@@deriving of_yaml, show]
+type contact = [%import: Data_intf.Governance.contact] [@@deriving of_yaml]
 
 type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type team_metadata = {
   id : string;
@@ -46,7 +44,7 @@ let team_of_yaml yml =
   yml |> team_metadata_of_yaml
   |> Result.map team_metadata_to_Data_intf_Governance_team
 
-type team = [%import: Data_intf.Governance.team] [@@deriving show]
+type team = Data_intf.Governance.team
 
 type metadata = {
   teams : team list;

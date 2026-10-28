@@ -20,7 +20,7 @@ type course_metadata = {
 [@@deriving of_yaml]
 
 (* Import the course type from Types (which has bin_io) *)
-type course = [%import: Data_intf.Academic_institution.course] [@@deriving show]
+type course = Data_intf.Academic_institution.course
 
 let course_metadata_to_course ~modify_last_check (c : course_metadata) : course
     =
@@ -56,7 +56,7 @@ let course_of_yaml yaml =
   with Failure msg -> Error (`Msg msg)
 
 type location = [%import: Data_intf.Academic_institution.location]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type metadata = {
   name : string;
@@ -75,7 +75,7 @@ type metadata = {
     stable_record ~version:Data_intf.Academic_institution.t
       ~add:[ body_md; body_html; slug ]]
 
-type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
+type t = Data_intf.Academic_institution.t
 
 let of_metadata m =
   metadata_to_Data_intf_Academic_institution_t m ~slug:(Utils.slugify m.name)

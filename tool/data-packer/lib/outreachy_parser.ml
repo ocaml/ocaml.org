@@ -2,8 +2,8 @@
 
 open Import
 
-type project = [%import: Data_intf.Outreachy.project] [@@deriving of_yaml, show]
-type t = [%import: Data_intf.Outreachy.t] [@@deriving of_yaml, show]
+type project = [%import: Data_intf.Outreachy.project] [@@deriving of_yaml]
+type t = [%import: Data_intf.Outreachy.t] [@@deriving of_yaml]
 
 let modify_project (p : project) =
   {

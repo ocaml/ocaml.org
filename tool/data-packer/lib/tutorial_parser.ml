@@ -2,41 +2,40 @@
 
 open Import
 
-type section = [%import: Data_intf.Tutorial.section] [@@deriving show]
+type section = Data_intf.Tutorial.section
 
-let section_of_string = function
+let section_of_string : string -> (section, [> `Msg of string ]) result =
+  function
   | "getting-started" -> Ok GetStarted
   | "language" -> Ok Language
   | "platform" -> Ok Platform
   | "guides" -> Ok Guides
   | s -> Error (`Msg ("Unknown section: " ^ s))
 
-type toc = [%import: Data_intf.Tutorial.toc] [@@deriving show]
+type toc = Data_intf.Tutorial.toc
 
 type contribute_link = [%import: Data_intf.Tutorial.contribute_link]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type banner = [%import: Data_intf.Tutorial.banner] [@@deriving of_yaml, show]
+type banner = [%import: Data_intf.Tutorial.banner] [@@deriving of_yaml]
 
 type external_tutorial = [%import: Data_intf.Tutorial.external_tutorial]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type recommended_next_tutorials =
   [%import: Data_intf.Tutorial.recommended_next_tutorials]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type prerequisite_tutorials =
   [%import: Data_intf.Tutorial.prerequisite_tutorials]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type search_document_section =
   [%import: Data_intf.Tutorial.search_document_section]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type search_document = [%import: Data_intf.Tutorial.search_document]
-[@@deriving show]
-
-type t = [%import: Data_intf.Tutorial.t] [@@deriving show]
+type search_document = Data_intf.Tutorial.search_document
+type t = Data_intf.Tutorial.t
 
 type metadata = {
   id : string;
@@ -64,9 +63,9 @@ let of_metadata m =
 exception Missing_Tutorial of string
 
 let check_tutorial_references all =
-  let all_slugs = List.map (fun t -> t.slug) all in
+  let all_slugs = List.map (fun (t : t) -> t.slug) all in
   let tut_is_missing slug = not @@ List.mem slug all_slugs in
-  let missing_tut_msg t missing =
+  let missing_tut_msg (t : t) missing =
     "The following recommended next tutorial(s) in " ^ t.fpath
     ^ " were not found: [" ^ String.concat "; " missing ^ "]"
   in
@@ -82,7 +81,7 @@ let check_tutorial_references all =
 
 let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
 
-and toc_f { Markdown.Toc.title; href; children } =
+and toc_f { Markdown.Toc.title; href; children } : toc =
   { title; href; children = toc_toc children }
 
 let decode (fpath, (head, body_md)) =
@@ -105,7 +104,8 @@ let decode (fpath, (head, body_md)) =
 let all () =
   let all =
     Utils.map_md_files decode "tutorials/*/*.md"
-    |> Stdlib.List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
+    |> Stdlib.List.sort (fun (t1 : t) (t2 : t) ->
+           String.compare t1.fpath t2.fpath)
   in
   check_tutorial_references all;
   all

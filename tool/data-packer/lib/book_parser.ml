@@ -3,7 +3,8 @@
 open Import
 open Types.Book
 
-let difficulty_of_string = function
+let difficulty_of_string : string -> (difficulty, [> `Msg of string ]) result =
+  function
   | "beginner" -> Ok Beginner
   | "intermediate" -> Ok Intermediate
   | "advanced" -> Ok Advanced
