@@ -376,6 +376,13 @@ let sidebar ~kind (t : Package.t) =
     ^ Version.to_string t.version
     ^ "|" ^ kind_key kind
   in
+  (* Negative-cache a miss ([[]]) for a short TTL so a retry storm for an
+     undocumented package does not re-hit the backend on every request, while a
+     documentation rebuild is still picked up within [doc_negative_ttl]. *)
+  let cache_miss () =
+    Bounded_cache.store ~ttl:Config.doc_negative_ttl sidebar_cache ~now:(now ())
+      ~key []
+  in
   match Bounded_cache.find sidebar_cache ~now:(now ()) ~key with
   | Some sidebar -> Lwt.return sidebar
   | None -> (
@@ -387,28 +394,38 @@ let sidebar ~kind (t : Package.t) =
           match Sidebar.of_yojson json with
           | Ok x ->
               let x = List.map Sidebar.to_navmap x in
-              (* Cache only a non-empty sidebar; [[]] is also the parse/fetch
-                 failure sentinel below, which must not be pinned. *)
+              (* A non-empty sidebar is cached for the full TTL; an empty one is
+                 a miss and gets the short negative TTL. *)
               if x <> [] then
-                Bounded_cache.store sidebar_cache ~now:(now ()) ~key x;
+                Bounded_cache.store sidebar_cache ~now:(now ()) ~key x
+              else cache_miss ();
               x
           | Error msg ->
               Logs.info (fun m -> m "Failed to parse sidebar at %s: %s" url msg);
+              cache_miss ();
               [])
       | Error _ ->
           Logs.info (fun m -> m "Failed to fetch sidebar at %s" url);
+          cache_miss ();
           [])
 
 (* The rendered doc page is keyed on its full fetch URL, which already encodes
    name/version/kind/path uniquely. *)
-let page_cache : t Bounded_cache.t =
+let page_cache : t option Bounded_cache.t =
   Bounded_cache.create ~max_entries:Config.doc_cache_max
     ~ttl:Config.package_caches_ttl
 
 let odoc_page ~url =
   let open Lwt.Syntax in
+  (* Negative-cache a miss ([None]) for a short TTL so repeated requests for a
+     nonexistent/unparseable page do not re-hit the backend every time, while a
+     documentation rebuild is still picked up within [doc_negative_ttl]. *)
+  let cache_miss () =
+    Bounded_cache.store ~ttl:Config.doc_negative_ttl page_cache ~now:(now ())
+      ~key:url None
+  in
   match Bounded_cache.find page_cache ~now:(now ()) ~key:url with
-  | Some doc -> Lwt.return (Some doc)
+  | Some maybe_doc -> Lwt.return maybe_doc
   | None -> (
       let* content = http_get url in
       match content with
@@ -419,16 +436,17 @@ let odoc_page ~url =
               Logs.err (fun m -> m "Invalid documentation page: %s" err);
               None
           in
-          (* Cache only a successful parse; a transient fetch/parse failure
-             ([None]) must not be pinned for the whole TTL. *)
-          Option.iter
-            (fun doc ->
-              Bounded_cache.store page_cache ~now:(now ()) ~key:url doc)
-            maybe_doc;
+          (* A successful parse is cached for the full TTL; a fetch/parse
+             failure ([None]) is a miss and gets the short negative TTL. *)
+          (match maybe_doc with
+          | Some doc ->
+              Bounded_cache.store page_cache ~now:(now ()) ~key:url (Some doc)
+          | None -> cache_miss ());
           Logs.info (fun m -> m "Found documentation page for %s" url);
           Lwt.return maybe_doc
       | Error _ ->
           Logs.info (fun m -> m "Failed to fetch documentation page for %s" url);
+          cache_miss ();
           Lwt.return None)
 
 let documentation_page ~kind (t : Package.t) path =

@@ -3,8 +3,8 @@
     The clock is injected as [~now] (seconds, as from {!Unix.gettimeofday})
     rather than read internally, so callers control time and tests stay
     deterministic. The cache holds at most [max_entries]; once full, inserting a
-    new key evicts the oldest-inserted one (FIFO, not LRU). An entry older than
-    [ttl] reads as a miss.
+    new key evicts the oldest-inserted one (FIFO, not LRU). An entry past its
+    expiry reads as a miss.
 
     Not thread-safe: intended for use under cooperative Lwt scheduling, where
     access between a read and the following mutation is synchronous, so the
@@ -17,14 +17,15 @@ val create : max_entries:int -> ttl:float -> 'a t
     entries, each valid for [ttl] seconds. *)
 
 val find : 'a t -> now:float -> key:string -> 'a option
-(** [find t ~now ~key] is the cached value for [key] if present and stored less
-    than [ttl] seconds before [now], else [None]. *)
+(** [find t ~now ~key] is the cached value for [key] if present and not yet
+    expired at [now], else [None]. *)
 
-val store : 'a t -> now:float -> key:string -> 'a -> unit
-(** [store t ~now ~key value] caches [value] under [key], stamped at [now],
-    evicting the oldest entry first if the cache is at capacity. Re-storing an
-    existing key refreshes its value and timestamp without changing its eviction
-    position. *)
+val store : ?ttl:float -> 'a t -> now:float -> key:string -> 'a -> unit
+(** [store t ~now ~key value] caches [value] under [key], expiring [ttl] seconds
+    after [now] ([?ttl] overrides the cache-wide default for this entry, e.g. to
+    negative-cache a miss for a shorter duration), evicting the oldest entry
+    first if the cache is at capacity. Re-storing an existing key refreshes its
+    value and expiry without changing its eviction position. *)
 
 val find_or_compute : 'a t -> now:float -> key:string -> (unit -> 'a) -> 'a
 (** [find_or_compute t ~now ~key compute] returns the cached value for [key], or

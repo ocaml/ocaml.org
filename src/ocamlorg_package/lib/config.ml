@@ -20,6 +20,22 @@ let package_caches_ttl =
 let doc_cache_max =
   env_with_default "OCAMLORG_DOC_CACHE_MAX" "1000" |> int_of_string
 
+(* Short time-to-live (in seconds) for negatively cached docs-ci outcomes:
+   missing/empty sidebars and missing/unparseable doc pages. Long enough to
+   absorb a retry storm from retry-happy agents hitting /mcp, short enough not
+   to mask a documentation rebuild. See ocaml/ocaml.org#3888. Default: 60 s. *)
+let doc_negative_ttl =
+  env_with_default "OCAMLORG_DOC_NEGATIVE_TTL" "60" |> float_of_string
+
+(* Upper bound on how many versions [latest_documented_version] probes, newest
+   first, before giving up. On a cold cache each probe is one sequential
+   status.json GET against the docs backend, so an old package with many
+   undocumented versions would otherwise cost 100+ upstream fetches per call
+   (the MCP docs tools invoke this for every request without an explicit
+   version). Capping the walk bounds that fan-out. See ocaml/ocaml.org#3888. *)
+let latest_documented_version_depth =
+  env_with_default "OCAMLORG_LATEST_DOC_VERSION_DEPTH" "25" |> int_of_string
+
 (* Upper bound on the size (in bytes) of a single response fetched from the
    documentation backend. Prevents a pathologically large artifact (e.g. a
    multi-hundred-MB odoc search index) from being buffered into memory and
