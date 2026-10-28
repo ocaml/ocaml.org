@@ -11,5 +11,10 @@ val max_doc_fetch_bytes : int
     backend, to avoid buffering a pathologically large artifact into memory.
     Overridable via [OCAMLORG_MAX_DOC_FETCH_BYTES]. *)
 
+val doc_fetch_timeout : float
+(** Wall-clock budget (seconds) for a single fetch from the documentation
+    backend, so a stalled backend can't hang a request indefinitely.
+    Overridable via [OCAMLORG_DOC_FETCH_TIMEOUT]. *)
+
 val opam_repository_path : Fpath.t
 val package_state_path : Fpath.t
