@@ -5,6 +5,13 @@
 
 let latest_protocol_version = "2025-06-18"
 
+(* Protocol revisions this server can speak. The handshake is identical across
+   them (we only advertise the tools capability), so we can honour a client that
+   asks for an older supported revision instead of forcing it to the latest.
+   Newest first. *)
+let supported_protocol_versions = [ "2025-06-18"; "2025-03-26"; "2024-11-05" ]
+let is_supported_protocol_version v = List.mem v supported_protocol_versions
+
 (* A JSON-RPC id is an integer or a string; [`Null] is used for responses to
    requests we could not associate with an id (parse/invalid-request errors). *)
 type id = [ `Int of int | `String of string | `Null ]

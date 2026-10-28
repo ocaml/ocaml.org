@@ -361,10 +361,7 @@ let libraries_and_modules ?(max_nodes = default_max_doc_nodes) ~name ~version
       false)
   in
   let library_name (n : Navmap.toc) =
-    let t = String.trim (strip_html n.title) in
-    match String.length t > 8 && String.sub t 0 8 = "Library " with
-    | true -> String.sub t 8 (String.length t - 8)
-    | false -> t
+    Navmap.library_name (String.trim (strip_html n.title))
   in
   let library_json (n : Navmap.toc) =
     let modules =

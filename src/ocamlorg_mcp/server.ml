@@ -53,10 +53,17 @@ let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
   let registry = Tool.ping :: tools in
   match req.method_ with
   | "initialize" ->
+      (* Echo the client's requested protocol version when we support it,
+         otherwise answer with the latest we speak (both are within spec). *)
+      let protocol_version =
+        match Protocol.member_opt "protocolVersion" req.params with
+        | Some (`String v) when Protocol.is_supported_protocol_version v -> v
+        | _ -> Protocol.latest_protocol_version
+      in
       let result =
         `Assoc
           [
-            ("protocolVersion", `String Protocol.latest_protocol_version);
+            ("protocolVersion", `String protocol_version);
             ("capabilities", capabilities);
             ("serverInfo", server_info);
           ]

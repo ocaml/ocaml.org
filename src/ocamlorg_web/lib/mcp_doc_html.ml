@@ -359,6 +359,9 @@ type st = {
   mutable pre_depth : int;
   mutable anchor : (string option * Buffer.t) option;
       (* href, link-text buffer *)
+  mutable anchor_depth : int;
+      (* [st.stack] depth of the open anchor (0 when none), so a malformed
+         nested </a> does not finalise the outer anchor early *)
   mutable refs_rev : reference list;
   mutable refs_count : int;
   mutable refs_capped : bool;
@@ -392,6 +395,7 @@ let finalize_anchor st =
   | None -> ()
   | Some (href, tb) -> (
       st.anchor <- None;
+      st.anchor_depth <- 0;
       let text = String.trim (collapse_ws (Buffer.contents tb)) in
       let r =
         match href with Some href -> st.resolve ~href ~text | None -> None
@@ -426,8 +430,9 @@ let on_start st name attrs =
   else if List.mem name dropped then st.drop_depth <- st.drop_depth + 1
   else (
     st.stack <- name :: st.stack;
-    if name = "a" && st.anchor = None then
-      st.anchor <- Some (find_href attrs, Buffer.create 32)
+    if name = "a" && st.anchor = None then (
+      st.anchor <- Some (find_href attrs, Buffer.create 32);
+      st.anchor_depth <- List.length st.stack)
     else if st.anchor <> None then () (* inside a link: capture text only *)
     else
       match heading_level name with
@@ -448,9 +453,11 @@ let on_end st =
   else
     match st.stack with
     | name :: rest -> (
+        let closed_depth = List.length st.stack in
         st.stack <- rest;
         match name with
-        | "a" -> finalize_anchor st
+        | "a" when closed_depth = st.anchor_depth -> finalize_anchor st
+        | "a" -> () (* nested </a>: keep capturing the outer anchor's text *)
         | "pre" when st.anchor = None ->
             if st.pre_depth > 0 then st.pre_depth <- st.pre_depth - 1;
             emit st "\n```\n"
@@ -477,6 +484,7 @@ let transform ?(max_bytes = default_max_bytes) ?(max_input = default_max_input)
         stack = [];
         pre_depth = 0;
         anchor = None;
+        anchor_depth = 0;
         refs_rev = [];
         refs_count = 0;
         refs_capped = false;
