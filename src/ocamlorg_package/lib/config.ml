@@ -27,6 +27,16 @@ let doc_cache_max =
 let max_doc_fetch_bytes =
   env_with_default "OCAMLORG_MAX_DOC_FETCH_BYTES" "52428800" |> int_of_string
 
+(* Wall-clock budget (in seconds) for a single fetch from the documentation
+   backend (connect + response + body streaming). cohttp-lwt-unix applies no
+   timeout of its own, so a backend that accepts the connection and then stalls
+   would pin the request's socket and buffers for the life of the process (the
+   same fd-exhaustion class as ocaml/ocaml.org#3765, reached through a hung
+   rather than an over-large response). See ocaml/ocaml.org#3887. Default:
+   30s. *)
+let doc_fetch_timeout =
+  env_with_default "OCAMLORG_DOC_FETCH_TIMEOUT" "30" |> float_of_string
+
 let default_cache_dir =
   match Sys.os_type with
   | "Unix" -> Fpath.(v (Sys.getenv "HOME") / ".cache" / "ocamlorg")

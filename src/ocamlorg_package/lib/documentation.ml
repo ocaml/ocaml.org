@@ -123,76 +123,95 @@ let http_get url =
   in
   let uri = Uri.of_string url in
   let max_bytes = Config.max_doc_fetch_bytes in
-  Lwt.catch
-    (fun () ->
-      (* We drive the connection explicitly rather than through
-         [Cohttp_lwt_unix.Client.get] so that we can [Connection.close] it on
-         the reject paths. cohttp tears a connection down only once its response
-         body stream has been fully consumed, so simply dropping an over-large
-         body leaks the socket for the life of the process (the same class of
-         fd-exhaustion seen on 2026-10-03). An explicit close drops the socket
-         without reading the rest of the payload. See ocaml/ocaml.org#3765. *)
-      let ctx = Lazy.force Cohttp_lwt_unix.Net.default_ctx in
-      let* endp = Cohttp_lwt_unix.Net.resolve ~ctx uri in
-      let* conn =
-        Cohttp_lwt_unix.Connection.connect ~ctx ~persistent:false endp
-      in
-      let close () = Cohttp_lwt_unix.Connection.close conn in
-      let too_large n =
-        Logs.warn (fun m ->
-            m "Response too large (%d bytes > %d limit) for %s" n max_bytes url);
+  let timeout = Config.doc_fetch_timeout in
+  (* cohttp-lwt-unix applies no timeout, so a backend that accepts the
+     connection and then stalls would never resolve this promise, pinning the
+     socket and buffers for the life of the process. Bound the whole fetch
+     (connect + response + body streaming) with a wall-clock budget. The connect
+     happens inside [fetch], so [conn]/[close] isn't available to the timeout
+     branch; instead we cancel [fetch] on timeout, which propagates through the
+     connection and tears the socket down, and report it as an [`Msg] error —
+     the same way the [Lwt.catch] below handles a network error. See
+     ocaml/ocaml.org#3887. *)
+  let fetch () =
+    (* We drive the connection explicitly rather than through
+       [Cohttp_lwt_unix.Client.get] so that we can [Connection.close] it on the
+       reject paths. cohttp tears a connection down only once its response body
+       stream has been fully consumed, so simply dropping an over-large body
+       leaks the socket for the life of the process (the same class of
+       fd-exhaustion seen on 2026-10-03). An explicit close drops the socket
+       without reading the rest of the payload. See ocaml/ocaml.org#3765. *)
+    let ctx = Lazy.force Cohttp_lwt_unix.Net.default_ctx in
+    let* endp = Cohttp_lwt_unix.Net.resolve ~ctx uri in
+    let* conn =
+      Cohttp_lwt_unix.Connection.connect ~ctx ~persistent:false endp
+    in
+    let close () = Cohttp_lwt_unix.Connection.close conn in
+    let too_large n =
+      Logs.warn (fun m ->
+          m "Response too large (%d bytes > %d limit) for %s" n max_bytes url);
+      close ();
+      Lwt.return
+        (Error
+           (`Msg
+             (Printf.sprintf "response too large (> %d bytes) for %s" max_bytes
+                url)))
+    in
+    let* response, body =
+      Cohttp_lwt_unix.Connection.call conn ~headers `GET uri
+    in
+    match Cohttp.Code.(code_of_status response.status |> is_success) with
+    | false ->
         close ();
-        Lwt.return
-          (Error
-             (`Msg
-               (Printf.sprintf "response too large (> %d bytes) for %s"
-                  max_bytes url)))
-      in
-      let* response, body =
-        Cohttp_lwt_unix.Connection.call conn ~headers `GET uri
-      in
-      match Cohttp.Code.(code_of_status response.status |> is_success) with
-      | false ->
-          close ();
-          Lwt.return (Error (`Msg ("Failed to fetch " ^ url)))
-      | true -> (
-          let content_length =
-            Cohttp.Header.get response.headers "content-length"
-            |> Fun.flip Option.bind int_of_string_opt
-          in
-          match content_length with
-          | Some n when n > max_bytes -> too_large n
-          | _ ->
-              (* Stream the body, enforcing the cap as we read, so a chunked or
-                 mislabelled response can't blow up memory. Pre-size the buffer
-                 from Content-Length when present to avoid repeated doublings on
-                 the hot path. *)
-              let initial =
-                match content_length with
-                | Some n when n > 0 && n <= max_bytes -> n
-                | _ -> 65536
-              in
-              let buf = Buffer.create initial in
-              let exception Too_large in
-              Lwt.catch
-                (fun () ->
-                  let* () =
-                    Cohttp_lwt.Body.to_stream body
-                    |> Lwt_stream.iter_s (fun chunk ->
-                           if
-                             Buffer.length buf + String.length chunk > max_bytes
-                           then raise Too_large
-                           else (
-                             Buffer.add_string buf chunk;
-                             Lwt.return_unit))
-                  in
-                  close ();
-                  Lwt.return (Ok (Buffer.contents buf)))
-                (function
-                  | Too_large -> too_large (Buffer.length buf)
-                  | e ->
-                      close ();
-                      Lwt.reraise e)))
+        Lwt.return (Error (`Msg ("Failed to fetch " ^ url)))
+    | true -> (
+        let content_length =
+          Cohttp.Header.get response.headers "content-length"
+          |> Fun.flip Option.bind int_of_string_opt
+        in
+        match content_length with
+        | Some n when n > max_bytes -> too_large n
+        | _ ->
+            (* Stream the body, enforcing the cap as we read, so a chunked or
+               mislabelled response can't blow up memory. Pre-size the buffer
+               from Content-Length when present to avoid repeated doublings on
+               the hot path. *)
+            let initial =
+              match content_length with
+              | Some n when n > 0 && n <= max_bytes -> n
+              | _ -> 65536
+            in
+            let buf = Buffer.create initial in
+            let exception Too_large in
+            Lwt.catch
+              (fun () ->
+                let* () =
+                  Cohttp_lwt.Body.to_stream body
+                  |> Lwt_stream.iter_s (fun chunk ->
+                         if Buffer.length buf + String.length chunk > max_bytes
+                         then raise Too_large
+                         else (
+                           Buffer.add_string buf chunk;
+                           Lwt.return_unit))
+                in
+                close ();
+                Lwt.return (Ok (Buffer.contents buf)))
+              (function
+                | Too_large -> too_large (Buffer.length buf)
+                | e ->
+                    close ();
+                    Lwt.reraise e))
+  in
+  let timed_out () =
+    let* () = Lwt_unix.sleep timeout in
+    (* Cancel the losing [fetch] branch so its connection is torn down rather
+       than leaked. *)
+    Lwt.return
+      (Error
+         (`Msg (Printf.sprintf "timed out after %gs fetching %s" timeout url)))
+  in
+  Lwt.catch
+    (fun () -> Lwt.pick [ fetch (); timed_out () ])
     (function
       | e ->
           Logs.err (fun m -> m "%s" (Printexc.to_string e));
@@ -209,23 +228,35 @@ let http_get url =
 let head_etag url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "HEAD %s" url);
+  let timeout = Config.doc_fetch_timeout in
+  (* Bound the HEAD the same way as [http_get]: a stalled backend would
+     otherwise never resolve this promise. On timeout, cancel the request (via
+     [Lwt.pick]) and fall back to [None], exactly as the [Lwt.catch] below
+     handles a network error. See ocaml/ocaml.org#3887. *)
+  let timed_out () =
+    let* () = Lwt_unix.sleep timeout in
+    Logs.warn (fun m -> m "HEAD %s timed out after %gs" url timeout);
+    Lwt.return None
+  in
+  let fetch () =
+    let* response = Cohttp_lwt_unix.Client.head (Uri.of_string url) in
+    if Cohttp.Code.(code_of_status response.status |> is_success) then
+      Cohttp.Header.get response.headers "etag"
+      |> Option.map (fun s ->
+             let s =
+               if String.length s >= 2 && String.sub s 0 2 = "W/" then
+                 String.sub s 2 (String.length s - 2)
+               else s
+             in
+             let n = String.length s in
+             if n >= 2 && s.[0] = '"' && s.[n - 1] = '"' then
+               String.sub s 1 (n - 2)
+             else s)
+      |> Lwt.return
+    else Lwt.return None
+  in
   Lwt.catch
-    (fun () ->
-      let* response = Cohttp_lwt_unix.Client.head (Uri.of_string url) in
-      if Cohttp.Code.(code_of_status response.status |> is_success) then
-        Cohttp.Header.get response.headers "etag"
-        |> Option.map (fun s ->
-               let s =
-                 if String.length s >= 2 && String.sub s 0 2 = "W/" then
-                   String.sub s 2 (String.length s - 2)
-                 else s
-               in
-               let n = String.length s in
-               if n >= 2 && s.[0] = '"' && s.[n - 1] = '"' then
-                 String.sub s 1 (n - 2)
-               else s)
-        |> Lwt.return
-      else Lwt.return None)
+    (fun () -> Lwt.pick [ fetch (); timed_out () ])
     (fun e ->
       Logs.warn (fun m -> m "HEAD %s failed: %s" url (Printexc.to_string e));
       Lwt.return None)
