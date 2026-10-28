@@ -152,6 +152,18 @@ body {
   @apply no-underline;
 }
 
+/* A link whose content is inline code (e.g. [`Map`](...)) otherwise shows no
+   visual cue, because the prose `code` colour overrides the link colour and
+   links are not underlined. Let such code inherit the link colour. A real
+   (non-`:where`) selector is used so it outranks the typography plugin rules.
+   The heading rule above still wins for code links inside headings. */
+.prose a code {
+  color: inherit;
+}
+.dark .prose a code {
+  color: inherit;
+}
+
 .prose :is(h1:target, h2:target, h3:target, h4:target, h5:target, h6:target) {
   background:rgb(255, 243, 173);
   padding: 0.2rem 0rem;
