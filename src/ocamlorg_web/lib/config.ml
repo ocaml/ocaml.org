@@ -28,6 +28,13 @@ let mcp_rate_limit =
 let mcp_rate_window =
   env_with_default "OCAMLORG_MCP_RATE_WINDOW" "60" |> int_of_string
 
+(* Trust [X-Forwarded-For] for the rate-limit bucket key. Off by default: the
+   header is client-spoofable, so honouring it lets a client bypass the limiter
+   by varying the value per request. Enable only when the app sits behind an
+   edge proxy that sets or sanitises [X-Forwarded-For]; the limiter then keys on
+   the rightmost (proxy-appended) entry. *)
+let mcp_trust_xff = env_with_default "OCAMLORG_MCP_TRUST_XFF" "false" |> to_bool
+
 (* In-app response cache for /mcp (POST bypasses the edge Varnish): at most
    [mcp_cache_max] entries, each valid for [mcp_cache_ttl] seconds. *)
 let mcp_cache_ttl =

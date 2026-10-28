@@ -168,6 +168,16 @@ let test_rate_limit_bounded () =
   ignore (Rl.check t ~now:100. ~ip:"c");
   Alcotest.(check bool) "table bounded" true (Rl.entries t <= 2)
 
+let test_rate_limit_hard_cap () =
+  (* Distinct keys all within one fresh window: the sweep frees nothing, so the
+     cap must still hold by evicting — [max_entries] is a hard bound, not a soft
+     one (issue #3885). *)
+  let t = Rl.create ~max_entries:4 ~max_requests:1 ~window_seconds:60. () in
+  for i = 0 to 99 do
+    ignore (Rl.check t ~now:1. ~ip:(Printf.sprintf "ip-%d" i))
+  done;
+  Alcotest.(check bool) "table never exceeds cap" true (Rl.entries t <= 4)
+
 (* --- Cache (Phase 2): bounded FIFO + TTL, time injected. --- *)
 
 module C = Ocamlorg_mcp.Cache
@@ -373,6 +383,7 @@ let () =
           Alcotest.test_case "strip_port" `Quick test_rate_limit_strip_port;
           Alcotest.test_case "reset" `Quick test_rate_limit_reset;
           Alcotest.test_case "bounded" `Quick test_rate_limit_bounded;
+          Alcotest.test_case "hard cap" `Quick test_rate_limit_hard_cap;
         ] );
       ( "cache",
         [

@@ -95,10 +95,10 @@ let get_handler _request =
     "GET is not supported: this MCP endpoint has no server-initiated stream; \
      use POST."
 
-let routes ?(tools = []) ~rate_limit ~rate_window ~cache_max ~cache_ttl
-    ~max_body () =
+let routes ?(tools = []) ?(trust_xff = false) ~rate_limit ~rate_window
+    ~cache_max ~cache_ttl ~max_body () =
   let limiter =
-    Rate_limiter.create ~max_requests:rate_limit
+    Rate_limiter.create ~trust_xff ~max_requests:rate_limit
       ~window_seconds:(float_of_int rate_window) ()
   in
   let cache =
