@@ -35,6 +35,26 @@ let test_initialize () =
     | `String s -> s
     | _ -> "<none>")
 
+let initialize_protocol_version params =
+  let resp = handle (req ~id:1 "initialize" (Some params)) in
+  match member_exn "result" resp |> member_exn "protocolVersion" with
+  | `String s -> s
+  | _ -> "<none>"
+
+let test_initialize_echoes_supported_version () =
+  (* A client requesting an older supported revision gets it back, not the
+     latest. *)
+  check_string "echoed version" "2025-03-26"
+    (initialize_protocol_version
+       (`Assoc [ ("protocolVersion", `String "2025-03-26") ]))
+
+let test_initialize_falls_back_on_unsupported_version () =
+  (* An unsupported (or malformed) requested version falls back to the
+     latest. *)
+  check_string "fallback version" "2025-06-18"
+    (initialize_protocol_version
+       (`Assoc [ ("protocolVersion", `String "1999-01-01") ]))
+
 let test_tools_list () =
   let resp = handle (req ~id:2 "tools/list" None) in
   let tools =
@@ -370,6 +390,10 @@ let () =
       ( "dispatch",
         [
           Alcotest.test_case "initialize" `Quick test_initialize;
+          Alcotest.test_case "initialize echoes supported version" `Quick
+            test_initialize_echoes_supported_version;
+          Alcotest.test_case "initialize falls back on unsupported version"
+            `Quick test_initialize_falls_back_on_unsupported_version;
           Alcotest.test_case "tools/list" `Quick test_tools_list;
           Alcotest.test_case "tools/call ping" `Quick test_tools_call;
           Alcotest.test_case "unknown tool" `Quick test_unknown_tool;

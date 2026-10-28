@@ -19,6 +19,21 @@ type toc = {
 
 type t = toc list
 
+(* odoc names library landing pages "Library <name>". Both the sidebar
+   classifier ([Documentation.to_navmap]) and the MCP tools layer need to spot
+   that prefix and recover the bare library name, so the logic lives here to
+   keep them in sync. *)
+let library_prefix = "Library "
+
+let is_library_title title = String.starts_with ~prefix:library_prefix title
+
+(* The library name with the "Library " prefix stripped, if present. *)
+let library_name title =
+  let n = String.length library_prefix in
+  if is_library_title title then
+    String.sub title n (String.length title - n)
+  else title
+
 let kind_title = function
   | Page -> "Page"
   | Library -> "Library"

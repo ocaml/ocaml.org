@@ -79,7 +79,8 @@ module Sidebar = struct
             (match sidebar.node.kind with
             | Some "module" -> Module
             | (Some ("page" | "leaf-page") | None)
-              when String.starts_with ~prefix:"Library " sidebar.node.content ->
+              when Ocamlorg_frontend.Navmap.is_library_title
+                     sidebar.node.content ->
                 Library
             | Some ("page" | "leaf-page") -> Page
             | Some "module-type" -> Module_type

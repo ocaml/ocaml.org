@@ -183,6 +183,20 @@ let dedup () =
   in
   Alcotest.(check int) "deduped to one" 1 n
 
+(* A (malformed) nested anchor must not finalise the outer anchor early: text
+   after the inner </a> still belongs to the outer link. odoc never nests
+   anchors, but the sanitiser should not drop prose on such input. *)
+let nested_anchor_keeps_outer_text () =
+  let b =
+    body "<a href=\"#outer\">before <a href=\"#inner\">in</a> after</a>"
+  in
+  Alcotest.(check bool)
+    "text before inner kept" true
+    (contains ~needle:"before" b);
+  Alcotest.(check bool)
+    "text after inner kept" true
+    (contains ~needle:"after" b)
+
 (* --- structure & caps --- *)
 
 let code_block_preserved () =
@@ -235,6 +249,8 @@ let () =
           Alcotest.test_case "angle autolink defanged" `Quick
             angle_autolink_defanged;
           Alcotest.test_case "literal tag escaped" `Quick literal_tag_escaped;
+          Alcotest.test_case "nested anchor keeps outer text" `Quick
+            nested_anchor_keeps_outer_text;
           Alcotest.test_case "invisible chars stripped" `Quick
             invisible_stripped;
           Alcotest.test_case "sanitize_field" `Quick sanitize_field_test;
