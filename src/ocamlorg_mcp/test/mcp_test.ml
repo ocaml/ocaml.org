@@ -183,7 +183,7 @@ let test_rate_limit_hard_cap () =
 module C = Ocamlorg_mcp.Cache
 
 let test_cache_hit_miss () =
-  let t = C.create ~max_entries:8 ~ttl:60. in
+  let t = C.create ~max_entries:8 ~max_bytes:max_int ~ttl:60. in
   let calls = ref 0 in
   let compute () =
     incr calls;
@@ -194,7 +194,7 @@ let test_cache_hit_miss () =
   Alcotest.(check int) "computed once" 1 !calls
 
 let test_cache_expiry () =
-  let t = C.create ~max_entries:8 ~ttl:10. in
+  let t = C.create ~max_entries:8 ~max_bytes:max_int ~ttl:10. in
   let calls = ref 0 in
   let compute () =
     incr calls;
@@ -206,7 +206,7 @@ let test_cache_expiry () =
   Alcotest.(check int) "recomputed after ttl" 2 !calls
 
 let test_cache_eviction () =
-  let t = C.create ~max_entries:2 ~ttl:1000. in
+  let t = C.create ~max_entries:2 ~max_bytes:max_int ~ttl:1000. in
   let stored k = C.find_or_compute t ~now:0. ~key:k (fun () -> `String k) in
   let _ = stored "a" in
   let _ = stored "b" in
@@ -310,7 +310,7 @@ let call_flaky ?cache calls =
   |> member_exn "result"
 
 let test_async_error_not_cached () =
-  let cache = C.create ~max_entries:8 ~ttl:1000. in
+  let cache = C.create ~max_entries:8 ~max_bytes:max_int ~ttl:1000. in
   let calls = ref 0 in
   let first = call_flaky ~cache calls in
   Alcotest.(check bool) "first call errors" true (is_error first);
@@ -320,7 +320,7 @@ let test_async_error_not_cached () =
   Alcotest.(check int) "handler ran twice" 2 !calls
 
 let test_async_success_cached () =
-  let cache = C.create ~max_entries:8 ~ttl:1000. in
+  let cache = C.create ~max_entries:8 ~max_bytes:max_int ~ttl:1000. in
   let calls = ref 0 in
   let _ = call_flaky ~cache calls in
   (* calls = 1 (error). Succeed and cache on the second call... *)
@@ -355,7 +355,7 @@ let call_count ?cache calls arguments =
   |> member_exn "result"
 
 let test_cache_key_canonical () =
-  let cache = C.create ~max_entries:8 ~ttl:1000. in
+  let cache = C.create ~max_entries:8 ~max_bytes:max_int ~ttl:1000. in
   let calls = ref 0 in
   let a = `Assoc [ ("x", `Int 1); ("y", `Assoc [ ("p", `Int 3) ]) ] in
   (* Same arguments, top-level and nested keys reordered. *)

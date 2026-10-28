@@ -375,12 +375,80 @@ let doc_from_string s =
    backend is proxied uncached, so these bound memory and expire entries so
    documentation rebuilds are eventually picked up. Access is synchronous under
    cooperative Lwt scheduling, so the cache needs no lock; two concurrent misses
-   may both fetch (harmless). The clock is passed in per call. *)
+   may both fetch (harmless). The clock is passed in per call.
+
+   Each cache is bounded by both an entry-count cap ([doc_cache_max]) and a byte
+   budget ([doc_cache_max_bytes]): eviction is FIFO until under *both*. The byte
+   budget matters because entry size is attacker-selectable (a client picks
+   which docs pages to request, and a rendered page's raw content is bounded
+   only by the much larger per-fetch limit), so a count-only cap bounds memory
+   far more weakly than the cap suggests (issue #3889). Each entry's approximate
+   size is measured once at [store] time via the per-type [sizer] below. *)
 let now () = Unix.gettimeofday ()
 let kind_key = function `Package -> "p" | `Universe s -> "u:" ^ s
 
+(* Approximate the retained size of a cached value, for the byte-budget bound.
+   These only need to track the dominant, attacker-influenceable cost (the
+   fetched string payloads), with a small fixed overhead per structural node to
+   account for boxing — exactness is not required for an eviction heuristic. *)
+let node_overhead = 48
+
+let rec navmap_bytes (nodes : Ocamlorg_frontend.Navmap.t) =
+  List.fold_left
+    (fun acc (n : Ocamlorg_frontend.Navmap.toc) ->
+      acc + node_overhead + String.length n.title
+      + (match n.href with Some h -> String.length h | None -> 0)
+      + navmap_bytes n.children)
+    0 nodes
+
+let rec toc_bytes (tocs : toc list) =
+  List.fold_left
+    (fun acc (n : toc) ->
+      acc + node_overhead + String.length n.title + String.length n.href
+      + toc_bytes n.children)
+    0 tocs
+
+let breadcrumb_bytes (bs : breadcrumb list) =
+  List.fold_left
+    (fun acc (b : breadcrumb) ->
+      acc + node_overhead + String.length b.name
+      + match b.href with Some h -> String.length h | None -> 0)
+    0 bs
+
+(* A rendered doc page: its raw [content] dominates (bounded only by the large
+   per-fetch limit), which is exactly the field this byte bound exists to
+   cap. *)
+let page_bytes (p : t) =
+  node_overhead + String.length p.content + toc_bytes p.toc
+  + breadcrumb_bytes p.breadcrumbs
+
+(* The page cache also holds negatively cached misses ([None]); size those at
+   the bare overhead so they still count against the budget consistently. *)
+let page_opt_bytes : t option -> int = function
+  | None -> node_overhead
+  | Some p -> page_bytes p
+
+let status_bytes : Status.t option -> int = function
+  | None -> node_overhead
+  | Some (s : Status.t) -> (
+      node_overhead + String.length s.name + String.length s.version
+      + List.fold_left
+          (fun acc f -> acc + node_overhead + String.length f)
+          0 s.files
+      + List.fold_left
+          (fun acc (r : Status.redirection) ->
+            acc + node_overhead + String.length r.old_path
+            + String.length r.new_path)
+          0 s.redirections
+      + match s.search_index_digest with Some d -> String.length d | None -> 0)
+
+let string_opt_bytes : string option -> int = function
+  | None -> node_overhead
+  | Some s -> node_overhead + String.length s
+
 let sidebar_cache : Ocamlorg_frontend.Navmap.t Bounded_cache.t =
   Bounded_cache.create ~max_entries:Config.doc_cache_max
+    ~max_bytes:Config.doc_cache_max_bytes ~sizer:navmap_bytes
     ~ttl:Config.package_caches_ttl
 
 let generic_url base ~kind name version =
@@ -444,6 +512,7 @@ let sidebar ~kind (t : Package.t) =
    name/version/kind/path uniquely. *)
 let page_cache : t option Bounded_cache.t =
   Bounded_cache.create ~max_entries:Config.doc_cache_max
+    ~max_bytes:Config.doc_cache_max_bytes ~sizer:page_opt_bytes
     ~ttl:Config.package_caches_ttl
 
 let odoc_page ~url =
@@ -529,9 +598,10 @@ let search_index ~kind (t : Package.t) =
 (* TODO: this needs to be computed in ocaml-docs-ci / voodoo and be part of the
    documentation status information *)
 (* Per package version caches of the docs-ci build status and of the search
-   index token. Both hold at most [doc_cache_max] entries (FIFO) and expire
-   after [package_caches_ttl], like the page and sidebar caches. A cached [None]
-   records a failed fetch so it is not retried on every request. *)
+   index token. Both hold at most [doc_cache_max] entries and
+   [doc_cache_max_bytes] bytes (FIFO) and expire after [package_caches_ttl],
+   like the page and sidebar caches. A cached [None] records a failed fetch so
+   it is not retried on every request. *)
 type doc_cache = {
   doc_status_cache : Status.t option Bounded_cache.t;
   search_index_cache : string option Bounded_cache.t;
@@ -541,9 +611,11 @@ let doc_cache_create () =
   {
     doc_status_cache =
       Bounded_cache.create ~max_entries:Config.doc_cache_max
+        ~max_bytes:Config.doc_cache_max_bytes ~sizer:status_bytes
         ~ttl:Config.package_caches_ttl;
     search_index_cache =
       Bounded_cache.create ~max_entries:Config.doc_cache_max
+        ~max_bytes:Config.doc_cache_max_bytes ~sizer:string_opt_bytes
         ~ttl:Config.package_caches_ttl;
   }
 

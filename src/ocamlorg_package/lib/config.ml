@@ -36,6 +36,16 @@ let doc_negative_ttl =
 let latest_documented_version_depth =
   env_with_default "OCAMLORG_LATEST_DOC_VERSION_DEPTH" "25" |> int_of_string
 
+(* Byte budget for each bounded docs-ci cache. Entry size is attacker-selectable
+   (a client chooses which packages/pages to request, and a cached rendered page
+   holds its raw upstream content, bounded only by the much larger
+   [max_doc_fetch_bytes]), so [doc_cache_max] alone bounds memory far more
+   weakly than its entry count suggests. Each cache evicts FIFO until under both
+   the entry cap and this byte budget. See ocaml/ocaml.org#3889. Default: 128
+   MB. *)
+let doc_cache_max_bytes =
+  env_with_default "OCAMLORG_DOC_CACHE_MAX_BYTES" "134217728" |> int_of_string
+
 (* Upper bound on the size (in bytes) of a single response fetched from the
    documentation backend. Prevents a pathologically large artifact (e.g. a
    multi-hundred-MB odoc search index) from being buffered into memory and

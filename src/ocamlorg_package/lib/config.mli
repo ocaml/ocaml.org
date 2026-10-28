@@ -18,6 +18,12 @@ val latest_documented_version_depth : int
     fetches on a cold cache. Overridable via
     [OCAMLORG_LATEST_DOC_VERSION_DEPTH]. See ocaml/ocaml.org#3888. *)
 
+val doc_cache_max_bytes : int
+(** Byte budget for each bounded docs-ci cache. Entry size is
+    attacker-selectable, so the entry-count cap [doc_cache_max] alone bounds
+    memory weakly; each cache also evicts FIFO until under this byte budget.
+    Overridable via [OCAMLORG_DOC_CACHE_MAX_BYTES]. *)
+
 val max_doc_fetch_bytes : int
 (** Upper bound (bytes) on a single response fetched from the documentation
     backend, to avoid buffering a pathologically large artifact into memory.
