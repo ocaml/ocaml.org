@@ -77,5 +77,5 @@ let decode (fpath, (head, body)) =
 let all () =
   Utils.map_md_files decode "conferences/*.md"
   |> List.sort (fun (c1 : t) (c2 : t) ->
-         (* Sort by date descending *)
-         String.compare c2.date c1.date)
+      (* Sort by date descending *)
+      String.compare c2.date c1.date)

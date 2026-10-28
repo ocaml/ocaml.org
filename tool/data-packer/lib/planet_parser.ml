@@ -26,4 +26,4 @@ let all () : entry list =
   in
   external_posts @ videos
   |> List.sort (fun (a : entry) (b : entry) ->
-         String.compare (date_of_entry b) (date_of_entry a))
+      String.compare (date_of_entry b) (date_of_entry a))

@@ -26,4 +26,4 @@ let entries_to_feed ~id ~title (entries : Syndic.Atom.entry list) =
 let feed_to_string feed =
   feed |> Syndic.Atom.to_xml
   |> Syndic.XML.to_string ~ns_prefix:(fun s ->
-         match s with "http://www.w3.org/2005/Atom" -> Some "" | _ -> None)
+      match s with "http://www.w3.org/2005/Atom" -> Some "" | _ -> None)
