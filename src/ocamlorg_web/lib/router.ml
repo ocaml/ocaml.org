@@ -151,9 +151,9 @@ let mcp_route t =
   Dream.scope "" []
     (if Config.mcp_enabled then
        Ocamlorg_mcp.routes ~tools:(Mcp_tools.tools t)
-         ~rate_limit:Config.mcp_rate_limit ~rate_window:Config.mcp_rate_window
-         ~cache_max:Config.mcp_cache_max ~cache_ttl:Config.mcp_cache_ttl
-         ~max_body:Config.mcp_max_body ()
+         ~trust_xff:Config.mcp_trust_xff ~rate_limit:Config.mcp_rate_limit
+         ~rate_window:Config.mcp_rate_window ~cache_max:Config.mcp_cache_max
+         ~cache_ttl:Config.mcp_cache_ttl ~max_body:Config.mcp_max_body ()
      else [])
 
 let ( let+ ) x f = Lwt.map f x
