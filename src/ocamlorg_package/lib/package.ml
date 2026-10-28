@@ -4,7 +4,11 @@ module Name = struct
   let of_string_opt str = try Some (of_string str) with _ -> None
 end
 
-module Version = OpamPackage.Version
+module Version = struct
+  include OpamPackage.Version
+
+  let of_string_opt str = try Some (of_string str) with _ -> None
+end
 
 type t = { name : Name.t; version : Version.t; info : Info.t }
 

@@ -58,11 +58,25 @@ let string_member key = function
       | _ -> None)
   | _ -> None
 
+(* An optional string member: absent (or JSON [null]) is [Ok None], a string is
+   [Ok (Some s)], and any other JSON type is an in-band error rather than being
+   silently ignored. *)
+let optional_string_member key = function
+  | `Assoc fields -> (
+      match List.assoc_opt key fields with
+      | None | Some `Null -> Ok None
+      | Some (`String s) -> Ok (Some s)
+      | Some _ -> Error (Printf.sprintf "argument %S must be a string" key))
+  | _ -> Ok None
+
 (* Parse the [arguments] object into (package, optional version). *)
 let parse_args args =
   match string_member "package" args with
   | None | Some "" -> Error "missing required argument: \"package\""
-  | Some package -> Ok (package, string_member "version" args)
+  | Some package ->
+      Result.map
+        (fun version -> (package, version))
+        (optional_string_member "version" args)
 
 (* Resolve to a concrete [Package.t]: latest release when no version is given,
    else the exact version. Misses are returned as in-band tool errors (the MCP
@@ -77,12 +91,15 @@ let resolve state package version =
           | Some pkg -> Ok pkg
           | None -> Error (Printf.sprintf "unknown package: %S" package))
       | Some v -> (
-          let ver = Package.Version.of_string v in
-          match Package.get state name ver with
-          | Some pkg -> Ok pkg
-          | None ->
-              Error
-                (Printf.sprintf "unknown version %S of package %S" v package)))
+          match Package.Version.of_string_opt v with
+          | None -> Error (Printf.sprintf "invalid version: %S" v)
+          | Some ver -> (
+              match Package.get state name ver with
+              | Some pkg -> Ok pkg
+              | None ->
+                  Error
+                    (Printf.sprintf "unknown version %S of package %S" v package)
+              )))
 
 let constraint_json = function Some s -> `String s | None -> `Null
 
@@ -184,14 +201,16 @@ let resolve_documented state package version : (Package.t, string) result Lwt.t
   | Some name -> (
       match version with
       | Some v -> (
-          let ver = Package.Version.of_string v in
-          match Package.get state name ver with
-          | Some pkg -> Lwt.return (Ok pkg)
-          | None ->
-              Lwt.return
-                (Error
-                   (Printf.sprintf "unknown version %S of package %S" v package))
-          )
+          match Package.Version.of_string_opt v with
+          | None -> Lwt.return (Error (Printf.sprintf "invalid version: %S" v))
+          | Some ver -> (
+              match Package.get state name ver with
+              | Some pkg -> Lwt.return (Ok pkg)
+              | None ->
+                  Lwt.return
+                    (Error
+                       (Printf.sprintf "unknown version %S of package %S" v
+                          package))))
       | None -> (
           let open Lwt.Syntax in
           let+ documented = Package.latest_documented_version state name in
