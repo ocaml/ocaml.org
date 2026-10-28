@@ -1,23 +1,47 @@
-type 'a entry = { value : 'a; expires : float }
+type 'a entry = { value : 'a; expires : float; bytes : int }
 
 type 'a t = {
   max_entries : int;
+  max_bytes : int;
+  sizer : 'a -> int;
   ttl : float;
   table : (string, 'a entry) Hashtbl.t;
   order : string Queue.t; (* insertion order, for FIFO eviction *)
+  mutable total_bytes : int; (* running sum of live entries' [bytes] *)
 }
 
-let create ~max_entries ~ttl =
-  { max_entries; ttl; table = Hashtbl.create 256; order = Queue.create () }
+let create ~max_entries ~max_bytes ~sizer ~ttl =
+  {
+    max_entries;
+    max_bytes;
+    sizer;
+    ttl;
+    table = Hashtbl.create 256;
+    order = Queue.create ();
+    total_bytes = 0;
+  }
 
-(* Evict oldest entries until below the cap. Keys already gone from [table]
-   (e.g. expired and overwritten) are skipped as the queue is drained. *)
-let rec evict_to_cap t =
-  if Hashtbl.length t.table >= t.max_entries && not (Queue.is_empty t.order)
+(* Drop the oldest entry from both the queue and the table, updating the byte
+   total. A key is enqueued exactly once (re-stores keep their slot), so the
+   popped key is normally live; the [None] branch is only defensive. *)
+let evict_oldest t =
+  let key = Queue.pop t.order in
+  match Hashtbl.find_opt t.table key with
+  | Some e ->
+      t.total_bytes <- t.total_bytes - e.bytes;
+      Hashtbl.remove t.table key
+  | None -> ()
+
+(* Evict the oldest entries until the cache is back under *both* bounds. Run
+   after inserting, so the just-added entry (now at the queue tail) survives
+   unless it alone blows the byte budget. *)
+let rec evict t =
+  if
+    (not (Queue.is_empty t.order))
+    && (Hashtbl.length t.table > t.max_entries || t.total_bytes > t.max_bytes)
   then (
-    let oldest = Queue.pop t.order in
-    Hashtbl.remove t.table oldest;
-    evict_to_cap t)
+    evict_oldest t;
+    evict t)
 
 let find t ~now ~key =
   match Hashtbl.find_opt t.table key with
@@ -26,10 +50,16 @@ let find t ~now ~key =
 
 let store ?ttl t ~now ~key value =
   let ttl = Option.value ttl ~default:t.ttl in
-  if not (Hashtbl.mem t.table key) then (
-    evict_to_cap t;
-    Queue.push key t.order);
-  Hashtbl.replace t.table key { value; expires = now +. ttl }
+  let bytes = t.sizer value in
+  (* Deduct any prior entry's size up front so eviction sees the true total. A
+     re-store keeps the key's original FIFO position (not re-enqueued); only a
+     genuinely new key is appended to the order queue. *)
+  (match Hashtbl.find_opt t.table key with
+  | Some e -> t.total_bytes <- t.total_bytes - e.bytes
+  | None -> Queue.push key t.order);
+  Hashtbl.replace t.table key { value; expires = now +. ttl; bytes };
+  t.total_bytes <- t.total_bytes + bytes;
+  evict t
 
 let find_or_compute t ~now ~key compute =
   match find t ~now ~key with

@@ -96,13 +96,14 @@ let get_handler _request =
      use POST."
 
 let routes ?(tools = []) ?(trust_xff = false) ~rate_limit ~rate_window
-    ~cache_max ~cache_ttl ~max_body () =
+    ~cache_max ~cache_max_bytes ~cache_ttl ~max_body () =
   let limiter =
     Rate_limiter.create ~trust_xff ~max_requests:rate_limit
       ~window_seconds:(float_of_int rate_window) ()
   in
   let cache =
-    Cache.create ~max_entries:cache_max ~ttl:(float_of_int cache_ttl)
+    Cache.create ~max_entries:cache_max ~max_bytes:cache_max_bytes
+      ~ttl:(float_of_int cache_ttl)
   in
   [
     Dream.scope ""

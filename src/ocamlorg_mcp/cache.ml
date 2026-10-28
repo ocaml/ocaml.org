@@ -11,7 +11,16 @@
 
 type t = Yojson.Safe.t Bounded_cache.t
 
-let create = Bounded_cache.create
+(* Cached responses are whatever JSON a tool returns, and which (and how many
+   distinct) responses get cached is client-selectable, so the entry-count cap
+   alone bounds memory weakly (issue #3889). The byte budget uses the serialised
+   length as the size estimate: the serialisation *is* roughly what a cached
+   response retains (strings dominate), and it is computed once per store. *)
+let sizer (v : Yojson.Safe.t) = String.length (Yojson.Safe.to_string v)
+
+let create ~max_entries ~max_bytes ~ttl =
+  Bounded_cache.create ~max_entries ~max_bytes ~sizer ~ttl
+
 let find = Bounded_cache.find
 let store = Bounded_cache.store
 let find_or_compute = Bounded_cache.find_or_compute

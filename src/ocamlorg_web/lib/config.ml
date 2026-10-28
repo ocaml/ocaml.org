@@ -36,12 +36,19 @@ let mcp_rate_window =
 let mcp_trust_xff = env_with_default "OCAMLORG_MCP_TRUST_XFF" "false" |> to_bool
 
 (* In-app response cache for /mcp (POST bypasses the edge Varnish): at most
-   [mcp_cache_max] entries, each valid for [mcp_cache_ttl] seconds. *)
+   [mcp_cache_max] entries totalling at most [mcp_cache_max_bytes] bytes, each
+   valid for [mcp_cache_ttl] seconds. The byte budget matters because response
+   size is client-selectable (a cached module-documentation result can be ~130
+   KB), so the entry cap alone admits a deliberately fillable ~135 MB worst case
+   (issue #3889). Default: 32 MB. *)
 let mcp_cache_ttl =
   env_with_default "OCAMLORG_MCP_CACHE_TTL" "300" |> int_of_string
 
 let mcp_cache_max =
   env_with_default "OCAMLORG_MCP_CACHE_MAX" "1024" |> int_of_string
+
+let mcp_cache_max_bytes =
+  env_with_default "OCAMLORG_MCP_CACHE_MAX_BYTES" "33554432" |> int_of_string
 
 (* Max accepted /mcp request-body size in bytes; larger bodies get 413 (issue
    #3884). A JSON-RPC request is small, so 1 MB is generous. *)
