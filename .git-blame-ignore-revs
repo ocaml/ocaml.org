@@ -1,0 +1,21 @@
+# Commits to ignore when assigning authorship — purely mechanical, tree-wide
+# formatting / lint / mass-replace passes that carry no editorial authorship.
+#
+# Consumed by `git blame --ignore-revs-file` (and, via the same list, by
+# tool/attribution when crediting document contributors). List full 40-char
+# SHAs; keep only commits reachable from the default branch so git does not
+# warn about unknown objects. Additions only — removing a credit otherwise
+# needs an explicit per-document override with a reason.
+
+# Mechanical markdown lint fixes extracted from #3493, #3494, #3495 (#3500)
+3534ea8f2a7217bc9828629df2b6390f15a66edb
+# Fix markdown lint issues across all tutorials (#3492)
+ebff37da9ce48a90770d71c770530c41bf7cfc2e
+# Improve the formatting of some markdown files (#3014)
+358b45a09796e348389676f1a94b43d5bfccae90
+# format codeblocks with blank line padding (#2961)
+3eed47b3dc5bc32089252a58af81c836d195989f
+# Added semicolons to mdx blocks (#176)
+8a5c1570355cfa8c45a22f5c669870e6a43eafc6
+# Shorten API reference links (#2453)
+35ab9a9eaeb987b7d7fc4b1ce173911ff543d295

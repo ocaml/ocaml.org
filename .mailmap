@@ -1,0 +1,73 @@
+# Identity normalisation for git (see `man gitmailmap`).
+#
+# Collapses the name/e-mail spellings a single contributor committed under, so
+# that history-derived tooling — git shortlog, git blame, and the per-document
+# attribution records (tool/attribution) — credits each person once.
+#
+# This is a seed covering the duplicates visible in `git shortlog -sne` as of
+# the first attribution run; extend it as new variants appear. Each entry maps
+# the variant(s) on the right to the canonical identity on the left.
+
+# Multiple e-mails per person
+Cuihtlauac Alvarado <cuihtlauac@tarides.com>
+Cuihtlauac Alvarado <cuihtlauac@tarides.com> <cuihtmlauac@tarides.com>
+Cuihtlauac Alvarado <cuihtlauac@tarides.com> <cuihtlauac@users.noreply.github.com>
+Cuihtlauac Alvarado <cuihtlauac@tarides.com> <1917592+cuihtlauac@users.noreply.github.com>
+Thibaut Mattio <thibaut.mattio@gmail.com>
+Thibaut Mattio <thibaut.mattio@gmail.com> <tmattio@users.noreply.github.com>
+Sabine Schmaltz <sabineschmaltz@gmail.com> <sabine@tarides.com>
+Sabine Schmaltz <sabineschmaltz@gmail.com> <6594573+sabine@users.noreply.github.com>
+Sabine Schmaltz <sabineschmaltz@gmail.com> <sabine@users.noreply.github.com>
+Frédéric Loyer <116354005+F-Loyer@users.noreply.github.com>
+Frédéric Loyer <116354005+F-Loyer@users.noreply.github.com> <loyer@sinerj.org>
+Frédéric Loyer <116354005+F-Loyer@users.noreply.github.com> <frederic.loyer@club-internet.fr>
+Garth Tuohy <garth@tuta.io> <g.tuohy@outlook.com>
+Mirza Babar Baig <mirza.babar35@gmail.com>
+Mirza Babar Baig <mirza.babar35@gmail.com> <mirzababar@thesmallsquare.com>
+Emerik Aji <emerik.aji@gmail.com>
+Ulysse Gérard <thevoodoos@gmail.com>
+Ulysse Gérard <thevoodoos@gmail.com> <5031221+voodoos@users.noreply.github.com>
+Ulysse Gérard <thevoodoos@gmail.com> <voodoos@users.noreply.github.com>
+Yann Régis-Gianas <yann@regis-gianas.org>
+Yann Régis-Gianas <yann@regis-gianas.org> <yann@nomadic-labs.com>
+Sayo Bamigbade <sayobamigbade@gmail.com>
+Sayo Bamigbade <sayobamigbade@gmail.com> <75541866+SaySayo@users.noreply.github.com>
+Dmitrii Kosarev <Kakadu@pm.me>
+Dmitrii Kosarev <Kakadu@pm.me> <Kakadu@users.noreply.github.com>
+Carlos Solano <csaltachin@gmail.com>
+Carlos Solano <csaltachin@gmail.com> <59682192+csaltachin@users.noreply.github.com>
+Idara Imo-owo <44207022+IdaraNabuk@users.noreply.github.com>
+Idara Imo-owo <44207022+IdaraNabuk@users.noreply.github.com> <idaranabuk@gmail.com>
+Andre Ambrosio Boechat <boechat107@gmail.com>
+Andre Ambrosio Boechat <boechat107@gmail.com> <boechat107@tutanota.com>
+Piotr Małecki-Jurek <piotr.m.jurek@gmail.com>
+Piotr Małecki-Jurek <piotr.m.jurek@gmail.com> <piotr.m.jurek@checkhq.com>
+# `chicken-biryani` was later recycled to a different GitHub user, so match it
+# by name *and* e-mail (not e-mail alone) to avoid mis-crediting that person.
+Shloka Gupta <shlokaprincess101@gmail.com>
+Shloka Gupta <shlokaprincess101@gmail.com> Shloka gupta <chicken-biryani@users.noreply.github.com>
+
+# Name spelling normalised to the fullest observed variant
+Paul-Elliot Anglès d'Auriac <peada@free.fr>
+Paul-Elliot Anglès d'Auriac <peada@free.fr> <34110029+panglesd@users.noreply.github.com>
+Xavier Van de Woestyne <xavier.vdw@gmail.com>
+Etienne Marais <self@maiste.fr>
+Sabine Schmaltz <sabineschmaltz@gmail.com>
+Raja Boujbel <rjbou@ocamlpro.com>
+Florian Angeletti <octa@polychoron.fr>
+Guillaume Petiot <guillaume@tarides.com>
+Amarachi Goodness <amarachigoodness74@gmail.com>
+Oluwabukola <112485492+sophiatunji@users.noreply.github.com>
+Tumuhairwe Komuhangi <51232461+jahielkomu@users.noreply.github.com>
+Mark Elvers <mtelvers@users.noreply.github.com>
+Darren Li <darrenldl@users.noreply.github.com>
+Christine Rose <christinerose@users.noreply.github.com>
+Jonah Beckford <71855677+jonahbeckford@users.noreply.github.com>
+Imad Aldij <69906094+imdj@users.noreply.github.com>
+Fatuma Abdullahi <67555014+FatumaA@users.noreply.github.com>
+
+# Contributors recovered from v2.ocaml.org history (handle → name). The v2 commit
+# author is resolved through this .mailmap too, so these apply across both repos.
+Jean-Pierre Rodi <jprodi04@gmail.com>
+Goodness Chris-Ugari <goodnesschrisugari@yahoo.com>
+Léo Andrès <leo@ndrs.fr>

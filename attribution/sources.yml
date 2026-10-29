@@ -1,0 +1,49 @@
+# External sources that documents are derived from.
+#
+# A document declares provenance either with a `Derived-from: source:<key>`
+# commit trailer, or — for imports whose commits predate that convention — with
+# a `derived_from: [source:<key>]` entry in its overrides file. Either way the
+# generator (tool/attribution) resolves <key> here to credit the external
+# authors and record the licence; internal derivations use
+# `Derived-from: <path>@<commit>` instead and need no entry here.
+
+real-world-ocaml:
+  url: https://dev.realworldocaml.org/
+  authors:
+    - Yaron Minsky
+    - Anil Madhavapeddy
+  licence: "© Cambridge University Press, 2nd edition 2022; reproduced with permission"
+
+ocaml-programming:
+  url: https://cs3110.github.io/textbook/
+  authors:
+    - Michael R. Clarkson et al.
+  licence: "CC-BY-NC-ND-4.0; reproduced with permission"
+
+# The OCaml tutorial wiki, from which many language/guide tutorials were copied
+# by permission into v2.ocaml.org in 2012. Community-authored; Richard W.M. Jones
+# is the principal original author.
+ocaml-tutorial.org:
+  url: https://web.archive.org/web/2012/http://ocaml-tutorial.org/
+  authors:
+    - Richard W.M. Jones
+    - the ocaml-tutorial.org contributors
+  licence: "copied by permission"
+
+# Pierre Weis's "Caml programming guidelines" (Inria), which replaced the wiki's
+# "Programming style" page. English translation by Ruchira Datta.
+inria-caml-guidelines:
+  url: https://caml.inria.fr/resources/doc/guides/guidelines.en.html
+  authors:
+    - Pierre Weis
+    - Ruchira Datta (English translation)
+  licence: "reproduced from caml.inria.fr"
+
+# "Debugging facilities in Caml", from the Inria Caml "guides" collection (the
+# same set as the guidelines above), from which the debugging tutorial was
+# ported. The page states no individual author — a collective INRIA work.
+caml.inria.fr:
+  url: https://caml.inria.fr/resources/doc/guides/debug.en.html
+  authors:
+    - INRIA
+  licence: "© INRIA 1995-2013, all rights reserved; ported from caml.inria.fr"
