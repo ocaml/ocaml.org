@@ -383,5 +383,12 @@ module Conference = struct
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
+module Attribution = struct
+  include Data_intf.Attribution
+
+  let all = data.attribution
+  let get_by_path path = List.find_opt (fun x -> String.equal path x.path) all
+end
+
 (* V2 assets - comes from separately generated v2.ml *)
 module V2 = V2
