@@ -156,6 +156,16 @@ module Package_info = Package_info
 val mockup_state : t list -> state
 (** [mockup_state ts] produces the opam-repository state from a list of packages *)
 
+val save_state_to : Fpath.t -> state -> unit
+(** [save_state_to path state] serializes the durable part of [state] (every
+    field except the runtime [docs] cache) to [path]. Exposed for testing; the
+    production path is {!Config.package_state_path}. *)
+
+val load_state_from : Fpath.t -> state
+(** [load_state_from path] reads a state previously written by {!save_state_to},
+    rebuilding an empty [docs] cache. A decode failure or a [version] mismatch
+    yields a fresh empty state. Exposed for testing. *)
+
 val name : t -> Name.t
 (** Get the name of a package. *)
 

@@ -1,9 +1,10 @@
 (library
  (name ocamlorg_package)
  (preprocess
-  (pps ppx_deriving_yojson))
+  (pps ppx_deriving_yojson ppx_repr))
  (libraries
   opam-format
+  repr
   bounded_cache
   ocamlorg_frontend
   bos

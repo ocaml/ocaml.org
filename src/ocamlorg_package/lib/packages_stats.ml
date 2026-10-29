@@ -2,10 +2,11 @@ open Import
 open Lwt.Syntax
 
 type package_stat = {
-  name : OpamPackage.Name.t;
-  version : OpamPackage.Version.t;
+  name : (OpamPackage.Name.t[@repr Opam_repr.name]);
+  version : (OpamPackage.Version.t[@repr Opam_repr.version]);
   info : Info.t;
 }
+[@@deriving repr]
 
 type t = {
   nb_packages : int;
@@ -15,6 +16,7 @@ type t = {
   recently_updated : package_stat list;
   most_revdeps : (package_stat * int) list;
 }
+[@@deriving repr]
 
 let package_of_path p =
   match Fpath.segs p with

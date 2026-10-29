@@ -15,6 +15,26 @@ type state = {
   docs : Documentation.doc_cache;
 }
 
+(* Persisted projection of [state]: the [docs] runtime cache is excluded (it
+   holds a function, a [Hashtbl] and a [Queue], and is rebuilt empty on load),
+   so only the four durable fields are serialized, via [repr]. Kept in a
+   submodule so its record labels don't shadow [state]'s. *)
+module Snapshot = struct
+  let packages_repr =
+    Opam_repr.map ~empty:Name.Map.empty ~add:Name.Map.add
+      ~bindings:Name.Map.bindings Opam_repr.name
+      (Opam_repr.map ~empty:Version.Map.empty ~add:Version.Map.add
+         ~bindings:Version.Map.bindings Opam_repr.version Info.t)
+
+  type t = {
+    version : string;
+    opam_repository_commit : string option;
+    packages : (Info.t Version.Map.t Name.Map.t[@repr packages_repr]);
+    stats : Statistics.t option;
+  }
+  [@@deriving repr]
+end
+
 let mockup_state (pkgs : t list) =
   let map = Name.Map.empty in
   let add_version (pkg : t) map =
@@ -79,21 +99,43 @@ let read_packages () =
   Logs.info (fun log -> log "Read opam files: %.2fs" (t2 -. t1));
   result
 
-let try_load_state () =
+let to_snapshot t : Snapshot.t =
+  {
+    version = t.version;
+    opam_repository_commit = t.opam_repository_commit;
+    packages = t.packages;
+    stats = t.stats;
+  }
+
+(* [docs] is not persisted; it is a runtime cache, rebuilt empty here. *)
+let of_snapshot (v : Snapshot.t) =
+  {
+    version = v.version;
+    opam_repository_commit = v.opam_repository_commit;
+    packages = v.packages;
+    stats = v.stats;
+    docs = Documentation.doc_cache_create ();
+  }
+
+let load_state_from state_path =
   let exception Invalid_version in
-  let state_path = Config.package_state_path in
   Logs.info (fun m -> m "State cache file: %s" (Fpath.to_string state_path));
   try
-    let channel = open_in (Fpath.to_string state_path) in
+    let channel = open_in_bin (Fpath.to_string state_path) in
     Fun.protect
       (fun () ->
-        let v = (Marshal.from_channel channel : state) in
-        if Info.version <> v.version then raise Invalid_version;
+        let s = really_input_string channel (in_channel_length channel) in
+        let v =
+          match Repr.(unstage (of_bin_string Snapshot.t)) s with
+          | Ok v -> v
+          | Error (`Msg _) -> raise Invalid_version
+        in
+        if Info.version <> v.Snapshot.version then raise Invalid_version;
         Logs.info (fun f ->
             f "Package state loaded (%d packages, opam commit %s)"
-              (Name.Map.cardinal v.packages)
-              (Option.value ~default:"" v.opam_repository_commit));
-        v)
+              (Name.Map.cardinal v.Snapshot.packages)
+              (Option.value ~default:"" v.Snapshot.opam_repository_commit));
+        of_snapshot v)
       ~finally:(fun () -> close_in channel)
   with Failure _ | Sys_error _ | Invalid_version | End_of_file ->
     Logs.info (fun f -> f "Package state starting from scratch");
@@ -105,14 +147,18 @@ let try_load_state () =
       docs = Documentation.doc_cache_create ();
     }
 
-let save_state t =
+let try_load_state () = load_state_from Config.package_state_path
+
+let save_state_to state_path t =
   Logs.info (fun f -> f "Package state saved");
-  let state_path = Config.package_state_path in
   let channel = open_out_bin (Fpath.to_string state_path) in
   Fun.protect
-    (fun () -> Marshal.to_channel channel t [])
+    (fun () ->
+      output_string channel
+        (Repr.(unstage (to_bin_string Snapshot.t)) (to_snapshot t)))
     ~finally:(fun () -> close_out channel)
 
+let save_state t = save_state_to Config.package_state_path t
 let has_flag flag (info : Info.t) = List.exists (( = ) flag) info.flags
 
 let is_discouraged info =

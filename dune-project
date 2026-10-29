@@ -74,6 +74,8 @@
   markup
   ptime
   ppx_deriving_yojson
+  repr
+  ppx_repr
   (cmdliner
    (>= 1.1.0))
   xmlm

@@ -1,4 +1,4 @@
-type url = { uri : string; checksum : string list }
+type url = { uri : string; checksum : string list } [@@deriving repr]
 
 (* This is used to invalidate the package state cache if one of the types
    [Info.t] or [Ocamlorg_package.state] has changed. *)
@@ -12,14 +12,20 @@ type t = {
   license : string;
   homepage : string list;
   tags : string list;
-  dependencies : (OpamPackage.Name.t * string option) list;
-  rev_deps : (OpamPackage.Name.t * string option * OpamPackage.Version.t) list;
-  depopts : (OpamPackage.Name.t * string option) list;
-  conflicts : (OpamPackage.Name.t * string option) list;
+  dependencies :
+    ((OpamPackage.Name.t[@repr Opam_repr.name]) * string option) list;
+  rev_deps :
+    ((OpamPackage.Name.t[@repr Opam_repr.name])
+    * string option
+    * (OpamPackage.Version.t[@repr Opam_repr.version]))
+    list;
+  depopts : ((OpamPackage.Name.t[@repr Opam_repr.name]) * string option) list;
+  conflicts : ((OpamPackage.Name.t[@repr Opam_repr.name]) * string option) list;
   url : url option;
   publication : float;
-  flags : OpamTypes.package_flag list;
+  flags : (OpamTypes.package_flag[@repr Opam_repr.package_flag]) list;
 }
+[@@deriving repr]
 
 let relop_to_string = OpamPrinter.FullPos.relop_kind
 let filter_to_string = OpamFilter.to_string
