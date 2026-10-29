@@ -1,0 +1,79 @@
+name: Attribution
+
+# Verify that every changed tutorial / tool-page carries an up-to-date
+# "Authors and history" record (data/attribution.jsonl). For each changed
+# document the tool folds the PR's commits onto the base branch's committed
+# record and checks the committed record matches — see tool/attribution.
+#
+# Shallow by design: issue #3902 requires that the repo's full history never
+# enters CI. We fetch only the base tip and then deepen each document back to
+# its own record watermark, so the depth is that record's lag (commits since it
+# was last updated / re-seeded), never the whole repository.
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    name: Verify attribution records
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (PR commits only)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event.pull_request.commits }}
+
+      - name: Detect changed documents
+        id: changed
+        uses: tj-actions/changed-files@v47
+        with:
+          files: |
+            data/tutorials/**/*.md
+            data/tool_pages/**/*.md
+          separator: " "
+
+      - name: Fetch base and deepen to each record's watermark
+        if: steps.changed.outputs.any_changed == 'true'
+        env:
+          BASE: ${{ github.base_ref }}
+          CHANGED: ${{ steps.changed.outputs.all_changed_files }}
+        run: |
+          set -eu
+          # Base branch tip — one commit, enough for `git show origin/$BASE:…`
+          # and as a deepen anchor; not the history.
+          git fetch --no-tags --depth=1 origin "$BASE"
+          git show "origin/$BASE:data/attribution.jsonl" > base.jsonl 2>/dev/null \
+            || : > base.jsonl
+          # Deepen each changed doc back to (but excluding) its record watermark
+          # so `<watermark>..HEAD` resolves. Bounded by the record's lag.
+          for doc in $CHANGED; do
+            wm=$(grep -F "\"path\":\"$doc\"" base.jsonl \
+                   | grep -oE '"generated_at_commit":"[0-9a-f]+"' \
+                   | head -n1 | cut -d'"' -f4 || true)
+            [ -n "${wm:-}" ] || continue
+            git fetch --no-tags --shallow-exclude="$wm" origin HEAD "$BASE" 2>/dev/null \
+              || git fetch --no-tags origin "$wm" 2>/dev/null || true
+          done
+          rm -f base.jsonl
+
+      - name: Set up OCaml
+        if: steps.changed.outputs.any_changed == 'true'
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.0"
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+          opam-disable-sandboxing: true
+
+      - name: Install the tool's dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        run: opam install --yes bos cmdliner yojson yaml fmt fpath
+
+      - name: Verify
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          opam exec -- dune exec tool/attribution/bin/main.exe -- \
+            verify --base "origin/${{ github.base_ref }}" \
+            ${{ steps.changed.outputs.all_changed_files }}

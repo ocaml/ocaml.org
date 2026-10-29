@@ -81,6 +81,21 @@ scrape_ocaml_planet:
 scrape_platform_releases:
 	$(SCRAPE) platform_releases
 
+ATTRIBUTION ?= opam exec -- dune exec --root . tool/attribution/bin/main.exe --
+
+.PHONY: attribution-seed
+attribution-seed: ## Re-seed every attribution record from full history (local, once)
+	$(ATTRIBUTION) seed
+
+.PHONY: attribution-update
+attribution-update: ## Fold the given docs' records forward: PATHS="data/tutorials/a.md ..."
+	$(ATTRIBUTION) update $(PATHS)
+
+.PHONY: attribution-verify
+attribution-verify: ## Shallow gate: verify changed docs against a base (BASE=origin/main)
+	$(ATTRIBUTION) verify --base $(BASE) $(PATHS)
+BASE ?= origin/main
+
 .PHONY: docker
 docker: ## Generate docker container
 	docker build -f Dockerfile . -t ocamlorg:latest

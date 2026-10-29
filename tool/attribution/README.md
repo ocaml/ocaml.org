@@ -42,20 +42,44 @@ than by email alone, so a later owner of that login is not mis-credited.
 ## Commands
 
 ```sh
-dune exec -- data-attribution seed            # full history; run once locally, then commit
-dune exec -- data-attribution update PATHS…    # recompute only these documents, in place
-dune exec -- data-attribution check            # fail if the committed store is stale
+dune exec -- data-attribution seed                       # full history; run once locally, then commit
+dune exec -- data-attribution update PATHS…               # fold these documents forward, in place
+dune exec -- data-attribution check                       # local: fail if the committed store is stale
+dune exec -- data-attribution verify --base REV PATHS…    # CI gate (shallow): base record + PR commits
 ```
 
 - **`seed`** — rewrites the whole store from full history. The one step that
   needs the complete clone; a maintainer runs it locally and commits the result,
-  so the full history never enters CI.
-- **`update PATHS`** — recomputes just those documents (the per-PR path), keeping
-  every other record byte-for-byte. Shallow history is enough.
-- **`check`** — recomputes and compares, **ignoring the generation-time
+  so the full history never enters CI. Re-seeding re-bases any drift the
+  incremental path accumulated.
+- **`update PATHS`** — folds just those documents **forward from their own
+  committed watermark** (`generated_at_commit`): it reads each record, adds only
+  the commits since that watermark, and re-stamps it. Additions-only, so shallow
+  history is enough, and it needs neither the full clone nor the imported-repo
+  clone (everything already summed is carried in the record).
+- **`check`** — full recompute, compared **ignoring the generation-time
   provenance stamp** (`generated_at_commit` / `generator`) so an advancing HEAD
-  does not flag an otherwise-fresh store; only a change in actual authorship
-  fails it. The CI gate is wired up in phase 2.
+  does not flag an otherwise-fresh store. The local counterpart of `verify`.
+- **`verify --base REV PATHS`** — the CI gate (`.github/workflows/attribution.yml`).
+  For each changed document it independently recomputes the expected record by
+  folding the PR's commits onto `REV`'s committed record, and fails unless the
+  committed record (a) matches that recompute and (b) has no kept commit after
+  its own watermark (so the watermark covers the content and a later fold cannot
+  double-count). `update` and `verify` share the same fold, so what a maintainer
+  commits locally and what CI recomputes are identical by construction.
+
+### The `generated_at_commit` watermark
+
+Each record's `generated_at_commit` is **load-bearing**: it is the commit the
+record was last folded up to. Incremental maintenance resumes from it, so a
+record that lags `main` by more than the current PR's commits — a doc touched by
+an earlier PR that didn't update it, or the one-off gap before this gate went
+live — still catches up correctly (`watermark..HEAD`), rather than silently
+missing the gap. The maintainer loop per PR is simply:
+
+```sh
+make attribution-update PATHS="data/tutorials/…/foo.md"   # then commit the store change
+```
 
 By default the seed covers the documents the frontend surfaces
 (`data/tutorials` + `data/tool_pages`); `--docs-root DIR` (repeatable) widens it.
@@ -64,7 +88,8 @@ By default the seed covers the documents the frontend surfaces
 
 One record per document, one compact JSON object per line, keys in the order
 below, lists deterministically sorted. The authoritative definition is the type
-`Record.t` in `lib/record.ml`; the phase 2 packer deserializes it with `yojson`.
+`Record.t` in `lib/record.ml`; the data-packer deserializes it with `yojson`
+into `Data_intf.Attribution.t`.
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -75,7 +100,7 @@ below, lists deterministically sorted. The authoritative definition is the type
 | `provenance_unknown_before` | string \| null | Date before which authorship is unknown (`Imported-from` / `Provenance: unknown`); **the only nullable field** |
 | `ai_assisted` | ai_section[] | AI-assistance facet (one entry per AI-assisted commit) |
 | `overrides_applied` | string[] | Audit trail: `exclude:<hash>`, `add:<name>`, `note:<…>` |
-| `generated_at_commit` | string | Provenance stamp — **excluded from `check` comparison** |
+| `generated_at_commit` | string | The record's **watermark** — commit it was last folded up to; **excluded from `check`/`verify` content comparison** but drives incremental maintenance |
 | `generator` | string | `git` version + options, for reproducibility |
 
 `contributor`:

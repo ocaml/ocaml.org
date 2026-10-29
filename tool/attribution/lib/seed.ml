@@ -93,6 +93,21 @@ let date_of_ts ts =
 let sort_uniq_strings l = List.sort_uniq compare l
 let is_import c = c.imported_from <> [] || Trailer.is_unknown c.provenance
 
+(* Midnight-UTC unix timestamp for a "YYYY-MM-DD" date (civil-to-days, after
+   Howard Hinnant). Used to re-seed [aggregate_contributors] from a base
+   record's day-granularity [first_date]; exact enough because the new commits
+   folded on top are strictly later. 0 for an empty/unparseable date. *)
+let ts_of_date s =
+  try
+    Scanf.sscanf s "%d-%d-%d" (fun y m d ->
+        let y = if m <= 2 then y - 1 else y in
+        let era = (if y >= 0 then y else y - 399) / 400 in
+        let yoe = y - (era * 400) in
+        let doy = (((153 * if m > 2 then m - 3 else m + 9) + 2) / 5) + d - 1 in
+        let doe = (yoe * 365) + (yoe / 4) - (yoe / 100) + doy in
+        ((era * 146097) + doe - 719468) * 86400)
+  with _ -> 0
+
 (* --- aggregation ---------------------------------------------------------- *)
 
 (* Collect per-name (count, earliest-ts, hash-at-earliest), choosing the
@@ -122,6 +137,108 @@ let aggregate_contributors events =
            first_date = date_of_ts ts;
          })
 
+(* --- shared commit processing --------------------------------------------- *)
+
+(* Is this commit kept for attribution (not blame-ignored, not
+   override-excluded, not an import marker, and not a trivial
+   whitespace-only/too-small change)? *)
+let keep_commit ~cfg ~ignore_revs ~excluded c =
+  (not (Inputs.is_ignored ignore_revs c.hash))
+  && (not (List.mem c.hash excluded))
+  && (not (is_import c))
+  && (c.added = max_int (* binary: keep *)
+     || ((not (c.added = 0 && c.removed = 0)) && c.added >= cfg.min_lines_added)
+     )
+
+(* Resolve a co-author "Name <email>" through .mailmap (git only mailmaps the
+   commit author's %aN automatically; trailer text is literal), caching the
+   work. Returns the canonical name and the e-mail, for classification. *)
+let make_resolver ~cfg =
+  let cache = Hashtbl.create 16 in
+  fun raw ->
+    match Hashtbl.find_opt cache raw with
+    | Some pair -> pair
+    | None ->
+        let resolved = Git.resolve_identity ~root:cfg.root raw in
+        let pair = (Trailer.name_only resolved, Trailer.email_of raw) in
+        Hashtbl.replace cache raw pair;
+        pair
+
+(* Every credited identity on a commit: the author (resolved through this repo's
+   .mailmap too — a commit mined from an imported repo was mailmapped by that
+   repo, so cross-repo identities still need this repo's .mailmap on top; for a
+   commit from this repo the author is already canonical, so it is a no-op) plus
+   its Co-authored-by trailers. *)
+let credited ~resolve c =
+  let author_raw =
+    if c.author_email = "" then c.author
+    else Printf.sprintf "%s <%s>" c.author c.author_email
+  in
+  resolve author_raw :: List.map resolve c.co_authors
+
+(* Fold kept commits into (human contributor events, AI entries tagged with
+   their timestamp, raw Derived-from values). Splitting every credited identity
+   into human contributors, AI tools (surfaced in the AI facet, not as human
+   authors), and bots (dropped). Override- and import-declared derived-from are
+   merged in by the caller. *)
+let fold_kept ~resolve kept =
+  let events = ref [] in
+  let ai = Hashtbl.create 8 in
+  List.iter
+    (fun c ->
+      let ai_tools =
+        List.filter_map
+          (fun (name, email) ->
+            match Identity.classify ~name ~email with
+            | Identity.Human ->
+                events := (name, c.hash, c.ts) :: !events;
+                None
+            | Identity.Ai -> Some name
+            | Identity.Bot -> None)
+          (credited ~resolve c)
+      in
+      if
+        ai_tools <> [] || c.assisted_by <> [] || c.ai_sections <> []
+        || c.ai_context <> []
+      then
+        Hashtbl.replace ai c.hash
+          ( c.ts,
+            {
+              Record.commit = c.hash;
+              assisted_by = sort_uniq_strings (ai_tools @ c.assisted_by);
+              sections = c.ai_sections;
+              context = c.ai_context;
+            } ))
+    kept;
+  let ai_entries = Hashtbl.fold (fun _ entry acc -> entry :: acc) ai [] in
+  let derived_raw = List.concat_map (fun c -> c.derived_from) kept in
+  (!events, ai_entries, derived_raw)
+
+(* Derived-from: internal "path@commit" stay as-is; "source:<key>" resolve to
+   external authors through the manifest. *)
+let split_derived ~sources values =
+  List.fold_left
+    (fun (int_acc, ext_acc) v ->
+      match String.index_opt v ':' with
+      | Some i when String.sub v 0 i = "source" ->
+          let key = String.sub v (i + 1) (String.length v - i - 1) in
+          (int_acc, Inputs.source_authors sources key @ ext_acc)
+      | _ -> (v :: int_acc, ext_acc))
+    ([], []) values
+
+(* Surface a pure override-add (ts 0, no commit of its own) with empty
+   first_*. *)
+let blank_override_adds =
+  List.map (fun c ->
+      if c.Record.first_commit = "" then { c with Record.first_date = "" }
+      else c)
+
+let ai_sorted entries =
+  entries
+  |> List.sort (fun (ta, a) (tb, b) ->
+         compare (ta, a.Record.commit) (tb, b.Record.commit))
+  |> List.map snd
+
 (* --- the per-document record ---------------------------------------------- *)
 
 let compute_record ~cfg ~head ~generator ~ignore_revs ~sources ~imports path =
@@ -141,104 +258,17 @@ let compute_record ~cfg ~head ~generator ~ignore_revs ~sources ~imports path =
   let commits =
     parse_log (Git.log_document ~root:cfg.root ~path ()) @ imported_commits
   in
-  let kept =
-    List.filter
-      (fun c ->
-        (not (Inputs.is_ignored ignore_revs c.hash))
-        && (not (List.mem c.hash excluded))
-        && (not (is_import c))
-        && (c.added = max_int (* binary: keep *)
-           || (not (c.added = 0 && c.removed = 0))
-              && c.added >= cfg.min_lines_added))
-      commits
-  in
-  (* Resolve a co-author "Name <email>" through .mailmap (git only mailmaps the
-     commit author's %aN automatically; trailer text is literal), caching the
-     work. Returns the canonical name and the e-mail, for classification. *)
-  let resolve =
-    let cache = Hashtbl.create 16 in
-    fun raw ->
-      match Hashtbl.find_opt cache raw with
-      | Some pair -> pair
-      | None ->
-          let resolved = Git.resolve_identity ~root:cfg.root raw in
-          let pair = (Trailer.name_only resolved, Trailer.email_of raw) in
-          Hashtbl.replace cache raw pair;
-          pair
-  in
-  (* Split every credited identity on a kept commit into human contributors, AI
-     tools (surfaced in the AI facet, not as human authors), and bots (dropped).
-     The author is resolved through this repo's .mailmap as well — git mailmaps
-     the author of a commit in *its own* repo, but a commit mined from an
-     imported repo (v2) was mailmapped by that repo, so it still needs this
-     repo's .mailmap applied on top for cross-repo identities to unify. For a
-     commit from this repo the author is already canonical, so this is a
-     no-op. *)
-  let credited c =
-    let author_raw =
-      if c.author_email = "" then c.author
-      else Printf.sprintf "%s <%s>" c.author c.author_email
-    in
-    resolve author_raw :: List.map resolve c.co_authors
-  in
-  let events = ref [] in
-  let ai = Hashtbl.create 8 in
-  List.iter
-    (fun c ->
-      let ai_tools =
-        List.filter_map
-          (fun (name, email) ->
-            match Identity.classify ~name ~email with
-            | Identity.Human ->
-                events := (name, c.hash, c.ts) :: !events;
-                None
-            | Identity.Ai -> Some name
-            | Identity.Bot -> None)
-          (credited c)
-      in
-      if
-        ai_tools <> [] || c.assisted_by <> [] || c.ai_sections <> []
-        || c.ai_context <> []
-      then
-        Hashtbl.replace ai c.hash
-          ( c.ts,
-            {
-              Record.commit = c.hash;
-              assisted_by = sort_uniq_strings (ai_tools @ c.assisted_by);
-              sections = c.ai_sections;
-              context = c.ai_context;
-            } ))
-    kept;
+  let kept = List.filter (keep_commit ~cfg ~ignore_revs ~excluded) commits in
+  let resolve = make_resolver ~cfg in
+  let events, ai_entries, derived_raw = fold_kept ~resolve kept in
   (* Overrides may credit extra names; they carry no commit of their own. *)
-  let events = !events @ List.map (fun n -> (n, "", 0)) override.Inputs.add in
-  let contributors =
-    aggregate_contributors events
-    (* A pure override-add has ts 0; surface it with an empty first_commit. *)
-    |> List.map (fun c ->
-           if c.Record.first_commit = "" then { c with Record.first_date = "" }
-           else c)
-  in
-  (* Derived-from: internal "path@commit" stay as-is; "source:<key>" resolve to
-     external authors through the manifest. Declared both by commit trailers and
-     by the per-document override (for imports with no trailer). *)
+  let events = events @ List.map (fun n -> (n, "", 0)) override.Inputs.add in
+  let contributors = blank_override_adds (aggregate_contributors events) in
   let internal, external_authors =
-    List.concat_map (fun c -> c.derived_from) kept
-    @ override.Inputs.derived_from @ import_df
-    |> List.fold_left
-         (fun (int_acc, ext_acc) v ->
-           match String.index_opt v ':' with
-           | Some i when String.sub v 0 i = "source" ->
-               let key = String.sub v (i + 1) (String.length v - i - 1) in
-               (int_acc, Inputs.source_authors sources key @ ext_acc)
-           | _ -> (v :: int_acc, ext_acc))
-         ([], [])
+    split_derived ~sources
+      (derived_raw @ override.Inputs.derived_from @ import_df)
   in
-  let ai_assisted =
-    Hashtbl.fold (fun _ entry acc -> entry :: acc) ai []
-    |> List.sort (fun (ta, a) (tb, b) ->
-           compare (ta, a.Record.commit) (tb, b.Record.commit))
-    |> List.map snd
-  in
+  let ai_assisted = ai_sorted ai_entries in
   let provenance_unknown_before =
     List.filter is_import commits
     |> List.fold_left (fun acc c -> max acc c.ts) 0
@@ -268,6 +298,116 @@ let compute_record ~cfg ~head ~generator ~ignore_revs ~sources ~imports path =
     generated_at_commit = head;
     generator;
   }
+
+(* --- incremental fold: base record + only the new commits
+   ------------------ *)
+
+(* Extend a committed record ([base]) with the commits that touched [path] since
+   that record's own watermark ([generated_at_commit]), for a new document the
+   full history. Additions-only, so it needs neither the full clone nor the
+   imported-repo clone: everything already summed is carried in [base]. [update]
+   and [verify] share this, so what a maintainer commits locally and what CI
+   recomputes are identical by construction; a periodic full [seed] re-bases any
+   drift from [compute_record]. *)
+let append_record ~cfg ~head ~generator ~ignore_revs ~sources ~base path =
+  let override = Inputs.load_override ~doc_path:path () in
+  let excluded = override.Inputs.exclude_commits in
+  let range =
+    match base with
+    | Some (r : Record.t) -> Some (r.generated_at_commit ^ "..HEAD")
+    | None -> None
+  in
+  let commits = parse_log (Git.log_document ~root:cfg.root ?range ~path ()) in
+  let kept = List.filter (keep_commit ~cfg ~ignore_revs ~excluded) commits in
+  let resolve = make_resolver ~cfg in
+  let new_events, new_ai, derived_raw = fold_kept ~resolve kept in
+  (* Reconstruct the base's real contributors as synthetic events — an anchor at
+     the recorded first commit/date plus [commits-1] far-future fillers — so
+     [aggregate_contributors] reproduces their counts and earliest commit while
+     the new (strictly later) events fold on top. Base override-adds (empty
+     first_commit) are dropped and re-added below. *)
+  let base_events =
+    match base with
+    | None -> []
+    | Some r ->
+        List.concat_map
+          (fun (c : Record.contributor) ->
+            if c.first_commit = "" then []
+            else
+              (c.name, c.first_commit, ts_of_date c.first_date)
+              :: List.init
+                   (max 0 (c.commits - 1))
+                   (fun _ -> (c.name, "", max_int)))
+          r.contributors
+  in
+  let events =
+    base_events @ new_events
+    @ List.map (fun n -> (n, "", 0)) override.Inputs.add
+  in
+  let contributors = blank_override_adds (aggregate_contributors events) in
+  let base_internal, base_external, base_ai, base_pub, base_oa =
+    match base with
+    | Some (r : Record.t) ->
+        ( r.derived_from,
+          r.external_authors,
+          r.ai_assisted,
+          r.provenance_unknown_before,
+          r.overrides_applied )
+    | None -> ([], [], [], None, [])
+  in
+  let internal_new, external_new =
+    split_derived ~sources (derived_raw @ override.Inputs.derived_from)
+  in
+  let base_ai_commits = List.map (fun e -> e.Record.commit) base_ai in
+  let ai_assisted =
+    base_ai
+    @ List.filter
+        (fun e -> not (List.mem e.Record.commit base_ai_commits))
+        (ai_sorted new_ai)
+  in
+  let provenance_unknown_before =
+    let dates =
+      (match base_pub with Some d -> [ d ] | None -> [])
+      @ (List.filter is_import commits |> List.map (fun c -> date_of_ts c.ts))
+    in
+    match List.sort compare dates with
+    | [] -> None
+    | l -> Some (List.nth l (List.length l - 1))
+  in
+  let overrides_applied =
+    sort_uniq_strings
+      (base_oa
+      @ List.filter_map
+          (fun h ->
+            if List.exists (fun c -> c.hash = h) commits then
+              Some ("exclude:" ^ h)
+            else None)
+          excluded
+      @ List.map (fun n -> "add:" ^ n) override.Inputs.add
+      @ List.map (fun d -> "derived:" ^ d) override.Inputs.derived_from
+      @
+      match override.Inputs.notes with Some n -> [ "note:" ^ n ] | None -> [])
+  in
+  {
+    Record.path;
+    contributors;
+    derived_from = sort_uniq_strings (base_internal @ internal_new);
+    external_authors = sort_uniq_strings (base_external @ external_new);
+    provenance_unknown_before;
+    ai_assisted;
+    overrides_applied;
+    generated_at_commit = head;
+    generator;
+  }
+
+(* Kept commits that touch [path] after [stamp] — a non-empty result means the
+   committed record's watermark lags its content, which would cause a later
+   incremental fold to double-count, so it must fail the freshness gate. *)
+let unfolded_commits ~cfg ~ignore_revs ~stamp path =
+  let override = Inputs.load_override ~doc_path:path () in
+  let excluded = override.Inputs.exclude_commits in
+  parse_log (Git.log_document ~root:cfg.root ~range:(stamp ^ "..HEAD") ~path ())
+  |> List.filter (keep_commit ~cfg ~ignore_revs ~excluded)
 
 (* --- document discovery --------------------------------------------------- *)
 
@@ -325,22 +465,43 @@ let seed cfg =
   write_lines cfg.output (sort_lines lines);
   Printf.printf "wrote %d records to %s\n" (List.length lines) cfg.output
 
+(* Incrementally fold each path's record forward from its own committed
+   watermark and splice it back in place. Needs only the commits since that
+   watermark (shallow-friendly), not the full history [seed] uses. *)
 let update cfg paths =
-  let fresh = records_for cfg paths in
-  let updated = List.map (fun r -> (r.Record.path, Record.to_line r)) fresh in
+  let head = Git.head_commit ~root:cfg.root () in
+  let generator =
+    Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
+  in
+  let ignore_revs = Inputs.load_ignore_revs () in
+  let sources = Inputs.load_sources () in
+  let store = read_lines cfg.output in
+  let base_of path =
+    List.find_opt (fun l -> Record.path_of_line l = path) store
+    |> Option.map Record.of_line
+  in
+  let updated =
+    List.map
+      (fun path ->
+        let base = base_of path in
+        let r =
+          append_record ~cfg ~head ~generator ~ignore_revs ~sources ~base path
+        in
+        (path, Record.to_line r))
+      paths
+  in
   let kept =
-    read_lines cfg.output
+    store
     |> List.filter (fun l ->
            not (List.mem_assoc (Record.path_of_line l) updated))
   in
-  let lines = kept @ List.map snd updated in
-  write_lines cfg.output (sort_lines lines);
+  write_lines cfg.output (sort_lines (kept @ List.map snd updated));
   Printf.printf "updated %d record(s) in %s\n" (List.length updated) cfg.output
 
 (* Recompute the full store and compare it against what is committed, ignoring
    the generation-time provenance stamp so an advancing HEAD does not flag an
-   otherwise-fresh store. Per-PR CI freshness (scoped to the changed files) is
-   wired up in Phase 2. *)
+   otherwise-fresh store. This is the local, full-history check; CI uses the
+   shallow [verify] below instead. *)
 let check cfg =
   let paths = documents cfg in
   let content l = (Record.path_of_line l, Record.content_of_line l) in
@@ -370,3 +531,84 @@ let check cfg =
               cfg.output p)
           missing);
     1)
+
+(* The shallow CI gate. For each changed document, independently recompute the
+   expected record by folding the PR's commits onto the base branch's committed
+   record, and require that:
+
+   - the committed record's content matches that recompute (so the author ran
+   [update] and it is correct), and - no kept commit touches the document after
+   the committed record's watermark (so the watermark covers the content and a
+   later fold will not double-count).
+
+   This needs only the base record (via [git show]) and the commits since each
+   watermark — never the full history — so CI stays shallow. *)
+let verify cfg ~base paths =
+  let head = Git.head_commit ~root:cfg.root () in
+  let generator =
+    Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
+  in
+  let ignore_revs = Inputs.load_ignore_revs () in
+  let sources = Inputs.load_sources () in
+  let base_lines =
+    match Git.show_file ~root:cfg.root ~rev:base ~path:cfg.output () with
+    | Some s ->
+        String.split_on_char '\n' s
+        |> List.filter (fun l -> String.trim l <> "")
+    | None -> []
+  in
+  let line_for lines path =
+    List.find_opt (fun l -> Record.path_of_line l = path) lines
+  in
+  let committed = read_lines cfg.output in
+  let hint path =
+    Printf.sprintf
+      "run `make attribution-update PATHS=%s` and commit the result" path
+  in
+  let failures =
+    List.filter_map
+      (fun path ->
+        let base_record =
+          Option.map Record.of_line (line_for base_lines path)
+        in
+        let expected =
+          append_record ~cfg ~head ~generator ~ignore_revs ~sources
+            ~base:base_record path
+        in
+        match line_for committed path with
+        | None ->
+            Some
+              (Printf.sprintf "%s: changed but has no attribution record; %s"
+                 path (hint path))
+        | Some line ->
+            let committed_record = Record.of_line line in
+            let content_ok =
+              Record.content_of_line (Record.to_line expected)
+              = Record.content_of_line line
+            in
+            let fresh_ok =
+              unfolded_commits ~cfg ~ignore_revs
+                ~stamp:committed_record.generated_at_commit path
+              = []
+            in
+            if not content_ok then
+              Some
+                (Printf.sprintf
+                   "%s: attribution record does not match base + PR commits; %s"
+                   path (hint path))
+            else if not fresh_ok then
+              Some
+                (Printf.sprintf
+                   "%s: attribution record is not re-stamped past its newest \
+                    commit; %s"
+                   path (hint path))
+            else None)
+      paths
+  in
+  match failures with
+  | [] ->
+      Printf.printf "attribution: %d record(s) verified\n" (List.length paths);
+      0
+  | fs ->
+      List.iter (Printf.eprintf "%s\n") fs;
+      1

@@ -95,3 +95,47 @@ let content_of_line line =
              (fun (k, _) -> k <> "generated_at_commit" && k <> "generator")
              fields))
   | _ -> line
+
+(* --- deserialization (inverse of [to_json]) ------------------------------- *)
+
+(* The incremental updater/verifier reads a committed record back in as its base
+   and folds new commits onto it; this parses one store line into a [t]. *)
+
+open Yojson.Safe.Util
+
+let json_string j = match j with `String s -> s | _ -> ""
+let json_strings j = List.map json_string (to_list j)
+
+let contributor_of_json j =
+  {
+    name = json_string (member "name" j);
+    commits = to_int (member "commits" j);
+    first_commit = json_string (member "first_commit" j);
+    first_date = json_string (member "first_date" j);
+  }
+
+let ai_section_of_json j =
+  {
+    commit = json_string (member "commit" j);
+    assisted_by = json_strings (member "assisted_by" j);
+    sections = json_strings (member "sections" j);
+    context = json_strings (member "context" j);
+  }
+
+let of_line line =
+  let j = Yojson.Safe.from_string line in
+  {
+    path = json_string (member "path" j);
+    contributors =
+      List.map contributor_of_json (to_list (member "contributors" j));
+    derived_from = json_strings (member "derived_from" j);
+    external_authors = json_strings (member "external_authors" j);
+    provenance_unknown_before =
+      (match member "provenance_unknown_before" j with
+      | `String s -> Some s
+      | _ -> None);
+    ai_assisted = List.map ai_section_of_json (to_list (member "ai_assisted" j));
+    overrides_applied = json_strings (member "overrides_applied" j);
+    generated_at_commit = json_string (member "generated_at_commit" j);
+    generator = json_string (member "generator" j);
+  }

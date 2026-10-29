@@ -54,10 +54,28 @@ let check_cmd =
   Cmd.v (Cmd.info "check" ~doc)
     Term.(const (fun cfg -> Stdlib.exit (Seed.check cfg)) $ config_t)
 
+let verify_cmd =
+  let base =
+    let doc = "Base revision whose committed store the records fold onto." in
+    Arg.(value & opt string "origin/main" & info [ "base" ] ~docv:"REV" ~doc)
+  in
+  let paths =
+    let doc = "Changed document paths to verify (relative to the root)." in
+    Arg.(non_empty & pos_all string [] & info [] ~docv:"PATH" ~doc)
+  in
+  let doc =
+    "Shallow CI gate: fail unless each changed document's committed record is \
+     the base record folded with the PR's commits."
+  in
+  Cmd.v (Cmd.info "verify" ~doc)
+    Term.(
+      const (fun cfg base paths -> Stdlib.exit (Seed.verify cfg ~base paths))
+      $ config_t $ base $ paths)
+
 let main =
   let doc = "Generate ocaml.org per-document attribution records." in
   Cmd.group
     (Cmd.info "data-attribution" ~version:"0.1" ~doc)
-    [ seed_cmd; update_cmd; check_cmd ]
+    [ seed_cmd; update_cmd; check_cmd; verify_cmd ]
 
 let () = exit (Cmd.eval main)

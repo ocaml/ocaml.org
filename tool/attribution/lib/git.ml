@@ -23,6 +23,19 @@ let run_string ?root args =
 let head_commit ?root () = run_string ?root [ "rev-parse"; "HEAD" ]
 let version ?root () = run_string ?root [ "--version" ]
 
+(* Contents of [path] at revision [rev] (e.g. a base branch's committed store),
+   or [None] if it does not exist there — so a new file reads as empty rather
+   than raising. stderr is discarded to swallow git's "does not exist"
+   message. *)
+let show_file ?root ~rev ~path () =
+  match
+    Bos.OS.Cmd.(
+      run_out ~err:err_null (git ?root [ "show"; rev ^ ":" ^ path ])
+      |> out_string ~trim:false |> success)
+  with
+  | Ok s -> Some s
+  | Error _ -> None
+
 (* Resolve a "Name <email>" identity through .mailmap. git applies .mailmap to
    %aN for commit authors automatically, but trailer values (Co-authored-by …)
    are literal text, so co-authors must be normalised explicitly or the same
@@ -56,9 +69,12 @@ let doc_format =
 
 let options = [ "log"; "--follow"; "-M90%"; "--no-merges" ]
 
-let log_document ?root ~path () =
+let log_document ?root ?range ~path () =
+  let range = match range with Some r -> [ r ] | None -> [] in
   run_out ?root
-    (options @ [ "-w"; "--numstat"; "--format=" ^ doc_format; "--"; path ])
+    (options
+    @ [ "-w"; "--numstat"; "--format=" ^ doc_format ]
+    @ range @ [ "--"; path ])
 
 (* The options recorded in each record's [generator] field, so the output is
    self-describing and reproducible. *)
