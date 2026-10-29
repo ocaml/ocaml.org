@@ -185,7 +185,8 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               get_info info.Package.Info.dependencies);
-          field "reverseDependencies" ~doc:"The dependencies of the package"
+          field "reverseDependencies"
+            ~doc:"The reverse dependencies of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
@@ -284,7 +285,7 @@ let schema t : Dream.request Graphql_lwt.Schema.schema =
               ]
           ~resolve:(fun _ () name version ->
             Lwt.return (package_result name version t));
-        io_field "packgeByVersions" ~typ:(non_null packages_result)
+        io_field "packageByVersions" ~typ:(non_null packages_result)
           ~doc:
             "Returns the list of package versions that falls within two \
              specified version ranges or all versions of the package name if \
