@@ -1,0 +1,7 @@
+# Excerpt of the cs3110 textbook "OCaml Programming: Correct + Efficient +
+# Beautiful", reproduced with permission (see the `external_tutorial`
+# frontmatter). The original authors are added here, since git credits only the
+# ocaml.org adapters.
+derived_from:
+  - source:ocaml-programming
+notes: excerpt of "OCaml Programming" (cs3110), reproduced with permission

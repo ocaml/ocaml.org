@@ -57,6 +57,7 @@ let load_all () =
   let governance_teams = Governance_parser.teams () in
   let governance_working_groups = Governance_parser.working_groups () in
   let tool_pages = Tool_page_parser.all () in
+  let attribution = Attribution_parser.all () in
   {
     All_data.testimonials;
     academic_testimonials;
@@ -96,4 +97,5 @@ let load_all () =
     governance_teams;
     governance_working_groups;
     tool_pages;
+    attribution;
   }

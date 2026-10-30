@@ -1,0 +1,82 @@
+# Documents imported from the earlier site (v2.ocaml.org), whose pre-2023 git
+# authorship this repository lost on import. The generator (tool/attribution)
+# mines the mapped path's history in a local clone of that repo and folds those
+# contributors in. `derived_from` records provenance older than even that repo's
+# history — the sources it was itself copied/ported from (see attribution/
+# sources.yml), which git blame cannot reach.
+#
+# `repo` is a path to the clone, relative to this repository's root. Seeding and
+# `check` of these documents require that clone to be present; the results are
+# baked into data/attribution.jsonl, which is the committed source of truth.
+
+repo: ../v2.ocaml.org
+
+mappings:
+  # Copied by permission from the ocaml-tutorial.org wiki (v2, 2012-03-03)
+  - v3: data/tutorials/language/0it_01_basic_datatypes.md
+    v2: site/learn/tutorials/data_types_and_matching.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/language/0it_02_loops_and_recursion.md
+    v2: site/learn/tutorials/if_statements_loops_and_recursion.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/language/0it_03_lists.md
+    v2: site/learn/tutorials/lists.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/language/0it_05_labels.md
+    v2: site/learn/tutorials/labels.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/language/1ms_00_modules.md
+    v2: site/learn/tutorials/modules.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/language/1ms_01_functors.md
+    v2: site/learn/tutorials/functors.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/language/4ad_02_objects.md
+    v2: site/learn/tutorials/objects.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/1wf_05_garbage_collection.md
+    v2: site/learn/tutorials/garbage_collection.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/1wf_03_profiling.md
+    v2: site/learn/tutorials/performance_and_profiling.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/0tt_03_calling_c_libraries.md
+    v2: site/learn/tutorials/calling_c_libraries.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/0tt_04_calling_fortran_libraries.md
+    v2: site/learn/tutorials/calling_fortran_libraries.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/rs_01_common_error_messages.md
+    v2: site/learn/tutorials/common_error_messages.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/0tt_01_command_line_arguments.md
+    v2: site/learn/tutorials/command-line_arguments.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/0tt_02_file_manipulation.md
+    v2: site/learn/tutorials/file_manipulation.md
+    derived_from: [source:ocaml-tutorial.org]
+  - v3: data/tutorials/guides/1wf_00_using_the_ocaml_compiler_toolchain.md
+    v2: site/learn/tutorials/compiling_ocaml_projects.md
+    derived_from: [source:ocaml-tutorial.org]
+
+  # Pierre Weis's "OCaml Programming Guidelines" (Inria), via v2
+  - v3: data/tutorials/guides/rs_00_guidelines.md
+    v2: site/learn/tutorials/guidelines.md
+    derived_from: [source:inria-caml-guidelines]
+
+  # Ported from the Inria OCaml documentation (v2, "port debugging page from Inria")
+  - v3: data/tutorials/guides/1wf_01_debugging.md
+    v2: site/learn/tutorials/debug.md
+    derived_from: [source:caml.inria.fr]
+
+  # Added in v2 (2013+), not from an external source — v2 history alone
+  - v3: data/tutorials/language/3ds_02_maps.md
+    v2: site/learn/tutorials/map.md
+  - v3: data/tutorials/language/3ds_03_sets.md
+    v2: site/learn/tutorials/set.md
+  - v3: data/tutorials/language/3ds_04_hashtbl.md
+    v2: site/learn/tutorials/hashtbl.md
+  - v3: data/tutorials/guides/rs_02_comparison_of_standard_containers.md
+    v2: site/learn/tutorials/comparison_of_standard_containers.md
+  - v3: data/tutorials/guides/1wf_02_error_handling.md
+    v2: site/learn/tutorials/error_handling.md

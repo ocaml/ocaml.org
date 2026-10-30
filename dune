@@ -16,8 +16,8 @@
  (rule
   (target planet.xml)
   (deps
-   (source_tree %{project_root}/data/planet)
-   (source_tree %{project_root}/data/planet-local-blogs)
+   ; gen_feed loads the whole data set (Packer.load_all), not just its feed
+   (source_tree %{project_root}/data)
    (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe))
   (action
    (chdir
@@ -31,7 +31,7 @@
  (rule
   (target news.xml)
   (deps
-   (source_tree %{project_root}/data/news)
+   (source_tree %{project_root}/data)
    (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe))
   (action
    (chdir
@@ -45,8 +45,7 @@
  (rule
   (target changelog.xml)
   (deps
-   (source_tree %{project_root}/data/changelog)
-   (source_tree %{project_root}/data/platform_releases)
+   (source_tree %{project_root}/data)
    (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe))
   (action
    (chdir
@@ -60,8 +59,7 @@
  (rule
   (target backstage.xml)
   (deps
-   (source_tree %{project_root}/data/backstage)
-   (source_tree %{project_root}/data/platform_releases)
+   (source_tree %{project_root}/data)
    (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe))
   (action
    (chdir
@@ -75,7 +73,7 @@
  (rule
   (target events.xml)
   (deps
-   (source_tree %{project_root}/data/events)
+   (source_tree %{project_root}/data)
    (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe))
   (action
    (chdir
@@ -89,8 +87,8 @@
  (rule
   (target jobs.xml)
   (deps
-   (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe)
-   %{project_root}/data/jobs.yml)
+   (source_tree %{project_root}/data)
+   (:gen_feed %{project_root}/tool/data-packer/bin/gen_feed.exe))
   (action
    (chdir
     %{project_root}

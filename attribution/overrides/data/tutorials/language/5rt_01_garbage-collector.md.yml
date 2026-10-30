@@ -1,0 +1,6 @@
+# Adaptation of a Real World OCaml chapter, reproduced with permission (the
+# `external_tutorial` frontmatter records the source chapter). The git history
+# credits only the ocaml.org adapters, so the original authors are added here.
+derived_from:
+  - source:real-world-ocaml
+notes: adaptation of a Real World OCaml chapter, reproduced with permission

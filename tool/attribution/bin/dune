@@ -1,0 +1,5 @@
+(executable
+ (name main)
+ (package ocamlorg)
+ (public_name data-attribution)
+ (libraries attribution cmdliner))

@@ -220,4 +220,15 @@ module Conference : sig
   val get_by_slug : string -> t option
 end
 
+module Attribution : sig
+  include module type of Attribution
+
+  val all : t list
+  val get_by_path : string -> t option
+
+  val get_by_fpath : string -> t option
+  (** [get_by_fpath fpath] looks up by a [data/]-relative [fpath], as carried by
+      {!Tutorial.t} and {!Tool_page.t} (records are keyed by repo-root path). *)
+end
+
 module V2 : module type of V2
