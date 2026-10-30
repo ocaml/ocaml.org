@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Pierre Villemot\n  "
 source:
+keywords:
+- "alt-ergo"
+- "bit-vectors"
+- "dolmen"
+- "ergo"
+- "fpa"
+- "frontend"
+- "parser"
+- "primitives"
+- "smt-lib"
+- "smt2"
 ---
 
 <p>

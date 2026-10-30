@@ -9,6 +9,17 @@ preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=
 authors:
 - Gaius Hammond
 source:
+keywords:
+- "bearing"
+- "beta"
+- "cmi"
+- "debacle"
+- "non-fatal"
+- "oci"
+- "password"
+- "toplevel"
+- "tweaks"
+- "warning"
 ---
 
 <p><a href="http://caml.inria.fr/pub/distrib/ocaml-4.00/">OCaml 4 beta 2</a> has been released, and so I quickly tested <a href="http://gaiustech.github.com/ociml/">OCI*ML</a> with it. Only a couple of minor tweaks were necessary, due to the following <a href="http://caml.inria.fr/pub/distrib/ocaml-4.00/notes/Changes">changes</a>:</p>

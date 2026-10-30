@@ -9,6 +9,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "acr"
+- "app"
+- "azure"
+- "conf-libcurl"
+- "container"
+- "deployment"
+- "dream"
+- "oidc"
+- "secrets"
+- "service"
 ---
 
 A comprehensive guide to deploying OCaml applications on Azure App Service using Azure Container Registry - from authentication challenges to production success

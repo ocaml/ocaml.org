@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Mike McClurg
 source:
+keywords:
+- "backquoting"
+- "buff"
+- "defun"
+- "emacs"
+- "m-x"
+- "machine1"
+- "mkfunls"
+- "my-fnassoc"
+- "my-login"
+- "rlogin"
 ---
 
 <p>I love Emacs. I&rsquo;ve been using it ever since I took my first programming language theory class in college. I had played around with it before then, but it took my professor&rsquo;s recommendation and half a class worth of a tutorial and I was hooked.</p>

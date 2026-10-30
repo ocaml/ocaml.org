@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/aeca76dab2b01438e2c3009c525cb9e9/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "cmdliner"
+- "developers"
+- "docs"
+- "documentation"
+- "dune"
+- "generator"
+- "odoc"
+- "tarides"
+- "type class"
+- "well-documented"
 ---
 
 

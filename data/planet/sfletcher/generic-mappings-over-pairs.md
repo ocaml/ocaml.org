@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "auto"
+- "continuation"
+- "iostream"
+- "make_pair"
+- "pair"
+- "pair_map_1"
+- "pair_map_2"
+- "papp"
+- "return"
+- "std"
 ---
 
 <h2></h2>

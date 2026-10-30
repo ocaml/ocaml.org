@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "allocated"
+- "backwards"
+- "byte"
+- "half-baked"
+- "ideas"
+- "ilenstr"
+- "implicit"
+- "length"
+- "malloc"
+- "strings"
 ---
 
 <p><i>For more half-baked ideas, see <a href="https://rwmj.wordpress.com/tag/ideas/">the ideas tag</a>.</i></p>

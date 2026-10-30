@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/DDP-1360w~-GCJN60jJAv_blMzGyH5XQ.
 authors:
 - Tarides
 source:
+keywords:
+- "beta"
+- "developer"
+- "developers"
+- "development"
+- "dune"
+- "excited"
+- "opam"
+- "preview"
+- "satisfaction"
+- "workflows"
 ---
 
 <p>The Dune team is excited to announce the arrival of <a href="https://discuss.ocaml.org/t/ann-dune-developer-preview-updates/15160/7">Dune Developer Preview</a>, a major milestone for OCaml development! We've been working hard improving Dune, and we're excited to introduce this new way to ease OCaml workflows. If you are an OCaml developer, this is the time to explore the future of package management and development yourself.</p>

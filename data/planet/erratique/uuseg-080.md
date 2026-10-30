@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "detect"
+- "grapheme"
+- "independent"
+- "locale"
+- "opam"
+- "segmenting"
+- "text"
+- "unicode"
+- "uuseg"
+- "v18"
 ---
 
 <p>First release of Uuseg, Unicode text segmentation for OCaml.</p>

@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "bigarray"
+- "binaryen"
+- "effect"
+- "functor"
+- "js_of_ocaml"
+- "mirageos"
+- "optimisations"
+- "optimises"
+- "wasm_of_ocaml"
+- "wsoo"
 ---

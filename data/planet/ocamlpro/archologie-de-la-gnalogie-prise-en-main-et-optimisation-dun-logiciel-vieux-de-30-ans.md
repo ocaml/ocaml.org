@@ -12,6 +12,17 @@ preview_image: https://ocamlpro.com/blog/assets/img/og_genealogy_tree.png
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "association"
+- "developpement"
+- "genealogie"
+- "geneweb"
+- "logiciel"
+- "nouvelles"
+- "optimisation"
+- "plateforme"
+- "requetes"
+- "roglo"
 ---
 
 <p></p>

@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "albatross"
+- "audit"
+- "console"
+- "deceased"
+- "deploy"
+- "mirageos"
+- "mollymawk"
+- "sorting"
+- "unikernel"
+- "unikernels"
 ---

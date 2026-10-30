@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "constructor_declaration"
+- "decl"
+- "default_mapper"
+- "id_of"
+- "item"
+- "mapper"
+- "structure"
+- "structure_mapper"
+- "txt"
+- "type_declaration"
 ---
 
 

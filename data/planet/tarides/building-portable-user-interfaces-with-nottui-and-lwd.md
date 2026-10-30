@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/06fbdcdb40efa879b814b744c5ea3fbf/fcfee
 authors:
 - Tarides
 source:
+keywords:
+- "applicative"
+- "count"
+- "functor"
+- "lwd"
+- "monad"
+- "nottui"
+- "notty"
+- "stretchable"
+- "utop"
+- "vcount"
 ---
 
 <p>At Tarides, we build many tools and writing UI is usually a tedious task. In this post we will see how to write functional UIs in OCaml using the <code>Nottui</code> &amp; <code>Lwd</code> libraries.</p>

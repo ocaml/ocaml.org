@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "acc"
+- "conditional"
+- "effect"
+- "expr"
+- "factorial"
+- "merlin"
+- "print_string"
+- "recursive"
+- "redefine"
+- "tail"
 ---
 
 

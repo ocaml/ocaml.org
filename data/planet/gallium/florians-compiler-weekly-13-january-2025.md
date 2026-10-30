@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "angeletti"
+- "effect handler"
+- "florian"
+- "functor"
+- "gabriel"
+- "gadt"
+- "merlin"
+- "pattern matching"
+- "review"
+- "scherer"
 ---
 
 

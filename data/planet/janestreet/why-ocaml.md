@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "accept"
+- "async"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "jane"
+- "ppx"
+- "street"
+- "why"
+- "yaron"
 ---
 
 <div class="video-container">

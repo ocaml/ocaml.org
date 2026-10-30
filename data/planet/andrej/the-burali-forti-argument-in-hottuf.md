@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Martin Escardo
 source:
+keywords:
+- "alpha"
+- "burali-forti"
+- "hset"
+- "mathcal"
+- "operatorname"
+- "ordinal"
+- "ordinals"
+- "triangleleft"
+- "univalence"
+- "universe"
 ---
 
 <p>This is joint work with <a href="https://www.uib.no/en/persons/Marcus.Aloysius.Bezem">Marc Bezem</a>, <a href="https://www.cse.chalmers.se/~coquand/">Thierry Coquand</a>, <a href="https://www.cse.chalmers.se/~peterd/">Peter Dybjer</a>.</p>

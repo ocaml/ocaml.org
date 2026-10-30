@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "checksum"
+- "disk"
+- "gpt"
+- "gptar"
+- "header"
+- "lba"
+- "mbr"
+- "opam-mirror"
+- "partition"
+- "tar"
 ---
 
 Hybrid GUID partition table and tar archive

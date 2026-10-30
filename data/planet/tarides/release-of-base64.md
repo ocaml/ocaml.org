@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/50a0344945c9df2a67b60ef32ee43a0f/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "base64"
+- "decode"
+- "decompress"
+- "encode"
+- "input"
+- "nocrypto"
+- "ocaml-base64"
+- "result0"
+- "rfc"
+- "topkg"
 ---
 
 <p>MirageOS is a library operating system written from the ground up in OCaml.

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    OCaml Platform Team\n  "
 source:
+keywords:
+- "async_ssl"
+- "cow"
+- "cowabloga"
+- "merlin"
+- "mirage-fs"
+- "opam"
+- "opium"
+- "ounit"
+- "stone"
+- "utop"
 ---
 
 <p>It has only been 18 months since the first release of OPAM, but it is already

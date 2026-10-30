@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "allocation"
+- "bytecode"
+- "garbage collection"
+- "interpreter"
+- "multicore"
+- "preprof"
+- "profile"
+- "profile_pc"
+- "profiler"
+- "queens"
 ---
 
 <p>This post describes a simple flat allocation profiler for OCaml 4.02 bytecode

@@ -9,6 +9,17 @@ authors:
 - Yawar Amin
 source:
 ignore:
+keywords:
+- "diff"
+- "dune"
+- "effect"
+- "expected"
+- "junit"
+- "output"
+- "sub"
+- "test"
+- "testing"
+- "unit"
 ---
 
 <p>THERE are various techniques and tools to do unit testing in OCaml. A small selection:</p>

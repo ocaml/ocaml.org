@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "contributors"
+- "growth"
+- "large"
+- "laying"
+- "managing"
+- "ocaml-opam-new-layout"
+- "opam"
+- "repository"
+- "submit"
 ---
 
 <p>Managing package manager constraints is getting difficult, particularly given the growth of the number of packages in the <a href="https://github.com/ocaml/opam-repository">opam repository</a>. I'm therefore laying out a new mechanism for the OCaml contributors to submit large package sets, such as those from <a href="https://janestreet.com">Jane Street</a>.</p>

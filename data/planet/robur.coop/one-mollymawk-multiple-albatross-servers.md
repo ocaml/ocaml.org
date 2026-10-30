@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "albatross"
+- "deploy"
+- "instance"
+- "instances"
+- "mollymawk"
+- "multiple"
+- "server"
+- "servers"
+- "unikernel"
+- "unikernels"
 ---

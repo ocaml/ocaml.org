@@ -9,4 +9,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "abb"
+- "callback"
+- "cohttp"
+- "descriptor"
+- "kqueue"
+- "libcurl"
+- "multi"
+- "poll_remove"
+- "socketfunction"
+- "terrateam"
 ---

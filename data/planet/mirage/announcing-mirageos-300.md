@@ -6,6 +6,17 @@ date: 2017-02-23T00:00:00-00:00
 preview_image:
 authors:
 - Mindy Preston
+keywords:
+- "between"
+- "changed"
+- "changes"
+- "deletions"
+- "files"
+- "flambda"
+- "insertions"
+- "mirage"
+- "mirageos"
+- "topkg-care"
 ---
 
 

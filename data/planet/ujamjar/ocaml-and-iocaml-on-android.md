@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "ability"
+- "couple"
+- "enter"
+- "gnuroot"
+- "neither"
+- "nexus"
+- "offer"
+- "opam"
+- "recently"
+- "top-levels"
 ---
 
 <p>Recently I was looking for an Ocaml solution for the Nexus 7. There are a 

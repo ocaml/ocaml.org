@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "bechamel"
+- "else_branch"
+- "first-class module"
+- "forcamla"
+- "health"
+- "if_branch"
+- "player"
+- "svg"
+- "typegist"
+- "vihl"
 ---

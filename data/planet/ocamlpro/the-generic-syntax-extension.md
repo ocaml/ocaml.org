@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "acc"
+- "convert_q"
+- "end"
+- "generic"
+- "num"
+- "percent"
+- "ppx"
+- "start"
+- "stop"
+- "syntax"
 ---
 
 <p>OCaml 4.01 with its new feature to disambiguate constructors allows to do a nice trick: a simple and generic syntax extension that allows to define your own syntax without having to write complicated parsetree transformers. We propose an implementation in the form of a ppx rewriter.</p>

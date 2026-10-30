@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "cgaffinetransform"
+- "cmx"
+- "ios"
+- "nstimer"
+- "ocamlc"
+- "ocamlopt"
+- "progress"
+- "uiapplication"
+- "uidevice"
+- "uilabel"
 ---
 
 <div class="date">August 12, 2014</div>

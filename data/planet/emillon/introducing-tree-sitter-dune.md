@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Etienne Millon
 source:
+keywords:
+- "action"
+- "action_name"
+- "dune"
+- "echo"
+- "injections"
+- "names"
+- "parser"
+- "strings"
+- "tree-sitter"
+- "with-stdout-to"
 ---
 
 <p>I made a <a href="https://tree-sitter.github.io/tree-sitter/">tree-sitter</a> plugin for

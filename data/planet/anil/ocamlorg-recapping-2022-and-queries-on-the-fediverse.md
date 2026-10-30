@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "activitypub"
+- "anil"
+- "docker"
+- "eio"
+- "icfp"
+- "integrated"
+- "launch"
+- "org"
+- "recap"
+- "recapping-ocaml-22"
 ---
 
 <p>I recap the OCaml community progress in 2022, which covers a number of bases ranging from

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "bytecode"
+- "jaked"
+- "javascript"
+- "js_of_ocaml"
+- "lwt"
+- "objects"
+- "ocamlbuild"
+- "ocamlfind"
+- "ocamljs"
+- "strings"
 ---
 
 <p>I am happy to announce version 0.3 of ocamljs. Ocamljs is a system for compiling OCaml to Javascript. It includes a Javascript back-end for the OCaml compiler, as well as several support libraries, such as bindings to the browser DOM. Ocamljs also works with <a href="http://jaked.github.com/orpc">orpc</a> for RPC over HTTP, and <a href="http://jaked.github.com/froc">froc</a> for functional reactive browser programming.</p> 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "aorai"
+- "calcium"
+- "e-acsl"
+- "frama-c"
+- "manual"
+- "manuals"
+- "plug-in"
+- "plugin-in"
+- "rte"
+- "v20"
 ---
 
 

@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "camlzip"
+- "landmarks"
+- "landmarks-speedscope"
+- "lwt_direct"
+- "menhir-lsp"
+- "menhirformat"
+- "monad"
+- "ocamlformat"
+- "opam-minver"
+- "zanuda"
 ---

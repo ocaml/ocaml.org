@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "aoah"
+- "html5"
+- "javascript"
+- "js_of_ocaml"
+- "langdetect"
+- "metaprogramming"
+- "n-gram"
+- "n-grams"
+- "wasm"
 ---

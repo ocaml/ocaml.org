@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Arthur Breitman\n  "
 source:
+keywords:
+- "alt-ergo"
+- "arthur"
+- "breitman"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "ocamlpro"
+- "opam"
+- "tezos"
 ---
 
 <p>A reflection on the new year&hellip; Today, Tezos is a global network and an

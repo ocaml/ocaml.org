@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "bin"
+- "binary"
+- "compiler-libs"
+- "distribution"
+- "drom"
+- "grew"
+- "growth"
+- "ocp-indent"
+- "opam-bin"
+- "size"
 ---
 
 <p></p>

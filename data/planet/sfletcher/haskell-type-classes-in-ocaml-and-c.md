@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "bool"
+- "class"
+- "from_int"
+- "itt"
+- "mul"
+- "num"
+- "print_nested"
+- "show"
+- "std"
+- "template"
 ---
 
 

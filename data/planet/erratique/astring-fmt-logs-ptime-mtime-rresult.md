@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "astring"
+- "concurrency"
+- "declarative"
+- "fmt"
+- "logs"
+- "mtime"
+- "parser"
+- "ptime"
+- "rresult"
+- "unicode"
 ---
 
 A few new releases that went unannounced on this feed. Find about them on the <a href="https://erratique.ch/software">software page</a>.

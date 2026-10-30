@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "cmdliner"
+- "gesbert"
+- "ocamlfind"
+- "ocp-reloc"
+- "omd"
+- "opam"
+- "package"
+- "patch"
+- "pin"
+- "repository"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/picture_camel_pin.jpg"/></p>

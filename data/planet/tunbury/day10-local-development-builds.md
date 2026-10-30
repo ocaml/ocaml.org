@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "build"
+- "cache"
+- "compiler"
+- "day10"
+- "dune"
+- "layers"
+- "local"
+- "opam"
+- "opam-repository"
+- "opam_repository"
 ---

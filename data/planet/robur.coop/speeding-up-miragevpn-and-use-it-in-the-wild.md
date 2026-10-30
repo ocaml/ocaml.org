@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "buffer"
+- "cryptography"
+- "eduvpn"
+- "engineering"
+- "iperf3"
+- "mirageos"
+- "miragevpn"
+- "openvpn"
+- "performance"
+- "vpn"
 ---
 
 Performance engineering of MirageVPN, speeding it up by a factor of 25.

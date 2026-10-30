@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "assistant"
+- "availability"
+- "coq"
+- "installer"
+- "installers"
+- "libraries"
+- "macos"
+- "opam"
+- "platform"
+- "windows"
 ---
 
 

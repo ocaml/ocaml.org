@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/75aa6a08abad8cf90f73165784e4a324/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "bare-metal"
+- "curly"
+- "ffmpeg"
+- "irmin-unix"
+- "jack"
+- "mirageos"
+- "retreat"
+- "rpi4"
+- "unikernel"
+- "unikernels"
 ---
 
 <p><a href="https://mirage.io/">MirageOS</a> is an OCaml ecosystem to construct <a href="https://en.wikipedia.org/wiki/Unikernel">unikernels</a>, i.e., minimal operating systems. Here, we write about our social and technical experience at the MirageOS retreat in Morocco, as well as the vibe and wonderful organisational details. To sum up the technical part, we worked on different facets of the MirageOS world: different kinds of unikernels, some groundwork for Raspberry Pi 4 bare-metal unikernels, and a workflow to leverage an existing deployment/orchestrating infrastructure. The MirageOS retreat was amazing!</p>

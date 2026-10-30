@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "bbjohn"
+- "bin"
+- "echo"
+- "exit"
+- "ios"
+- "iphoneos"
+- "ocamlopt"
+- "ocamloptrev"
+- "ocamlxarm"
+- "sdk"
 ---
 
 <div class="date">December 9, 2014</div>

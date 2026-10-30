@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "functional"
+- "functional programming"
+- "group"
+- "industrial"
+- "perceptions"
+- "perspectives"
+- "product"
+- "programming"
+- "scott"
+- "within"
 ---
 
 <p>Paper on our experiences with writing the Xen control stack in OCaml at ICFP 2010</p>

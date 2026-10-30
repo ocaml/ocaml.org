@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "activity"
+- "companies"
+- "farewell"
+- "founded"
+- "founded-tarides"
+- "irmin"
+- "mirageos"
+- "paris"
+- "plan-26-04"
+- "tarides"
 ---
 
 <p>I'm delighted to report that I'm helping my long-time collaborator <a href="https://github.com/samoht" class="contact">Thomas Gazagnaire</a> to return to his OCaml roots from Docker. He has just founded Tarides, a startup in Paris with the goal of advancing the open source OCaml ecosystem.</p>

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aug"
+- "concurrency"
+- "embeddings"
+- "evidence"
+- "forester"
+- "js_of_ocaml"
+- "prometheus"
+- "ranger"
+- "tessera"
+- "zarr"
 ---

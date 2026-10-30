@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Pierrick Couderc\n  "
 source:
+keywords:
+- "a_funct"
+- "cmx"
+- "functor"
+- "functors"
+- "mylib"
+- "p_sig"
+- "pack"
+- "packs"
+- "struct"
+- "units"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/train.jpg" alt=""/></p>

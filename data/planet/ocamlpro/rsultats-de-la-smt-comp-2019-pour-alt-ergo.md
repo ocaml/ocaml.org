@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Albin Coquereau\n  "
 source:
+keywords:
+- "alt-ergo"
+- "alt-ergo-participation-to-the-smt-comp-2019"
+- "conjointes"
+- "distribue"
+- "etes"
+- "maintenu"
+- "resultats"
+- "sat"
+- "smt-comp"
+- "voir"
 ---
 
 <p>Les r&eacute;sultats de la comp&eacute;tition SMT-COMP 2019 ont &eacute;t&eacute; publi&eacute;s au whorkshop SMT de la <a href="http://smt2019.galois.com/">22e conf&eacute;rence SAT</a>. Nous &eacute;tions fiers d&rsquo;y participer pour la deuxi&egrave;me ann&eacute;e cons&eacute;cutive, surtout depuis qu&rsquo;Alt-Ergo <a href="https://ocamlpro.com/blog/2019_02_11_whats-new-for-alt-ergo-in-2018-here-is-a-recap">prend en charge</a> le standard <a href="http://smtlib.cs.uiowa.edu/">SMT-LIB 2</a>.</p>

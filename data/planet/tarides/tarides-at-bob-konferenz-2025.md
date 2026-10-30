@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/heart-berlin-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "bob"
+- "bobkonf"
+- "concurrency"
+- "conference"
+- "functional programming"
+- "konferenz"
+- "merlin"
+- "parallelism"
+- "perspective"
+- "tarides"
 ---
 
 <p><a href="https://bobkonf.de/2025/en/">BOB Konferenz</a> is a 10-year-old

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/junction-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "concurrency"
+- "eio"
+- "mirageos"
+- "mmap"
+- "nolibc"
+- "ocaml-solo5"
+- "ocaml-unikraft"
+- "parallelism"
+- "solo5"
+- "unikraft"
 ---
 
 <p>OCaml 5 brought significant changes to fundamental parts of the language – notably concurrency using effects and multithreaded parallelism. This has caused some features and tools compatible with OCaml 4.14 to be incompatible with the new update, and several projects at Tarides aim to restore compatibility where that is the case. In today’s post, we will focus on the efforts toward creating a <a href="https://mirage.io/">MirageOS</a> port for OCaml 5.</p>

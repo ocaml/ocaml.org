@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/c9e532147350a2b7972bde7040c6f3f6/68e58
 authors:
 - Tarides
 source:
+keywords:
+- "async"
+- "backtraces"
+- "cohttp"
+- "concurrency"
+- "domainslib"
+- "eio"
+- "functional programming"
+- "lwt"
+- "multicore"
+- "tutorial"
 ---
     
 <p>Thomas Leonard and Jonathan Ludlam hosted a <a href="https://icfp23.sigplan.org/details/icfp-2023-tutorials/4/Porting-Lwt-applications-to-OCaml-5-and-Eio">tutorial on porting Lwt applications to OCaml 5 and Eio</a> at arguably the world's largest functional programming conference: <a href="https://icfp23.sigplan.org">ICFP</a>. The tutorial is a great introduction to Eio, with a clear step-by-step approach that is accessible to developers of different experience levels.</p>

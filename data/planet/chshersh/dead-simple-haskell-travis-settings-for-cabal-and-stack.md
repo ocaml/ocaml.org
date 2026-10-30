@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "cabal"
+- "chshersh"
+- "ghc"
+- "haskell"
+- "hlint"
+- "stack"
+- "stack_yaml"
+- "travis"
+- "travis_build_dir"
+- "yaml"
 ---
 
 Travis CI settings for Haskell projects with cabal and stack

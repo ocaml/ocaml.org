@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "bluesky"
+- "carbon"
+- "concurrency"
+- "credits"
+- "ecology"
+- "eio"
+- "embeddings"
+- "evidence"
+- "self-hosting"
+- "tessera"
 ---

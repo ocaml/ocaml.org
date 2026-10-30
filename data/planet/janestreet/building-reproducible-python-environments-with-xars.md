@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/building-reproducible-python-environm
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "conda"
+- "environment"
+- "environments"
+- "nfs"
+- "nightly"
+- "notebooks"
+- "python"
+- "xar"
+- "xars"
 ---
 
 <p>Our traders and researchers love Python for its agility and for its huge

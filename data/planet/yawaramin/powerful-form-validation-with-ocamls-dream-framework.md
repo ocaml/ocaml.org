@@ -9,6 +9,17 @@ authors:
 - Yawar Amin
 source:
 ignore:
+keywords:
+- "accept-terms"
+- "accept_terms"
+- "add_user"
+- "admin"
+- "dream"
+- "dream_html"
+- "email"
+- "form"
+- "utop"
+- "validation"
 ---
 
 <p>I'VE been a long-time proponent of the power of HTML forms and how natural they make it to build web pages that allow users to input data. Recently, I got a chance to refurbish an old internal application we use at work using <a href="https://htmx.org/" rel="noopener noreferrer">htmx</a> and Scala's Play Framework. In this app we often use HTML forms to submit information. For example:<br>

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "cookies"
+- "day"
+- "dec"
+- "eio"
+- "publicsuffix"
+- "punycode"
+- "rfc"
+- "rfcs"
+- "uchar"
 ---

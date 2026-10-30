@@ -9,4 +9,15 @@ authors:
 - "Thomas Letan\u2019s Blog"
 source:
 ignore:
+keywords:
+- "caught"
+- "cece"
+- "claude"
+- "functional programming"
+- "glad"
+- "happened"
+- "hype"
+- "january"
+- "tinkerbell"
+- "vibecoding"
 ---

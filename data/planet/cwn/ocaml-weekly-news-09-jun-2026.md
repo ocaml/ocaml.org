@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "award"
+- "awsm"
+- "awso"
+- "awso-async"
+- "awso-cli"
+- "awso-eio"
+- "awso-lwt"
+- "awso-sync"
+- "dissertation"
+- "ec2"
 ---

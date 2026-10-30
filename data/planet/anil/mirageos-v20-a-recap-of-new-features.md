@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "announcing-mirageos-2"
+- "arm"
+- "devices"
+- "irmin"
+- "jan"
+- "labs"
+- "oxcaml"
+- "subsystem"
+- "tls"
 ---
 
 <p>This is a big release for us; after the first version came out earlier in the year, we added in support for ARM devices, a new storage subsystem called <a href="https://irmin.org">Irmin</a> and even a pure OCaml TLS stack.</p>

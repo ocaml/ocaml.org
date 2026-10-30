@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    OCamlPro\n  "
 source:
+keywords:
+- "GADT"
+- "alesia"
+- "approfondir"
+- "flambda"
+- "formation"
+- "formations"
+- "novembre"
+- "ocamlpro"
+- "occasion"
+- "opam"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/trainings_2019.png" alt=""/></p>

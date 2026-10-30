@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "bcode"
+- "company"
+- "condolences"
+- "distress"
+- "employees"
+- "girlfriend"
+- "him"
+- "his"
+- "mak"
+- "michael"
 ---
 
 

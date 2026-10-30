@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "anyif"
+- "arrow"
+- "clickhouse"
+- "column"
+- "columns"
+- "filename"
+- "parquet"
+- "parquet_reader"
+- "seconds"
+- "table"
 ---
 
 <p>Yesterday I wrote about the amazing performance of Apache Parquet files; today I reflect on how that translates into an actual application reading Parquet files using the OCaml wrapper of Apache’s C++ library.</p>

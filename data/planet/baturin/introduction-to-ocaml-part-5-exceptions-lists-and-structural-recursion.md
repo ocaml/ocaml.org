@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "element"
+- "exception"
+- "exceptions"
+- "immutability"
+- "inductive"
+- "lists"
+- "recursion"
+- "structural"
+- "tail"
+- "tail recursion"
 ---
 
 

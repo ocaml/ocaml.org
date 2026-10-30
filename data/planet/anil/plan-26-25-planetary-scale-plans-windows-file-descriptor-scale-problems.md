@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "GADT"
+- "attenborough"
+- "eio"
+- "geospatial"
+- "iocp"
+- "overlapped"
+- "planetary"
+- "propl"
+- "sir"
+- "windows"
 ---

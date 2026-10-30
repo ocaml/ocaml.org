@@ -11,4 +11,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "alias"
+- "batman"
+- "cosmic"
+- "first_appearance"
+- "hero"
+- "module system"
+- "powers"
+- "ppx_fields_conv"
+- "records"
+- "strength"
 ---

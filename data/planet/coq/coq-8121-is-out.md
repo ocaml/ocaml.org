@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "advertised"
+- "coq"
+- "coqdoc"
+- "coqide"
+- "inconsistency"
+- "monomorphic"
+- "search"
+- "side-effects"
+- "ssreflect"
+- "tactic"
 ---
 
 

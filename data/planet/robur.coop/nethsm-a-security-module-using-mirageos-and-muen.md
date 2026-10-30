@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "cryptography"
+- "elliptic"
+- "hsm"
+- "mirageos"
+- "muen"
+- "nethsm"
+- "nitrohsm"
+- "nitrokey"
+- "securely"
+- "security"
 ---

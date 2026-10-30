@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "arm-as-to-ios"
+- "armios"
+- "assembler"
+- "bin"
+- "clang"
+- "ios"
+- "ldr"
+- "progress"
+- "r12"
+- "xcode"
 ---
 
 <div class="date">May 31, 2014</div>

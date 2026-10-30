@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "dns"
+- "dnsvizor"
+- "domain"
+- "mirageos"
+- "nameserver"
+- "nameservers"
+- "nxdomain"
+- "privacy"
+- "query"
+- "rfc"
 ---
 
 

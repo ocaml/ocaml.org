@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "addr"
+- "bap"
+- "find_section_by_name"
+- "iter"
+- "mem"
+- "memory"
+- "res"
+- "rodata"
+- "section"
+- "seq"
 ---
 
 <p>This post explores a portion of the BAP API that may be useful when interacting

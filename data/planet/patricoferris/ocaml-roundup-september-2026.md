@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "curl"
+- "functional programming"
+- "lough"
+- "merlin"
+- "neagh"
+- "ppx_deriving_yaml"
+- "ppx_deriving_yamlx"
+- "ppxlib"
+- "repr"
+- "rtree"
 ---

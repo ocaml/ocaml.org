@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "b11188ba-0f97-4ec4-b372-fa3cea0821ab-1"
+- "delivered"
+- "online"
+- "outlining"
+- "pandemic"
+- "platform"
+- "state"
+- "steps"
+- "strengthen"
 ---
 
 <p>Talk on the state of the OCaml Platform in 2020</p>

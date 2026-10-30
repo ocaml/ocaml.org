@@ -8,6 +8,17 @@ authors:
 - Yawar Amin
 source:
 ignore:
+keywords:
+- "dream"
+- "dream-html"
+- "dune"
+- "namespacing"
+- "opam"
+- "packages"
+- "searchability"
+- "synopsis"
+- "tag"
+- "tags"
 ---
 
 <h2>

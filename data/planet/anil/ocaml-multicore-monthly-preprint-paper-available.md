@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "icfp"
+- "monthly"
+- "multicore"
+- "multicore-monthly-apr20"
+- "onto"
+- "paper"
+- "parallelism"
+- "preprint"
+- "retrofitting"
+- "sivaramakrishnan"
 ---
 
 <p>In the April OCaml multicore monthly, we have a preprint available of our ICFP submission about the OCaml 5 multicore runtime.

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "cross-platform"
+- "distributed"
+- "isc"
+- "license"
+- "mirror"
+- "ocaml-ctypes"
+- "opam"
+- "sdl"
+- "thin"
+- "tsdl"
 ---
 
 <p>First release of Tsdl, thin bindings to SDL for OCaml.</p>

@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "continuation"
+- "contract"
+- "instruction"
+- "liquidity"
+- "michelson"
+- "parameter"
+- "storage"
+- "tz1brr6c9py3ssfbdu7qxdhsz3pvnrdwf68a"
+- "vote"
+- "votes"
 ---
 
 <p>As a tradition, we took part in this year's <a href="https://jfla.inria.fr/index.html"> Journ&eacute;es Francophones des Langages Applicatifs</a> (JFLA 2018) that was chaired by LRI's Sylvie Boldo and hosted in Banyuls the last week of January. That was a nice opportunity to present a <a href="https://twitter.com/OCamlPro/status/956574674477047808">live demo</a> of a multisignature smart-contract entirely written in the Liquidity language designed at OCamlPro, and deployed live on the Tezos alphanet <em>(the slides are now available, see at the end of the post)</em>.</p>

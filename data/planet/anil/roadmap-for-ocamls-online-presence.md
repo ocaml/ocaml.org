@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "decade"
+- "edition"
+- "lays"
+- "online"
+- "overhaul"
+- "presence"
+- "recoil"
+- "roadmap"
+- "roadmap-ocamlorg-v3"
 ---
 
 <p>After a decade of good service, it's time to overhaul OCaml's online presence

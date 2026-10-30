@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/really-low-latency-multipliers-and-cr
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "cryptography"
+- "fpga"
+- "latency"
+- "mod"
+- "montgomery"
+- "multiplier"
+- "ozturk"
+- "rbr"
+- "rivest"
+- "vdf"
 ---
 
 <p>At Jane Street, we have some experience using FPGAs for low-latency

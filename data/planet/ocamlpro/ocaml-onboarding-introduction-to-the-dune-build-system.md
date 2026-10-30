@@ -11,6 +11,17 @@ authors:
 - "\n    Raja Boujbel\n  "
 source:
 ignore:
+keywords:
+- "build"
+- "dune"
+- "executable"
+- "helloer"
+- "helloer_lib"
+- "monad"
+- "ocamlers"
+- "project"
+- "stanza"
+- "test"
 ---
 
 <p></p>

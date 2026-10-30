@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "coherently"
+- "coordinate"
+- "madhavapeddy"
+- "matured"
+- "platform"
+- "sep"
+- "state"
+- "tradition"
+- "yearly"
 ---
 
 <p>Annual update on the OCaml Pltform at ICFP</p>

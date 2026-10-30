@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "alt-ergo"
+- "fold"
+- "garbage collection"
+- "mapl"
+- "maps"
+- "merge_disjoint_maps"
+- "nq_r1"
+- "nq_r2"
+- "ocp-memprof"
+- "secs"
 ---
 
 <p>In this blog post, we explain how <code>ocp-memprof</code> helped us identify a piece of code in Alt-Ergo that needed to be improved. Simply put, a function that merges two maps was performing a lot of unnecessary allocations, negatively impacting the garbage collector's activity. A simple patch allowed us to prevent these allocations, and thus speed up Alt-Ergo's execution.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "compiler"
+- "diffs"
+- "installer"
+- "ios"
+- "ocamlxarm"
+- "ocamlxarm-4"
+- "opam"
+- "pansophical"
+- "psellos"
+- "svn"
 ---
 
 <div class="date">August 21, 2014</div>

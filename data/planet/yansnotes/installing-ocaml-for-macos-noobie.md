@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "eclipse"
+- "installing"
+- "lib"
+- "libx11"
+- "merlin"
+- "ocaide"
+- "ocamlmerlin"
+- "vim"
+- "x11"
+- "xquartz"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    David Allsopp (OCamlLabs)\n  "
 source:
+keywords:
+- "announcing"
+- "bin"
+- "candidate"
+- "curl"
+- "dockerfile"
+- "opam"
+- "rc2"
+- "root"
+- "showstoppers"
+- "unannounced"
 ---
 
 <p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-0-rc2/8042">Discuss</a>!</em></p>

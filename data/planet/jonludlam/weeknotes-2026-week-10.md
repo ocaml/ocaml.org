@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "atomsphere"
+- "bearpark"
+- "blowing"
+- "carbon"
+- "notebook"
+- "notebooks"
+- "odoc"
+- "quarto"
+- "runner"
+- "weeknotes"
 ---

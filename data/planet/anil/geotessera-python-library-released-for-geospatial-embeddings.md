@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "bin"
+- "classification"
+- "eio"
+- "embeddings"
+- "geojson"
+- "geospatial"
+- "geotessera"
+- "metadata"
+- "tessera"
+- "uvx"
 ---
 
 <p>We've been having great fun at the <a href="https://www.cst.cam.ac.uk/research/eeg">EEG</a>

@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/applied-PL-research/compiler3d.jpg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "ambitious"
+- "async"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "jane"
+- "module system"
+- "ppx"
+- "research"
+- "street"
 ---
 
 <p>As our Tools &amp; Compilers team has grown, the kinds of projects we work

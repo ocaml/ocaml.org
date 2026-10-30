@@ -7,6 +7,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "graphical"
+- "hat"
+- "jones"
+- "libguestfs"
+- "parser"
+- "rhel"
+- "richard"
+- "risc-v"
+- "wordpress"
+- "xavierbot"
 ---
 
 <p>Or at least he now has his own <a href="http://git.annexia.org/?p=xavierbot.git%3Ba=summary">git repository</a>.</p>

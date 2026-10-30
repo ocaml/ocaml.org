@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "confirmed"
+- "cryptography"
+- "eio"
+- "handshake"
+- "initiator"
+- "mkernel"
+- "responder"
+- "unikernel"
+- "wireguard"
 ---

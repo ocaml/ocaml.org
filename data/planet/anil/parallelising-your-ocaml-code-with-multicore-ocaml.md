@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "jaffer"
+- "kelly"
+- "multicore"
+- "parallelise"
+- "parallelising"
+- "parallelizing"
+- "parimala"
+- "sadiq"
+- "sudha"
+- "workshop"
 ---
 
 <p>Paper on how to parallelise OCaml code at the OCaml Workshop</p>

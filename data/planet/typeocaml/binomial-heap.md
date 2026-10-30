@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "binomial"
+- "bt1"
+- "bt2"
+- "heap"
+- "insert"
+- "logn"
+- "merge"
+- "r-1"
+- "rank"
+- "tree"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/03/binomial_heap.jpg#hero" alt=""/></p>

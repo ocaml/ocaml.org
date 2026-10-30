@@ -7,6 +7,15 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "about"
+- "architecture"
+- "help"
+- "introduction"
+- "library"
+- "little"
+- "optint"
+- "support"
 ---
 
 An introduction about optint, a little library to help you to support 32-bits architecture and 64-bits architecture

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Pierrick Couderc\n  "
 source:
+keywords:
+- "cmx"
+- "compilation"
+- "functor"
+- "mli"
+- "odd"
+- "pack"
+- "packs"
+- "recursive"
+- "tset"
+- "units"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/train.jpg" alt=""/></p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "async"
+- "dune"
+- "foo"
+- "incremental"
+- "lwt"
+- "monad"
+- "ppx"
+- "ppx_import"
+- "public_name"
+- "workspace"
 ---
 
 <p>Now that 1.0.0 has been released, the team took a break from dune affairs.

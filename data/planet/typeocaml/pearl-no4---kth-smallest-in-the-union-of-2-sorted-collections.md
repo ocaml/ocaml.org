@@ -9,6 +9,17 @@ preview_image: http://typeocaml.com/content/images/2017/10/cube-2.jpg
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "collections"
+- "element"
+- "kth"
+- "merge"
+- "middle"
+- "pearl"
+- "rank"
+- "search"
+- "smallest"
+- "sorted"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2017/10/cube-2-1.jpg#hero" alt="hero"/></p>

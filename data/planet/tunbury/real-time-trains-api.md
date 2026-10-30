@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "eio"
+- "kent"
+- "pancras"
+- "plumstead"
+- "ppx_deriving_yojson"
+- "rainham"
+- "ramsgate"
+- "rtt"
+- "victoria"
+- "yojson"
 ---
 
 <p>After the Heathrow substation electrical fire, I found myself in Manchester with a long train ride ahead.  Checking on <a href="https://www.realtimetrains.co.uk">Real Time Trains</a> for the schedule I noticed that they had an API.  With time to spare, I registered for an account and downloaded the sample code from <a href="https://github.com/mirage/ocaml-cohttp">ocaml-cohttp</a>.</p>

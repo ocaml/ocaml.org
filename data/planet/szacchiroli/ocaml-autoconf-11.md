@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "autoconf"
+- "automake"
+- "deal"
+- "info"
+- "integrating"
+- "jones"
+- "macros"
+- "mini-tutorial"
+- "notably"
+- "richard"
 ---
 
 <h1>new OCaml Autoconf release: 1.1</h1>

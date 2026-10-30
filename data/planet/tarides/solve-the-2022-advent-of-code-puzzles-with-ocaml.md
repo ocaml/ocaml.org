@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/20794c5088bfe5e21a251bf2f821190f/10057
 authors:
 - Tarides
 source:
+keywords:
+- "advent"
+- "concurrency"
+- "garbage collection"
+- "merlin"
+- "mirageos"
+- "multicore"
+- "odoc"
+- "parallelism"
+- "puzzles"
+- "type inference"
 ---
 
 <p>Too many programmers only know OCaml through a functional programming language overview course at university. They erroneously believe OCaml is used primarily in academia rather than in the real world. Not only is OCaml already used in <a href="https://tarides.com/blog/2022-11-22-six-surprising-reasons-the-ocaml-programming-language-is-good-for-business">several prominent businesses</a>, it can also be used for fun projects, like the upcoming Advent of Code.</p>

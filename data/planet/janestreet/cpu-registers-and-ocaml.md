@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "array"
+- "cpu"
+- "len"
+- "ref"
+- "registers"
+- "sax"
+- "sxx"
+- "sxy"
+- "syy"
+- "unsafe_get"
 ---
 
 <p>Even though registers are a low-level CPU concept, having some knowledge about

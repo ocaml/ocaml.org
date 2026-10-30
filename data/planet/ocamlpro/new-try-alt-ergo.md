@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Albin Coquereau\n  "
 source:
+keywords:
+- "alt-ergo"
+- "debugs"
+- "dune"
+- "javascript"
+- "js_of_ocaml"
+- "options"
+- "panel"
+- "solver"
+- "try-alt-ergo"
+- "worker"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/screenshot_ask_altergo.jpg" alt=""/></p>

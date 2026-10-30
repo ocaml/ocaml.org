@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "administrator"
+- "dll"
+- "flexdll"
+- "glpk"
+- "lib"
+- "mccs"
+- "my-app"
+- "opam-client"
+- "opam-core"
+- "sha"
 ---
 
 <p>Most of the time, you don’t think about how your file is linked. We’ve come to love dynamically linked files with their small file sizes and reduced memory requirements, but there are times when the convenience of a single binary download from a GitHub release page is really what you need.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "causes"
+- "conformance"
+- "flaws"
+- "functional programming"
+- "kaloper-mersinjak"
+- "mirageos"
+- "not-quite-so-broken"
+- "nqsb-tls"
+- "security"
+- "tls"
 ---
 
 <h1>Not-quite-so-broken TLS in OCaml</h1>

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "concurrency"
+- "concurrent"
+- "dolan"
+- "effect"
+- "eliopoulos"
+- "functional programming"
+- "handlers"
+- "multicore"
+- "programming"
+- "spiros"
 ---

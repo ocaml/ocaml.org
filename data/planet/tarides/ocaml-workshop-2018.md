@@ -13,6 +13,17 @@ preview_image: https://icfp18.sigplan.org/getImage/carousel/skyline.jpg?14888943
 authors:
 - Tarides
 source:
+keywords:
+- "GADT"
+- "chair"
+- "committee"
+- "frisco"
+- "icfp"
+- "kennedy"
+- "organizing"
+- "program"
+- "submission"
+- "workshop"
 ---
 
 <p>The OCaml Users and Developers Workshop brings together industrial

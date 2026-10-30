@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "beta2"
+- "dvi"
+- "infrequently"
+- "md5sum"
+- "ocaml-4"
+- "rc1"
+- "rc2"
+- "sha512sum"
+- "tar"
+- "zip"
 ---
 
 

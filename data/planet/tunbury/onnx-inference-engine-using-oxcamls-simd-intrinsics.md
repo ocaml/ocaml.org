@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "a_byte"
+- "a_data"
+- "bigstring"
+- "f32x8"
+- "float32"
+- "get_f32u"
+- "kk4"
+- "onnx"
+- "oxcaml"
+- "zero_alloc"
 ---

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "checker"
+- "eio"
+- "html5"
+- "localname"
+- "message_collector"
+- "mutable"
+- "polymorphic variant"
+- "validation"
+- "validator"
 ---

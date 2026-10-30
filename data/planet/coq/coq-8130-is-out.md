@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "arrays"
+- "availability"
+- "chooses"
+- "coq"
+- "definitional"
+- "introduction"
+- "irrelevance"
+- "notations"
+- "persistent"
+- "sprop"
 ---
 
 

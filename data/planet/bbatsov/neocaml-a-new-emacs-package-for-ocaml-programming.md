@@ -10,6 +10,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "caml-mode"
+- "emacs"
+- "indentation"
+- "modes"
+- "neocaml"
+- "ocaml-ts-mode"
+- "ocp-indent"
+- "parser"
+- "treesitter"
+- "treesitter-powered"
 ---
 
 <p>I wasn’t an early adopter of <a href="https://www.masteringemacs.org/article/how-to-get-started-tree-sitter">TreeSitter in Emacs</a>, as usually such

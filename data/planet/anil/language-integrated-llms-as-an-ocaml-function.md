@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agent"
+- "deepseek"
+- "dsml"
+- "eio"
+- "flash"
+- "humpty"
+- "humpty-cpu"
+- "humpty-metal"
+- "llm"
+- "model"
 ---

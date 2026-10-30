@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/helloworld-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "casts"
+- "continuation"
+- "dune"
+- "effect"
+- "effect handler"
+- "garbage collection"
+- "javascript"
+- "js_of_ocaml"
+- "wasm"
+- "wasm_of_ocaml"
 ---
 
 <p>The first feature-complete release of <a href="https://github.com/ocaml-wasm/wasm_of_ocaml">Wasm_of_OCaml</a> (also known as WSOO) is out! A low-level virtual machine and portable compilation target, Wasm is popular with many developers thanks to its flexibility and wide compatibility.</p>

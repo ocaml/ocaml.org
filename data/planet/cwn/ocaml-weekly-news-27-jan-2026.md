@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "bancos"
+- "concurrency"
+- "csexp"
+- "csexp-query"
+- "eio"
+- "flambda"
+- "lwt_eio"
+- "mmap"
+- "ocurrent"
+- "slipshow"
 ---

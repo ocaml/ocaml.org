@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Tarides
 source:
+keywords:
+- "endobj"
+- "endstream"
+- "filter"
+- "flatedecode"
+- "ggg"
+- "kkk"
+- "nnn"
+- "obj"
+- "stream"
+- "vvv"
 ---
 
 <p>Position paper on

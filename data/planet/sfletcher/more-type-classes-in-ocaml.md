@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "applicative"
+- "exp"
+- "fmap"
+- "functor"
+- "map"
+- "monoid"
+- "pure"
+- "traversable"
+- "traverse"
+- "var"
 ---
 
 <html> <head>  <title>More type classes in OCaml</title> </head> <body> <h1>More type classes</h1><p><i><b>Author:</b> Joel Bj&ouml;rnson<br/>

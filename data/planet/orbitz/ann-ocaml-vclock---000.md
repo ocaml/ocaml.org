@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Orbitz
 source:
+keywords:
+- "ancestor"
+- "clock"
+- "clocks"
+- "determining"
+- "distributed"
+- "fleshed"
+- "prunable"
+- "riak"
+- "timestamps"
+- "vector"
 ---
 
 <p>

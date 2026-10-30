@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/3b138a9f13e3d1c08b71a08fd516fc3c/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "bpi"
+- "cybersecurity"
+- "france"
+- "innovation"
+- "iot"
+- "mirageos"
+- "radar"
+- "solutions"
+- "tarides"
+- "wavestone"
 ---
 
 <p><em>Cybersecurity is a growing concern for individuals and companies alike. At Tarides, security is at the centre of every solution we provide, and this year we have been recognised for our efforts! We&rsquo;ve been accepted to <a href="https://tarides.com/blog/2022-06-28-thales-cyber-station-f-selection">Cyber@StationF&rsquo;s acceleration program</a> and are now featured in the 2022 Cybersecurity Startup Radar.</em></p>

@@ -8,6 +8,17 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "charset"
+- "happy-eyeballs"
+- "httpcats"
+- "hurl"
+- "miou"
+- "multicore"
+- "ocaml-h1"
+- "routes"
+- "uri"
+- "vif"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2025.08.19.html#1">httpcats, ocaml-h1, vif, and hurl: a webstack for OCaml 5</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.08.19.html#2">Why Lean 4 replaced OCaml as my Primary Language</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.08.19.html#3">Reminder: You Can Still Come to Warsaw for FUN OCaml</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.08.19.html#4">Other OCaml News</a></li></ol>

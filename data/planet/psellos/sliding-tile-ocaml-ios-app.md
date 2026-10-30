@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "app"
+- "compiler"
+- "fad"
+- "ios"
+- "jigsaw"
+- "opam"
+- "puzzle"
+- "slide24"
+- "sliding"
+- "tile"
 ---
 
 <div class="date">May 18, 2015</div>

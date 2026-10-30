@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "andy"
+- "cordic"
+- "formal verification"
+- "fpga"
+- "fpgas"
+- "functor"
+- "hardcaml"
+- "parallelism"
+- "verilator"
+- "verilog"
 ---
 
 <p>With the vast amount of data we have these days for our <a href="https://anil.recoil.org/projects/plancomp">planetary computing</a> processing, it's naturally tempting to use more hardware offload. The obvious choice, GPGPUs, are not a great fit for the problem due to the difficulty of unlocking high data parallelism for geospatial data. So it's back to an old technology I worked on <a href="https://anil.recoil.org/papers/2011-fccm-cloudfpga">twelve years ago</a> in the form of <a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">FPGAs</a>!</p>

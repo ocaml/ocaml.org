@@ -12,4 +12,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "batman"
+- "first_appearance"
+- "flight"
+- "gadgets"
+- "powers"
+- "printing"
+- "strength"
+- "superhero"
+- "telepathy"
+- "utop"
 ---

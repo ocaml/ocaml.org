@@ -6,6 +6,17 @@ date: 2019-03-21T00:00:00-00:00
 preview_image:
 authors:
 - Mindy Preston
+keywords:
+- "advisory"
+- "affected"
+- "correction"
+- "hypervisor"
+- "memory"
+- "mirage-net-xen"
+- "mirageos"
+- "netchannel"
+- "opam"
+- "security"
 ---
 
 

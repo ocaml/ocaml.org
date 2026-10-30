@@ -7,6 +7,13 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "candidate"
+- "coq"
+- "download"
+- "now"
+- "page"
+- "release"
 ---
 
 

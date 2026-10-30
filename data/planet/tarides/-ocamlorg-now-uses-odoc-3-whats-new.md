@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "breadcrumbs"
+- "docs"
+- "documentation"
+- "dune"
+- "mirageos"
+- "odoc"
+- "org"
+- "pages"
+- "sidebars"
+- "users"
 ---

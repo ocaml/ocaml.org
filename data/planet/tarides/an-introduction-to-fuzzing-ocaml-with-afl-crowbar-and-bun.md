@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/4eed05522f6733d728f6dc01bbe33e09/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "afl"
+- "afl-fuzz"
+- "awesome_list"
+- "bun"
+- "crashes"
+- "crowbar"
+- "findings"
+- "fuzz"
+- "fuzz_me"
+- "fuzzing"
 ---
 
 <p><a href="http://lcamtuf.coredump.cx/afl/">American Fuzzy Lop</a> or AFL is a <em>fuzzer</em>: a program that tries to find bugs in

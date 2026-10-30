@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/f29bc7106b13c642c50f91913cbade3e/dcbfe
 authors:
 - Tarides
 source:
+keywords:
+- "agricultural"
+- "christmas"
+- "cloud-centric"
+- "decor"
+- "garlands"
+- "local-area"
+- "mirageos"
+- "offline-first"
+- "podcast"
+- "raspberry"
 ---
 
 <p>November has become MirageOS month! Between the upcoming official MirageOS 4.0 release, making custom Christmas Tree garlands

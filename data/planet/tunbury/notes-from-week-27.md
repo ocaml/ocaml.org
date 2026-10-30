@@ -9,4 +9,8 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "click"
+- "redirected"
+- "redirecting"
 ---

@@ -10,6 +10,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "dim"
+- "lwt"
+- "parser"
+- "pcre"
+- "ppx"
+- "ppx_regexp"
+- "ppx_tyre"
+- "regular"
+- "seq"
+- "tyre"
 ---
 
 

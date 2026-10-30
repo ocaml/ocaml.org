@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xavier Clerc
 source:
+keywords:
+- "alpha"
+- "automatized"
+- "bootstrap"
+- "compiler"
+- "enhanced"
+- "ocamljava"
+- "partially"
+- "semi-stable"
+- "site"
+- "x9c"
 ---
 
 <p>This site is replacing the previous one, hosted on <code>x9c.fr</code>. The code repository is published on <code>github.com</code>, where issues can be reported.</p>

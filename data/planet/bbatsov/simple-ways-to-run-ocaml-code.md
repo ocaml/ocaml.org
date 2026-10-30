@@ -10,6 +10,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "bin"
+- "bye"
+- "env"
+- "hello"
+- "ocamlfind"
+- "opam"
+- "print_endline"
+- "usr"
+- "utop"
+- "world"
 ---
 
 <p>When people think of OCaml they are usually thinking of compiling code to a

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "MirageOS"
+- "concurrency"
+- "current"
+- "domain"
+- "functional programming"
+- "ocamlpro"
+- "richelieu"
+- "scilab"
+- "typerex"
+- "typerex2"
 ---
 
 <p>From the early days of OCamlPro, people have been curious about our plans; they were asking how we worked at OCamlPro and what we were doing exactly. Now that we have started releasing projects more regularly, these questions come again. They are very reasonable questions, and have resolved to be more public and communicate more regularly. This post covers our activities from the beginning of 2013 and updates are scheduled on a monthly basis.</p>

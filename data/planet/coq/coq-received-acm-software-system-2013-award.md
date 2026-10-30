@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "acm"
+- "award"
+- "coq"
+- "ecole"
+- "lyon"
+- "paris-sud"
+- "polytechnique"
+- "received"
+- "sofware"
+- "thanking"
 ---
 
 

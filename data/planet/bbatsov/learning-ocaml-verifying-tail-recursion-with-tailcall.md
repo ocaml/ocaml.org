@@ -9,6 +9,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "acc"
+- "compiler"
+- "else"
+- "fact2"
+- "overkill"
+- "placed"
+- "tail-call"
+- "tail-recursive"
+- "tailcall"
+- "warns"
 ---
 
 <p>How can you be sure that an OCaml function you wrote is actually tail-recursive?

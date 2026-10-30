@@ -9,6 +9,17 @@ preview_image: http://libguestfs.org/virt-builder.svg
 authors:
 - Richard Jones
 source:
+keywords:
+- "compiler"
+- "fucking"
+- "libguestfs"
+- "python"
+- "ugh"
+- "virt-builder"
+- "virt-sysprep"
+- "why"
+- "written"
+- "xzcat"
 ---
 
 <p><img src="https://i0.wp.com/libguestfs.org/virt-builder.svg" width="250" style="float:right;"/></p>

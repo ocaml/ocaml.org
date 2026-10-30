@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    David Declerck\n  "
 source:
+keywords:
+- "blockchain"
+- "contract"
+- "dune"
+- "menhir"
+- "origin"
+- "owner"
+- "parser"
+- "solidity"
+- "solidity_parser"
+- "strongly-typed"
 ---
 
 <p align="center">

@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "dns"
+- "dnssec"
+- "dnsvizor"
+- "mirageos"
+- "nsec"
+- "nsec3"
+- "record"
+- "records"
+- "rrsig"
+- "unikernel"
 ---
 
 

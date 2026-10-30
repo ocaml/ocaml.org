@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "consolidate"
+- "door"
+- "madhavapeddy"
+- "massive"
+- "merged"
+- "multicore-monthly-jan22"
+- "recoil"
+- "taken"
+- "trunk"
 ---
 
 <p>After we got the massive OCaml 5.0 pull request merged, we've taken some time to consolidate the trunk branch of OCaml and start down the release path towards getting OCaml 5.0 out of the door.</p>

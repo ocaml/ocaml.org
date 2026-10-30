@@ -8,4 +8,15 @@ authors:
 - Ryan Gibb
 source:
 ignore:
+keywords:
+- "accessed"
+- "datatracker"
+- "dns"
+- "domain"
+- "effect"
+- "eon"
+- "ietf"
+- "internet"
+- "mirageos"
+- "nameserver"
 ---

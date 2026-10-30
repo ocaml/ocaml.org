@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "compiler"
+- "config"
+- "defined"
+- "documenting"
+- "field"
+- "files"
+- "git"
+- "minimised"
+- "opam"
+- "package"
 ---
 
 <p><a href="https://github.com/ocaml/opam/releases/tag/1.2.1">OPAM 1.2.1</a> has just been

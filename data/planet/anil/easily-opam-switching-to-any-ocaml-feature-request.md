@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "absolute"
+- "config"
+- "ocamlbuild"
+- "ocamlfind"
+- "official"
+- "opam"
+- "patch"
+- "pull"
+- "request"
+- "switch"
 ---
 
 <p>Gabriel Scherer <a href="http://gallium.inria.fr/blog/patch-review-on-github/">announced an

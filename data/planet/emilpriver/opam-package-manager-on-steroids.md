@@ -7,6 +7,11 @@ preview_image: https://priver.dev/images/ocaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "manager"
+- "opam"
+- "package"
+- "steroids"
 ---
 
 Opam: Package Manager on Steroids?

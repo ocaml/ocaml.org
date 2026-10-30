@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "bap"
+- "defun"
+- "dst"
+- "lisp"
+- "mem"
+- "primus"
+- "stmdb_upd"
+- "stride"
+- "t2stmdb_upd"
+- "u32"
 ---
 
 <h1>Defining instructions semantics using Primus Lisp (Tutorial)</h1>

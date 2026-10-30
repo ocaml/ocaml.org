@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "adam"
+- "evangelist"
+- "goodbye"
+- "koprowski"
+- "mathieu"
+- "mlstate"
+- "opa"
+- "sail"
+- "technological"
+- "tides"
 ---
 
 <p>Tides come and tides go.</p>

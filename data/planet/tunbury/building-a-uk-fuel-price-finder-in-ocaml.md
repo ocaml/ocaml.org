@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "absurdly"
+- "eio"
+- "finder"
+- "fuel"
+- "mutex"
+- "price"
+- "prices"
+- "stale"
+- "station"
+- "stations"
 ---

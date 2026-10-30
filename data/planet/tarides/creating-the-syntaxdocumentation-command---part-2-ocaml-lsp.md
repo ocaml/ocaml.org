@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/01f0fe82b9020a8cb67f092f27c60876/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "OCaml LSP"
+- "command"
+- "continuation"
+- "dispatch"
+- "hover"
+- "lsp"
+- "merlin"
+- "res"
+- "syntaxdocumentation"
+- "textdocument"
 ---
 
 <p>In the first part of this series, <a href="https://tarides.com/blog/2024-04-17-creating-the-syntaxdocumentation-command-part-1-merlin/">Creating the <code>SyntaxDocumentation</code> Command - Part 1: Merlin</a>, we explored how to create a new command in Merlin, particularly the <code>SyntaxDocumentation</code> command. In this continuation, we will be looking at the amazing OCaml LSP project and how we have integrated our <code>SyntaxDocumentation</code> command into it. OCaml LSP is a broad and complex project, so we will be limiting the scope of this article just to what's relevant for the <code>SyntaxDocumentation</code> command.</p>

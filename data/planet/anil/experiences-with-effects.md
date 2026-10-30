@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "craig"
+- "effect"
+- "effect-based"
+- "effects"
+- "experiences"
+- "ferguson"
+- "kelly"
+- "leonard"
+- "multicore"
+- "thomas"
 ---
 
 <p>Paper on programming with effects in OCaml</p>

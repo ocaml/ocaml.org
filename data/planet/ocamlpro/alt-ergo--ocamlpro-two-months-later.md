@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "alt-ergo"
+- "arithmetic"
+- "benchmark"
+- "ctrl-alt-ergo"
+- "forall"
+- "formulas"
+- "spark"
+- "theories"
+- "valid"
+- "why3"
 ---
 
 <p>As announced in <a href="https://ocamlpro.com/blog/2013_09_04_ocamlpro_highlights_august_2013">a previous post</a>, I joined OCamlPro at the beginning of September and I started working on Alt-Ergo. Here is a report presenting the tool and the work we have done during the two last months.</p>

@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base-image"
+- "boot"
+- "bsdinstall"
+- "efi"
+- "freebsd"
+- "freebsd-15"
+- "freebsd-update"
+- "loader"
+- "obuilder"
+- "rosemary"
 ---

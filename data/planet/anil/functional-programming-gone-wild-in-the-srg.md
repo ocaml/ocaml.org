@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "ciel"
+- "distributed"
+- "execution"
+- "hacking"
+- "lays"
+- "loads"
+- "ongoing"
+- "ranges"
+- "srg-fp"
 ---
 
 <p>We've been doing loads of OCaml programming in the Systems Research Group, and this blog post lays out some of the things going on. It ranges from OCaml hacking, over to the CIEL distributed execution engine, and even some Haskell hacking ongoing for distributed execution.</p>

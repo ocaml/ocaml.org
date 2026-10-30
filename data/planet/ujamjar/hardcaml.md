@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "designing"
+- "designs"
+- "domain"
+- "embedded"
+- "hardcaml"
+- "hardware"
+- "level"
+- "opensource"
+- "register"
+- "transfer"
 ---
 
 <p>An opensource domain specific language embedded in OCaml for designing and testing 

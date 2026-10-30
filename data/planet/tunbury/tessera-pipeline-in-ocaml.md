@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cpu"
+- "eio"
+- "gpu"
+- "marshalling"
+- "npy"
+- "onnx"
+- "python"
+- "pytorch"
+- "tessera"
+- "torch"
 ---

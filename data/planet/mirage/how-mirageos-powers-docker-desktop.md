@@ -6,6 +6,17 @@ date: 2022-04-06T00:00:00-00:00
 preview_image:
 authors:
 - Dave Scott
+keywords:
+- "containers"
+- "desktop"
+- "docker"
+- "ethernet"
+- "host"
+- "linux"
+- "mirageos"
+- "network"
+- "traffic"
+- "vpnkit"
 ---
 
 

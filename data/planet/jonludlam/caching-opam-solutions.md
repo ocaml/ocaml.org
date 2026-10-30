@@ -8,6 +8,17 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "atdgen-runtime"
+- "base-metaocaml-ocamlfind"
+- "bheap"
+- "binaryen-bin"
+- "charInfo_width"
+- "conduit-lwt"
+- "conf-autoconf"
+- "conf-bash"
+- "conf-cmake"
+- "dune-release"
 ---
 
 <section><h1><a href="https://jon.recoil.org/atom.xml#caching-opam-solutions" class="anchor"></a>Caching opam solutions</h1><ul class="at-tags"><li class="published"><span class="at-tag">published</span> <p>2025-09-09</p></li></ul><ul class="at-tags"><li class="notanotebook"><span class="at-tag">notanotebook</span> </li></ul><p>The <a href="https://github.com/ocurrent/ocaml-docs-ci">ocaml-docs-ci</a> system works by watching opam-repository for changes, and then when it notices a new package it performs an opam solve and builds the package, a prerequisite for building the documentation. In order to give the docs some stability, as the docs may well <a href="https://jon.recoil.org/04/semantic-versioning-is-hard.html" title="semantic-versioning-is-hard">depend upon your dependencies</a>, we currently cache the solve results so that a package will always be built with the same set of dependencies, even if a new version of one of those dependencies has been released.</p><p>The downside to this is that as time goes on, the number of distinct universes that we build increases, and docs get more and more out of date. So it's not necessarily the best thing to do, though it does mean we minimise the amount of time spent solving.</p><p>The alternative approach is that on every commit to opam-repository we could resolve for all packages and use the latest, greatest solution to build the docs. Using this approach we would maximise the sharing of builds and keep the total amount of required storage steadier. Of course, this would mean solving for every package on every commit to opam-repository, even if we didn't end up rebuilding all of them due to the way that the cache works.</p><p>One possibility that might be worth investigating is to cache the solutions - but then Leon Bambrick <a href="https://twitter.com/secretGeek/status/7269997868">advises us</a>:</p><p>and indeed it's not obvious what the best approach to cache invalidation is here. A sledgehammer approach would be to hook into the solver and note what questions it asks of opam-repository and record the responses. If any of these change, then it's safe to say that we need to recalculate. I had a quick look at this and checked what packages were involved in the solution of <code>ocaml</code> as this would represent a minimum set of packages that would affect virtually all packages. The list was big, but not <i>too</i> big:</p><pre>winpthreads, system-msvc, system-mingw, ocaml-variants, ocaml-system,

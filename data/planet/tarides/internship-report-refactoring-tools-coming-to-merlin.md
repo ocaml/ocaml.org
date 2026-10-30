@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "bold_tag"
+- "buf"
+- "expression"
+- "extracting"
+- "extraction"
+- "markup"
+- "merlin"
+- "pattern matching"
+- "refactoring"
 ---
 
 <p>Refactoring features have contributed to the popularity of editors like <a href="https://www.jetbrains.com/idea/">IntelliJ</a>, as well as certain programming languages whose editor support offers interactive mechanisms to manage code — <a href="https://gleam.run/language-server/">Gleam</a> being an excellent example. Even though OCaml has some features related to refactoring (such as <a href="https://discuss.ocaml.org/t/ann-merlin-and-ocaml-lsp-support-experimental-project-wide-renaming/16008">renaming occurrences</a>, <a href="https://ocaml.github.io/merlin/editor/emacs/#expression-construction">substituting typed holes</a> with expressions, and <a href="https://tarides.com/blog/2024-05-29-effective-ml-through-merlin-s-destruct-command/">case analysis</a> for pattern matching), the goal of my internship was to kickstart work on a robust set of features to enable the smooth integration of multiple complementary refactoring support commands.</p>

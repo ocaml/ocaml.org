@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "build_job"
+- "ci-analyse"
+- "current_ocluster"
+- "dummy_job"
+- "job"
+- "lwt"
+- "ocluster"
+- "ocurrent"
+- "remote_solve"
+- "start_with"
 ---

@@ -6,6 +6,17 @@ date: 2013-01-23T00:00:00-00:00
 preview_image:
 authors:
 - lpw25
+keywords:
+- "alternative"
+- "ast"
+- "attributes"
+- "camlp4"
+- "extensions"
+- "js_of_ocaml"
+- "parser"
+- "quotations"
+- "sexp"
+- "transformers"
 ---
 
 <p>Since its creation camlp4 has proven to be a very useful tool. People have used

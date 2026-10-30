@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/a-brief-trip-through-spacetime/spacet
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "allocated"
+- "async"
+- "core_kernel"
+- "graph"
+- "js_of_ocaml"
+- "prof_spacetime"
+- "spacetime"
+- "spacetime-8045"
+- "viewer"
+- "words"
 ---
 
 <p>Spacetime is a new memory profiling facility for OCaml to help find space leaks

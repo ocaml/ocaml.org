@@ -12,4 +12,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "c-c"
+- "c-d"
+- "dune"
+- "flymake"
+- "grammars"
+- "neocaml"
+- "opam"
+- "tree-sitter"
+- "tree-sitter-based"
+- "utop"
 ---

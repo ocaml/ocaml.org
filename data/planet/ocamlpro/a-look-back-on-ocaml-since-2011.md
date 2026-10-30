@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Blanc\n  "
 source:
+keywords:
+- "cheat"
+- "dune"
+- "flambda"
+- "functor"
+- "gadt"
+- "lwt"
+- "multicore"
+- "seq"
+- "sheets"
+- "uchar"
 ---
 
 <p><a href="https://ocamlpro.com/blog/2019_09_20_look_back_ocaml_since_2011"><img src="https://ocamlpro.com/blog/assets/img/ocaml-2011-e1600870731841.jpeg" alt="A look back on OCaml since 2011"/></a></p>

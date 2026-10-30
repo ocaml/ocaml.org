@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "abstract"
+- "bourne"
+- "bucklescript"
+- "compiler"
+- "compiles"
+- "concrete"
+- "js_of_ocaml"
+- "reasonml"
+- "syntax"
+- "translated"
 ---
 
 

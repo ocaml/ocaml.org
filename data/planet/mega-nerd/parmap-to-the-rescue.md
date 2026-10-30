@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "cpu"
+- "executable"
+- "faint"
+- "hoogle"
+- "intensive"
+- "line"
+- "parallelize"
+- "parmap"
+- "recollection"
+- "sequential"
 ---
 
 

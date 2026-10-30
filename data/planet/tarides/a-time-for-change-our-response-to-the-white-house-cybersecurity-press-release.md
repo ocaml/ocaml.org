@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/49e8f8de55480f86229c9b36c13926dd/4b5d0
 authors:
 - Tarides
 source:
+keywords:
+- "cybersecurity"
+- "effect"
+- "eio"
+- "formal"
+- "formal verification"
+- "garbage collection"
+- "measurability"
+- "multicore"
+- "report"
+- "unikernel"
 ---
 
 <p>As <a href="https://tarides.com/blog/2023-12-14-ocaml-memory-safety-and-beyond/">seasoned proponents of safety-by-design</a>, we were pleased to see the February 26th <a href="https://www.whitehouse.gov/oncd/briefing-room/2024/02/26/press-release-technical-report/">White House press release</a> titled &quot;Future Software Should Be Memory Safe.&quot; The accompanying report touches on important topics, most significantly regarding the critical importance of memory safety. The U.S. government's emphasis on secure-by-design measures in software development sets a commendable example in the global cybersecurity landscape.</p>

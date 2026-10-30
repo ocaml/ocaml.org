@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "container"
+- "container_id"
+- "containers"
+- "ctr"
+- "ctr_path"
+- "exec_result"
+- "ocaml-ci"
+- "ocluster-worker"
+- "orphan-test"
+- "snapshot"
 ---

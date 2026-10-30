@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Dario Pinto\n  "
 source:
+keywords:
+- "functional programming"
+- "grading"
+- "kickstarted"
+- "learn-ocaml"
+- "louis"
+- "platform"
+- "shepherded"
+- "teachers"
+- "unhospitable"
+- "world"
 ---
 
 <p></p>

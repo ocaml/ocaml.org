@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Pierre Chambart\n  "
 source:
+keywords:
+- "cond"
+- "continuation"
+- "control-flow"
+- "cps"
+- "flambda"
+- "flambda2"
+- "k_else"
+- "k_raise_exception"
+- "k_return_continuation"
+- "let_cont"
 ---
 
 <p>In this first post of <a href="https://ocamlpro.com/blog/2024_03_18_the_flambda2_snippets_0/">the Flambda2

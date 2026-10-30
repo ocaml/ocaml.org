@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aria"
+- "biodiversity"
+- "cacm"
+- "ceph"
+- "conference"
+- "conservation"
+- "evidence"
+- "feb"
+- "nature"
+- "publishing"
 ---

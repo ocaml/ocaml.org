@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "amazon"
+- "asin"
+- "book"
+- "drafts"
+- "e-book"
+- "functional programming"
+- "ocaml-book"
+- "proof-read"
+- "subsidiaries"
+- "www"
 ---
 
 <p>I&rsquo;ve written a concise but self-contained introduction to writing  computer programs with OCaml, suitable for the talented beginner to  programming, or someone trying functional programming or OCaml for the  first time.</p>

@@ -8,6 +8,17 @@ preview_image: https://repository-images.githubusercontent.com/6786166/88c78500-
 authors:
 - Caml INRIA
 source:
+keywords:
+- "atomic"
+- "domain"
+- "effect"
+- "effect handler"
+- "flambda"
+- "flexdll"
+- "ocamlopt"
+- "oct"
+- "opened"
+- "sep"
 ---
 
 

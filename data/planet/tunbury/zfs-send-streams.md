@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "crash-consistent"
+- "home"
+- "send"
+- "snapshot"
+- "tank"
+- "tar"
+- "vol"
+- "xfs"
+- "zfs"
+- "zstreamdump"
 ---
 
 <p>We often say that ZFS is an excellent replicated file system, but not the best <em>local</em> filesystem. This led me to think that if we run <code class="language-plaintext highlighter-rouge">zfs send</code> on one machine, we might want to write that out as a different filesystem. Is that even possible?</p>

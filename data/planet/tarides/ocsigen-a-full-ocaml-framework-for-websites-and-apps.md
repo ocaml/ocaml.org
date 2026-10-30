@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "concurrency"
+- "continuation"
+- "eio"
+- "framework"
+- "js_of_ocaml"
+- "multicore"
+- "ocsigen"
+- "parallelism"
+- "web"
+- "web development"
 ---

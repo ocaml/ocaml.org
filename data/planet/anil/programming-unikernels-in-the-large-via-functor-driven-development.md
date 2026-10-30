@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "development"
+- "driven"
+- "functor"
+- "large"
+- "module system"
+- "programming"
+- "radanne"
+- "unikernel"
+- "unikernels"
+- "via"
 ---

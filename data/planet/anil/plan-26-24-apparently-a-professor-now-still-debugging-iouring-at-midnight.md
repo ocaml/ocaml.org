@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "deepseek"
+- "dkim2"
+- "eio"
+- "email"
+- "embeddings"
+- "fixed-buffer"
+- "jun"
+- "parallelism"
+- "tessera"
+- "vouch"
 ---

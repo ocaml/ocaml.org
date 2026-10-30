@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "conf-perl"
+- "day10"
+- "dune-release"
+- "elapsed"
+- "eta"
+- "imguiml"
+- "shard"
+- "shards"
+- "y2017"
+- "zone"
 ---

@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "acc"
+- "dbf"
+- "domain"
+- "multicore"
+- "npy"
+- "polygon"
+- "polys"
+- "rings"
+- "shapefile"
+- "year_path"
 ---

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "hd1"
+- "hd2"
+- "merge"
+- "mergesort"
+- "recursion"
+- "stop"
+- "sum"
+- "task-1"
+- "task-2"
+- "task-3"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/12/infinity-cubes-room.jpg#hero" alt="recursion_reloaded"/></p>

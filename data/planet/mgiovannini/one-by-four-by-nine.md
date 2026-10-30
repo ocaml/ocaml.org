@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "add_char"
+- "buf"
+- "con"
+- "expr"
+- "label"
+- "neg"
+- "nines"
+- "prec"
+- "ratio"
+- "sqr"
 ---
 
 

@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "base"
+- "camlp4"
+- "camlp4-to-ppx"
+- "expr"
+- "functional programming"
+- "loc"
+- "lwt"
+- "ppx"
+- "syntax"
 ---
 
 <p>As with many projects in the OCaml world, at Jane Street we have been working on

@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "deployment"
+- "included"
+- "multicore"
+- "ocaml-ci"
+- "opam2web"
+- "raptor"
+- "reflink"
+- "ssd"
+- "talos"
+- "undertaken"
 ---
 
 <p>I am grateful for <a href="https://tarides.com">Tarides</a>’ sponsorship of my OCaml work. Below is a summary of my activities in Q2 2025.</p>

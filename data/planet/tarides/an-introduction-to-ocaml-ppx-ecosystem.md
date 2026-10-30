@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/0e8e776eb4ab9f596324bfe7e318b854/96c5f
 authors:
 - Tarides
 source:
+keywords:
+- "ast"
+- "ast_pattern"
+- "attribute"
+- "attributes"
+- "extension"
+- "payload"
+- "ppx"
+- "ppx-es"
+- "ppxlib"
+- "rewriter"
 ---
 
 <p>These last few months, I spent some time writing new OCaml PPX rewriters or contributing to existing

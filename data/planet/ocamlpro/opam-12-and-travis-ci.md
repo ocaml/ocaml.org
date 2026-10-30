@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:
+keywords:
+- "async"
+- "build-test"
+- "cohttp"
+- "depopts"
+- "lwt"
+- "oasis"
+- "ocaml_version"
+- "opam"
+- "ounit"
+- "travis"
 ---
 
 <p>The <a href="https://opam.ocaml.org/blog/opam-1-2-pin/">new pinning feature</a> of OPAM 1.2 enables new interesting

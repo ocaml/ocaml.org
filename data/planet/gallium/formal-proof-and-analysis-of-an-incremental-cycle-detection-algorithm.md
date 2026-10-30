@@ -6,6 +6,17 @@ date: 2019-02-12T08:00:00-00:00
 preview_image:
 authors:
 - gallium
+keywords:
+- "algorithm"
+- "amortized"
+- "asymptotic"
+- "bender"
+- "complexity"
+- "coq"
+- "cycle"
+- "detection"
+- "incremental"
+- "jacques-henri"
 ---
 
 

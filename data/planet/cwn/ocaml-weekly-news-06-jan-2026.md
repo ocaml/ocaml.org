@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "alice"
+- "ctypes"
+- "dependabot"
+- "mlx"
+- "posix-errno"
+- "posix-resource"
+- "posix-socket"
+- "posix-stat"
+- "posix-unistd"
+- "shakuhachi"
 ---

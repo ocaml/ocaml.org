@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    OCamlPro\n  "
 source:
+keywords:
+- "alt-ergo"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "formelles"
+- "lancement"
+- "monde"
+- "ocamlpro"
+- "opam"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/logo_ocp_2019.png" alt="2019 at OCamlPro"/></p>

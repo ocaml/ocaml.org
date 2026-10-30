@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "claude"
+- "day"
+- "directories"
+- "eio"
+- "override"
+- "test_home"
+- "xdg"
+- "xdg_example"
+- "xdge"
 ---

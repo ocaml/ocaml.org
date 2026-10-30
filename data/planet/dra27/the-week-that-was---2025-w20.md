@@ -8,6 +8,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "build-"
+- "compiler"
+- "fundmentally"
+- "incognito"
+- "nother"
+- "opam"
+- "oxcaml"
+- "ryan"
+- "spinning"
+- "week"
 ---
 
 <p>This week consisted of a lot of spinning plates, which is unfortunate because

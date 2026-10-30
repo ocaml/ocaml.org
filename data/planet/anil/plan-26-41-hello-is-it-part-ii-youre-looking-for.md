@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "foundations"
+- "functor"
+- "gps"
+- "oct"
+- "omniscient"
+- "ongoing"
+- "part"
+- "post-posix"
+- "science"
+- "supervised"
 ---

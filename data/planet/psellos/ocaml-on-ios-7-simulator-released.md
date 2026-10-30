@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "compiler"
+- "diffs"
+- "hacker"
+- "installer"
+- "ios"
+- "ocamlxsim"
+- "psellos"
+- "simulator"
+- "svn"
+- "voronoi"
 ---
 
 <div class="date">September 8, 2014</div>

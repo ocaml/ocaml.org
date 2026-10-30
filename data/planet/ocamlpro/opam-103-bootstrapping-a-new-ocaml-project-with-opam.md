@@ -13,6 +13,17 @@ authors:
 - "\n    Raja Boujbel\n  "
 source:
 ignore:
+keywords:
+- "afl-persistent"
+- "ahrocksdb"
+- "alcotest-async"
+- "alcotest-js"
+- "alcotest-mirage"
+- "bap-byteweight-frontend"
+- "helloer"
+- "opam"
+- "project"
+- "switch"
 ---
 
 <p></p>

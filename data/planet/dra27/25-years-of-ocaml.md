@@ -11,6 +11,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "bin"
+- "birthday"
+- "compiler"
+- "config"
+- "git"
+- "hip"
+- "hip_hip"
+- "hooray"
+- "makefile"
+- "nmake"
 ---
 
 <p>On this day in 1996, Xavier Leroy <a href="https://sympa.inria.fr/sympa/arc/caml-list/1996-05/msg00003.html">announced Objective Caml 1.00</a> (the language wasn’t officially called OCaml until <a href="https://sympa.inria.fr/sympa/arc/caml-list/2012-07/msg00179.html">4.00.0 in July 2012</a>). I wouldn’t start using OCaml for another 7 years; I think I may have dropped Research Machines Basic by then and was mucking around with a mix of Visual Basic, Turbo Pascal and Delphi, but I hadn’t yet got an email address either.</p>

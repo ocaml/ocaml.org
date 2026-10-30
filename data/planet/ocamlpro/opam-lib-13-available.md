@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "opam"
+- "opam-client"
+- "opam-core"
+- "opam-devel"
+- "opam-file-format"
+- "opam-format"
+- "opam-lib"
+- "opam-repository"
+- "opam-solver"
+- "opam-state"
 ---
 
 <h2>opam-lib 1.3</h2>

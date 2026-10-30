@@ -73,4 +73,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "animations"
+- "asciinema"
+- "cram"
+- "parser"
+- "recording"
+- "svg"
+- "tape"
+- "terminal"
+- "validate"
+- "vhs"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/2d393154f74a70cdef55681a90c7a38c/d850a
 authors:
 - Tarides
 source:
+keywords:
+- "atomic"
+- "counter"
+- "domain"
+- "dscheck"
+- "eio"
+- "incr"
+- "interleaving"
+- "interleavings"
+- "multicore"
+- "spawn"
 ---
 
 <p>Reaping the plentiful benefits of parallel programming requires the careful management of the intricacies that come with it. Tarides played a significant part in making <a href="https://github.com/ocaml-multicore/ocaml-multicore">OCaml Multicore</a> a reality, and we have continued to work on supporting tools that make parallel programming in OCaml as seamless as possible.</p>

@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "commit"
+- "cron-like"
+- "ell"
+- "git"
+- "git_commit_tested"
+- "goaljobs"
+- "hook"
+- "memoization"
+- "nag"
+- "periodic"
 ---
 
 <p>In <a href="https://rwmj.wordpress.com/2013/09/20/goaljobs-part-3/">part 3</a> I described how to write targets which can access network resources, and how to use memoization to make them run fast.  In this (last) part of the series, I&rsquo;ll describe the final feature of goaljobs &mdash; periodic jobs.</p>

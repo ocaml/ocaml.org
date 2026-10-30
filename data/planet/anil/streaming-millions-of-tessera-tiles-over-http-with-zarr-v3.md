@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "embeddings"
+- "geotessera"
+- "http"
+- "rgb"
+- "sharding"
+- "spatial"
+- "streaming"
+- "tessera"
+- "tiles"
+- "zarr"
 ---

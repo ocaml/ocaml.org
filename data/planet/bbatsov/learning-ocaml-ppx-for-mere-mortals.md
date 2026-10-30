@@ -8,4 +8,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "age"
+- "deriving"
+- "metaprogramming"
+- "metaquot"
+- "monad"
+- "ocaml-print-intf"
+- "ppx"
+- "ppx_jane"
+- "ppx_let"
+- "ppxlib"
 ---

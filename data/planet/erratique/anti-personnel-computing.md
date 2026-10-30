@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "anti-personnel"
+- "century"
+- "characterizing"
+- "computing"
+- "etymology"
+- "expense"
+- "interests"
+- "neologisms"
+- "noun"
+- "personal"
 ---
 
 Neologisms for the current computing era.

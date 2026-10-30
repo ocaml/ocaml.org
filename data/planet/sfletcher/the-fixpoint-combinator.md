@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "eqnarray"
+- "fac"
+- "fixpoint"
+- "lambda"
+- "left"
+- "mathbf"
+- "nonumber"
+- "right"
+- "rightarrow"
+- "vdash"
 ---
 
     <p> Consider the following recursive definition of the factorial

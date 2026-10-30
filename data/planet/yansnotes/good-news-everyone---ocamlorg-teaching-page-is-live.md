@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "everyone"
+- "january"
+- "march"
+- "menhir"
+- "news"
+- "october"
+- "page"
+- "resources"
+- "teachers"
+- "teaching"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

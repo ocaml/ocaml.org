@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "authoritative"
+- "block"
+- "dnsvizor"
+- "domain"
+- "lower-case"
+- "mirageos"
+- "nameservers"
+- "parser"
+- "trie"
+- "unikernel"
 ---
 
 Evaluating and engineering the performance of DNSvizor

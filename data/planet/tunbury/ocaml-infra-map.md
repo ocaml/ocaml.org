@@ -14,6 +14,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "ainia"
+- "array"
+- "jekyll"
+- "latitude"
+- "loan"
+- "longitude"
+- "machine"
+- "machines"
+- "map"
+- "markers"
 ---
 
 <p>Yesterday, we were talking about extending the current infrastructure database to incorporate other information to provide prompts to return machines to the pool of resources after they have completed their current role/loan, etc. There is also a wider requirement to bring these services back to Cambridge from Equinix/Scaleway, which will be the subject of a follow-up post. However, the idea of extending the database made me think that it would be amusing to overlay the machine’s positions onto Google Maps.</p>

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "bigarray"
+- "disclosure"
+- "eio"
+- "embargoes"
+- "embeddings"
+- "human"
+- "mirage-mtime"
+- "parser"
+- "prometheus"
+- "tessera"
 ---

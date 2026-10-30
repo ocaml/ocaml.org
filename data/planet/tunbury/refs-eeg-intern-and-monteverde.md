@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "containerd"
+- "cpu"
+- "functor"
+- "links"
+- "monteverde"
+- "new-item"
+- "refs"
+- "spl"
+- "trace"
+- "zfs"
 ---
 
 <p>In addition to the post from last week covering <a href="https://www.tunbury.org/2025/07/02/bon-in-a-box/">BON in a Box</a> and <a href="https://www.tunbury.org/2025/07/01/ocaml-functors/">OCaml Functors</a>, below are some additional notes.</p>

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/e6219992a464284115d27348b49c3910/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "afl"
+- "ast"
+- "crashes"
+- "crowbar"
+- "formatting"
+- "fuzzing"
+- "ocamlformat"
+- "ppx_import"
+- "program"
+- "programs"
 ---
 
 <p><a href="https://lcamtuf.coredump.cx/afl/">AFL</a> (and fuzzing in general) is often used

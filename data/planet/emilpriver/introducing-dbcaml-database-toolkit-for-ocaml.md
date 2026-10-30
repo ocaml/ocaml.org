@@ -7,6 +7,17 @@ preview_image: https://priver.dev/images/ocaml/dbcaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "connection"
+- "database"
+- "dbcaml"
+- "discord"
+- "pool"
+- "postgresql"
+- "queries"
+- "res"
+- "riot"
+- "toolkit"
 ---
 
 Introducing DBCaml, Database toolkit for OCaml

@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "coinciding"
+- "concurrency"
+- "defunctorisation"
+- "eio"
+- "known-issue"
+- "mdales"
+- "ocaml-related"
+- "signficant"
+- "slipping"
+- "vpnkit"
 ---
 
 

@@ -8,6 +8,17 @@ preview_image: //1.bp.blogspot.com/-C81JH1sLZ28/T-Svs29viNI/AAAAAAAAAUU/YThJ1cQS
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "bicubic"
+- "cubic"
+- "data"
+- "effect"
+- "final"
+- "float"
+- "interpolation"
+- "pixels"
+- "xi-1"
+- "yi-1"
 ---
 
 (First of a series) My process for going from a textbook implementation of an algorithm to an efficient production-grade version of it is to methodically apply meaning-preserving transformations that make the code progressively tighter. In this case I'll massage a na&iuml;ve 2D interpolator that selectively uses nearest-neighbor, bilinear and bicubic interpolation. I started by studying a basic 

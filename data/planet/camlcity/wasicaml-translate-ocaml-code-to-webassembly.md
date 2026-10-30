@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "bytecode"
+- "dsl"
+- "electron"
+- "foreign function interface"
+- "i32"
+- "js_of_ocaml"
+- "mywasm"
+- "wasi"
+- "wasicaml"
+- "webassembly"
 ---
 
 

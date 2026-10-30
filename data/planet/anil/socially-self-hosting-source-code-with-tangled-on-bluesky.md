@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "atproto"
+- "bluesky"
+- "domain"
+- "drwxr-sr-x"
+- "git"
+- "knot"
+- "knot-docker"
+- "mar"
+- "recoil"
+- "tangled"
 ---
 
 <p>I've been an avid user of <a href="https://github.com">GitHub</a> since its launch, and it really has revolutionised how communities come together to work on open source. In recent years though, I find myself utterly overwhelmed by its notifications and want to experiment with <a href="https://www.offlineimap.org/github/2016/03/08/github-pr-suck.html">alternative workflows</a>. This experimentation also has a more serious undertone due to the increasing need for <a href="https://www.boell.de/en/2025/01/24/trump-and-big-tech-europes-sovereignty-stake">data sovereignty</a> and so I'm starting to move my source code to self-hosted solutions that are less reliant on centralised services.</p>

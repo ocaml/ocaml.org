@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "baseos"
+- "curl-7"
+- "curl-minimal-7"
+- "dpkg"
+- "el9"
+- "ocaml-ci"
+- "ocurrent"
+- "powertools"
+- "subprocess"
+- "x86_64"
 ---

@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "aggregateapi"
+- "lazy"
+- "leak"
+- "leaks"
+- "response1"
+- "response2"
+- "space"
+- "strict"
+- "strictdata"
+- "userid"
 ---
 
 Guidelines for avoding space leaks in Haskell programs

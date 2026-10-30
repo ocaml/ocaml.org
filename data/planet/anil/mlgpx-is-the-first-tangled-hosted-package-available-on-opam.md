@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "atproto-powered"
+- "braved"
+- "dune"
+- "engine-agnostic"
+- "knot"
+- "mlgpx"
+- "opam"
+- "pipelines"
+- "spindle"
+- "tangled"
 ---
 
 <p>Since I wrote about the new <a href="https://anil.recoil.org/notes/disentangling-git-with-bluesky">ATProto-powered Tangled Git forge</a> a few months ago, it's come along by leaps and bounds!</p>

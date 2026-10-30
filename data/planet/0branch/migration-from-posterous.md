@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "anticipated"
+- "disqus"
+- "hakyll"
+- "marc"
+- "migrated"
+- "migration"
+- "posterous"
+- "shut"
+- "simpson"
+- "stylesheet"
 ---
 
 <div>

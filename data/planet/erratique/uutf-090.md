@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "character"
+- "characters"
+- "decoders"
+- "encode"
+- "opam"
+- "utf"
+- "utf-16"
+- "utf-16be"
+- "utf-16le"
+- "uutf"
 ---
 
 <p>First release of Uutf, a non-blocking streaming Unicode codec for OCaml.</p>

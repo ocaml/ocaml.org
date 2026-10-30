@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "assessed"
+- "course"
+- "exercises"
+- "functional programming"
+- "jupyterhub"
+- "lecture"
+- "lectures"
+- "slipshow"
+- "students"
+- "x-ocaml"
 ---

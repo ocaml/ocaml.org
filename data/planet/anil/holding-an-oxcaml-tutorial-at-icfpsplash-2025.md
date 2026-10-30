@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "eio"
+- "icfp"
+- "jane"
+- "multicore"
+- "ocurrent"
+- "oxcaml"
+- "parser"
+- "splash"
+- "street"
+- "tutorial"
 ---

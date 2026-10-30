@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "apt"
+- "doctor"
+- "hvt"
+- "mfat"
+- "ocamlformat"
+- "solo5"
+- "solo5-elftool"
+- "unikernels"
+- "utcp"
+- "vifu"
 ---

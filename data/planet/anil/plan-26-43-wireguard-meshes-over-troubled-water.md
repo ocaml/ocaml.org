@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "deepmind"
+- "forester"
+- "foundations"
+- "gtc"
+- "human-in-the-loop"
+- "mesh"
+- "sabbatical"
+- "science"
+- "tessera"
+- "wireguard"
 ---

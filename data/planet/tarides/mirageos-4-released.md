@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/393425633dfedffb8749b36f48537ebd/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "dune"
+- "mirage"
+- "mirageos"
+- "opam"
+- "opam-monorepo"
+- "privacy"
+- "secure"
+- "stubs"
+- "tunnels"
+- "unikernel"
 ---
 
 <p>Tarides is delighted to announce that <a href="https://mirage.io">MirageOS 4</a> is finally released! As core contributors to the project, we are proud to have been part of the journey to 4.0.</p>

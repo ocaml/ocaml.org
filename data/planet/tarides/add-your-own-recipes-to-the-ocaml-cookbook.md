@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "argon2"
+- "concurrency"
+- "cookbook"
+- "cryptography"
+- "hashed_pwd"
+- "parallelism"
+- "password"
+- "recipe"
+- "recipes"
+- "task"
 ---
 
 <p>Are you looking to learn something new about OCaml? Or do you want to contribute to the community in a new way? <a href="http://ocaml.org">OCaml.org</a> hosts the <a href="https://ocaml.org/cookbook">OCaml Cookbook</a>, a collection of projects that users can try out, as well as contribute new ones for others to enjoy. This post will introduce you to the concept, show you how to add new recipes, and hopefully leave you inspired to check it out for yourself!</p>

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    OCamlPro\n  "
 source:
+keywords:
+- "alt-ergo"
+- "annuelle"
+- "club"
+- "concernant"
+- "contraintes"
+- "membres"
+- "nouveaux"
+- "reunion"
+- "solveurs"
+- "utilisateurs"
 ---
 
 <p>La troisi&egrave;me r&eacute;union annuelle du Club des utilisateurs d&rsquo;Alt-Ergo a eu lieu le 1er avril ! Cette r&eacute;union annuelle est l&rsquo;endroit id&eacute;al pour passer en revue les besoins de chaque partenaire concernant Alt-Ergo. Nous avons eu le plaisir de recevoir nos partenaires pour discuter de la feuille de route concernant les d&eacute;veloppements et les am&eacute;liorations futures d&rsquo;Alt-Ergo.</p>

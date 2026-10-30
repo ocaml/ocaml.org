@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "body"
+- "domain"
+- "email"
+- "lwt"
+- "mollymawk"
+- "mrmime"
+- "notifications"
+- "smtp"
+- "unikernel"
 ---

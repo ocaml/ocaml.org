@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "in-memory"
+- "isc"
+- "mirror"
+- "normalization"
+- "normalizing"
+- "opam"
+- "text"
+- "unicode"
+- "uunf"
+- "v18"
 ---
 
 <p>First release of Uunf, an OCaml module for Unicode text normalization.</p>

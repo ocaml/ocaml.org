@@ -8,6 +8,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bare"
+- "config"
+- "git_store"
+- "info"
+- "irmin"
+- "irmin-git"
+- "lwt"
+- "opam"
+- "open"
+- "repo"
 ---
 
 <p>After Thomas’ talk today I wanted to try <a href="https://irmin.org">Irmin</a> for myself.</p>

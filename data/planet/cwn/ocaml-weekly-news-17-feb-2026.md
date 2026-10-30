@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "cmake"
+- "commonsbase_build"
+- "dk0"
+- "ocaml-ortools-arm64"
+- "or-tools"
+- "ortools"
+- "polymorphic variant"
+- "trace"
+- "yocaml"
+- "yocaml_liquid"
 ---

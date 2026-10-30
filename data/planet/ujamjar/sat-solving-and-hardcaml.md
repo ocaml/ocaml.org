@@ -7,6 +7,14 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "circuit"
+- "combining"
+- "equivalence"
+- "hardcaml"
+- "prove"
+- "sat"
+- "solver"
 ---
 
 <p>Combining a SAT solver with <a href="https://github.com/ujamjar/hardcaml">HardCaml</a> to prove 

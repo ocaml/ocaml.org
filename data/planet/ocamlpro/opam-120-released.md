@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "administration"
+- "behaviour"
+- "bug-trackers"
+- "extended"
+- "finer"
+- "format"
+- "opam"
+- "package"
+- "packagers"
+- "versatile"
 ---
 
 <p>We are very proud to announce the availability of OPAM 1.2.0.</p>

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "alpha_renaming_b"
+- "ff1"
+- "ff2"
+- "movq"
+- "ocp-bin"
+- "ocp-index"
+- "opam-installer"
+- "ppinfix"
+- "rdi"
+- "type inference"
 ---
 
 <h2>New Team Members</h2>

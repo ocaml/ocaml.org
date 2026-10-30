@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "apr"
+- "carbon"
+- "conservation"
+- "forest"
+- "government"
+- "js_of_ocaml"
+- "ocaml-ci"
+- "over-crediting"
+- "oxcaml"
+- "utop"
 ---

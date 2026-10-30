@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "arrows"
+- "functional programming"
+- "launchbury"
+- "macquarie"
+- "monad"
+- "python"
+- "shane"
+- "sydney"
+- "togra"
+- "tony"
 ---
 
 

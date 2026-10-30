@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "al2"
+- "aws"
+- "cdk"
+- "cloudformation"
+- "dune"
+- "lambda"
+- "merlin"
+- "ocaml-cfgen"
+- "sam"
+- "workflow"
 ---

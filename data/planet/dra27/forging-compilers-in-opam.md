@@ -22,4 +22,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "commit"
+- "compiler"
+- "conf"
+- "cute"
+- "ocaml-config"
+- "ocaml-system"
+- "opam"
+- "opam-repository"
+- "script"
+- "story"
 ---

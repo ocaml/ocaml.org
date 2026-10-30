@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Aurore Dombry\n  "
 source:
+keywords:
+- "domaine"
+- "etats"
+- "formules"
+- "industriels"
+- "langage"
+- "outils"
+- "preuve"
+- "recherche"
+- "smt"
+- "solveurs"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/picture_sylvainconchon.jpg" alt=""/></p>

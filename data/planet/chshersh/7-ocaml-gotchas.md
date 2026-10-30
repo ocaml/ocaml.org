@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "book"
+- "cancelled"
+- "is_novel"
+- "pending"
+- "rating"
+- "replicate_5"
+- "severity"
+- "type inference"
+- "utop"
+- "validating"
 ---
 
 Surprising OCaml behaviours

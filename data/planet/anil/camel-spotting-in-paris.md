@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "GADT"
+- "MirageOS"
+- "first-class module"
+- "jocaml"
+- "js_of_ocaml"
+- "ocamlclean"
+- "parallelism"
+- "pattern matching"
+- "tick"
+- "type inference"
 ---
 
 <p>I'm at the <a href="https://forge.ocamlcore.org/plugins/mediawiki/wiki/ocaml-meeting/index.php/OCamlMeeting2011">2011 OCaml Users Group</a> in Paris, reporting on some splendid talks this year. It looked like around 60-70 people in the room, and I had the pleasure of meeting users all the way from <a href="http://ru.linkedin.com/pub/dmitry-bely/4/955/717">Russia</a> to <a href="http://ashishagarwal.org/about/">New York</a> as well as all the Europeans!</p>

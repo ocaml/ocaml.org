@@ -8,6 +8,16 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "always"
+- "directly"
+- "haskell"
+- "imported"
+- "land"
+- "printf"
+- "quines"
+- "want"
+- "well"
 ---
 
 

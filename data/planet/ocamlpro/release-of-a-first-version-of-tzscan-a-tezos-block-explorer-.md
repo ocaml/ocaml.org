@@ -13,6 +13,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\t\n  "
 source:
+keywords:
+- "accounts"
+- "blocks"
+- "coinmarket"
+- "endorsements"
+- "explorer"
+- "iou"
+- "marketcap"
+- "nonces"
+- "tezos"
+- "tzscan"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/logo_tzscan_tezos_b_e.png" alt=""/></p>

@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "communication"
+- "farh"
+- "functional programming"
+- "mirageos"
+- "ocamlgraph"
+- "protocols"
+- "publically"
+- "simulating"
+- "simulator"
+- "xmpp"
 ---
 
 <h1>Simulating XMPP Group Communication</h1>

@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "appdata"
+- "containeradministrator"
+- "containerd"
+- "ctr"
+- "fsutil"
+- "hns"
+- "lock"
+- "namespace"
+- "netns"
+- "psm1"
 ---
 
 <p>Everything was going fine until I ran out of disk space. My NVMe, <code class="language-plaintext highlighter-rouge">C:</code> drive, is only 256GB, but I have a large, 1.7TB SSD available as <code class="language-plaintext highlighter-rouge">D:</code>. How trivial, change a few paths and carry on, but it wasn’t that simple, or was it?</p>

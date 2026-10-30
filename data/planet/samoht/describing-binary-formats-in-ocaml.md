@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "apid"
+- "clcw"
+- "codec"
+- "everparse"
+- "packet"
+- "packet_codec"
+- "scid"
+- "uint16be"
+- "uint32"
+- "wiresetu16be"
 ---

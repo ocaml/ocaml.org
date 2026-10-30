@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "alt-ergo"
+- "club"
+- "compiler"
+- "coquera"
+- "dune"
+- "flambda2"
+- "formulas"
+- "opam"
+- "psmt2-frontend"
+- "release"
 ---
 
 <p>A new release of Alt-Ergo (version 2.2.0) is available.</p>

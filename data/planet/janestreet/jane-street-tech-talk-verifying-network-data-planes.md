@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/jane-street-tech-talk-verifying-netwo
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "frenetic"
+- "functional programming"
+- "jane"
+- "nate"
+- "netkat"
+- "ppx"
+- "street"
+- "talk"
+- "tech"
 ---
 
 <p>After a summer hiatus, the Jane Street Tech Talks series is back on

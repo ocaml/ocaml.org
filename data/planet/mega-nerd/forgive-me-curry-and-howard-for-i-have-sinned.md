@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "base"
+- "curry"
+- "double"
+- "forgive"
+- "howard"
+- "iir2_base"
+- "minus1"
+- "minus2"
+- "process"
+- "sinned"
 ---
 
 

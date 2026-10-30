@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "anti"
+- "antiquotation"
+- "antiquotations"
+- "camlp4"
+- "expr"
+- "match_case"
+- "match_case0"
+- "quotation"
+- "quotations"
+- "revised"
 ---
 
 <p>(I set myself the goal of posting every week, but the <a href="http://skydeck.com/blog/announcements/yourcellphoneonline/">latest Skydeck release</a> has kept me busy, and it turned out I didn't understand the following as well as I thought.)<br/>

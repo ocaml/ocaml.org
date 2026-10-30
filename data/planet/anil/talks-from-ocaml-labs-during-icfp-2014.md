@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "fri"
+- "functor"
+- "icfp"
+- "js_of_ocaml"
+- "metaprogramming"
+- "parallelism"
+- "sep"
+- "symposium"
+- "talks"
+- "workshop"
 ---
 
 <p>It's the ever-exciting week of the <a href="https://icfpconference.org/">International Conference on

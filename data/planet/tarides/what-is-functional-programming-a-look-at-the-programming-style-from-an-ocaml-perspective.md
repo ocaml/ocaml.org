@@ -10,4 +10,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "functional"
+- "functional programming"
+- "immutability"
+- "module system"
+- "monad"
+- "parallelism"
+- "pattern matching"
+- "programming"
+- "style"
+- "type inference"
 ---

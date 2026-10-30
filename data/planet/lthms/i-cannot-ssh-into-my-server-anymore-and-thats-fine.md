@@ -11,4 +11,15 @@ authors:
 - "Thomas Letan\u2019s Blog"
 source:
 ignore:
+keywords:
+- "containers"
+- "coreos"
+- "ignition"
+- "immutability"
+- "lthms"
+- "podman"
+- "soap"
+- "systemd"
+- "tinkerbell"
+- "vultr"
 ---

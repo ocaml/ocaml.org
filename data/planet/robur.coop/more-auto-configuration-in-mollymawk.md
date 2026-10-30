@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "certificate"
+- "dhcp"
+- "functor"
+- "lease"
+- "mirage"
+- "mirageos"
+- "options"
+- "syslog"
+- "tcpip_stack_direct"
+- "unikernel"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/9eda20e4f60f86faa2c054524c483341/d0eb8
 authors:
 - Tarides
 source:
+keywords:
+- "accessibility"
+- "aesthetic"
+- "dark"
+- "landing"
+- "org"
+- "pages"
+- "revamp"
+- "tablet"
+- "teamwork"
+- "user"
 ---
 
 <p>The OCaml.org team, which includes members from Tarides, have been working hard to improve OCaml.org. In the first half of 2023, our primary focus was on the much-needed overhaul of OCaml.org's documentation and overall UX Design. We aspired to enhance user experience and accessibility throughout the year, with an eye on boosting accessibility as we progress. The transition to more semantic HTML was a crucial step in addressing the previously subpar accessibility. Simultaneously, we've been continuously working on revamping the Learn section, striving for a more streamlined and informative experience. The team's efforts also included ongoing UI enhancements and dark mode designs to align with modern preferences, which will be implemented shortly, promising a sleek and adaptable interface for users.</p>

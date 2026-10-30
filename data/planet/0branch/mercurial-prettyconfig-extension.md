@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "alias"
+- "aliases"
+- "byproduct"
+- "color"
+- "colourising"
+- "extension"
+- "globally"
+- "hg-aliases"
+- "mercurial"
+- "prettyconfig"
 ---
 
 <div>

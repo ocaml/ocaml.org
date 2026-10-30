@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "antibotty"
+- "attacks"
+- "biological"
+- "cryptography"
+- "defences"
+- "devices"
+- "ecology"
+- "internet"
+- "software"
+- "vulnerabilities"
 ---

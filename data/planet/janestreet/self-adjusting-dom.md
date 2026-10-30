@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "dom"
+- "incr"
+- "incremental"
+- "map"
+- "model"
+- "selected"
+- "temperature"
+- "text"
+- "uptime"
+- "vdom"
 ---
 
 <p>I&rsquo;ve been <a href="https://blog.janestreet.com/incrementality-and-the-web/">thinking recently</a> about how to

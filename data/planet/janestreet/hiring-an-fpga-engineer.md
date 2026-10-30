@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/hiring-an-fpga-engineer/fpga_hiring.j
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "engineer"
+- "fpga"
+- "functional programming"
+- "hardware"
+- "jane"
+- "ppx"
+- "street"
+- "synthesis"
 ---
 
 <p>Jane Street is looking to hire an engineer with experience in both

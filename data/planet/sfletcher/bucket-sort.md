@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "array"
+- "auxillary"
+- "bucket"
+- "buckets"
+- "equal-sized"
+- "insert"
+- "insertion_sort"
+- "iter"
+- "sort"
+- "subintervals"
 ---
 
 <html><head>

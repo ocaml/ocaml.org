@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "bocage"
+- "cpan"
+- "displaying"
+- "godi"
+- "godiva"
+- "linkdb"
+- "oasis"
+- "oasis-db"
+- "paperwork"
+- "sub-project"
 ---
 
 <p>OCamlCore, with support from the OCaml enthusiasts at <a href="http://janestreet.com">Jane Street</a>, is working on creating OASIS-DB, a <a href="http://en.wikipedia.org/wiki/CPAN">CPAN</a> for OCaml. The goals of OASIS-DB are to reduce the paperwork required to release and update an OCaml package, and to provide integrated management of library dependencies.</p>

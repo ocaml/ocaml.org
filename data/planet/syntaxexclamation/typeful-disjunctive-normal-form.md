@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Matthias Puech
 source:
+keywords:
+- "cnj"
+- "conj"
+- "disj"
+- "dsj"
+- "equiv"
+- "gadt"
+- "inl"
+- "inr"
+- "trans"
+- "union"
 ---
 
 <p>This is the answer to <a href="https://syntaxexclamation.wordpress.com/2014/04/15/big-step-disjunctive-normal-forms/" title="Big-step disjunctive normal forms">last post&rsquo;s puzzle</a>. I gave an algorithm to put a formula in disjunctive normal form, and suggested to prove it correct <i>in OCaml</i>, thanks to GADTs. My solution happens to include a wealth of little exercises that could be reused I think, so here it is.</p>

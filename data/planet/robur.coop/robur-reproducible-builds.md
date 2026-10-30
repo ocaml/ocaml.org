@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "albatross"
+- "albatross-client"
+- "apt"
+- "bridge"
+- "coop"
+- "em0"
+- "gpg"
+- "reproducible"
+- "robur"
+- "unikernel"
 ---

@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "bindings"
+- "button"
+- "gir"
+- "glib"
+- "gobject"
+- "gtk"
+- "gtk4"
+- "lablgtk3"
+- "ocgtk"
+- "polymorphic variant"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "analysis"
+- "arsenal"
+- "auditory"
+- "bap"
+- "bilingual"
+- "chats"
+- "disassembly"
+- "lasting"
+- "teach"
+- "tutorial"
 ---
 
 <p>It was a lasting issue that BAP didn&rsquo;t have a tutorial. We have an

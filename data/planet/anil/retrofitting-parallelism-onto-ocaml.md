@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "admirably"
+- "dolan"
+- "mostly-concurrent"
+- "multicore"
+- "onto"
+- "paper"
+- "parallelism"
+- "retrofitting"
+- "sivaramakrishnan"
+- "stephen"
 ---
 
 <p>Won best paper award at ICFP 2020 for our paper on retrofitting parallelism onto OCaml!</p>

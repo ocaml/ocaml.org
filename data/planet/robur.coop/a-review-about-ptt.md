@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "bancos"
+- "blaze"
+- "bm25"
+- "continuation"
+- "email"
+- "emails"
+- "pack"
+- "packv2"
+- "ptt"
+- "uuuu"
 ---

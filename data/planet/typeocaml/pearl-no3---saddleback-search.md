@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "acc"
+- "binary_search"
+- "cards"
+- "ceiling"
+- "pearl"
+- "saddleback"
+- "search"
+- "sorted"
+- "x-1"
+- "zig-zag"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/03/pearl_3_easter_1-2.jpg#hero" alt=""/></p>

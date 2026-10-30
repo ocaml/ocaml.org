@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "docs"
+- "dune"
+- "monorepo"
+- "odoc"
+- "oxcaml"
+- "partly"
+- "ppx"
+- "retrospective"
+- "slightly-off-seeming"
+- "unblocking"
 ---

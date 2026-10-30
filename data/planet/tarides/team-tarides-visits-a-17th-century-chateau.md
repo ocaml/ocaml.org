@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/9b02d5c43d0c20f929e47979768821d4/3f2a2
 authors:
 - Tarides
 source:
+keywords:
+- "castle"
+- "chateau"
+- "cross-team"
+- "everyone"
+- "meet"
+- "off-site"
+- "plenty"
+- "tarides"
+- "team"
+- "teams"
 ---
 
 <p><em>Everyone at Tarides recently had the opportunity to meet up in person for the first time! Since the global pandemic left much of our distributed team unable to meet, we organised a working retreat that brought all our teams together to work, learn, and have fun.</em></p>

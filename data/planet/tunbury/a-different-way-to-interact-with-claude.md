@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "claude"
+- "commit"
+- "dockerfile"
+- "duration"
+- "hex"
+- "inspect"
+- "mtelvers"
+- "ocurrent"
+- "pattern matching"
+- "ssh"
 ---

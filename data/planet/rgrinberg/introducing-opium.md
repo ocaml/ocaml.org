@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "cow"
+- "handler"
+- "middleware"
+- "monad"
+- "opium"
+- "pcre"
+- "req"
+- "respond"
+- "rock"
+- "web development"
 ---
 
 <p>One itch that I usually need to scratch is setting up quick and dirty

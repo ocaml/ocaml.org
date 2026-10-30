@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "alone"
+- "contingent"
+- "displaced"
+- "down"
+- "gerd"
+- "godi"
+- "hoorn"
+- "opam"
+- "shut"
+- "stolpmann"
 ---
 
 

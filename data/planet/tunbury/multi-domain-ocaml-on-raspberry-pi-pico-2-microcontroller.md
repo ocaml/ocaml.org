@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cortex-m33"
+- "domain"
+- "fpu"
+- "linker"
+- "multicore"
+- "mutex"
+- "pico"
+- "pico_print"
+- "sdk"
+- "spawn"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/f77149b54403b557e824e316edede0d7/a1920
 authors:
 - Tarides
 source:
+keywords:
+- "alliance"
+- "collaborating"
+- "functional programming"
+- "innovation"
+- "labs"
+- "mirageos"
+- "multicore"
+- "opam"
+- "tarides"
+- "unikernel"
 ---
 
 <p>Today I am incredibly delighted to announce that <a href="https://anil.recoil.org/projects/ocamllabs">OCaml

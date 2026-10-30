@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cmd"
+- "dispatch_cmd"
+- "mosaic"
+- "repaint"
+- "styles"
+- "terminal"
+- "uchar"
+- "use_state"
+- "window_height"
+- "window_width"
 ---
 
 <p>In testing various visual components, terminal resizing, keyboard handling and the use of hooks, I inadvertently wrote the <code class="language-plaintext highlighter-rouge">less</code> tool in <a href="https://github.com/tmattio/mosaic">Mosaic</a>. Below are my notes on using the framework.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "arbitrate"
+- "average-case"
+- "braibant"
+- "coq"
+- "coqdoc"
+- "descente"
+- "functor"
+- "module system"
+- "pous"
+- "tactic"
 ---
 
 

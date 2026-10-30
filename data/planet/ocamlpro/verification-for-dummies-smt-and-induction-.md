@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Adrien Champion\n  "
 source:
+keywords:
+- "adrien"
+- "champion"
+- "chapters"
+- "formal"
+- "formal verification"
+- "induction"
+- "notions"
+- "runnable"
+- "transition"
+- "verification"
 ---
 
 <ul>

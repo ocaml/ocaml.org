@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/2bb629edfbfd9e573f4010d717bd4714/46798
 authors:
 - Tarides
 source:
+keywords:
+- "build"
+- "dune"
+- "execute"
+- "file"
+- "incremental"
+- "memoisation"
+- "mode"
+- "rules"
+- "watch"
+- "workspace"
 ---
 
 <p>In February 2022, we released Dune 3.0. This updated version is the result of considerable development work over the previous six months. Dune 3.0 contains many new features, one of which is &ldquo;watch mode,&rdquo; an exciting new feature explained below.</p>

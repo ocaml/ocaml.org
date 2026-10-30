@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "hannes"
+- "kaloper-mersinjak"
+- "mehnert"
+- "not-quite-so-broken"
+- "openssl"
+- "security"
+- "sewell"
+- "tcb"
+- "tls"
+- "usenix"
 ---

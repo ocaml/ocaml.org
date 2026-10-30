@@ -15,6 +15,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "alt-ergo"
+- "bin"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "longval"
+- "makefile"
+- "ocamlpro"
+- "opam"
 ---
 
 <p>You will need OCaml 3.11.2 installed on a i686 linux computer. The archive contains:</p>

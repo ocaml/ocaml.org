@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/real-world-machine-learning-part-1/in
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "data"
+- "domain"
+- "functional programming"
+- "learning"
+- "ppx"
+- "strategies"
+- "techniques"
+- "trading"
+- "world"
 ---
 
 <p>Trading is a competitive business. You need great people and great

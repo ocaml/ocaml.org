@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "baa"
+- "ezirmin"
+- "irmin"
+- "merge"
+- "mergeable"
+- "merges"
+- "todo"
+- "utop"
+- "wip"
+- "xxxx"
 ---
 
 <p><a href="https://github.com/kayceesrk/ezirmin">Ezirmin</a> is an easy interface over the

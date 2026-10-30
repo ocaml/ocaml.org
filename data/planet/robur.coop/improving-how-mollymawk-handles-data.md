@@ -9,4 +9,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "csrf"
+- "data"
+- "functor"
+- "migrated"
+- "mollymawk"
+- "mrmime"
+- "oneffs"
+- "pulls"
+- "robur"
+- "tokens"
 ---

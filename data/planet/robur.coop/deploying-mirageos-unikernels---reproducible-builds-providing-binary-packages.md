@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "binary"
+- "builds"
+- "coop"
+- "mirage-monitoring"
+- "mirageos"
+- "orchestration"
+- "reproducible"
+- "robur"
+- "unikernel"
+- "unikernels"
 ---

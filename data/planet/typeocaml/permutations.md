@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "acc"
+- "array"
+- "element"
+- "generator"
+- "johnson"
+- "movable"
+- "mutex"
+- "permutation"
+- "permutations"
+- "tail-recusive"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/05/permutation3.jpg#hero" alt="hero"/></p>

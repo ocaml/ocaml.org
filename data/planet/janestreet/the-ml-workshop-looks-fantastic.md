@@ -5,6 +5,17 @@ description: "I\u2019m a little biased, by being on the steering committee, but 
 url: https://blog.janestreet.com/the-ml-workshop-looks-fantastic/
 date: 2014-07-31T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+keywords:
+- "async"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "jane"
+- "looks"
+- "ml14"
+- "ppx"
+- "street"
+- "workshop"
 ---
 
 <p>I&rsquo;m a little biased, by being on the steering committee, but this year&rsquo;s ML

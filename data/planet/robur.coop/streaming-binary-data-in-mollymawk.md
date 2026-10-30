@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "albatross"
+- "binary"
+- "block"
+- "device"
+- "memory"
+- "mollymawk"
+- "severe"
+- "streaming"
+- "unikernel"
+- "upload"
 ---
 
 

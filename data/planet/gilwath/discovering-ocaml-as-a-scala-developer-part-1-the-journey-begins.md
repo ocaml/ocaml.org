@@ -9,4 +9,15 @@ authors:
 - Benjamin Thuillier
 source:
 ignore:
+keywords:
+- "bin"
+- "dune"
+- "functional programming"
+- "minimal"
+- "ocaml-play"
+- "pattern matching"
+- "sbt"
+- "scala"
+- "synopsis"
+- "type inference"
 ---

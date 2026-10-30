@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "gadt"
+- "grid_0"
+- "okavango"
+- "parquet"
+- "s5cmd"
+- "scaleway"
+- "scanning"
+- "stac"
+- "tile"
+- "tiles"
 ---

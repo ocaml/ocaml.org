@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/982dc8891224a366db621bea7a32ad66/309a6
 authors:
 - Tarides
 source:
+keywords:
+- "atomic"
+- "bank"
+- "dscheck"
+- "from_account"
+- "lin"
+- "money"
+- "multicore"
+- "mutex"
+- "to_account"
+- "transfer"
 ---
 
 <p>The new version of OCaml 5 is here! It brings the ability to program multicore applications and to maximise our usage of all the CPU cores without a global lock getting in the way of performance. What's most exciting to me though is that we have a whole new way of writing... bugs!</p>

@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/deep-learning-the-hardest-go-problem-
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "bots"
+- "games"
+- "hardest"
+- "hatsuyoron"
+- "igo"
+- "katago"
+- "moves"
+- "problem"
+- "self-play"
+- "training"
 ---
 
 <h2>Updates and a New Run</h2>

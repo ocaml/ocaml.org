@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "configuration"
+- "dhcp"
+- "dns"
+- "dnsmasq"
+- "dnsvizor"
+- "domain"
+- "mirageos"
+- "nlnet"
+- "pi-hole"
+- "unikernel"
 ---
 
 

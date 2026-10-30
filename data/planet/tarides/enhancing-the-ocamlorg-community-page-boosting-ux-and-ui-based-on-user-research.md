@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/66f58b66ddccbf98b2fedc52f90e5fa5/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "community"
+- "engagement"
+- "engaging"
+- "enhance"
+- "landing"
+- "navigation"
+- "newcomers"
+- "opam-repository"
+- "page"
+- "resources"
 ---
 
 <p>In March, the OCaml.org team at Tarides embarked on a mission to enhance the OCaml.org community pages. After engaging with the OCaml community, we identified several areas for improvement. Our goal was to boost the community's usability and visibility, ensuring it supported a wider audience and promoted more active engagement.</p>

@@ -4,6 +4,17 @@ description:
 url: https://hannes.robur.coop/Posts/DNS
 date: 2018-01-11T14:02:01-00:00
 preview_image:
+keywords:
+- "applicative"
+- "cname"
+- "dns"
+- "domain"
+- "gadt"
+- "ipaddr"
+- "records"
+- "resource"
+- "soa"
+- "zone"
 ---
 
 <h2>2018</h2>

@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2020/./
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async-rpc"
+- "async_rpc_kernel"
+- "eric"
+- "etfs"
+- "interns"
+- "message_type"
+- "monad"
+- "re2"
+- "sharding"
+- "wireshark"
 ---
 
 <p>It&rsquo;s been an unusual internship season.</p>

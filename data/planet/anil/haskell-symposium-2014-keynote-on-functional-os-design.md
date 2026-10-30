@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "design"
+- "functional"
+- "functional programming"
+- "haskell"
+- "haskellers"
+- "keynote"
+- "mirageos"
+- "module system"
+- "nervously"
+- "symposium"
 ---

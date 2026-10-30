@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Blanc\n  "
 source:
+keywords:
+- "bargain"
+- "cheat-sheet"
+- "cheatsheet"
+- "cheatsheets"
+- "dusted-off"
+- "listings"
+- "opam"
+- "opam-managed"
+- "peculiar"
+- "publishing"
 ---
 
 <p><a href="https://ocamlpro.com/blog/2020_01_10_opam_2.0_cheat_sheet"><img src="https://ocamlpro.com/blog/assets/img/logo_opam_blue.png" alt="The Opam 2.0 cheatsheet, with a new theme!"/></a></p>

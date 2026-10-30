@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "camlp4"
+- "camlp5"
+- "functor"
+- "graph"
+- "increase"
+- "labltk"
+- "namespaces"
+- "ocamlbuild"
+- "opam"
+- "service"
 ---
 
 <p>Here is a short report on some of our activities in April 2014, and a short analysis of OCaml evolution since its first release.</p>

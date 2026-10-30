@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/ba47ed1e2b7a5e9dc869229c7e9e073f/d6138
 authors:
 - Tarides
 source:
+keywords:
+- "derivation"
+- "drv"
+- "hillingar"
+- "immutability"
+- "metaprogramming"
+- "monorepo"
+- "nix"
+- "nixos"
+- "nixpkgs"
+- "unikernels"
 ---
 
 

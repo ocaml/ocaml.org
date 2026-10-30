@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Hong bo Zhang
 source:
+keywords:
+- "accidental"
+- "compiler"
+- "domain"
+- "fan"
+- "ideas"
+- "language"
+- "lies"
+- "programmers"
+- "purpose"
+- "sad"
 ---
 
 

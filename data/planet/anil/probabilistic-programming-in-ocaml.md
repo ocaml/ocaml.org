@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "bayesian"
+- "chandrasekaran"
+- "edward"
+- "functional programming"
+- "hari"
+- "inference"
+- "liang"
+- "models"
+- "ppl"
+- "probabilistic"
 ---
 
 <h1>Probabilistic Programming in OCaml</h1>

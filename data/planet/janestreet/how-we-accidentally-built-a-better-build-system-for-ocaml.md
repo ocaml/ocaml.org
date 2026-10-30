@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/how-we-accidentally-built-a-better-bu
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "build"
+- "dune"
+- "effect"
+- "jane"
+- "jbuilder"
+- "jenga"
+- "ppx"
+- "street"
+- "system"
 ---
 
 <p>A “build system” is one of the most important tools in a developer’s

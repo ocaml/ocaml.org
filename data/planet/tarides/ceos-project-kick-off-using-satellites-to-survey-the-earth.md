@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "ceos"
+- "changes"
+- "demonstrator"
+- "detect"
+- "earth"
+- "orchide"
+- "project"
+- "satellite"
+- "satellites"
+- "spaceos"
 ---
 
 <p>Tarides collaborates with several partners to implement new cutting-edge technologies based on our experience with OCaml. One of our special interest areas is the space sector and improving the security and versatility of satellite software. This is the driving force behind the <a href="https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos/">SpaceOS</a> and <a href="https://tarides.com/blog/2023-12-29-announcing-the-orchide-project-powering-satellite-innovation/">ORCHIDE</a> projects. With <a href="https://www.bpifrance.fr/nos-appels-a-projets-concours/appel-a-projets-maturation-technologique-et-demonstration-de-solutions-dintelligence-artificielle-embarquee">funding from BPIFrance</a>, a French public investment bank striving to detect and foster the innovative projects of the future, we are proud to announce our part in an exciting new venture.</p>

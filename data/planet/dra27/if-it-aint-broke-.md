@@ -11,4 +11,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "devel"
+- "dra"
+- "effect"
+- "meta"
+- "msys2-testing-native"
+- "ocamlfind"
+- "roots"
+- "shellcheck"
+- "src"
+- "topkg"
 ---

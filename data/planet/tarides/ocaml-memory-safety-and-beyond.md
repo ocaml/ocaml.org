@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/39183b3a4ca497e6bdc75ebf592bde59/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "beyond"
+- "cybersecurity"
+- "formal verification"
+- "functional programming"
+- "immutability"
+- "memory"
+- "mirageos"
+- "safety"
+- "security"
+- "unikernel"
 ---
 
 <p>Your choice of programming language matters. A <a href="https://www.nsa.gov/Press-Room/Press-Releases-Statements/Press-Release-View/Article/3608324/us-and-international-partners-issue-recommendations-to-secure-software-products/">recent press release</a> from the US National Security Agency (NSA), in tandem with the US Cybersecurity and Infrastructure Security Agency (CISA) alongside international cybersecurity agencies, urges the adoption of memory-safe programming languages for enhanced software security. We see a strong alignment between this global effort and Tarides&rsquo; principles and practices.</p>

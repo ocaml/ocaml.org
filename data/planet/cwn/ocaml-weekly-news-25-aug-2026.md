@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "cohttp"
+- "docroot"
+- "odoc"
+- "osec-2026-16"
+- "path"
+- "remediation_reviewer"
+- "resolve_local_file"
+- "univac"
+- "uri"
+- "yamlx"
 ---

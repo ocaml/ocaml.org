@@ -6,6 +6,17 @@ date: 2019-10-18T00:00:00-00:00
 preview_image:
 authors:
 - Martin Lucina
+keywords:
+- "mirage_key"
+- "mirageos"
+- "ocamlbuild"
+- "opam"
+- "solo5"
+- "solo5-hvt"
+- "spt"
+- "targets"
+- "tender"
+- "unikernel"
 ---
 
 

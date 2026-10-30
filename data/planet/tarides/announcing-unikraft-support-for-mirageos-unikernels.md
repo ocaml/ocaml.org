@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "firecracker"
+- "mirage-block-unikraft"
+- "mirage-net-unikraft"
+- "mirageos"
+- "ocaml-unikraft"
+- "ocaml-unikraft-backend-firecracker"
+- "ocaml-unikraft-backend-qemu"
+- "ocaml-unikraft-option-debug"
+- "ocaml-unikraft-x86_64"
+- "unikraft"
 ---

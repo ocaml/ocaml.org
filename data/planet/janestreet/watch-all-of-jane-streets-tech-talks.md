@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/watch-all-of-jane-streets-tech-talks/
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "cookies"
+- "favorites"
+- "functional programming"
+- "jane"
+- "ppx"
+- "street"
+- "talks"
+- "tech"
 ---
 
 <p>Jane Street has been posting tech talks from internal speakers and

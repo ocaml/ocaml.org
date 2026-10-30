@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "coccinelle"
+- "domain"
+- "js_of_ocaml"
+- "lwt"
+- "lwt_ppx"
+- "menhir"
+- "monad"
+- "mset"
+- "odoc"
+- "ofortune"
 ---

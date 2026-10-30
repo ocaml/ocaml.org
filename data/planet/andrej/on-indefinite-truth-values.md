@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "algebra"
+- "continuum"
+- "definite"
+- "hypothesis"
+- "mathrm"
+- "neg"
+- "neither"
+- "nor"
+- "statement"
+- "truth"
 ---
 
 <p>In a discussion following a <a href="https://mathoverflow.net/a/452512/1176">MathOverflow answer</a> by <a href="https://jdh.hamkins.org">Joel Hamkins</a>, <a href="http://timothychow.net">Timothy Chow</a> and I got into a chat about what it means for a statement to &ldquo;not have a definite truth value&rdquo;. I need a break from writing the paper on countable reals (coming soon in a journal near you), so I thought it would be worth writing up my view of the matter in a blog post.</p>

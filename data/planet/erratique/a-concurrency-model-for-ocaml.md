@@ -8,4 +8,15 @@ authors:
 - "Daniel B\xFCnzli"
 source:
 ignore:
+keywords:
+- "affect"
+- "cancellation"
+- "concurrency"
+- "effect"
+- "model"
+- "opam"
+- "optionally"
+- "orchestrate"
+- "streamlined"
+- "structured"
 ---

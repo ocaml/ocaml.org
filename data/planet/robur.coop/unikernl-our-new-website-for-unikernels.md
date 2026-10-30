@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "codept"
+- "digestif"
+- "mfat"
+- "mfetch"
+- "mhttp"
+- "mkernel"
+- "msendmail"
+- "orb"
+- "unic"
+- "unikernels"
 ---

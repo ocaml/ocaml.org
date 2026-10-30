@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "alloc"
+- "cfact"
+- "exit"
+- "fact"
+- "fact_closure"
+- "factobj"
+- "libasmrun"
+- "stdio"
+- "symbols"
+- "usr"
 ---
 
 <div class="date">November 3, 2014</div>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "bin"
+- "compiler"
+- "gypsy"
+- "howitends"
+- "ios"
+- "progress"
+- "savants"
+- "sdk"
+- "simulator"
+- "unwind"
 ---
 
 <div class="date">August 30, 2014</div>

@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "ann55"
+- "duras"
+- "explicits"
+- "first-class module"
+- "lrgrep"
+- "obs"
+- "owebview"
+- "ppf"
+- "sek"
+- "webview"
 ---

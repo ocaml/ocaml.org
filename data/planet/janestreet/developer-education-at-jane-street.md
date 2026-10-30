@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/developer-education-at-jane-street-in
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "GADT"
+- "async"
+- "bootcamp"
+- "foreign function interface"
+- "jane"
+- "marketdata"
+- "street"
+- "students"
+- "teach-in"
+- "teach-ins"
 ---
 
 <p>Like most places, Jane Street largely teaches developers through a kind of apprenticeship

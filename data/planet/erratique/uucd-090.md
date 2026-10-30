@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "decode"
+- "efficient"
+- "extracted"
+- "isc"
+- "opam"
+- "representations"
+- "unicode"
+- "uucd"
+- "v18"
+- "xmlm"
 ---
 
 <p>First release of Uucd, an Unicode character database decoder for OCaml.</p>

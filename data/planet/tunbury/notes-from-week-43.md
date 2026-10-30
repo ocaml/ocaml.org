@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "alt-ergo-lib"
+- "awso"
+- "conf-graphviz"
+- "conf-libXft"
+- "day10"
+- "ocaml_intrinsics_kernel"
+- "out-channel-redirect"
+- "ppx_blob"
+- "varnish"
+- "wasm_of_ocaml-compiler"
 ---

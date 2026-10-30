@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "commands"
+- "digests"
+- "effect"
+- "gprof"
+- "lexifi"
+- "linux"
+- "omake"
+- "omake-0"
+- "parallelism"
+- "windows"
 ---
 
 

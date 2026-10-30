@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "abms"
+- "agent-based"
+- "chave"
+- "concurrency"
+- "domain"
+- "marechaux"
+- "modelling"
+- "multicore"
+- "parallelism"
+- "simulate"
 ---
 
 <h1>Exploring Concurrency in Agent-Based Modelling with Multicore OCaml</h1>

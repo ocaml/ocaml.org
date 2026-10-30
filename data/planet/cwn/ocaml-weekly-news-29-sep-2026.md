@@ -11,4 +11,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "ambient-context"
+- "css"
+- "elm_playground"
+- "elm_playground_native"
+- "ocsigenserver-compat"
+- "ppx_deriving_ezjsonm"
+- "ppx_deriving_yaml"
+- "ppx_deriving_yamlx"
+- "ppx_windtrap"
+- "windtrap"
 ---

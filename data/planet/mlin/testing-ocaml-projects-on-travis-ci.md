@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "apt-get"
+- "install"
+- "opam"
+- "opam_packages"
+- "opam_version"
+- "sudo"
+- "tests"
+- "tmp"
+- "travis"
+- "travis-ci"
 ---
 
 <b>Update (Oct 2013):</b> Anil &nbsp;Madhavapeddy has <a href="http://anil.recoil.org/2013/09/30/travis-and-ocaml.html">fleshed this out further</a>.<br/><br/>

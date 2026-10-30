@@ -8,6 +8,17 @@ preview_image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABSkAAAL9CAYAAADHB+O
 authors:
 - Unknown
 source:
+keywords:
+- "MirageOS"
+- "graph"
+- "irmin"
+- "irmincontents"
+- "lwt"
+- "moana"
+- "moanaml"
+- "store"
+- "tuples"
+- "wall"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

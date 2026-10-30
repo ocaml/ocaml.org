@@ -6,6 +6,17 @@ date: 2017-03-01T00:00:00-00:00
 preview_image:
 authors:
 - Mindy Preston
+keywords:
+- "connect"
+- "force"
+- "gui"
+- "lazy"
+- "mirage"
+- "modname"
+- "qrexec"
+- "qubes"
+- "qubesdb"
+- "rexec"
 ---
 
 

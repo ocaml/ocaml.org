@@ -9,4 +9,15 @@ authors:
 - Benjamin Thuillier
 source:
 ignore:
+keywords:
+- "caqti"
+- "caqti_miou"
+- "doobie"
+- "pool"
+- "scala"
+- "sql"
+- "task"
+- "tasks"
+- "transactor"
+- "uuid"
 ---

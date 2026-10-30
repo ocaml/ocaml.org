@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "ambiguity"
+- "bug"
+- "coercion"
+- "coq"
+- "extraction"
+- "polymorphism"
+- "primitive"
+- "projections"
+- "soundness"
+- "third"
 ---
 
 

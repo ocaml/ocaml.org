@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aug"
+- "downscaling"
+- "effect"
+- "embeddings"
+- "monad"
+- "mphil"
+- "roads"
+- "species"
+- "tessera"
+- "unikernel"
 ---

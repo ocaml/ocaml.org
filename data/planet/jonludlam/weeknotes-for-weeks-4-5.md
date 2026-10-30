@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "aches"
+- "aches-lwt"
+- "claude"
+- "day10"
+- "mtime"
+- "ocaml-compiler-libs"
+- "ocurrent"
+- "odoc"
+- "odoc_extension_api"
+- "recompile"
 ---

@@ -6,6 +6,17 @@ date: 2023-03-27T08:00:00-00:00
 preview_image:
 authors:
 - gallium
+keywords:
+- "characters"
+- "compiler"
+- "error"
+- "map"
+- "non-generalizable"
+- "ocamltest"
+- "pull"
+- "ref"
+- "stefan"
+- "subsections"
 ---
 
 

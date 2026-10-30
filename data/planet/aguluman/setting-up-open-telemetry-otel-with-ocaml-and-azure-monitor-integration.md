@@ -10,4 +10,15 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "azure"
+- "dream"
+- "endpoint"
+- "exn"
+- "middleware"
+- "monitor"
+- "ocurl"
+- "opentelemetry"
+- "otlp"
+- "telemetry"
 ---

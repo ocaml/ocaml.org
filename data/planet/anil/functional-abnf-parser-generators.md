@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "abnf"
+- "abnfcomp"
+- "functional"
+- "functional programming"
+- "generators"
+- "imap"
+- "nicholas"
+- "parser"
+- "servers"
+- "skehin"
 ---
 
 <h1>Functional ABNF parser generators</h1>

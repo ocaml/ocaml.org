@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "atomicio"
+- "bin"
+- "bluetooth"
+- "buffer"
+- "chad"
+- "hackathon"
+- "heres"
+- "openbsd"
+- "openssh"
+- "unsigned"
 ---
 
 <p>Finally had some time to get back from the OpenBSD hackathon and take

@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "camlidl"
+- "docs"
+- "dune"
+- "js_of_ocaml"
+- "merlin"
+- "odoc"
+- "odocl"
+- "parallelism"
+- "sherlodoc"
+- "yojson"
 ---

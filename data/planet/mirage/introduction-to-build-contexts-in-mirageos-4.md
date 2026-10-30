@@ -6,6 +6,17 @@ date: 2022-03-30T00:00:00-00:00
 preview_image:
 authors:
 - Lucas Pluvinage
+keywords:
+- "build"
+- "dns-mirage"
+- "dns-resolver"
+- "hvt"
+- "mirage"
+- "mirageos"
+- "ocaml-solo5-cross-aarch64"
+- "solo5"
+- "solo5-cross-aarch64"
+- "solo5-elftool"
 ---
 
 

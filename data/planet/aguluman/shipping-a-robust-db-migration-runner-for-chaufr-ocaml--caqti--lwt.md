@@ -9,6 +9,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "bin"
+- "caqti"
+- "chaufr"
+- "dollar-quoted"
+- "dune"
+- "lwt"
+- "migration"
+- "rollback"
+- "runner"
+- "sql"
 ---
 
 Implemented a production-minded database migration system for Chaufr: CLI, tracking, checksum validation, rollback, and safe SQL execution.

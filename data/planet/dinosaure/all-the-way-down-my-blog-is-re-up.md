@@ -7,6 +7,9 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "down"
+- "works"
 ---
 
 How the blog works?

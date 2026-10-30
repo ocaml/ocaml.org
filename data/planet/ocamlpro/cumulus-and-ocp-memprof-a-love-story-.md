@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "call_event"
+- "cumulus"
+- "finalisation"
+- "memprof"
+- "ocp-memprof"
+- "ocsigenserver"
+- "of_react"
+- "private_event"
+- "react"
+- "typerex"
 ---
 
 <p>In this blog post, we went on the hunt of memory leaks in Cumulus by using <a href="https://memprof.typerex.org/">our memory profiler: ocp-memprof</a>. Cumulus is a feed aggregator based on <a href="https://ocsigen.org/eliom/">Eliom</a>, a framework for programming web sites and client/server web applications, part of the <a href="https://ocsigen.org/">Ocsigen Project</a>.</p>

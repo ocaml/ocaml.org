@@ -7,6 +7,12 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "GADT"
+- "about"
+- "gadts"
+- "introduction"
+- "little"
 ---
 
 A little introduction about GADTs

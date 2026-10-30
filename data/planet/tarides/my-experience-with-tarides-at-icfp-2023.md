@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/971078fbc8fa4d3df321656d47546300/ce409
 authors:
 - Tarides
 source:
+keywords:
+- "conference"
+- "dune"
+- "eio"
+- "functional programming"
+- "icfp"
+- "kcas"
+- "lwt"
+- "lwt_eio"
+- "multicore"
+- "tarides"
 ---
 
 <p><a href="https://icfp24.sigplan.org">ICFP 2024</a> will be upon us sooner than you might think! The call for papers closes on the 28th of February, and I wish everyone submitting good luck. Hopefully I will see you around Milan this upcoming September (at the OCaml Workshop, of course!) and to stave off your ICFP cravings until then, enjoy my account of last year's conference.</p>

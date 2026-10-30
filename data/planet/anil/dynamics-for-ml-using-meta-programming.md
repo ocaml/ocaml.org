@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "dyntype"
+- "entcs"
+- "generative"
+- "madhavapeddy"
+- "meta-programming"
+- "persist"
+- "persistence"
+- "sacrificing"
+- "statically-typed"
 ---
 
 <p>Paper on statically typed value persistence for OCaml in ENTCS 2011</p>

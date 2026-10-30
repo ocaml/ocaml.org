@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "directory"
+- "local"
+- "merlin"
+- "ocp-indent"
+- "ocp-index"
+- "opam"
+- "switch"
+- "switches"
+- "tuareg"
+- "user-setup"
 ---
 
 <p>Among the areas we wanted to improve on for opam 2.0 was the handling of

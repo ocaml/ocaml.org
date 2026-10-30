@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "await_lwt"
+- "lwt_io"
+- "m_lwt"
+- "metaprogramming"
+- "moonpool"
+- "moonpool-io"
+- "moonpool-lwt"
+- "port"
+- "printf"
+- "sketch"
 ---

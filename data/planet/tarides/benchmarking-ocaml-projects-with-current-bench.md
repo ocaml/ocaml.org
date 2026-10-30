@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/2bd2e5940bdb329b93e236f44dd37e01/dfe86
 authors:
 - Tarides
 source:
+keywords:
+- "bechamel"
+- "benchmarking"
+- "benchmarks"
+- "current-bench"
+- "domain"
+- "dune"
+- "graphql"
+- "multicore"
+- "ocurrent"
+- "pipeline"
 ---
 
 <p>Regular CI systems are optimised for workloads that do not require stable performance over time. This makes them unsuitable for running performance benchmarks.</p>

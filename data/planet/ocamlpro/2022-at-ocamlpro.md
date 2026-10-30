@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Dario Pinto\n  "
 source:
+keywords:
+- "alt-ergo"
+- "cobol"
+- "dolmen"
+- "formal verification"
+- "garbage collection"
+- "meet-up"
+- "mlang"
+- "ocaml-canvas"
+- "ocamlpro"
+- "rust"
 ---
 
 <p>

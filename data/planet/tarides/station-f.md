@@ -10,6 +10,17 @@ preview_image: https://stationf.co/img/cards/og_image.png
 authors:
 - Tarides
 source:
+keywords:
+- "campus"
+- "partners"
+- "raised"
+- "samsung"
+- "startup"
+- "startups"
+- "station"
+- "top-tier"
+- "unicorn"
+- "welcomes"
 ---
 
 <p>We are thrilled to have been accepted into the Founders Progam's 3rd

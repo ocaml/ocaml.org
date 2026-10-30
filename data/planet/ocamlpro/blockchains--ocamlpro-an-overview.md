@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "domain"
+- "formal verification"
+- "garbage collection"
+- "irontez"
+- "liquidity"
+- "michelson"
+- "ocamlpro"
+- "smart"
+- "tezos"
+- "tzscan"
 ---
 
 <p>OCamlPro started working on blockchains in 2014, when Arthur Breitman

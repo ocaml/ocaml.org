@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "bytream"
+- "glyph"
+- "ifs-fractals"
+- "mirage_crypto_pk"
+- "p4spectec"
+- "queue"
+- "rsa"
+- "smaji"
+- "smaji_glyph_path"
+- "stroke"
 ---

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "MirageOS"
+- "browser"
+- "codio"
+- "config"
+- "git"
+- "mirage"
+- "opam"
+- "phil"
+- "tomson"
+- "unikernel"
 ---
 
 <p>I noticed an offhand tweet from Phil Tomson about <a href="http://codio.com/">Codio</a> adding OPAM support, and naturally had to take a quick look. I was <em>really</em> impressed by the whole process, and ended up building the <a href="https://web.archive.org/web/20170914182531/http://www.openmirage.org/wiki/mirage-www">Mirage Xen website</a> unikernel directly from my web browser in less than a minute, including registration!</p>

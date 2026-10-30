@@ -6,6 +6,17 @@ date: 2014-07-18T00:00:00-00:00
 preview_image:
 authors:
 - Thomas Gazagnaire
+keywords:
+- "MirageOS"
+- "block"
+- "concurrency"
+- "data"
+- "distributed"
+- "irmin"
+- "merge"
+- "persistent"
+- "store"
+- "structures"
 ---
 
 

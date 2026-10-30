@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "beta"
+- "coq"
+- "developpers"
+- "flavour"
+- "impatient"
+- "intends"
+- "refer"
+- "unstable"
+- "version"
+- "warned"
 ---
 
 

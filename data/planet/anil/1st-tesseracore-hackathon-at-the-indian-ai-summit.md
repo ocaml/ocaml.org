@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "delhi"
+- "eio"
+- "embeddings"
+- "geospatial"
+- "hackathon"
+- "planet"
+- "stac"
+- "summit"
+- "tessera"
+- "zarr"
 ---

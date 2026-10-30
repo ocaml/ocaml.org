@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/6e815455d642f44ecdd6d2b080c8d64f/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "automation"
+- "crop"
+- "farming"
+- "farms"
+- "hyper"
+- "indoor"
+- "iot"
+- "mirageos"
+- "ourworldindata"
+- "vertical"
 ---
 
 <p>We are thrilled to announce a partnership between Tarides and <a href="https://hyper.ag">Hyper</a>, a technology provider in the agritech space who&rsquo;s building

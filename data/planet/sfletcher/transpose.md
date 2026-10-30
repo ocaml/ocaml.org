@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "acc"
+- "column"
+- "davie"
+- "functional programming"
+- "map"
+- "mathbf"
+- "matrix"
+- "row"
+- "transpose"
+- "transpose_rec"
 ---
 
 

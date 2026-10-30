@@ -10,6 +10,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "bepo-tsrn"
+- "celtchar"
+- "ezjsonm-encoding"
+- "git"
+- "nvim"
+- "publish"
+- "published"
+- "spatial"
+- "website"
+- "year"
 ---
 
 

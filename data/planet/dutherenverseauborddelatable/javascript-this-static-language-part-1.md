@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "dynamic"
+- "dynamism"
+- "errors"
+- "javascript"
+- "language"
+- "metric"
+- "static"
+- "suspicious"
+- "type inference"
+- "type-checking"
 ---
 
 <h2 style="text-align:justify;">tl;dr</h2>

@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "active"
+- "activitypub"
+- "element"
+- "inactive"
+- "matrix"
+- "mirageos"
+- "multicore"
+- "recoil"
+- "spam"
+- "till"
 ---
 
 <p><a href="https://nick.recoil.org" class="contact">Nick Ludlam</a> and I have self-hosted recoil.org since around 1996, typically for

@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "dune"
+- "formal verification"
+- "gospel"
+- "ortac"
+- "ortac-dune"
+- "ortac-qcheck-stm"
+- "priority"
+- "priority_queue"
+- "priority_queue_tests"
+- "qcheck-stm"
 ---
 
 <p>You may have read our <a href="https://tarides.com/blog/2024-09-03-getting-specific-announcing-the-gospel-and-ortac-projects/">recent post discussing our involvement in the Gospel Project</a>. In today's follow-up post, we will focus on <a href="https://github.com/ocaml-gospel/ortac">Ortac</a>, a tool we have been developing at Tarides as part of the Gospel Project.</p>

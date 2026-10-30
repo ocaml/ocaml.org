@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:
+keywords:
+- "christian"
+- "citrix"
+- "compiler"
+- "domain"
+- "effect"
+- "fred"
+- "mirageos"
+- "multicore"
+- "opam"
+- "owl"
 ---
 
 <p>Thanks to everyone who joined us for OCaml Compiler Hacking in the (incredibly warm!) Old Library at Pembroke College this week.</p>

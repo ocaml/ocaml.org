@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/aa5bd16e724bfc18f6e436399a4dda66/e49a8
 authors:
 - Tarides
 source:
+keywords:
+- "OCaml LSP"
+- "extension"
+- "gen_js_api"
+- "jsonoo"
+- "ocaml_lsp"
+- "ocamllspsettingenable"
+- "settings"
+- "syntax_documentation"
+- "syntaxdocumentation"
+- "vscode"
 ---
 
 <p>In the final installment of our series on the <code>SyntaxDocumentation</code> command, we delve into its integration within the OCaml VSCode Platform extension. Building on our previous discussions about Merlin and OCaml LSP, this article explores how to make <code>SyntaxDocumentation</code> an opt-in feature in the popular VSCode editor.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "asian-pacific"
+- "assistants"
+- "china"
+- "formal"
+- "methods"
+- "proof"
+- "provers"
+- "school"
+- "summer"
+- "suzhou"
 ---
 
 

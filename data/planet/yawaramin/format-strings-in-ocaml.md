@@ -9,6 +9,17 @@ authors:
 - Yawar Amin
 source:
 ignore:
+keywords:
+- "bob"
+- "camlinternalformatbasics"
+- "continuation"
+- "fmt"
+- "format"
+- "jim"
+- "shout"
+- "string_literal"
+- "strings"
+- "unit"
 ---
 
 <p>OCAML doesn't have string interpolation, but it does have C-style format strings (but type-safe). Here's an example:<br>

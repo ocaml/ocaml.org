@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Sebastien Mondet
 source:
+keywords:
+- "cmdliner"
+- "comk"
+- "dmenu"
+- "dune"
+- "echo"
+- "effect"
+- "graphical"
+- "menus"
+- "single-key"
+- "utop"
 ---
 
 

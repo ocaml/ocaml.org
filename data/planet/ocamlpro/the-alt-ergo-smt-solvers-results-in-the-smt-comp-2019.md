@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Albin Coquereau\n  "
 source:
+keywords:
+- "alia"
+- "alt-ergo"
+- "auflia"
+- "auflira"
+- "aufnira"
+- "categories"
+- "domain"
+- "smt-comp"
+- "solver"
+- "unsat"
 ---
 
 <p>The results of the SMT-COMP 2019 were released a few days ago at the SMT whorkshop during the <a href="http://smt2019.galois.com/">22nd SAT conference</a>. We were glad to participate in this competition for the second year in a row, especially as Alt-Ergo <a href="https://ocamlpro.com/blog/2019_02_11_whats-new-for-alt-ergo-in-2018-here-is-a-recap">now supports</a> the SMT-LIB 2 standard.</p>

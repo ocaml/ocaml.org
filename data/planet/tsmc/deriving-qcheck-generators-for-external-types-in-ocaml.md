@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "arb"
+- "deriving"
+- "durin"
+- "dwarf"
+- "gen"
+- "generators"
+- "import"
+- "ppx_deriving_qcheck"
+- "qcheck"
+- "roundtrip"
 ---

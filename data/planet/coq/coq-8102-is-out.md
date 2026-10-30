@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "anomalies"
+- "coercions"
+- "coq"
+- "coqide"
+- "fixed"
+- "nonlinear"
+- "notations"
+- "panels"
+- "resized"
+- "uneven"
 ---
 
 

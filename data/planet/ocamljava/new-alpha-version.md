@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xavier Clerc
 source:
+keywords:
+- "alpha"
+- "automatized"
+- "bootstrap"
+- "compiler"
+- "enhanced"
+- "ocamljava"
+- "partially"
+- "semi-stable"
+- "site"
+- "x9c"
 ---
 
 <p>A new alpha version has been released, fixing several blocking / annoying bugs.</p>

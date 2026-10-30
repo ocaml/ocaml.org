@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/1a54502893f8f38db2c6e37811c75b0c/7d5a2
 authors:
 - Tarides
 source:
+keywords:
+- "cryptography"
+- "dapsi"
+- "dkim"
+- "emails"
+- "initiative"
+- "parser"
+- "scop"
+- "security"
+- "smtp"
+- "spf"
 ---
 
 <p><strong>In April, <a href="https://tarides.com/blog/2021-04-30-scop-selected-for-dapsi-initiative">we announced</a> that the <a href="https://dapsi.ngi.eu">DAPSI initiative</a> accepted

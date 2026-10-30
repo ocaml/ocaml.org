@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "cell"
+- "js_of_ocaml"
+- "merlin"
+- "notebooks"
+- "ocamlfind"
+- "odoc"
+- "oxcaml"
+- "packages"
+- "parser"
+- "toplevel"
 ---

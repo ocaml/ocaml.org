@@ -12,6 +12,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "drop"
+- "drop_while"
+- "perusing"
+- "populirized"
+- "recursive"
+- "rest"
+- "spartan"
+- "tail-call"
+- "tail_mod_cons"
+- "take"
 ---
 
 <p>One of my small issues with OCaml is that the standard library is quite spartan.

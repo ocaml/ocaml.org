@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "embed"
+- "functor"
+- "inj"
+- "of_int"
+- "of_string"
+- "proj"
+- "projection"
+- "to_int"
+- "to_string"
+- "universal"
 ---
 
     <h2>Universal type</h2>

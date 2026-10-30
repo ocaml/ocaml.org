@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "data"
+- "dish"
+- "feasible"
+- "fungal"
+- "permanence"
+- "petri"
+- "rerun"
+- "svg"
+- "svgs"
+- "visualisation"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "arc"
+- "blaze"
+- "coop"
+- "dkim"
+- "dmarc"
+- "email"
+- "eml"
+- "gmail"
+- "ip4"
+- "spf"
 ---
 
 how emails are verified?

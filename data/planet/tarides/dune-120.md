@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/98e7b693b372846010bfcd8d54746146/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "cmdliner"
+- "ddickstein"
+- "deprecation"
+- "drjdn"
+- "dune"
+- "files"
+- "findlib"
+- "librarys"
+- "ppx_deriving"
+- "wrapped"
 ---
 
 <p>After a tiny but important patch release as 1.1.1, the dune team is thrilled to

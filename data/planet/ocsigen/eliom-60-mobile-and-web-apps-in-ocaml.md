@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "GADT"
+- "additionally"
+- "compiler"
+- "eliom"
+- "friendlier"
+- "js_of_ocaml"
+- "mobile"
+- "ocsigen"
+- "service"
+- "web"
 ---
 
 <p>We are very happy to announce the release of <a href="https://github.com/ocsigen/eliom/releases/tag/6.0.0">Ocsigen Eliom 6.0</a>,

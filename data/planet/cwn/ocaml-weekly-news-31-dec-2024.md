@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml Weekly News
 source:
+keywords:
+- "app"
+- "elm-lang"
+- "elm_playground"
+- "flatunionfind"
+- "multicore"
+- "playground_platform"
+- "property-based"
+- "run_app"
+- "spin"
+- "unionFind"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2024.12.31.html#1">Using Property-Based Testing to Test OCaml 5</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.12.31.html#2">First release of elm_playground</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.12.31.html#3">First release of flatunionfind</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.12.31.html#4">Serving This Article from RAM with Dream for Fun and No Real Benefit</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.12.31.html#5">Other OCaml News</a></li></ol>

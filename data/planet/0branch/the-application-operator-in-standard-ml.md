@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "associativity"
+- "fixity"
+- "operator"
+- "precedence"
+- "println"
+- "sml"
+- "standard"
+- "str"
+- "succ"
+- "sum"
 ---
 
 <div>

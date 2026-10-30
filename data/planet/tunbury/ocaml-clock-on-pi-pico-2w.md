@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "backpack"
+- "clock"
+- "gp16"
+- "gp17"
+- "gp18"
+- "gp19"
+- "gp20"
+- "lcd"
+- "pico"
+- "vdd"
 ---

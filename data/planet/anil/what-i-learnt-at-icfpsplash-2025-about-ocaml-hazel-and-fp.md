@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "carroll"
+- "eio"
+- "functor"
+- "hazel"
+- "icfp"
+- "multicore"
+- "shriram"
+- "smol"
+- "splash"
+- "terminal-bench"
 ---

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agent"
+- "book"
+- "fit"
+- "immutable_data"
+- "lib"
+- "module system"
+- "money"
+- "of_pence"
+- "pence"
+- "type checker"
 ---

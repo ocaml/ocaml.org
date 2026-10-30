@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "disclosure"
+- "dune"
+- "js_of_ocaml"
+- "llm"
+- "opam"
+- "packages"
+- "proposal"
+- "signal"
+- "unmaintained"
+- "voluntary"
 ---

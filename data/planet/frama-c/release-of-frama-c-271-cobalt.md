@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "aorai"
+- "appimage"
+- "cobalt"
+- "frama-c"
+- "install"
+- "macos"
+- "manual"
+- "plug-in"
+- "readme"
+- "v27"
 ---
 
 

@@ -15,6 +15,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "bazel"
+- "buck2"
+- "build"
+- "cmxa"
+- "dune"
+- "githook"
+- "graph"
+- "parallelism"
+- "pre-commit"
+- "street"
 ---
 
 <p>Stepping into something different today for a <a href="https://meetup.build/">Build Meetup</a>

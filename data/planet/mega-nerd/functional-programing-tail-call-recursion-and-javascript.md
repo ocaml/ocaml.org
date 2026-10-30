@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "big_int"
+- "drd"
+- "fac"
+- "fac_helper"
+- "factorial"
+- "garbage collection"
+- "javascript"
+- "tail"
+- "type inference"
+- "valgrind"
 ---
 
 

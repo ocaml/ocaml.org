@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "backend"
+- "bap"
+- "bil"
+- "compiler"
+- "instruction"
+- "intermediate"
+- "isa"
+- "lifter"
+- "powerpc"
+- "translation"
 ---
 
 <p>On this week we started to work on the PowerPC backend. We are

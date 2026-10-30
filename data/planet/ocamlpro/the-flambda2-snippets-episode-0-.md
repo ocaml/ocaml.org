@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Pierre Chambart\n  "
 source:
+keywords:
+- "clambda"
+- "closure"
+- "cmm"
+- "episode"
+- "flambda"
+- "flambda2"
+- "lambda"
+- "optimisations"
+- "slideshow"
+- "snippets"
 ---
 
 <p></p>

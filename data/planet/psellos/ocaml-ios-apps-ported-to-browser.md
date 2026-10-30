@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "apps"
+- "card"
+- "cassino"
+- "effect"
+- "game"
+- "ios"
+- "js_of_ocaml"
+- "psellos"
+- "schnapsen"
+- "webapps"
 ---
 
 <div class="date">February 24, 2020</div>

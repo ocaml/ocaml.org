@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "builder"
+- "moves"
+- "mundane"
+- "ocaml-ci"
+- "ocaml-version"
+- "ocurrent"
+- "opam-repo-ci"
+- "recent"
+- "tunbury"
+- "versions"
 ---
 
 <p>Following my <a href="https://discuss.ocaml.org/t/docker-base-images-and-ocaml-ci-support-for-ocaml-4-08/16229">post on discuss.ocaml.org</a>, I have created a new release of <a href="https://github.com/ocurrent/ocaml-version">ocurrent/ocaml-version</a> that moves the minimum version of OCaml, considered as <em>recent</em>, from 4.02 to 4.08.</p>

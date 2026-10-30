@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "boxing"
+- "camllocal"
+- "camlprim"
+- "double"
+- "double_val"
+- "float"
+- "float_compare_float"
+- "functional programming"
+- "ppx"
 ---
 
 <p>The official OCaml documentation <a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.01/intfc.html">&ldquo;Interfacing C with

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "austin"
+- "functional programming"
+- "madhavapeddy"
+- "masses"
+- "minsky"
+- "real"
+- "rwo-1"
+- "world"
+- "yaron"
 ---
 
 <p>The 1st Edition of Real World OCaml by O'Reilly associates has been released! There have been flurry of signing events, including an upcoming one at OSCON in Austin.</p>

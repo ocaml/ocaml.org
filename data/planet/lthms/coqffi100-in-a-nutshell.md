@@ -9,6 +9,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "axiom"
+- "coq"
+- "coqffi"
+- "extlib"
+- "foreign function interface"
+- "impure"
+- "llist"
+- "monad"
+- "typeclass"
+- "uint"
 ---
 
 

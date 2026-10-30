@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "day"
+- "fpath"
+- "json"
+- "jsont"
+- "parser"
+- "seq"
+- "sequence"
+- "yaml"
+- "yamlt"
 ---

@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "ISO3166"
+- "cid"
+- "geojsone"
+- "jekyll-format"
+- "multibase"
+- "multicodec"
+- "multihash"
+- "multihash-digestif"
+- "topojson"
+- "topojsone"
 ---

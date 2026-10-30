@@ -13,6 +13,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "af09425cd7744c7b32ed000b11db90295142f3d3430fddb594932d5c02343b40"
+- "bitwuzla"
+- "cache-tmp"
+- "exec"
+- "info"
+- "mac1000"
+- "obuilder"
+- "partial_fails"
+- "patch"
+- "zfs"
 ---
 
 <p>The log from an <a href="https://github.com/ocurrent/obuilder">OBuilder</a> job starts with the steps needed to reproduce the job locally. This boilerplate output assumes that all OBuilder jobs start from a Docker base image, but on some operating systems, such as FreeBSD and macOS, OBuilder uses ZFS base images. On OpenBSD and Windows, it uses QEMU images. The situation is further complicated when the issue only affects a specific architecture that may be unavailable to the user.</p>

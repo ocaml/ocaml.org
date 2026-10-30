@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Matthias Puech
 source:
+keywords:
+- "GADT"
+- "atom"
+- "cart"
+- "conj"
+- "disj"
+- "dnf"
+- "equiv"
+- "form"
+- "refl"
+- "union"
 ---
 
 <p>This is probably a second-semester functional programming exercise, but I found it surprisingly hard, and could not find a solution online. So at the risk of depriving a TA from a problem for its mid-term exam, here is my take on it, that I painfully put together yesterday.</p>

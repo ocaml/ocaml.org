@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "beginners"
+- "chrismamo1"
+- "client-server"
+- "corentinjuvigny"
+- "drawing"
+- "eliom"
+- "graffiti"
+- "multi-user"
+- "tutorial"
+- "updated"
 ---
 
 <p><a href="http://ocsigen.org/tuto/latest/manual/application">Graffiti tutorial</a>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "alpha"
+- "cdot"
+- "constructively"
+- "curve"
+- "gamma"
+- "gamma_i"
+- "hilbert"
+- "square"
+- "square-filling"
+- "v_j"
 ---
 
 <p>In 1890 Giuseppe Peano <a href="https://doi.org/10.1007%2FBF01199438">discovered a square-filling curve</a>, and a year later David Hilbert <a href="https://doi.org/10.1007/BF01199431">published his variation</a>. In those days people did not waste readers' attention with dribble &ndash; Peano explained it all on 3 pages, and Hilbert on just 2 pages, with a picture!</p>

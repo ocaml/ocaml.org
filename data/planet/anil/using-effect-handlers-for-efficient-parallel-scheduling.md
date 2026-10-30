@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "domainslib"
+- "effect"
+- "latency"
+- "multicore"
+- "parallelism"
+- "scheduler"
+- "schedulers"
+- "scheduling"
+- "stealing"
+- "workloads"
 ---
 
 <h1>Using effect handlers for efficient parallel scheduling</h1>

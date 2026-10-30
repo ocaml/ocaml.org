@@ -8,6 +8,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "apparmor"
+- "bin"
+- "bremusa"
+- "exit"
+- "ocaml-ci"
+- "pam"
+- "runc"
+- "sudo"
+- "unix-chkpwd"
+- "usr"
 ---
 
 <p>Patrick reported issues with OCaml-CI running tests on <code class="language-plaintext highlighter-rouge">ocaml-ppx</code>.</p>

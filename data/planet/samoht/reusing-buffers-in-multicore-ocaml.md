@@ -10,4 +10,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "domain"
+- "effect"
+- "eio"
+- "expr"
+- "multicore"
+- "ocaml-option-tsan"
+- "ocaml-wire"
+- "parallelism"
+- "parser"
+- "slots"
 ---

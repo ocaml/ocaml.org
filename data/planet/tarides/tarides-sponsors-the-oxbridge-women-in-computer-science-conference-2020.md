@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/683df7e1cdbf16d2cc6e889c9f3c39a5/7d5a2
 authors:
 - Tarides
 source:
+keywords:
+- "auspicious"
+- "computer"
+- "conference"
+- "currently-open"
+- "employees"
+- "gender"
+- "oxbridge"
+- "science"
+- "tarides"
+- "women"
 ---
 
 <p>The <a href="https://oxbridgewomenincs8.wixsite.com/2020">Oxbridge Women in Computer Science

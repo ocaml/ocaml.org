@@ -8,6 +8,17 @@ preview_image: https://4.bp.blogspot.com/-uIdWt5l_kzY/WgcJ2KR3ScI/AAAAAAAABxw/ZO
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "disk"
+- "disks"
+- "hanoi"
+- "largest"
+- "move"
+- "peg"
+- "spare"
+- "to_"
+- "top"
+- "towers"
 ---
 
 

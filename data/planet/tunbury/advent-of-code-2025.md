@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "acc"
+- "coordset"
+- "dac"
+- "digits"
+- "fft"
+- "lp-glpk"
+- "networkset"
+- "ranges"
+- "sum"
+- "svr"
 ---

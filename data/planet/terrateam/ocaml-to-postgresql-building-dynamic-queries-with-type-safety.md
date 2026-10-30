@@ -9,4 +9,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "audit"
+- "dynamic"
+- "pgsql_io"
+- "postgresql"
+- "queries"
+- "query"
+- "safety"
+- "sql"
+- "terrateam"
+- "trail"
 ---

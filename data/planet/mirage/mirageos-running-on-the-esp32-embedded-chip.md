@@ -6,6 +6,17 @@ date: 2018-01-26T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "embedded"
+- "esp32"
+- "espressif"
+- "metaprogramming"
+- "microcontrollers"
+- "proceeded"
+- "sadiq"
+- "tha"
+- "tiny"
+- "winter"
 ---
 
 

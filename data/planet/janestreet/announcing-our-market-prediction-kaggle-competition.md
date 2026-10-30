@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/announcing-our-market-prediction-kagg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "competition"
+- "compiler"
+- "contest"
+- "functional programming"
+- "jane"
+- "kaggle"
+- "ppx"
+- "prediction"
+- "street"
 ---
 
 <p>Jane Street is running a Kaggle contest based on a real problem with

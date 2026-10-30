@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "ai-powered"
+- "brain-computer"
+- "domain"
+- "eio"
+- "formative"
+- "humans"
+- "mphil"
+- "nerve"
+- "scrutineer"
+- "sep"
 ---

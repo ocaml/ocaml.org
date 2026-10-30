@@ -8,6 +8,17 @@ preview_image: //4.bp.blogspot.com/-y__nUozm2S4/T-XDJWhHuKI/AAAAAAAAAU8/AnMnevHL
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "bsat"
+- "c00"
+- "c01"
+- "c10"
+- "c11"
+- "cubic"
+- "final"
+- "interpolation"
+- "ncols"
+- "srcpix"
 ---
 
 After linearizing all array accesses, interpolating ARGB values is easy from the algorithmic side of things; so easy things first. I'll handle the pixel interpolation proper by abstracting them away in their own little functions. Processing an ARGB source array is just a matter of changing the variable declarations:

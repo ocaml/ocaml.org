@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "echo"
+- "eio"
+- "eio_linux"
+- "eio_main"
+- "eio_posix"
+- "foo"
+- "getopts"
+- "ifs"
+- "meio"
+- "merry"
 ---

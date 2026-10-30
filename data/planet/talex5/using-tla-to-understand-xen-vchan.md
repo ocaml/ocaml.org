@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Thomas Leonard
 source:
+keywords:
+- "buffer"
+- "integrityi"
+- "len"
+- "readlimit"
+- "receiver"
+- "receiverlive"
+- "sender"
+- "senderwriteid"
+- "tla"
+- "vchan"
 ---
 
 <p>The vchan protocol is used to stream data between virtual machines on a Xen host without needing any locks.

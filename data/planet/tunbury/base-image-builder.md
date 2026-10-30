@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base"
+- "bin"
+- "builder"
+- "coreutils"
+- "gcc"
+- "interp"
+- "opam"
+- "packer"
+- "runtime"
+- "ubuntu"
 ---

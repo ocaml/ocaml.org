@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Thomas Leonard
 source:
+keywords:
+- "access"
+- "capabilities"
+- "capability"
+- "handle_request"
+- "htdocs"
+- "lambda"
+- "net"
+- "security"
+- "socket"
+- "web-server"
 ---
 
 <p>&quot;Is this software safe?&quot; is a question software engineers should be able to answer,

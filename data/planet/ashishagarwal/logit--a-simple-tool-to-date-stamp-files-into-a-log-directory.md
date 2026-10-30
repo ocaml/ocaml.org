@@ -7,6 +7,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Ashish Agarwal
 source:
+keywords:
+- "agarwal"
+- "ashish"
+- "buckminster"
+- "date-stamp"
+- "fuller"
+- "iccs"
+- "log"
+- "logit"
+- "publications"
+- "sweetener"
 ---
 
 <p><a href="http://github.com/agarwal/logit">http://github.com/agarwal/logit</a></p>

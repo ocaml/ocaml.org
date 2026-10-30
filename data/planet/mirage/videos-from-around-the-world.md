@@ -6,6 +6,17 @@ date: 2015-10-23T00:00:00-00:00
 preview_image:
 authors:
 - Amir Chaudhry
+keywords:
+- "amirchaudhry"
+- "bajor"
+- "citycode"
+- "devopsdays"
+- "mindy"
+- "mirageos"
+- "sep"
+- "strangeloop"
+- "unikernels"
+- "videos"
 ---
 
 

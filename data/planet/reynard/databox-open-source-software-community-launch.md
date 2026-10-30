@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:
+keywords:
+- "apps"
+- "arbiter"
+- "container"
+- "containers"
+- "data"
+- "databox"
+- "drivers"
+- "honey"
+- "hypercat"
+- "open-source"
 ---
 
 <p>The team working on the <a href="http://www.databoxproject.uk/">Databox Project</a> hosted their Cambridge open-source community launch on Friday 24th March at <a href="https://www.darwin.cam.ac.uk/">Darwin College</a>, Cambridge.</p>

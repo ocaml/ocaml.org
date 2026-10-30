@@ -14,6 +14,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "alert"
+- "broken"
+- "bytecode"
+- "compiler"
+- "eeg"
+- "opam"
+- "piece"
+- "poked"
+- "toplevel"
+- "week"
 ---
 
 <p>Rather varied week this week. A number of our <a href="https://anil.recoil.org/notes/eeg-interns-2025">EEG interns</a>

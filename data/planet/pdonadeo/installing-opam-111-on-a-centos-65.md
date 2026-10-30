@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "centos"
+- "compile"
+- "compiler"
+- "environment"
+- "frictions"
+- "godi"
+- "grade"
+- "install"
+- "irony"
+- "opam"
 ---
 
 <div>

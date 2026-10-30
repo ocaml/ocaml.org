@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "acc"
+- "current_source"
+- "dir_handle"
+- "full_path"
+- "process_directory"
+- "read_entries"
+- "readdir"
+- "s_blk"
+- "sys"
+- "unix"
 ---
 
 <p>When you recursively scan a massive directory tree, would you use <code class="language-plaintext highlighter-rouge">Sys.readdir</code> or <code class="language-plaintext highlighter-rouge">Unix.readdir</code>? My inclination is that <code class="language-plaintext highlighter-rouge">Sys.readdir</code> feels more convenient to use, and thus the lower-level <code class="language-plaintext highlighter-rouge">Unix.readdir</code> would have the performance edge. Is it significant enough to bother with?</p>

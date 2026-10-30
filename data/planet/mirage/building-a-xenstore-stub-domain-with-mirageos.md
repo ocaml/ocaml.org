@@ -6,6 +6,17 @@ date: 2012-09-12T00:00:00-00:00
 preview_image:
 authors:
 - Dave Scott
+keywords:
+- "MirageOS"
+- "async"
+- "domain"
+- "functor"
+- "lwt"
+- "mirage-xen"
+- "stub"
+- "xen"
+- "xenstore"
+- "xenstored"
 ---
 
 

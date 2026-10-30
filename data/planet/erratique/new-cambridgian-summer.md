@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "delayed"
+- "events"
+- "frp"
+- "opam"
+- "react"
+- "rtime"
+- "signals"
+- "stamp"
+- "timeline"
+- "varying"
 ---
 
 <p><a href="http://ocamllabs.io">OCaml Labs</a> kindly invited me to spend a second summer in Cambridge for working on OCaml free software graphical libraries. I'm looking forward to reconnect with the regular lab members and meet the other <a href="http://openmirage.org/blog/welcome-to-our-summer-hackers">interesting guests</a>.</p>

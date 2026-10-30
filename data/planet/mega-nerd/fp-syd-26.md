@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "ats"
+- "correspondent"
+- "ddc"
+- "dependent"
+- "eric"
+- "functional programming"
+- "llvm"
+- "meeting"
+- "sydney"
+- "willigers"
 ---
 
 

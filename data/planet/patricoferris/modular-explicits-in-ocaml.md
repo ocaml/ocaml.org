@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "builder"
+- "empty_set"
+- "explicits"
+- "functor"
+- "intset"
+- "lwt"
+- "obuilder"
+- "set_length"
+- "store_spec"
+- "stringset"
 ---

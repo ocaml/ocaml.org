@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Thomas Leonard
 source:
+keywords:
+- "arrow"
+- "commit"
+- "dart"
+- "fetch"
+- "monad"
+- "ocaml_version"
+- "pipeline"
+- "pipelines"
+- "promise"
+- "src"
 ---
 
 <p>In this post I describe three approaches to building a language for writing CI/CD pipelines. My first attempt used a <i>monad</i>, but this prevented static analysis of the pipelines. I then tried using an <i>arrow</i>, but found the syntax very difficult to use. Finally, I ended up using a light-weight alternative to arrows that I will refer to here as a <i>dart</i> (I don't know if this has a name already). This allows for static analysis like an arrow, but has a syntax even simpler than a monad.</p>

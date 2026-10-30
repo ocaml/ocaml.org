@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "add_spans"
+- "continuation"
+- "heap"
+- "i16"
+- "int16"
+- "len"
+- "off"
+- "oxcaml"
+- "span"
+- "unboxed"
 ---

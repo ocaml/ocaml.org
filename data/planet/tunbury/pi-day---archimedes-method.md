@@ -8,6 +8,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "approximation"
+- "archimedes"
+- "calculated"
+- "context"
+- "decimal"
+- "edge_squared"
+- "perimeter"
+- "pythagoras"
+- "sides"
+- "sqrt"
 ---
 
 <p>It’s <a href="https://en.wikipedia.org/wiki/Pi_Day">Pi Day</a> 2025</p>

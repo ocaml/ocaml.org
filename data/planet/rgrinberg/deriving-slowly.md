@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "ast"
+- "constr"
+- "core_type"
+- "deriving"
+- "gadt"
+- "loc"
+- "pcstr_record"
+- "polymorphic variant"
+- "ptype_name"
+- "type_name"
 ---
 
 <p>There&rsquo;s been some recent grumbling about the usability of ppx in OCaml, and

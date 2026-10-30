@@ -9,4 +9,15 @@ authors:
 - Grim
 source:
 ignore:
+keywords:
+- "bayesian"
+- "downvotes"
+- "float"
+- "miller"
+- "product"
+- "shopify_score"
+- "sorting"
+- "upvotes"
+- "voters"
+- "votes"
 ---

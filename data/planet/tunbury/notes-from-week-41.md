@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "concurrency"
+- "eio"
+- "jobs"
+- "js_of_ocaml"
+- "npy"
+- "ocurrent"
+- "shard"
+- "shards"
+- "utmnn"
+- "zone-year"
 ---

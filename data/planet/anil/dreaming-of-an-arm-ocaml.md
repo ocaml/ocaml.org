@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "MirageOS"
+- "arm"
+- "bin"
+- "dreamplug"
+- "jtag"
+- "mnt"
+- "stick"
+- "sudo"
+- "tar"
+- "usb"
 ---
 
 <p>I’ve been meaning to play with <a href="http://www.plugcomputer.org/">Plug

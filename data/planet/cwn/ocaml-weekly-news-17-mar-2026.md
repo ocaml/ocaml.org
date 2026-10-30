@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "abbr"
+- "archive"
+- "cp-sat"
+- "installers"
+- "odoc"
+- "or-tools"
+- "ortools"
+- "ortools_solvers"
+- "oui"
+- "unikernel"
 ---

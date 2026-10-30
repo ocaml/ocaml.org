@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "cryptography"
+- "curve"
+- "curves"
+- "ecdsa"
+- "elliptic"
+- "fiat-crypto"
+- "mirage-crypto-ec"
+- "mirageos"
+- "stdint"
+- "tls"
 ---
 
 <h2>Introduction</h2>

@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "applicative"
+- "bind"
+- "deferred"
+- "expr1"
+- "expr2"
+- "expr3"
+- "let_syntax"
+- "monad"
+- "some_other_operation"
+- "syntax"
 ---
 
 <p>Earlier this year, we created

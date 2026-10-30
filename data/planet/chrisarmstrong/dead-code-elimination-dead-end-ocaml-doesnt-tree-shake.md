@@ -10,4 +10,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "caml"
+- "camlaws_smsdk_client_dynamodb__deserializers"
+- "camlaws_smsdk_client_dynamodb__serializers"
+- "cold"
+- "dyn"
+- "flambda"
+- "frametable"
+- "rela"
+- "text"
+- "xmlm"
 ---

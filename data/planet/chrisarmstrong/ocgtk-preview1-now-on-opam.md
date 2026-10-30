@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "glib"
+- "gobject"
+- "gtk"
+- "guards"
+- "gvariant"
+- "ocgtk"
+- "opam"
+- "pango"
+- "preview0"
+- "preview1"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/merlin-jump-cover-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "OCaml LSP"
+- "codeaction"
+- "executecommand"
+- "jump"
+- "jumps"
+- "lsp"
+- "navigation"
+- "ocaml-lsp"
+- "request"
+- "showdocument"
 ---
 
 <h2>1. Introduction</h2>

@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Ashish Agarwal
 source:
+keywords:
+- "allaying"
+- "big-data"
+- "bioinformatician"
+- "biologists"
+- "credibility"
+- "domain"
+- "functional"
+- "functional programming"
+- "genomics"
+- "hitscore"
 ---
 
 <p><strong>Abstract</strong><br/>

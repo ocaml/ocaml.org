@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/seven-implementations-of-incremental/
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "chapman"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "incremental"
+- "jane"
+- "ppx"
+- "seven"
+- "street"
 ---
 
 <p>We finally got a decent recording of one of my favorite talks. This one is about

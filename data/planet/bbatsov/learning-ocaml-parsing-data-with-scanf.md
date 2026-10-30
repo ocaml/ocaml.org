@@ -10,6 +10,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "aapl"
+- "csv"
+- "input"
+- "iter"
+- "portfolio"
+- "price"
+- "scanf"
+- "shares"
+- "sscanf"
+- "ticker"
 ---
 
 <p>In my <a href="https://batsov.com/articles/2025/04/04/learning-ocaml-regular-expressions/">previous article</a> I mentioned that OCaml’s

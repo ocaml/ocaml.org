@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "enthusiasts"
+- "france"
+- "functional programming"
+- "kernels"
+- "meeting"
+- "mirageos"
+- "ocaml-users-group"
+- "presenting"
+- "speaking"
 ---
 
 <p>At the OCaml Meeting 2011 speaking about MirageOS</p>

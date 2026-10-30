@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "cmdliner"
+- "command"
+- "compositional"
+- "conventions"
+- "darcs"
+- "isc"
+- "line"
+- "man"
+- "opam"
+- "respects"
 ---
 
 <p>Release of Cmdliner 0.9.4, consult the release notes for details.</p>

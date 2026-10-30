@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "albatross"
+- "dune"
+- "functor"
+- "handbook"
+- "mirageos"
+- "mollymawk"
+- "ppx"
+- "retreat"
+- "unikernel"
+- "unikernels"
 ---
 
 <p>End of April I spent a week in Marrakech to work on MirageOS at our annual <a href="https://retreat.mirage.io">retreat</a>. This was the 12th time when it actually took place, and it was amazing. We were a total of 17 people attending, of which 5 people used ground transportation. I have respect for them, to take the 3 or more day trip from Berlin or Glasgow or Paris or whereever to Marrakech - with a ferry in between (which availability depends on the wind etc.). This time, I didn't take ground transportation since I had appointments just before and just after the retreat nearby Berlin where I had to be in person. The food an weather was really nice and motivating.</p>

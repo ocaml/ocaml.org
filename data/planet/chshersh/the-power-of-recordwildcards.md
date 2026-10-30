@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "age"
+- "applicative"
+- "extension"
+- "fields"
+- "fromp"
+- "functor"
+- "nameoncard"
+- "recordwildcards"
+- "tojson"
+- "user"
 ---
 
 Best-practices for the RecordWildCards language extension

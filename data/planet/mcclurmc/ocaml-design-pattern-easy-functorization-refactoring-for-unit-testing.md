@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Mike McClurg
 source:
+keywords:
+- "args"
+- "cli"
+- "create_bond"
+- "functor"
+- "ovs"
+- "ovs-vsctl"
+- "pattern"
+- "prop_args"
+- "props"
+- "vsctl"
 ---
 
 <p>I&rsquo;ve recently stumbled upon a useful OCaml design pattern for functorizing an existing module, without changing the way existing clients of that module use it. This is really useful for stubbing out dependencies when you&rsquo;re refactoring code for unit tests. Here&rsquo;s a simplified example from a bit of code that I refactored today.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "correct-ness"
+- "fast"
+- "functionfast"
+- "functionslow"
+- "outputs"
+- "quickcheck"
+- "re-invented"
+- "re-remembered"
+- "slow"
+- "versions"
 ---
 
 

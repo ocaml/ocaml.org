@@ -8,6 +8,17 @@ authors:
 - xvw, Xavier Van de Woestyne
 source:
 ignore:
+keywords:
+- "a_a"
+- "c_a"
+- "foo"
+- "import"
+- "importing"
+- "module system"
+- "open"
+- "opening"
+- "schemes"
+- "struct"
 ---
 
 

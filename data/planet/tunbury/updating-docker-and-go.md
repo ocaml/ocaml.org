@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bin"
+- "cf3491db4abd"
+- "docker"
+- "foo"
+- "git"
+- "moby"
+- "noble"
+- "riscv"
+- "root"
+- "tar"
 ---
 
 <p>For some time, we have had issues on Ubuntu Noble when extracting

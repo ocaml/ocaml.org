@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/195e36c5f0b19f28b8a999d93ff22a9c/3234f
 authors:
 - Tarides
 source:
+keywords:
+- "algebraic"
+- "concurrency"
+- "effect"
+- "effects"
+- "fp-syd"
+- "functional programming"
+- "handlers"
+- "koka"
+- "monad"
+- "parallelism"
 ---
 
 <p>At ICFP this year, <a href="https://kcsrk.info/">KC Sivaramakrishnan</a> gave two talks that put OCaml 5 in the spotlight: his <a href="https://youtu.be/zJ4G0TKwzVc">keynote</a>, &ldquo;Retrofitting Concurrency - Lessons from the Engine Room,&rdquo; and the <a href="https://speakerdeck.com/kayceesrk/ocaml-5-dot-0">opening presentation</a> of the OCaml workshop, &ldquo;OCaml 5.0 - Concurrent and Parallel Programming.&rdquo; <em>Effect Handlers</em> feature heavily, as they are the foundations on which concurrency primitives were added to OCaml. Since I knew very little about <em>effects</em> in this context, I asked KC for some pointers on where to start with learning about them. He pointed me to the <a href="https://koka-lang.github.io">Koka programming language</a>, encouraging me to set it up, play with it, and see how its type systems work with effects and effect handlers.</p>

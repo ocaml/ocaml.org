@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/c55286ef08acc064546bdb10b49d5b6a/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "arthur"
+- "commercial"
+- "companion"
+- "developers"
+- "helps"
+- "ide"
+- "magic"
+- "merlin"
+- "productivity"
+- "vscode"
 ---
 
 <p>Tarides provides support and development services for OCaml tools, packages, and libraries for our commercial partners and for the benefit of the entire OCaml community. We focus on groundbreaking innovation, feature development, and crucial maintenance of OCaml-based projects. One of these projects is called Merlin, an advanced Integrated Development Environment (IDE).</p>

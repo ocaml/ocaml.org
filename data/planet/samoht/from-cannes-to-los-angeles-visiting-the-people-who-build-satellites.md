@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "cannes"
+- "chamber"
+- "euclid"
+- "kilometres"
+- "satellites"
+- "space"
+- "techstars"
+- "unikernel"
+- "vacuum"
+- "visiting"
 ---
