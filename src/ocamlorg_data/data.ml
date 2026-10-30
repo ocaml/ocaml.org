@@ -388,6 +388,10 @@ module Attribution = struct
 
   let all = data.attribution
   let get_by_path path = List.find_opt (fun x -> String.equal path x.path) all
+
+  (* Records are keyed by repo-root path ("data/..."), whereas [Tutorial.t] and
+     [Tool_page.t] carry a [fpath] relative to [data/]. Bridge the two. *)
+  let get_by_fpath fpath = get_by_path ("data/" ^ fpath)
 end
 
 (* V2 assets - comes from separately generated v2.ml *)
