@@ -1,3 +1,6 @@
+(* Wrap every case-insensitive occurrence of a query word in a highlight
+   [<span>]. Query words are matched as literal substrings (longest match
+   first), never as regexps, so no query can crash the renderer. *)
 let highlight_search_terms
 ~class_
 ~search

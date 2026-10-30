@@ -322,7 +322,17 @@ module Planet = struct
      author/source. Only call with a non-empty query. *)
   let search q =
     let terms =
-      Str.split (Str.regexp "[^a-z0-9_-]+") (String.lowercase_ascii q)
+      (* Split on runs of anything outside [a-z0-9_-]; the length filter also
+         discards the empty fragments left by adjacent separators. *)
+      String.lowercase_ascii q
+      |> String.map (fun c ->
+             if
+               (c >= 'a' && c <= 'z')
+               || (c >= '0' && c <= '9')
+               || c = '_' || c = '-'
+             then c
+             else ' ')
+      |> String.split_on_char ' '
       |> List.filter (fun t -> String.length t >= 2)
     in
     match terms with
