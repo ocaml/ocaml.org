@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "contract"
+- "garbage collection"
+- "gas"
+- "rpcs"
+- "tezos"
+- "tezos-client"
+- "transaction"
+- "tz1gjaf81zrrvdzjobyfvnsaesc6pscjfqwn"
+- "tz1kqtpez7yob7qbpe4hy4wo8fhg8lhkxzsx"
+- "wallet"
 ---
 
 <p>In this technical blog post, we will briefly introduce Tezos RPCs

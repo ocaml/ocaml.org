@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "beta"
+- "bug"
+- "coq"
+- "extremely"
+- "includes"
+- "manual"
+- "reference"
+- "reports"
+- "second"
+- "welcome"
 ---
 
 

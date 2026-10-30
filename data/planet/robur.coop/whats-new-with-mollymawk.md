@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "albatross"
+- "deployment"
+- "liveliness"
+- "mirageos"
+- "mollymawk"
+- "ochestrating"
+- "rollback"
+- "unikernel"
+- "unikernels"
+- "updates"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "android"
+- "app"
+- "demo"
+- "mobile"
+- "ocsigen"
+- "ot_tongue"
+- "sport"
+- "start"
+- "template"
+- "web"
 ---
 
 <p>New release: Ocsigen Start 2.18</p>

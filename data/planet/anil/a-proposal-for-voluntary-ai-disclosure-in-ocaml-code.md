@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "ai-generated"
+- "anthropic"
+- "disclosure"
+- "merlin"
+- "module system"
+- "odoc"
+- "openai"
+- "proposal"
+- "voluntary"
 ---

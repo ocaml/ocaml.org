@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "docs"
+- "dune"
+- "js_of_ocaml"
+- "llms"
+- "merlin"
+- "ocurrent"
+- "odoc"
+- "oxcaml"
+- "toplevels"
+- "worker"
 ---

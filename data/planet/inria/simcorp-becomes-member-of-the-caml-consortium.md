@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "appendices"
+- "become"
+- "caml"
+- "consortium"
+- "esterel"
+- "euros"
+- "member"
+- "members"
+- "membership"
+- "simcorp"
 ---
 
 

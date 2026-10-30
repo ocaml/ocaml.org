@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "aujourd"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "hui"
+- "ocamlpro"
+- "opam"
+- "projet"
+- "tezos"
 ---
 
 <p>Tezos est aujourd&rsquo;hui un projet open source, un r&eacute;seau international d&eacute;velopp&eacute; par des &eacute;quipes sur plus de cinq continents. Dans la gen&egrave;se du

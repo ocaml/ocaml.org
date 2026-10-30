@@ -9,4 +9,15 @@ authors:
 source:
   name: "Backend Banter"
   url: https://www.backendbanter.fm/
+keywords:
+- "back-end"
+- "backendbanter"
+- "boot"
+- "dev"
+- "favorite"
+- "https"
+- "player"
+- "podcast"
+- "twitter"
+- "www"
 ---

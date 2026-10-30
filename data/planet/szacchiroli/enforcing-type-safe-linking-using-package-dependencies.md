@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "abi"
+- "debian"
+- "dh-ocaml"
+- "eclectic"
+- "forward-compatibility"
+- "functional programming"
+- "nomeata"
+- "paper"
+- "soname"
+- "system-level"
 ---
 
 <h1>Eclectic paper: dh-ocaml</h1>

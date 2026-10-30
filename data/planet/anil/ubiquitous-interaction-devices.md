@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "audio"
+- "camera-phones"
+- "context-aware"
+- "devices"
+- "mobile"
+- "pda"
+- "phone"
+- "phones"
+- "smartphones"
+- "ubiquitous"
 ---
 
 <div>

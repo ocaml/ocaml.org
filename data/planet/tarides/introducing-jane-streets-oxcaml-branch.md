@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "branch"
+- "concurrency"
+- "extensions"
+- "functor"
+- "jane"
+- "multicore"
+- "oxcaml"
+- "parallelism"
+- "street"
+- "type inference"
 ---
 
 <p><a href="https://www.janestreet.com">Jane Street</a> is a well-known OCaml powerhouse. They have a reputation for expertise and a long history of supporting the open-source community. Jane Street have been developing experimental features on a branch of OCaml, using them in production internally, and preparing them to be shared with the rest of the ecosystem. These extensions are now bundled and distributed together under the name <a href="https://oxcaml.org/">OxCaml</a>.</p>

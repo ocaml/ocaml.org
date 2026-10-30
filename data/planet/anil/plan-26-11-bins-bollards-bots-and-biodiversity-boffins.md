@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "barrier"
+- "conservation"
+- "defra"
+- "embeddings"
+- "evidence"
+- "jens"
+- "ocaml-ci"
+- "oxcaml"
+- "publishing"
+- "tessera"
 ---

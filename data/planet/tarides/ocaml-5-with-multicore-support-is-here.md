@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/35feab48b7c6539b0d44060cedad3d77/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "compiler"
+- "concurrency"
+- "concurrent"
+- "effect"
+- "eio"
+- "events"
+- "functional programming"
+- "multicore"
+- "parallelism"
+- "runtime"
 ---
 
 <p>It's here! It's finally here! On Friday, 16 December 2022, the OCaml community <a href="https://discuss.ocaml.org/t/ocaml-5-0-0-is-out/10974/7">announced the official release of Multicore OCaml</a>! From the beginning, Tarides has been deeply involved in OCaml's evolution, so we're very proud to present OCaml 5!</p>

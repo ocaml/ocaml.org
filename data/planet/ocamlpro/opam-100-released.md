@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:
+keywords:
+- "config"
+- "fix"
+- "opam"
+- "opam-devel"
+- "opam-repository"
+- "packages"
+- "pinned"
+- "thx"
+- "visitor"
+- "zsh"
 ---
 
 <p>I am <em>very</em> happy to announce the first official release of OPAM!</p>

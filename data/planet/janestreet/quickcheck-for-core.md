@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "bst"
+- "generator"
+- "list_int"
+- "monad"
+- "observer"
+- "quickcheck"
+- "singleton"
+- "tuple3"
+- "type class"
+- "upper"
 ---
 
 <p>Automated testing is a powerful tool for finding bugs and specifying correctness

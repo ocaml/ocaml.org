@@ -8,4 +8,15 @@ authors:
 - The Ocsigen team
 source:
 ignore:
+keywords:
+- "eliom"
+- "experimental"
+- "js_of_ocaml"
+- "landing"
+- "lwt"
+- "migrated"
+- "misrendered"
+- "odoc"
+- "page"
+- "wodoc"
 ---

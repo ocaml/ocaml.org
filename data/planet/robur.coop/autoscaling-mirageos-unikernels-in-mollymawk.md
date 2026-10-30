@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "autoscaling"
+- "cooldown"
+- "dnsvizor"
+- "info"
+- "mollymawk"
+- "robur"
+- "scaling"
+- "unikernel"
+- "unikernels"
+- "usage"
 ---

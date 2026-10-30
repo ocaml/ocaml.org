@@ -8,6 +8,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bell"
+- "broken"
+- "curl"
+- "deepseek"
+- "deepseek-r1"
+- "dennis"
+- "england"
+- "invented"
+- "ollama"
+- "ritchie"
 ---
 
 <p>I’ve heard a lot about Deepseek and wanted to try it for myself.</p>

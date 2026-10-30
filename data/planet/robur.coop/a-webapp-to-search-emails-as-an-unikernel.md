@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "blame"
+- "documents"
+- "emails"
+- "mirage-crypto-rng-mkernel"
+- "stem"
+- "uid"
+- "unikernel"
+- "vifu"
+- "x65"
+- "x73"
 ---

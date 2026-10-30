@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "caml"
+- "claude"
+- "compiler"
+- "container"
+- "curl"
+- "devcontainer"
+- "devcontainers"
+- "ocaml-variants"
+- "opam"
+- "unattended"
 ---

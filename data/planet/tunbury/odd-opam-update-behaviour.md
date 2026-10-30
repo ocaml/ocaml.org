@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base"
+- "ocaml-ci"
+- "ocurrent"
+- "odoc"
+- "opam"
+- "opam-repository"
+- "reset"
+- "sexplib0"
+- "sha"
+- "update"
 ---

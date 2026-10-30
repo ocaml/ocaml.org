@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Steven De Oliveira\n  "
 source:
+keywords:
+- "blockchain"
+- "contract"
+- "contracts"
+- "dune"
+- "formal verification"
+- "liquidity"
+- "love"
+- "michelson"
+- "parser"
+- "try-liquidity"
 ---
 
 <div align="center">

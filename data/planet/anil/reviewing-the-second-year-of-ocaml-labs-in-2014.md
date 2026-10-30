@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "foreign"
+- "foreign function interface"
+- "jeremy"
+- "labs"
+- "leo"
+- "opam"
+- "type inference"
+- "utop"
+- "white"
+- "yallop"
 ---
 
 <p>The <a href="https://anil.recoil.org/projects/ocamllabs">OCaml Labs</a> initiative within the <a href="http://www.cl.cam.ac.uk">Cambridge

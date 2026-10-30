@@ -9,4 +9,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "chose"
+- "drift"
+- "immutability"
+- "mutex"
+- "schema"
+- "serial"
+- "serialization"
+- "state"
+- "stategraph"
+- "terraform"
 ---

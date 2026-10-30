@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "counters"
+- "cycles"
+- "events"
+- "instruments"
+- "mperf"
+- "mperf-stat"
+- "perf"
+- "pet"
+- "plist"
+- "stat"
 ---

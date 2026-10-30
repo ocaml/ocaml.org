@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "cores"
+- "extends"
+- "framework"
+- "hardcaml"
+- "hardcaml-examples"
+- "plumbing"
+- "simulation"
+- "viewing"
+- "waveform"
+- "webpage"
 ---
 
 <p><a href="https://github.com/ujamjar/hardcaml-examples">hardcaml-examples</a> 

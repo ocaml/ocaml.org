@@ -9,6 +9,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "forall"
+- "nat"
+- "nth"
+- "obligation"
+- "program"
+- "smramcregister"
+- "type class"
+- "vcons"
+- "vector"
+- "vnil"
 ---
 
 

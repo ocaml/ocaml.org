@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "alt-ergo"
+- "cheat"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "june"
+- "ocamlpro"
+- "opam"
+- "sheets"
 ---
 
 <p>When you are beginning in a new programming language, it is sometimes helpful to have an overview of the documentation, that you can pin on your wall and easily have a look at it while you are programming. Since we couldn&rsquo;t find such Cheat Sheets, we decided to start writting our own cheat sheets for OCaml.</p>

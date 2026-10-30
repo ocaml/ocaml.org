@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agent-based"
+- "causal"
+- "concordia"
+- "conservation"
+- "ecosystem"
+- "modeling"
+- "resilience"
+- "simulations"
+- "tessera"
+- "workshop"
 ---

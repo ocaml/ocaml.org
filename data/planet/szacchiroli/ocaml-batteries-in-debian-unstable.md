@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "approaching"
+- "batteries"
+- "beta"
+- "days"
+- "debian"
+- "ledit"
+- "ocaml-batteries"
+- "steadily"
+- "unstable"
+- "uploaded"
 ---
 
 <h1>batteries approaching Beta 1: now in unstable</h1>

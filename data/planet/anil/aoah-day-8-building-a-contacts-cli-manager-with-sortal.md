@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "cli"
+- "contacts"
+- "day"
+- "eio"
+- "ppx"
+- "sadiqj"
+- "sortal"
+- "xdg"
+- "xdge"
 ---

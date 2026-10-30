@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "apt"
+- "coop"
+- "curl"
+- "gpg"
+- "key"
+- "re-signed"
+- "resigned"
+- "robur"
+- "sha1"
+- "signing"
 ---

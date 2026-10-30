@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "eio"
+- "eio_posix"
+- "foreign function interface"
+- "merry"
+- "msh"
+- "multicore"
+- "nathan"
+- "readline"
+- "shell"
+- "shelter"
 ---

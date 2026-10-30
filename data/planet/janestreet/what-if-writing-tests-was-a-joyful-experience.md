@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/the-joy-of-expect-tests/./expect.gif
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async_unix"
+- "book"
+- "camlraise_test__raise_after_265"
+- "customer"
+- "expect"
+- "expect_test"
+- "order"
+- "sexp"
+- "tests"
+- "vdom"
 ---
 
 <p>At Jane Street we use a pattern/library called &ldquo;expect tests&rdquo; that

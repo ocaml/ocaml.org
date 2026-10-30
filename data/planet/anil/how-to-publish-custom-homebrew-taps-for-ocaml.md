@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "any_skip_relocation"
+- "avsm"
+- "bin"
+- "cellar"
+- "depends_on"
+- "dune"
+- "dune-release"
+- "homebrew"
+- "publish"
+- "srcsetter"
 ---
 
 <p>Now that I've <a href="https://anil.recoil.org/notes/bushel-lives">switched</a> to a new website, I'm working on open-sourcing its components. I've got a lot of small OCaml scripts that are all work-in-progress, and so not quite suitable to be published to the <a href="https://github.com/ocaml/opam-repository">central opam-repository</a> but I still need be able to run them conveniently on my own <a href="https://anil.recoil.org/news.xml">self-hosted</a> infrastructure.</p>

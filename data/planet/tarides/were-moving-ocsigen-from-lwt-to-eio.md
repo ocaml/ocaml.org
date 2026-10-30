@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/3dwebapps-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "automate"
+- "biggest"
+- "concurrency"
+- "direct-style"
+- "effect"
+- "eio"
+- "js_of_ocaml"
+- "lwt"
+- "multicore"
+- "ocsigen"
 ---
 
 <p>Among the <a href="https://tarides.com/blog/2023-03-02-the-journey-to-ocaml-multicore-bringing-big-ideas-to-life/">big changes</a> that came with OCaml 5, concurrency via effect handlers was introduced alongside the I/O library <a href="https://github.com/ocaml-multicore/eio">Eio</a>, letting users take advantage of effects to write <a href="https://tarides.com/blog/2024-09-19-eio-from-a-user-s-perspective-an-interview-with-simon-grondin/">more efficient</a> concurrent programs. In an exciting new project, we are transitioning one of the biggest OCaml open source projects, Ocsigen, from <a href="https://ocsigen.org/lwt/latest/manual/manual"><code>Lwt</code></a> concurrency to concurrency using effects.</p>

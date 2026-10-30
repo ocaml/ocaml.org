@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/how-to-shuffle-a-big-dataset/shuffle_
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "data"
+- "dataset"
+- "oversized"
+- "pile"
+- "piles"
+- "ram"
+- "random"
+- "shuffle"
+- "shuffling"
+- "training"
 ---
 
 <p>At Jane Street, we often work with data that has a very low

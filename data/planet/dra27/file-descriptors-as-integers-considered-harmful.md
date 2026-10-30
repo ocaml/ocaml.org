@@ -10,4 +10,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "at_fdcwd"
+- "descriptor"
+- "descriptors"
+- "file_descr"
+- "integers"
+- "mkdirat"
+- "ocaml-uring"
+- "unix"
+- "uring"
+- "user_data_id"
 ---

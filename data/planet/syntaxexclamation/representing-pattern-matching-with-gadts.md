@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Matthias Puech
 source:
+keywords:
+- "branch"
+- "exp"
+- "gadt"
+- "inl"
+- "inr"
+- "pair"
+- "patt"
+- "pattern-matching"
+- "pinr"
+- "union"
 ---
 
 <p>Here is a little programming pearl. I&rsquo;ve been wanting to work on pattern-matching for a while now, and it seems like I will finally have this opportunity here at my new (academic) home, <a href="http://cs.mcgill.ca/">McGill</a>.</p>

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "cci"
+- "cri"
+- "forester"
+- "formal verification"
+- "japan"
+- "keita"
+- "lectures"
+- "pattern matching"
+- "summit"
+- "tessera"
 ---

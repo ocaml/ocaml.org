@@ -11,4 +11,15 @@ authors:
 - The Ocsigen team
 source:
 ignore:
+keywords:
+- "bytesrw"
+- "camlzip"
+- "conf-zlib"
+- "conf-zstd"
+- "js_of_ocaml"
+- "lwt"
+- "ocsigen"
+- "ocsigenserver"
+- "ocsigenserver-compat"
+- "server"
 ---

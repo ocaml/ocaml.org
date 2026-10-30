@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Muriel\n  "
 source:
+keywords:
+- "alt-ergo"
+- "contracts"
+- "domain"
+- "flambda"
+- "formal verification"
+- "functor"
+- "js_of_ocaml"
+- "ocamlpro"
+- "parser"
+- "solidity"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/logo_2020_at_ocamlpro.png" alt="2020 at OCamlPro"/></p>

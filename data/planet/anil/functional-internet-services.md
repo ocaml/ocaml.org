@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "domain-specific"
+- "formal verification"
+- "functional"
+- "functional programming"
+- "internet"
+- "melange"
+- "mirageos"
+- "phd"
+- "protocols"
+- "research"
 ---
 
 <div>

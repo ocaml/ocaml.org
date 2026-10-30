@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "batteries"
+- "bz2"
+- "camlp4"
+- "camomile"
+- "camomile-0"
+- "findlib-1"
+- "install"
+- "regular"
+- "tar"
+- "windows"
 ---
 
 <div>

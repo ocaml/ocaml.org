@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "balance"
+- "empty"
+- "height"
+- "iter"
+- "node"
+- "remove_rec"
+- "search"
+- "sub-tree"
+- "tbl"
+- "tree"
 ---
 
 <p>

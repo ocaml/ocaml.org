@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "codec"
+- "encouraged"
+- "json"
+- "jsonm"
+- "non-blocking"
+- "non-standard"
+- "opam"
+- "uncut"
+- "uutf"
+- "whitespace"
 ---
 
 <p>First release of Jsonm, a non-blocking streaming JSON codec for OCaml.</p>

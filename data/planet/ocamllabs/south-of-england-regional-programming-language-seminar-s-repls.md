@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "calderon"
+- "compiler"
+- "conor"
+- "england"
+- "mcbride"
+- "parallelism"
+- "regional"
+- "s-repls"
+- "seminar"
+- "south"
 ---
 
 <p>If you're within travelling distance of Cambridge and interested in

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "MirageOS"
+- "acm"
+- "butler"
+- "domain"
+- "ensemble"
+- "functor"
+- "garbage collection"
+- "lampson"
+- "melange"
+- "operating"
 ---
 
 <p>The Communications of the ACM have just published an article that <a href="https://github.com/djs55" class="contact">Dave Scott</a> and I wrote providing a broader background on the concept of <a href="http://anil.recoil.org/papers/2013-asplos-mirage.pdf">Unikernels</a> that we’ve been working on since about 2003, when we started building <a href="http://anil.recoil.org/papers/2007-eurosys-melange.pdf">Melange</a> and the <a href="http://anil.recoil.org/papers/2010-icfp-xen.pdf">Xen toolstack</a>. You can read either the <a href="http://cacm.acm.org/magazines/2014/1/170866-unikernels">print article</a> (requires an ACM subscription) or the <a href="http://queue.acm.org/detail.cfm?id=2566628">open access version</a> on the ACM Queue.</p>

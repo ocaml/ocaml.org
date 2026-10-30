@@ -7,6 +7,9 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "description"
+- "release"
 ---
 
 A description of the new release of Eq{af}

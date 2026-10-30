@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "april"
+- "august"
+- "coherent"
+- "january"
+- "july"
+- "march"
+- "october"
+- "pdf"
+- "pdftk"
+- "proview"
 ---
 
 <p>The new version of the <a href="http://www.coherentpdf.com/proview.html">Proview PDF Editor</a> for Mac OS X is now available for download. The update is free for existing users &ndash; your license key will still work &ndash; just download and install from the website.</p>

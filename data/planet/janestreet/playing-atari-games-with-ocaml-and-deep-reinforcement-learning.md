@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/playing-atari-games-with-ocaml-and-de
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "classical"
+- "deep-learning"
+- "detailed"
+- "experiments"
+- "implemented"
+- "learning"
+- "python"
+- "reinforcement"
+- "reproduce"
+- "usually"
 ---
 
 <p>In a <a href="https://blog.janestreet.com/deep-learning-experiments-in-ocaml/">previous blog post</a>

@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "acc"
+- "base-threads"
+- "base-unix"
+- "dag"
+- "dune"
+- "ordering"
+- "packagemap"
+- "packageset"
+- "topological"
+- "topological_sort"
 ---
 
 <p>Over the last few months, I have written several posts on the package installation graphs specifically, <a href="https://www.tunbury.org/2025/03/25/topological-sort/">Topological Sort of Packages</a>, <a href="https://www.tunbury.org/2025/03/31/opam-post-deps/">Installation order for opam packages</a> and <a href="https://www.tunbury.org/2025/06/23/transitive-reduction/">Transitive Reduction of Package Graph</a>. In this post, I’d like to cover a alternative ordering solution.</p>

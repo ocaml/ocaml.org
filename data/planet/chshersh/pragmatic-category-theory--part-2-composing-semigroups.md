@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "append"
+- "composing"
+- "minimum"
+- "minmax"
+- "module system"
+- "pair"
+- "pragmatic"
+- "semigroup"
+- "semigroups"
+- "utop"
 ---
 
 Learning how to compose primitive Semigroups

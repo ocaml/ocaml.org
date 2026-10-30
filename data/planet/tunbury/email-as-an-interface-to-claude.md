@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "autoresponder"
+- "cert"
+- "claude"
+- "domain"
+- "email"
+- "imap"
+- "poll"
+- "session"
+- "smtp"
+- "trusted_certs"
 ---

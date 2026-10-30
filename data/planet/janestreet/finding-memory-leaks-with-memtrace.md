@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/finding-memory-leaks-with-memtrace/me
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "alloc_time"
+- "allocations"
+- "allocs"
+- "flame"
+- "gnuplot"
+- "graph"
+- "memtrace"
+- "obj_id"
+- "trace"
+- "viewer"
 ---
 
 <p>Memory issues can be hard to track down. A function that only

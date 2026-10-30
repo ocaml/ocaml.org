@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:
+keywords:
+- "issue"
+- "issues"
+- "labels"
+- "management"
+- "merlin"
+- "milestones"
+- "projects"
+- "todo"
+- "trello"
+- "workflow"
 ---
 
 <p><strong>TL;DR</strong></p>

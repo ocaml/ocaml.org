@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/6cebb5e1e17cc396d24242afb53aba36/764f4
 authors:
 - Tarides
 source:
+keywords:
+- "adoption"
+- "learns"
+- "opam"
+- "platform"
+- "streamers"
+- "toolsuite"
+- "tutorial"
+- "tutorials"
+- "video"
+- "videos"
 ---
 
 <p>Have you had difficulty installing OCaml for your projects? We have created a <a href="https://youtu.be/sy4EQirNMUI">video tutorial</a> showing you how to use Opam to install OCaml on Linux and macOS.</p>

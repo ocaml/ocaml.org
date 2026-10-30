@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "beside"
+- "bits"
+- "debcamp"
+- "debian"
+- "linkability"
+- "release-ready"
+- "stephane"
+- "substvar"
+- "teeny"
+- "transition"
 ---
 
 <h1>... and other Debian OCaml bits</h1>

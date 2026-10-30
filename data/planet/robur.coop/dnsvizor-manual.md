@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "dhcp"
+- "dnsmasq"
+- "dnsvizor"
+- "encounter"
+- "enhanced"
+- "manual"
+- "markdown"
+- "mdbook"
+- "mirageos"
+- "nicely"
 ---
 
 Documenting DNSvizor: setup, how to build, configuration, updates

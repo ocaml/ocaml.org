@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "bertot"
+- "chrz"
+- "coq"
+- "czsz"
+- "full-page"
+- "herbelin"
+- "hugo"
+- "organize"
+- "papers"
+- "workshop"
 ---
 
 

@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "base-bigarray"
+- "base-threads"
+- "base-unix"
+- "box"
+- "dune"
+- "ocaml-base-compiler"
+- "ocaml-config"
+- "ocaml-options-vanilla"
+- "ocaml-system"
+- "ocaml-variants"
 ---

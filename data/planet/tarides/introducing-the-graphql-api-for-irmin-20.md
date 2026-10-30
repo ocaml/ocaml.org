@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/774a33033c774c2c0c5b638f61694621/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "api"
+- "branch-a"
+- "functor"
+- "graphql"
+- "graphql-lwt"
+- "graphql_ppx"
+- "hash"
+- "irmin"
+- "irmin-graphql"
+- "schema"
 ---
 
 <p>With the release of Irmin 2.0.0, we are happy to announce a new package - <code>irmin-graphql</code>, which can be used to serve data from Irmin over HTTP. This blog post will give you some examples to help you get started, there is also <a href="https://irmin.org/tutorial/graphql">a section in the <code>irmin-tutorial</code></a> with similar information. To avoid writing the same thing twice, this post will cover the basics of getting started, plus a few interesting ideas for queries.</p>

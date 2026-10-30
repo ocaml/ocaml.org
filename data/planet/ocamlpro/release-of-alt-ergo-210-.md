@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "alt-ergo"
+- "club"
+- "compiler"
+- "dune"
+- "flambda2"
+- "formulas"
+- "opam"
+- "release"
+- "sat"
+- "solver"
 ---
 
 <p>A new release of Alt-Ergo (version 2.1.0) is available on Alt-Ergo's website: <a href="https://alt-ergo.ocamlpro.com/#releases">https://alt-ergo.ocamlpro.com/#releases</a>. An OPAM package for it will be published soon.</p>

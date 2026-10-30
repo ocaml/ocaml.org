@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/01354a6adbfcfdfa0ba1a41444d2cd4d/d6c95
 authors:
 - Tarides
 source:
+keywords:
+- "community"
+- "experience"
+- "first-class"
+- "platform"
+- "project"
+- "roadmap"
+- "survey"
+- "unix-based"
+- "vcpkg"
+- "windows"
 ---
 
 <p>We want to make learning and using OCaml easier for more people. Realising this goal involves expanding OCaml support to where the users are and making their experience smooth and hassle-free.</p>

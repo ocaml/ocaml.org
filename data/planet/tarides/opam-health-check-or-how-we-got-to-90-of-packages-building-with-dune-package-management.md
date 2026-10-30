@@ -10,6 +10,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "dune"
+- "dune-configurator"
+- "ez-conf-lib"
+- "health"
+- "lwt"
+- "management"
+- "odoc"
+- "opam"
+- "package"
+- "packages"
 ---
 
 <p>We have <a href="https://tarides.com/blog/2025-04-11-expanding-dune-package-management-to-the-rest-of-the-ecosystem/">recently

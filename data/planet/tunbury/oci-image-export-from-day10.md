@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "day10"
+- "docker"
+- "image"
+- "layers"
+- "ocaml-base-compiler"
+- "oci"
+- "oci-output"
+- "ocluster"
+- "ocurrent"
+- "skopeo"
 ---

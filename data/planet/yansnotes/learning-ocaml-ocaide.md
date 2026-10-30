@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "eclipse"
+- "fiddling"
+- "formatter"
+- "ide"
+- "indentation"
+- "journey"
+- "nevertheless"
+- "noobie"
+- "ocaide"
+- "preferences"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

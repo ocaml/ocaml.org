@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "char"
+- "extensible"
+- "functor"
+- "gadt"
+- "int_of_digits"
+- "merlin"
+- "parser"
+- "patch"
+- "sessions"
+- "type checker"
 ---
 
 <h2>Highlights from recent sessions</h2>

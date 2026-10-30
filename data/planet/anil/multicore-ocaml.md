@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "dolan"
+- "laid"
+- "leo"
+- "multicore"
+- "paper"
+- "parallelism"
+- "stephen"
+- "white"
+- "workshop"
 ---
 
 <p>First paper on multicore OCaml's design at the OCaml Workshop</p>

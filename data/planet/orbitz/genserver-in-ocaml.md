@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Orbitz
 source:
+keywords:
+- "async"
+- "callbacks"
+- "concurrency"
+- "deferred"
+- "functor"
+- "gen_server"
+- "handle_call"
+- "resp"
+- "terminate"
+- "thrown"
 ---
 
 <p>

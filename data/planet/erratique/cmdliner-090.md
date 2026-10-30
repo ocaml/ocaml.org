@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "cmdliner"
+- "command"
+- "compositional"
+- "conventions"
+- "darcs"
+- "isc"
+- "line"
+- "man"
+- "opam"
+- "respects"
 ---
 
 <p>First release of Cmdliner, an OCaml module for the declarative definition of command line interfaces.</p>

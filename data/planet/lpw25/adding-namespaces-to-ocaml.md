@@ -6,6 +6,17 @@ date: 2013-03-10T00:00:00-00:00
 preview_image:
 authors:
 - lpw25
+keywords:
+- "bar"
+- "cmi"
+- "description"
+- "foo"
+- "foo-bar"
+- "module system"
+- "mutex"
+- "namespace"
+- "namespaces"
+- "pack"
 ---
 
 <div class="well well-small">

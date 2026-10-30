@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Sebastien Mondet
 source:
+keywords:
+- "dune"
+- "echo"
+- "every-60-seconds"
+- "imperceptible"
+- "notmuch"
+- "notmuch-status"
+- "rebuild"
+- "search"
+- "tip"
+- "universal"
 ---
 
 

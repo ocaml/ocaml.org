@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "compiler"
+- "dune"
+- "emitting"
+- "es6"
+- "iterators"
+- "javascript"
+- "melange"
+- "melange-compiler-libs"
+- "type checker"
+- "virtual"
 ---
 
 <p>Today, we're introducing Melange 4.0, the latest version of our backend for the

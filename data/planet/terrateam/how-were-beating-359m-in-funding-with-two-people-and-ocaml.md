@@ -8,4 +8,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "beating"
+- "co-founder"
+- "company"
+- "installation_ids"
+- "orchestration"
+- "sql"
+- "stategraph"
+- "terraform"
+- "terrateam"
+- "typed_sql"
 ---

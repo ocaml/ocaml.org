@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/18ab75716002f9a9cc41bf009fc2fcba/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "MirageOS"
+- "assortment"
+- "chennai"
+- "domainslib"
+- "garden"
+- "hacking"
+- "multicore"
+- "open-source"
+- "participants"
+- "simile"
 ---
 
 <p>It is a truth universally acknowledged, that a programmer in possession of a free Saturday afternoon must be in want of a good old OCaml hacking session. To address this pressing need, we recently hosted another OCaml Hacking Day event &ndash; this time at our Tarides India office in Chennai. We had a total of twelve hackers with varying levels of experience participating. Everyone gathered for talks, snacks, mingling, and most excitingly some hands-on hacking!</p>

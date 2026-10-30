@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "circuit"
+- "clash"
+- "description"
+- "domain"
+- "effect"
+- "fixed-length"
+- "functional programming"
+- "hardware"
+- "language"
+- "module system"
 ---
 
 <h1>A hardware description language using OCaml effects</h1>

@@ -8,4 +8,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "deriving"
+- "diff"
+- "expect_test"
+- "fmt"
+- "is_odd_even"
+- "my_library"
+- "pp_odd_even"
+- "ppx_deriving"
+- "ppx_expect"
+- "res"
 ---

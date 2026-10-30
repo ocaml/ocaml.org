@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "apr"
+- "bluespec"
+- "functor"
+- "iit"
+- "iit-m"
+- "indian"
+- "launchpad"
+- "madras"
+- "nikhil"
+- "spytial"
 ---

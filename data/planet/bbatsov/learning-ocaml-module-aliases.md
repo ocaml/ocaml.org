@@ -10,6 +10,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "aliases"
+- "functor"
+- "iter"
+- "portfolio"
+- "price"
+- "printf"
+- "scope"
+- "shares"
+- "ticker"
+- "total"
 ---
 
 <p>OCaml is famous for allow you to do a lot of things like modules. Like really a lot!

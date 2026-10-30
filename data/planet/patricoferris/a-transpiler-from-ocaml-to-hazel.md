@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "expr"
+- "hazel"
+- "hazel_of_ocaml"
+- "length"
+- "map"
+- "merlin"
+- "module system"
+- "transpiler"
+- "type inference"
+- "typfun"
 ---
 
 

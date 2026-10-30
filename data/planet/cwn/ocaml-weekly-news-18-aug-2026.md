@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "affect"
+- "cml"
+- "concurrency"
+- "dsa"
+- "hex"
+- "intel_hex"
+- "mirage-crypto-ec"
+- "mirage_crypto_ec"
+- "parallelism"
+- "slipshow"
 ---

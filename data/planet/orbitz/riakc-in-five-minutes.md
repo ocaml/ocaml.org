@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Orbitz
 source:
+keywords:
+- "async"
+- "conn"
+- "hex"
+- "iter"
+- "ocamlfind"
+- "opts"
+- "riak"
+- "riakc"
+- "robj"
+- "vclock"
 ---
 
 <p>

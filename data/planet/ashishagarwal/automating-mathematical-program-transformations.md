@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Ashish Agarwal
 source:
+keywords:
+- "automating"
+- "besta"
+- "big-m"
+- "disjunctive"
+- "grossmann"
+- "hull"
+- "mathematical"
+- "mps"
+- "nding"
+- "transformations"
 ---
 
 <p><strong>Abstract</strong></p>

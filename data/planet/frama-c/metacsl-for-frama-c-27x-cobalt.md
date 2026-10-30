@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "acsl"
+- "annotations"
+- "corresponding"
+- "frama-c"
+- "frama-c-metacsl"
+- "hilare"
+- "metacsl"
+- "opam"
+- "plug-in"
+- "specifying"
 ---
 
 

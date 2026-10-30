@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "embeddings"
+- "geospatial"
+- "iucn"
+- "mirageos"
+- "products"
+- "stepped"
+- "taxonomy"
+- "tessera"
+- "torchgeo"
+- "weisz"
 ---

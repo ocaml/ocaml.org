@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "flambda"
+- "mnet-ssh"
+- "nottui"
+- "notty"
+- "ocaml-option-flambda"
+- "ocaml-option-no-flat-float-array"
+- "review"
+- "smtp"
+- "unikernel"
+- "vif"
 ---

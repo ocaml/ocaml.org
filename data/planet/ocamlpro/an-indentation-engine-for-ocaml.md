@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "engine"
+- "indentation"
+- "klet"
+- "ocp-indent"
+- "operators"
+- "parser"
+- "reindented"
+- "semantic"
+- "stack"
+- "tuareg"
 ---
 
 <p>Since our last <a href="https://ocamlpro.com/blog/2013_02_18_overview_of_current_activities">activity report</a> we have released the first stable versions of two projects: <a href="https://opam.ocamlpro.com/">OPAM</a>, an installation manager for OCaml source packages, and <a href="https://github.com/OCamlPro/ocp-indent">ocp-indent</a>, an indentation tool.</p>

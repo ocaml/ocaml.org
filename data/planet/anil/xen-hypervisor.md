@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "functional programming"
+- "hypervisor"
+- "multicore"
+- "multiscale"
+- "srg"
+- "toolstack"
+- "xen"
+- "xenoservers"
+- "xenserver"
+- "xensource"
 ---
 
 <div>

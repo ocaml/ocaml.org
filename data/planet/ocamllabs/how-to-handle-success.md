@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "continuation"
+- "end_of_stream"
+- "exception"
+- "exceptional"
+- "expr_1"
+- "expr_n"
+- "iter_stream"
+- "pattern_1"
+- "pattern_n"
+- "success"
 ---
 
 <p>(Update (2014-05-28): Added notes on <a href="http://ocamllabs.io/compiler-hacking/rss.xml#delimcc">delimcc</a> and <a href="http://ocamllabs.io/compiler-hacking/rss.xml#catch-me">Catch me if you can</a> to the <em>Discoveries</em> section.)</p>

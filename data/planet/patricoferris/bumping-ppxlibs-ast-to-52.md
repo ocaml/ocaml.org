@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "ast"
+- "lident"
+- "nolabel"
+- "pexp_function"
+- "pexp_ident"
+- "pparam_desc"
+- "pparam_loc"
+- "ppat_var"
+- "ppxlib"
+- "pull"
 ---
 
 

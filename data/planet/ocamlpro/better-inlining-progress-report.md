@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Chambart\n  "
 source:
+keywords:
+- "flambda"
+- "functor"
+- "inlining"
+- "inlining-benchs"
+- "iter"
+- "lambda"
+- "map_triple"
+- "ocamlnet"
+- "pattern matching"
+- "progress"
 ---
 
 <p>As announced <a href="https://ocamlpro.com/blog/optimisations-you-shouldnt-do">some time ago</a>, I am working on a new intermediate language within the OCaml compiler to improve its inlining strategy. After some time of bug squashing, I prepared a testable version of the patchset, available either on <a href="https://github.com/chambart/ocaml.git">Github</a> (branch <code>flambda_experiments</code>), or through OPAM, in the following repository:</p>

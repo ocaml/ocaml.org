@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "bittersweet"
+- "bucklescript"
+- "compiler"
+- "inhumanly"
+- "interoperation"
+- "javascript-like"
+- "js_of_ocaml"
+- "slide24"
+- "syntax"
+- "unless"
 ---
 
 <div class="date">August 26, 2020</div>

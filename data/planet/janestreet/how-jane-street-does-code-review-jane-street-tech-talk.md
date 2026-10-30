@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/jane-street-tech-talk-how-jane-street
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "jane"
+- "ppx"
+- "review"
+- "street"
+- "talk"
+- "tech"
 ---
 
 <p>It&rsquo;s time for our next

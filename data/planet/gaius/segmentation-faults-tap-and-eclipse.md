@@ -9,6 +9,17 @@ preview_image: https://gaiustech.files.wordpress.com/2011/09/segfault1.png
 authors:
 - Gaius Hammond
 source:
+keywords:
+- "boost"
+- "crashes"
+- "eclipse"
+- "eclipsefp"
+- "exit"
+- "friend"
+- "libtap"
+- "recommendation"
+- "segmentation"
+- "tap"
 ---
 
 <p>This is quite a neat trick. Consider:</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "event-tracing"
+- "functional programming"
+- "funk"
+- "hypothesis"
+- "macro-"
+- "macro-benchmarking"
+- "micro-benchmarking"
+- "multivariate"
+- "predictions"
+- "sebastian"
 ---
 
 <h1>Macro- and Micro-benchmarking in OCaml</h1>

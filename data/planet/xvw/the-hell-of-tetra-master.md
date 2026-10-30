@@ -8,6 +8,17 @@ authors:
 - xvw, Xavier Van de Woestyne
 source:
 ignore:
+keywords:
+- "arrows"
+- "battle"
+- "card"
+- "cards"
+- "defense"
+- "game"
+- "master"
+- "opponent"
+- "rules"
+- "tetra"
 ---
 
 

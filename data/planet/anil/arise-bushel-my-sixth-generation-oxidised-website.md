@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "bushel"
+- "dream-httpaf"
+- "effect"
+- "hpack"
+- "lwt"
+- "lwt_ppx"
+- "mirageos"
+- "multicore"
+- "ppx"
+- "unikernel"
 ---
 
 <p>This website has been through quite a few iterations over the years. The first version in 1998 was written in Perl and hosted on <a href="https://anil.recoil.org/news.xml">OpenBSD</a>; the second was rewritten in 2000 when I <a href="https://anil.recoil.org/notes/commit-access-to-php">got commit access to PHP</a>; the third rewrite became a hybrid OCaml/PHP/Perl special in 2004 in <a href="https://en.wikipedia.org/wiki/Blosxom">Blosxom</a>; then the forth rewrite around 2013 got turned into a <a href="https://anil.recoil.org/projects/unikernels">unikernel</a> in MirageOS; then the <a href="https://web.archive.org/web/20220118200046/https://anil.recoil.org/">fifth</a> in 2019 then transitioned to an OCaml static site generator hosted on a prerelease <a href="https://github.com/avsm/eeww">multicore OCaml webserver</a>. So the sixth generation now needs something to continue the grand <a href="https://en.wikipedia.org/wiki/Rube_Goldberg_machine">Rube Goldberg</a> tradition of helping me learn the latest and greatest in systems technology.</p>

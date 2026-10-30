@@ -13,6 +13,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "curl"
+- "forget"
+- "manpage"
+- "manually"
+- "opam"
+- "opam-devel"
+- "opambesteffort"
+- "opamrootisok"
+- "sandbox"
+- "sandboxing"
 ---
 
 <p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.3">opam 2.0.3</a>.</p>

@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Dario Pinto\n  "
 source:
+keywords:
+- "dep-to-try"
+- "git"
+- "ocp-index"
+- "opam"
+- "opam-otopop"
+- "packages"
+- "pin"
+- "pinned"
+- "pinning"
+- "zapashcanon"
 ---
 
 <p></p>

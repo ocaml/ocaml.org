@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "cairngorms"
+- "cambridge"
+- "concurrency"
+- "dclimate"
+- "grassroots"
+- "habitat"
+- "lidar"
+- "sabbatical"
+- "scrutineer"
+- "tessera"
 ---

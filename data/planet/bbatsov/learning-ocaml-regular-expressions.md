@@ -9,6 +9,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "expressions"
+- "iter"
+- "perl"
+- "printf"
+- "regexp"
+- "regular"
+- "rep1"
+- "seq"
+- "str"
+- "utop"
 ---
 
 <p>One of the things that bothered me initially in OCaml was the poor support for

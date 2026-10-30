@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "dune"
+- "envelope"
+- "float"
+- "line"
+- "r-tree"
+- "r-trees"
+- "rectangle"
+- "repr"
+- "rtree"
+- "tree"
 ---
 
 

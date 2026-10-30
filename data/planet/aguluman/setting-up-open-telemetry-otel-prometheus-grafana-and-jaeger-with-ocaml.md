@@ -9,4 +9,15 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "configuration"
+- "grafana"
+- "jaeger"
+- "metrics"
+- "open"
+- "opentelemetry"
+- "otel"
+- "prometheus"
+- "telemetry"
+- "tracing"
 ---

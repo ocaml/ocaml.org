@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Raja Boujbel - OCamlPro\n  "
 source:
+keywords:
+- "base-threads"
+- "base-unix"
+- "cppo"
+- "extlib"
+- "ocp-browser"
+- "ocp-index"
+- "opam"
+- "opam-client"
+- "opam-installer"
+- "user-setup"
 ---
 
 <p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-2-0-is-out/14893">Discuss</a>!</em></p>

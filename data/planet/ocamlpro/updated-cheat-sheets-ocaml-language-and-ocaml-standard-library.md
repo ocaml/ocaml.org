@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Blanc\n  "
 source:
+keywords:
+- "blogpost"
+- "cheat"
+- "duck"
+- "evolved"
+- "lane"
+- "most-used"
+- "pdf"
+- "rubber"
+- "rubbish"
+- "sheets"
 ---
 
 <p>In 2011, we shared several cheat sheets for OCaml. Cheat sheets are helpful to refer to, as an overview of the documentation when you are programming, especially when you&rsquo;re starting in a new language. They are meant to be printed and pinned on your wall, or to be kept in handy on a spare screen. We hope they will help you out when your rubber duck is rubbish at debugging your code!</p>

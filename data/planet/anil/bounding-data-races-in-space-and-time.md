@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "acm"
+- "bounding"
+- "data"
+- "dolan"
+- "multicore"
+- "predictably"
+- "races"
+- "sivaramakrishnan"
+- "space"
+- "stephen"
 ---
 
 <p>Paper on the OCaml memory model and underlying theory at PLDI 2018</p>

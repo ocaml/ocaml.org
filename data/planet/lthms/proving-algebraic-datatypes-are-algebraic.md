@@ -11,6 +11,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "equ"
+- "equiv"
+- "inl"
+- "inr"
+- "intros"
+- "ltac"
+- "prod"
+- "qed"
+- "rst"
+- "type_equiv"
 ---
 
 

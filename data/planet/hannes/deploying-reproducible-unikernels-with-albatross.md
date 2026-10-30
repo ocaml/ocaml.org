@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "albatross"
+- "albatross-daemon"
+- "apt"
+- "certificate"
+- "domain"
+- "pkg"
+- "robur"
+- "solo5"
+- "unikernel"
+- "unikernels"
 ---
 
 <p>EDIT (2023-05-16): Updated with albatross release version 2.0.0.</p>

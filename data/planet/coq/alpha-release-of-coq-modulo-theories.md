@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "alpha-release"
+- "coq"
+- "coqmt"
+- "embeds"
+- "entailment"
+- "equational"
+- "first-order"
+- "modulo"
+- "theories"
+- "validity"
 ---
 
 

@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "ahrefs"
+- "authentication"
+- "grant"
+- "passwords"
+- "received"
+- "reynir"
+- "skolem"
+- "u2f"
+- "web"
+- "webauthn"
 ---

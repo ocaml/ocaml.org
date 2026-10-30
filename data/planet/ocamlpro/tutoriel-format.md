@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    OCamlPro\n  "
 source:
+keywords:
+- "affichage"
+- "boites"
+- "caractere"
+- "espace"
+- "fmt"
+- "formatter"
+- "fprintf"
+- "ligne"
+- "pp_list"
+- "tikzmarknode"
 ---
 
 <p><em>Article &eacute;crit par Mattias.</em></p>

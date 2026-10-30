@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "dockerfile"
+- "log"
+- "ocaml-base-compiler"
+- "ocaml-compiler"
+- "opam"
+- "opam-repository"
+- "package-tool"
+- "topkg"
+- "xmlm"
+- "yojson"
 ---
 
 <p>Would you like to build every package in opam in a single Dockerfile using BuildKit?</p>

@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "autoconf"
+- "base"
+- "dockerfile"
+- "flambda"
+- "flambda2"
+- "multicore"
+- "ocurrent"
+- "opam"
+- "oxcaml"
+- "zstd"
 ---
 
 <p>As @dra27 suggested, I first added support in <a href="https://github.com/ocurrent/ocaml-version.git">ocurrent/ocaml-version</a>. I went with the name <code class="language-plaintext highlighter-rouge">flambda2</code>, which matched the name in the <code class="language-plaintext highlighter-rouge">opam</code> package.</p>

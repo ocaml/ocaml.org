@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/looking-for-a-developer-experience-en
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "developer"
+- "dune"
+- "functional programming"
+- "jane"
+- "looking"
+- "ppx"
+- "street"
+- "tools"
 ---
 
 <p><em><strong>This role has been filled</strong></em></p>

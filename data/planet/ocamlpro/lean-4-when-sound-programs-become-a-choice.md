@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Adrien Champion\n  "
 source:
+keywords:
+- "certification"
+- "choice"
+- "closely"
+- "in-house"
+- "lean"
+- "monitoring"
+- "programs"
+- "proven"
+- "trend"
+- "trustworthy"
 ---
 
 <h2>

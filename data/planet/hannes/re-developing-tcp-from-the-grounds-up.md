@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "concurrency"
+- "lwt"
+- "mirageos"
+- "monad"
+- "multicore"
+- "nameserver"
+- "network"
+- "tcp"
+- "unikernel"
+- "utilisation"
 ---
 
 <p>The <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">Transmission Control Protocol (TCP)</a> is one of the main Internet protocols. Usually spoken on top of the Internet Protocol (legacy version 4 or version 6), it provides a reliable, ordered, and error-checked stream of octets. When an application uses TCP, they get these properties for free (in contrast to UDP).</p>

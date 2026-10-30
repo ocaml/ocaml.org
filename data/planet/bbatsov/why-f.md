@@ -14,6 +14,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "CamelCase"
+- "datetime"
+- "fable"
+- "melange"
+- "microsoft"
+- "net"
+- "printfn"
+- "product"
+- "region"
+- "web development"
 ---
 
 <p>If someone had told me a few months ago I’d be playing with .NET again after a

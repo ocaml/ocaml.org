@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/bf189f9a441457db28e841197a73e7c5/24883
 authors:
 - Tarides
 source:
+keywords:
+- "applicants"
+- "board"
+- "community"
+- "content"
+- "documentation"
+- "employers"
+- "job"
+- "reboot"
+- "site"
+- "stories"
 ---
 
 <p>Tarides is pleased to announce the launch of the updated community site, <a href="https://ocaml.org/">ocaml.org</a>.</p>

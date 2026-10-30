@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "aushac2010"
+- "black"
+- "coders"
+- "editor"
+- "fonts"
+- "geany"
+- "gedit"
+- "highlighting"
+- "nedit"
+- "text"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "dst_port"
+- "icmp"
+- "inf"
+- "ipaddr"
+- "ipv4"
+- "packet"
+- "src_port"
+- "traceroute"
+- "ttl"
+- "udp"
 ---
 
 <h2>Traceroute</h2>

@@ -10,6 +10,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "agreed"
+- "atomic"
+- "core"
+- "dynlink"
+- "effect"
+- "flambda"
+- "functor"
+- "loc"
+- "meeting"
+- "mutex"
 ---
 
 <p>OCaml Core Dev meeting at <a href="https://inria.fr">Inria</a> yesterday. These are

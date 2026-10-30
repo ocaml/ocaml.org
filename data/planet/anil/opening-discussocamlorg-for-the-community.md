@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "collates"
+- "discourse"
+- "discuss"
+- "forum"
+- "opened"
+- "opening-discuss-ocaml"
+- "org"
+- "recoil"
+- "successfully"
 ---
 
 <p>I opened up a <a href="https://discourse.org">Discourse</a> forum for the OCaml community to use, which is running successfully on https://discuss.ocaml.org. This forum thread collates the feedback and discussions about it.</p>

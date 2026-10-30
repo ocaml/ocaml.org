@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "bitmap"
+- "bound"
+- "camlimages"
+- "color"
+- "generator"
+- "jpg"
+- "libjpeg"
+- "ran_f"
+- "random"
+- "randomness"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/11/visual_random-1.jpg#hero" alt="heor"/></p>

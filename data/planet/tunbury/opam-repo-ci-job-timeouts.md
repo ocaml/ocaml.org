@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "alpha0"
+- "chrome-trace"
+- "dockerfile"
+- "echo"
+- "exit"
+- "ocurrent"
+- "opam"
+- "partial_fails"
+- "res"
+- "usr"
 ---
 
 <p>It’s Tuesday morning, and virtually all opam repo ci jobs are failing with timeouts. This comes at a critical time as these are the first jobs following the update of <a href="https://github.com/ocurrent/ocaml-version">ocurrent/ocaml-version</a> <a href="https://www.tunbury.org/recent-ocaml-version/">noted</a> on 24th March.</p>

@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "breakpoint"
+- "camlfib"
+- "camltest_blocks"
+- "exe"
+- "fib"
+- "fib_270"
+- "frame"
+- "lldb"
+- "main_273"
+- "test_blocks"
 ---

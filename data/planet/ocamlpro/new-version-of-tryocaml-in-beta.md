@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "bachelor"
+- "distancing"
+- "exam"
+- "functional programming"
+- "hiccups"
+- "quarantine"
+- "students"
+- "testimony"
+- "try-ocaml"
+- "tryocaml"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/picture_new_tryocaml.jpeg" alt=""/></p>

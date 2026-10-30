@@ -9,6 +9,17 @@ preview_image: https://tarides.com/static/630fcacdeae8d5c05e1ea8690d0388f9/42dbc
 authors:
 - Tarides
 source:
+keywords:
+- "OCaml LSP"
+- "concurrency"
+- "domainslib"
+- "eio"
+- "formal verification"
+- "functional programming"
+- "js_of_ocaml"
+- "merlin"
+- "parallelism"
+- "picos"
 ---
 
 <p>Feeling fashionable? Milan is calling! ICFP 2024 will be held in the Italian fashion capital from 2-7 September, and there is something there for everyone to enjoy. The <a href="https://icfp24.sigplan.org/">ACM SIGPLAN International Conference on Functional Programming</a> is a yearly highlight with various keynotes, tutorials, and tracks to discover.</p>

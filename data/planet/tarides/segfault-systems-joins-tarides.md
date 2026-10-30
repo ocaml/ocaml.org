@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/19d3cf7fb9f5a092cd62793230669e7a/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "concurrency"
+- "effect"
+- "eio"
+- "hyper"
+- "monad"
+- "multicore"
+- "ocurrent"
+- "segfault"
+- "systems"
+- "tarides"
 ---
 
 <p>We are delighted to announce that Segfault Systems, a spinout from IIT-Madras,

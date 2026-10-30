@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "caldav"
+- "calendar"
+- "file-system-based"
+- "funding"
+- "icalendar"
+- "mirageos"
+- "opam"
+- "propfind"
+- "server"
+- "unikernel"
 ---

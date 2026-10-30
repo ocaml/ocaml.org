@@ -8,6 +8,17 @@ authors:
 - Thomas Leonard
 source:
 ignore:
+keywords:
+- "duo"
+- "eio-trace"
+- "frame"
+- "garbage collection"
+- "graphics"
+- "olivine"
+- "semaphore"
+- "vkt"
+- "vulkan"
+- "window"
 ---
 
 <p>I convert my Vulkan test program from C to OCaml and compare the results,

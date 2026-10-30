@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/05ab00601c20f035998991f2d00a66ed/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "clients"
+- "continuation"
+- "domainslib"
+- "effect handler"
+- "exe"
+- "mutex"
+- "ocaml-option-tsan"
+- "race"
+- "races"
+- "tsan"
 ---
     
 <p>OCaml Multicore opened up a new world of performance for developers, something that <a href="https://tarides.com/blog/2022-12-20-how-nomadic-labs-used-multicore-processing-to-create-a-faster-blockchain/">Nomadic Labs has tested with great results.</a> Rather than relying on one core to do everything, the program can take advantage of multiple cores simultaneously for a significant performance boost.</p>

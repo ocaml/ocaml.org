@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "eq_prod"
+- "from_int"
+- "functor"
+- "mul"
+- "num"
+- "num_int"
+- "ord"
+- "show"
+- "show_impl"
+- "show_int"
 ---
 
 

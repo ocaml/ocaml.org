@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "analysis"
+- "compiler"
+- "merlin"
+- "multi-runtime"
+- "ocp-build"
+- "opam"
+- "scilab"
+- "single-runtime"
+- "try-ocaml"
+- "type inference"
 ---
 
 <p>Here is a short report on the different projects we have been working on in August.</p>

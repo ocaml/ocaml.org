@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/does-batch-size-matter/batch-01.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "batch"
+- "gradient"
+- "mandt"
+- "matter"
+- "posterior"
+- "sde"
+- "sgd"
+- "size"
+- "smith"
+- "temperature"
 ---
 
 <p><i>This post is aimed at readers who are already familiar with

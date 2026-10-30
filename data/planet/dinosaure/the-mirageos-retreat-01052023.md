@@ -7,6 +7,10 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "little"
+- "overview"
+- "retreat"
 ---
 
 A little overview of this retreat

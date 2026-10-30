@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "cdt"
+- "eio"
+- "embeddings"
+- "forester"
+- "geotessera"
+- "icechunk"
+- "oxford"
+- "tessera"
+- "zarr"
 ---

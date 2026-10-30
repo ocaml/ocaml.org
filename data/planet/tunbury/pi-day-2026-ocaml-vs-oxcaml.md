@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "gauss_legendre"
+- "movq"
+- "oxcaml"
+- "rax"
+- "vmulsd"
+- "xmm0"
+- "xmm1"
+- "xmm2"
+- "xmm3"
+- "xmm4"
 ---

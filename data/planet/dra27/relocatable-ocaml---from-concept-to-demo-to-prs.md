@@ -11,6 +11,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "abusing"
+- "camlp4"
+- "compiler"
+- "likewise"
+- "mechanisms"
+- "opam"
+- "papercuts"
+- "problem"
+- "problems"
+- "relocatable"
 ---
 
 <p>If you give vapourware long enough, it condenses into an actual ware! An idea hatched between rehearsing Handel arias in the outskirts of Munich just over six years ago to make running OCaml’s programs a little less surprising is now <a href="https://github.com/dra27/ocaml/pull/236/commits">132 commits of reality</a>.</p>

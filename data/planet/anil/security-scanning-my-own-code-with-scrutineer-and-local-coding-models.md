@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "eio"
+- "findings"
+- "models"
+- "opencode"
+- "parser"
+- "scans"
+- "scrutineer"
+- "security"
+- "triage"
 ---

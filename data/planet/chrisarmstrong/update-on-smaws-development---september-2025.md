@@ -8,4 +8,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "aws"
+- "compliance"
+- "functor"
+- "lwt"
+- "protocols"
+- "sdks"
+- "smaws"
+- "smithy"
+- "specifications"
+- "supply"
 ---

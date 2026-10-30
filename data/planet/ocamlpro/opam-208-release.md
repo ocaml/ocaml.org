@@ -15,6 +15,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "curl"
+- "hooks"
+- "i486"
+- "manually"
+- "opam"
+- "opam-devel"
+- "opam-installer"
+- "sandbox"
+- "script"
+- "switch-specific"
 ---
 
 <p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.8">opam 2.0.8</a>.</p>

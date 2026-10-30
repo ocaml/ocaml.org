@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "consecutive"
+- "consecutiveness"
+- "missing"
+- "natural"
+- "num_less"
+- "number"
+- "numbers"
+- "pearl"
+- "pearls"
+- "sorting"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/01/pearls2-1.jpg#hero" alt="pears"/></p>

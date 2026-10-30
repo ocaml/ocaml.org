@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "community-driven"
+- "considerably"
+- "gemma"
+- "gordon"
+- "madhavapeddy"
+- "platform"
+- "priorities"
+- "tooling"
+- "workshop"
 ---
 
 <p>Annual update on the OCaml Platform in 2019</p>

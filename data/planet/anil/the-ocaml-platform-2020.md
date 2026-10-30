@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "checkpoints"
+- "cross-platform"
+- "evolves"
+- "madhavapeddy"
+- "multicore"
+- "platform"
+- "preparations"
+- "workshop"
+- "yearly"
 ---
 
 <p>Annual update on the OCaml Platform at the OCaml Workshop</p>

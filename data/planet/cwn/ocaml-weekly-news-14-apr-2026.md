@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "atd"
+- "atdml"
+- "example_i18n"
+- "i18n"
+- "jws"
+- "mnet"
+- "ocsigen-i18n"
+- "yaml"
+- "yamlx"
 ---

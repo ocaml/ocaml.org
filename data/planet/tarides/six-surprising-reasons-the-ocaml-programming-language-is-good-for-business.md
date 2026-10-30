@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/9adc92b0039855be8110531e7db4cd05/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "eio"
+- "hyper"
+- "language"
+- "multicore"
+- "parallelism"
+- "pattern matching"
+- "programming"
+- "secure-by-design"
+- "takeaway"
+- "type inference"
 ---
 
 <p>Functional programming languages have been around since the 1950's, when the first high-level languages were used to program early computers. Examples of functional programming languages include OCaml, Erlang, Clojure, Haskell, Scala, and Common Lisp. Choosing the right programming language is critical to the long-term success and stability of your products, services, and operations. With strong academic roots and years of iteration and innovation, functional programming languages can offer a real competitive edge to businesses. This article explains some of the lesser-known benefits of OCaml from a business perspective.</p>

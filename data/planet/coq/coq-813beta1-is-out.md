@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "abbreviate"
+- "beta1"
+- "coq"
+- "imported"
+- "installer"
+- "notation"
+- "notations"
+- "prefers"
+- "printing"
+- "tested"
 ---
 
 

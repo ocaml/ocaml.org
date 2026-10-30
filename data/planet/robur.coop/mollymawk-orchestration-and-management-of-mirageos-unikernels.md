@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "albatross"
+- "auto-configuration"
+- "auto-upgrade"
+- "mirageos"
+- "mollymawk"
+- "orchestration"
+- "pixie"
+- "reproducible"
+- "unikernel"
+- "unikernels"
 ---

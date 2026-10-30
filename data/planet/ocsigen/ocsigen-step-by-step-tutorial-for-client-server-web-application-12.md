@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Vincent Balat
 source:
+keywords:
+- "application"
+- "client"
+- "eliom"
+- "functor"
+- "graffiti"
+- "html5"
+- "js_of_ocaml"
+- "pcdata"
+- "polymorphic variant"
+- "server"
 ---
 
 <p>This post (and the following one) is a step by step tutorial about

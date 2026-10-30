@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "animation"
+- "claude"
+- "collada"
+- "gltf"
+- "lablgl"
+- "mesh"
+- "raylib"
+- "tgls"
+- "vector3"
+- "xmlm"
 ---
 
 <p>In the week, Jon mentioned <a href="https://mac.getutm.app">UTM</a>, which uses Apple’s Hypervisor virtualisation framework to run ARM64 operating systems on Apple Silicon. It looked awesome, and the speed of virtualised macOS was fantastic. It also offers x86_64 emulation; we mused how well it would perform running Windows, but found it disappointing.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "arithmetic"
+- "brings"
+- "classes"
+- "coq"
+- "enjoy"
+- "evolutions"
+- "haskell-style"
+- "module system"
+- "tactics"
+- "various"
 ---
 
 

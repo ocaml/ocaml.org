@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "GADT"
+- "docs"
+- "dune"
+- "merlin"
+- "more-or-less"
+- "notebook"
+- "notebooks"
+- "odoc"
+- "scrollycode"
+- "tessera"
 ---

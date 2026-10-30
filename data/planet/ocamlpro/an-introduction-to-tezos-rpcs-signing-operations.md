@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "base58check"
+- "bootstrap1"
+- "ed25519"
+- "edsig"
+- "hex"
+- "hexadecimal"
+- "operation"
+- "readline"
+- "signature"
+- "tezos-client"
 ---
 
 <p>In a <a href="http://ocamlpro.com/2018/11/15/an-introduction-to-tezos-rpcs-a-basic-wallet/">previous blogpost</a>,

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "conference"
+- "conservation"
+- "decision-making"
+- "five"
+- "formal verification"
+- "functional programming"
+- "india"
+- "metric"
+- "mirageos"
+- "pill"
 ---

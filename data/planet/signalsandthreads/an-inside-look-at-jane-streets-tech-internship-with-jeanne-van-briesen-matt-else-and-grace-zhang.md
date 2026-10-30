@@ -8,6 +8,17 @@ preview_image: https://signalsandthreads.com/static/images/twitter/signals_threa
 authors:
 - Signals and Threads
 source:
+keywords:
+- "episode"
+- "grace"
+- "jane"
+- "metaprogramming"
+- "page"
+- "ron"
+- "street"
+- "systems"
+- "tech"
+- "trading"
 ---
 
 <p>In this week's episode, the season 1 finale, Ron speaks with Jeanne, Matt, and Grace, three former tech interns at Jane Street who have returned as full-timers. They talk about the experience of being an intern at Jane Street, the types of projects that interns work on, and how they've found the transition to full-time work.</p><p>You can find the transcript for this episode along with links to things we discussed on our <a href="https://signalsandthreads.com/multicast-and-the-markets">website</a>.</p>

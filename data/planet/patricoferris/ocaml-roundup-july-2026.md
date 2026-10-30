@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "boilerplate"
+- "dash"
+- "effect"
+- "eio"
+- "eio_mem"
+- "func"
+- "merlin"
+- "merry"
+- "msh"
+- "parser"
 ---

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Blanc\n  "
 source:
+keywords:
+- "cheat"
+- "cheat-sheets"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "jour"
+- "mise"
+- "opam"
+- "sheets"
 ---
 
 <p>Les m&eacute;mentos (cheat-sheets) OCaml lang et OCaml stdlib partag&eacute;s par OCamlPro en 2011 ont &eacute;t&eacute; mis &agrave; jour pour OCaml 4.08.</p>

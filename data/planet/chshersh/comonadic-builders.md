@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "builder"
+- "builders"
+- "buildproject"
+- "comonad"
+- "comonads"
+- "mempty"
+- "projectbuilder"
+- "projectgithub"
+- "projecttravis"
+- "settings"
 ---
 
 Builder pattern in Haskell using Comonads

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    chambart\n  "
 source:
+keywords:
+- "add_an_option_value"
+- "continuation"
+- "find_min_max"
+- "fold_left_k2"
+- "init1"
+- "init2"
+- "keep_min_max"
+- "keep_min_max_k2"
+- "max"
+- "min"
 ---
 
 <p>As you may know, there is a subset of Javascript that compiles efficiently to assembly used as backend of various compilers including a C compiler like emscripten. We'd like to present you in the same spirit how never to allocate in OCaml.</p>

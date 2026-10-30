@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "dimension"
+- "dune"
+- "embeddings"
+- "evidence"
+- "publisher-authorized"
+- "store"
+- "tessera"
+- "wiley"
+- "zarr"
+- "zero-fill"
 ---

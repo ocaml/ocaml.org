@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "day"
+- "eio"
+- "foreign function interface"
+- "lol"
+- "ocaml-yaml"
+- "parser"
+- "pure"
+- "suite"
+- "yaml"
 ---

@@ -7,6 +7,17 @@ preview_image: https://chshersh.com/images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "append"
+- "associative"
+- "associativity"
+- "chunks"
+- "combine"
+- "line1"
+- "line2"
+- "operation"
+- "semigroup"
+- "treap"
 ---
 
 Understanding why associativity matters

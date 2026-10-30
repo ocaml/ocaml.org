@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Tarides
 source:
+keywords:
+- "department"
+- "english"
+- "ens"
+- "exercices"
+- "french"
+- "gazagnaire"
+- "invited"
+- "lecture"
+- "paris"
+- "slides"
 ---
 
 <p>Thomas Gazagnaire gave an invited lecture at

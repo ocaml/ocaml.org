@@ -8,4 +8,15 @@ authors:
 - Thomas Leonard
 source:
 ignore:
+keywords:
+- "device"
+- "devices"
+- "event18"
+- "input"
+- "libinput"
+- "mouse"
+- "pci0000"
+- "sway"
+- "usb"
+- "usb1"
 ---

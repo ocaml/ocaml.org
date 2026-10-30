@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "april"
+- "coherent"
+- "cpdftk"
+- "january"
+- "july"
+- "march"
+- "october"
+- "pdf"
+- "pdftk"
+- "reilly"
 ---
 
 <p>The latest version of our command line tools for processing PDF files has just been released.</p>

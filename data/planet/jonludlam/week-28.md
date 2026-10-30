@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "caqti"
+- "docker-based"
+- "js_of_ocaml"
+- "mariadb"
+- "mcp"
+- "merlin"
+- "occurrences"
+- "odoc"
+- "oxcaml"
+- "week"
 ---

@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/ocaml-all-the-way-down/fpga.jpg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "andy"
+- "async"
+- "compiler"
+- "cookies"
+- "down"
+- "functional programming"
+- "grown"
+- "jane"
+- "ppx"
+- "street"
 ---
 
 <p>One of the joys of working at Jane Street for the last 15 or so years

@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "backstage"
+- "conex"
+- "experimental"
+- "gospel"
+- "merlin"
+- "oct"
+- "october"
+- "repr"
+- "utop"
 ---

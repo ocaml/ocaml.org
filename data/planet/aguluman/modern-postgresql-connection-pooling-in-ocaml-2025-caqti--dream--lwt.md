@@ -10,6 +10,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "caqti"
+- "caqti-lwt"
+- "connection"
+- "health"
+- "lwt"
+- "lwt_mutex"
+- "mutex"
+- "pool"
+- "postgresql"
+- "uri"
 ---
 
 A practical, production-focused walkthrough of building a PostgreSQL connection pool in OCaml using Caqti_lwt_unix, with health checks, graceful shutdown, and Dream integration

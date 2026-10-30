@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/5dbd4ce5058bf6225c3a8ac98e4dda54/ed842
 authors:
 - Tarides
 source:
+keywords:
+- "MirageOS"
+- "data"
+- "dict"
+- "functor"
+- "hash"
+- "index"
+- "irmin-pack"
+- "log"
+- "nodes"
+- "pack"
 ---
 
 <p><code>irmin-pack</code> is an Irmin <a href="https://irmin.org/tutorial/backend">storage backend</a>

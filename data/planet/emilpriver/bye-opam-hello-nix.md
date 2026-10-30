@@ -7,6 +7,17 @@ preview_image: https://priver.dev/images/ocaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "caddy"
+- "caddyfile"
+- "cppo"
+- "flake-utils"
+- "nix"
+- "nixpkgs"
+- "ocamlbyexample"
+- "ocamlpackages"
+- "pkgs"
+- "utop"
 ---
 
 <p>I&rsquo;ve been writing OCaml since November 2023 and I enjoy the language; it&rsquo;s fun to write and has some features I really appreciate. However, you may have noticed I only mentioned the &ldquo;language&rdquo; in the first sentence. That&rsquo;s because I have issues with Opam, the package manager for OCaml. It has been a pain in my development workflow and I want to eliminate it.</p>

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/fe35f4267aa09a10742e1980f6661012/6b019
 authors:
 - Tarides
 source:
+keywords:
+- "cryptography"
+- "hardware"
+- "hsm"
+- "hsms"
+- "keyfender"
+- "mirageos"
+- "nethsm"
+- "nitrokey"
+- "security"
+- "unikernel"
 ---
 
 <p><a href="https://www.nitrokey.com/">Nitrokey</a> is one of the world&rsquo;s foremost open-source hardware security companies. They develop IT security hardware for data encryption, decryption, and signing, including key and user authentication. After eight years of development, they recently released the first fully open-source Hardware Security Module (HSM): an easy-to-use, highly-secure, and customisable security solution.</p>

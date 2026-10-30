@@ -8,4 +8,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "caddy"
+- "conf-zlib"
+- "get_job"
+- "liquidsoap-js"
+- "opam-repo-ci-web"
+- "referer"
+- "rpc"
+- "sec-fetch-site"
+- "sihl-cache"
+- "uri"
 ---

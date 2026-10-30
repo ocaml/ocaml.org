@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "distributed"
+- "independent"
+- "isc"
+- "license"
+- "mirror"
+- "ocaml-ctypes"
+- "opam"
+- "opengl"
+- "tgls"
+- "thin"
 ---
 
 <p>First release of Tgls, thin bindings to OpenGL {3,4} and OpenGL ES {2,3} for OCaml.</p>

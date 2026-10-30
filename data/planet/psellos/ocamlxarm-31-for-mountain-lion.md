@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "app"
+- "eighty"
+- "ios"
+- "ipad"
+- "kaleidoscopic"
+- "lion"
+- "mammal"
+- "motown"
+- "mountain"
+- "ocamlxarm"
 ---
 
 <div class="date">October 18, 2012</div>

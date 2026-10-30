@@ -7,6 +7,9 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "explains"
+- "goal"
 ---
 
 My first article which explains the goal of this blog

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "accumulate"
+- "conquer"
+- "divide"
+- "element"
+- "hd1"
+- "hd2"
+- "pearl"
+- "sub-problem"
+- "sub-problems"
+- "surpassers"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/02/pear-2.jpg#hero" alt="pear-2"/></p>

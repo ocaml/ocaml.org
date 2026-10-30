@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "ast"
+- "compiler"
+- "december"
+- "eio"
+- "identifiers"
+- "let-binding"
+- "locations"
+- "migration"
+- "repr"
+- "salome"
 ---

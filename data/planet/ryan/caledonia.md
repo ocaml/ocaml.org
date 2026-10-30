@@ -8,4 +8,15 @@ authors:
 - Ryan Gibb
 source:
 ignore:
+keywords:
+- "caledonia"
+- "calendars"
+- "family"
+- "grandma"
+- "personal"
+- "shell"
+- "sun"
+- "tue"
+- "utc"
+- "wed"
 ---

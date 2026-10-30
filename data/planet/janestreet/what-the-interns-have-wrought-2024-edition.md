@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2024-ed
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "arvin"
+- "arya"
+- "binprot"
+- "dataframe"
+- "kumquat"
+- "limshare"
+- "parallelism"
+- "polars"
+- "ppx_bin_prot"
+- "typerep"
 ---
 
 <p>We’re once again at the end of our internship season, and it’s time do our annual review

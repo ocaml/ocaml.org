@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "amx"
+- "batch"
+- "bfloat16"
+- "cpu"
+- "float32"
+- "gpu"
+- "onnx"
+- "pixel"
+- "tile"
+- "torch"
 ---

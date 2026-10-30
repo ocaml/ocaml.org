@@ -10,4 +10,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "dune"
+- "gir"
+- "gobject"
+- "gtk"
+- "gvalue"
+- "marshalling"
+- "ocgtk"
+- "odoc"
+- "overrides"
+- "signals"
 ---

@@ -9,6 +9,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "coq"
+- "coqffi"
+- "echo"
+- "ffi"
+- "k__"
+- "monadfix"
+- "server"
+- "sock"
+- "socket"
+- "socket_descr"
 ---
 
 

@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "async"
+- "hides"
+- "janestreet"
+- "magic"
+- "non-trivial"
+- "post-production"
+- "realworldocaml"
+- "sophisticated"
+- "sorry"
+- "thunk"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/11/async2.jpg#hero" alt="async"/></p>

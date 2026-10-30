@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/7e433df93f7be64178e3790e0addee34/68e58
 authors:
 - Tarides
 source:
+keywords:
+- "debug"
+- "debugger"
+- "debugging"
+- "demystifies"
+- "effectively"
+- "lldb"
+- "mastering"
+- "tarides"
+- "tim"
+- "tips"
 ---
 
 <p>If you’re just getting started with OCaml, you may be wondering how to effectively debug your code when things go wrong. Fortunately, OCaml's ecosystem has evolved, offering modern tools that make debugging a more approachable task.</p>

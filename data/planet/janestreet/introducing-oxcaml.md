@@ -10,6 +10,17 @@ authors:
 - Jane Street Tech Blog
 source:
 ignore:
+keywords:
+- "async"
+- "concurrency"
+- "dune"
+- "extensions"
+- "functional programming"
+- "functor"
+- "jane"
+- "oxcaml"
+- "ppx"
+- "street"
 ---
 
 <p>At Jane Street, we’ve been actively making improvements to OCaml for a long time. Over the

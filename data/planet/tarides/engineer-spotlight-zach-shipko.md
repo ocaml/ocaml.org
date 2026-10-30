@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/05e1ac13a4bcc3da2909310f1f777822/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "effects"
+- "engineer"
+- "functor"
+- "learning"
+- "libirmin"
+- "pattern matching"
+- "programmer"
+- "shipko"
+- "spotlight"
+- "zach"
 ---
 
 <p>Tarides engineer Zach Shipko answers a few questions about why he decided to learn OCaml and why he's particularly excited about the OCaml 5 release. In celebration of OCaml 5, we've interviewed several engineers about their personal experience with the language and what features they enjoy. It's a great way to get some unique insight into the language from someone who works with it on a daily basis.</p>

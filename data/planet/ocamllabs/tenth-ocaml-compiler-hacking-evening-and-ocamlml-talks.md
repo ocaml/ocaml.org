@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "amir"
+- "chaudhry"
+- "compiler"
+- "concurrency"
+- "hacking"
+- "jeremy"
+- "mirageos"
+- "talks"
+- "type inference"
+- "yallop"
 ---
 
 <p>We'll be meeting in the Computer Lab next Friday (28th August 2015) for another evening of compiler hacking.  All welcome!</p>

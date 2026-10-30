@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "bin"
+- "branch"
+- "opam"
+- "opam-package-upgrade"
+- "opam-publish"
+- "opam-repository"
+- "rc4"
+- "repository"
+- "september"
+- "upgrade"
 ---
 
 <p>A few days ago, we released <a href="https://opam.ocaml.org/blog/opam-2-0-0-rc4/">opam 2.0.0~rc4</a>, and explained that this final release candidate was expected be promoted to 2.0.0, in sync with an upgrade to the <a href="https://github.com/ocaml/opam-repository">opam package repository</a>. So here are the details about this!</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "disk"
+- "disks"
+- "ec2"
+- "effect"
+- "hadoop"
+- "map"
+- "partitions"
+- "plasma"
+- "reduce"
+- "seconds"
 ---
 
 

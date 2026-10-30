@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "apps"
+- "bass"
+- "encouragement"
+- "gamut"
+- "heroes"
+- "instrument"
+- "ios"
+- "portland"
+- "simulator"
+- "tested"
 ---
 
 <div class="date">January 30, 2016</div>

@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "arc"
+- "dkim"
+- "dmarc"
+- "email"
+- "lipap"
+- "mailing"
+- "mailingl"
+- "mkernel"
+- "nec"
+- "ptt"
 ---

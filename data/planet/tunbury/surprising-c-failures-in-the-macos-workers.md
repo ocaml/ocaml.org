@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "clang"
+- "commandlinetools"
+- "developer"
+- "include"
+- "iostream"
+- "macosx"
+- "sdk"
+- "sdks"
+- "usr"
+- "workers"
 ---
 
 <p>@mseri raised <a href="https://github.com/ocaml/infrastructure/issues/175">issue #175</a> as the macOS workers cannot find the most basic C++ headers. I easily eliminated <a href="https://github.com/ocurrent/obuilder">Obuilder</a>, as <code class="language-plaintext highlighter-rouge">opam install mccs.1.1+19</code> didn’t work on the macOS workers natively.</p>

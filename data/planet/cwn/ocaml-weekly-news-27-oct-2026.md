@@ -18,4 +18,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "affected"
+- "bytream"
+- "coordinator"
+- "hexen"
+- "inspector"
+- "intel_hex"
+- "str"
+- "tiff"
+- "torok"
+- "unikernels"
 ---

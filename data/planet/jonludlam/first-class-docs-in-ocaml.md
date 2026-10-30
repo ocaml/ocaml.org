@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "docs"
+- "files"
+- "functor"
+- "installed"
+- "merlin"
+- "module system"
+- "odig"
+- "odoc"
+- "odoc_driver"
+- "packages"
 ---

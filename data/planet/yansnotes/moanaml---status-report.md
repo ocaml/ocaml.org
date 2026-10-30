@@ -8,6 +8,17 @@ preview_image: http://4.bp.blogspot.com/-G2Jz8HOV2Zk/VEkcgRQC9dI/AAAAAAAAWK4/bcq
 authors:
 - Unknown
 source:
+keywords:
+- "activation"
+- "activations"
+- "ams"
+- "binds"
+- "moana"
+- "moanaml"
+- "performed"
+- "pre-populated"
+- "rete"
+- "tuples"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

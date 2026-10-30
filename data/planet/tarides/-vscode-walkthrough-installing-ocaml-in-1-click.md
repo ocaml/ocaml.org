@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "click"
+- "dune"
+- "installation"
+- "installing"
+- "mirageos"
+- "ocamlformat"
+- "odoc"
+- "utop"
+- "vscode"
+- "walkthrough"
 ---

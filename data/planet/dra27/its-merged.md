@@ -15,4 +15,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "december"
+- "forth"
+- "gnarly"
+- "marathon"
+- "merged"
+- "merging"
+- "opam"
+- "pored"
+- "re-working"
+- "relocatable"
 ---

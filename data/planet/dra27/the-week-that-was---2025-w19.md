@@ -8,6 +8,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "bulk-builder"
+- "cargo-style"
+- "chipping"
+- "dolan-barnes-shinwell"
+- "dune"
+- "harness"
+- "merciless"
+- "opam"
+- "screaming"
+- "toying"
 ---
 
 <p>Still 🪀ing somewhat, but various nice things happened this week.</p>

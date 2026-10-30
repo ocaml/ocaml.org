@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/8cf81cc73d3940053d10015bc64fb0a8/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "async"
+- "concurrency"
+- "domainslib"
+- "eio"
+- "hyper"
+- "lwt"
+- "monad"
+- "multicore"
+- "mutex"
+- "parallelism"
 ---
 
 <p><em>OCaml 5 is live! This major release introduces domains and effects, delivering unprecedented speed and efficiency to OCaml. Testing shows that OCaml 5 is able to outperform Go and closely match Rust in terms of performance. Keep reading for more details!</em></p>

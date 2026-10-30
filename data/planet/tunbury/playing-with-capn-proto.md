@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cap"
+- "cap_file"
+- "capnp"
+- "capnp_rpc_unix"
+- "fiber"
+- "foo"
+- "foo_api"
+- "ocaml-ci"
+- "params"
+- "uri"
 ---
 
 <p>Cap’n Proto has become a hot topic recently and while this is used for many OCaml-CI services, I spent some time creating a minimal application.</p>

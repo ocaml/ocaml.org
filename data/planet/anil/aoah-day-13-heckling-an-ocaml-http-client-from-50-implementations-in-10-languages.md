@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "day"
+- "eio_main"
+- "formal verification"
+- "headers"
+- "http"
+- "ocaml-requests"
+- "ocurl"
+- "s43016-025-01224-w"
+- "sun"
 ---

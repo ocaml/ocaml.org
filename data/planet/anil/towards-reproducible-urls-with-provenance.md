@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "cid"
+- "doi"
+- "eio_main"
+- "format"
+- "http"
+- "sasow"
+- "uri"
+- "urls"
+- "vurl"
+- "vurls"
 ---
 
 <h1>Towards reproducible URLs with provenance</h1>

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "arch"
+- "debian"
+- "gpg"
+- "homebrew"
+- "oxcaml"
+- "oxcaml-compiler"
+- "pacman"
+- "sudo"
+- "thicket"
+- "zstd"
 ---

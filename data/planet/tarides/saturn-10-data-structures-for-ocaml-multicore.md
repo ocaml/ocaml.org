@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/saturn-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "data"
+- "dscheck"
+- "effect"
+- "formal verification"
+- "linearisability"
+- "linearisation"
+- "lock-free"
+- "multicore"
+- "saturn"
+- "structures"
 ---
 
 <p>The first version of the Saturn library is out! <a href="https://github.com/ocaml-multicore/saturn">Saturn</a> is a new OCaml 5 library available on <a href="https://opam.ocaml.org/">opam</a>, which offers a collection of well-tested, benchmarked, and efficient concurrent data structures ready to be used with OCaml Multicore. Access to concurrent-safe data structures saves developers from the time-consuming and often error-prone process of designing their own.</p>

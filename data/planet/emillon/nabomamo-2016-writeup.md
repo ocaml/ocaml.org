@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Etienne Millon
 source:
+keywords:
+- "bin"
+- "bot"
+- "bots"
+- "domain"
+- "elixir"
+- "heroku"
+- "nabomamo"
+- "opam"
+- "rain"
+- "slack"
 ---
 
 <p>Hello! It&rsquo;s 2016, it&rsquo;s November, and apparently it rhymes with <a href="http://nabomamo.botally.net/">#NaBoMaMo</a> 2016,

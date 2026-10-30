@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "atdgen"
+- "core_bench"
+- "cow"
+- "ezjsonm"
+- "json"
+- "jsonm"
+- "monad"
+- "prom"
+- "tiny_json"
+- "yajl"
 ---
 
 <p>According to <a href="http://opam.ocaml.org/pkg/index-popularity.html" class="reference external">opam</a>

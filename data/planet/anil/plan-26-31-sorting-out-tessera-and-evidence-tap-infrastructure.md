@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "eio"
+- "evidence"
+- "foreign function interface"
+- "icechunk"
+- "polymorphic variant"
+- "springer"
+- "taposaur"
+- "tessera"
+- "wiley"
+- "zarr"
 ---

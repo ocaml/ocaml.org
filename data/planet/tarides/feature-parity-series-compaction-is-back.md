@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/1780c8f4b97632a0dd782644cf053b39/10057
 authors:
 - Tarides
 source:
+keywords:
+- "barrier"
+- "blocks"
+- "compaction"
+- "evacuated"
+- "heap"
+- "pointers"
+- "pool"
+- "pools"
+- "size"
+- "stats"
 ---
 
 <p>Compaction is a feature that rearranges OCaml values in memory to free up space, which can then be returned to the operating system. In the <a href="https://github.com/ocaml/ocaml/releases/tag/5.2.0">OCaml 5.2 release</a>, the technique returns to the OCaml Garbage Collector for the first time since its removal in the 5.0 multicore update.</p>

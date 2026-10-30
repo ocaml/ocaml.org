@@ -6,6 +6,17 @@ date: 2013-05-20T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "MirageOS"
+- "activities"
+- "build-frontend"
+- "developer"
+- "mirage"
+- "opam"
+- "oscon"
+- "preview"
+- "reilly"
+- "xen"
 ---
 
 

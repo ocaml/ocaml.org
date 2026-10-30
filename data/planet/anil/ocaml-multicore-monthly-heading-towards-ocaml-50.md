@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "arm64"
+- "bsds"
+- "closer"
+- "introducing"
+- "multicore"
+- "multicore-monthly-mar22"
+- "recoil"
+- "reenabling"
+- "stable"
 ---
 
 <p>We're getting closer to a stable release of OCaml 5.0, including reenabling support for the BSDs and introducing ARM64 multicore support.</p>

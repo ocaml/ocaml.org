@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "arguments"
+- "closure"
+- "closures"
+- "directives"
+- "gdb"
+- "map"
+- "orig"
+- "partial"
+- "print_int"
+- "toto"
 ---
 
 <p>OCaml 4.00.0 has been released on July 27, 2012. For the first time,

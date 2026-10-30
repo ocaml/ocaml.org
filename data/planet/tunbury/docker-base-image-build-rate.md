@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base"
+- "current_ocluster"
+- "docker"
+- "failed"
+- "lwt"
+- "ocurrent"
+- "opam-staging"
+- "pool"
+- "rate"
+- "sha256"
 ---

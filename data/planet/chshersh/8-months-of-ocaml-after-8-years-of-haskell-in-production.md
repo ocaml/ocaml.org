@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "GADT"
+- "OCaml LSP"
+- "async"
+- "chshersh"
+- "haskell"
+- "immutability"
+- "ocamlformat"
+- "pattern matching"
+- "type inference"
+- "utop"
 ---
 
 Comparing my experience in OCaml with Haskell

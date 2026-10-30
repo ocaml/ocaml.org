@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "allocation"
+- "bigstring"
+- "caml_profile_stack"
+- "characters"
+- "line"
+- "preprof"
+- "profile"
+- "profiling"
+- "queens"
+- "stack"
 ---
 
 <p>In the <a href="http://kcsrk.info/ocaml/profiling/2015/09/23/bytecode-allocation-profiler/">last

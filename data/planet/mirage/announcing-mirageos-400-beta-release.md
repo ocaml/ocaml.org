@@ -6,6 +6,17 @@ date: 2022-02-10T00:00:00-00:00
 preview_image:
 authors:
 - Thomas Gazagnaire
+keywords:
+- "cross-compilation"
+- "dune"
+- "merlin"
+- "mirageos"
+- "ocaml-freestanding"
+- "ocaml-lsp-server"
+- "opam-monorepo"
+- "release"
+- "solo5"
+- "unikernel"
 ---
 
 

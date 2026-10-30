@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "evolution"
+- "frameworks"
+- "opam"
+- "platform"
+- "production-ready"
+- "progression"
+- "prototyping"
+- "state"
+- "workshop"
 ---
 
 <p>Update on the state of the OCaml Platform</p>

@@ -7,6 +7,17 @@ preview_image: https://tarides.com/blog/images/milan-evening-1360w~DDa62aVG-OJl_
 authors:
 - Tarides
 source:
+keywords:
+- "ambre"
+- "concurrency"
+- "functional programming"
+- "icfp"
+- "js_of_ocaml"
+- "merlin"
+- "ocaml-lsp-server"
+- "pattern matching"
+- "riku"
+- "tarides"
 ---
 
 <p>It has been a while since the biggest functional programming event of the year: <a href="https://icfp24.sigplan.org/">ICFP 2024</a> in Milan, Italy. The annual conference, sponsored by <a href="http://www.acm.org/">ACM</a> <a href="https://www.sigplan.org/">SIGPLAN</a>, combines world-class talks with workshops on some of the biggest functional programming languages, including <a href="https://en.wikipedia.org/wiki/ML_(programming_language)">ML</a>, <a href="https://www.haskell.org/">Haskell</a>, <a href="https://ocaml.org/">OCaml</a>, <a href="https://www.scheme.org">Scheme</a> and <a href="https://www.erlang.org/">Erlang</a>.</p>

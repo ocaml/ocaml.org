@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "codec"
+- "concurrency"
+- "declarative"
+- "graphics"
+- "non-blocking"
+- "opengl"
+- "parser"
+- "unicode"
+- "uutf"
+- "xmlm"
 ---
 
 <p>Release of Uutf 0.9.3 and Xmlm 1.2.0. Consult the individual release notes for details.</p>

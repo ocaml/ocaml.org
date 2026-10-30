@@ -8,4 +8,15 @@ authors:
 - The Ocsigen team
 source:
 ignore:
+keywords:
+- "attribute"
+- "attributes"
+- "js_of_ocaml"
+- "lwt"
+- "odoc"
+- "svg"
+- "tyxml"
+- "tyxml-jsx"
+- "tyxml-ppx"
+- "uri"
 ---

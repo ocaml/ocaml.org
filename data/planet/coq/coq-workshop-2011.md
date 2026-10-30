@@ -7,6 +7,14 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "august"
+- "coq"
+- "held"
+- "itp"
+- "nijmegen"
+- "part"
+- "workshop"
 ---
 
 

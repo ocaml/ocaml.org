@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "application"
+- "newwaiapplication"
+- "oldwaiapplication"
+- "response"
+- "responsereceived"
+- "settings"
+- "stream-io"
+- "wai"
+- "warp"
+- "web"
 ---
 
 

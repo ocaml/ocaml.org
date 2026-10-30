@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "codec"
+- "coding"
+- "configure"
+- "correction"
+- "demo"
+- "detail"
+- "interactive"
+- "parameters"
+- "reed-solomon"
+- "workings"
 ---
 
 <p>An interactive demo of Reed-Solomon error correction coding.  The demo shows the workings 

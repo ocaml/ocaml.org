@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agent-friendly"
+- "jotted"
+- "ludlam"
+- "mcp"
+- "merlint"
+- "odoc"
+- "opam"
+- "pre-alpha"
+- "qwen3"
+- "rl-vr"
 ---
 
 <p>I've been hacking with <a href="https://toao.com" class="contact">Sadiq Jaffer</a> (<a href="https://toao.com/blog/ocaml-0725">^</a>),

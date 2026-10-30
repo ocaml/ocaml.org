@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Martin Escardo
 source:
+keywords:
+- "agda"
+- "classical"
+- "excluded"
+- "geometry"
+- "mathbb"
+- "mathematics"
+- "middle"
+- "neutral"
+- "provinces"
+- "topos"
 ---
 
 <p>A while ago, my former student <a href="https://cj-xu.github.io/">Chuangjie Xu</a> and I computed an integer using a <a href="https://ncatlab.org/nlab/show/Grothendieck+topos">sheaf topos</a>. For that purpose,</p>

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "browsed"
+- "candidate"
+- "curl"
+- "deemed"
+- "forget"
+- "install"
+- "manually"
+- "opam"
+- "opam-devel"
+- "sandboxing"
 ---
 
 <p>We are pleased to announce the release of a third release candidate for opam 2.0.0. This one is expected to be the last before 2.0.0 comes out.</p>

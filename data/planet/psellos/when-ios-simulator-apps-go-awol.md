@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "app"
+- "awol"
+- "dict"
+- "instruments"
+- "ios"
+- "key"
+- "plist"
+- "psi"
+- "runsim"
+- "simulator"
 ---
 
 <div class="date">November 15, 2012</div>

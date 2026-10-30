@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "client-server"
+- "demo"
+- "mobile"
+- "notifications"
+- "ocsigen"
+- "reasonml"
+- "server"
+- "start"
+- "template"
+- "web"
 ---
 
 <p>New releases:</p>

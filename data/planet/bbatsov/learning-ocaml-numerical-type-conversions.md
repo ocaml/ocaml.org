@@ -11,6 +11,17 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "base"
+- "conversions"
+- "float"
+- "float_of_int"
+- "floats"
+- "int_of_float"
+- "integer"
+- "integers"
+- "result"
+- "trivia"
 ---
 
 <p>Today I’m going to cover a very basic topic - conversions between

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "MirageOS"
+- "apparently"
+- "effect"
+- "functor"
+- "impl"
+- "mirage"
+- "mirage-console"
+- "mirage-unix"
+- "tuntap"
+- "utop"
 ---
 
 

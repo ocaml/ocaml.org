@@ -9,6 +9,17 @@ preview_image: https://tarides.com/static/1a54502893f8f38db2c6e37811c75b0c/7d5a2
 authors:
 - Tarides
 source:
+keywords:
+- "communication"
+- "dapsi"
+- "data"
+- "emails"
+- "innovators"
+- "mirageos"
+- "portability"
+- "project"
+- "protocols"
+- "services"
 ---
 
 <p><strong>Tarides is taking part in the Data Portability &amp; Services Incubator (DAPSI), a

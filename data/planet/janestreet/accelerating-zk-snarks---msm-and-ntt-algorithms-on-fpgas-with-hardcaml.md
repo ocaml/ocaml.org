@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/zero-knowledge-fpgas-hardcaml/hardcam
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "cryptography"
+- "curve"
+- "elliptic"
+- "fpga"
+- "hardcaml"
+- "latency"
+- "msm"
+- "ntt"
+- "parallelism"
+- "zk-snarks"
 ---
 
 <p>In 2022 a consortium of companies ran an international competition,

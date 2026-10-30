@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "angeletti"
+- "applicative"
+- "concurrency"
+- "florian"
+- "functor"
+- "gabriel"
+- "messages"
+- "odoc"
+- "review"
+- "scherer"
 ---
 
 

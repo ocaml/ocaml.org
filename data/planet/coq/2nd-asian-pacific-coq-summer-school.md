@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "asian-pacific"
+- "assistant"
+- "beijing"
+- "china"
+- "coq"
+- "one-week"
+- "professors"
+- "school"
+- "summer"
+- "tsinghua"
 ---
 
 

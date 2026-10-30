@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/using-ascii-waveforms-to-test-hardwar
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "clear"
+- "cyclesim"
+- "dout"
+- "hardcaml"
+- "hardcaml_waveterm"
+- "incr"
+- "sim"
+- "testbench"
+- "waveform"
+- "waves"
 ---
 
 <p>At Jane Street, an <a href="https://blog.janestreet.com/testing-with-expectations">&ldquo;expect

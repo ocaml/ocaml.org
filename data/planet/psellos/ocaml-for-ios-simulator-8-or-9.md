@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "compiler"
+- "compilers"
+- "disarming"
+- "faze"
+- "fear"
+- "ios"
+- "ocamlios"
+- "simulator"
+- "simulators"
+- "spectators"
 ---
 
 <div class="date">January 19, 2016</div>

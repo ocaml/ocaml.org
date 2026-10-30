@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "andrews"
+- "devices"
+- "distinguished"
+- "embedded"
+- "functional programming"
+- "lecture"
+- "programming"
+- "series"
+- "trillion"
+- "trillions"
 ---

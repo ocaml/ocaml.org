@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "compiler"
+- "docs"
+- "epoch"
+- "epochs"
+- "js_of_ocaml"
+- "meant"
+- "odoc"
+- "odoc_driver"
+- "opam"
+- "profile"
 ---

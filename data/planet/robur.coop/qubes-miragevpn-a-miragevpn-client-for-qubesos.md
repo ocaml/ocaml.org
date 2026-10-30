@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "client"
+- "effect"
+- "mirageos"
+- "miragevpn"
+- "openvpn"
+- "qubes-mirage-firewall"
+- "qubes-miragevpn"
+- "qubesos"
+- "robur-coop"
+- "unikernel"
 ---
 
 A new OpenVPN client for QubesOS

@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "dune"
+- "images"
+- "ocaml-repo-ci"
+- "ocaml-version"
+- "ocurrent"
+- "ocurrent-deployer"
+- "opam"
+- "opam-repository"
+- "publish"
+- "update"
 ---
 
 <p>This is a high-level view of the steps required to update <a href="https://opam.ci.ocaml.org">ocaml-repo-ci</a> to use a new OCaml version.</p>

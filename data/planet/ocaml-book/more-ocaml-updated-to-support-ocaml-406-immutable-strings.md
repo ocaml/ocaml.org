@@ -10,6 +10,17 @@ preview_image:
 authors:
 - OCaml Book
 source:
+keywords:
+- "amazon"
+- "beginner-oriented"
+- "beginning"
+- "book"
+- "charge"
+- "exercises"
+- "functional programming"
+- "no-prerequisites"
+- "paris-rocquencourt"
+- "petersen"
 ---
 
 <p>OCaml 4.06 has, by default, immutable strings. This necessitates some changes to &quot;More OCaml&quot; (&quot;OCaml from the Very Beginning&quot; is unaffected).</p><p>The paper and kindle books (on Amazon), as well as the PDF e-book here, have been updated, together with the online resources.&nbsp;The new code works on any version of OCaml starting from 4.02.0.</p><p>If you are an existing customer, and have not received an update email, please contact the author using the form on this website.</p>

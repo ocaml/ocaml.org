@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "echo"
+- "exit"
+- "hideout"
+- "ios"
+- "ny1941"
+- "ocamloptrev"
+- "rev"
+- "sdk"
+- "sim"
+- "simulator"
 ---
 
 <div class="date">December 19, 2014</div>

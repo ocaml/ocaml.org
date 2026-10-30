@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "domain"
+- "dune-release"
+- "effect"
+- "foreign function interface"
+- "melange"
+- "merlin"
+- "ocamlformat"
+- "odoc"
+- "ppx"
+- "reason-react-ppx"
 ---
 
 <p>We're quite happy with how far Melange has come -- I previously wrote

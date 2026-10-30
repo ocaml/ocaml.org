@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "GADT"
+- "OCaml LSP"
+- "alice"
+- "avro"
+- "dot-merlin-reader"
+- "gendarme"
+- "gendarme-ezjsonm"
+- "marshal"
+- "marshalling"
+- "rfsm"
 ---

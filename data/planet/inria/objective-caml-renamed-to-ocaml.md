@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "changelog"
+- "companies"
+- "compiler"
+- "factorial"
+- "functional programming"
+- "garbage collection"
+- "odoc"
+- "opam"
+- "square"
+- "utop"
 ---
 
 

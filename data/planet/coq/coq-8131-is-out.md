@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "arities"
+- "availability"
+- "cause"
+- "coq"
+- "corruption"
+- "floating-point"
+- "hotfix"
+- "immediate"
+- "opcodes"
+- "proud"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Vincent Balat
 source:
+keywords:
+- "eliom"
+- "eliom_registration"
+- "js_of_ocaml"
+- "lwt"
+- "mysite"
+- "ocamlfind"
+- "ocsigen"
+- "ocsigenserver"
+- "ppx"
+- "service"
 ---
 
 <p>Following last week release,

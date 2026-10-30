@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xavier Clerc
 source:
+keywords:
+- "alpha"
+- "automatized"
+- "bootstrap"
+- "compiler"
+- "enhanced"
+- "ocamljava"
+- "partially"
+- "semi-stable"
+- "site"
+- "x9c"
 ---
 
 <p>The third alpha version is finally available, fixing several bugs, and enhancing the Java library.</p>

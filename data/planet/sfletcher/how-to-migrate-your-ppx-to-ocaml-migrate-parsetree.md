@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "compiler"
+- "effect"
+- "impossibilty"
+- "jbuilder"
+- "ocaml-migrate-parsetree"
+- "opam"
+- "parsetree"
+- "parsetrees"
+- "ppx"
+- "sychronized"
 ---
 
 

@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "called_count"
+- "f_norec"
+- "f_rec"
+- "fib"
+- "fib_mem"
+- "hashtbl"
+- "imperative"
+- "memoize"
+- "mutable"
+- "pattern matching"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/01/mutable_2.jpg#hero" alt="mutable"/></p>

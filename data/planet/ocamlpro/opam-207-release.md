@@ -15,6 +15,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "altgr"
+- "curl"
+- "dune"
+- "manually"
+- "opam"
+- "opam-devel"
+- "promote-install-files"
+- "rjbou"
+- "sandbox"
+- "sandboxing"
 ---
 
 <p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.7">opam 2.0.7</a>.</p>

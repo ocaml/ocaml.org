@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/OCaml53-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "barnes"
+- "effect handler"
+- "miod"
+- "msvc"
+- "nick"
+- "pattern matching"
+- "review"
+- "type checker"
+- "vallat"
+- "winpthreads"
 ---
 
 <p>We have a brand new OCaml release on our hands! 5.3 comes packed with features, fixes, and optimisations, including the return of some ‘familiar faces’. Support for the MSVC port is returning, as is statistical memory profiling now compatible with multicore projects.</p>

@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "container_intf"
+- "day10"
+- "day11"
+- "docs"
+- "html-generate"
+- "mld"
+- "ocurrent"
+- "odoc"
+- "opam"
+- "search"
 ---

@@ -8,4 +8,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "freebsd"
+- "freebsd-infra"
+- "ocurrent"
+- "opam-repo-ci"
+- "pushed"
+- "recreated"
+- "respective"
+- "tunbury"
+- "updated"
+- "worker"
 ---

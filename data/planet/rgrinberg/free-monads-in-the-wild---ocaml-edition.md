@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "free"
+- "functor"
+- "job"
+- "jobf"
+- "mls"
+- "monad"
+- "monads"
+- "r_stdout"
+- "tar_mls"
+- "type class"
 ---
 
 <p>OCaml programmers don&rsquo;t seem to resort to free monads much. I like to imagine

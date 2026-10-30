@@ -7,6 +7,10 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "description"
+- "miou"
+- "scheduler"
 ---
 
 A description of the Miou scheduler

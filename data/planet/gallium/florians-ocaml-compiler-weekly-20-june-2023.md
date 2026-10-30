@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "collaborations"
+- "compiler"
+- "discussing"
+- "monitoring"
+- "odoc"
+- "opam"
+- "ppxlib"
+- "quiet"
+- "weekly"
+- "worrying"
 ---
 
 

@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "babel"
+- "domain"
+- "group"
+- "llms"
+- "notebook"
+- "opam"
+- "pubgrub"
+- "reproducibility"
+- "shark"
+- "weeks"
 ---

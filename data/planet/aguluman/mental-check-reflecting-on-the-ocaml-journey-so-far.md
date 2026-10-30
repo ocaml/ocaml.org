@@ -8,4 +8,15 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "chaufr"
+- "compiler"
+- "discord"
+- "far"
+- "friday"
+- "journey"
+- "learner"
+- "type inference"
+- "web development"
+- "weekend"
 ---

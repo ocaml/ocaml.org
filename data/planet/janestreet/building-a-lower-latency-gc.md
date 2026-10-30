@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "aging"
+- "async"
+- "collection"
+- "collector"
+- "effect"
+- "heap"
+- "major"
+- "minor"
+- "slice"
+- "slices"
 ---
 
 <p>We&rsquo;ve been doing a bunch of work recently on improving the responsiveness of

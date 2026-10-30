@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "bin"
+- "echo"
+- "exit"
+- "functional programming"
+- "lower"
+- "port"
+- "ppx"
+- "shift"
+- "upper"
 ---
 
 <p>In the spirit of reinventing the wheel for fun, I hacked this together as a

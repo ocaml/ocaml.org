@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "audio"
+- "git"
+- "kyutai"
+- "kyutai-streaming-voice-mlx"
+- "low"
+- "microphone-to-speech"
+- "speech-to-text"
+- "stunningly"
+- "transcription"
+- "whisper"
 ---
 
 <p>I've just taken <a href="https://unmute.sh/">Kyutai's speech-to-text model</a> for a spin on my Mac laptop, and it's stunningly good. As background, this is what the prolific <a href="https://github.com/laurentmazare">Laurent Mazare</a> has been hacking on; he has made a ton of contributions to the OCaml community as well, such as <a href="https://github.com/LaurentMazare/ocaml-torch">ocaml-torch</a> and starred in a very fun <a href="https://signalsandthreads.com/python-ocaml-and-machine-learning/">Signals to Threads episode</a> on machine learning at Jane Street back in 2020.</p>

@@ -11,4 +11,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "c-c"
+- "caml-mode"
+- "emacs"
+- "indentation"
+- "merlin"
+- "neocaml"
+- "ocp-indent"
+- "tree-sitter"
+- "tuareg-mode"
+- "utop"
 ---

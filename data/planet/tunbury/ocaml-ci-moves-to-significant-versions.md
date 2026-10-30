@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "conf-capnproto"
+- "dockerfile"
+- "gitlab"
+- "i386"
+- "minimal"
+- "ocaml-ci"
+- "ocaml-version"
+- "ocurrent"
+- "releases"
+- "significant"
 ---

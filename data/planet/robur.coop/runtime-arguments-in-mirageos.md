@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "arg"
+- "arguments"
+- "doc"
+- "duration"
+- "hello"
+- "hello-key"
+- "loop"
+- "mirage"
+- "sleep_ns"
+- "unikernel"
 ---
 
 The history of runtime arguments to a MirageOS unikernel

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "f_norec"
+- "f_rec"
+- "f_rec_memo"
+- "f_rec_tmp_memo"
+- "fib_rec"
+- "fib_rec_memo"
+- "knot"
+- "memoize"
+- "recursive"
+- "untying"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/01/knot-1.jpg#hero" alt=""/></p>

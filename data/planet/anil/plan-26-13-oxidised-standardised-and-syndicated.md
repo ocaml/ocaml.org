@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "biodiversity"
+- "convention"
+- "domain"
+- "geo-embeddings"
+- "indigenous"
+- "odoc"
+- "planet"
+- "semi-supervised"
+- "tessera"
+- "zarr"
 ---

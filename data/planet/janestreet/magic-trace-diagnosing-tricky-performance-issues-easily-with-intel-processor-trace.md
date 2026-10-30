@@ -10,6 +10,17 @@ preview_image: https://blog.janestreet.com/magic-trace/magic-trace-blog-image.jp
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "caps"
+- "intel"
+- "libipt"
+- "magic-trace"
+- "magic_trace"
+- "perf"
+- "perf_event_open"
+- "processor"
+- "take_snapshot"
+- "trace"
 ---
 
 <p>Intel Processor Trace is a hardware technology that can record all

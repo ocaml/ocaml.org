@@ -8,6 +8,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "a_class"
+- "bin"
+- "day"
+- "dune"
+- "header"
+- "memoir"
+- "module system"
+- "omd"
+- "parser"
+- "tyxml"
 ---
 
 First entry detailing the setup of my OCaml static site generator

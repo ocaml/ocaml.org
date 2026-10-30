@@ -8,4 +8,15 @@ authors:
 - hannes
 source:
 ignore:
+keywords:
+- "add-to-role"
+- "conex"
+- "conex_key"
+- "conex_root"
+- "dune-release"
+- "mirageos"
+- "opam-repository"
+- "root"
+- "timestamp"
+- "unikernel"
 ---

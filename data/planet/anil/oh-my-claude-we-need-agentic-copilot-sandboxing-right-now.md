@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "agentic"
+- "claude"
+- "foreign function interface"
+- "geojson"
+- "interlaced"
+- "monad"
+- "multiplexing"
+- "options"
+- "progressive"
+- "scan_mode"
 ---
 
 <p><a href="https://github.com/yminsky" class="contact">Yaron Minsky</a> nerdsniped me last week into getting OCaml to drive the 80s-retro <a href="https://www.adafruit.com/product/2345">RGB Matrix</a> displays. I grabbed one from the local Pi Store and soldered it together with help from <a href="https://mynameismwd.org" class="contact">Michael Dales</a>. But instead of writing OCaml bindings by hand, we thought we'd try out the latest agentic CLI called <a href="https://github.com/kodu-ai/claude-code">Claude Code</a> released <a href="https://ai-claude.net/">last week</a> to see if we could entirely autogenerate the bindings.</p>

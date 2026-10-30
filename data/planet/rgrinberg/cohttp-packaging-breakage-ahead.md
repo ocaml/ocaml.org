@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "MirageOS"
+- "async"
+- "cohttp"
+- "cohttp-async"
+- "cohttp-lwt"
+- "cohttp-lwt-jsoo"
+- "findlib"
+- "lwt"
+- "monad"
+- "ppx"
 ---
 
 <p>As a follow up to my <a href="http://rgrinberg.com/posts/optional-dependencies-considered-harmful/" class="reference internal"><span class="doc">previous post</span></a> regarding optional

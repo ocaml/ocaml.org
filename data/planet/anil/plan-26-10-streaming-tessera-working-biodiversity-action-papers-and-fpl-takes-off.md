@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "ban"
+- "biodiversity"
+- "causal"
+- "effect"
+- "embeddings"
+- "geospatial"
+- "pterodactyl"
+- "streaming"
+- "summit"
+- "tessera"
 ---

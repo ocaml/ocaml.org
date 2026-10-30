@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "archimedean"
+- "cooler"
+- "polydroml"
+- "polyhedra"
+- "repackaged"
+- "solids"
+- "sphere"
+- "spherical"
+- "triangles"
+- "wythoff"
 ---
 
 <div class="date">October 13, 2012</div>

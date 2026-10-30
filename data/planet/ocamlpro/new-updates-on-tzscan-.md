@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "basking"
+- "bonds"
+- "cycle"
+- "endorsements"
+- "explorer"
+- "network"
+- "tablet"
+- "tezos"
+- "tzscan"
+- "zeronet"
 ---
 
 <blockquote>

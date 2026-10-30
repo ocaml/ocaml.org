@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "affected"
+- "applicative"
+- "compiler"
+- "functor"
+- "gadt"
+- "gen"
+- "generative"
+- "hashtbl"
+- "standard"
+- "struct"
 ---
 
 

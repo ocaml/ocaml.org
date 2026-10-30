@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/using-python-and-ocaml-in-the-same-ju
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "applicative"
+- "approx_pi"
+- "jupyter"
+- "notebook"
+- "ppx_let"
+- "ppx_python"
+- "pyml"
+- "python"
+- "toploop"
+- "web development"
 ---
 
 <div style="width: 75%; margin: auto; text-align: center; font-style: italic; font-size: 75%">

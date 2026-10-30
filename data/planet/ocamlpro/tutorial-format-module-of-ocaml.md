@@ -7,6 +7,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    OCamlPro\n  "
 source:
+keywords:
+- "alt-ergo"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "format"
+- "ocamlpro"
+- "opam"
+- "titagone"
+- "tutorial"
 ---
 
 <p>The <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Format.html">Format</a> module of OCaml is an extremely powerful but unfortunately often poorly used module. </p>

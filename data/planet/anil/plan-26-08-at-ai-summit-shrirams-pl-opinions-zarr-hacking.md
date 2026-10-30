@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "delhi"
+- "effect"
+- "functional programming"
+- "indian"
+- "mirageos"
+- "shriram"
+- "stroop"
+- "summit"
+- "tessera"
+- "zarr"
 ---

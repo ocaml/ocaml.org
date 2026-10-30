@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "applicative"
+- "bind"
+- "defn"
+- "fmap"
+- "functor"
+- "lemma"
+- "monad"
+- "monoid"
+- "pure"
+- "return"
 ---
 
 This is for the record, since the derivations took me a while and I'd rather not lose them.

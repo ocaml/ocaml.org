@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/14bcc335478eae1bbad1c2f4cdd244af/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "coin"
+- "email"
+- "emails"
+- "facteur"
+- "gadt"
+- "mrmime"
+- "pecu"
+- "rosetta"
+- "uuuu"
+- "yuscii"
 ---
 
 <p>We're glad to announce the first release of <a href="https://github.com/mirage/mrmime.git"><code>mrmime</code></a>, a parser and a

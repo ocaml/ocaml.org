@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "claude"
+- "effect"
+- "exam"
+- "odoc"
+- "oxcaml"
+- "parser"
+- "ppx_template"
+- "questions"
+- "ticks"
+- "x-ocaml"
 ---

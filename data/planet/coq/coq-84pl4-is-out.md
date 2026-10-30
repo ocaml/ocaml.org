@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "axiom"
+- "coq"
+- "critical"
+- "forall"
+- "inconsistent"
+- "known"
+- "logic"
+- "prop"
+- "prop_extensionality"
+- "warning"
 ---
 
 

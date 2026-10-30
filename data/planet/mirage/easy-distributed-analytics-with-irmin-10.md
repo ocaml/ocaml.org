@@ -6,6 +6,17 @@ date: 2017-03-06T00:00:00-00:00
 preview_image:
 authors:
 - Thomas Gazagnaire
+keywords:
+- "distributed"
+- "gauge"
+- "irmin"
+- "master"
+- "merge"
+- "metric"
+- "metric_t"
+- "store"
+- "tmp"
+- "tree"
 ---
 
 

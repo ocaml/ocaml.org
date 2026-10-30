@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "ame"
+- "cabal"
+- "css"
+- "domain"
+- "hakyll"
+- "lambdafoo"
+- "setup"
+- "site"
+- "sitemap"
+- "talks"
 ---

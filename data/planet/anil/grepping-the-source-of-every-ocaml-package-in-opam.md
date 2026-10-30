@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "archival"
+- "checkout"
+- "darcs"
+- "git"
+- "github"
+- "grepping-every-known-ocaml-package-source"
+- "opam"
+- "opam-repository"
+- "repacks"
+- "tar"
 ---
 
 <p>A regular question that comes up from OCaml developers is how to use

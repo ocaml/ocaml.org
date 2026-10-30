@@ -13,4 +13,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "GADT"
+- "continuation"
+- "ddc"
+- "funcp"
+- "hegel"
+- "marshalling"
+- "michel"
+- "tpat_alias"
+- "typedtree"
+- "vaast"
 ---

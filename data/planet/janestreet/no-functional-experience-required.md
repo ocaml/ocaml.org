@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "cookies"
+- "experience"
+- "functional"
+- "functional programming"
+- "hire"
+- "jane"
+- "ppx"
+- "street"
 ---
 
 <p>Jane Street is a serious functional programming shop. We use OCaml, a statically

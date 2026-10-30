@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "docs"
+- "effect"
+- "functor"
+- "link"
+- "links"
+- "odoc"
+- "package"
+- "parser"
+- "universe"
+- "universes"
 ---

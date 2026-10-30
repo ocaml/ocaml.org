@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "character"
+- "escape"
+- "py_unicode_isprintable"
+- "python"
+- "quotes"
+- "str"
+- "strings"
+- "u0032"
+- "uchar"
+- "unicode"
 ---
 
 Reimplementing Python string escaping in OCaml

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "cocorico"
+- "coq"
+- "git"
+- "github"
+- "migrated"
+- "migration"
+- "mirror"
+- "opposed"
+- "tracker"
+- "wiki"
 ---
 
 

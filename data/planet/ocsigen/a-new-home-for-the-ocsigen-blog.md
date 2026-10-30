@@ -8,4 +8,15 @@ authors:
 - The Ocsigen team
 source:
 ignore:
+keywords:
+- "aggregator"
+- "date"
+- "eliom"
+- "home"
+- "js_of_ocaml"
+- "lwt"
+- "newest"
+- "odoc"
+- "tyxml"
+- "wodoc"
 ---

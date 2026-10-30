@@ -6,6 +6,17 @@ date: 2015-02-10T00:00:00-00:00
 preview_image:
 authors:
 - Amir Chaudhry
+keywords:
+- "beach"
+- "bitcoin"
+- "chaos"
+- "clean-slate"
+- "congress"
+- "hackers"
+- "pinata"
+- "smash"
+- "spoils"
+- "unikernel"
 ---
 
 

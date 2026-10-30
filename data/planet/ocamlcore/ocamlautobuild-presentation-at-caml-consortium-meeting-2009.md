@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "concerning"
+- "consortium"
+- "godi"
+- "godiva"
+- "oasis"
+- "ocamlautobuild"
+- "ocamlcore"
+- "ocamlmakefile"
+- "omake"
+- "packagers"
 ---
 
 <p>One year ago, OCamlCore has started a project to help creating a fully featured build system: OCamlAutobuild.</p>

@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "cryptography"
+- "domain"
+- "isolation"
+- "memory-safe"
+- "odyssey"
+- "payload"
+- "satellite"
+- "software"
+- "space"
+- "spacesec"
 ---

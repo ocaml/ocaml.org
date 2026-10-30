@@ -10,4 +10,15 @@ authors:
 - Grim
 source:
 ignore:
+keywords:
+- "acc"
+- "glist"
+- "lists"
+- "my_map"
+- "of_rev_list"
+- "olist"
+- "ord"
+- "rev"
+- "reversal"
+- "reversed"
 ---

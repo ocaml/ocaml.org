@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "aorai"
+- "chromium"
+- "e-acsl"
+- "eva"
+- "frama-c"
+- "manual"
+- "manuals"
+- "plug-in"
+- "rte"
+- "v24"
 ---
 
 

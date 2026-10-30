@@ -8,4 +8,15 @@ authors:
 - Ahrefs
 source:
 ignore:
+keywords:
+- "build-graph"
+- "dependencies"
+- "dune"
+- "graph"
+- "monad"
+- "perfetto"
+- "rule"
+- "sum"
+- "trace"
+- "tracing"
 ---

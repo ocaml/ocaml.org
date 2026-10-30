@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "cgroup"
+- "csv"
+- "eio_posix"
+- "gammastep"
+- "nheko"
+- "openat"
+- "opentrace"
+- "slice"
+- "uring"
+- "user-1000"
 ---
 
 

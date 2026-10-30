@@ -7,6 +7,17 @@ preview_image: https://tarides.com/blog/images/adopt_ocaml-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "alt"
+- "cursor"
+- "hole"
+- "lsp"
+- "merlin"
+- "polarity"
+- "selection"
+- "shortcut"
+- "typed"
+- "vscode"
 ---
 
 <p>Happy New Year, OCamlers! 🎉

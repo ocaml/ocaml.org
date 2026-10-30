@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "app"
+- "disharmony"
+- "frightening"
+- "gamut"
+- "ios"
+- "mesmerizing"
+- "mother"
+- "recoded"
+- "simulated"
+- "simulator"
 ---
 
 <div class="date">April 29, 2015</div>

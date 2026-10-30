@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "academia"
+- "async"
+- "compiler"
+- "cookies"
+- "functional"
+- "functional programming"
+- "jane"
+- "observations"
+- "ppx"
+- "street"
 ---
 
 <p>I was recently invited to do the keynote at the <a href="http://cufp.org/2016/">Commercial Users of Functional

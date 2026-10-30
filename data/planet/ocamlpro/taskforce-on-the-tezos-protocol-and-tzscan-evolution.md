@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Michael Laporte\n  "
 source:
+keywords:
+- "baking"
+- "dune"
+- "evolution"
+- "flambda"
+- "flambda2"
+- "opam"
+- "rolls"
+- "taskforce"
+- "tezos"
+- "tzscan"
 ---
 
 <p>As we are preparing to <a href="https://twitter.com/TezosFoundation/status/984814729213480960">work on the Tezos Protocol</a>, we're still actively keeping the pace on the block explorer TZScan.io, adding cool information for baking accounts. We'd like to allow people to see who is contributing to the network and to understand the distribution of rolls, rights, etc.</p>

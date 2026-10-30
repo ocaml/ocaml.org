@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Muriel\n  "
 source:
+keywords:
+- "blockchain"
+- "contracts"
+- "decompiler"
+- "flambda"
+- "foundation"
+- "liquidity"
+- "michelson"
+- "ocamlpro"
+- "tezos"
+- "tzscan"
 ---
 
 <h2>Tezos Foundation and OCamlPro joint press release - October 17, 2018</h2>

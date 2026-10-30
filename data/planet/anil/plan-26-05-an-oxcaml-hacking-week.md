@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "autumn"
+- "blender"
+- "eio"
+- "jan"
+- "ludlam"
+- "ocurrent"
+- "oxcaml"
+- "parser"
+- "webserver"
+- "weeknotes"
 ---

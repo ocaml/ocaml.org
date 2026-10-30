@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "ast"
+- "camlp4"
+- "jq_ast"
+- "jq_null"
+- "jq_number"
+- "json"
+- "loc"
+- "meta_float"
+- "quotation"
+- "quotations"
 ---
 
 <p>The Camlp4 system of quotations and antiquotations is an awesome tool for <a href="http://ambassadortothecomputers.blogspot.com/2009/01/reading-camlp4-part-2-quotations_04.html">producing</a> and <a href="http://ambassadortothecomputers.blogspot.com/2009/01/reading-camlp4-part-4-consuming-ocaml.html">consuming</a> OCaml ASTs. In this post (and the following one) we will see how to provide this facility for other syntaxes and ASTs. Here we consider just quotations; we&rsquo;ll add antiquotations in the following post.</p> 

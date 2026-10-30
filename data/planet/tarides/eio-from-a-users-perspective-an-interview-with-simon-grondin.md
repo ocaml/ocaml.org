@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/04a3d69fca4d38be6fb23d022e2da04b/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "asemio"
+- "async"
+- "colouring"
+- "complexity"
+- "concurrency"
+- "effect"
+- "eio"
+- "lwt"
+- "simon"
+- "szxx"
 ---
 
 <p>Are you curious about Eio but not sure what to expect? Eio is an effects-based direct-style concurrency library for OCaml 5. I recently spoke with <a href="https://github.com/SGrondin">Simon Grondin</a> from <a href="https://asemio.com">Asemio</a> about his personal experience using the I/O library <a href="https://github.com/ocaml-multicore/eio">Eio</a>. He was kind enough to share the good and the bad and give me insight into how the library has worked for his projects.</p>

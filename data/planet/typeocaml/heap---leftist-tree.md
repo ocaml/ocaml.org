@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "delete_min"
+- "heap"
+- "insert"
+- "leaf"
+- "leftist"
+- "merge"
+- "rank"
+- "rank_left"
+- "rank_right"
+- "tree"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2015/03/leftist.jpg#hero" alt="leftist"/></p>

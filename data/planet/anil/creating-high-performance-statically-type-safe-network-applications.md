@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "anil"
+- "anil-phd-thesis-2"
+- "applications"
+- "creating"
+- "functional programming"
+- "high-performance"
+- "network"
+- "statically"
+- "thesis"
+- "type-safe"
 ---

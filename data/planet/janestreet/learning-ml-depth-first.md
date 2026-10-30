@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/learning-ml-depth-first/Depth_First_R
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "curricula"
+- "depth-first"
+- "dfl"
+- "functional programming"
+- "learning"
+- "ppx"
+- "street"
+- "variational"
 ---
 
 <p>If you haven&rsquo;t heard of it, <a href="https://www.depthfirstlearning.com/2018/DFL-Fellowship">Depth First

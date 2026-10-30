@@ -10,4 +10,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "assures"
+- "effect"
+- "escape"
+- "hatch"
+- "icfp"
+- "multicore"
+- "musing"
+- "oxcaml"
+- "runtime"
+- "type checker"
 ---

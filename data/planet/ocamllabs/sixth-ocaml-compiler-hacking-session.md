@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "compiler"
+- "compiler-hacking"
+- "fw11"
+- "internals"
+- "madingley"
+- "multicore"
+- "session"
+- "sixth"
+- "wednesday"
+- "wiki"
 ---
 
 <p>(Update (2014-06-24): Stephen Dolan will be giving a demo of multicore OCaml!)</p>

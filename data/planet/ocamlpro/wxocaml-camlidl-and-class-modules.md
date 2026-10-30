@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "camlidl"
+- "from_ic"
+- "garbage collection"
+- "ic1"
+- "icmemo"
+- "memo"
+- "ocp-memprof"
+- "pairmemo"
+- "scanf"
+- "wxOCaml"
 ---
 
 <p>A few months ago, a memory leak in the <code>Scanf.fscanf</code> function of OCaml&rsquo;s standard library has been reported on the OCaml mailing list. The following &ldquo;minimal&rdquo; example reproduces this misbehavior:</p>

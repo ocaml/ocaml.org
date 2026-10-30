@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "assembler"
+- "chuck"
+- "cpu"
+- "moore"
+- "processor"
+- "risc"
+- "simulator"
+- "thacker"
+- "thackers"
+- "ttc"
 ---
 
 <p>Thackers Tiny Computer 3 (TTC) is one in a series of simple RISC processor cores designed

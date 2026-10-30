@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/76876b69b77bdec1f25009b2ef2a6d33/ed333
 authors:
 - Tarides
 source:
+keywords:
+- "engineering"
+- "git"
+- "graphql"
+- "irmin"
+- "mirageos"
+- "ocaml-git"
+- "storage"
+- "tezos"
+- "unikernel"
+- "wodan"
 ---
 
 <p>Over the past few months, we have been heavily engaged in release

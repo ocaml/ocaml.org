@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base-image-builder"
+- "dockerfile"
+- "eio"
+- "janestreet"
+- "mtelvers"
+- "opam-repo-merge"
+- "opam-repository"
+- "opam-repository-ox"
+- "oxcaml"
+- "with-extensions"
 ---
 
 <p>This morning, Anil proposed that having an opam-repository that didn’t have old versions of the packages that require patches to work with OxCaml would be good.</p>

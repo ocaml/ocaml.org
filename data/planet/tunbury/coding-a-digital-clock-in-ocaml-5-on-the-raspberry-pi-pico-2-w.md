@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "clock"
+- "gpio"
+- "gpio_put"
+- "lcd"
+- "mod"
+- "nibble"
+- "ntp"
+- "pico"
+- "smull"
+- "targetint"
 ---

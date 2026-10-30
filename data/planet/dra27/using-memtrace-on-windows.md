@@ -14,6 +14,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "async"
+- "dune"
+- "dune-repo"
+- "garbage collection"
+- "js_of_ocaml"
+- "leaky"
+- "lwt"
+- "memtrace"
+- "parser"
+- "vendor"
 ---
 
 <p>It is said that good things come to those who wait. Jacques-Henri Jourdan demonstrated <a href="https://ocaml.org/meetings/ocaml/2016/Jourdan-statistically_profiling_memory_in_OCaml.pdf">Statistically profiling memory in OCaml</a> at the 2016 OCaml Workshop and experimental branches of it existed for OCaml 4.03–4.07 in opam. Parts of the work were merged in OCaml 4.10 and the final sections landed with 4.11. The compiler provides support in the form of a series of hooks in various parts of the runtime’s allocation and garbage collection routines. A few weeks ago, Jane Street released <a href="https://github.com/janestreet/memtrace">memtrace</a> and <a href="https://github.com/janestreet/memtrace_viewer">Memtrace viewer</a> and earlier this week <a href="https://blog.janestreet.com/finding-memory-leaks-with-memtrace/">blogged about its use</a>. I thought I’d quickly share the experience of using it on native Windows.</p>

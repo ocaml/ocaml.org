@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "achieved"
+- "anil"
+- "consensus"
+- "effect"
+- "handlers"
+- "meetings"
+- "multicore"
+- "multicore-monthly-sep21"
+- "recoil"
+- "steady"
 ---
 
 <p>We're making steady progress on getting multicore support merged into OCaml, including some great developer meetings where we achieved consensus with the core team to include support for effect handlers in the 5.0 release.</p>

@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "caqti"
+- "dune"
+- "eio"
+- "eio_main"
+- "iam"
+- "mtls"
+- "survey"
+- "toml"
+- "valkey"
+- "vif"
 ---

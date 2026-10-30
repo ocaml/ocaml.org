@@ -8,6 +8,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "adam"
+- "advocacy"
+- "bord"
+- "comment"
+- "goodbye"
+- "leave"
+- "opa"
+- "renverse"
+- "table"
+- "wordpress"
 ---
 
 <p style="text-align:justify;">Opa advocacy and tutorials have moved to <a href="http://blog.opalang.org/">their own, dedicated blog</a>. The topics are now covered by Adam Koprowski. Thanks for handling this, Adam!</p>

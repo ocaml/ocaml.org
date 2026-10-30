@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "box"
+- "digesting"
+- "disclosure"
+- "dune"
+- "mirageos"
+- "mmap"
+- "orbit"
+- "oxcaml"
+- "parallelism"
+- "voluntary"
 ---

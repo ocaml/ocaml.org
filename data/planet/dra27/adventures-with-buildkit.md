@@ -13,6 +13,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "backport-4"
+- "builds"
+- "cache-4"
+- "checkout"
+- "copy"
+- "git"
+- "home"
+- "opam"
+- "relocatable"
+- "test-4"
 ---
 
 <p>I’ve been doing battle the last few days with Docker, and in particular trying

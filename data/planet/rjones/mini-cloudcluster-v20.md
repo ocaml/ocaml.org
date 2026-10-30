@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "ansible"
+- "cattle"
+- "cloud"
+- "cluster"
+- "guests"
+- "mclu"
+- "mini"
+- "nodes"
+- "openstack"
+- "total"
 ---
 
 <p><a href="https://rwmj.wordpress.com/2014/05/09/mini-cluster-mclu-command-line-tool/#content">Last year</a> I wrote and <a href="https://rwmj.wordpress.com/2014/05/12/mini-cluster-mclu-rewritten-to-use-ansible/#content">rewrote</a> a little command line tool for managing my <a href="https://rwmj.wordpress.com/2014/04/28/caseless-virtualization-cluster-part-5/#content">virtualization cluster</a>.</p>

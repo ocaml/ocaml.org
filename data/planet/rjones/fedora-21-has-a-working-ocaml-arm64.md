@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "aarch64"
+- "arm64"
+- "fedora"
+- "graphical"
+- "hat"
+- "jones"
+- "qemu"
+- "reply"
+- "rhel"
+- "rich"
 ---
 
 <p><b>Update:</b> Thanks to Peter Robinson, there is now a <a href="http://arm.koji.fedoraproject.org/koji/buildinfo?buildID=183283">build of OCaml for aarch64 in the Fedora repository</a>.</p>

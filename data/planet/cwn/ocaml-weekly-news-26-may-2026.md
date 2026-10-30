@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "concurrency"
+- "foreign function interface"
+- "menhir"
+- "parallelism"
+- "presentations"
+- "submission"
+- "submissions"
+- "united"
+- "university"
+- "workshop"
 ---

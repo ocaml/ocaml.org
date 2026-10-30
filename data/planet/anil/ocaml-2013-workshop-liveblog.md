@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "compiler"
+- "dxt23-hxf18"
+- "labs"
+- "madhavapeddy"
+- "ocaml-2013-liveblog"
+- "opam"
+- "reviewing"
+- "roundup"
+- "workshop"
+- "year"
 ---
 
 <p>I attended the OCaml 2013 workshop and took live notes of the event. There was a lot going on here, which you can learn more about in the "<a href="https://anil.recoil.org/notes/the-year-in-ocamllabs">Reviewing the first year of OCaml Labs in 2013</a>" roundup as well that I published later in the year.</p>

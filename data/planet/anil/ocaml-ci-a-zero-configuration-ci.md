@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "aggressive"
+- "craig"
+- "dune"
+- "ferguson"
+- "leonard"
+- "magnus"
+- "ocaml-ci"
+- "opam"
+- "skjegstad"
+- "zero-configuration"
 ---
 
 <p>Presented the new OCaml DSL for continuous integration at the OCaml Workshop</p>

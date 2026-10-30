@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "callbacks"
+- "effect"
+- "effects-based"
+- "eio"
+- "leonard"
+- "monad"
+- "reaching"
+- "tom"
+- "workshop"
 ---
 
 <p>An update on the OCaml EIO library at the OCaml Workshop 2023</p>

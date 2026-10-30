@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    chambart\n  "
 source:
+keywords:
+- "GADT"
+- "column"
+- "constraint"
+- "grid"
+- "position"
+- "row"
+- "square"
+- "symbol"
+- "symbols"
+- "type checker"
 ---
 
 <p>As you may have noticed, on the begining of April I have some urge to write something technical about some deeply specific point of OCaml. This time I'd like to tackle that through sudoku.</p>

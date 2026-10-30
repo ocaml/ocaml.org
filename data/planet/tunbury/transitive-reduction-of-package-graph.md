@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base"
+- "deps_direct"
+- "graph"
+- "iter"
+- "package"
+- "packagemap"
+- "packageset"
+- "reduction"
+- "topological_sort"
+- "transitive"
 ---
 
 <p>I have previously written about using a <a href="https://www.tunbury.org/topological-sort/">topological sort</a> of a directed acyclic graph (DAG) of package dependencies to create an ordered list of installation operations. I now want to create a transitive reduction, giving a graph with the same vertices and the fewest number of edges possible.</p>

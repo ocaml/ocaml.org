@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "broken"
+- "distributions"
+- "distro"
+- "endian"
+- "gentoo"
+- "libsndfile"
+- "meta-data"
+- "mips"
+- "suite"
+- "test"
 ---
 
 

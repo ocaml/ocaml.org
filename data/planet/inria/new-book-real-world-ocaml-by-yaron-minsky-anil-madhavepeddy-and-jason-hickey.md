@@ -8,6 +8,11 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "dev"
+- "org"
+- "realworldocaml"
+- "redirecting"
 ---
 
 

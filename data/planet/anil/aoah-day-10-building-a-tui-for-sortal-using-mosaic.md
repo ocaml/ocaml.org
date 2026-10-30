@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agent"
+- "aoah"
+- "bonsai"
+- "day"
+- "eio"
+- "mosaic"
+- "sortal"
+- "terminal"
+- "tree-sitter"
+- "tui"
 ---

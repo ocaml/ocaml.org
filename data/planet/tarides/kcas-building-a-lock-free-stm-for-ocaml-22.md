@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/96f411a726847c30f58ab7482c07ed4a/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "blocking"
+- "domainslib"
+- "kcas"
+- "predicate"
+- "queue"
+- "retry"
+- "skew"
+- "stm"
+- "transaction"
+- "transactions"
 ---
 
 <p>This is the follow-up post continuing the discussion of the development of Kcas.

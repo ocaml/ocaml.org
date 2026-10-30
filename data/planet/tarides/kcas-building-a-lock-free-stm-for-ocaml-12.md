@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/09d856002f1fda79e188e6d85b5c79ea/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "backoff"
+- "k-cas"
+- "kcas"
+- "location"
+- "lock-free"
+- "node"
+- "pred"
+- "splay"
+- "transaction"
+- "transactional"
 ---
 
 <p>In the past few months I've had the pleasure of working on the

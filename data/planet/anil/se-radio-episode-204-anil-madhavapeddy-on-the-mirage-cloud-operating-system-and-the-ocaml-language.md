@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "blumen"
+- "cloud"
+- "episode"
+- "madhavapeddy"
+- "mirage"
+- "mirageos"
+- "operating"
+- "radio"
+- "robert"
 ---
 
 <p>Appeared on SE Radio Episode 204 about Mirage and OCaml</p>

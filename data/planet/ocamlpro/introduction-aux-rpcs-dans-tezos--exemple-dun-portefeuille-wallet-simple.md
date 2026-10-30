@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "compiler"
+- "dune"
+- "exemple"
+- "flambda"
+- "flambda2"
+- "introduction"
+- "opam"
+- "portefeuille"
+- "rpcs"
+- "tezos"
 ---
 
 <p>Dans cet article technique, nous introduisons bri&egrave;vement les RPCs dans Tezos &agrave; travers un exemple simple montrant comment le client Tezos

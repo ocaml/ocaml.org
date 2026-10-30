@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "inria"
+- "multicore"
+- "multicore-monthly-dec21"
+- "paris"
+- "proposed"
+- "recoil"
+- "review"
+- "sit"
+- "went"
 ---
 
 <p>We've been working hard on OCaml multicore support, and went over to Paris to sit down with some core developers from Inria and work through code review of our proposed patches.</p>

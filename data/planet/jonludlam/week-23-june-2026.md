@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "asap"
+- "cmt"
+- "docs"
+- "dragging"
+- "dune"
+- "exams"
+- "idents"
+- "odoc"
+- "opam"
+- "pathway"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "accessing"
+- "cloning"
+- "coq"
+- "gforge"
+- "git"
+- "page"
+- "repository"
+- "subversion"
+- "transition"
+- "wiki"
 ---
 
 

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "bot"
+- "config_term"
+- "continuation"
+- "day"
+- "eio_main"
+- "env"
+- "ini"
+- "sender_email"
+- "zulip"
 ---

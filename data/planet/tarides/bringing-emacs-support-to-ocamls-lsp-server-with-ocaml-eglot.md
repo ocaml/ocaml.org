@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "caml-mode"
+- "editor"
+- "editors"
+- "emacs"
+- "lsp"
+- "merlin"
+- "ocaml-eglot"
+- "server"
+- "tuareg"
 ---

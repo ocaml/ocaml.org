@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "asetmap"
+- "bos"
+- "codec"
+- "concurrency"
+- "declarative"
+- "hmap"
+- "opengl"
+- "parser"
+- "unicode"
+- "webbrowser"
 ---
 
 A few other new releases that went unannounced on this feed. Find about them on the <a href="https://erratique.ch/software">software page</a>.

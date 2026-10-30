@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "beta"
+- "curl"
+- "feature-freeze"
+- "git"
+- "glpk"
+- "mccs"
+- "opam"
+- "opam-devel"
+- "opam-lock"
+- "solver"
 ---
 
 <p>After a few more months brewing, we are pleased to announce a new beta release

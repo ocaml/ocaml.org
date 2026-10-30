@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "applicative"
+- "centralization"
+- "criss-cross"
+- "distributed"
+- "gca"
+- "iron"
+- "jane"
+- "merge"
+- "quickcheck"
+- "tip"
 ---
 
 <p>7 years ago, I wrote a <a href="https://blog.janestreet.com/centralizing-distributed-version-control/" title="Centralizing Distributed Version Control">blog

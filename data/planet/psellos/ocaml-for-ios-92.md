@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "compiler"
+- "compilers"
+- "dimensional"
+- "fifth"
+- "holidays"
+- "installers"
+- "ios"
+- "ocamlios"
+- "official"
+- "orthogonal"
 ---
 
 <div class="date">January 15, 2016</div>

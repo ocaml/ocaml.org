@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "c11"
+- "c12"
+- "c21"
+- "c22"
+- "height"
+- "interpolation"
+- "ncols"
+- "srcpix"
+- "width"
+- "yi-1"
 ---
 
 The code has now the proper shape to carry out optimizations to their logical consequences, to the point that I question the wisdom in some of the previous transformations. It is true that in compiler construction some passes introduce constructs only for latter passes to eliminate them, in the hope of an overall simplification. In this case the starting point will be the elimination of the 

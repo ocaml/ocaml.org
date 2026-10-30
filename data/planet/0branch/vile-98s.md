@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "ansi"
+- "bare"
+- "cfg"
+- "color"
+- "continuation"
+- "ksh"
+- "markup"
+- "quotes"
+- "random"
+- "vile"
 ---
 
 <div>

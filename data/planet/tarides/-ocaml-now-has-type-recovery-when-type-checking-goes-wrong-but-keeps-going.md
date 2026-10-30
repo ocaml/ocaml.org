@@ -189,4 +189,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "in_context"
+- "log_and_raise"
+- "log_or_raise"
+- "merlin"
+- "pattern matching"
+- "recovery"
+- "type checker"
+- "type inference"
+- "type-checker"
+- "typing"
 ---

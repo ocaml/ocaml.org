@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Hong bo Zhang
 source:
+keywords:
+- "ant"
+- "app"
+- "ast"
+- "expr"
+- "fan"
+- "lid"
+- "meta-programming"
+- "quosi-quotation"
+- "unparse"
+- "vrn"
 ---
 
 <p>In this post, we continue discussing syntactic meta-programming<br/>

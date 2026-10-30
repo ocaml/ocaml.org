@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "delhi"
+- "eio"
+- "feb"
+- "impact"
+- "india"
+- "indian"
+- "openuk"
+- "progress"
+- "summit"
+- "tessera"
 ---

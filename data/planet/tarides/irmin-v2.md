@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/d702f060cc02fbcb7329077e2d71741d/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "echo"
+- "graphql"
+- "irmin"
+- "irmin-unix"
+- "mirageos"
+- "opam"
+- "storage"
+- "tezos"
+- "unikernel"
+- "wodan"
 ---
 
 <p>We are pleased to announce <a href="https://github.com/mirage/irmin/releases">Irmin

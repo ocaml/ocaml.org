@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "automata"
+- "checking"
+- "combining"
+- "dynamic"
+- "enforcement"
+- "formal verification"
+- "policy"
+- "spl"
+- "statecall"
+- "static"
 ---

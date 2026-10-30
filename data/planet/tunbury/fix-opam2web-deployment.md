@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "archive"
+- "cache"
+- "dockerfile"
+- "mirror"
+- "o2w"
+- "odoc"
+- "opam"
+- "opam2web"
+- "registry"
+- "sha256"
 ---
 
 <p>We maintain a mirror (archive) of all opam packages. To take advantage of this, add the archive mirror to opam by setting the global option.</p>

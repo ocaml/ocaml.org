@@ -12,6 +12,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "claude"
+- "css"
+- "html"
+- "link"
+- "parser"
+- "specification"
+- "stylesheet"
+- "timedesc"
+- "tyxml"
+- "yojson"
 ---
 
 <p>I have a dataset that I would like to visualise using a static website hosted on GitHub Pages. The application that generates the dataset is still under development, which results in frequently changing data formats. Therefore, rather than writing a static website generator and needing to revise it continually, could I write a specification and have Claude create a new one each time there was a change?</p>

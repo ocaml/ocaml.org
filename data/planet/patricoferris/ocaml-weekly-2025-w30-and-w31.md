@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "bump"
+- "container-image"
+- "dune"
+- "graft"
+- "inpenetretable"
+- "markdown"
+- "opam"
+- "ppx"
+- "slipshow"
+- "x-ocaml"
 ---
 
 

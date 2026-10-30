@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "asian-pacific"
+- "august"
+- "center"
+- "china"
+- "coq"
+- "held"
+- "registration"
+- "school"
+- "summer"
+- "tsinghua"
 ---
 
 

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/6c443b0e99fcb7218da7c27532aaf232/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "cabal"
+- "concurrency"
+- "foreign function interface"
+- "ghc"
+- "icfp"
+- "multicore"
+- "ocaml-ci"
+- "ocurrent"
+- "parallelism"
+- "racket"
 ---
 
 <p>After two years of online conferences, it was fantastic to have ICFP 2022 in person. The conference organisers had done a fantastic job adjusting to online conferences, but nothing beats the hallway track for meeting new people and catching up with old friends. This year, Slovenia's capital hosted the event. Ljubljana was a beautiful city to visit, with plenty of classic European architecture and even a castle to explore.</p>

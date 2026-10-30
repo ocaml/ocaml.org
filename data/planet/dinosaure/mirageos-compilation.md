@@ -7,6 +7,13 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "about"
+- "compilation"
+- "design"
+- "explanation"
+- "little"
+- "mirageos"
 ---
 
 A little explanation about the MirageOS compilation design

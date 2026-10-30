@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "docker"
+- "docker-oxcaml"
+- "image"
+- "ocurrent"
+- "opam-staging"
+- "oxcaml"
+- "periodically"
+- "pipeline"
+- "pushes"
+- "sha"
 ---
 
 <p>Jon asked me to make a Docker image that contains <a href="https://oxcaml.org">OxCaml</a> ready to run without the need to build it from scratch.</p>

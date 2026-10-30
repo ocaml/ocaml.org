@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "dune"
+- "javascript"
+- "learning"
+- "melange"
+- "opam"
+- "planning"
+- "playground"
+- "react"
 ---
 
 <p>As October 2023 unfolds, we'd like to present what we're planning to work on

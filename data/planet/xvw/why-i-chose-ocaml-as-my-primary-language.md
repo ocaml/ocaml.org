@@ -8,6 +8,17 @@ authors:
 - xvw, Xavier Van de Woestyne
 source:
 ignore:
+keywords:
+- "bloomberg"
+- "com"
+- "en-us"
+- "enthusiasm"
+- "evangelist_"
+- "flattering"
+- "https"
+- "microsoft"
+- "slam"
+- "www"
 ---
 
 

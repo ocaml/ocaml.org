@@ -7,6 +7,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "fileio"
+- "foo1"
+- "foo2"
+- "functor"
+- "js_of_ocaml-ppx"
+- "jsoo_run"
+- "libraries"
+- "monad"
+- "type class"
+- "virtual"
 ---
 
 <p>Last week I finally managed to slog through the last remaining issues required

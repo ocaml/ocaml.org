@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "caml"
+- "camljava"
+- "debian"
+- "gregoire"
+- "http"
+- "jacare"
+- "java"
+- "jvm"
+- "recent"
+- "segfaults"
 ---
 
 <h1>resurrecting CamlJava (testers welcome)</h1>

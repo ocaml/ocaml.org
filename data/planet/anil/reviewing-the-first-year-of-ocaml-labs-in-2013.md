@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "cryptography"
+- "ctypes"
+- "foreign function interface"
+- "gadt"
+- "labs"
+- "leo"
+- "metaprogramming"
+- "monad"
+- "utop"
+- "year"
 ---
 
 <p>This time last year in 2012, I had just

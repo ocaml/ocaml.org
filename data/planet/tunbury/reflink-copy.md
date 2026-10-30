@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "domain"
+- "dst_fd"
+- "eio"
+- "ficlone"
+- "ioctl_ficlone"
+- "lwt"
+- "multicore"
+- "reflink"
+- "src_fd"
+- "unix"
 ---
 
 <p>I hadn’t intended to write another <a href="https://www.tunbury.org/2025/07/08/unix-or-sys/">post</a> about traversing a directory structure or even thinking about it again, but weirdly, it just kept coming up again!</p>

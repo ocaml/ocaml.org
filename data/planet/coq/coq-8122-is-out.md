@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "argument"
+- "changelog"
+- "coq"
+- "exists"
+- "impacting"
+- "implicit"
+- "inference"
+- "notations"
+- "regressions"
+- "tactic"
 ---
 
 

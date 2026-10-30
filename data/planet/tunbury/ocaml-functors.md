@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bin"
+- "container"
+- "dune"
+- "functor"
+- "init"
+- "linux"
+- "printf"
+- "uid"
+- "win32"
+- "windows"
 ---
 
 <p>In my OCaml project, I’d like to abstract away the details of running containers into specific modules based on the OS. Currently, I have working container setups for Windows and Linux, and I’ve haphazardly peppered <code class="language-plaintext highlighter-rouge">if Sys.win32 then</code> where I need differentiation, but this is OCaml, so let us use <em>functors</em>!</p>

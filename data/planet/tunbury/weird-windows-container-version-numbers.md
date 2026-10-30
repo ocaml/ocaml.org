@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "container"
+- "echo"
+- "ltsc"
+- "microsoft"
+- "ocurrent"
+- "tag"
+- "ubr"
+- "ver"
+- "version"
+- "windows"
 ---

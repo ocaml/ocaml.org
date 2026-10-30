@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/deep-learning-experiments-in-ocaml/ca
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "block_idx"
+- "create_vars"
+- "fnn"
+- "greaterequal"
+- "h_and_x"
+- "neural"
+- "out_channels"
+- "polymorphic variant"
+- "rnn"
+- "tensorflow"
 ---
 
 <p>Last year we held a machine learning seminar in our London office,

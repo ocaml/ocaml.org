@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aarhus"
+- "audience"
+- "ideas"
+- "intergenerational"
+- "internet"
+- "js_of_ocaml"
+- "slipshow"
+- "vote"
+- "votes"
+- "voting"
 ---
 
 <p>That's a wrap for the next decade with <a href="https://aarhus2025.org/">Aarhus 2025</a>,

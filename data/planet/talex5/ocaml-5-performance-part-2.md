@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Thomas Leonard
 source:
+keywords:
+- "cpu"
+- "domain"
+- "domains"
+- "exe"
+- "instructions"
+- "leader"
+- "minor"
+- "perf"
+- "sleeping"
+- "stress"
 ---
 
 <p>The <a href="https://roscidus.com/blog/blog/2024/07/22/performance/">last post</a> looked at using various tools to understand why an OCaml 5 program was waiting a long time for IO.

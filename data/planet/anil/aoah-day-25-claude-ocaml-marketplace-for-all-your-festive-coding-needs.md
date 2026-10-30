@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aggregator"
+- "claude"
+- "coding"
+- "generalise"
+- "marketplaces"
+- "opam"
+- "oxcaml"
+- "parser"
+- "plugins"
+- "tuatara"
 ---

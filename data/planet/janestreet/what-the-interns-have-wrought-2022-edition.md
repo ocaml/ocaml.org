@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2022/./
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "contract"
+- "datafetcher"
+- "deriving"
+- "functional programming"
+- "incremental"
+- "interns"
+- "magic-trace"
+- "ppx"
+- "quickcheck"
 ---
 
 <p>We&rsquo;re once again at the end of our internship season, and it&rsquo;s my task

@@ -9,6 +9,17 @@ preview_image: https://tarides.com/static/3758d75acbb3fe101c3c53003544c91b/684c6
 authors:
 - Tarides
 source:
+keywords:
+- "custom"
+- "domain"
+- "eio"
+- "eio-trace"
+- "eventlog"
+- "events"
+- "monitoring"
+- "multicore"
+- "olly"
+- "runtime_events"
 ---
 
 <p>As programs grow in size and complexity, they become more challenging to optimise. When the cause of a particular performance issue can theoretically be attributed to multiple sources, developers need concrete data to drive their decision-making and avoid time-consuming guesswork. As you can imagine, OCaml 5&rsquo;s new multicore capabilities &ndash; whilst bringing <a href="https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/">significant performance improvements</a> &ndash; can compound this problem even further.</p>

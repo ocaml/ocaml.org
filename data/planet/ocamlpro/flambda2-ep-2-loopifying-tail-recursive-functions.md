@@ -10,6 +10,17 @@ preview_image: https://www.ocamlpro.com/blog/assets/img/F2S_loopify_figure.png
 authors:
 - "\n    Nathana\xEBlle Courant\n  "
 source:
+keywords:
+- "continuation"
+- "dbg"
+- "flambda"
+- "flambda2"
+- "iter_with_log"
+- "k_self"
+- "loopify"
+- "optimisation"
+- "tail-recursive"
+- "tco"
 ---
 
 <p></p>

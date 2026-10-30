@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "applicative"
+- "atd"
+- "atdml"
+- "domain"
+- "dune-action-trace"
+- "odoc"
+- "of_json"
+- "parseff"
+- "parser"
+- "yojson"
 ---

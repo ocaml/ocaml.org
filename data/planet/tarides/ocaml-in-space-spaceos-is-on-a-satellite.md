@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/rocket-launch-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "clustergate"
+- "concurrency"
+- "dphi"
+- "eio"
+- "mirageos"
+- "parsimoni"
+- "satellite"
+- "space"
+- "spaceos"
+- "unikernel"
 ---
 
 <p>OCaml is in space! With its impressive performance and security guarantees, OCaml is a great choice for the many interconnected devices that power our world. Satellites are not only crucial to the functioning of these devices, but the <a href="https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos/">new generation of satellites</a> are beginning to function like Cloud servers, where one device hosts more than one software and performs more than one service.</p>

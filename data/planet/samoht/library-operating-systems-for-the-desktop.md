@@ -10,4 +10,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "asplos"
+- "cambridge"
+- "desktop"
+- "docker"
+- "mirageos"
+- "networking"
+- "operating"
+- "systems"
+- "unikernel"
+- "unikernels"
 ---

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "datalog"
+- "forest"
+- "forester"
+- "foundations"
+- "js_of_ocaml-toplevel"
+- "lecture"
+- "lectures"
+- "markdown"
+- "toc"
+- "transclude"
 ---

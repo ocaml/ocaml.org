@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "bytesrw"
+- "claude"
+- "day"
+- "eio"
+- "metadata"
+- "mock"
+- "ocamlformat"
+- "parser"
+- "skill"
 ---

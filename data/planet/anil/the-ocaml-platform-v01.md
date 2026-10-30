@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "amir"
+- "anil"
+- "chaudhry"
+- "madhavapeddy"
+- "philippe"
+- "platform"
+- "sheets"
+- "wang"
+- "workshop"
+- "yallop"
 ---
 
 <p>Paper on the OCaml Platform at the OCaml Workshop 2013</p>

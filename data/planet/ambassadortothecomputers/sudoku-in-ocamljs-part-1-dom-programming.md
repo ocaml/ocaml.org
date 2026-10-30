@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "cell"
+- "createelement"
+- "dom"
+- "input"
+- "jsfun"
+- "ocamljs"
+- "pattern matching"
+- "sudoku"
+- "tail recursion"
+- "tbody"
 ---
 
 <p>Let's make a Sudoku game with <a href="http://code.google.com/p/ocamljs">ocamljs</a> and the <a href="http://code.google.com/p/ocamljs/wiki/Dom"><code>Dom</code></a> library for programming the browser DOM. Like on the cooking shows, I have prepared the dish we're about to make beforehand; why don't you <a href="http://ocamljs.googlecode.com/svn/examples/dom/sudoku/index.html">taste it now</a>? OK, it is not yet Sudoku, lacking the important ingredient of some starting numbers to guide the game--we'll come back to that next time. </p><pre><span class="htmlize-tuareg-font-lock-governing">module</span> <span class="htmlize-type">D </span><span class="htmlize-tuareg-font-lock-operator">=</span> Dom

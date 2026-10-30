@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "carcass"
+- "mergeable-vector"
+- "mergeable_vector"
+- "opam"
+- "opam-publish"
+- "package"
+- "publish"
+- "publishing"
+- "topkg"
+- "topkg-care"
 ---
 
 <p>One of the key indicators of maturity of a language ecosystem is the ease of

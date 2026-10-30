@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "combinators"
+- "div"
+- "eliom"
+- "extension"
+- "html"
+- "js_of_ocaml"
+- "ppx"
+- "svg"
+- "syntax"
+- "tyxml"
 ---
 
 <p>It is with great pleasure that we are announcing the release of <a href="https://github.com/ocsigen/tyxml/releases/tag/4.0.0">TyXML 4.0.0</a>. The major features of this new release are a new PPX syntax extension that allows to use the standard HTML syntax and an improved user experience for both old and new TyXML users.</p>

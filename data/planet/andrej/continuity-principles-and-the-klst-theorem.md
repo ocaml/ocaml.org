@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "continuity"
+- "intrinsic"
+- "intrinsically"
+- "klst"
+- "mathbb"
+- "mathcal"
+- "principle"
+- "spreen"
+- "synthetic"
+- "theorem"
 ---
 
 <p>On the occasion of Dieter Spreen's 75th birthday there will be a Festschrift in the <a href="http://logicandanalysis.org/index.php/jla">Journal of Logic and Analysis</a>. I have submitted a paper <em>&ldquo;Spreen spaces and the synthetic Kreisel-Lacombe-Shoenfield-Tseitin theorem&rdquo;</em>, available as a preprint <a href="https://arxiv.org/abs/2307.07830">arXiv:2307.07830</a>,  that develops a constructive account of Dieter's generalization of a famous theorem about continuity of computable functions. In this post I explain how the paper fits into the more general topic of continuity principles.</p>

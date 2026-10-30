@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/of-pythons-and-camels/camel-identify.
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "camel"
+- "camels"
+- "classifier"
+- "dataset"
+- "imagenet"
+- "images"
+- "model"
+- "pythons"
+- "resnet"
+- "tensor"
 ---
 
 <p>Welcome to another post in our series of how to use OCaml for machine learning.

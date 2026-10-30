@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "arr"
+- "felt"
+- "fisher-yates"
+- "one-off"
+- "random"
+- "randomise"
+- "requirement"
+- "shuffle"
+- "shuffling"
+- "tunbury"
 ---
 
 <p>Shuffling a list into a random order is usually handled by the <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates Shuffle</a>.</p>

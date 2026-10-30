@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xavier Clerc
 source:
+keywords:
+- "alpha"
+- "automatized"
+- "bootstrap"
+- "compiler"
+- "enhanced"
+- "ocamljava"
+- "partially"
+- "project"
+- "site"
+- "x9c"
 ---
 
 <p>For quite a long time, the project was only available as a binary distribution. Now that the code is in better shape, its sources are available.</p>

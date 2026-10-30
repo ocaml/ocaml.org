@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "cname"
+- "dhcp"
+- "dns"
+- "dnsvizor"
+- "domain"
+- "mirageos"
+- "resolver"
+- "testing"
+- "unikernel"
+- "www"
 ---
 
 

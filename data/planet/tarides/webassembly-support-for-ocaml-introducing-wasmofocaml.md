@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/e237be0dac96cc75a61584cee7c7d1f5/b2176
 authors:
 - Tarides
 source:
+keywords:
+- "brr"
+- "concurrency"
+- "effect"
+- "flambda"
+- "garbage collection"
+- "gen_js_api"
+- "js_of_ocaml"
+- "wasm"
+- "wasm_of_ocaml"
+- "webassembly"
 ---
 
 <p>OCaml is constantly evolving. Developers collaborate to bring support for new features, improve workflows, and resolve pain points. To this end, the <a href="https://github.com/ocaml-wasm">OCaml-Wasm</a> GitHub organisation was recently established. Its goal is to bring WebAssembly support to OCaml.</p>

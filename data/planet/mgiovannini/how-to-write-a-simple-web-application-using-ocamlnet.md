@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "argf"
+- "cgi"
+- "env"
+- "int_of_string"
+- "myservice"
+- "net"
+- "netdate"
+- "netplex"
+- "ocamlnet"
+- "res"
 ---
 
 This post might seem to be in apparent contradiction: Ocamlnet is a large, very opinionated framework for network programming that solves most, if not all, those infrastructure issues that need to be taken care of when writing a networked, distributed, fault-tolerant server, from process management to string decoding and including protocol parsing and building. The fact is that Ocamlnet is not 

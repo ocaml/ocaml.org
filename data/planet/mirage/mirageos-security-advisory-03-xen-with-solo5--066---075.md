@@ -6,6 +6,17 @@ date: 2022-12-07T00:00:00-00:00
 preview_image:
 authors:
 - Hannes Mehnert
+keywords:
+- "advisory"
+- "burghardt"
+- "console"
+- "krzysztof"
+- "mirageos"
+- "qubes-mirage-firewall"
+- "security"
+- "solo5"
+- "unikernel"
+- "xen"
 ---
 
 

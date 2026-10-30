@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/Berlin-night-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "GADT"
+- "concurrency"
+- "conference"
+- "dillon"
+- "fun"
+- "functional programming"
+- "mirageos"
+- "odoc"
+- "parallelism"
+- "sabine"
 ---
 
 <p><a href="https://fun-ocaml.com/#event">FUN OCaml</a> describes itself as a "two day open-source hacking event dedicated to OCaml enthusiasts and developers around the globe". This past September, 70+ developers descended upon a coworking space in Berlin, Germany, to learn, socialise, and hack together. Some had travelled from as far away as Brazil and the United States to join the event in person, and some combined it with <a href="https://reactalicante.es">React Alicante</a> and <a href="https://icfp24.sigplan.org">ICFP</a> for a summer filled with functional programming.</p>

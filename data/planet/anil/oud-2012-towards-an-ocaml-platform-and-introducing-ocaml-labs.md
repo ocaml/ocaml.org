@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "dd8b1f58-c43c-4422-9963-d3a980529e57-1"
+- "formation"
+- "icfp"
+- "introducing"
+- "labs"
+- "minsky"
+- "platform"
+- "strengthen"
+- "towards"
+- "yaron"
 ---
 
 <p>Recording of the OCaml Labs announcement</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "arg_count"
+- "awk"
+- "func_name"
+- "gawk"
+- "op_func_call"
+- "op_k_return"
+- "op_no_op"
+- "recur"
+- "tco"
+- "trampoline"
 ---
 
 <div>

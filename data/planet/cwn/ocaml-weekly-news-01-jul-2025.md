@@ -8,6 +8,17 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "ann-dream-html-pure-html-3-11-0"
+- "cwn"
+- "dream-html"
+- "etags"
+- "mxss"
+- "news"
+- "ppx"
+- "pure-html"
+- "val-"
+- "weekly"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2025.07.01.html#1">dream-html and pure-html 3.11.0</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.01.html#2">Other OCaml News</a></li></ol>

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/f057ea6b7b626b6a08532b1359916c4a/18869
 authors:
 - Tarides
 source:
+keywords:
+- "candidate"
+- "functor"
+- "gabriel"
+- "multicore"
+- "ocaml-5"
+- "release"
+- "scherer"
+- "synonyms"
+- "tar"
+- "tirelessly"
 ---
 
 <p>We're in the home stretch for the full OCaml 5 release. Multicore is almost here! Yesterday its Release Candidate (RC) was announced on the <a href="https://discuss.ocaml.org/t/first-release-candidate-for-ocaml-5-0-0/10922">OCaml Discuss</a>, which is the final step before the major release, expected before Christmas.</p>

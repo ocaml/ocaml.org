@@ -7,6 +7,16 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "available"
+- "change"
+- "changelog"
+- "coq"
+- "details"
+- "release"
+- "salient"
+- "see"
+- "support"
 ---
 
 

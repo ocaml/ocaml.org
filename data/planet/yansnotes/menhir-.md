@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "comma"
+- "elem"
+- "left_brace"
+- "lex"
+- "lexbuf"
+- "lexer"
+- "menhir"
+- "parser"
+- "stone"
+- "token"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

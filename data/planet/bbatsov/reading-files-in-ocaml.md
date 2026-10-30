@@ -9,6 +9,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "containers"
+- "file"
+- "filename"
+- "in_channel"
+- "input_line"
+- "iter"
+- "iterator"
+- "lines"
+- "rdr"
+- "read_lines"
 ---
 
 <p>One thing I’ve noticed on my <a href="https://batsov.com/articles/2022/08/19/learning-ocaml/">journey to learn OCaml</a> was that reading (text) files wasn’t as

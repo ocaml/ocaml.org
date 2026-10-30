@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "dream"
+- "dune__exe__fserv"
+- "eobjs"
+- "exe"
+- "fserv"
+- "lib"
+- "linking"
+- "opam"
+- "static"
+- "x86_64-linux-gnu"
 ---
 
 <blockquote>

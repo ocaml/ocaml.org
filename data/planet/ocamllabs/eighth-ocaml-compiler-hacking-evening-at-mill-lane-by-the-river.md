@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "centre"
+- "compiler"
+- "eighth"
+- "hacking"
+- "lane"
+- "mill"
+- "postdoc"
+- "reviewng"
+- "river"
+- "tuesday"
 ---
 
 <p><strong>Update: This session will be a joint F#/OCaml hacking event, beginning with a talk from Don Syme about F# compiler and language development!</strong></p>

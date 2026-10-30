@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Ocsigen team
 source:
+keywords:
+- "cairo"
+- "canvas"
+- "ctx"
+- "eliom_bus"
+- "eliom_registration"
+- "graffiti"
+- "init_client"
+- "lwt"
+- "ocsigen-widgets"
+- "slider"
 ---
 
 <p>This is the end of the tutorial about writing a collaborative Web drawing

@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "chat"
+- "fw15"
+- "hannah"
+- "matrix"
+- "mcloone"
+- "office"
+- "paid"
+- "summer"
+- "supervised"
+- "weeknotes"
 ---
 
 <p>The exam marking is over, and a glorious Cambridge summer awaits! This year, we

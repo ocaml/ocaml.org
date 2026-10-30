@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "anonymize"
+- "develop"
+- "dhcp"
+- "dns"
+- "dnsvizor"
+- "domain"
+- "mirageos"
+- "privacy-enhanced"
+- "resolver"
+- "unikernel"
 ---

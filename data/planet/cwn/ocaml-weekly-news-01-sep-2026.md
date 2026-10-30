@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "cdp"
+- "cdp-gen"
+- "domainslib"
+- "fiber"
+- "https"
+- "mirage"
+- "mirage-crypto"
+- "oxbow"
+- "picos"
+- "unhandled"
 ---

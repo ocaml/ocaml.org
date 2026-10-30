@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "aorai"
+- "appimage"
+- "frama-c"
+- "installation"
+- "instructions"
+- "manual"
+- "plug-in"
+- "v30"
+- "x86-64"
+- "zinc"
 ---
 
 

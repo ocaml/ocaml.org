@@ -9,6 +9,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "advent"
+- "automation"
+- "day"
+- "grid"
+- "immutability"
+- "input"
+- "new-day"
+- "pattern matching"
+- "pos"
+- "submit"
 ---
 
 How I built a fully automated OCaml solution pipeline for Advent of Code with input downloading, solution running, and automatic submission

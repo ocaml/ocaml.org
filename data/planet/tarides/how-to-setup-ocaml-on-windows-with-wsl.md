@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/8438403304b6cf9035ae54b2ce6b57a0/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "curl"
+- "install"
+- "ocaml-lsp-server"
+- "ocamlformat"
+- "odoc"
+- "setup"
+- "utop"
+- "windows"
+- "wsl"
+- "wsl2"
 ---
 
 <p>The stable opam 2.2 and a fully Windows compatible ecosystem of OCaml libraries and tools are getting closer every month. That's extremely exciting! With opam 2.2, Windows users will be able to use OCaml directly and natively without extra set-up or workarounds. Everyone is excited about this future, so we often forget people who want to use OCaml on Windows <em>now</em> and without set-up problems.</p>

@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/oxidizing-ocaml-locality/oxidizing-oc
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "core_unix"
+- "escape"
+- "global"
+- "heap"
+- "lifetime"
+- "local"
+- "locality"
+- "mode"
+- "region"
+- "stack-allocated"
 ---
 
 <p>Coming from OCaml, the Rust programming language has many appealing

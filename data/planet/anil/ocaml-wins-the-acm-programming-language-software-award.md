@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "acm"
+- "association"
+- "astree"
+- "award"
+- "compiler"
+- "functional programming"
+- "language"
+- "programming"
+- "sigplan"
+- "software"
 ---
 
 <p>I was honoured to be included in the OCaml team that won the <a href="https://www.cst.cam.ac.uk/news/acm-programming-languages-software-award-goes-ocaml-researchers">ACM Programming Languages Software Award for 2023</a>.</p>

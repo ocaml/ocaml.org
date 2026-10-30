@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "ctf"
+- "garbage collection"
+- "kashish"
+- "memory"
+- "ocaml-protoc"
+- "pprof"
+- "profiling"
+- "protobuf"
+- "traces"
+- "visualisations"
 ---
 
 <p>Each year, Tarides has the pleasure of hosting several interns who work across different areas within the company. This year, we welcomed Kashish, who joined us to work on enhancing the visualisations for OCaml's memory profiling (you can check out our blog post about the return of <a href="https://tarides.com/blog/2025-03-06-feature-parity-series-statmemprof-returns/">Statmemprof</a> for some more context). This post will explore Kashish's project and the steps we took to improve the visualisations available with OCaml's memory profiling tools.</p>

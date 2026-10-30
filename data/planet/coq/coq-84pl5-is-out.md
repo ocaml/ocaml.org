@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "bugs"
+- "changes"
+- "compatibility"
+- "coq"
+- "fixes"
+- "found"
+- "including"
+- "information"
+- "several"
+- "version"
 ---
 
 

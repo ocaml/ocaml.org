@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2021/in
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "GADT"
+- "atop"
+- "datafetcher"
+- "foo"
+- "interns"
+- "jose"
+- "ohad"
+- "pattern matching"
+- "ppx_typed_fields"
+- "typed_field"
 ---
 
 <p>It&rsquo;s the end of another dev internship season, and this one marked

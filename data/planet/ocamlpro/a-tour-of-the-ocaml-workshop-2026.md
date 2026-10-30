@@ -11,4 +11,15 @@ authors:
 - "\n    Nathan Rebours\n  "
 source:
 ignore:
+keywords:
+- "caps"
+- "flambda"
+- "gadt"
+- "mfetch"
+- "module system"
+- "opam-audit"
+- "ttype"
+- "type checker"
+- "unic"
+- "xtype"
 ---

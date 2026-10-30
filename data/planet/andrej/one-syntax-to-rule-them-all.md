@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "class"
+- "expr"
+- "monad"
+- "shape"
+- "substitution"
+- "syntactic"
+- "syntax"
+- "var-left"
+- "var-right"
+- "variable"
 ---
 
 <p>I am at the <a href="https://europroofnet.github.io/wg6-kickoff-stockholm/">Syntax and Semantics of Type Theory</a> workshop in Stockholm, a kickoff meeting for <a href="https://europroofnet.github.io/wg6/">WG6</a> of the <a href="https://europroofnet.github.io">EuroProofNet</a> COST network, where I am giving a talk &ldquo;One syntax to rule them all&rdquo; based on joint work with <a href="https://danel.ahman.ee">Danel Ahman</a>.</p>

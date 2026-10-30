@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Orbitz
 source:
+keywords:
+- "bitstring"
+- "builders"
+- "fun"
+- "int32"
+- "monad_infix"
+- "num"
+- "opam"
+- "protobuf"
+- "protoc"
+- "result"
 ---
 
 <p>

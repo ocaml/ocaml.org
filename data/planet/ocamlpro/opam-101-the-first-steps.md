@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Dario Pinto\n  "
 source:
+keywords:
+- "default"
+- "ez_api"
+- "ez_file"
+- "installed"
+- "json-data-encoding"
+- "my-project"
+- "ocaml-options-vanilla"
+- "opam"
+- "ozulip"
+- "switch"
 ---
 
 <p></p>

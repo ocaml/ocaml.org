@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "async"
+- "eliom"
+- "js_of_ocaml"
+- "mirage-compatible"
+- "ocsigen"
+- "papavasileiou"
+- "ppx"
+- "releases"
+- "shared_react"
+- "vasilis"
 ---
 
 <p>We are happy to announce the releases of</p>

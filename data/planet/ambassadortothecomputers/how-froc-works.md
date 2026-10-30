@@ -8,6 +8,17 @@ preview_image: http://4.bp.blogspot.com/_-BRxxZyoKFE/S-RS60NO3DI/AAAAAAAAAOw/KkX
 authors:
 - Jake Donham
 source:
+keywords:
+- "changeable"
+- "changeables"
+- "dependency"
+- "expression"
+- "froc"
+- "frtime"
+- "memo"
+- "re-run"
+- "stale"
+- "timestamp"
 ---
 
  

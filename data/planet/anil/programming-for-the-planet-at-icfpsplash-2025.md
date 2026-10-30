@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "biodiversity"
+- "climate"
+- "coupler"
+- "formal verification"
+- "geospatial"
+- "icfp"
+- "planet"
+- "programming"
+- "propl"
+- "splash"
 ---

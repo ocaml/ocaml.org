@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "actions"
+- "cabal"
+- "cache"
+- "ghc"
+- "github"
+- "haskell"
+- "hlint"
+- "hlint_version"
+- "interval"
+- "matrix"
 ---
 
 GitHub Actions CI settings for Haskell projects with Cabal and Stack

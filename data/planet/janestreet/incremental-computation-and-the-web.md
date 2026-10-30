@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "computation"
+- "dom"
+- "elm"
+- "incremental"
+- "incrementalization"
+- "js_of_ocaml"
+- "nodes"
+- "render"
+- "virtual"
+- "web"
 ---
 
 <p>I&rsquo;ve recently been thinking about the world of JavaScript and web applications.

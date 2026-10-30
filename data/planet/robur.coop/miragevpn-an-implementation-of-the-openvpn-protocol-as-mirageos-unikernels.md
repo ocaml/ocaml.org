@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "client"
+- "develop"
+- "mirageos"
+- "miragevpn"
+- "openvpn"
+- "protocol"
+- "prototypefund"
+- "qubesos"
+- "unikernel"
+- "vpn"
 ---

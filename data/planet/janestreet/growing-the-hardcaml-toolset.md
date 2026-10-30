@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/growing-the-hardcaml-toolset-index/Ha
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "hardcaml"
+- "hardcaml_c"
+- "hardcaml_circuits"
+- "hardcaml_fixed_point"
+- "hardcaml_of_verilog"
+- "hardcaml_step_testbench"
+- "hardcaml_verify"
+- "hardcaml_verilator"
+- "hardcaml_xilinx"
+- "hardcaml_xilinx_components"
 ---
 
 <p>I am pleased to announce that we have recently released a slew of new

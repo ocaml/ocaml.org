@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "developer"
+- "initializing"
+- "kernels"
+- "mirage"
+- "mirageos"
+- "preview"
+- "screencast"
+- "showing"
+- "walked"
+- "xen"
 ---

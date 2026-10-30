@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "checksums"
+- "conex"
+- "configfield-repository-validation-command"
+- "deploying"
+- "end-to-end"
+- "opam"
+- "opam-repository"
+- "tarballs"
+- "theupdateframework"
+- "trust"
 ---

@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "dune-release"
+- "lwt_log"
+- "mlx"
+- "mnet"
+- "ocamlformat-mlx"
+- "tcp"
+- "unikernel"
+- "vifu"
+- "wenv"
 ---

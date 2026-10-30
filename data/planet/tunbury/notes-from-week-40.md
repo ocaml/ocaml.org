@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "amx"
+- "conf-gtksourceview"
+- "coq-core"
+- "crs"
+- "day10"
+- "ocaml-ci"
+- "ocurrent"
+- "tiles"
+- "xeon"
+- "zenon"
 ---

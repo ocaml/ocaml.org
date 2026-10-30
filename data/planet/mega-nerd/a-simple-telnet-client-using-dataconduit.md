@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "conduit"
+- "connectto"
+- "enumerator"
+- "forkio"
+- "hsock"
+- "import"
+- "iteratee"
+- "monad"
+- "resource"
+- "telnet"
 ---
 
 

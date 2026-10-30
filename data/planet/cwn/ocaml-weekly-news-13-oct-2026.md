@@ -11,4 +11,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "artist"
+- "artists"
+- "betacalendars"
+- "docfd"
+- "faker"
+- "faker-js"
+- "flac"
+- "foreign function interface"
+- "num"
+- "sedlex"
 ---

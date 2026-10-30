@@ -77,4 +77,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "conservation"
+- "earth"
+- "mirageos"
+- "open-source"
+- "satellite"
+- "satellites"
+- "space"
+- "supercomputer"
+- "tarides"
+- "tessera"
 ---

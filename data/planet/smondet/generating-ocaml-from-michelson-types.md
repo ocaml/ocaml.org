@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Sebastien Mondet
 source:
+keywords:
+- "a_variant_thing"
+- "flextesa"
+- "js_of_ocaml"
+- "metaprogramming"
+- "michelson"
+- "ocamlformat"
+- "of_json"
+- "ppx_deriving"
+- "ppx_deriving_runtime"
+- "zarith"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "advice"
+- "bigarrays"
+- "caml"
+- "debugging"
+- "facets"
+- "koolinus"
+- "lua"
+- "memory"
+- "objective"
+- "opam"
 ---
 
 <div>

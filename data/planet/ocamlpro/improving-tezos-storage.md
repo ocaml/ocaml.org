@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "branches"
+- "database"
+- "decrease"
+- "garbage collection"
+- "lmdb"
+- "mixed"
+- "node"
+- "storage"
+- "tezos"
+- "writes"
 ---
 
 <p>Running a Tezos node currently costs a lot of disk space, about 59 GB

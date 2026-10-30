@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bremusa"
+- "equnix"
+- "freebsd"
+- "openbsd"
+- "oregano"
+- "paused"
+- "rosemary"
+- "workload"
+- "x86-bm-c1"
+- "x86-bm-c9"
 ---
 
 <p>Following the setup of <em>rosemary</em> with <a href="https://www.tunbury.org/freebsd-uefi/">FreeBSD 14</a> (with 20C/40T), I have paused <em>spring</em> and <em>summer</em> (which combined have 12C/24T) and <em>rosemary</em> is now handling all of the <a href="https://github.com/ocurrent/freebsd-infra/pull/14">FreeBSD workload</a>.</p>

@@ -8,4 +8,15 @@ authors:
 - Ryan Gibb
 source:
 ignore:
+keywords:
+- "buildopamproject"
+- "defaultpackage"
+- "flake"
+- "flakes"
+- "nix"
+- "nixpkgs"
+- "ocaml-nix-hello"
+- "opam-nix"
+- "package-defs"
+- "tweag"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "alla"
+- "che"
+- "con"
+- "develer"
+- "linguaggio"
+- "nel"
+- "non"
+- "per"
+- "programmazione"
+- "una"
 ---
 
 <div><p class="noindent">Sorry for English speaking people, but this post makes sense only for Italians, so it's in Italian :-)</p>

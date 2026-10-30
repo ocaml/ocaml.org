@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agentic"
+- "angstrom-unix"
+- "aoah"
+- "day"
+- "dec"
+- "dune"
+- "git"
+- "modified"
+- "vendor"
+- "xdge"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/caf16b04b6417354dc02755abfc245ca/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "collector"
+- "continuation"
+- "effect"
+- "effect handler"
+- "foreign function interface"
+- "garbage"
+- "handlers"
+- "leo"
+- "multicore"
+- "parminor"
 ---
 
 <p>Continuing our blog series on <a href="https://tarides.com/blog/2022-12-19-ocaml-5-with-multicore-support-is-here">Multicore OCaml</a>, this blog provides an overview of the road to OCaml Multicore. If you want to know how you can use OCaml 5 in your own projects, please <a href="https://tarides.com/company">contact us</a> for more information. We also recommend watching KC Sivaramakrishnan's ICFP 22' talk <a href="https://www.youtube.com/watch?v=zJ4G0TKwzVc">Retrofitting Concurrency - Lessons from the Engine Room</a></p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "compiler"
+- "def"
+- "functor"
+- "garbage collection"
+- "irr"
+- "marshalling"
+- "numerical"
+- "printer"
+- "root"
+- "scheme_version"
 ---
 
 

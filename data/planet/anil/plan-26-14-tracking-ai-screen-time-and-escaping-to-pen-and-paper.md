@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "acm"
+- "desktop"
+- "functional programming"
+- "jmap"
+- "paper"
+- "reset"
+- "scaleway"
+- "sea-level"
+- "tessera"
+- "zarr"
 ---

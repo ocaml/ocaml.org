@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "ancient"
+- "conservation"
+- "evidence"
+- "js_of_ocaml"
+- "mutex"
+- "norwich"
+- "oaks"
+- "parallelism"
+- "recovery"
+- "tessera"
 ---

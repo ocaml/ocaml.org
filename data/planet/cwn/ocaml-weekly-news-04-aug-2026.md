@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "bcfg"
+- "bcfgt"
+- "camlsurf"
+- "foreign function interface"
+- "gles3"
+- "int64_u"
+- "introcaml"
+- "marshalling"
+- "memchr"
+- "scfg"
 ---

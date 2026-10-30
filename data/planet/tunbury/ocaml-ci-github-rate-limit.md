@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "angstrom"
+- "cohttp-lwt"
+- "cohttp_lwt__connection"
+- "current_github"
+- "exec_graphql"
+- "monitor"
+- "refs"
+- "resp"
+- "retry"
+- "talex5"
 ---

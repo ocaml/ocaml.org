@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "beta-testers"
+- "domain"
+- "fault-"
+- "github"
+- "ocaml-version"
+- "opam"
+- "packagers"
+- "pubic"
+- "shell"
+- "supersedes"
 ---
 
 <p><strong>OPAM 1.1.0 is ready</strong>, and we are shipping a release candidate for

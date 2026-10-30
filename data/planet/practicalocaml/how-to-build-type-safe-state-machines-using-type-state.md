@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Practical OCaml
 source:
+keywords:
+- "denied"
+- "fuel"
+- "full_car"
+- "inc"
+- "no_fuel"
+- "permission_request"
+- "resource"
+- "resource_id"
+- "state"
+- "type-state"
 ---
 
 <p>This will be a short one, but I hope it'll make you want to go refactor everything.</p><p>There are a lot of ways of writing state machines in typed languages, all varying in the degree of type-safety. Sure you can put everything in a record full of <code>this option</code> or have one variant per state and a bunch of repeated things...but today I wanna show you a way of doing state machines with something called <em>type-state.</em></p><p>What this buys you is that you can offer a nice uniform API for your state machines while keeping the internal states cleanly separated.</p><p>Let's start from the beginning.</p><h2>What is type-state?</h2><p>Type state is kind of a weird term. You don't really have <em>state</em> in your types, right? Like you don't have a counter that keeps incrementing.</p><figure class="kg-card kg-code-card"><pre><code class="language-ocaml">type counter = int

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "aliasing"
+- "alphanet"
+- "betanet"
+- "explorer"
+- "mobiles"
+- "novelties"
+- "tablets"
+- "tezos"
+- "tzscan"
+- "zeronet"
 ---
 
 <p>OCamlPro is pleased to announce the latest update of TZScan (<a href="http://tzscan.io">https://tzscan.io</a>), its Tezos block explorer to ease the use of the Tezos network. TzScan is now ready for the protocol update scheduled for tomorrow. In addition to some minor bugfixes, the main novelties are:</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "app"
+- "apps"
+- "cocoa"
+- "compiler"
+- "cycles"
+- "ios"
+- "objective"
+- "portland"
+- "subclass"
+- "undefined"
 ---
 
 <div class="date">December 14, 2014</div>

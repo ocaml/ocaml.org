@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "antiquotations"
+- "ast"
+- "exant"
+- "jq_ant"
+- "jq_ast"
+- "jq_colon"
+- "jq_comma"
+- "jq_nil"
+- "json"
+- "loc"
 ---
 
 <p>In this post I want to complicate the JSON quotation library from the <a href="http://ambassadortothecomputers.blogspot.com/2010/08/reading-camlp4-part-8-implementing.html">previous post</a> by adding antiquotations.</p> 

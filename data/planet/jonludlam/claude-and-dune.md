@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "GADT"
+- "artifact_kind"
+- "claude"
+- "dune"
+- "lib_names"
+- "memo"
+- "mod_"
+- "module_name"
+- "odoc"
+- "pattern matching"
 ---

@@ -9,6 +9,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "bulgaria"
+- "called"
+- "cameleons"
+- "camleons"
+- "camlians"
+- "camlists"
+- "camlurians"
+- "nicknames"
+- "php"
+- "programmers"
 ---
 
 <p>Ruby programmers are commonly called Rubyists. Python programmers

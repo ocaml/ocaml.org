@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "authentification"
+- "cpan"
+- "fernandez"
+- "login"
+- "mauricio"
+- "oasis"
+- "oasis-db"
+- "ocamlcore"
+- "prototype"
+- "tarball"
 ---
 
 <p>A prototype version of OASIS-DB is up and running, go to the official OASIS website and follow the link to test it:</p>

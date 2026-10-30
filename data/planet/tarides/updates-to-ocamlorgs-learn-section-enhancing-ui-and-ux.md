@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/d1c727f20fc28ec12fa7b995d2b4b661/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "accessibility"
+- "categorisation"
+- "landing"
+- "learn"
+- "navigation"
+- "onboarding"
+- "org"
+- "reorganised"
+- "section"
+- "user-friendly"
 ---
 
 <p>Over the past year, the OCaml.org team has been hard at work addressing user feedback to make the OCaml.org Learn section more accessible and organised in order to facilitate learning OCaml and enriching the overall OCaml experience.</p>

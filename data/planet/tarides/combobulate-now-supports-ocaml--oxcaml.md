@@ -190,4 +190,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "c-c"
+- "c-m-d"
+- "c-m-n"
+- "combobulate"
+- "cursor"
+- "m-e"
+- "m-h"
+- "navigation"
+- "sibling"
+- "tree-sitter"
 ---

@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/were-sponsoring-some3/techblog-some3.
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "functional programming"
+- "grant"
+- "jane"
+- "math"
+- "mathematics"
+- "ppx"
+- "some3"
+- "street"
 ---
 
 <p>Jane Street is excited to announce our sponsorship of

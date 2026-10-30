@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "cryptography"
+- "implementation"
+- "injects"
+- "mirageos"
+- "miragevpn"
+- "openvpn"
+- "packet"
+- "testing"
+- "tunnel"
+- "unikernel"
 ---
 
 Some notes about how we test MirageVPN against OpenVPN&trade;

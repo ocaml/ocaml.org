@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "bugs"
+- "caml"
+- "camlp5"
+- "compatibility"
+- "compiling"
+- "coq"
+- "fixes"
+- "objective"
+- "sources"
+- "versions"
 ---
 
 

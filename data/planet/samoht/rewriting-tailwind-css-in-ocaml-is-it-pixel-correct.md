@@ -138,4 +138,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "absolute"
+- "cascade"
+- "css"
+- "effect"
+- "parser"
+- "span"
+- "stylesheet"
+- "stylesheets"
+- "tailwind"
+- "visibility"
 ---

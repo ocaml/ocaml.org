@@ -6,6 +6,17 @@ date: 2014-07-14T00:00:00-00:00
 preview_image:
 authors:
 - David Kaloper
+keywords:
+- "attacks"
+- "handshake"
+- "mitigation"
+- "mitigations"
+- "ocaml-tls"
+- "polymorphic variant"
+- "renegotiation"
+- "session"
+- "timing"
+- "tls"
 ---
 
 

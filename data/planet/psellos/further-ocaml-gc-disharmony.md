@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "caml_copy_double"
+- "dran"
+- "garbage collection"
+- "inside"
+- "isinside"
+- "r4b"
+- "ran_rect"
+- "rect"
+- "stdio"
+- "store_field"
 ---
 
 <div class="date">January 25, 2015</div>

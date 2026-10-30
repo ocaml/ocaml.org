@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "blockers"
+- "browser"
+- "connection"
+- "couldn"
+- "disable"
+- "extension"
+- "frama-c"
+- "load"
+- "network"
+- "settings"
 ---
 
 

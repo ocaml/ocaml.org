@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "autoconf"
+- "bin"
+- "config"
+- "flambda2"
+- "http"
+- "janestreet-with-extensions"
+- "opam"
+- "opam-repository"
+- "oxcaml"
+- "yaml"
 ---
 
 <p>Arthur mentioned that it would be great to know which packages build successfully with OxCaml and which don’t.</p>

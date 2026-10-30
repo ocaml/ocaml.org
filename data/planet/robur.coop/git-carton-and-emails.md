@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "blaze"
+- "carton"
+- "email"
+- "emails"
+- "git"
+- "mailbox"
+- "mbox"
+- "octet"
+- "pack"
+- "public-inbox"
 ---
 
 A way to store and archive your emails

@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "aaron"
+- "async"
+- "corwin"
+- "incr_dom"
+- "incr_select"
+- "interns"
+- "js_of_ocaml"
+- "ppx"
+- "uis"
+- "web-tables"
 ---
 
 <p>Now that the interns have mostly gone back to school, it&rsquo;s a good time to look

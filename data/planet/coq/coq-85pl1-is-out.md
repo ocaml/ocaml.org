@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "brings"
+- "bug"
+- "bugs"
+- "coq"
+- "critical"
+- "extremely"
+- "fixes"
+- "improvements"
+- "reports"
+- "welcome"
 ---
 
 

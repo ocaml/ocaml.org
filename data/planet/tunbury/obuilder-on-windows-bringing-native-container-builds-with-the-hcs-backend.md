@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "container"
+- "containerd"
+- "ctr"
+- "hcs"
+- "obuilder"
+- "obuilder-spec"
+- "programdata"
+- "snapshot"
+- "snapshots"
+- "windows"
 ---

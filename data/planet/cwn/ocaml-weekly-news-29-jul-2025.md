@@ -8,6 +8,17 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "angeletti"
+- "flambda"
+- "florian"
+- "gabriel"
+- "gadt"
+- "merlin"
+- "multicore"
+- "ocaml-option-flambda"
+- "ocaml-option-no-flat-float-array"
+- "scherer"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2025.07.29.html#1">opam 2.4.1</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.29.html#2">new tools to keep your projects clean (after AI, or just after yourself)</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.29.html#3">First beta release for OCaml 5.4.0</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.29.html#4">Encoding SAT in OCaml GADTs</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.29.html#5">Other OCaml News</a></li></ol>

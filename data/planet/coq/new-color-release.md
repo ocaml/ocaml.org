@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "blanqui"
+- "color"
+- "decomposition"
+- "ducas"
+- "interpretations"
+- "koprowski"
+- "loria"
+- "scc"
+- "sub-problems"
+- "waldmann"
 ---
 
 

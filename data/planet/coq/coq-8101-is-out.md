@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "anomaly"
+- "coq"
+- "evar"
+- "extraction"
+- "fix"
+- "inductives"
+- "ltac"
+- "sprop"
+- "uconstr"
+- "unsolved"
 ---
 
 

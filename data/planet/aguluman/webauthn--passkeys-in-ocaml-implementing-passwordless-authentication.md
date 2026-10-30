@@ -10,4 +10,15 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "base64"
+- "bytea"
+- "credential_id"
+- "msg"
+- "octets"
+- "owner_id"
+- "passkeys"
+- "public_key"
+- "sign_count"
+- "webauthn"
 ---

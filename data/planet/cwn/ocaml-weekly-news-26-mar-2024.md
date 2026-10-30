@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml Weekly News
 source:
+keywords:
+- "aec"
+- "flambda"
+- "foreign function interface"
+- "gabriel"
+- "miod"
+- "ocamlformat"
+- "odoc"
+- "review"
+- "scherer"
+- "vallat"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#1">The Flambda2 Snippets, by OCamlPro</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#2">Eio 1.0: First major release</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#3">ppx_minidebug 1.3.0: toward a logging framework</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#4">Academic OCaml Users Testimonials!</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#5">Volunteers for ICFP 2024 Artifact Evaluation Committee (AEC)</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#6">First beta release for OCaml 5.2.0</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.03.26.html#7">Other OCaml News</a></li></ol>

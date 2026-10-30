@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "charset"
+- "matrix"
+- "merlin"
+- "mosaic"
+- "notty"
+- "quit"
+- "tea"
+- "terminal"
+- "tyre"
+- "uchar"
 ---
