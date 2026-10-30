@@ -1,0 +1,125 @@
+let short_hash hash =
+  if String.length hash > 7 then String.sub hash 0 7 else hash
+
+let commits_count n =
+  if n = 1 then "1 commit" else string_of_int n ^ " commits"
+
+let history_url path =
+  "https://github.com/ocaml/ocaml.org/commits/main/" ^ path
+
+(* Collapse context-window variants: "Claude Opus 4.8 (1M context)" and
+   "Claude Opus 4.8" name the same model, so drop a trailing parenthetical. *)
+let normalize_model name =
+  match String.index_opt name '(' with
+  | Some i when i > 0 -> String.trim (String.sub name 0 i)
+  | _ -> name
+
+let render_contributors (contributors : Data.Attribution.contributor list) =
+  let contributors =
+    List.sort
+      (fun (x : Data.Attribution.contributor) (y : Data.Attribution.contributor) ->
+        String.compare x.first_date y.first_date)
+      contributors
+  in
+  if contributors = [] then ""
+  else
+    <section>
+      <h2>Contributors</h2>
+      <p>People who have contributed to this page, in order of first contribution. Credit reflects recorded commits, not authorship of any particular passage.</p>
+      <ul>
+        <% List.iteri (fun i (c : Data.Attribution.contributor) -> %>
+          <li>
+            <strong><%s c.name %></strong>
+            <% if i = 0 then ( %>&mdash; original author<% ); %>
+            &mdash; first contributed <%s c.first_date %>, <%s commits_count c.commits %>
+          </li>
+        <% ) contributors; %>
+      </ul>
+    </section>
+
+let render_adapted_from external_authors derived_from =
+  if external_authors = [] && derived_from = [] then ""
+  else
+    <section>
+      <h2>Adapted from</h2>
+      <% if external_authors <> [] then ( %>
+        <p>This page adapts material by:</p>
+        <ul>
+          <% List.iter (fun author -> %>
+            <li><strong><%s author %></strong></li>
+          <% ) external_authors; %>
+        </ul>
+      <% ); %>
+      <% if derived_from <> [] then ( %>
+        <p>Derived from other pages in this repository:</p>
+        <ul>
+          <% List.iter (fun src -> %>
+            <li><code><%s src %></code></li>
+          <% ) derived_from; %>
+        </ul>
+      <% ); %>
+    </section>
+
+let render_ai_assisted (ai : Data.Attribution.ai_section list) =
+  if ai = [] then ""
+  else
+    let models =
+      ai
+      |> List.concat_map (fun (s : Data.Attribution.ai_section) -> s.assisted_by)
+      |> List.map normalize_model
+      |> List.sort_uniq String.compare
+    in
+    <section>
+      <h2>Recorded AI use</h2>
+      <p>AI tools recorded as assisting with this page:</p>
+      <ul>
+        <% List.iter (fun model -> %>
+          <li><strong><%s model %></strong></li>
+        <% ) models; %>
+      </ul>
+    </section>
+
+let render_provenance = function
+  | None -> ""
+  | Some date ->
+    <section>
+      <h2>Provenance</h2>
+      <p>Best-effort record: authorship before <%s date %> could not be recovered from git history and is left unattributed rather than credited to whoever imported the page.</p>
+    </section>
+
+let render ~title ~canonical ~back_url (a : Data.Attribution.t) =
+Layout.render
+  ~title:(Printf.sprintf "Authors and history · %s" title)
+  ~description:(Printf.sprintf "Contributors, derived sources, and recorded AI use for \"%s\"." title)
+  ~canonical @@
+<div class="intro-section-simple dark:dark-intro-section-simple">
+  <div class="container-fluid">
+    <div class="w-full m-auto">
+      <h1 class="font-bold mb-2 text-title dark:text-dark-title">Authors and history</h1>
+      <p class="text-content dark:text-dark-content"><a href="<%s back_url %>" class="text-primary dark:text-dark-primary hover:underline"><%s title %></a></p>
+    </div>
+  </div>
+</div>
+<div class="bg-background dark:bg-dark-background">
+  <div class="py-5 lg:py-14">
+    <div class="container-fluid">
+      <div class="prose dark:prose-invert prose-orange lg:prose-lg mx-auto max-w-5xl">
+        <%s! render_adapted_from a.external_authors a.derived_from %>
+        <%s! render_contributors a.contributors %>
+        <%s! render_ai_assisted a.ai_assisted %>
+        <%s! render_provenance a.provenance_unknown_before %>
+        <hr/>
+        <p class="text-sm">
+          <a href="<%s history_url a.path %>" class="text-primary dark:text-dark-primary hover:underline">View this page's full commit history on GitHub</a>
+        </p>
+        <p class="text-sm text-lighter">
+          This record is best-effort and derived from git history. Spotted an omission or error?
+          <a href="https://github.com/ocaml/ocaml.org/issues/new">Open an issue</a>.
+        </p>
+        <p class="text-sm text-lighter">
+          Generated at commit <code><%s short_hash a.generated_at_commit %></code>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
