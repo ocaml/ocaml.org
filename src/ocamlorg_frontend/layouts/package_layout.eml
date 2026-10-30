@@ -1,7 +1,9 @@
 let search_instructions_html () =
   <div class="prose dark:prose-invert text-sm">
-    <p>You can search for identifiers within the package.</p>
-    <p>in-package search v0.2.0</p>
+    <p>You can search for identifiers within the package by name, or by type
+       signature &mdash; for example <code>string -> int</code> finds functions
+       returning an <code>int</code> from a <code>string</code>.</p>
+    <p>in-package search v0.3.0 (sherlodoc)</p>
   </div>
 
 let render
@@ -15,6 +17,7 @@ let render
 ~(package : Package.package)
 ~(documentation_status: Package.documentation_status)
 ~(search_index_digest: string option)
+~(search_engine_digest: string option)
 ~left_sidebar_html
 ~right_sidebar_html
 inner =
@@ -83,7 +86,7 @@ Layout.base
                 aria-expanded="false"
                 aria-autocomplete="list"
                 aria-describedby="search-instructions"
-                placeholder="Search names in this package..."
+                placeholder="Search names or types in this package..."
                 onfocus="this.select(); this.setAttribute('aria-expanded', true)"
                 onblur="this.setAttribute('aria-expanded', false)"
                 >
@@ -127,15 +130,32 @@ Layout.base
   </div>
 </div>
 <%s! Toc.script %>
-<% (match search_index_digest with | Some(digest) -> %>
-<script src="<%s Ocamlorg_static.Asset. url "vendors/minisearch.min.js" %>"></script>
-<script>
-  function Fuse() {}
-</script>
+<% (match search_index_digest, search_engine_digest with | Some digest, Some engine_digest -> %>
 <script>
   {
-    let miniSearch;
+    // Type-aware in-package search via odoc's sherlodoc. The per-package database
+    // (served under /search-index/<digest>) and the shared query engine (served
+    // under /doc-search-engine/<digest>) are both proxied same-origin and run in
+    // a Web Worker. The worker answers a posted query string with an array of
+    // { url, html } entries, ranked by sherlodoc. See ocaml/ocaml.org#3883.
+    const origin = window.location.origin;
+    const db_url = origin + "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
+    const engine_url = origin + "<%s Url.doc_search_engine ~digest:engine_digest %>";
+
+    // sherlodoc entry URLs are relative to the documentation root. Map them onto
+    // ocaml.org's own doc routes: entries that already carry the
+    // "p/<name>/<version>/doc/…" (or "u/…") prefix only need a leading slash;
+    // anything else is relative to this package's doc directory.
+    const pkg_doc_base = "<%s Url.Package.documentation ?version:(Package.url_version package) ~page:"" package.name %>";
+    function resolve_url(u) {
+      if (u.startsWith("/")) return u;
+      if (u.startsWith("p/") || u.startsWith("u/")) return "/" + u;
+      return pkg_doc_base + u;
+    }
+
     let results = [];
+    let search_results_position = null;
+    let worker;
 
     function goToUrl(event, location) {
       event.preventDefault();
@@ -162,72 +182,27 @@ Layout.base
       window.location = location;
     }
 
-    function shortness_factor(r) {
-      return 1 + 2*Math.log(1 + 1/(r.prefixname.length + r.name.length));
-    }
-
-    function perform_search() {
+    function render_results() {
       let q = document.getElementById("in-package-search-input").value;
-      results = miniSearch.search(q, {
-        fields: ['name', 'prefixname', 'comment'],
-        prefix: true,
-        boost: {
-          name: 6,
-          prefixname: 2.5,
-          comment: 0.8,
-        },
-        fuzzy: 0.15,
-      }).slice(0,50);
-      results = results.map(r => {return {...r, score: r.score * shortness_factor(r), shortness: shortness_factor(r)}}).sort((r1,r2) => r2.score - r1.score);
       let container = document.getElementById("in-package-search-results");
 
       container.innerHTML = ``;
       let search_results = document.createElement("ol");
 
-      results.map((entry) => {
-          let kind = document.createElement("tt");
-          kind.innerText = entry.kind
-            .replace("module type", "mty").replace("root", "mod").replace("module", "mod")
-            .replace("method", "mtd").replace("class type", "cty").replace("class", "cls")
-            .replace("core type", "typ").replace("type", "typ")
-            .replace("exception", "exc").replace("core exception", "exc")
-            .replace("parameter", "par")
-            .replace("leaf page", "man").replace("page", "man");
-          kind.title = entry.kind;
-          kind.classList.add("entry-kind");
-
+      results.forEach((entry, i) => {
           let list_item = document.createElement("li");
           let a = document.createElement("a");
-          let href = entry.url;
+          let href = resolve_url(entry.url);
           a.href = href;
-          a.id = "search-result-"+entry.id;
-          a.classList.add("search-entry", kind.innerText.slice(0,3));
-          let title = document.createElement("div");
-          title.classList.add("entry-title");
-
-          let prefixname = document.createElement("tt");
-          prefixname.innerText = entry.prefixname + (entry.prefixname != "" ? ".": "");
-          prefixname.classList.add("prefix-name");
-          let name = document.createElement("tt");
-          name.classList.add("entry-name");
-          name.innerText =  entry.name;
-
-          title.appendChild(kind);
-          title.appendChild(prefixname);
-          title.appendChild(name);
-
-          let comment = document.createElement("div");
-          comment.innerText = entry.comment;
-          comment.classList.add("entry-comment");
-
-          a.appendChild(title);
-          a.appendChild(comment);
+          a.id = "search-result-" + i;
+          a.classList.add("search-entry");
+          // sherlodoc pre-renders each entry (name + type signature) as HTML.
+          a.innerHTML = entry.html;
 
           a.addEventListener("mousedown", (event) => goToUrl(event, href));
           a.addEventListener("touchstart", (event) => goToUrl(event, href));
 
           list_item.appendChild(a);
-
           search_results.appendChild(list_item);
       });
 
@@ -243,24 +218,28 @@ Layout.base
     }
 
     function init_search() {
-      documents = documents.map((d, i) => {return {...d, id: i}});
+      // The browser's CORS policy blocks workers created from cross-origin
+      // scripts, so build the worker from a same-origin blob that importScripts
+      // the db first, then the engine (the engine reads the global the db
+      // defines) — the same trick odoc's own odoc_search.js uses.
+      let body = 'importScripts("' + db_url + '","' + engine_url + '");';
+      let blob = new Blob([body], { type: "application/javascript" });
+      let blob_url = URL.createObjectURL(blob);
+      worker = new Worker(blob_url);
+      URL.revokeObjectURL(blob_url);
 
-      miniSearch = new MiniSearch({
-        fields: ['name', 'prefixname', 'comment'],
-        storeFields: ['name', 'prefixname', 'kind', 'url', 'comment'],
-      });
+      worker.onmessage = (e) => {
+        results = e.data;
+        render_results();
+      };
 
-      miniSearch.addAll(documents);
-
-      document.getElementById("in-package-search-input").addEventListener("input", perform_search);
-      perform_search();
+      let input = document.getElementById("in-package-search-input");
+      input.addEventListener("input", () => worker.postMessage(input.value));
+      worker.postMessage(input.value);
     }
 
     function user_interacts() {
-      let scriptTag = document.createElement("script");
-      scriptTag.src = "<%s Url.Package.search_index ?version:(Package.url_version package) package.name ~digest %>";
-      scriptTag.addEventListener("load", init_search);
-      document.body.appendChild(scriptTag);
+      init_search();
 
       let container = document.getElementById("in-package-search-results");
       container.innerHTML = `<div class="px-4 py-2">Loading search index...</div>`;
@@ -271,7 +250,6 @@ Layout.base
     document.getElementById("in-package-search-input").addEventListener("focus", user_interacts);
 
 
-    let search_results_position = null;
     function adjust_position(event) {
       if (results.length == 0) return;
 
@@ -301,17 +279,17 @@ Layout.base
       event.stopPropagation();
       if (event.key == "Enter") {
         if (results.length > 0) {
-          let url = results[search_results_position || 0].url;
+          let url = resolve_url(results[search_results_position || 0].url);
           goToUrl(event, url)
         }
         return false;
       }
 
-      if (search_results_position !== null) document.getElementById("search-result-"+results[search_results_position].id).classList.remove("active");
+      if (search_results_position !== null) document.getElementById("search-result-" + search_results_position).classList.remove("active");
       adjust_position(event);
-      document.getElementById("in-package-search-input").setAttribute("aria-activedescendant", search_results_position === null ? null : "search-result-"+results[search_results_position].id);
+      document.getElementById("in-package-search-input").setAttribute("aria-activedescendant", search_results_position === null ? null : "search-result-" + search_results_position);
       if (search_results_position !== null) {
-        let el = document.getElementById("search-result-"+results[search_results_position].id);
+        let el = document.getElementById("search-result-" + search_results_position);
         el.classList.add("active");
         el.scrollIntoView({block: "end"});
       }

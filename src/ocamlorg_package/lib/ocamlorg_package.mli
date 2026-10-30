@@ -136,7 +136,9 @@ module Documentation : sig
 
   val search_index :
     kind:[< `Package | `Universe of string ] -> pkg -> string option Lwt.t
-  (** Retrieve the search index of a given package. *)
+  (** Retrieve the search index of a given package. This is the per-package
+      sherlodoc database ([doc/sherlodoc_db.js]) fed to the engine returned by
+      {!search_engine}. *)
 
   val search_index_digest :
     kind:[< `Package | `Universe of string ] ->
@@ -144,6 +146,13 @@ module Documentation : sig
     pkg ->
     string option Lwt.t
   (** Retrieve the hash digest of the search index of a given package. *)
+
+  val search_engine : unit -> string option Lwt.t
+  (** Retrieve the shared sherlodoc query engine ([sherlodoc.js]), proxied from
+      the documentation backend. It is the same for every package. *)
+
+  val search_engine_digest : state -> string option Lwt.t
+  (** Retrieve the cache-busting token for the shared sherlodoc engine. *)
 
   val doc_status_url : string -> string -> string
   (** [doc_status_url name version] is the URL of the page on the documentation
