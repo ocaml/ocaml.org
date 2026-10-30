@@ -76,6 +76,7 @@ module Post = struct
     authors : string list option;
     source : source_on_external_post option;
     ignore : bool option;
+    keywords : string list; [@default []]
   }
   [@@deriving yaml]
 
@@ -127,6 +128,7 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
               authors = Some [ author ];
               source = None;
               ignore = None;
+              keywords = [];
             }
           in
           let s = Format.asprintf "%a" Post.pp_meta metadata in
