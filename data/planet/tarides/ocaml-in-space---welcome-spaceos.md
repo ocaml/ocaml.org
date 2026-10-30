@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/2e322321de9ea2c4156fe87fad92711b/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "mirageos"
+- "newspace"
+- "satellite"
+- "satellites"
+- "secure"
+- "software"
+- "space"
+- "spaceos"
+- "technology"
+- "unikernel"
 ---
 
 <p>Our mission is to build sustainable and secure software infrastructure that will not only work for decades but also positively impact the world. This includes our work on essential open-source libraries and tooling in the OCaml space, but also extends to include cutting-edge innovation through MirageOS technologies. We are investigating mission-critical IoT use cases: one of which is facilitating the deployment of secure high-performance applications in space to help data scientists write models that run on satellite-generated data. In this post, we present our solution that does just that: SpaceOS.</p>

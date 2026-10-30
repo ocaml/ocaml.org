@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "algebras"
+- "atbr"
+- "coq"
+- "kleene"
+- "matrices"
+- "min-max"
+- "non-commutative"
+- "operation"
+- "semirings"
+- "tactic"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "binary"
+- "checksum"
+- "configuration"
+- "mirageos"
+- "orb"
+- "packages"
+- "reproducible"
+- "tender"
+- "unikernel"
+- "unikernels"
 ---
 
 <h2>Introduction</h2>

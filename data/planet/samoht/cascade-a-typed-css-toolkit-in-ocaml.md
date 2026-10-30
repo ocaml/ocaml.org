@@ -10,4 +10,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "calc"
+- "cascade"
+- "css"
+- "cssnano"
+- "csso"
+- "esbuild"
+- "kept"
+- "lightningcss"
+- "minifier"
+- "web development"
 ---

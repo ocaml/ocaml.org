@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "async"
+- "async-style"
+- "compiler"
+- "lwt"
+- "ocaml-tls"
+- "opam"
+- "protocol"
+- "reengineering"
+- "security"
+- "tls"
 ---

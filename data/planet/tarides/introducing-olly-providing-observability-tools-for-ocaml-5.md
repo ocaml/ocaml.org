@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/c2d24e261cee0bd95269a23f88e01178/09efa
 authors:
 - Tarides
 source:
+keywords:
+- "bin"
+- "cmdliner"
+- "domain"
+- "dune"
+- "eio"
+- "observability"
+- "olly"
+- "runtime_events"
+- "trace"
+- "tracing"
 ---
 
 <p>It might be tempting to think that we can write code that works perfectly the first time around, but in reality optimisation and troubleshooting forms a big part of programming. However, there are more and less productive (and frustrating!) ways of problem solving. Having the right tools to guide you, ones that show you where to look and what is going wrong, can make a huge difference.</p>

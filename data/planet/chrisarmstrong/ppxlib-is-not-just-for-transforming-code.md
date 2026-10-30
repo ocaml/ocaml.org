@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "ast"
+- "ast_builder"
+- "generate_code"
+- "metaquot"
+- "my_test_file"
+- "my_var"
+- "output_file"
+- "pattern matching"
+- "ppx_tools"
+- "ppxlib"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Sebastien Mondet
 source:
+keywords:
+- "annotated"
+- "challenge"
+- "delphi"
+- "dune"
+- "opam"
+- "oracle"
+- "svg"
+- "tezos"
+- "utop"
+- "wikipedia"
 ---
 
 

@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "eio"
+- "foreign function interface"
+- "functional programming"
+- "icfp"
+- "multicore"
+- "oct"
+- "oxcaml"
+- "posix"
+- "splash"
+- "uring"
 ---

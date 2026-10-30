@@ -6,6 +6,17 @@ description: "I just stumbled across a post fromearlier this year by Graydon Hoa
 url: https://blog.janestreet.com/making-never-break-the-build-scale/
 date: 2014-07-06T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+keywords:
+- "async"
+- "build-bot"
+- "effect"
+- "functional programming"
+- "graydon"
+- "nrs"
+- "ppx"
+- "requests"
+- "scale"
+- "tip"
 ---
 
 <p>I just stumbled across a <a href="http://graydon2.dreamwidth.org/1597.html">post</a> from

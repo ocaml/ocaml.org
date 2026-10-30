@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/review-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "OCaml LSP"
+- "community"
+- "ecosystem"
+- "js_of_ocaml"
+- "lrgrep"
+- "melange"
+- "merlin"
+- "ocamlformat"
+- "tarides"
+- "web development"
 ---
 
 <p>At <a href="https://tarides.com/">Tarides</a>, we believe in making OCaml a

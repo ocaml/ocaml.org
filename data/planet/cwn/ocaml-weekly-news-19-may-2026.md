@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "MlFront_Console"
+- "MlFront_Core"
+- "MlFront_Lua"
+- "MlFront_Progress"
+- "MlFront_ProgressZig"
+- "MlFront_Thunk"
+- "MlFront_ZipFile"
+- "UnifiedScript_Std"
+- "cammy"
+- "zig"
 ---

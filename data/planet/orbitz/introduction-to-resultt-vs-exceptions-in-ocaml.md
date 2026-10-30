@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Orbitz
 source:
+keywords:
+- "age"
+- "exception"
+- "exceptions"
+- "int_of_string"
+- "monad"
+- "parse_person"
+- "pattern matching"
+- "return"
+- "return-value"
+- "zip"
 ---
 
 <p>

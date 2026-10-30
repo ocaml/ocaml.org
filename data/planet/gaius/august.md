@@ -9,6 +9,17 @@ preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=
 authors:
 - Gaius Hammond
 source:
+keywords:
+- "betraying"
+- "gardening"
+- "lobs"
+- "long-planned"
+- "micros"
+- "neglected"
+- "organizations"
+- "productively"
+- "tho"
+- "well-deserved"
 ---
 
 <p>As of today I am on gardening leave, and I intend to spend the time productively (after taking a long-planned and well-deserved holiday next week!). In no particular order:</p>

@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "amiga"
+- "arte"
+- "claude"
+- "dill"
+- "dm-cache"
+- "docs"
+- "effect"
+- "multicore"
+- "odd"
+- "odoc"
 ---

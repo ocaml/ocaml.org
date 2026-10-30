@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/ironing-out-your-development-style/st
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "effect"
+- "expect"
+- "iron"
+- "jenga"
+- "parser"
+- "ppx"
+- "review"
+- "style"
+- "tests"
 ---
 
 <p>People seem to enjoy talking about programming methodologies. They

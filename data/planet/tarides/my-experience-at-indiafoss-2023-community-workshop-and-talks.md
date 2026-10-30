@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/5b2bd383b72e85e0c2e77394bfeeefd5/20850
 authors:
 - Tarides
 source:
+keywords:
+- "coc"
+- "community"
+- "functional programming"
+- "illustrations"
+- "india"
+- "indiafoss"
+- "julia"
+- "karkee"
+- "tinkerspace"
+- "workshop"
 ---
 
 <p>There are plenty of exciting computer programming events happening in India, including the <a href="https://ocamlretreat.org">5 day OCaml retreat</a> that Tarides is hosting in Auroville this week &ndash; look out for future posts on that! Another great (and bigger!) event is the annual free and open source software conference <a href="https://indiafoss.net/2023">IndiaFOSS</a> organised by <a href="https://fossunited.org">FOSS united</a>, most recently held in Bengaluru this past October. At the conference, I had the pleasure of presenting on my experience introducing a Code of Conduct (CoC) to an open-source community; I also co-hosted an <a href="https://github.com/Sudha247/learn-ocaml-workshop">OCaml workshop</a> with KC Sivaramakrishnan, Deepali Ande, and Kaustubh M, which offered attendees helpful context and starter exercises in the language.</p>

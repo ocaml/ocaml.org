@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "algebra"
+- "coq"
+- "finite"
+- "inria"
+- "msr-inria"
+- "proof"
+- "research-inria"
+- "ssreflect"
+- "sympa"
+- "tactic"
 ---
 
 

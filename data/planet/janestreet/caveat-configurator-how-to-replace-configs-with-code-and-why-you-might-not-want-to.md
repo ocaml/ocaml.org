@@ -10,6 +10,17 @@ preview_image: https://blog.janestreet.com/caveat-configurator-how-to-replace-co
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "caveat"
+- "compiler"
+- "configs"
+- "configurator"
+- "functional programming"
+- "jane"
+- "obvious"
+- "ppx"
+- "street"
 ---
 
 <p>We have a new <a href="https://www.janestreet.com/tech-talks/">tech talk</a> coming up on

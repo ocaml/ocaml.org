@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "assia"
+- "coq"
+- "courtieu"
+- "cumulativity"
+- "enrico"
+- "existential"
+- "inductive"
+- "mahboubi"
+- "tactics"
+- "tassi"
 ---
 
 

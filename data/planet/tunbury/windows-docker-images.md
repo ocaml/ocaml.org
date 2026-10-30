@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "depext"
+- "ltsc"
+- "msvc"
+- "ocaml-base-compiler"
+- "ocaml-variants"
+- "parallelism"
+- "src-opam"
+- "system-mingw"
+- "system-msvc"
+- "windows"
 ---

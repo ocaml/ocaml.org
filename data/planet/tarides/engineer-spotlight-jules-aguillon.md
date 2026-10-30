@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/a61d6759d838bc618680795eecdc2a88/c030c
 authors:
 - Tarides
 source:
+keywords:
+- "aguillon"
+- "asts"
+- "boilerplate"
+- "datastructures"
+- "express"
+- "functional programming"
+- "jules"
+- "mistake"
+- "multicore"
+- "type checker"
 ---
 
 <p>In celebration of the OCaml 5 release, we decided to interview a few of our talented engineers about OCaml. While it isn't a well-known language outside of the functional programming community, we're striving to get the word out about the great benefits of OCaml and why it's worth your time to try it out, especially with the introduction of <a href="https://tarides.com/blog/2022-12-19-ocaml-5-with-multicore-support-is-here">Multicore support in OCaml 5</a>.</p>

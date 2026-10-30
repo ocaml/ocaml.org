@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/hackathon-keyboards/keyboard.jpg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "brass"
+- "cad"
+- "cnc"
+- "cut"
+- "hackathon"
+- "keyboard"
+- "pcb"
+- "plate"
+- "wood"
 ---
 
 <p>Jane Street is sponsoring this year&rsquo;s <a href="https://makemit.org">MakeMIT

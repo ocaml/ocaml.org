@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "codec"
+- "concurrency"
+- "declarative"
+- "opengl"
+- "parser"
+- "unicode"
+- "uucd"
+- "uucp"
+- "uunf"
+- "uuseg"
 ---
 
 Release of Uucd, Uucp, Uunf and Uuseg to support Unicode 8.0.0.

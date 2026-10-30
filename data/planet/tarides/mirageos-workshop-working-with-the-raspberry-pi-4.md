@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/da5dfbb0de440a1ed000f0e3d74f9f51/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "customized"
+- "employees"
+- "garland"
+- "guirlandeos"
+- "mirageos"
+- "raspberry"
+- "romain"
+- "solar-powered"
+- "websites"
+- "workshop"
 ---
 
 <p>Earlier this week, Romain Calascibetta hosted an in-house MirageOS workshop for employees, both locally and remotely

@@ -8,6 +8,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "dune"
+- "echo"
+- "functional programming"
+- "functor"
+- "hello"
+- "install"
+- "merlin"
+- "opam"
+- "pattern matching"
+- "type inference"
 ---
 
 A beginner's guide to functional programming with OCaml

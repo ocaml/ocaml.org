@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "aorai"
+- "e-acsl"
+- "frama-c"
+- "manual"
+- "manuals"
+- "plug-in"
+- "plug-ins"
+- "rte"
+- "sodium"
+- "v11"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "branch-consistent"
+- "database"
+- "distributed"
+- "eventually-consistent"
+- "gazagnaire"
+- "git-like"
+- "irmin"
+- "irminsule"
+- "library"
+- "mirageos"
 ---
 
 <p>Paper at the OCaml Workshop on the Irmin database library</p>

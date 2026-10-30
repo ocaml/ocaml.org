@@ -9,6 +9,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "creation"
+- "gain"
+- "rustup"
+- "soldering"
+- "speedup"
+- "tapping"
+- "taught"
+- "text"
+- "windows"
+- "worse"
 ---
 
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@@ -44,6 +44,8 @@</span>

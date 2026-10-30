@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/18316ffead39c18231bc3dd3899eed4f/6b50e
 authors:
 - Tarides
 source:
+keywords:
+- "busy-wait"
+- "condition"
+- "condition variable"
+- "eutro"
+- "multicore"
+- "she"
+- "sleep"
+- "sleeping"
+- "spin_wait"
+- "windows"
 ---
 
 <p>We love hosting internships. It is rewarding to potentially facilitate someone&rsquo;s first foray into the OCaml ecosystem, helping them establish a hopefully life-long foothold in the world of open-source programming. It is also a great opportunity to get new perspectives on existing issues. Fresh eyes can reinvigorate topics, highlighting different pain points and new solutions which benefit the entire community.</p>

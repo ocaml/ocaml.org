@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "assert_failure"
+- "create-melange-app"
+- "dune"
+- "es6"
+- "javi"
+- "melange"
+- "melangeerror"
+- "ppx"
+- "reason-react"
+- "server-reason-react"
 ---
 
 <p>Last year we saw the <a href="https://anmonteiro.substack.com/p/melange-10-is-here" target="_blank" rel="noreferrer">first major

@@ -14,6 +14,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "config"
+- "curl"
+- "diff"
+- "fix"
+- "macos"
+- "opam"
+- "opam-devel"
+- "rjbou"
+- "sandboxing"
+- "synopsis"
 ---
 
 <p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.4">opam 2.0.4</a>.</p>

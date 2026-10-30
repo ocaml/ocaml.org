@@ -6,6 +6,17 @@ date: 2014-02-25T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "applicant"
+- "gsoc"
+- "ipython"
+- "legendary"
+- "mirageos"
+- "participation"
+- "quake"
+- "sleeves"
+- "students"
+- "xen"
 ---
 
 

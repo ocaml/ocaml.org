@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "author"
+- "broadcast"
+- "div"
+- "dom"
+- "html-like"
+- "one_page_server"
+- "raw_status"
+- "revised"
+- "start_server"
+- "syntax"
 ---
 
 <p style="text-align:justify;"><em>Feedback from Opa testers suggests that we can improve the syntax and make it easier for developers new to Opa to read and write code. We have spent some time both inside the Opa team and with the testers designing two possible revisions to the syntax. Feedback on both possible revisions, as well as alternative ideas, are welcome.</em></p>

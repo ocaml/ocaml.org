@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "concurrency"
+- "docker"
+- "eio"
+- "err"
+- "foreign function interface"
+- "functor"
+- "icfp"
+- "monad"
+- "parallelism"
+- "splash"
 ---

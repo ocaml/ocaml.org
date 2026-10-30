@@ -8,4 +8,15 @@ authors:
 source:
   name: "PizieDust on Medium"
   url: https://medium.com/@playersrebirth
+keywords:
+- "crc32"
+- "dune"
+- "gpt"
+- "header"
+- "lba"
+- "library"
+- "mirageos"
+- "ocaml-gpt"
+- "partition"
+- "partitions"
 ---

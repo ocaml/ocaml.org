@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "blogthis"
+- "node"
+- "pad"
+- "pinterest"
+- "print_tree"
+- "render"
+- "shayne"
+- "tree"
+- "trees"
+- "unix"
 ---
 
 

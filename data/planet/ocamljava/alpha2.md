@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Xavier Clerc
 source:
+keywords:
+- "alpha2"
+- "bootstrap"
+- "bug"
+- "discriminated"
+- "grunge"
+- "incorrect"
+- "inner-classes"
+- "object"
+- "ocaml-java"
+- "relase"
 ---
 
 <p>The new release, namely <em>2.0-alpha2</em>, is mainly a bugfix relase, fixing the following issues:</p>

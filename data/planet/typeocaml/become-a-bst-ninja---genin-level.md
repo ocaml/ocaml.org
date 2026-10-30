@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "bst"
+- "child"
+- "current_depth"
+- "height"
+- "leaf"
+- "left"
+- "node"
+- "right"
+- "root"
+- "solve"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/12/bst_ninja.jpg#hero" alt="bst_ninja"/></p>

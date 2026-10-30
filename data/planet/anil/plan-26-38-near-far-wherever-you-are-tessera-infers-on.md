@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aws"
+- "coop"
+- "dclimate"
+- "embeddings"
+- "geotessera"
+- "icechunk"
+- "npy"
+- "species"
+- "tessera"
+- "zarr"
 ---

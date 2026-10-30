@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "belongs"
+- "complement"
+- "empty"
+- "insert"
+- "is_in"
+- "myset"
+- "set"
+- "set_of_one"
+- "sets"
+- "union"
 ---
 
 

@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "carbon"
+- "carbon-aware"
+- "dns"
+- "effect"
+- "gibb"
+- "loco"
+- "networked"
+- "ryan"
+- "sicsa"
+- "spiritual"
 ---
 
 <p><a href="https://ryan.freumh.org" class="contact">Ryan Gibb</a> and I have been thinking about how the current Internet architecture fails to treat the carbon emissions

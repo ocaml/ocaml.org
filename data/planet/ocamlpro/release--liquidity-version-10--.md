@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "alt-ergo"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "gnucobol"
+- "liquidity"
+- "opam"
+- "release"
+- "titagone"
 ---
 
 <p>Nous sommes fiers d'annoncer la release de la premi&egrave;re version majeure de Liquidity, le langage de smart contracts et son outillage. Parmi les fonctions phares : multiples points d'entr&eacute;e, syst&egrave;me de contrats modulaire, polymorphisme et inf&eacute;rence de type, syntaxe ReasonML pour une plus grande adoption, etc.</p>

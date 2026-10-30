@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "c2-1"
+- "capacity"
+- "dune"
+- "equinix"
+- "mte24"
+- "ocaml-ci"
+- "raid1"
+- "spare"
+- "ssd"
+- "worker"
 ---
 
 <p>We have changed our mind about using <code class="language-plaintext highlighter-rouge">dm-cache</code> in the SSD/RAID1 configuration. The current thinking is that the mechanical drives would be better served as extra capacity for our distributed ZFS infrastructure, where we intend to have two copies of all data, and these disks represent ~100TB of storage.</p>

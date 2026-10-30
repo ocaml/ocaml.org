@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/goodbye-Core_kernel/./core_kernel.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "base_quickcheck"
+- "bin_prot"
+- "core"
+- "core_kernel"
+- "date_unix"
+- "functional programming"
+- "jane"
+- "ppx"
+- "street"
 ---
 
 <p>We recently restructured our standard libraries at Jane Street in a

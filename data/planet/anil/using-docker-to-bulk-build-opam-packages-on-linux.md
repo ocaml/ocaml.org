@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "MirageOS"
+- "apt-get"
+- "avsm"
+- "ctypes"
+- "docker"
+- "dockerfile"
+- "multicore"
+- "ocamlfind"
+- "opam"
+- "opam-installext"
 ---
 
 <p>Now that OCaml 4.01 has been released, there is a frenzy of commit

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "autoconf"
+- "autofonce"
+- "cob"
+- "cobol"
+- "gnu"
+- "gnucobol"
+- "initialize"
+- "sub-directory"
+- "tests"
+- "testsuite"
 ---
 
 <p></p>

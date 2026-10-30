@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "batteries"
+- "core"
+- "core_extended"
+- "debian"
+- "fanboy"
+- "http"
+- "jane"
+- "spite"
+- "stdlib"
+- "street"
 ---
 
 <h1>Debian &quot;Core&quot; 0.6.0 packages ready</h1>

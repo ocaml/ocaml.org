@@ -12,6 +12,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "ansible"
+- "docker"
+- "dune"
+- "equinix"
+- "misnamed"
+- "moves"
+- "ocaml-ci"
+- "ocurrent"
+- "opam-repo-ci"
+- "var"
 ---
 
 <p>The moves of registry.ci.dev, opam-repo-ci, and get.dune.build have followed the template of <a href="https://www.tunbury.org/ocaml-ci/">OCaml-CI</a>. Notable differences have been that I have hosted <code class="language-plaintext highlighter-rouge">get.dune.build</code> in a VM, as the services required very little disk space or CPU/RAM. For opam-repo-ci, the <code class="language-plaintext highlighter-rouge">rsync</code> was pretty slow, so I tried running multiple instances using GNU parallel with marginal gains.</p>

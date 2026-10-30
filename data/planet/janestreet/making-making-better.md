@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "functional programming"
+- "hires"
+- "jane"
+- "merlin"
+- "ppx"
+- "sharpening"
+- "street"
+- "tenuous"
 ---
 
 <p>We spend a lot of time and effort on training new people, and it never stops for

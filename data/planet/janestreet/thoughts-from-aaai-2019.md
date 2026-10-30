@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/thoughts-from-aaai-19/AAAI.jpg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "aaai"
+- "async"
+- "fairness"
+- "functional programming"
+- "networks"
+- "ppx"
+- "robot"
+- "simulation"
+- "simulations"
+- "social"
 ---
 
 <p>At Jane Street, for the last several years, we have been increasingly interested

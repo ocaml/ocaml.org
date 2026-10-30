@@ -8,6 +8,17 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "alpha1"
+- "archive"
+- "domain"
+- "eio"
+- "flambda"
+- "https"
+- "ocaml-option-flambda"
+- "ocaml-option-no-flat-float-array"
+- "ocaml-variants"
+- "ppx"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#1">First alpha release of OCaml 5.4.0</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#2">Combining LLVM MC, lld, precompiled C and bytecode</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#3">Uniqueness for Behavioural Types · KC Sivaramakrishnan</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#4">A ppx for denoting unreachable branches</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#5">Sound on OCaml on Windows</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#6">Opam repository archival, phase 3</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.06.03.html#7">Peer-Programming in Modern OCaml with ChatGPT and Gemini</a></li></ol>

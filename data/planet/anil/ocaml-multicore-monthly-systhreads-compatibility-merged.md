@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "box"
+- "compatibility"
+- "compiler"
+- "conveniently"
+- "dune"
+- "merged"
+- "multicore"
+- "multicore-monthly-sep20"
+- "opam"
+- "systhreads"
 ---
 
 <p>The big advance in the multicore OCaml branch is that we restored compatibility

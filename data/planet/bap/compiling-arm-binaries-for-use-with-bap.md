@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "arm"
+- "bap"
+- "bap-objdump"
+- "binaries"
+- "compiler"
+- "gcc-arm-linux-gnueabi"
+- "gdb"
+- "hello_gccarm_o0"
+- "qemu-arm"
+- "qemu-user"
 ---
 
 <p>This post serves to give some guidance on obtaining the disassembly and CFG for

@@ -9,6 +9,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "clojure"
+- "descending"
+- "funny"
+- "of_seq"
+- "range"
+- "ranges"
+- "seq"
+- "step"
+- "to_a"
+- "unfold"
 ---
 
 <p>Lots of programming languages have some built-in range functionality, that’s

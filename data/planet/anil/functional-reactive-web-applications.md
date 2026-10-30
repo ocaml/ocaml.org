@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "ajax"
+- "applications"
+- "classical"
+- "donham"
+- "froc"
+- "functional programming"
+- "jake"
+- "publically"
+- "reactive"
+- "web"
 ---
 
 <h1>Functional Reactive Web Applications</h1>

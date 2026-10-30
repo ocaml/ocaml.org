@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "domain"
+- "effect"
+- "eio"
+- "fiber"
+- "pico"
+- "pio"
+- "pool_wsize"
+- "pools"
+- "promise"
+- "spawn"
 ---

@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "biodiversity"
+- "collective"
+- "doi"
+- "knowledge"
+- "monad"
+- "nature"
+- "provenance"
+- "rogue"
+- "scholar"
+- "systems"
 ---

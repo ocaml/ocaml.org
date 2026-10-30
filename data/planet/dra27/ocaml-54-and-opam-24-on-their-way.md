@@ -12,6 +12,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "branched"
+- "coincidentally"
+- "diff"
+- "huge"
+- "opam"
+- "patch"
+- "paves"
+- "pleasing"
+- "slowness"
+- "subtle-sounding"
 ---
 
 <p><a href="https://opam.ocaml.org/blog/opam-2-4-0-alpha1/">opam 2.4</a> was branched last

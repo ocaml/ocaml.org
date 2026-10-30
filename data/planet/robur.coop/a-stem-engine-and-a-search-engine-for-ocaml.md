@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "blaze"
+- "emails"
+- "engine"
+- "pack"
+- "search"
+- "snowball"
+- "stem"
+- "stemmer"
+- "txt"
+- "words"
 ---

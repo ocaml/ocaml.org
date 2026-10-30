@@ -9,4 +9,15 @@ authors:
 source:
   name: "Oluwaseun Oyenuga"
   url: https://oyenugaoluwaseun.hashnode.dev
+keywords:
+- "accepted"
+- "determination"
+- "internship"
+- "kindness"
+- "mentors"
+- "motivated"
+- "outreachy"
+- "struggle"
+- "struggles"
+- "trial"
 ---

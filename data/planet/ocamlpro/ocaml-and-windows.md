@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "auto-installer"
+- "awlful"
+- "binaries"
+- "cygwin"
+- "exe"
+- "msvc"
+- "ocaml-trunk-64-installer"
+- "termninal"
+- "windows"
+- "winocaml"
 ---
 
 <p>Recently, I have been experimenting wiht OCaml / MSVC running on Windows 7 64bit. I have mainly followed what the <a href="http://caml.inria.fr/pub/distrib/ocaml-3.12/notes/README.win32">OCaml&rsquo;s README.win32</a> was saying and I learned some NSIS tricks. The result of this experiment is the following two (rather big) windows binaries :</p>

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/patrick-tomasso-1NTFSnV-KLs-unspl
 authors:
 - Tarides
 source:
+keywords:
+- "alarms"
+- "garbage collection"
+- "genuine"
+- "hashset"
+- "ppx_deriving_qcheck"
+- "qcheck-core"
+- "qcheck-multicoretests-util"
+- "stm"
+- "tests"
+- "workflows"
 ---
 
 <p>In <a href="https://tarides.com/blog/2024-04-24-under-the-hood-developing-multicore-property-based-tests-for-ocaml-5/">a previous post</a>, we discussed how we have developed property-based tests (PBTs) to stress test the new runtime system in OCaml 5, and gave concrete examples of such tests. In this second part, we discuss some of the challenges and the lessons learned from that effort.</p>

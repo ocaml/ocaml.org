@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "config"
+- "foo"
+- "lwt"
+- "opam"
+- "package"
+- "packages"
+- "set-up"
+- "switch"
+- "trunk"
+- "xen-org"
 ---
 
 <p>OPAM is a source-based package manager for OCaml. It supports

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "alphanet"
+- "contribute"
+- "crawler"
+- "dpos"
+- "jesperson"
+- "monitor"
+- "node"
+- "postgresql"
+- "tezos"
+- "tzscan"
 ---
 
 <p>In October 2017, after the Tezos ICO, OCamlPro started to work on a

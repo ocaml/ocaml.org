@@ -7,6 +7,14 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "coq"
+- "download"
+- "level"
+- "page"
+- "patch"
+- "release"
+- "see"
 ---
 
 

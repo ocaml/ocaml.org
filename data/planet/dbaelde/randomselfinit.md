@@ -7,6 +7,17 @@ preview_image:
 authors:
 - mrpingouin
 source:
+keywords:
+- "crack"
+- "gen"
+- "leak"
+- "ppid"
+- "random"
+- "resp"
+- "sec"
+- "seed"
+- "self_init"
+- "usec"
 ---
 
 Maintenant que je travaille un peu dans le domaine de la s&eacute;curit&eacute;, je pense notamment aux g&eacute;n&eacute;rateurs de nombres al&eacute;atoires. Apr&egrave;s quelques lectures <a href="http://en.wikipedia.org/wiki/Pseudorandom_number_generator">sur</a> <a href="http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator">le sujet</a>, je me suis demand&eacute; comment fonctionnait le module <code>Random</code> de Caml.<br/>

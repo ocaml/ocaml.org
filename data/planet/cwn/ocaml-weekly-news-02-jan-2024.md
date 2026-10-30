@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml Weekly News
 source:
+keywords:
+- "buyer"
+- "castore"
+- "currency"
+- "f6c90f96-faad-4741-a52b-6d53b94d48f3"
+- "mxn"
+- "riot"
+- "spatial"
+- "usd"
+- "uuidv4"
+- "x509"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2024.01.02.html#1">castore 0.0.1 &ndash; a portable CA Store with no dependencies</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.01.02.html#2">fixgen 0.1.0 - a CLI tool for generating fixtures</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.01.02.html#3">8 months of OCaml after 8 years of Haskell in production</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.01.02.html#4">riot 0.0.7 &ndash; an actor-model multi-core scheduler for OCaml 5</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.01.02.html#5">Spatial Shell &middot; A windows switcher for i3 and sway implemented in OCaml</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.01.02.html#6">Other OCaml News</a></li></ol>

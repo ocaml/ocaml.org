@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "cocan"
+- "domain"
+- "org"
+- "policy"
+- "privacy"
+- "relevant"
+- "resources"
+- "sale"
+- "service"
+- "terms"
 ---
 
 

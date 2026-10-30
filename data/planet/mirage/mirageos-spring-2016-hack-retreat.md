@@ -6,6 +6,17 @@ date: 2016-05-04T00:00:00-00:00
 preview_image:
 authors:
 - Gemma Gordon
+keywords:
+- "canopy"
+- "hackathon"
+- "mirage"
+- "mirageos"
+- "monad"
+- "nocrypto"
+- "priscilla"
+- "retreat"
+- "telnet"
+- "web development"
 ---
 
 

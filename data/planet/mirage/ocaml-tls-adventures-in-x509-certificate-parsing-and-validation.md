@@ -6,6 +6,17 @@ date: 2014-07-10T00:00:00-00:00
 preview_image:
 authors:
 - Hannes Mehnert
+keywords:
+- "authenticator"
+- "certificate"
+- "certificates"
+- "chain"
+- "hostname"
+- "ocaml-tls"
+- "serial"
+- "server"
+- "trust"
+- "x509"
 ---
 
 

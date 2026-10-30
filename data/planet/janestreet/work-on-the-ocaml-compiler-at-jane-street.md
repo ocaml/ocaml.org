@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/work-on-the-ocaml-compiler-at-jane-st
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "accept"
+- "async"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "jane"
+- "minsky"
+- "ppx"
+- "street"
+- "yaron"
 ---
 
 <p>As Jane Street grows, the quality of the development tools we use

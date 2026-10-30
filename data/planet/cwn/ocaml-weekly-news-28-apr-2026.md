@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "UnifiedScript_Std"
+- "UnifiedScript_Top"
+- "eio_main"
+- "f_length"
+- "filed"
+- "foreign function interface"
+- "ocaml-index"
+- "ocamlformat"
+- "openrouter_api"
+- "valkey"
 ---

@@ -9,4 +9,15 @@ authors:
 - Benjamin Thuillier
 source:
 ignore:
+keywords:
+- "circe"
+- "http4s"
+- "jsont"
+- "req"
+- "scala"
+- "task"
+- "tasks"
+- "uuid"
+- "uuidm"
+- "vif"
 ---

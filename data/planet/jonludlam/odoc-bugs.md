@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "concat"
+- "creators_base"
+- "destructive"
+- "expansion"
+- "expression"
+- "functor"
+- "odoc"
+- "s0_with_creators_base"
+- "sig"
+- "signature"
 ---

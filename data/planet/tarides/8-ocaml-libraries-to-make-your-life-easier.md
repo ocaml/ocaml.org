@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/da4d4c8781817f2c0a20b1f4b424b4c9/97432
 authors:
 - Tarides
 source:
+keywords:
+- "base"
+- "cmdliner"
+- "cryptography"
+- "eio"
+- "libraries"
+- "lwt"
+- "multicore"
+- "notty"
+- "ppx"
+- "ppxlib"
 ---
 
 <p>OCaml is a statically-typed programming language that emphasizes readability, programmer efficiency, and semantic clarity. This powerful and efficient language has been gaining popularity among developers. The growing adoption of OCaml is because it's fast, type safe, and secure. It can be used in industries where performance and security matter, like <a href="https://ocaml.org/success-stories/sensor-analytics-and-automation-platform-for-sustainable-agriculture">IoT</a>, <a href="https://ocaml.org/success-stories/peta-byte-scale-web-crawler">Data Analytics</a>, or <a href="https://ocaml.org/success-stories/large-scale-trading-system">financial services</a>.</p>

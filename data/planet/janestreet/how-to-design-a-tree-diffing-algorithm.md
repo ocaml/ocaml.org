@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "algorithm"
+- "async"
+- "compiler"
+- "cookies"
+- "diffing"
+- "functional programming"
+- "jane"
+- "ppx"
+- "street"
+- "tree-diffing"
 ---
 
 <p>For those of you interested in what

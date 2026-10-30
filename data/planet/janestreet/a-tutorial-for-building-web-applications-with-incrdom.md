@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/a-tutorial-for-building-web-applicati
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "accept"
+- "async"
+- "compiler"
+- "cookies"
+- "functional programming"
+- "incr_dom"
+- "incremental"
+- "jane"
+- "ppx"
+- "street"
 ---
 
 <p>At Jane Street, our web UIs are built on top of an in-house framework

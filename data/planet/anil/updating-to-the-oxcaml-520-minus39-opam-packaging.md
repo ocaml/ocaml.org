@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "domain"
+- "eio"
+- "guard"
+- "mdx"
+- "metaprogramming"
+- "opam"
+- "oxcaml"
+- "oxcaml-mdx"
+- "oxidised"
+- "parser"
 ---

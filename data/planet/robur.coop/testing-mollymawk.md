@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "bisect_ppx_ng"
+- "endpoints"
+- "forgejo"
+- "functor"
+- "mirageos"
+- "mollymawk"
+- "policies"
+- "storage"
+- "testing"
+- "tests"
 ---

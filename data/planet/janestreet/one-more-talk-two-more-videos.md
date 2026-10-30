@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "computations"
+- "functional programming"
+- "incremental"
+- "jane"
+- "ppx"
+- "street"
+- "talk"
+- "videos"
 ---
 
 <p>I&rsquo;m happy to announce our next <a href="https://www.janestreet.com/tech-talks/">public tech

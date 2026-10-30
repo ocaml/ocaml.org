@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "MirageOS"
+- "compiler"
+- "domain"
+- "functional programming"
+- "ian"
+- "lab"
+- "labs"
+- "opam"
+- "research"
+- "xen"
 ---
 
 <p>I’m very excited to announce <a href="https://anil.recoil.org/projects/ocamllabs">OCaml Labs</a>, the latest project

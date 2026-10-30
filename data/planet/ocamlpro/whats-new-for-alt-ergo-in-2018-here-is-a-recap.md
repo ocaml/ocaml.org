@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "alt-ergo"
+- "cryptography"
+- "domain"
+- "expr"
+- "formal verification"
+- "formulas"
+- "sat"
+- "smt-lib"
+- "smt-workshop"
+- "smt2"
 ---
 
 <p>After the hard work done on the integration of floating-point arithmetic reasoning two years ago, 2018 is the year of polymorphic SMT2 support and efficient SAT solving for Alt-Ergo. In this post, we recap the main novelties last year, and we announce the first Alt-Ergo Users&rsquo; Club meeting.</p>

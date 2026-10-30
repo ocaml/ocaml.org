@@ -6,6 +6,17 @@ date: 2014-07-17T00:00:00-00:00
 preview_image:
 authors:
 - Mindy Preston
+keywords:
+- "callback"
+- "default_console"
+- "flow"
+- "ipv4addr"
+- "polymorphic variant"
+- "stack"
+- "stackv4"
+- "tcp"
+- "tcpv4"
+- "timed"
 ---
 
 

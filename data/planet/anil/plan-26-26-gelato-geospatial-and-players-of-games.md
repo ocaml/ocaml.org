@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "GADT"
+- "annual"
+- "chia"
+- "cng"
+- "eio"
+- "games"
+- "gelato"
+- "geospatial"
+- "london"
+- "tessera"
 ---

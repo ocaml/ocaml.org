@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "buildkit"
+- "buildx"
+- "containerd"
+- "containerd-snapshotter"
+- "copy"
+- "ctx"
+- "docker"
+- "graphdriver"
+- "snapshotter"
+- "worker"
 ---

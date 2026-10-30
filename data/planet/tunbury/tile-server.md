@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bounding"
+- "laurentmazare"
+- "mtelvers"
+- "ocaml-arrow"
+- "parquet"
+- "stac"
+- "throw-away"
+- "tile"
+- "tiles"
+- "title-server"
 ---

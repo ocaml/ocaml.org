@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "braille"
+- "character"
+- "dots"
+- "height"
+- "histogram"
+- "histograms"
+- "multi-row"
+- "ocluster"
+- "ocurrent"
+- "terminal"
 ---
 
 <p>I’ve been thinking about terminal-based GUI applications recently and decided to give <a href="https://ocaml.org/p/notty/latest">notty</a> a try.</p>

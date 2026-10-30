@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "addr"
+- "art"
+- "atomic"
+- "bancos"
+- "node"
+- "nodes"
+- "persistent"
+- "prefix"
+- "rowex"
+- "vi8"
 ---

@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "compiler"
+- "curl"
+- "filters"
+- "init"
+- "manually"
+- "opam"
+- "opam-devel"
+- "sandboxing"
+- "switch"
+- "zypper"
 ---
 
 <p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-3/10299">Discuss</a>!</em></p>

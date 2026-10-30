@@ -6,6 +6,17 @@ date: 2014-07-15T00:00:00-00:00
 preview_image:
 authors:
 - Jeremy Yallop
+keywords:
+- "bindings"
+- "cryptography"
+- "ctypes"
+- "end_handler"
+- "foreign"
+- "foreign function interface"
+- "ptr"
+- "start_handler"
+- "void"
+- "xml_parser"
 ---
 
 

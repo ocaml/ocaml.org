@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Vincent Laviron\n  "
 source:
+keywords:
+- "certains"
+- "compilateur"
+- "compiler"
+- "dune"
+- "equipe"
+- "flambda"
+- "flambda2"
+- "ocamlpro"
+- "opam"
+- "travaux"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/picture_cpu_compiler.jpeg" alt=""/></p>

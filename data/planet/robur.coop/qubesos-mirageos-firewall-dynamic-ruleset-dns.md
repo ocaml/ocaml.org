@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "consumes"
+- "dns"
+- "dynamic"
+- "firewall"
+- "mirageos"
+- "qubesos"
+- "ruleset"
+- "secure"
+- "unikernel"
+- "vms"
 ---

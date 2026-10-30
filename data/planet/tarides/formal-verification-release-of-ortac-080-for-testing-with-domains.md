@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "cs1"
+- "cs2"
+- "formal verification"
+- "next_state"
+- "ortac"
+- "postcond"
+- "pref"
+- "qcheck-stm"
+- "sut"
+- "suts"
 ---

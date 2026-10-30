@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "CamelCase"
+- "aoah"
+- "characters"
+- "claude"
+- "day"
+- "dec"
+- "eio"
+- "jsont"
+- "session"
+- "tool_name"
 ---

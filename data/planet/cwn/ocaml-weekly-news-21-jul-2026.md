@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "advisories"
+- "hegel"
+- "immutability"
+- "melange"
+- "ocamlgrep"
+- "pattern matching"
+- "ppx_deriving"
+- "ppx_deriving_melange"
+- "security"
+- "unikraft"
 ---

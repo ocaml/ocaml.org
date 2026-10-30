@@ -7,6 +7,11 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "about"
+- "functor"
+- "little"
+- "trick"
 ---
 
 A little trick about *functor*

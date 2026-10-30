@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "checkfunarg"
+- "error"
+- "errormessage"
+- "errors"
+- "family"
+- "foomessage"
+- "ghci"
+- "message"
+- "signed"
+- "typeerror"
 ---
 
 Tutorial on custom type errors in Haskell with a lot of examples

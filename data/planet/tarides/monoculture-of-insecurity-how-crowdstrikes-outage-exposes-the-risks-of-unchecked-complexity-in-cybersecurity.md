@@ -9,6 +9,17 @@ preview_image: https://tarides.com/static/47cc4cac347bff0ad732426a6d502419/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "complexity"
+- "crowdstrike"
+- "cybersecurity"
+- "formal verification"
+- "industry"
+- "mirageos"
+- "monocultures"
+- "outage"
+- "parser"
+- "risks"
 ---
 
 <p>A seismic event in the IT world, everyone is talking about the <a href="https://www.crowdstrike.com/en-us/">CrowdStrike</a> update that caused global chaos earlier this month. There are many <a href="https://cheriot.org/security/philosophy/2024/07/19/crowdstrike-is-the-opposite-of-cheriot.html">great articles and blog posts</a> dissecting the event and suggesting ways to avoid a repeat. Rather than join our voice to the chorus and explain how a small change could have avoided the entire palaver, we will approach the topic more broadly.</p>

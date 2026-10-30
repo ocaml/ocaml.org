@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "anthropic"
+- "catala"
+- "cnaf"
+- "gtk"
+- "melange"
+- "ocgtk"
+- "opentelemetry-client"
+- "opentelemetry-client-cohttp-lwt"
+- "out-channel-redirect"
+- "prestations"
 ---

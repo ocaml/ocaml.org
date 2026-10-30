@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "codecs"
+- "day"
+- "enc"
+- "host"
+- "polymorphic variant"
+- "ptime"
+- "toml"
+- "tomlt"
+- "yamlt"
 ---

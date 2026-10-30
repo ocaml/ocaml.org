@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "block"
+- "blocked"
+- "blocklists"
+- "dns"
+- "dnsvizor"
+- "domain"
+- "domains"
+- "mirageos"
+- "parser"
+- "resolver"
 ---
 
 DNSvizor is extended to support blocking (malicious) domains.

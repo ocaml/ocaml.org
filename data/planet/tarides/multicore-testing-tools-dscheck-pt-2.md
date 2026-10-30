@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/2a97b296e84c067e346ff826cce2b2ee/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "atomic"
+- "barrier"
+- "counter"
+- "domain"
+- "dscheck"
+- "interleavings"
+- "multicore"
+- "obstruction-free"
+- "parallelism"
+- "spawn"
 ---
 
 <p>Welcome to part two! If you haven't already, check out <a href="https://tarides.com/blog/2024-02-14-multicore-testing-tools-dscheck-pt-1/">part one</a>, where we introduce DSCheck and share one of its uses in a naive counter implementation. This post will give you a behind-the-scenes look at how DSCheck works its magic, including the theory behind it and how to write a test for our naive counter implementation example. We&rsquo;ll conclude by going a bit further, showing you how DSCheck can be used to check otherwise hard-to-prove properties in the <a href="https://github.com/ocaml-multicore/saturn">Saturn</a> library.</p>

@@ -11,4 +11,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "cdk"
+- "cold"
+- "concurrency"
+- "garbage collection"
+- "immutability"
+- "multicore"
+- "rust"
+- "serverless"
+- "sst"
+- "typescript"
 ---

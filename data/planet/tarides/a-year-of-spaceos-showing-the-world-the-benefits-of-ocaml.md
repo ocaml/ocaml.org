@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/254115147e699f8648c3f0bdcf5df536/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "congress"
+- "functional programming"
+- "india"
+- "iot"
+- "iotshow"
+- "mirageos"
+- "satellites"
+- "space"
+- "spaceos"
+- "unikernel"
 ---
     
 <p>I have had the pleasure of attending some great conferences over the past year, where I have presented some of the latest and most exciting OCaml use cases developed at Tarides. With our new <a href="https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos/">SpaceOS</a> solution, Tarides can provide significant quality-of-life upgrades for industries that rely on satellites to power their critical infrastructure. In this post, I&rsquo;ll share the best parts of my experience at the different conferences along with my key takeaways.</p>

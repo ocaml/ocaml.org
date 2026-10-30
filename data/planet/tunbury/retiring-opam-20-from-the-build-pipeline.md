@@ -12,4 +12,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "ca-certs"
+- "docker-base-images"
+- "glpk"
+- "ocaml-ci"
+- "ocurrent"
+- "opam"
+- "opam-build"
+- "opam_version"
+- "timed"
+- "v2_0"
 ---

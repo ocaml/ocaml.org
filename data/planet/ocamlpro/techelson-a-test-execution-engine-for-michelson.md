@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Adrien Champion\n  "
 source:
+keywords:
+- "alt-ergo"
+- "compiler"
+- "dune"
+- "engine"
+- "flambda"
+- "flambda2"
+- "liquidity"
+- "michelson"
+- "opam"
+- "techelson"
 ---
 
 <p>We are pleased to announce the first release of <a href="https://ocamlpro.github.io/techelson/">Techelson,</a> available <a href="https://github.com/OCamlPro/techelson/releases/tag/v0.7.0">here</a>.</p>

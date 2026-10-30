@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "continuation"
+- "donations"
+- "income"
+- "invoiced"
+- "ngi"
+- "nitrokey"
+- "received"
+- "robur"
+- "total"
+- "unikernel"
 ---
 
 How we organise as a collective, and why we're doing that.

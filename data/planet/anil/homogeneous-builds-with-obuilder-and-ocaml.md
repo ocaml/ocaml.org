@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "allsopp"
+- "builds"
+- "david"
+- "homogeneous"
+- "mcgilchrist"
+- "obuilder"
+- "ocaml-ci"
+- "ocurrent"
+- "powering"
+- "tim"
 ---
 
 <p>Paper on our incremental computation DSL ocurrent presented in OCaml Workshop 2022</p>

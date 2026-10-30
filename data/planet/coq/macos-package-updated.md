@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "coq"
+- "coq-8"
+- "coqide"
+- "crashes"
+- "dmg"
+- "frequent"
+- "installer"
+- "macos"
+- "outdated"
+- "updated"
 ---
 
 

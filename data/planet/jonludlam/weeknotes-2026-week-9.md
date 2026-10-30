@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "demo"
+- "frp"
+- "interactions"
+- "leaflet"
+- "monorepo"
+- "mutables"
+- "odoc"
+- "proof-of-concept"
+- "terse"
+- "writing"
 ---

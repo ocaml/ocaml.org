@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "application"
+- "associativity"
+- "batteries"
+- "composition"
+- "inverted"
+- "operator"
+- "operators"
+- "precedence"
+- "prelude"
+- "succ"
 ---
 
 <div>

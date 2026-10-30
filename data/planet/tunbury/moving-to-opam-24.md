@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base"
+- "caelum"
+- "images"
+- "obuilder"
+- "ocaml-ci"
+- "ocaml-dockerfile"
+- "ocurrent"
+- "opam"
+- "openbsd"
+- "unattended"
 ---
 
 <p><a href="https://opam.ocaml.org/blog/opam-2-4-0/">opam 2.4.0</a> was released on 18th July followed by <a href="https://opam.ocaml.org/blog/opam-2-4-1/">opam 2.4.1</a> a few days later. This update needs to be propagated through the CI infrastructure.  The first step is to update the base images for each OS.</p>

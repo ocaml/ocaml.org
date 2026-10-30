@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "atom"
+- "ecology"
+- "eio"
+- "feed"
+- "feedburner"
+- "feeds"
+- "fetching"
+- "syndic"
+- "tuatara"
 ---

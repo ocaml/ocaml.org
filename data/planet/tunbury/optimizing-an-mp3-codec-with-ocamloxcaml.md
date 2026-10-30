@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "fifteen"
+- "game"
+- "js_of_ocaml"
+- "numbered"
+- "numberphile"
+- "oxcaml"
+- "player"
+- "sparks"
+- "tic-tac-toe"
+- "tiles"
 ---

@@ -6,6 +6,17 @@ date: 2016-11-17T00:00:00-00:00
 preview_image:
 authors:
 - Thomas Gazagnaire
+keywords:
+- "datastore"
+- "file-system"
+- "fsevents"
+- "git"
+- "inotify"
+- "irmin"
+- "opam"
+- "osx"
+- "portable"
+- "watches"
 ---
 
 

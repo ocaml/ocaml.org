@@ -14,6 +14,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "GADT"
+- "functional programming"
+- "iter"
+- "js_of_ocaml"
+- "merlin"
+- "ocp-indent"
+- "ocp-index"
+- "pattern matching"
+- "scilab"
+- "wxwidgets"
 ---
 
 <p>It is time to give a brief summary of our recent activities. As usual, our contributions were focused on three main objectives:</p>

@@ -15,6 +15,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "bin"
+- "byte"
+- "dra"
+- "exe"
+- "lib-unix"
+- "marple"
+- "mnemonics"
+- "ocamlc"
+- "ocamlrun"
+- "runtime-launch-info"
 ---
 
 <p>While comfort-watching the indomitable <a href="https://en.wikipedia.org/wiki/Joan_Hickson">Joan Hickson</a>

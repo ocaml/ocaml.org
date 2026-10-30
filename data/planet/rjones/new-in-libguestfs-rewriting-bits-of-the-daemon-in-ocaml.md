@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "apis"
+- "bitshift"
+- "case_sensitive_path"
+- "daemon"
+- "diagram"
+- "kvm"
+- "libguestfs"
+- "litter"
+- "process"
+- "rpc"
 ---
 
 <p><a href="http://libguestfs.org/">libguestfs</a> is a C library for creating and editing disk images.  In the most common (but not the only) configuration, it uses KVM to sandbox access to disk images.  The C library talks to a separate daemon running inside a KVM appliance, as in this Unicode-art diagram taken from the <a href="http://libguestfs.org/guestfs-internals.1.html#architecture">fine manual</a>:</p>

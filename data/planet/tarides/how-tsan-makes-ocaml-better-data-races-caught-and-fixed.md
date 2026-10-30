@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/d94062a4cb43502f6ca9bc8f4f151e21/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "data"
+- "domain"
+- "garbage"
+- "garbage collection"
+- "memory"
+- "multicore"
+- "race"
+- "races"
+- "runtime"
+- "tsan"
 ---
 
 <p>Parallel programming opens up brand-new possibilities. Using multiple cores means that users can benefit from powerful OCaml features (like formal proofs and high security) while enjoying greater performance, enabling them to <a href="https://tarides.com/blog/2022-12-20-how-nomadic-labs-used-multicore-processing-to-create-a-faster-blockchain/">improve their services or projects</a>.</p>

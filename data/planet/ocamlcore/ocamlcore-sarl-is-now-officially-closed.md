@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "closed"
+- "company"
+- "functional programming"
+- "gall"
+- "ocamlcore"
+- "officially"
+- "parallelism"
+- "sarl"
+- "trackback"
+- "website"
 ---
 
 <p>As I have announced <a href="http://forge.ocamlcore.org/forum/forum.php?forum_id=811">2 years ago</a>, I decided to move to a new company and to take new challenges. The website, www.ocamlcore.com, will soon be converted to a static website. As announced, this change will <strong>not</strong> affect at all the community services offered through ocamlcore.org (especially forge.ocamlcore.org), except that we will migrate to .ocaml.org DNS (soon) but we will keep the old DNS as well with some redirect.</p>

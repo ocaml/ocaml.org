@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "bound"
+- "callee"
+- "callee-side"
+- "caller"
+- "caller-side"
+- "curried"
+- "invocation"
+- "reasoning"
+- "style"
+- "styles"
 ---
 
 

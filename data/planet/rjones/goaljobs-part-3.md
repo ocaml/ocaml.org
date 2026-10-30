@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "complete"
+- "fedora"
+- "goal"
+- "goaljobs"
+- "key"
+- "koji"
+- "koji_build_state"
+- "querying"
+- "rebuild"
+- "targets"
 ---
 
 <p>In <a href="https://rwmj.wordpress.com/2013/09/20/goaljobs-part-2/">part 2</a> I introduced an example goaljobs script that can rebuild a set of packages in Fedora in the right order.</p>

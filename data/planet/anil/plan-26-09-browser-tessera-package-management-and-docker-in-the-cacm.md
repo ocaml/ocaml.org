@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "cacm"
+- "docker"
+- "effect"
+- "food"
+- "foreign function interface"
+- "odoc"
+- "semver"
+- "streaming"
+- "tessera"
+- "zarr"
 ---

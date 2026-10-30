@@ -8,6 +8,17 @@ preview_image: //2.bp.blogspot.com/-A6Z4RA27kWk/UjDl4WuVIPI/AAAAAAAAACw/ZF3IJfPd
 authors:
 - Tony Tavener
 source:
+keywords:
+- "controls"
+- "functional programming"
+- "game"
+- "games"
+- "immutability"
+- "in-place"
+- "iter"
+- "lasttime"
+- "magic"
+- "mainloop"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

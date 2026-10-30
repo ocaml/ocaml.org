@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "angstrom"
+- "calculus"
+- "company_id"
+- "expr_p"
+- "lam"
+- "lambda"
+- "parens_p"
+- "pattern matching"
+- "programmer-friendly"
+- "var"
 ---
 
 Brief intro to Lambda Calculus

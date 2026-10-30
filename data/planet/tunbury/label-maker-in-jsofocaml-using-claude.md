@@ -12,6 +12,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bin"
+- "claude"
+- "dune"
+- "iter"
+- "js_of_ocaml"
+- "label"
+- "label-maker-js"
+- "label_maker"
+- "object"
+- "safari"
 ---
 
 <p>I’ve taken a few days off, and while I’ve been travelling, I’ve been working on a personal project with Claude. I’ve used Claude Code for the first time, which is a much more powerful experience than using <a href="https://claude.ai">claude.ai</a> as Claude can apply changes to the code and use your build tools directly to quickly iterate on a problem. In another first, I used <code class="language-plaintext highlighter-rouge">js_of_ocaml</code>, which has been awesome.</p>

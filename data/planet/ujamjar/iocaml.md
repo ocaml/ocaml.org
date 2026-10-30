@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "formula"
+- "iocaml"
+- "ipython"
+- "manner"
+- "markdown"
+- "mathjax"
+- "media"
+- "notebook"
+- "possibility"
+- "repl"
 ---
 
 <p>IOCaml is an OCaml kernel for the IPython notebook. This provides a REPL 

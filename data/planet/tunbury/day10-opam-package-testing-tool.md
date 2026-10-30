@@ -12,4 +12,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "day10"
+- "fmt"
+- "lwt"
+- "nproc"
+- "ocurrent"
+- "opam"
+- "opampackage"
+- "package"
+- "packages"
+- "parallelism"
 ---

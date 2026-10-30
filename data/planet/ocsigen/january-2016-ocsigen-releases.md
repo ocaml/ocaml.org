@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen team
 source:
+keywords:
+- "camlp4-based"
+- "compiler"
+- "eliom"
+- "js_of_ocaml"
+- "lwt"
+- "ocsigen"
+- "ppx"
+- "ppx_deriving"
+- "reactive"
+- "reactivedata"
 ---
 
 <p>We are excited to announce the releases of</p>

@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "background-color"
+- "btn"
+- "cascade"
+- "color"
+- "css"
+- "hex"
+- "js_of_ocaml"
+- "parser"
+- "tailwind"
+- "unikernel"
 ---

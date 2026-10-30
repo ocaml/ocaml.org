@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Etienne Millon
 source:
+keywords:
+- "afl"
+- "ast"
+- "crashes"
+- "crowbar"
+- "formatting"
+- "fuzzing"
+- "ocamlformat"
+- "ppx_import"
+- "program"
+- "programs"
 ---
     
 <p><em>This article has been first published on the <a href="https://tarides.com/blog/2020-08-03-fuzzing-ocamlformat-with-afl-and-crowbar/">Tarides blog</a>.</em></p>

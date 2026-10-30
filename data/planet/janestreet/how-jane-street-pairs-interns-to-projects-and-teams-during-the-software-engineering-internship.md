@@ -10,6 +10,17 @@ preview_image: https://blog.janestreet.com/project-pairing/NewProjectPairing.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "intern"
+- "interns"
+- "internship"
+- "jane"
+- "ppx"
+- "preferences"
+- "projects"
+- "street"
+- "teams"
 ---
 
 <p>Software engineering intern candidates often ask how team placement

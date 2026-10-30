@@ -17,4 +17,15 @@ authors:
 - Sadiq Jaffer
 source:
 ignore:
+keywords:
+- "committee"
+- "icfp"
+- "merlin"
+- "onward"
+- "oopsla"
+- "organizing"
+- "program"
+- "sas"
+- "splash"
+- "steering"
 ---

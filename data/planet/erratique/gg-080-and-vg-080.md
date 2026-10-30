@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "codec"
+- "concurrency"
+- "declarative"
+- "graphics"
+- "non-blocking"
+- "opengl"
+- "parser"
+- "streaming"
+- "thin"
+- "unicode"
 ---
 
 <p>First release of Gg and Vg. Thanks to <a href="http://www.xenproject.org/developers/teams/xapi.html">Citrix Systems R&amp;D</a> and <a href="http://ocamllabs.io">OCaml Labs</a> for sponsoring this work.</p>

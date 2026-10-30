@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "belt"
+- "compiler"
+- "deriving"
+- "dune"
+- "foreign function interface"
+- "mel"
+- "melange"
+- "merlin"
+- "parser"
+- "ppx"
 ---
 
 <p>We are excited to announce the release of <a href="https://github.com/melange-re/melange/releases/tag/3.0.0-51" target="_blank" rel="noreferrer">Melange

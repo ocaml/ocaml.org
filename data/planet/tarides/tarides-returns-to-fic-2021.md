@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/b65b5b10c49eebfc82b9e474d0d5ffe8/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "booth"
+- "collaborative"
+- "collective"
+- "cooperation"
+- "cybersecurity"
+- "fic"
+- "representatives"
+- "secure"
+- "stakeholder"
+- "tarides"
 ---
 
 <p>Last year, Tarides had the honour of winning the &ldquo;Coup de Coeur&rdquo; Startup Award

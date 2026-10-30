@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Mike McClurg
 source:
+keywords:
+- "formatting"
+- "hresume"
+- "job"
+- "microformats"
+- "overkill"
+- "plugin"
+- "resume"
+- "resumes"
+- "word"
+- "xml"
 ---
 
 <p>I hate writing resumes because there are no good tools for the job. I would prefer to use an open source word processor, such as Open Office, but companies often ask for MS Word format, which OO doesn&rsquo;t do particularly well. I&rsquo;ve thought about LaTeX, but unless you&rsquo;re doing a lot of math that&rsquo;s kind of overkill. Besides, I want to be able to keep the content of my resume separate from the formatting of the resume. I also want good revision control, and I want to be able to select content for my resume based on the particular job I&rsquo;m applying for (such as leaving off my DoD clearance from non-DoD job applications).</p>

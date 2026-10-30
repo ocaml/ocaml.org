@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "functional programming"
+- "functor"
+- "js_of_ocaml"
+- "loop"
+- "month"
+- "multicore"
+- "nsis"
+- "ocaml-top"
+- "profiling"
+- "web-ide"
 ---
 
 <p>Once again, here is the summary of our activities for last month. The highlight this month is the release of <a href="http://www.typerex.org/ocaml-top.html">ocaml-top</a>, an interactive editor for education which works well under Windows and that we hope professors all around the world will use to teach OCaml to their students. We are also continuying our work on the improvement of the performance of OCaml, with new inlining heuristics in the compiler and adding multicore support to the runtime.</p>

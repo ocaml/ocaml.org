@@ -14,6 +14,17 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "boolean-returning"
+- "combinators"
+- "compose"
+- "const"
+- "flip"
+- "fun"
+- "functional programming"
+- "negate"
+- "result"
+- "stdlib"
 ---
 
 <p>When I started to play with OCaml I was kind of surprised that there was no

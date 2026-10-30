@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/og_image_ocp_the_art_of_prog.png
 authors:
 - "\n    Raja Boujbel - OCamlPro\n  "
 source:
+keywords:
+- "curl"
+- "extra-files"
+- "glpk"
+- "listed"
+- "opam"
+- "packages"
+- "release"
+- "submodules"
+- "switch"
+- "upgrade"
 ---
 
 <p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-3-0-is-out/15609">Discuss</a>!</em></p>

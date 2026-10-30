@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "obuilder"
+- "ocurrent"
+- "opam"
+- "openbsd"
+- "qemu"
+- "tar"
+- "tls"
+- "tls-async"
+- "tls-lwt"
+- "worker"
 ---

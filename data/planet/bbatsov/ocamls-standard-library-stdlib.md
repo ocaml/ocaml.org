@@ -13,6 +13,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "domain"
+- "effect"
+- "library"
+- "listlabels"
+- "mutex"
+- "seq"
+- "standard"
+- "stdlib"
+- "uchar"
+- "utop"
 ---
 
 <p>Every programming language comes with some “batteries” included -

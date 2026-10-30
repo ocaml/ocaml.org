@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "aead"
+- "ciphers"
+- "cryptographic"
+- "lwt"
+- "mirageos"
+- "miragevpn"
+- "namely"
+- "ncp"
+- "openvpn"
+- "tls"
 ---
 
 How we resurrected MirageVPN from its bitrot state

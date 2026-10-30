@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/notafs-spaceos-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "block"
+- "blocks"
+- "copy-on-write"
+- "disk"
+- "garbage collection"
+- "irmin"
+- "irmin-pack"
+- "mirageos"
+- "notafs"
+- "queue"
 ---
 
 <p>In part one of our series on Notafs, we outlined the motivations and challenges behind creating a file system for <a href="https://mirage.io/docs/overview-of-mirage">MirageOS</a> tailored to the <a href="https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos/">SpaceOS</a> use case of storing large files on disk in satellites. Furthermore, Notafs can be used to run the <code>irmin-pack</code> backend of Irmin, which, in turn, provides users with an amazing file system for their MirageOS projects.</p>

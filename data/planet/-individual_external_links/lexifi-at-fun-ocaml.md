@@ -9,4 +9,15 @@ authors:
 source:
   name: "LexiFi blog"
   url: https://www.lexifi.com/blog/ocaml
+keywords:
+- "compiler"
+- "gen_js_api"
+- "goodwill"
+- "hands-on"
+- "impeccable"
+- "lexifi"
+- "parallelism"
+- "ppx"
+- "reflection"
+- "workshop"
 ---

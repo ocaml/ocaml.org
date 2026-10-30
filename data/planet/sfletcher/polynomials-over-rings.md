@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "coeff"
+- "equal"
+- "extern_t"
+- "functor"
+- "monomial"
+- "mul"
+- "polynomial"
+- "polynomials"
+- "ring"
+- "rings"
 ---
 
 

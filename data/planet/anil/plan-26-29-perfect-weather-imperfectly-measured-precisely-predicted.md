@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "arxiv"
+- "downscaling"
+- "eio"
+- "energy"
+- "evidence"
+- "metlog"
+- "sensors"
+- "tessera"
+- "tty"
+- "weather"
 ---

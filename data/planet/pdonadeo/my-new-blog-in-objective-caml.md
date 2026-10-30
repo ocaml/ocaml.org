@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "apache"
+- "camltemplate"
+- "eliom"
+- "fastcgi"
+- "geer"
+- "lwt"
+- "mauricio"
+- "ocamlnet"
+- "ocsigen"
+- "parser"
 ---
 
 <div><p class="noindent">More than a year ago I decided to dismiss my Wordpress blog, and to write a new one from scratch in OCaml. Unfortunately my spare time for programming projects is getting less and less, so this simple work took a lot of time to reach an usable state.</p>

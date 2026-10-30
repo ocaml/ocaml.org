@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/eeb13afbb9190097a8d04be9e1361642/6b50e
 authors:
 - Tarides
 source:
+keywords:
+- "api"
+- "block"
+- "compressor"
+- "decoder"
+- "decompress"
+- "encoder"
+- "flush"
+- "huffman"
+- "queue"
+- "zlib"
 ---
 
 <p><a href="https://tools.ietf.org/html/rfc1951">RFC 1951</a> is one of the most used standards. Indeed,

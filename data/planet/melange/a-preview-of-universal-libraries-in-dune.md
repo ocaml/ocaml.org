@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "OCaml LSP"
+- "context_name"
+- "copy_files"
+- "dune"
+- "enabled_if"
+- "libraries"
+- "melange"
+- "merlin"
+- "reason-react"
+- "server-reason-react"
 ---
 
 <p>I recently shared a <a href="https://melange.re/blog/whats-2024-brought-to-melange-so-far.html">2024 progress

@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "bash"
+- "bin"
+- "echo"
+- "exit"
+- "functional programming"
+- "ppx"
+- "script"
+- "scripts"
+- "sexp"
 ---
 
 <p>There are abundant resources online trying to scare programmers away from using

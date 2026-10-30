@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "autoconf"
+- "catched"
+- "debcamp9"
+- "debian"
+- "federated"
+- "forgot"
+- "ocaml-autoconf"
+- "ocaml-tools"
+- "package"
+- "ridicolously"
 ---
 
 <h1>ocaml-autoconf Debian packaged</h1>

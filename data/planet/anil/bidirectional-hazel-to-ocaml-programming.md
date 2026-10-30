@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "bidirectional"
+- "effect"
+- "evaluate"
+- "explore"
+- "frontend"
+- "functional programming"
+- "hazel"
+- "livelit"
+- "programming"
+- "transpiler"
 ---
 
 <h1>Bidirectional Hazel to OCaml programming</h1>

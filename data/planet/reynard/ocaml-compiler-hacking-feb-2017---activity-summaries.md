@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:
+keywords:
+- "async"
+- "ciaran"
+- "compiler"
+- "flambda"
+- "inappropriate"
+- "matt"
+- "merlin"
+- "mini-buffer"
+- "mirageos"
+- "monad"
 ---
 
 <p>Thanks to everyone who joined us for a relaxed but productive evening of <a href="https://ocamllabs.github.io/compiler-hacking/">OCaml compiler hacking</a> on Tuesday 7th February. We focussed on fixing bugs and tidying up documentation during this session, and we had a high proportion of people who are relatively new to OCaml getting stuck into the internals.</p>

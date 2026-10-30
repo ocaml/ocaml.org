@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "defun"
+- "lambda"
+- "load-path"
+- "lwt"
+- "monad"
+- "ppx"
+- "query"
+- "region-or-symbol-at-point"
+- "searching"
 ---
 
 <p>Here&rsquo;s another tip for taming your Emacs config. In particular, how to search

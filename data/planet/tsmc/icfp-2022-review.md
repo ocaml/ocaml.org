@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "cabal"
+- "effect"
+- "haskell"
+- "icfp"
+- "implementors"
+- "koka"
+- "lockfree"
+- "mcgilchrist"
+- "reagents"
+- "tim"
 ---

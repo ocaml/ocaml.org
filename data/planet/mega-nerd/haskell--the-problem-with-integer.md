@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "bsd"
+- "ghc"
+- "haskell"
+- "integer"
+- "integer-gmp"
+- "integer-simple"
+- "lgpl"
+- "libgmp"
+- "licensed"
+- "linking"
 ---
 
 

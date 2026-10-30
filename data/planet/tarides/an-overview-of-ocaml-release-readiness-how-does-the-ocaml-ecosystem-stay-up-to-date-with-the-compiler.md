@@ -91,4 +91,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "ast"
+- "compiler"
+- "cppo"
+- "merlin"
+- "ocamlformat"
+- "odoc"
+- "parser"
+- "readiness"
+- "release"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/4123dfc5b00bfca3183c9f29a639a40f/7d5a2
 authors:
 - Tarides
 source:
+keywords:
+- "GADT"
+- "command"
+- "destruct"
+- "exhaustive"
+- "merlin"
+- "ocamlformat"
+- "pattern"
+- "ppx_compare"
+- "type inference"
+- "wildcard"
 ---
 
 <p>The Merlin server and OCaml LSP server, two closely related OCaml language

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "braun"
+- "compare"
+- "february"
+- "january"
+- "july"
+- "monad"
+- "november"
+- "october"
+- "rep"
+- "trees"
 ---
 
 Revisiting the post on Braun Trees I noticed that, while pedagogical, the implementation of the root replacement operation rep can be streamlined a bit. By inlining the mutually recursive siftdown, specializing on the matches and adding guards, the result is as follows:

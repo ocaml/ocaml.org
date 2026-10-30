@@ -6,6 +6,17 @@ date: 2016-01-01T00:00:00-00:00
 preview_image:
 authors:
 - Hannes Mehnert
+keywords:
+- "devel"
+- "everybody"
+- "hack"
+- "marrakech"
+- "mirageos"
+- "morocco"
+- "motivated"
+- "retreat"
+- "till"
+- "unikernel"
 ---
 
 

@@ -6,6 +6,17 @@ date: 2015-07-22T00:00:00-00:00
 preview_image:
 authors:
 - David Kaloper
+keywords:
+- "entropy"
+- "outputs"
+- "prng"
+- "random"
+- "randomness"
+- "rng"
+- "secret"
+- "sequence"
+- "unpredictability"
+- "unpredictable"
 ---
 
 

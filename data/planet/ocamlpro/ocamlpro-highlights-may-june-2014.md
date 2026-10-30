@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "backward"
+- "bytes"
+- "compiler"
+- "necessarilly"
+- "opam"
+- "opam-repository"
+- "ppx"
+- "scilab"
+- "smt2"
+- "stringcompat"
 ---
 
 <p>Here is a short report on some of our public activities in May and June 2014.</p>

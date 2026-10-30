@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "absolute"
+- "bashrc"
+- "curl"
+- "fmlib"
+- "mlfront"
+- "news"
+- "nuking"
+- "odoc"
+- "opam"
+- "parser"
 ---

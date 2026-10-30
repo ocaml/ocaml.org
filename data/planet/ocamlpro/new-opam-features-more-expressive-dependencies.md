@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "alcotest"
+- "datakit"
+- "datakit-client"
+- "datakit-github"
+- "datakit-server"
+- "dependencies"
+- "ocaml-version"
+- "opam"
+- "pkg"
+- "with-test"
 ---
 
 <p>This blog will cover yet another aspect of the improvements opam 2.0 has over opam 1.2. I may be a little more technical than previous issues, as it covers a feature directed specifically at packagers and repository maintainers, and regarding the package definition format.</p>

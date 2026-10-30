@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base"
+- "dune"
+- "freebsd"
+- "fstab"
+- "home"
+- "nullfs"
+- "opam"
+- "opam-repository"
+- "temp-2b9f69"
+- "unionfs"
 ---
 
 <p>FreeBSD Jails provide isolated system containers that are perfect for CI testing. Miod <a href="https://tarides.com/blog/2023-10-04-porting-obuilder-to-freebsd/">ported OBuilder</a> to FreeBSD back in 2023. I have been looking at some different approaches using unionfs.</p>

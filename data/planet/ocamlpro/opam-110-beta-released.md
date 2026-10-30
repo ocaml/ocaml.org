@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:
+keywords:
+- "compiler"
+- "config"
+- "functor"
+- "http"
+- "ocaml-version"
+- "opam"
+- "opam-client"
+- "ppa"
+- "search"
+- "shell"
 ---
 
 <p>We are very happy to announce the <strong>beta release</strong> of OPAM version 1.1.0!</p>

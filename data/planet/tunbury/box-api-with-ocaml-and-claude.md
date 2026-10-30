@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "box"
+- "claude"
+- "cohttp"
+- "content_type"
+- "curl"
+- "dream"
+- "field"
+- "header"
+- "opam"
+- "parser"
 ---
 
 <p>Over the weekend, I decided to extend my <a href="https://box.com">Box</a> <a href="https://github.com/mtelvers/ocaml-box-diff">tool</a> to incorporate file upload. There is a straightforward POST API for this with a <code class="language-plaintext highlighter-rouge">curl</code> one-liner given in the Box <a href="https://developer.box.com/reference/post-files-content/">documentation</a>. Easy.</p>

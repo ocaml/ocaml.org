@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/a71f075f9953971ee0f14a65da5293a6/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "bar"
+- "documentation"
+- "engine"
+- "improvements"
+- "integration"
+- "odoc"
+- "opam"
+- "search"
+- "sherlodoc"
+- "tailoring"
 ---
 
 <p>In the world of OCaml documentation generation, there have been two significant enhancements that promise to make navigating OCaml documentation easier and more efficient. These improvements are divided into two distinct but interrelated components: changes in <code>odoc</code> itself and improvements in a search engine known as Sherlodoc.</p>

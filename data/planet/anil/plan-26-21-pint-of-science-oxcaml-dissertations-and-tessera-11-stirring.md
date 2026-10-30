@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "arxiv"
+- "bbc"
+- "eio"
+- "itv"
+- "oli"
+- "oxcaml"
+- "pint"
+- "sadiq"
+- "science"
+- "tessera"
 ---

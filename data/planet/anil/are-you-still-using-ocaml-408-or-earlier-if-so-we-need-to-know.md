@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "burgeoning"
+- "compiler"
+- "docker"
+- "earlier"
+- "hub"
+- "images"
+- "infrastructure"
+- "opam"
+- "per-tag"
+- "pushing"
 ---
 
 <p>I started pushing OCaml Docker images over to the <a href="https://hub.docker.com/r/ocaml/opam">Docker Hub</a> in around 2017, to support the burgeoning automated build infrastructure around the use of the language. Back then, OCaml 4.06 was the latest release, and so I wrote an <a href="https://github.com/ocurrent/ocaml-version/blob/master/CHANGES.md">ocaml-version</a> library to track the release metadata. It has been a bit of a success disaster, as that library now <a href="https://github.com/ocurrent/ocaml-version/blob/master/CHANGES.md">tracks</a> every release of OCaml in the modern era, and also backs the <a href="https://github.com/ocurrent/docker-base-images">automatic building</a> of a huge array of compiler versions and variants across <a href="https://images.ci.ocaml.org/?distro=debian-12&amp;">Linux</a> and <a href="https://images.ci.ocaml.org/?distro=windows-msvc&amp;">Windows</a>.</p>

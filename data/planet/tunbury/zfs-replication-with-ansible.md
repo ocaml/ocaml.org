@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "agent-based"
+- "ansible"
+- "ansible-based"
+- "keys"
+- "one-per-dataset"
+- "picture"
+- "replication"
+- "sanoid"
+- "yaml"
+- "zfs"
 ---
 
 <p>Rather than using the agent-based approach proposed yesterday, it’s worth considering an Ansible-based solution instead.</p>

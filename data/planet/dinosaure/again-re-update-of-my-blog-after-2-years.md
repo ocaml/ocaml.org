@@ -7,6 +7,10 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "about"
+- "abyme"
+- "setting"
 ---
 
 A setting in abyme about this blog!

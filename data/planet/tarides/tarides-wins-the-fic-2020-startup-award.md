@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/4b2c873a5b60b4a310ecfeda07bf8d58/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "award"
+- "ceis"
+- "commending"
+- "cybersecurity"
+- "european"
+- "fic"
+- "forum"
+- "international"
+- "lille"
+- "mirageos"
 ---
 
 <p>We are very excited to announce that Tarides has <a href="https://www.forum-fic.com/en/home/price/the-fic-start-up-award.htm">won an

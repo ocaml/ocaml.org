@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Muriel\n  "
 source:
+keywords:
+- "alt-ergo"
+- "flambda"
+- "liquidity"
+- "ocamlpro"
+- "ocp-build"
+- "parallelism"
+- "tezos"
+- "type checker"
+- "type inference"
+- "typerex-lint"
 ---
 
 <p>Since 2017 is just over, now is probably the best time to review what happened during this hectic year at OCamlPro&hellip; Here are our big 2017 achievements, in the world of <a href="https://ocamlpro.com/blog/feed#blockchain"><strong>blockchains</strong></a> <em>(the <a href="https://ocamlpro.com/blog/feed#liquidity">Liquidity</a> smart contract language, <a href="https://ocamlpro.com/blog/feed#tezos">Tezos</a> and the Tezos ICO etc.)</em>, of <strong>OCaml</strong> (with <em><a href="https://ocamlpro.com/blog/feed#opam">OPAM</a> 2</em>, <a href="https://ocamlpro.com/blog/feed#flambda"><em>flambda</em></a> 2 etc.), and of <a href="https://ocamlpro.com/blog/feed#formalmethods"><strong>formal methods</strong></a> (<a href="https://ocamlpro.com/blog/feed#altergo"><em>Alt-Ergo</em></a> etc.)</p>

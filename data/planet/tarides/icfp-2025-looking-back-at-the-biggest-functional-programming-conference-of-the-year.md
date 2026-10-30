@@ -10,4 +10,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "blockly"
+- "concurrency"
+- "conference"
+- "eio"
+- "functional programming"
+- "icfp"
+- "merlin"
+- "programming"
+- "talks"
+- "year"
 ---

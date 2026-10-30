@@ -6,6 +6,17 @@ date: 2013-12-09T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "co-published"
+- "compiler"
+- "hardcopy"
+- "libraries"
+- "mirage"
+- "mirageos"
+- "monolithic"
+- "opam"
+- "unikernel"
+- "xen"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "anonymous"
+- "argument"
+- "arguments"
+- "average"
+- "effect"
+- "float"
+- "greet"
+- "greeting"
+- "plus_two"
+- "printf"
 ---
 
 

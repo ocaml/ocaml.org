@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "ben"
+- "compiler"
+- "dance"
+- "domain"
+- "functional programming"
+- "prolog"
+- "robot"
+- "robots"
+- "sean"
+- "sydney"
 ---
 
 

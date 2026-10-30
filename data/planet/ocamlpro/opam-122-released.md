@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "config"
+- "depext"
+- "gotovchits"
+- "induce"
+- "installation"
+- "lint"
+- "non-latest"
+- "opam"
+- "script-friendly"
+- "solver"
 ---
 
 <p><a href="https://github.com/ocaml/opam/releases/tag/1.2.2">OPAM 1.2.2</a> has just been

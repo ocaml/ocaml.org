@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/chrome-extensions-finding-the-missing
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "certificate"
+- "chrome"
+- "crx"
+- "extension"
+- "extensions"
+- "hostname"
+- "my_host"
+- "pam_namespace"
+- "policies"
+- "sshd"
 ---
 
 <p>Web browsers have supported custom

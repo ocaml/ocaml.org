@@ -11,6 +11,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "base_types"
+- "bytecomp"
+- "driver"
+- "flambda"
+- "lambda"
+- "middle_end"
+- "mli"
+- "parsing"
+- "typing"
+- "utils"
 ---
 
 <p>Continuing the <a href="https://www.dra27.uk/blog/platform/2025/09/17/late-to-the-party.html">previous theme</a>

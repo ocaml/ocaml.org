@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "apple"
+- "base-bigarray"
+- "base-domains"
+- "base-effects"
+- "base-threads"
+- "base-unix"
+- "container"
+- "framework"
+- "macos"
+- "opam-depext"
 ---
 
 <p>Apple made a notable <a href="https://developer.apple.com/videos/play/wwdc2025/346/">announcement</a> in <a href="https://developer.apple.com/wwdc25/">WWDC 2025</a> that they've got a new containerisation framework in the new Tahoe beta. This took me right back to the early <a href="https://docs.docker.com/desktop/setup/install/mac-install/">Docker for Mac</a> days in 2016 when we <a href="https://www.docker.com/blog/docker-unikernels-open-source/">announced</a> the first mainstream use of the <a href="https://developer.apple.com/documentation/hypervisor">hypervisor framework</a>, so I couldn't resist taking a quick peek under the hood.</p>

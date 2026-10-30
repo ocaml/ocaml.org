@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "expression"
+- "expressions"
+- "hello"
+- "kelvin"
+- "print_endline"
+- "scope"
+- "type inference"
+- "utop"
+- "web development"
+- "world"
 ---
 
 

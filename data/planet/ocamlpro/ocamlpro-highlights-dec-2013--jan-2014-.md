@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "alt-ergo"
+- "core_kernel"
+- "js_of_ocaml"
+- "masm"
+- "mlp"
+- "ocamlres"
+- "ocp-cmicomp"
+- "ocp-index"
+- "ocp-ocamlres"
+- "try-ocaml"
 ---
 
 <p>Here is a short report of some of our activities in last December and January !</p>

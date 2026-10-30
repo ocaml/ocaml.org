@@ -8,4 +8,15 @@ authors:
 - Thomas Leonard
 source:
 ignore:
+keywords:
+- "connector"
+- "connectors"
+- "crtc"
+- "crtc_id"
+- "drm"
+- "fb_id"
+- "kms"
+- "plane"
+- "planes"
+- "utop"
 ---

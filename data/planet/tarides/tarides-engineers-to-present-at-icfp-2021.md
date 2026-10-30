@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/3ffd2661c6cd98ccc55ced480bc5e65a/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "async"
+- "effect"
+- "eio"
+- "engineers"
+- "lwt"
+- "monad"
+- "multicore"
+- "ocurrent"
+- "parallelism"
+- "tarides"
 ---
 
 <p>This year marks the 25th anniversary of the OCaml Language! It's an exciting

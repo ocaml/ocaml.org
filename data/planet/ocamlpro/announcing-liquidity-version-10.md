@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Alain Mebsout\n  "
 source:
+keywords:
+- "contract"
+- "contracts"
+- "entry"
+- "liquidity"
+- "ops"
+- "parameter"
+- "pattern matching"
+- "points"
+- "smart"
+- "type inference"
 ---
 
 <h1>Liquidity version 1.0</h1>

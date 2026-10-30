@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "bugs"
+- "changes"
+- "coq"
+- "critical"
+- "fixes"
+- "inductive"
+- "patch-level"
+- "releases"
+- "selected"
+- "sort-polymorphism"
 ---
 
 

@@ -6,6 +6,17 @@ date: 2014-07-22T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "arm"
+- "cubieboard"
+- "distributed"
+- "irmin"
+- "mirageos"
+- "multicore"
+- "ocaml-tls"
+- "opam"
+- "tls"
+- "unikernel"
 ---
 
 

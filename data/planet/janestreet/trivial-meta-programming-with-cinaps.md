@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "cinaps"
+- "consts"
+- "creat"
+- "dsync"
+- "excl"
+- "int63"
+- "noalloc"
+- "noctty"
+- "nonblock"
+- "open_flags"
 ---
 
 <p>From now and then, I found myself having to write some mechanical and repetitive

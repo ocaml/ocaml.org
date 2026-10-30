@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "compiler"
+- "constraint"
+- "monad"
+- "ocamlformat"
+- "pattern"
+- "ppat_constraint"
+- "ppxlib"
+- "pvb_constraint"
+- "repr"
 ---

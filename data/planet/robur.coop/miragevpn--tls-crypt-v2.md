@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "client"
+- "hmac"
+- "key"
+- "mirageos"
+- "miragevpn"
+- "openvpn"
+- "tls"
+- "tls-crypt-v2"
+- "unikernel"
+- "vpn"
 ---
 
 How we implementated tls-crypt-v2 for miragevpn

@@ -14,6 +14,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "brain"
+- "bytecode"
+- "claude"
+- "ifdef"
+- "impressive"
+- "native"
+- "native_code"
+- "readily"
+- "runtime"
+- "testsuite"
 ---
 
 <p>I’ve been largely steering clear of the AI bandwagon up to now, mainly because

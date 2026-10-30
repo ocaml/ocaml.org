@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Unknown
 source:
+keywords:
+- "december"
+- "irmin"
+- "january"
+- "march"
+- "moanaml"
+- "ocaide"
+- "october"
+- "pretiest"
+- "resources"
+- "teaching"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

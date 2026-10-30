@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/studying-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "GADT"
+- "advanced"
+- "courses"
+- "eio"
+- "js_of_ocaml"
+- "lwt"
+- "multicore"
+- "pattern matching"
+- "type inference"
+- "web development"
 ---
 
 <p>OCaml is a valuable and powerful tool, combining performance, security, and reliability. Joining the ecosystem, community, and learning the language can help you make the most of its capabilities if you're not already familiar with it. But how can we make learning OCaml easier? As with other functional programming languages, its visibility can be limited by factors such as your educational and professional environment, or the programmers you follow. Nevertheless, the world of software development is <a href="https://tarides.com/blog/2024-03-07-a-time-for-change-our-response-to-the-white-house-cybersecurity-press-release/">increasingly recognising the strengths of functional programming</a> in general and <a href="https://tarides.com/blog/2023-12-14-ocaml-memory-safety-and-beyond/">OCaml in particular</a>.</p>

@@ -8,4 +8,15 @@ authors:
 - Gagallium
 source:
 ignore:
+keywords:
+- "angeletti"
+- "first-class module"
+- "florian"
+- "gabriel"
+- "gadt"
+- "nicolas"
+- "ojeda"
+- "review"
+- "scherer"
+- "vivien"
 ---

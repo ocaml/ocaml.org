@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "applications"
+- "bord"
+- "comment"
+- "contre-jour"
+- "few"
+- "leave"
+- "opa"
+- "renverse"
+- "web development"
+- "wordpress"
 ---
 
 <p style="text-align:justify;">A few open-source Opa applications, written by beta testers or Opa team members, have been open-sourced in the past few days. Expect a few other releases in the upcoming days/weeks:</p>

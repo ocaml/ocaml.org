@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "causalrpc"
+- "computation"
+- "craig"
+- "distributed"
+- "ferguson"
+- "framework"
+- "mirageos"
+- "prize"
+- "rpc"
+- "traceable"
 ---
 
 <h1>CausalRPC: a traceable distributed computation framework</h1>

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/91c81d9666f3e9149f6ef42a9408ac0a/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "acceleration"
+- "cyber"
+- "cybersecurity"
+- "markets"
+- "mirageos"
+- "osmose"
+- "startup"
+- "startups"
+- "station"
+- "thales"
 ---
 
 <p><em>The online world is becoming an increasingly bigger part of our everyday lives, bringing the issue of cybersecurity to the forefront of more and more minds. At Tarides we put security at the centre of everything we do, and we&rsquo;re honoured to be part of <em>Cyber@Station F</em> in 2022.</em></p>

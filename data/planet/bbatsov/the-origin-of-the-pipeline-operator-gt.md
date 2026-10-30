@@ -12,6 +12,17 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "filter"
+- "functional programming"
+- "isabelle"
+- "larry"
+- "nipkow"
+- "operator"
+- "pipe-forward"
+- "pipeline"
+- "pipes"
+- "tobias"
 ---
 
 <p>These days a lot of programming languages (especially those leaning towards functional programming)

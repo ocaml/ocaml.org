@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "disclosure"
+- "eio"
+- "embeddings"
+- "evidence"
+- "modis"
+- "oxcaml"
+- "parser"
+- "ppx"
+- "scrutineer"
+- "tessera"
 ---

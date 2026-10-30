@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/930a9e58dfb30f421390682fdf24f0db/188d7
 authors:
 - Tarides
 source:
+keywords:
+- "annual"
+- "competition"
+- "franciliennes"
+- "journees"
+- "paris"
+- "parisian"
+- "participants"
+- "sorbonne"
+- "students"
+- "tarides"
 ---
 
 <p>Tarides is proud to sponsor the 12th annual programming contest <em><a href="https://journees-franciliennes-de-programmation.org/">Journ&eacute;es Franciliennes de Programmation!</a></em> On the 31st of May 2022, students from three different Parisian universities met at La Sorbonne University to engage in some friendly but lively competition.</p>

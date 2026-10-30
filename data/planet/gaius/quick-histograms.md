@@ -9,6 +9,17 @@ preview_image: https://gaiustech.files.wordpress.com/2012/06/qh.png
 authors:
 - Gaius Hammond
 source:
+keywords:
+- "a500"
+- "c64"
+- "commodore"
+- "histogram"
+- "inexplicably"
+- "mechner"
+- "persia"
+- "poignant"
+- "quick"
+- "ste"
 ---
 
 <p>Having come back to actively working on <a href="http://gaiustech.github.com/ociml/">OCI*ML</a> recently, it&rsquo;s time I cracked on with some more features (I have been promising <a href="http://docs.oracle.com/cd/B28359_01/appdev.111/b28393/adlob_intro.htm#ADLOB001">LOBs</a> for a long time, sorry to anyone who&rsquo;s still waiting). Just to get warmed up, inspired by <a href="http://github.com/holman/spark">spark</a> I have added a quick histogram function, similar to <a href="https://gaiustech.wordpress.com/2011/05/14/ocaml-as-a-sqlplus-replacement/">quick query</a> for interactive use. This requires a query of the form of a label and a number, for example a simple view:</p>

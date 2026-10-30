@@ -10,6 +10,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "alcotest"
+- "connection"
+- "database"
+- "err"
+- "failf"
+- "migration_error_to_string"
+- "migrations"
+- "pool"
+- "stress"
+- "testing"
 ---
 
 Building a comprehensive database testing suite for Chaufr: integration tests, transaction verification, migration rollback testing, connection pool stress tests, and performance benchmarks using Alcotest, Lwt, and Caqti

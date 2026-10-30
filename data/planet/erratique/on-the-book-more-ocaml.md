@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "a-a"
+- "a1y"
+- "a2h"
+- "a4i"
+- "aa4"
+- "aa8m"
+- "abl"
+- "acy"
+- "adn"
+- "afy"
 ---
 
 <p>I eventually read through John Whitington's latest book &laquo;&nbsp;More OCaml.&nbsp;&raquo; It's again a very good one, I made a small review <a href="http://www.amazon.com/review/R7DMDHZMOKS8X">here</a>.</p>

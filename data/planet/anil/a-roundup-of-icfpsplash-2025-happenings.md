@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "eio"
+- "functional programming"
+- "hazel"
+- "icfp"
+- "madhavapeddy"
+- "oct"
+- "oxcaml"
+- "planet"
+- "post-posix"
+- "splash"
 ---

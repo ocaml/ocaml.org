@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "compiler"
+- "day10"
+- "docs"
+- "dune"
+- "odoc"
+- "opam"
+- "oxmono"
+- "prep"
+- "scrollycode"
+- "week"
 ---

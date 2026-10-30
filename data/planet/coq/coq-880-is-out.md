@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "brackets"
+- "coq"
+- "enhancements"
+- "focusing"
+- "linting"
+- "modifier"
+- "performances"
+- "selectors"
+- "tactic"
+- "universe"
 ---
 
 

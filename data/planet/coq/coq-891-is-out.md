@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "bug"
+- "coq"
+- "critical"
+- "extremely"
+- "installer"
+- "native_compute"
+- "primitive"
+- "projections"
+- "quality-of-life"
+- "shipped"
 ---
 
 

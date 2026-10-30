@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "GADT"
+- "caqti"
+- "emails"
+- "grpc"
+- "libb"
+- "maildir"
+- "polymorphic variant"
+- "ppx_mixins"
+- "sip"
+- "stk"
 ---

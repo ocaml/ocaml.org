@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "cambridge"
+- "compiler"
+- "evening"
+- "gray"
+- "hack"
+- "mirageos"
+- "ocamllabs"
+- "opam"
+- "pembroke"
+- "room"
 ---
 
 <p>Our next OCaml Compiler Hacking event will be on Thursday 7th December in The Thomas Gray Room at Pembroke College, Cambridge.</p>

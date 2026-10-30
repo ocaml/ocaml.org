@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Sebastien Mondet
 source:
+keywords:
+- "guid"
+- "merlin"
+- "mondet"
+- "node"
+- "pcdata"
+- "pub_date"
+- "rss"
+- "seb"
+- "title"
+- "tyxml"
 ---
 
 Quick OCaml hack to generate some old-school XML.

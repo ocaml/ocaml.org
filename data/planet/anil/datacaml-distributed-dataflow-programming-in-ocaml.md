@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "ciel"
+- "continuation"
+- "datacaml"
+- "delimcc"
+- "deref"
+- "distributed"
+- "opaque_ref"
+- "spawn"
+- "spawn_ref"
+- "tasks"
 ---
 
 <p>Distributed programming frameworks like

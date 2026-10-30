@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "clas"
+- "class"
+- "get_x"
+- "method"
+- "methods"
+- "new_methods_variables"
+- "object"
+- "self"
+- "slot"
+- "superclass"
 ---
 
 <p>In the <a href="http://github.com/jaked/ocamljs">ocamljs</a> project I wanted to implement the OCaml object system in a way that is interoperable with Javascript objects. Mainly I wanted to be able to call Javascript methods with the OCaml method call syntax, but it is also useful to write objects in OCaml which are callable in the usual way from Javascript.</p> 

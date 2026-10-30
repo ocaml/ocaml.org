@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "digestif"
+- "dns_forward"
+- "duration"
+- "functor"
+- "js_of_ocaml"
+- "mirage-mtime"
+- "mirage-sleep"
+- "mirageos"
+- "timeofday"
+- "vpnkit"
 ---
 
 

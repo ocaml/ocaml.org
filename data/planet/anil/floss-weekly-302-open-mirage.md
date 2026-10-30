@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "floss"
+- "functional programming"
+- "mirage"
+- "mirageos"
+- "open"
+- "phipps"
+- "randal"
+- "schwartz"
+- "simon"
+- "weekly"
 ---

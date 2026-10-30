@@ -9,4 +9,15 @@ authors:
 source:
   name: "Abongwa Bonalais"
   url: https://dev.to/burnleydev
+keywords:
+- "ast"
+- "co-interns"
+- "errors"
+- "mentor"
+- "mid-point"
+- "outreachy"
+- "progress"
+- "rewarding"
+- "rewriter"
+- "rewriting"
 ---

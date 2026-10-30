@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "cache"
+- "caches"
+- "digest"
+- "digests"
+- "directories"
+- "effect"
+- "file"
+- "omake"
+- "omakedb"
+- "timestamps"
 ---
 
 

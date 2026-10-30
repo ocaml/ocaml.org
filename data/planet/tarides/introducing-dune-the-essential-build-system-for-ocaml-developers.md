@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/a56b0f2b093434d01f3a8fe23d92e45f/29df2
 authors:
 - Tarides
 source:
+keywords:
+- "build"
+- "development"
+- "dune"
+- "highly-optimised"
+- "js_of_ocaml"
+- "melange"
+- "opam"
+- "platform"
+- "project"
+- "well-maintained"
 ---
 
 <p>One of the first tools you'll encounter when adopting OCaml is Dune, OCaml's official build system. Understanding what Dune is and how it serves you is key to crafting everything from a small project to maintaining large-scale codebases. So let's dive in! Learn how Dune makes development easier and serves as a gateway to the greater OCaml Platform.</p>

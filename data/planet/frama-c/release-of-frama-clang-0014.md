@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "clang"
+- "compatibility"
+- "compatible"
+- "compiler"
+- "frama-c"
+- "frama-clang"
+- "llvm"
+- "opam"
+- "parser"
+- "plug-in"
 ---
     
 

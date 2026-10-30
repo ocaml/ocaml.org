@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "chat_tui"
+- "fix"
+- "grace"
+- "marshal"
+- "ochat"
+- "osec-2026-01"
+- "ppx_optcomp"
+- "renderer"
+- "web development"
+- "whitesky"
 ---

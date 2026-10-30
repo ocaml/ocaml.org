@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/55823d8b8eb16538cc76ae43a2b31c53/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "concurrency"
+- "foss"
+- "garbage collection"
+- "immutability"
+- "minidebconf"
+- "multicore"
+- "parallelism"
+- "type inference"
+- "vglug"
+- "villupuram"
 ---
 
 <p><a href="https://tn23.mini.debconf.org/">MinidebConf TN 23</a> was organised by Debian Developers and Villupuram Linux Users Group (VGLUG) as a precursor to DebConf 23 in September at Kochi, India. I had an opportunity to attend and speak at MiniDebConf TN.</p>

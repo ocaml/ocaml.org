@@ -6,6 +6,17 @@ date: 2020-01-08T00:00:00-00:00
 preview_image:
 authors:
 - Damien Leloup
+keywords:
+- "activists"
+- "ccc"
+- "climate"
+- "electricity"
+- "environmental"
+- "fridays"
+- "hackers"
+- "leipzig"
+- "mirageos"
+- "power"
 ---
 
 

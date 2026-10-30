@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "ann-opentelemetry-0-92"
+- "cheerios"
+- "cwn"
+- "ids"
+- "mail"
+- "news"
+- "observability"
+- "opentelemetry"
+- "week"
+- "weekly"
 ---

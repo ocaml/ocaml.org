@@ -8,6 +8,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "functional programming"
+- "hello"
+- "multi-argument-functions"
+- "parameters"
+- "random"
+- "random_int"
+- "realworldocaml"
+- "say_hello"
+- "unit"
+- "variables-and-functions"
 ---
 
 <p>A couple of days ago I noticed on OCaml’s Discord server that someone was

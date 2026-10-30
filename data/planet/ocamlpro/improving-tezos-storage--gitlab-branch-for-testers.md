@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "context"
+- "february"
+- "garbage collection"
+- "gitlab"
+- "irontez"
+- "min"
+- "rpc"
+- "storage"
+- "tezos"
+- "tezos-node"
 ---
 
 <p>This article is the third post of a series of posts on improving Tezos

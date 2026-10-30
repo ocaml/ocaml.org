@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml Weekly News
 source:
+keywords:
+- "angstrom"
+- "arm64"
+- "ccl"
+- "cram"
+- "dose3"
+- "ocaml-variants"
+- "packages"
+- "topkg"
+- "windows-on-arm64"
+- "x-maintenance-intent"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2025.01.07.html#1">Playing with Windows on ARM64</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.01.07.html#2">Opam repository archival, Phase 1: unavailable packages</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.01.07.html#3">CCL: Categorical Configuration Language</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.01.07.html#4">Dune dev meeting</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.01.07.html#5">"Cram tests: a hidden gem of dune" and "Snapshot tests for your own ppx"</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.01.07.html#6">Other OCaml News</a></li></ol>

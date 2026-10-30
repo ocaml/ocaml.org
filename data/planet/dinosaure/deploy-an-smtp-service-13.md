@@ -7,6 +7,10 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "deploy"
+- "service"
+- "smtp"
 ---
 
 How to deploy your own SMTP service

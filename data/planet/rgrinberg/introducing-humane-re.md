@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "href"
+- "humane-re"
+- "lwt"
+- "monad"
+- "ocaml-re"
+- "ppx"
+- "regexp"
+- "str"
+- "utop"
 ---
 
 <p>OCaml is my favorite language, but one area where it (its tools rather)

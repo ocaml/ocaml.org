@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "aluminium"
+- "aorai"
+- "e-acsl"
+- "frama-c"
+- "manual"
+- "manuals"
+- "plug-in"
+- "rte"
+- "thre"
+- "v13"
 ---
 
 

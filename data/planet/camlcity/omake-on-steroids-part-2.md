@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "commands"
+- "effect"
+- "exec"
+- "fork"
+- "ocamldep-postprocess"
+- "ocamlfind"
+- "omake"
+- "pipeline"
+- "pipelines"
+- "posix_spawn"
 ---
 
 

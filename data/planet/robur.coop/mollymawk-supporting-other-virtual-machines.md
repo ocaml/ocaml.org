@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "albatross"
+- "bhyve"
+- "console"
+- "cpuid"
+- "grub-bhyve"
+- "machines"
+- "mirageos"
+- "mollymawk"
+- "unikernel"
+- "virtual"
 ---

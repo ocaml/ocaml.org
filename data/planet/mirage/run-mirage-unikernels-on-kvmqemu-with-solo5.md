@@ -6,6 +6,17 @@ date: 2016-01-07T00:00:00-00:00
 preview_image:
 authors:
 - Dan Williams
+keywords:
+- "kvm"
+- "mini-os"
+- "mirage"
+- "mirageos"
+- "paravirtualized"
+- "qemu"
+- "solo5"
+- "unikernel"
+- "unikernels"
+- "virtio"
 ---
 
 

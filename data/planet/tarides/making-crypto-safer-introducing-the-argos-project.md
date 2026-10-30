@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/cryptocurrency-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "argos"
+- "blockchain"
+- "crypto"
+- "cryptocurrency"
+- "european"
+- "financial"
+- "nations"
+- "regulations"
+- "suspicious"
+- "transactions"
 ---
 
 <p>The world of cryptocurrency and internet transactions is constantly evolving, and the changing landscape of technologies that support this growing industry often means that legislation struggles to keep up, allowing cybercriminals to exploit loopholes and take advantage of the lack of oversight. Concerted effort across the sector is necessary to address this vulnerability.</p>

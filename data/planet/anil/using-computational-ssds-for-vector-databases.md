@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "bandwidth"
+- "computational"
+- "databases"
+- "datasets"
+- "shard"
+- "ssd"
+- "ssds"
+- "sub-second"
+- "vector"
+- "vectors"
 ---
 
 <h1>Using computational SSDs for vector databases</h1>

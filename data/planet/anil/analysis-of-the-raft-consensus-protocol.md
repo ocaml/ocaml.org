@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "analysis"
+- "computerphile"
+- "consensus"
+- "constructing"
+- "functional programming"
+- "heidi"
+- "howard"
+- "non-intuitive"
+- "protocol"
+- "raft"
 ---
 
 <h1>Analysis of the Raft Consensus Protocol</h1>

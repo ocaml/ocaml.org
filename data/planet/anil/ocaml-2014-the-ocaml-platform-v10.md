@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "annual"
+- "backwards"
+- "coherent"
+- "declaring"
+- "opam"
+- "platform"
+- "production-ready"
+- "reaching"
+- "signaling"
 ---
 
 <p>Talk on the OCaml Platform reaching v1.0</p>

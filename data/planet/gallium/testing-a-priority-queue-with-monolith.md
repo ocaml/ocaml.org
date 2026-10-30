@@ -8,4 +8,15 @@ authors:
 - Gagallium
 source:
 ignore:
+keywords:
+- "candidate"
+- "inspect"
+- "key-value"
+- "monolith"
+- "pop"
+- "priority"
+- "queue"
+- "reference"
+- "singleton"
+- "spec"
 ---

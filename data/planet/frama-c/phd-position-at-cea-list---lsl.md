@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "cea"
+- "formal"
+- "formal verification"
+- "frama-c"
+- "functional programming"
+- "heuristics"
+- "learning"
+- "phd"
+- "techniques"
+- "verification"
 ---
 
 

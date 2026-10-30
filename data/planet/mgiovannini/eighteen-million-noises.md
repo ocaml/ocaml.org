@@ -8,6 +8,17 @@ preview_image: //4.bp.blogspot.com/-_jkIeBdxFl4/Tw8a0gbM0aI/AAAAAAAAASc/0yOcfsLJ
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "gustavson"
+- "niter"
+- "noise"
+- "noise2"
+- "noise3"
+- "noisep"
+- "perlin"
+- "rand"
+- "wall"
+- "width"
 ---
 
 Update: Here is the PNGPack source-code archive:

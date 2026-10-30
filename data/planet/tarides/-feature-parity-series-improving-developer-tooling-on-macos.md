@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "arm64"
+- "breakpoints"
+- "cfi"
+- "debugger"
+- "debuggers"
+- "fib"
+- "frame"
+- "gdb"
+- "lldb"
+- "macos"
 ---
 
 <p>When considering which projects to focus on, our highest priority tends to be those that restore support for tools users rely on or introduce new tools that address a compelling problem. One of those tools is the <a href="https://lldb.llvm.org/">LLDB</a> debugger, which needed some attention after the OCaml 5 update.</p>

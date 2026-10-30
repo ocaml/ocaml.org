@@ -7,6 +7,12 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "deploy"
+- "emails"
+- "receive"
+- "service"
+- "smtp"
 ---
 
 How to deploy a SMTP service to receive emails

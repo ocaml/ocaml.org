@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/71ebe0c7b3ff03df0f8cfbf681e8dad8/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "compiler"
+- "html"
+- "html-compiler-manuals"
+- "manual"
+- "manuals"
+- "middleware"
+- "ocaml-web"
+- "org"
+- "uri"
+- "urls"
 ---
 
 <p>In order to avoid long, confusing URLs on the OCaml Manual pages, we set out to create a solution that shortens these URLs, including section references, and contains the specific version. The result improves readability and user experience. This article outlines the motivation behind these changes and how we implemented them.</p>

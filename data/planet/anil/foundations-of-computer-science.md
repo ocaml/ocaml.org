@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "compiler"
+- "coursework"
+- "jupyter"
+- "jupyterlab"
+- "markdown"
+- "mdx"
+- "nbconvert"
+- "parser"
+- "ping"
+- "teaching-fcs"
 ---
 
 <p>Here are the various repos used to create the interactive <a href="https://anil.recoil.org/notes/teaching">teaching</a> environment

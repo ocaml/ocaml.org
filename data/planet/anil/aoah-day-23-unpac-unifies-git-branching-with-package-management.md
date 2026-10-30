@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "branches"
+- "ca-certs"
+- "checkseum"
+- "git"
+- "myapp"
+- "unpac"
+- "vendor"
+- "worktree"
+- "worktrees"
 ---

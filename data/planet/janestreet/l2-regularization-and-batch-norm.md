@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/l2-regularization-and-batch-norm/l2-b
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "batch"
+- "convolutional"
+- "decay"
+- "gradient"
+- "norm"
+- "penalty"
+- "rate"
+- "regularization"
+- "weight"
+- "weights"
 ---
 
 <p>This blog post is about an interesting detail about machine learning

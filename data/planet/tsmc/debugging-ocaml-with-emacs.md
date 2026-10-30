@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "c-c"
+- "dap"
+- "dap-mode"
+- "debugging"
+- "earlybird"
+- "emacs"
+- "fib"
+- "lldb"
+- "stoponentry"
+- "workspacefolder"
 ---

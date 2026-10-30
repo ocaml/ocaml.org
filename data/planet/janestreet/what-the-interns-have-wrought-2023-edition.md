@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2023/./
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "concurrency"
+- "interns"
+- "ltl"
+- "process_directory"
+- "rajeev"
+- "retail_order"
+- "retail_order_id"
+- "sasha"
+- "semyon"
+- "tokenization"
 ---
     
 <p>We&rsquo;re once again at the end of our internship season, and it&rsquo;s my task

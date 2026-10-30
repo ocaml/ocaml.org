@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "apperror"
+- "associateemail"
+- "checkusersession"
+- "email"
+- "left"
+- "pure"
+- "userid"
+- "usersession"
+- "validateusersession"
+- "withusersession"
 ---
 
 Utilising the CPS transformation for code maintainability

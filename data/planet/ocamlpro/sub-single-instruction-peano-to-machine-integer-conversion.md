@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Arthur Carcano\n  "
 source:
+keywords:
+- "discriminant"
+- "foreign function interface"
+- "into_u8"
+- "machine"
+- "peano"
+- "peano255"
+- "peanoencoder"
+- "successor"
+- "times2"
+- "zero"
 ---
 
 <p></p>

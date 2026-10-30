@@ -7,6 +7,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "graphical"
+- "hat"
+- "jones"
+- "nbdkit"
+- "red"
+- "rhel"
+- "richard"
+- "risc-v"
+- "virt-v2v"
+- "virtualization"
 ---
 
 <p><a href="http://oud.ocaml.org/2012/#schedule">http://oud.ocaml.org/2012/#schedule</a> (thanks Anil).</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "completion"
+- "courtesy"
+- "down"
+- "isc"
+- "mirror"
+- "ocp-index"
+- "opam"
+- "repl"
+- "toplevel"
+- "unintrusive"
 ---
 
 First release of <a href="https://erratique.ch/software/down">Down</a>, an unintrusive OCaml toplevel experience upgrade.

@@ -15,6 +15,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "MirageOS"
+- "art"
+- "dune"
+- "henrico"
+- "multicore"
+- "opera"
+- "perfecting"
+- "perfection"
+- "rehearsal"
+- "service"
 ---
 
 <p>Earlier this year, I returned to the <a href="https://www.cst.cam.ac.uk">Computer Laboratory</a>

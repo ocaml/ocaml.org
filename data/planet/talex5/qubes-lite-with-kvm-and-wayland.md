@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Thomas Leonard
 source:
+keywords:
+- "firefox"
+- "host"
+- "nix"
+- "nixos"
+- "sommelier"
+- "vms"
+- "wayland"
+- "window"
+- "wl_registry"
+- "wl_shm"
 ---
 
 <p>I've been running QubesOS as my main desktop since 2015.

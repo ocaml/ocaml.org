@@ -7,6 +7,12 @@ preview_image:
 authors:
 - Andy Ray
 source:
+keywords:
+- "decoder"
+- "encoder"
+- "library"
+- "reed-solomon"
+- "written"
 ---
 
 <p>A Reed-Solomon encoder and decoder library written in OCaml.</p>

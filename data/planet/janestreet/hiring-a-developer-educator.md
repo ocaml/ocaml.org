@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/hiring-a-developer-educator/teaching-
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "classes"
+- "compiler"
+- "educator"
+- "functional programming"
+- "jane"
+- "ppx"
+- "street"
+- "teaching"
+- "traders"
 ---
 
 <p>We spend a lot of time on education at Jane Street.  Like, really a

@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "authentication"
+- "blocklist"
+- "dnsvizor"
+- "domains"
+- "extended"
+- "mirageos"
+- "password"
+- "realm"
+- "username"
+- "web"
 ---
 
 

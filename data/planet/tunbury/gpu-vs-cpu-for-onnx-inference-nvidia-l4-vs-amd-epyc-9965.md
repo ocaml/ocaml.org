@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "batch"
+- "cores"
+- "cpu"
+- "gpu"
+- "nodes"
+- "numa"
+- "nvidia"
+- "onnx"
+- "pixel"
+- "slower"
 ---

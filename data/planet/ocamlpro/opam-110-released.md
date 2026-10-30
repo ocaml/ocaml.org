@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Gazagnaire\n  "
 source:
+keywords:
+- "apt-get"
+- "compiler"
+- "domain"
+- "installations"
+- "ocaml-version"
+- "opam"
+- "package"
+- "ppa"
+- "repository"
+- "shell"
 ---
 
 <p>After a while staged as RC, we are proud to announce the final release of

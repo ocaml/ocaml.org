@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/b5f991adf6571187a3269d086d32f31c/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "compaction"
+- "features"
+- "fixes"
+- "merlin"
+- "msvc"
+- "multicore"
+- "mutex"
+- "race"
+- "races"
+- "tsan"
 ---
 
 <p>There has been a new release of OCaml! The 5.2 release brings several new features, along with improvements, optimisations, and bug fixes. New features include compaction, ThreadSanitizer, and restored support for compiling to the POWER architeture on OCaml, plus other crucial changes that prepare the ground for future updates.</p>

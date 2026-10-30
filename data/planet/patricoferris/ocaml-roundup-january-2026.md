@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "dune"
+- "effect"
+- "exif"
+- "exiftool"
+- "file"
+- "patdiff"
+- "ppx"
+- "salome"
+- "strip"
+- "tiff"
 ---

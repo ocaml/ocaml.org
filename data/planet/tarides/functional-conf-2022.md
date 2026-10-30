@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/4d5420ccbe5b1f58d02f3d8dce60eb35/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "benchmarking"
+- "compiler"
+- "conf"
+- "functional"
+- "functional programming"
+- "kannan"
+- "multicore"
+- "sandmark"
+- "shakthi"
+- "sudha"
 ---
 
 <p>This year, Tarides attended the 2022 <em>Functional Conf</em> in India. Tarides&rsquo;s engineers Sudha Parimala and Shakthi Kannan gave presentations on the OCaml platform and <em>Sandmark</em>, a continuous benchmarking tool for Multicore OCaml.</p>

@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "alias"
+- "atd"
+- "dotted"
+- "eliom"
+- "import"
+- "melange"
+- "melange-str"
+- "mylib"
+- "rennes"
+- "str"
 ---

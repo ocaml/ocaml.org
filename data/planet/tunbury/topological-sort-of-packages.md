@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base-threads"
+- "base-unix"
+- "dune"
+- "empty"
+- "ocaml-config"
+- "ocaml-variants"
+- "packagemap"
+- "packageset"
+- "pkgs"
+- "topological_sort"
 ---
 
 <p>Given a list of packages and their dependencies, what order should those packages be installed in?</p>

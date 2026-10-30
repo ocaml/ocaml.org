@@ -6,6 +6,17 @@ date: 2017-04-15T00:00:00-00:00
 preview_image:
 authors:
 - Hannes Mehnert
+keywords:
+- "cryptography"
+- "hack"
+- "marrakech"
+- "mirage"
+- "mirageos"
+- "monad"
+- "ocp-index"
+- "people"
+- "retreat"
+- "year"
 ---
 
 

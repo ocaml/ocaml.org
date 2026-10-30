@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "formalizing"
+- "imitation"
+- "invisible"
+- "mathematical"
+- "mathematics"
+- "principle"
+- "qualifier"
+- "suitably"
+- "theory"
+- "unspoken"
 ---
 
 <p>I am at the <a href="http://www.ipam.ucla.edu/programs/workshops/machine-assisted-proofs/">Machine assisted proofs</a> workshop at the <a href="http://www.ipam.ucla.edu">UCLA Institute for Pure and Applied Mathematics</a>, where I am about to give a talk on &ldquo;Formalizing invisible mathematics&rdquo;.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "client-server"
+- "mobile"
+- "notifications"
+- "ocsigen"
+- "product"
+- "reasonml"
+- "rid"
+- "start"
+- "viable"
+- "web"
 ---
 
 <p>New release: Ocsigen Start 2.15</p>

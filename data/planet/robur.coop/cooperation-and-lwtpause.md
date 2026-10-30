@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "analyse_pack"
+- "arr"
+- "cooperation"
+- "functor"
+- "git_mem"
+- "lwt"
+- "monad"
+- "pause"
+- "sort0"
+- "sort1"
 ---
 
 A disgression about Lwt and Miou

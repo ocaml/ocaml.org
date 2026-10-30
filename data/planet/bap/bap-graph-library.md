@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "auto"
+- "bap"
+- "callgraph"
+- "core_kernel"
+- "dot"
+- "graphlib"
+- "main_sub"
+- "stdio"
+- "string_of_node"
+- "tid"
 ---
 
 <p>Although BAP is well-documented, its

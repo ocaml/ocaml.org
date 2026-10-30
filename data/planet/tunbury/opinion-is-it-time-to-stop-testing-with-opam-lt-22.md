@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "bin"
+- "bootstrap"
+- "ocaml-ci"
+- "opam"
+- "opam-2"
+- "opam-build-2"
+- "opam-sources"
+- "src_ext"
+- "tmp"
+- "usr"
 ---
 
 <p>On the eve of the release of opam 2.4, is it time to stop testing with opam &lt; 2.2?</p>

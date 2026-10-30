@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "aio"
+- "algebraic"
+- "continuation"
+- "effect"
+- "effect handler"
+- "effects"
+- "file_descr"
+- "handlers"
+- "inj"
+- "unit"
 ---
 
 <p>In the <a href="http://kcsrk.info/ocaml/multicore/2015/05/20/effects-multicore/">previous

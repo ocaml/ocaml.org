@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/d81c504dbb5172d29c2aa38512f1dfe3/7d5a2
 authors:
 - Tarides
 source:
+keywords:
+- "dailambda"
+- "florence"
+- "foreign function interface"
+- "irmin"
+- "irmin-pack"
+- "merkle"
+- "proofs"
+- "storage"
+- "sub-trees"
+- "tezos"
 ---
 
 <p>In collaboration with Nomadic Labs, Marigold and DaiLambda, we're happy to

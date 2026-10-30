@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "current_docker"
+- "current_git"
+- "current_incr"
+- "current_rpc"
+- "current_web"
+- "eio"
+- "lwt-dllist"
+- "ocluster-api"
+- "ocurrent"
+- "prometheus-app"
 ---

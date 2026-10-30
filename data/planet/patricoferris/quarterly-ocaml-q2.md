@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "bumping"
+- "dune"
+- "effect"
+- "eio"
+- "hazel"
+- "js_of_ocaml"
+- "outreachy"
+- "ppx"
+- "ppxlib"
+- "quarter"
 ---
 
 

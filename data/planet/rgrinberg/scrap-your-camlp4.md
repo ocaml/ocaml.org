@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "MirageOS"
+- "async"
+- "bin"
+- "camlp4"
+- "camlp4-to-ppx"
+- "dune"
+- "lwt"
+- "monad"
+- "ppx"
+- "ppxify"
 ---
 
 <p>ppx has been out for a while but it seems like the community has been

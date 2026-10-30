@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "cache"
+- "client_message"
+- "core_extended"
+- "functor"
+- "lru"
+- "monad"
+- "pattern matching"
+- "quit"
+- "resp"
+- "server_message"
 ---
 
 <p>Lately, I&rsquo;ve been messing around with Janestreet&rsquo;s core and async

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/8a1986214799abe0ac1afd6b0e0aa0e2/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "browser"
+- "client"
+- "extension"
+- "irmin"
+- "irmin-client"
+- "irmin-fs"
+- "irmin-server"
+- "model"
+- "popup"
+- "store"
 ---
     
 <p><a href="https://irmin.org">Irmin</a> is a collection of OCaml libraries that makes it easy to build applications with Git-like data stores. We <a href="https://github.com/mirage/irmin/releases/tag/3.9.0">recently released</a> <code>irmin-client</code> and <code>irmin-server</code> as official Irmin packages. These packages open up a new way to use Irmin by implementing a custom protocol that lets you write a client application that can interact with a remote data store as if it is local using the <a href="https://mirage.github.io/irmin/irmin/Irmin/module-type-S/index.html">Irmin Store API</a>.</p>

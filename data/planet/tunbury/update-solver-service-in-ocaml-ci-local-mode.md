@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "current_ocluster"
+- "f14bc6f"
+- "filter_deps"
+- "lwt_eio"
+- "ocaml-ci"
+- "ocurrent"
+- "opam-core"
+- "opam-format"
+- "opam-state"
+- "solver-service"
 ---

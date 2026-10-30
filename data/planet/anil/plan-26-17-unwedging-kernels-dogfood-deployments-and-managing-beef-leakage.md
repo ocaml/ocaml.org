@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "albertas"
+- "carbon"
+- "costs"
+- "forest"
+- "forgone"
+- "intensification"
+- "leakage"
+- "restoration"
+- "tangled"
+- "tessera"
 ---

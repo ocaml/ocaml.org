@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "graphical"
+- "hat"
+- "hostid"
+- "jones"
+- "reply"
+- "rhel"
+- "rich"
+- "risc-v"
+- "schema"
+- "type inference"
 ---
 
 <p><a href="http://pgocaml.forge.ocamlcore.org/">PG&rsquo;OCaml</a> is a type-safe macro binding to PostgreSQL from OCaml that I wrote many moons ago.</p>

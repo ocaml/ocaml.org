@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "array"
+- "bytes"
+- "char"
+- "compact_array"
+- "gadt"
+- "gadts"
+- "length"
+- "of_array"
+- "of_bytes"
+- "type inference"
 ---
 
 <p>When GADTs (<a href="http://en.wikipedia.org/wiki/Generalized_algebraic_data_type">Generalized Algebraic Data

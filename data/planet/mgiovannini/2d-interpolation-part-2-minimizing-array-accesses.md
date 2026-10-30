@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "c01"
+- "c02"
+- "c03"
+- "c11"
+- "c12"
+- "c13"
+- "c21"
+- "c22"
+- "cubic"
+- "float"
 ---
 
 Last time I massaged the interpolator to avoid computing every time the linear transformation from destination space to source space, using only integer variables. With that rewriting, it is time to avoid referencing source values more than is needed. First thing we do, let's name all elements:

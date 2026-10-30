@@ -5,6 +5,17 @@ description: Sometimes it can be useful to inspect the state of a TCP endpoint. 
 url: https://blog.janestreet.com/inspecting-internal-tcp-state-on-linux/
 date: 2014-07-09T00:00:00-00:00
 preview_image: https://blog.janestreet.com/static/img/header.png
+keywords:
+- "async"
+- "cpu"
+- "crash"
+- "functional programming"
+- "linux"
+- "ppx"
+- "rto"
+- "state"
+- "tcp"
+- "window"
 ---
 
 <p>Sometimes it can be useful to inspect the state of a TCP endpoint. Things such

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "ast"
+- "camlp4"
+- "idiosyncrasy"
+- "infelicities"
+- "original"
+- "parser"
+- "quotations"
+- "revised"
+- "syntax"
+- "uglying"
 ---
 
 <p>As we have seen, Camlp4 contains an alternative syntax for OCaml, the &ldquo;revised&rdquo; syntax, which attempts to correct some infelicities of the original syntax, and to make it easier to parse and pretty-print. Most (all?) of Camlp4 itself is written in this syntax.</p> 

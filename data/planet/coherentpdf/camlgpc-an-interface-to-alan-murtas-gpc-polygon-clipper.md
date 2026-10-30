@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "camlgpc"
+- "clipper"
+- "gpc"
+- "graphics"
+- "graphicspdf"
+- "january"
+- "july"
+- "march"
+- "pdf"
+- "polygon"
 ---
 
 <p>Some of our coherence 2D graphics renderer examples used to rely on being able to robustly intersect and union polygons.</p>

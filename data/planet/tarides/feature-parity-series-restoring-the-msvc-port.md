@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/manycomputers-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "atomic"
+- "atomics"
+- "c11"
+- "mingw-w64"
+- "msvc"
+- "multicore"
+- "port"
+- "restoring"
+- "unloadable"
+- "winpthreads"
 ---
 
 <p>After the release of OCaml 5, restoring any features that were left out of the initial release has been a high priority for our teams and collaborators. We call this effort our 'feature parity' project, and <a href="https://tarides.com/blog/2024-09-11-feature-parity-series-compaction-is-back/">compaction</a> is one example of a feature being brought back to OCaml 5 under its banner.</p>

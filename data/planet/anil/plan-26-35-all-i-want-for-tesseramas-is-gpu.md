@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aug"
+- "embeddings"
+- "gibb"
+- "glm"
+- "mphil"
+- "propl"
+- "scrutineer"
+- "temporal"
+- "tessera"
+- "unet"
 ---

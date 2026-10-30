@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "alnum"
+- "charset"
+- "config"
+- "cure2"
+- "lsp"
+- "merlin"
+- "neovim"
+- "nvim"
+- "pattern matching"
+- "re2"
 ---

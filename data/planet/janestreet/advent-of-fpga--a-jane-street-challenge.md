@@ -10,4 +10,15 @@ authors:
 - Jane Street Tech Blog
 source:
 ignore:
+keywords:
+- "advent"
+- "async"
+- "cryptography"
+- "fpga"
+- "hardcaml"
+- "jane"
+- "parallelism"
+- "ppx"
+- "street"
+- "synthesizable"
 ---

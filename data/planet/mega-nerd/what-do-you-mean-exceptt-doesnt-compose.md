@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "dog"
+- "exceptt"
+- "filepath"
+- "fpath"
+- "import"
+- "infile1"
+- "infile2"
+- "outfile"
+- "processerror"
+- "readfile"
 ---
 
 

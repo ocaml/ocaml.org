@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "allopt"
+- "asmrun"
+- "cross"
+- "i386"
+- "makefile"
+- "ocamlxsim"
+- "otherlibs"
+- "phase"
+- "plt"
+- "target"
 ---
 
 <div class="date">October 23, 2012</div>

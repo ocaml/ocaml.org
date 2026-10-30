@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "custom"
+- "lsp"
+- "merlin"
+- "mirageos"
+- "neovim"
+- "nvim"
+- "ocaml-lsp"
+- "plugin"
+- "server"
 ---

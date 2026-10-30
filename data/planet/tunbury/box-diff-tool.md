@@ -12,6 +12,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "box"
+- "diff"
+- "file"
+- "ocaml-box-diff"
+- "overall"
+- "replies"
+- "sha"
+- "upload"
+- "upload_sessions"
+- "uploaded"
 ---
 
 <p>Over the weekend, I extended <a href="https://github.com/mtelvers/ocaml-box-diff">mtelvers/ocaml-box-diff</a> to include the ability to upload files over 50MB. This is a more complex API which requires a call to <a href="https://upload.box.com/api/2.0/files/upload_sessions">https://upload.box.com/api/2.0/files/upload_sessions</a> by posting JSON containing the name of the file, the folder ID and the file size. Box replies with various <em>session endpoints</em> which give the URIs to use to upload the parts and to commit the the file. Box also specifies the size of each part.</p>

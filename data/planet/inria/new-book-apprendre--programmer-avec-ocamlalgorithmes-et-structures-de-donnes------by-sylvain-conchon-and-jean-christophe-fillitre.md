@@ -8,6 +8,8 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "publications"
 ---
 
 

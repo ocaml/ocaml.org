@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "bsd3"
+- "delayed"
+- "events"
+- "opam"
+- "pace"
+- "react"
+- "rtime"
+- "stamp"
+- "timeline"
+- "timelines"
 ---
 
 <p>First release of Rtime, an OCaml module implementing timelines for React.</p>

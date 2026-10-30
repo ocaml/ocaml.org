@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "coq"
+- "inria"
+- "msr-inria"
+- "proof"
+- "research-inria"
+- "rewriting"
+- "ssreflect"
+- "steps"
+- "sympa"
+- "tactic"
 ---
 
 

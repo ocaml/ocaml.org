@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/96c10d8b128f4298bb84a3dbe343ead3/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "async"
+- "concurrency"
+- "domainslib"
+- "effects"
+- "eio"
+- "eio-trace"
+- "kcas"
+- "lwt_eio"
+- "multicore"
+- "parallelism"
 ---
 
 <p>The OCaml 5 update brought much-anticipated support for programming on multiple cores. It also introduced support for concurrency via effect handlers &ndash; one of the first mainstream languages to do so. This significant update has had <a href="https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/">profound performance and UX implications</a>, propelling OCaml into new areas of software development. At the core of this leap forward is the ambition to craft a modern, direct-style I/O stack that seamlessly interfaces with the latest kernel I/O advancements, such as <a href="https://unixism.net/loti/what_is_io_uring.html">io_uring</a>. This is where <a href="https://github.com/ocaml-multicore/eio">Eio</a> comes in.</p>

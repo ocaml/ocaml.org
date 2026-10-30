@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "algebraic"
+- "expressions"
+- "float"
+- "higher"
+- "parametric"
+- "pattern"
+- "pattern matching"
+- "polymorphism"
+- "sum"
+- "tuple"
 ---
 
 

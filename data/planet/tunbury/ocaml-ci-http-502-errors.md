@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "capnp"
+- "charset"
+- "current_rpc"
+- "dream"
+- "nsenter"
+- "ocaml-ci"
+- "ocurrent"
+- "response_stream"
+- "server_stream"
+- "uniq"
 ---

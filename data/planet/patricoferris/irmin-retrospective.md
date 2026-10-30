@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "GADT"
+- "backend"
+- "database"
+- "functor"
+- "irmin"
+- "lwt"
+- "mimic"
+- "mirageos"
+- "promise"
+- "store"
 ---
 
 

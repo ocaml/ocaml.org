@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "compiler"
+- "eliom"
+- "encompasses"
+- "js_of_ocaml"
+- "lwt"
+- "ocsigen"
+- "server"
+- "svg"
+- "tight"
+- "web"
 ---
 
 <p>The <a href="https://www.ocsigen.org">Ocsigen</a> project finally has a blog. We are planning to

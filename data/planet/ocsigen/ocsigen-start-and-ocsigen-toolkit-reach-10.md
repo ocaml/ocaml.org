@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "eliom"
+- "js_of_ocaml"
+- "mobile"
+- "ocsigen"
+- "opam"
+- "skeleton"
+- "start"
+- "toolkit"
+- "web"
+- "widgets"
 ---
 
 <p>The Ocsigen team is very happy to announce the first release of two

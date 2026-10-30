@@ -8,6 +8,17 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "commits"
+- "dune"
+- "examination"
+- "observers"
+- "opam"
+- "packages"
+- "recalculated"
+- "recalculating"
+- "resulted"
+- "solutions"
 ---
 
 <section><h1><a href="https://jon.recoil.org/atom.xml#caching-opam-solutions---part-2" class="anchor"></a>Caching opam solutions - part 2</h1><ul class="at-tags"><li class="published"><span class="at-tag">published</span> <p>2025-09-23</p></li></ul><ul class="at-tags"><li class="notanotebook"><span class="at-tag">notanotebook</span> </li></ul><p>Some results from the <a href="https://jon.recoil.org/caching-opam-solutions.html" title="caching-opam-solutions">previous post</a>. This time I've run day10 on 144 or so commits from opam-repository to see how well the cache performs. The results are quite interesting.</p><p>First let's talk about the "examination map". This is a map from package name to a list of other packages whose solutions should be recalculated if the package in question is altered. It's built by first looking at the packages that the solver asks about during the solution for a package, and then taking <em>all</em> of the solutions, and 'inverting' the map, so for example, if both packages 'a' and 'b' ask about package 'c' during their solutions, then altering 'c' means that the solutions for both 'a' and 'b' need to be recalculated. The examination map entry for 'c' would then be <code>'a'; 'b'</code>. We can plot the histogram of the sizes of each entry in the examination map:</p>

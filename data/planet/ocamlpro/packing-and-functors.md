@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "bitv"
+- "functor"
+- "lib-functor"
+- "libfunctor-3"
+- "mli"
+- "ocaml-3"
+- "ocp-pack"
+- "packing"
+- "src"
+- "unionFind"
 ---
 
 <p>We have recently worked on modifying the OCaml system to be able to

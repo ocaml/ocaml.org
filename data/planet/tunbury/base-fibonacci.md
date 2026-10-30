@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "acc"
+- "base"
+- "decompose"
+- "fibonacci"
+- "fibs"
+- "idx"
+- "max_fibs"
+- "num_fibs"
+- "numbers"
+- "orig"
 ---

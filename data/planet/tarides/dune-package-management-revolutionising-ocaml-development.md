@@ -10,6 +10,17 @@ preview_image: https://tarides.com/blog/images/DPM-1360w~yOfV2uaaTYCAMmh4atiLfg.
 authors:
 - Tarides
 source:
+keywords:
+- "compiler"
+- "developers"
+- "development"
+- "dune"
+- "management"
+- "mvp"
+- "opam"
+- "package"
+- "simplifying"
+- "workflows"
 ---
 
 <p>At Tarides, we’ve been working on an initiative to improve the OCaml development experience: Dune Package Management. As outlined in the <a href="https://github.com/tarides/ocaml-platform-roadmap">Platform Roadmap</a>, which was created through community collaboration, the aim is to unify all OCaml development workflows under a single, streamlined tool. After successfully completing a Minimal Viable Product (MVP) in Q1 2024, Dune will be the recommended tool for all OCaml development.</p>

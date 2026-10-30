@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/a5bcde1ae8acf18ab1586db0c6368d87/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "fetcher"
+- "freebsd"
+- "freebsd-specific"
+- "images"
+- "jail"
+- "obuilder"
+- "ocaml-ci"
+- "ocluster"
+- "ocurrent"
+- "zfs"
 ---
     
 <p>OBuilder is a tool for performing arbitrary, reproduceable builds of OCaml-related software within a sandboxed environment. It is used by the CI team at Tarides to provide OCaml-based Continuous Integration (CI) for projects like <code>opam-repo-ci</code>, <code>ocaml-ci</code>, and <code>multicoretest-ci</code>. Originally written for Linux, OBuilder had Windows and macOS support added later. Previous blog posts have covered porting to <a href="https://tarides.com/blog/2023-08-02-obuilder-on-macos/">macOS</a> and <a href="https://tarides.com/blog/2023-07-12-ocaml-ci-renovated/">OCaml CI in general</a>.</p>

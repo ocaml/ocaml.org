@@ -8,6 +8,17 @@ preview_image: //1.bp.blogspot.com/-DqbG0LlxpXE/UxWbAtjz7wI/AAAAAAAAAD0/UWDHWQ5Z
 authors:
 - Tony Tavener
 source:
+keywords:
+- "color"
+- "color_button"
+- "components"
+- "effect"
+- "event"
+- "gui"
+- "gui_base"
+- "guis"
+- "new_child_of"
+- "vec2"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

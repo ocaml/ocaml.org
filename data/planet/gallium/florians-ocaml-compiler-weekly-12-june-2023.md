@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "compiler"
+- "dune"
+- "expr"
+- "ghost"
+- "merlin"
+- "node"
+- "parser"
+- "parsetree"
+- "ppxlib"
+- "typ"
 ---
 
 

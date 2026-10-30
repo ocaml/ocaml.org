@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/proofs-and-refutations-using-z3/proof
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "define-fun"
+- "expr"
+- "flambda"
+- "floating-point"
+- "mul"
+- "optimizations"
+- "ppx"
+- "rewrites"
+- "rounding"
 ---
 
 <p>People often think of formal methods and theorem provers as forbidding

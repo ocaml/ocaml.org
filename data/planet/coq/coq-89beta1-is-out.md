@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "beta"
+- "coq"
+- "custom"
+- "differences"
+- "extremely"
+- "notations"
+- "numeral"
+- "quality-of-life"
+- "reports"
+- "welcome"
 ---
 
 

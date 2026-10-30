@@ -12,4 +12,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "c-c"
+- "eglot"
+- "emacs"
+- "lsp"
+- "merlin"
+- "merlin-mode"
+- "neocaml"
+- "ocaml-lsp-server"
+- "use-package"
+- "utop"
 ---

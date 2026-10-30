@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "assess"
+- "bin"
+- "curl"
+- "heatmap"
+- "org"
+- "plausible"
+- "posthog"
+- "self-hosted"
+- "vcpu"
+- "visitors"
 ---
 
 <p>Sabine would like to switch <a href="https://ocaml.org">OCaml.org</a> from using <a href="https://plausible.io">Plausible</a> over to <a href="https://posthog.com">Posthog</a>. The underlying reason for the move is that the self-hosted product from Posthog has more features than the equivalent from Plausible. Of particular interest is the heatmap feature to assess the number of visitors who finish the <a href="https://ocaml.org/docs/tour-of-ocaml">Tour of OCaml</a>.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml Weekly News
 source:
+keywords:
+- "buildscript"
+- "dune"
+- "hector"
+- "java-like"
+- "meeting"
+- "mlfront"
+- "monomorphic"
+- "news"
+- "opam"
+- "vectors"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2024.08.13.html#1">MlFront - A Java-like package system for OCaml</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.08.13.html#2">First release of hector</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.08.13.html#3">Dune dev meeting</a></li><li><a href="https://alan.petitepomme.net/cwn/2024.08.13.html#4">Other OCaml News</a></li></ol>

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "alpha"
+- "class"
+- "exist"
+- "implies"
+- "keywordsign"
+- "map"
+- "mem"
+- "pre"
+- "span"
+- "sup"
 ---
 
 &amp;#60;!DOCTYPE HTML PUBLIC &amp;#34;-//W3C//DTD HTML 4.01//EN&amp;#34;

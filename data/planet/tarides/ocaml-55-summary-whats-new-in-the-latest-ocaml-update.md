@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "concurrency"
+- "domain"
+- "gabriel"
+- "garbage collection"
+- "mmap"
+- "ppx_typed_fields"
+- "scherer"
+- "seq"
+- "type checker"
+- "winpthreads"
 ---

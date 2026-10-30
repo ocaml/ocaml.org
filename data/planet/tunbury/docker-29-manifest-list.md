@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "buildx"
+- "current_docker"
+- "docker"
+- "imagetools"
+- "manifest"
+- "ocurrent"
+- "opam-staging"
+- "opensuse-ocaml-5"
+- "sha256"
+- "ubuntu-22"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "box"
+- "element"
+- "node"
+- "private"
+- "puzzle"
+- "self-contained"
+- "sliding"
+- "subtype"
+- "supertype"
+- "text"
 ---
 
 <div class="date">March 21, 2020</div>

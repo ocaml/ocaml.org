@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "atom"
+- "expr"
+- "frontmatter_extractor"
+- "frontmatter_extractor_yaml"
+- "pacomb"
+- "parser"
+- "ppx"
+- "prod"
+- "some_text"
+- "sum"
 ---

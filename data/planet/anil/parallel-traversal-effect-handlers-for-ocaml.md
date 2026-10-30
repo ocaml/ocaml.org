@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "algebraic effect"
+- "batchelor"
+- "effect"
+- "eio"
+- "formalises"
+- "handlers"
+- "parallel"
+- "parallel-friendly"
+- "traversal"
+- "traverse"
 ---
 
 <h1>Parallel traversal effect handlers for OCaml</h1>

@@ -7,6 +7,11 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "about"
+- "disgression"
+- "lwt"
+- "miou"
 ---
 
 A disgression about Lwt and Miou

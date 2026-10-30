@@ -10,6 +10,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "accept-encoding"
+- "content"
+- "dream"
+- "etag"
+- "gzip"
+- "headers"
+- "lthms"
+- "make_handler"
+- "path"
+- "website_content"
 ---
 
 

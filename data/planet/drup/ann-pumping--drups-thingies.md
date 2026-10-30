@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "GADT"
+- "automatons"
+- "derivatives"
+- "expressions"
+- "opam"
+- "ppx"
+- "properties"
+- "pumping"
+- "regular"
+- "star"
 ---
 
 

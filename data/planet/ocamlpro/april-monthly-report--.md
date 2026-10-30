@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "domain"
+- "functor"
+- "inlining"
+- "ocp-browser"
+- "ocp-indent"
+- "ocp-index"
+- "opam"
+- "recommandations"
+- "socaml"
+- "type checker"
 ---
 
 <p>This post aims at summarizing the activities of OCamlPro for the past month. As usual, we worked in three main areas: the OCaml toolchain, development tools for OCaml and R&amp;D projects.</p>

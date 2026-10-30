@@ -7,6 +7,16 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "adt"
+- "coq"
+- "coq-api"
+- "engineer"
+- "now"
+- "offering"
+- "part"
+- "position"
+- "specialized"
 ---
 
 

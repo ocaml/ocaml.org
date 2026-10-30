@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "alice"
+- "aoah"
+- "astring"
+- "eio"
+- "jmap"
+- "json"
+- "odoc"
+- "tutorial"
+- "vibesplaining"
+- "x-ocaml"
 ---

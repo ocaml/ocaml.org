@@ -10,4 +10,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "candidates"
+- "competing"
+- "devs"
+- "engineers"
+- "faang"
+- "hindrance"
+- "hire"
+- "hiring"
+- "reconciliation"
+- "terraform"
 ---

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Leo Boitel\n  "
 source:
+keywords:
+- "block"
+- "camltest"
+- "flambda"
+- "identity"
+- "listid"
+- "param"
+- "pmakeblock"
+- "pmakeblock_arg"
+- "set_of_closures"
+- "tag"
 ---
 
 <blockquote>

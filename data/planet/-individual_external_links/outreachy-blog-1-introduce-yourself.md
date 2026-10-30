@@ -9,4 +9,15 @@ authors:
 source:
   name: "Burnleydev1 on dev.to"
   url: https://dev.to/burnleydev
+keywords:
+- "bamenda"
+- "bonalais"
+- "career"
+- "convicted"
+- "determination"
+- "hurrayyyyy"
+- "ideologies"
+- "internships"
+- "outreachy"
+- "self-respect"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "bigarrays"
+- "bytes"
+- "effect"
+- "from_string"
+- "immutability"
+- "immutable"
+- "lexbuf"
+- "lexing"
+- "stringlike"
+- "strings"
 ---
 
 

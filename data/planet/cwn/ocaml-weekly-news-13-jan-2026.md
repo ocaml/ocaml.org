@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "advisories"
+- "camlid"
+- "flint"
+- "int_trunc"
+- "lwt"
+- "ocurrent"
+- "purl"
+- "restricted"
+- "security"
+- "team"
 ---

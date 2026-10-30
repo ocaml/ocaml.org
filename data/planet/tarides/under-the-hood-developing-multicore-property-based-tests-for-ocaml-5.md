@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/8d5e62879e4d0ba9248c8e9497e61cd0/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "array"
+- "float"
+- "floor"
+- "lin"
+- "property-based"
+- "sequential"
+- "sort"
+- "stm"
+- "test"
+- "to_list"
 ---
 
 <p>In 2022, Multicore OCaml became reality. Programming on multiple threads brings new possibilities, but also new complexities. In order to foster confidence in OCaml 5 and retain OCaml's reputation as a trustworthy and memory-safe platform, Tarides has developed <a href="https://github.com/ocaml-multicore/multicoretests"><code>multicoretests</code></a>: Two property-based testing libraries with a test suite built on top. This effort <a href="https://github.com/ocaml-multicore/multicoretests#issues">has successfully pinpointed a range of issues</a> and contributed towards a stable multicore environment for the OCaml community to build on.</p>

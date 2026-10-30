@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "chaudhry"
+- "commonplace"
+- "david"
+- "groundwork"
+- "ocaml-ci"
+- "ocamlot"
+- "online"
+- "sheets"
+- "testing"
 ---
 
 <p>Presented an OCaml ecosystem testing system</p>

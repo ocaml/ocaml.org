@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "cambridge"
+- "cb4"
+- "citrix"
+- "compiler"
+- "euan"
+- "internals"
+- "milton"
+- "park"
+- "thursday"
+- "wiki"
 ---
 
 <p>&#8203;Our summer compiler hacking event will be hosted by Euan and the Citrix Team on Thursday 7th&#8203; July &mdash; come and explore the other side of Cambridge and the Science Park!</p>

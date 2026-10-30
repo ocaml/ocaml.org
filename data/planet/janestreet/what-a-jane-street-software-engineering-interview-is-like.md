@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "fifo"
+- "functional programming"
+- "hash-table"
+- "interview"
+- "jane"
+- "memo"
+- "ppx"
+- "solution"
+- "street"
 ---
 
 <p>Are you thinking about

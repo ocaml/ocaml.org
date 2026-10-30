@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    L\xE9o Andr\xE8s\n  "
 source:
+keywords:
+- "committee"
+- "compiler"
+- "domain"
+- "effect"
+- "garbage collection"
+- "js_of_ocaml"
+- "proposal"
+- "proposals"
+- "wasm"
+- "webassembly"
 ---
 
 <p></p>

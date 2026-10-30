@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "coop"
+- "derived"
+- "formal"
+- "fund"
+- "internet"
+- "mirageos"
+- "multicore"
+- "outcome"
+- "specification"
+- "tcp"
 ---

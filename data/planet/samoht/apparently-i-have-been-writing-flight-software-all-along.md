@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "connect"
+- "ethernet"
+- "fpp"
+- "happy_eyeballs_mirage"
+- "ipv6"
+- "net"
+- "ofpp"
+- "stackv4v6"
+- "topology"
+- "unikernel"
 ---

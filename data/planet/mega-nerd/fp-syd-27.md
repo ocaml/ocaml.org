@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "ben"
+- "compiler"
+- "functional programming"
+- "haskell"
+- "lippmeier"
+- "meeting"
+- "multicore"
+- "repa"
+- "sydney"
+- "winwood"
 ---
 
 

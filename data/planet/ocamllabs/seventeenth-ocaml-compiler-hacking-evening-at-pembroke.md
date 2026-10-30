@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "buttery"
+- "college"
+- "compiler"
+- "internals"
+- "lodge"
+- "old"
+- "pembroke"
+- "porters"
+- "tuesday"
+- "wiki"
 ---
 
 <p>Our next OCaml Compiler Hacking event will be on Tuesday 16th May in The Old Library at Pembroke College, Cambridge.</p>

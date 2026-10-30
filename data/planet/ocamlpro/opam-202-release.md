@@ -15,6 +15,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "bin"
+- "compiler"
+- "curl"
+- "domain"
+- "dune"
+- "ocaml-base-compiler"
+- "opam"
+- "opam-devel"
+- "sandbox"
+- "sandboxing"
 ---
 
 <p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.2">opam 2.0.2</a>.</p>

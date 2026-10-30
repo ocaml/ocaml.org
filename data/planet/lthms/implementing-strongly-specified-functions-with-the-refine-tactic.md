@@ -9,6 +9,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "empty"
+- "empty_b"
+- "empty_dec"
+- "eq_refl"
+- "equ"
+- "pop"
+- "proj1_sig"
+- "refine"
+- "rst"
+- "tactic"
 ---
 
 

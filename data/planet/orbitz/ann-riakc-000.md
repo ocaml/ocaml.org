@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Orbitz
 source:
+keywords:
+- "async"
+- "bucket_props"
+- "concurrency"
+- "conn"
+- "list_buckets"
+- "opam"
+- "riak"
+- "riakc"
+- "robj"
+- "siblings"
 ---
 
 <p><i>

@@ -7,6 +7,17 @@ preview_image: https://priver.dev/images/poolparty.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "connection"
+- "dbcaml"
+- "holder"
+- "holders"
+- "item"
+- "manager"
+- "pool"
+- "poolparty"
+- "riot"
+- "supervisor"
 ---
 
 This article talks about how I wrote the connection pool for DBCaml

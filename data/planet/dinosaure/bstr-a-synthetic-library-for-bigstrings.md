@@ -7,6 +7,11 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "bstr"
+- "library"
+- "manipulate"
+- "small"
 ---
 
 A small library to manipulate bstr

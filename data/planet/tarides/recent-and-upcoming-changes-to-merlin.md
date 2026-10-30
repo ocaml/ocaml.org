@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/1d86af9747be51519d2c89b476b5b306/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "changes"
+- "configuration"
+- "dot-merlin-reader"
+- "dune"
+- "errors"
+- "frontend"
+- "merlin"
+- "opam"
+- "parser"
+- "versions"
 ---
 
 <p>Merlin is a language server for the OCaml programming language; that is, a daemon

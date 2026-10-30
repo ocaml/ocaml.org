@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "ciel"
+- "cloud"
+- "containers"
+- "continuation"
+- "domain"
+- "mirageos"
+- "multicore"
+- "personal"
+- "prototype"
+- "unikernel"
 ---
 
 <div>

@@ -6,6 +6,17 @@ date: 2014-07-16T00:00:00-00:00
 preview_image:
 authors:
 - Jon Ludlam
+keywords:
+- "communication"
+- "gntref"
+- "jludlam"
+- "mirage-unix"
+- "mirage-xen"
+- "vchan"
+- "x86_mm"
+- "xen"
+- "xen-evtchn"
+- "xen-gnt"
 ---
 
 

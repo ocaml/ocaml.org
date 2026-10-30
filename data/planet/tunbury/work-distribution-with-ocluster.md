@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cgi"
+- "curl"
+- "dockerfile"
+- "echo"
+- "ocaml-ci"
+- "ocluster"
+- "ocluster-client"
+- "ocluster-worker"
+- "self"
+- "spec"
 ---

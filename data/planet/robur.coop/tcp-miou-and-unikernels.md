@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "diet"
+- "fragment"
+- "ipv4"
+- "len"
+- "miou"
+- "orphans"
+- "packet"
+- "packets"
+- "payload"
+- "tcp"
 ---
 
 My experiment about the TCP/IP stack, effects and unikernels

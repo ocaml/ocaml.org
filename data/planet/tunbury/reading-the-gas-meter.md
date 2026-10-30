@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "arr"
+- "array"
+- "bounding"
+- "brightness"
+- "digit"
+- "gas"
+- "image"
+- "meter"
+- "row"
+- "threshold"
 ---

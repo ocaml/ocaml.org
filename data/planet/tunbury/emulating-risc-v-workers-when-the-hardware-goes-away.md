@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cloud-init"
+- "obuilder"
+- "ocluster-worker"
+- "ocurrent"
+- "pool"
+- "power9"
+- "qemu"
+- "risc-v"
+- "scaleway"
+- "workers"
 ---

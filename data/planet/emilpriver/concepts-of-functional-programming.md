@@ -11,6 +11,17 @@ preview_image: https://priver.dev/images/ocaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "currying"
+- "factorial"
+- "functional"
+- "functional programming"
+- "immutability"
+- "programming"
+- "referential"
+- "square"
+- "sum_of_squares"
+- "tail recursion"
 ---
 
 This post explores the concepts of functional programming, including immutability, pure functions, higher-order functions, recursion, and more. It also delves into the history of functional programming and introduces Lambda Calculus. If you're new to functional programming or want to deepen your understanding, this post is for you.

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/Brussels-fosdem-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "bof"
+- "effect"
+- "fosdem"
+- "functional"
+- "functional programming"
+- "languages"
+- "monad"
+- "parser"
+- "room"
+- "session"
 ---
 
 <p>On Thursday, January 30, 2025, I spontaneously decided to join three of my colleagues, Jules Aguillon, Xavier Van de Woestyne, and Paul-Elliot Angles d'Auriac, in attending <a href="https://fosdem.org/2025/">FOSDEM 2025</a>.</p>

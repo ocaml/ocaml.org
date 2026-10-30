@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    chambart\n  "
 source:
+keywords:
+- "analysis"
+- "closure"
+- "constant"
+- "flambda"
+- "functor"
+- "g_closure"
+- "inlining"
+- "list_map"
+- "specialisation"
+- "succ"
 ---
 
 <h2>Doing the compiler's work</h2>

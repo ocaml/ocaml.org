@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/305bd3e2ab2e164e61b7781d183976fd/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "branchable"
+- "compiler"
+- "dune"
+- "foundation"
+- "merlin"
+- "mirageos"
+- "opam"
+- "snapshotting"
+- "software"
+- "tarides"
 ---
 
 <p>Tarides is pleased to provide support for the <a href="https://ocaml-sf.org">OCaml Software

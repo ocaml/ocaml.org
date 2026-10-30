@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "bname"
+- "columns-names"
+- "emacs"
+- "lambda"
+- "lwt"
+- "monad"
+- "ppx"
+- "rows"
+- "vector"
 ---
 
 <p>Recently, I needed to output some relatively small tabular data in Emacs and

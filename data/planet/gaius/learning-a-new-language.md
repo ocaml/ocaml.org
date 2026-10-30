@@ -9,6 +9,17 @@ preview_image: https://gaiustech.files.wordpress.com/2018/07/cropped-lynx.jpg?w=
 authors:
 - Gaius Hammond
 source:
+keywords:
+- "absorb"
+- "concentrate"
+- "domain"
+- "fluently"
+- "horrific"
+- "knowing"
+- "language"
+- "regardless"
+- "rosetta"
+- "whatever"
 ---
 
 <p>Generally, every program I write, regardless of what useful thing it actually does, and regardless of what programming language it is written in, has to do certain things, which usually includes</p>

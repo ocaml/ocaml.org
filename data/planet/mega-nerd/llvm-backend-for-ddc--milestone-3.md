@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "bit"
+- "bytes"
+- "int32_t"
+- "llvm"
+- "llvmstructdesc"
+- "llvmstructfield"
+- "llvmtype"
+- "struct"
+- "structs"
+- "unaligned"
 ---
 
 

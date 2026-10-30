@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agent"
+- "aoah"
+- "cli"
+- "day"
+- "eio"
+- "jsont"
+- "karakeep"
+- "live"
+- "requests"
+- "session"
 ---

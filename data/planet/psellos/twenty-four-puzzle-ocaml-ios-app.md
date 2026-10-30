@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "app"
+- "hampshire"
+- "heuristic"
+- "ios"
+- "puzzle"
+- "ruml"
+- "semi-credible"
+- "slide24"
+- "sliding"
+- "xcode"
 ---
 
 <div class="date">February 18, 2016</div>

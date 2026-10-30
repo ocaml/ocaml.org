@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/6b53f85921d53473f8bbbebf0295014f/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "adoption"
+- "barriers"
+- "functional programming"
+- "garbage collection"
+- "interest"
+- "learning"
+- "misconceptions"
+- "perceived"
+- "respondents"
+- "survey"
 ---
 
 <p>Tarides is conducting <a href="https://forms.gle/T7Ya6UUiZ6xTMisV8">a survey</a> targeting non-OCaml programmers to learn their thoughts about this functional programming language and uncover any misconceptions surrounding it. Please take a few mintues to fill it out if you haven't yet done so.</p>

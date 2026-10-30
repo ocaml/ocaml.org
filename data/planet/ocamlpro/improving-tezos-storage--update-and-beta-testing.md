@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "beta-testing"
+- "garbage collection"
+- "irontez"
+- "irontez0"
+- "irontez3"
+- "node"
+- "ocp"
+- "rpc"
+- "storage"
+- "tezos"
 ---
 
 <p>In a <a href="http://ocamlpro.com/2019/01/15/improving-tezos-storage/">previous post</a>, we

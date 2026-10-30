@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Hong bo Zhang
 source:
+keywords:
+- "ast"
+- "effect"
+- "fan"
+- "lid"
+- "meta"
+- "parser"
+- "ppx"
+- "quasi-quotation"
+- "quotation"
+- "syntax"
 ---
 
 <p>There are some interesting discussions in the wg-camlp4 mailing list, I wrote a long mail yesterday, I cleaned it a bit, pasted it here&nbsp;</p>

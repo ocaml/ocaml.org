@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "cperl"
+- "functional programming"
+- "jane"
+- "localhost"
+- "ppx"
+- "rsync"
+- "stat"
+- "street"
 ---
 
 <p>I&rsquo;m not sure how I&rsquo;ve managed to use rsync for so many years without ever

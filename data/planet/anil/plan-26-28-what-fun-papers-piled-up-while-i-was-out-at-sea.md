@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "arxiv"
+- "bidirectional"
+- "conservation"
+- "embeddings"
+- "geospatial"
+- "horse"
+- "model"
+- "slicing"
+- "species"
+- "tessera"
 ---

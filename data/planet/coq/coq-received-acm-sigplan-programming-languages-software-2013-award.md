@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "award"
+- "coc"
+- "coq"
+- "enthousiasm"
+- "huet"
+- "originality"
+- "paulin-mohring"
+- "received"
+- "richly-typed"
+- "thierry"
 ---
 
 

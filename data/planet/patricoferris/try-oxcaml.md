@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "base"
+- "compiler"
+- "empower"
+- "locality"
+- "lower-allocation"
+- "modes"
+- "multicore"
+- "oxcaml"
+- "oxcamling"
+- "stdlib-like"
 ---
 
 

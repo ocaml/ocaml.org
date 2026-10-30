@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "browser"
+- "compatible"
+- "firefox"
+- "incompatible"
+- "mistake"
+- "mozilla"
+- "peertube"
+- "please"
+- "reason"
+- "sorry"
 ---
 
 <h2><a href="https://anil.recoil.org/videos/13cf3878-7436-4512-844e-f72f36425bc7">The OCaml Platform 1.0 with Reason ML</a> <span class="title-date">/ Dec 2018</span></h2>

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "ally"
+- "companies"
+- "conference"
+- "functional programming"
+- "generosity"
+- "icfp"
+- "industrial"
+- "logo"
+- "students"
+- "vancouver"
 ---
 
 <p>The call for papers for this year’s <a href="http://icfpconference.org/icfp2015/">International Conference on Functional

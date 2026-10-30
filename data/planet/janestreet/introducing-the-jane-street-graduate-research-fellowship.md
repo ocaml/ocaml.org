@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/graduate-research-fellowship/GRF.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "award"
+- "fellowship"
+- "functional programming"
+- "graduate"
+- "jane"
+- "phd"
+- "ppx"
+- "research"
+- "street"
 ---
 
 <p>We are excited to announce the launch of the Jane Street Graduate Research Fellowship!</p>

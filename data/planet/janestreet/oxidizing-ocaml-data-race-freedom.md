@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/oxidizing-ocaml-parallelism/oxidizing
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "capsule"
+- "data"
+- "exclusive"
+- "incr"
+- "key"
+- "mutable"
+- "mutex"
+- "ptr"
+- "sync"
+- "unsync"
 ---
     
 <p><em>OCaml with Jane Street extensions is available from our public <a href="https://github.com/janestreet/opam-repository/tree/with-extensions">opam repo</a>. Only a slice of the features described in this series are currently implemented.</em></p>

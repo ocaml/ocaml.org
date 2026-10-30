@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/0f8a2a3cc7f059c38bb90b52406329a2/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "accessibility"
+- "disabilities"
+- "disability"
+- "disabled"
+- "employees"
+- "misconceptions"
+- "non-disabled"
+- "people"
+- "stigma"
+- "workplace"
 ---
 
 <p>When I was in my early 20s, I developed a chronic illness that (amongst other things) has affected my mobility. Becoming disabled is an eye-opening experience, as it makes you acutely aware of two things: First, there are many ways in which society genuinely tries to help people with disabilities, and second, there are just as many (if not more) ways that society fails to accommodate disabled people. This is usually not done maliciously &ndash; or even consciously &ndash; but arises due to ignorance, lack of resources, or misinformation.</p>

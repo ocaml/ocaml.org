@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "compiler"
+- "floss"
+- "fund"
+- "infrastructure"
+- "mirageos"
+- "ocaml-ci"
+- "ocurrent"
+- "opam"
+- "pipelines"
+- "powers"
 ---

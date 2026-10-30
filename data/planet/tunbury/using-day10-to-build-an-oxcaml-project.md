@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base_bigstring"
+- "bin"
+- "day10"
+- "dune"
+- "ocaml-protoc"
+- "ocaml-variants"
+- "opam-repository"
+- "oxcaml"
+- "pbrt"
+- "synopsis"
 ---

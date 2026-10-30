@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Aurore Dombry\n  "
 source:
+keywords:
+- "alt-ergo"
+- "domain"
+- "formulas"
+- "functor"
+- "industrial"
+- "industry"
+- "module system"
+- "smt"
+- "solvers"
+- "sylvain"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/picture_sylvainconchon.jpg" alt=""/></p>

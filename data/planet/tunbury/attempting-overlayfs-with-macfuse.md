@@ -13,4 +13,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "fsevents"
+- "fseventsd"
+- "getattr"
+- "insize"
+- "nodeid"
+- "opam-repository"
+- "pid"
+- "tmp"
+- "wrapper_lower"
+- "wrapper_upper"
 ---

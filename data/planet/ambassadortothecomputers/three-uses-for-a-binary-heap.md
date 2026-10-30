@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "arr"
+- "buildings"
+- "compare"
+- "elt"
+- "heap"
+- "heights"
+- "len"
+- "peek_min"
+- "smallest"
+- "take_min"
 ---
 
 <p>Lately I have been interviewing for jobs, so doing a lot of whiteboard programming, and <a href="http://en.wikipedia.org/wiki/Binary_heap">binary heaps</a> keep arising in the solutions to these interview problems. There is nothing new or remarkable about these applications (binary heaps and their uses are covered in any undergraduate algorithms class), but I thought I would write them down because they are cute, and in the hope that they might be useful to someone else who (like me) gets by most days as a working programmer with no algorithm fancier than quicksort or binary search.</p> 

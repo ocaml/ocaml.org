@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "ast"
+- "blake3"
+- "bytesrw"
+- "cryptography"
+- "oplot"
+- "ppat_effect"
+- "ppx-es"
+- "ppxlib"
+- "qcheck"
+- "xxhash"
 ---

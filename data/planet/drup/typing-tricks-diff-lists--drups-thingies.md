@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "append"
+- "cons"
+- "continuation"
+- "diff"
+- "gadt"
+- "lists"
+- "myfmt"
+- "ty1"
+- "ty2"
+- "type checker"
 ---
 
 

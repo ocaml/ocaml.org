@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "c2-3"
+- "docker"
+- "equinix"
+- "lib"
+- "ocaml-ci"
+- "ocurrent"
+- "rsync"
+- "scale"
+- "var"
+- "volumes"
 ---
 
 <p>As noted on Thursday, the various OCaml services will need to be moved away from Equinix. Below are my notes on moving OCaml-CI.</p>

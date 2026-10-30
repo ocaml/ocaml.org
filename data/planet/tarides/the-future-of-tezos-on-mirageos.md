@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/bb44e4615f4730d8692d1214f5b238a3/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "blockchains"
+- "codebase"
+- "deployment"
+- "differentiator"
+- "grants"
+- "mirageos"
+- "non-compatible"
+- "secure"
+- "tezos"
+- "unikernel"
 ---
 
 <p>We are very glad to announce that Tarides has been awarded two new grants from

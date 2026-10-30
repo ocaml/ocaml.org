@@ -7,6 +7,11 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "description"
+- "incoming"
+- "smtp"
+- "stack"
 ---
 
 A description of the incoming SMTP stack.

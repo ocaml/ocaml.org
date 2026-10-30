@@ -9,4 +9,15 @@ authors:
 - Grim
 source:
 ignore:
+keywords:
+- "fold"
+- "lambdas"
+- "matching"
+- "none"
+- "opt"
+- "option_obj"
+- "pattern"
+- "pattern matching"
+- "when_none"
+- "when_some"
 ---

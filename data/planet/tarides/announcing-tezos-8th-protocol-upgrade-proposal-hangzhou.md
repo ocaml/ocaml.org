@@ -8,6 +8,17 @@ preview_image: https://uploads-ssl.webflow.com/616ab4741d375d9bfbc19060/618160ee
 authors:
 - Tarides
 source:
+keywords:
+- "dailambda"
+- "granada"
+- "hangzhou"
+- "marigold"
+- "nomadic"
+- "oxhead"
+- "proposal"
+- "protocol"
+- "tezos"
+- "upgrade"
 ---
 
 <p>The last upgrade of the Tezos protocol, Granada, activated on August 6th, 2021.

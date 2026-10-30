@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "bytestring"
+- "cosine"
+- "costheta"
+- "lwt"
+- "monad"
+- "ppx"
+- "search"
+- "similarity"
+- "vector"
 ---
 
 <p>Reading OCharles&rsquo; excellent series about 24 days of hackage, in

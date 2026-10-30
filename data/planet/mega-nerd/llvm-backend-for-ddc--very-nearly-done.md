@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "backend"
+- "casting"
+- "ddc"
+- "effect"
+- "llvm"
+- "macro"
+- "n-body"
+- "peek"
+- "poke"
+- "re-factoring"
 ---
 
 

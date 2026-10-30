@@ -8,6 +8,17 @@ authors:
 - Yawar Amin
 source:
 ignore:
+keywords:
+- "bob"
+- "dream-html"
+- "email"
+- "person"
+- "person_xml"
+- "pure-html"
+- "std_tag"
+- "string_attr"
+- "utop"
+- "xml"
 ---
 
 <p>FOR some time now, I have been maintaining an OCaml library called <a href="https://github.com/yawaramin/dream-html" rel="noopener noreferrer">dream-html</a>. This library is primarily intended to render correctly-constructed HTML, SVG, and MathML. Recently, I added the ability to render well-formed XML markup, which has slightly different rules than HTML. For example, in HTML if you want to write an empty <code>div</code> tag, you do: <code>&lt;div&gt;&lt;/div&gt;</code>. But according to the rules of XML, you could <em>also</em> write <code>&lt;div/&gt;</code> ie a self-closing tag, however HTML 5 does not have the concept of self-closing tags!</p>

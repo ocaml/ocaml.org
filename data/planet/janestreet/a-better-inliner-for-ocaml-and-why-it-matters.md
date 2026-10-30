@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "first_plus_last"
+- "flambda"
+- "functor"
+- "inlined"
+- "inliner"
+- "inlining"
+- "monad"
+- "optimizations"
+- "ppx_let"
 ---
 
 <p>OCaml 4.03 is branched and a first release candidate is imminent, so it seems

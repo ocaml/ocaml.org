@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/9f22d11ae4e2bed027c4f8669055f956/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "escher"
+- "lambda"
+- "madhav"
+- "metacircular"
+- "multicore"
+- "parser"
+- "retreat"
+- "scheme"
+- "sicp"
+- "tvc"
 ---
 
 <p>Today we're taking a little pause from our OCaml 5 series to talk about a programming retreat. I spent a week in the woods with fellow programmers at the <a href="https://anandology.com/lambda-retreat/">Lambda Retreat</a>. It was a wonderful way to explore the nature of computations, abrstractions, and paradigms. Although I mostly work in OCaml, it was fun and challenging to code in Scheme, another functional programming language.</p>

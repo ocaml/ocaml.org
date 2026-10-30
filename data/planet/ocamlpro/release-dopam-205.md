@@ -9,6 +9,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "alt-ergo"
+- "compiler"
+- "correctifs"
+- "dune"
+- "flambda"
+- "flambda2"
+- "gnucobol"
+- "opam"
+- "release"
+- "titagone"
 ---
 
 <p>Nous sommes fiers d&rsquo;annoncer la release (mineure) d&rsquo; <a href="https://github.com/ocaml/opam/releases/tag/2.0.5">opam 2.0.5</a>. Cette nouvelle version contient des mises &agrave; jours de build et correctifs.</p>

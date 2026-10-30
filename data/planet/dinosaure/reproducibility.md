@@ -7,6 +7,9 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "manage"
+- "reproducibility"
 ---
 
 How we can manage reproducibility in OCaml

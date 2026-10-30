@@ -8,6 +8,17 @@ preview_image: https://priver.dev/images/ocaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "continuation"
+- "functor"
+- "immutability"
+- "operand"
+- "pattern matching"
+- "riot"
+- "slash"
+- "stringcompare"
+- "stringset"
+- "utop"
 ---
 
 Introduction for OCaml, a blog post for developers that want to dig into OCaml

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "build_path_prefix_map"
+- "builds"
+- "flambda"
+- "mirageos"
+- "opam"
+- "orb"
+- "parallelism"
+- "reproducibility"
+- "reproducible"
+- "unikernel"
 ---
 
 <h2>Reproducible builds summit</h2>

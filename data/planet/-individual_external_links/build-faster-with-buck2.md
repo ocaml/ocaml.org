@@ -11,4 +11,15 @@ authors:
 source:
   name: Engineering at Meta
   url: https://engineering.fb.com/
+keywords:
+- "bazel"
+- "buck"
+- "buck1"
+- "buck2"
+- "dependency"
+- "graph"
+- "meta"
+- "opens"
+- "parallelism"
+- "rules"
 ---

@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/assets/img/logo_ocp_icon.svg
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "backtrace"
+- "backtraces"
+- "exception"
+- "exceptions"
+- "flambda"
+- "lwt"
+- "ocaml-option-flambda"
+- "printexc"
+- "sys"
+- "uncaught"
 ---
 
 <p></p>

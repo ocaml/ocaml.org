@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "cryptography"
+- "cstruct"
+- "curve"
+- "curves"
+- "elliptic"
+- "memory"
+- "mirage-crypto-ec"
+- "mirageos"
+- "nist"
+- "ppx"
 ---
 
 How we improved the performance of elliptic curves by only modifying the underlying byte array

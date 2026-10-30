@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "display"
+- "ds3231"
+- "e-paper"
+- "eeprom"
+- "frightful"
+- "gpio"
+- "i2c"
+- "opam"
+- "spi"
+- "wiringpi"
 ---

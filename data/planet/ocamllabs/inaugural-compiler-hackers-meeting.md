@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "compiler"
+- "harris"
+- "looked"
+- "mantis"
+- "mike"
+- "names"
+- "patch"
+- "submitted"
+- "suffixes"
+- "vincent"
 ---
 
 <p><img src="http://ocamllabs.io/compiler-hacking/imgs/2013-09-17.jpg" alt="Compiler Hacking"/></p>

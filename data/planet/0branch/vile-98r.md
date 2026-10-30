@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "browse"
+- "dickey"
+- "disqus"
+- "july"
+- "marc"
+- "powered"
+- "simpson"
+- "tom"
+- "upgrading"
+- "vile"
 ---
 
 <div>

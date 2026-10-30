@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/70c1588cebab1a71a3364cd221e5b14b/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "archive"
+- "disk"
+- "irmin"
+- "node"
+- "nodes"
+- "octez"
+- "rolling"
+- "tezos"
+- "volume"
+- "volumes"
 ---
 
 <p>For the past few years, Tarides has been responsible for the storage component of Tezos, from L1 and L2 shells up to the Tezos protocol. In 2022, our main focus was on improving storage performance and UX for running nodes and bakers. Our efforts resulted in significant improvements, including reducing the storage requirements for rolling nodes by 10x and <a href="https://tarides.com/blog/2022-04-26-lightning-fast-with-irmin-tezos-storage-is-6x-faster-with-1000-tps-surpassed">decreasing the memory usage of the storage layer by 80%</a>. We also maintain core storage APIs necessary to scale the TPS of the network. But we didn't stop there! This year, we've already worked on improving the performance of archive nodes and delivered the project last month. In this blog post, we'll take a closer look at our work and what it means for the future of Tezos.</p>

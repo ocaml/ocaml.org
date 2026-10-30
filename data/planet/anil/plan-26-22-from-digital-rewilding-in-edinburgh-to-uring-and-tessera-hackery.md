@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "edinburgh"
+- "eio"
+- "embeddings"
+- "geocaml"
+- "magic"
+- "parser"
+- "rewilding"
+- "tessera"
+- "uring"
+- "workshop"
 ---

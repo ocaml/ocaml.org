@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "aos"
+- "ccsds"
+- "frame"
+- "frames"
+- "packet"
+- "protocol"
+- "sdls"
+- "space"
+- "spacecraft"
+- "uslp"
 ---

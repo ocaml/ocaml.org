@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "codec"
+- "concurrency"
+- "declarative"
+- "graphics"
+- "non-blocking"
+- "opengl"
+- "parser"
+- "unicode"
+- "uucd"
+- "uunf"
 ---
 
 <p>Release of Uucd and Uunf to support Unicode 6.3.0. Consult the individual release notes for details.</p>

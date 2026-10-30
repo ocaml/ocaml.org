@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "attacker"
+- "delegation"
+- "keys"
+- "linearity"
+- "quorum"
+- "repository"
+- "signed"
+- "signing"
+- "snapshot"
+- "tuf"
 ---
 
 <blockquote>

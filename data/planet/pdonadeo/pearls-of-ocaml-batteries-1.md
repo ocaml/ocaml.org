@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "batteries"
+- "functional programming"
+- "in_channel"
+- "iter"
+- "library"
+- "pleac-objective"
+- "presumed"
+- "pretending"
+- "standard"
+- "weakness"
 ---
 
 <div>

@@ -9,4 +9,15 @@ authors:
 - Benjamin Thuillier
 source:
 ignore:
+keywords:
+- "archetype"
+- "datetime"
+- "end_date"
+- "experience"
+- "experiences"
+- "normalize"
+- "start_date"
+- "yocaml"
+- "yocaml_markdown"
+- "yocaml_yaml"
 ---

@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "cmp"
+- "diff_map"
+- "diffable"
+- "dom"
+- "incr"
+- "incremental"
+- "map"
+- "model"
+- "simple_map"
+- "vdom"
 ---
 
 <p>In my last <a href="https://blog.janestreet.com/self-adjusting-dom/">post</a>, I gave some simple examples showing how

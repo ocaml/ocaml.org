@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "associative"
+- "characters"
+- "followed"
+- "incr"
+- "level"
+- "operator"
+- "operators"
+- "precedence"
+- "prefix"
+- "symbol"
 ---
 
 <p>

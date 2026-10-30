@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Vincent Balat
 source:
+keywords:
+- "a_class"
+- "button"
+- "classlist"
+- "client"
+- "elt"
+- "mywidget"
+- "of_element"
+- "pcdata"
+- "switch_visibility"
+- "to_dom"
 ---
 
 <p>This short tutorial is an example of client-server Eliom application. It gives an example of client-server widgets. You can find the original version of this tutorial (and many others) <a href="http://ocsigen.org/tuto/manual/tutowidgets">here</a>.</p>

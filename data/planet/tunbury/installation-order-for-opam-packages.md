@@ -14,6 +14,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "accu"
+- "base-effects"
+- "base-nnp"
+- "cycles"
+- "functor"
+- "graph"
+- "installation"
+- "opam"
+- "order"
+- "topological"
 ---
 
 <p>Previously, I discussed the installation order for a simple directed acyclic graph without any cycles. However, <code class="language-plaintext highlighter-rouge">opam</code> packages include <em>post</em> dependencies. Rather than package A depending upon B where B would be installed first, <em>post</em> dependencies require X to be installed after Y. The <em>post</em> dependencies only occur in a small number of core OCaml packages. They are quite often empty and exist to direct the solver. Up until now, I had been using a base layer with an opam switch containing the base compiler and, therefore, did not need to deal with any <em>post</em> dependencies.</p>

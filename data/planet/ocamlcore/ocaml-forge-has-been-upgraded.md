@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "bzr"
+- "customized"
+- "extunix"
+- "forge"
+- "fusionforge"
+- "gravatar"
+- "http"
+- "hudson"
+- "oasis"
+- "ocamlcore"
 ---
 
 <p>Since 2 weeks, I have been busy working on the <a href="http://forge.ocamlcore.org">forge</a>. I have decided that the <a href="http://fusionforge.org">FusionForge</a> migration should be done before the end of the year and this is now a reality. The OCaml Forge is now running using FusionForge, not yet stable, 5.1 branch.</p>

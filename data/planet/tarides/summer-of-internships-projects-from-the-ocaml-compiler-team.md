@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/513afe441c908c744458da8f54c1049d/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "compiler"
+- "depext"
+- "eio"
+- "eutro"
+- "gospel"
+- "nix"
+- "olly"
+- "ortac"
+- "trace"
+- "uring-trace"
 ---
 
 <p>We have had the pleasure of hosting several interns in the compiler team this past year. Their projects have tackled varied and challenging tasks touching on different aspects of compiler development, ranging from modularising the observability tool Olly to creating eBPF-based kernel-side performance monitoring, improving polyglot package management, and lifting limitations of the Ortac tool that helps developers test Gospel specifications for OCaml.</p>

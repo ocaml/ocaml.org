@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "archive"
+- "capital"
+- "hex"
+- "intel_hex"
+- "layoutz"
+- "merlin"
+- "news"
+- "object"
+- "ortac"
+- "qcheck-stm"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "compiler"
+- "compiler-hacking"
+- "fifth"
+- "fw11"
+- "helpful"
+- "internals"
+- "madingley"
+- "session"
+- "tuesday"
+- "wiki"
 ---
 
 <p>It's time for the fifth Cambridge OCaml compiler-hacking session!  We'll be meeting in the <a href="http://www.cl.cam.ac.uk/">Computer Lab</a> again next Tuesday evening.</p>

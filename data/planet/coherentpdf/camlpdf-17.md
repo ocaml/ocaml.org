@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "aes"
+- "bookmarks"
+- "camlpdf"
+- "coherentpdf"
+- "destinations"
+- "introduction_to_camlpdf"
+- "johnwhitington"
+- "non-backward-compatible"
+- "opam"
+- "www"
 ---
 
 <p>The first new release of the CamlPDF library for a while is here:</p>

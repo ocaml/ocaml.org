@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "documenting"
+- "functional programming"
+- "jane"
+- "looking"
+- "ppx"
+- "street"
+- "technical"
+- "writer"
 ---
 
 <p><em>Update: I&rsquo;m excited to say that we&rsquo;ve now hired a (great!) technical

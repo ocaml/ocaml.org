@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "cross-referenced"
+- "documentation"
+- "isc"
+- "licenses"
+- "manuals"
+- "ocaml-manual"
+- "odig"
+- "odoc"
+- "opam"
+- "readmes"
 ---
 
 <p>First release of Odig. If you can't keep track of the documentation of the OCaml packages you use, just odig them locally.</p>

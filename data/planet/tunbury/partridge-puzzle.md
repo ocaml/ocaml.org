@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "dlx"
+- "emc"
+- "grid"
+- "l_tile"
+- "minisat"
+- "ocamlgraph"
+- "puzzle"
+- "tiling"
+- "zarith"
+- "zdd"
 ---

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "add"
+- "compiler"
+- "config"
+- "domain"
+- "fixed"
+- "opam"
+- "opam-admin"
+- "opam-installer"
+- "opamformula"
+- "opamfu"
 ---
 
 <p>We are proud to announce that <em>OPAM 1.1.1</em> has just been released.</p>

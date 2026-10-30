@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "bitbucket"
+- "discontinuing"
+- "hg-git"
+- "hg-persona"
+- "hg-prettypaths"
+- "hugo-unix"
+- "mercurial"
+- "migration"
+- "nikos"
+- "simpson"
 ---
 
 <div>

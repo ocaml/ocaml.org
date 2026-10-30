@@ -11,6 +11,17 @@ preview_image: https://www.ocamlpro.com/blog/assets/img/flambda_camel_2023.png
 authors:
 - "\n    Pierre Chambart\n  "
 source:
+keywords:
+- "clambda"
+- "closure"
+- "cmm"
+- "compiler"
+- "f2s"
+- "flambda"
+- "flambda2"
+- "lambda"
+- "optimisations"
+- "snippets"
 ---
 
 <p></p>

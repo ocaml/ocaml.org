@@ -9,4 +9,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "automation"
+- "build"
+- "domain"
+- "modified_by"
+- "plan_after"
+- "rfd"
+- "stacks"
+- "stategraph"
+- "systems"
+- "terraform"
 ---

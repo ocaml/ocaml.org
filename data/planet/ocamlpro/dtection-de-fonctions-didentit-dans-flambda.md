@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Leo Boitel\n  "
 source:
+keywords:
+- "approche"
+- "avons"
+- "bloc"
+- "blocs"
+- "exemple"
+- "flambda"
+- "fonction"
+- "fonctions"
+- "identite"
+- "pmakeblock_arg"
 ---
 
 <blockquote>

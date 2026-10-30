@@ -7,6 +7,17 @@ preview_image: https://priver.dev/images/ocaml/ocaml-cover.png
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "age"
+- "emil"
+- "favoriteprogramminglanguage"
+- "havepets"
+- "immutability"
+- "name"
+- "pattern matching"
+- "print_endline"
+- "printf"
+- "type inference"
 ---
 
 <p>According to my <a href="https://www.linkedin.com/in/emilpriver/">Linkedin</a> profile, I have been writing code for a company for almost 6 years. During this time, I have worked on PHP and Wordpress projects, built e-commerce websites using NextJS and JavaScript, written small backends in Python with Django/Flask/Fastapi, and developed fintech systems in GO, among other things. I have come to realize that I value a good type system and prefer writing code in a more functional way rather than using object-oriented programming. For example, in GO, I prefer passing in arguments rather than creating a <code>struct</code> method. This is why I will be discussing OCaml in this article.</p>

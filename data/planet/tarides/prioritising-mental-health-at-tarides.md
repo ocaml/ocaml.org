@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/f0873a10dcc0bac175c8ab5d3cd52cb0/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "check-in"
+- "employees"
+- "health"
+- "mental"
+- "prioritising"
+- "psychological"
+- "staff"
+- "tarides"
+- "well-being"
+- "workplace"
 ---
     
 <p>In a world that never stops, it's easy to get lost in the hustle and bustle of daily life, often overlooking the importance of maintaining our mental well-being, one of the most vital aspects of our existence. Especially on <a href="https://mentalhealth-uk.org/blog/how-flexible-working-could-tackle-burnout-in-the-workplace/">World Mental Health Day</a>, observed every October 10th, it's crucial to reflect on the significance of mental health both in our personal lives and within the workplace. At Tarides, we understand that true success goes beyond profits and productivity; it's about the well-being of our employees and contractors.</p>

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "brainfuck"
+- "cursor"
+- "delegate"
+- "evaluator"
+- "instruction"
+- "memory"
+- "override"
+- "public"
+- "semantics"
+- "void"
 ---
 
 

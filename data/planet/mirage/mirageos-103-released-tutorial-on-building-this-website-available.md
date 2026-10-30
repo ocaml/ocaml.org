@@ -6,6 +6,17 @@ date: 2013-12-19T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "buffered"
+- "concurrency"
+- "fat"
+- "filesystem"
+- "mirageos"
+- "opam"
+- "passthrough"
+- "unix"
+- "update"
+- "website"
 ---
 
 

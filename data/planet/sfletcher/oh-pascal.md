@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "blogthis"
+- "circa"
+- "else"
+- "graph"
+- "graph1"
+- "jensen"
+- "pascal"
+- "rephrased"
+- "shayne"
+- "wirth"
 ---
 
 <p>

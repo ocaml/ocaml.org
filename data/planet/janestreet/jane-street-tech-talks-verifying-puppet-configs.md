@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/jane-street-tech-talks-verifying-pupp
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "arjun"
+- "async"
+- "compiler"
+- "configs"
+- "functional programming"
+- "jane"
+- "ppx"
+- "puppet"
+- "street"
+- "tech"
 ---
 
 <p>Our first <a href="https://blog.janestreet.com/how-to-build-an-exchange/">Jane Street Tech Talk</a> went really well!

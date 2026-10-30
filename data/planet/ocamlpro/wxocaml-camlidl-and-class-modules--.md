@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "camlidl"
+- "class"
+- "elj"
+- "wxOCaml"
+- "wxcaml"
+- "wxdefs"
+- "wxframe"
+- "wxhaskell"
+- "wxwidgets"
+- "wxwindow"
 ---
 
 <p>Last week, I was bored doing some paperwork, so I decided to hack a little to relieve my mind...</p>

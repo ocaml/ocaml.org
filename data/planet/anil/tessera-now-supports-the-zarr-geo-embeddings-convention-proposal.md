@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "convention"
+- "embeddings"
+- "geo-embeddings"
+- "geospatial"
+- "geotessera"
+- "mosaic"
+- "sel"
+- "store"
+- "tessera"
+- "zarr"
 ---

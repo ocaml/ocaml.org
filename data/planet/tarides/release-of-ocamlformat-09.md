@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/b0a6eda566f64c66aa1761737cf3ea4a/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "break-fun-decl"
+- "break-separators"
+- "doc-comments-tag-only"
+- "file"
+- "fit-or-vertical"
+- "ocamlformat"
+- "parens-tuple-patterns"
+- "patdiff"
+- "profile"
+- "single-case"
 ---
 
 <p>We are pleased to announce the release of OCamlFormat (available on opam).

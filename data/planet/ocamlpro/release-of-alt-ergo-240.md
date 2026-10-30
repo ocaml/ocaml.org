@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Albin Coquereau\n  "
 source:
+keywords:
+- "add"
+- "alt-ergo"
+- "cdcl-tableaux"
+- "depreciated"
+- "exponentiation"
+- "foralls"
+- "instantiation"
+- "novelties"
+- "opam"
+- "resp"
 ---
 
 <p>A new release of Alt-Ergo (version 2.4.0)  is available.</p>
