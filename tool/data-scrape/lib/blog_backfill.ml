@@ -475,6 +475,35 @@ let corpus_df ~cache_dir =
                  (analyse text).grams);
   (df, !ndocs)
 
+(* Document frequencies over every post's STORED body on disk (no cache, no
+   network). Used for scrape-time keyword generation, where the corpus text
+   lives in data/planet rather than a warm cache. Posts without a stored body do
+   not contribute. *)
+let corpus_df_from_disk () =
+  let df = Hashtbl.create 65536 and ndocs = ref 0 in
+  if Sys.file_exists planet_dir then
+    Sys.readdir planet_dir
+    |> Array.iter (fun src ->
+           let dir = Filename.concat planet_dir src in
+           if Sys.is_directory dir then
+             Sys.readdir dir
+             |> Array.iter (fun f ->
+                    if Filename.check_suffix f ".md" then
+                      match
+                        split_front_matter (read_file (Filename.concat dir f))
+                      with
+                      | Some (_, body) when String.trim body <> "" ->
+                          incr ndocs;
+                          SSet.iter
+                            (fun g ->
+                              Hashtbl.replace df g
+                                (1
+                                + Option.value ~default:0
+                                    (Hashtbl.find_opt df g)))
+                            (analyse (html_to_text body)).grams
+                      | _ -> ()));
+  (df, !ndocs)
+
 let max_keywords = 10
 
 (* Boost applied, on top of corpus IDF, to a dictionary hit so a distinctive
@@ -558,6 +587,11 @@ let extract_keywords ~df ~ndocs ~dict ~title a =
   |> List.filteri (fun i _ -> i < max_keywords)
   |> List.map (fun (_, (display, _)) -> display)
   |> List.sort String.compare
+
+(* Keywords for a single post's HTML [content], given a precomputed corpus DF
+   and dictionary. Used by the scraper to tag new posts at scrape time. *)
+let keywords_for ~df ~ndocs ~dict ~title content =
+  extract_keywords ~df ~ndocs ~dict ~title (analyse (html_to_text content))
 
 (* ------------------------------------------------------------------ *)
 (* Write-back: minimal textual patch                                    *)

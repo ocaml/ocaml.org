@@ -37,11 +37,14 @@ jobs:
         id: scrape
         run: |
           { echo "msg<<EOF"; cat _scrape_commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          # The commit subject (first line) names the day's top keywords; use it
+          # as the PR title so the notification email subject is descriptive.
+          echo "title=$(head -1 _scrape_commit.md)" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          title: '[scrape] New OCaml Planet posts'
+          title: ${{ steps.scrape.outputs.title }}
           commit-message: ${{ steps.scrape.outputs.msg }}
           body-path: _scrape_report.md
           labels: scrape
