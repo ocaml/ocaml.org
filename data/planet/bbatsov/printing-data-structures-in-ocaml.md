@@ -13,4 +13,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "age"
+- "batsov"
+- "bbatsov"
+- "bozhidar"
+- "is_developer"
+- "ppx"
+- "ppx_deriving_show"
+- "print_string"
+- "printer"
+- "show_person"
 ---
