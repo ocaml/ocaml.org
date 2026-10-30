@@ -105,6 +105,38 @@ let clean_url =
           (B.clean_url "https://normal.example/x"));
   ]
 
+module R = Data_scrape.Scrape_report
+
+let aggregate_keywords =
+  let post kws = R.New_post { source_id = "s"; title = "t"; keywords = kws } in
+  [
+    test_case "ranks by frequency across posts, ties alphabetical" (fun () ->
+        check_strings "top keywords"
+          [ "effects"; "dune"; "lwt" ]
+          (R.aggregate_keywords
+             [
+               post [ "effects"; "lwt" ];
+               post [ "effects"; "dune" ];
+               post [ "effects"; "dune" ];
+             ]));
+    test_case "honours the top-n cap and ignores non-post entries" (fun () ->
+        check_strings "capped" [ "effects"; "dune" ]
+          (R.aggregate_keywords ~n:2
+             [
+               post [ "effects"; "effects"; "dune"; "gadt" ];
+               R.Video_update { file = "v"; new_count = 1 };
+             ]));
+    test_case "empty when there are no post keywords" (fun () ->
+        check_strings "empty" [] (R.aggregate_keywords [ post [] ]));
+    test_case "commit subject is \"[posts] <keywords>\"" (fun () ->
+        let buf = Buffer.create 64 in
+        R.format_commit_message buf [ post [ "effects"; "dune" ] ];
+        let subject =
+          List.hd (String.split_on_char '\n' (Buffer.contents buf))
+        in
+        check_string "subject" "[posts] dune, effects" subject);
+  ]
+
 let () =
   Alcotest.run "planet-keywords"
     [
@@ -114,4 +146,5 @@ let () =
       ("yaml_quote", yaml_quote);
       ("strip_keywords", strip_keywords);
       ("clean_url", clean_url);
+      ("aggregate_keywords", aggregate_keywords);
     ]
