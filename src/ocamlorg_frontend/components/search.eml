@@ -1,20 +1,48 @@
+(* Wrap every case-insensitive occurrence of a query word in a highlight
+   [<span>]. Query words are matched as literal substrings (longest match
+   first), never as regexps, so no query can crash the renderer. *)
 let highlight_search_terms
 ~class_
 ~search
 (text: string)
 =
-  let r =
-    Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim search)
+  let terms =
+    String.trim search
+    |> String.map (fun c -> if c = '\t' then ' ' else c)
+    |> String.split_on_char ' '
+    |> List.filter (fun t -> t <> "")
+    |> List.map String.lowercase_ascii
   in
-  if r <> "" then
-    let render_item = function
-      | Str.Delim s -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape s ^ {|</span>|}
-      | Text s -> Dream.html_escape s
-    in
-    let split = Str.full_split (Str.regexp_case_fold r) text in
-    List.fold_left (fun a b -> a ^ render_item b) "" split
-  else
-    Dream.html_escape text
+  if terms = [] then Dream.html_escape text
+  else begin
+    let lower = String.lowercase_ascii text in
+    let n = String.length text in
+    let buf = Buffer.create (2 * n) in
+    let i = ref 0 in
+    while !i < n do
+      (* Length of the longest query term matching at position [!i], 0 if
+         none. *)
+      let m =
+        List.fold_left
+          (fun acc t ->
+            let lt = String.length t in
+            if lt > acc && !i + lt <= n && String.sub lower !i lt = t then lt
+            else acc)
+          0 terms
+      in
+      if m = 0 then begin
+        Buffer.add_string buf (Dream.html_escape (String.sub text !i 1));
+        incr i
+      end
+      else begin
+        Buffer.add_string buf ({|<span class="|} ^ Dream.html_escape class_ ^ {|">|});
+        Buffer.add_string buf (Dream.html_escape (String.sub text !i m));
+        Buffer.add_string buf "</span>";
+        i := !i + m
+      end
+    done;
+    Buffer.contents buf
+  end
 
 let display_surrounding_text ~search (text : string) =
   let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim search) in

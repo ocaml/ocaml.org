@@ -1,14 +1,29 @@
 let resource_link ~link icon title =
   <a href="<%s link %>" class="text-primary dark:text-dark-primary flex items-center dark:hover:text-dark-primary hover:underline group"> <%s! icon "h-5 w-5 mr-1 text-primary dark:text-dark-primary group-hover:text-primary group-hover-underline dark:group-hover:text-dark-primary" %><span><%s title %></span></a>
 
-let render_blog_post (post : Data.Planet.entry) =
+let hl ~search text =
+  Search.highlight_search_terms
+    ~class_:"bg-tertiary_lighter dark:bg-[#003357] dark:text-dark-white" ~search
+    text
+
+let render_blog_post ~search (post : Data.Planet.entry) =
   <div class="flex flex-col lg:flex-row lg:gap-12 dark:bg-dark-card dark:rounded-lg p-6 border-b border-separator_20 dark:border-none md:border-none mb-4">
       <div class="space-y-3 mt-2 lg:mt-0 flex flex-col flex-1">
           <a href="<%s match post with | BlogPost p -> p.url | Video v -> v.url %>"
-              class="block text-xl text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s match post with | BlogPost p -> p.title | Video v -> v.title %></a>
+              class="block text-xl text-title dark:text-dark-title hover:text-primary dark:hover:text-dark-primary"><%s! hl ~search (Data.Planet.entry_title post) %></a>
           <p class="text-content dark:text-dark-content truncate-2-lines">
-              <%s match post with | BlogPost p -> Option.value ~default:"" p.description | Video v -> v.description %>
+              <%s! hl ~search (Data.Planet.entry_description post) %>
           </p>
+          <% (match Data.Planet.entry_keywords post with [] -> () | keywords -> %>
+          <div class="flex flex-wrap gap-1 text-sm">
+            <% keywords |> List.iter (fun kw -> %>
+              <a href="<%s Url.ocaml_planet %>?keyword=<%s Dream.to_percent_encoded kw %>"
+                 class="px-2 whitespace-nowrap py-0.5 font-medium text-primary dark:text-dark-primary bg-primary_nav_block_hover_10 border border-primary dark:border-dark-primary rounded hover:bg-primary dark:hover:bg-dark-primary hover:text-white dark:hover:text-dark-white">
+                <%s! hl ~search kw %>
+              </a>
+            <% ); %>
+          </div>
+          <% ); %>
           <div class="flex items-center flex-wrap gap-[4px]">
               <p class="text-content dark:text-dark-content text-sm mr-8 font-bold">
                 <%s match post with | BlogPost p -> Utils.human_time p.date | Video v -> Utils.human_time v.published %>
@@ -50,7 +65,7 @@ let render_blog_post (post : Data.Planet.entry) =
       </div>
   </div>
 
-let render ?(category = "All") ~(pagination_info : Pagination.t) (planet : Data.Planet.entry list) =
+let render ?(category = "All") ~search ~(type_options : (string * string * bool) list) ~(facets : (string * (string * int * string * bool) list) list) ~(active_filters : (string * string * string) list) ~(hidden_params : (string * string) list) ~(pagination_info : Pagination.t) (planet : Data.Planet.entry list) =
 News_layout.single_column_layout
 ~title:"The OCaml Planet"
 ~description:"The RSS aggregator for the OCaml community."
@@ -76,6 +91,28 @@ News_layout.single_column_layout
               the OCaml Planet RSS feed aggregator has something for everyone.
             </p>
           </div>
+          <div class="border-b border-separator_20 dark:border-dark-separator_30 pb-4 mb-4">
+            <h3 class="font-bold text-sm uppercase tracking-widest text-content dark:text-dark-content mb-2">Type</h3>
+            <div class="inline-flex rounded-md border border-primary dark:border-dark-primary overflow-hidden text-sm">
+              <% type_options |> List.iteri (fun i (label, href, selected) -> %>
+                <a href="<%s href %>"
+                   class="px-3 py-1 <%s if i > 0 then "border-l border-primary dark:border-dark-primary" else "" %> <%s if selected then "bg-primary text-white dark:bg-dark-primary dark:text-dark-white" else "text-primary dark:text-dark-primary hover:bg-primary hover:text-white dark:hover:bg-dark-primary dark:hover:text-dark-white" %>"><%s label %></a>
+              <% ); %>
+            </div>
+          </div>
+          <% facets |> List.iter (fun (title, options) -> match options with [] -> () | _ -> %>
+          <div class="border-b border-separator_20 dark:border-dark-separator_30 pb-4 mb-4">
+            <h3 class="font-bold text-sm uppercase tracking-widest text-content dark:text-dark-content mb-2"><%s title %></h3>
+            <div class="flex flex-wrap gap-1">
+              <% options |> List.iter (fun (value, count, href, selected) -> %>
+                <a href="<%s href %>"
+                   class="px-2 py-0.5 text-sm rounded border <%s if selected then "bg-primary text-white border-primary dark:bg-dark-primary dark:text-dark-white" else "text-primary dark:text-dark-primary border-primary dark:border-dark-primary hover:bg-primary hover:text-white dark:hover:bg-dark-primary dark:hover:text-dark-white" %>">
+                  <%s value %> <span class="opacity-60"><%i count %></span>
+                </a>
+              <% ); %>
+            </div>
+          </div>
+          <% ); %>
           <div class="mt-4">
             <h2 class="font-bold text-2xl text-title dark:text-dark-title mb-2">Want your Blog Posts or Videos to Show Here?</h2>
             <p class="text-content dark:text-dark-content mb-2">
@@ -87,21 +124,47 @@ News_layout.single_column_layout
           </div>
         </div>
         <div class="col-span-2 lg:order-1">
-          <div class="h-max mt-2 border-primary dark:border-primary flex mb-4">
-            <form class="flex flex-col md:flex-row w-max gap-2" action="<%s Url.ocaml_planet %>" method="GET">
-                  <label for="category" class="sr-only mb-2 md:mb-0">Location</label>
-                  <%s! Forms.select
-                    ~attrs:{|id="category" name="category" onchange="this.form.submit()"|}
-                    ~options:([("All", "All"); ("Article", "Article"); ("Video", "Video")])
-                    ~selected:category
-                   "" %>
+          <div class="mt-2 mb-4">
+            <form class="flex w-full" action="<%s Url.ocaml_planet %>" method="GET">
+                  <%s! Forms.search_input
+                    ~name:"q"
+                    ~label:"Search the OCaml Planet"
+                    ~button_attrs:{|type="submit"|}
+                    ~input_attrs:("value=\"" ^ Dream.html_escape search ^ "\"")
+                    "flex-1" %>
+                  <%s! if category <> "All" then {|<input type="hidden" name="category" value="|} ^ Dream.html_escape category ^ {|">|} else "" %>
+                  <% hidden_params |> List.iter (fun (k, v) -> %>
+                    <input type="hidden" name="<%s k %>" value="<%s v %>">
+                  <% ); %>
             </form>
           </div>
-          <div class="flex flex-col">
-            <%s! planet
-              |> List.map (fun (item : Data.Planet.entry) -> render_blog_post item )
-              |> String.concat "\n" ; %>
+          <% (match active_filters with [] -> () | _ -> %>
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="text-sm text-content dark:text-dark-content">Filtering by:</span>
+            <% active_filters |> List.iter (fun (label, value, remove_href) -> %>
+              <a href="<%s remove_href %>"
+                 class="inline-flex items-center gap-1 px-2 py-0.5 text-sm rounded border border-primary dark:border-dark-primary text-primary dark:text-dark-primary hover:bg-primary hover:text-white dark:hover:bg-dark-primary dark:hover:text-dark-white">
+                <span class="font-medium"><%s label %>:</span> <%s value %>
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">(remove)</span>
+              </a>
+            <% ); %>
+            <a href="<%s Url.ocaml_planet %>" class="text-sm text-content dark:text-dark-content underline hover:text-primary dark:hover:text-dark-primary">Clear all</a>
           </div>
+          <% ); %>
+          <% (match planet with [] -> %>
+            <div class="text-content dark:text-dark-content py-8">
+              <p class="mb-2">We didn't find a match<% (if search <> "" then %> for "<%s search %>"<% ); %>.</p>
+              <ul class="list-disc ml-6 space-y-1">
+                <li>Try fewer or more general words, or remove a filter.</li>
+                <li>Search matches post titles, keywords, descriptions, authors and sources.</li>
+              </ul>
+            </div>
+          <% | _ -> %>
+            <div class="flex flex-col">
+              <%s! planet |> List.map (render_blog_post ~search) |> String.concat "\n" %>
+            </div>
+          <% ); %>
           <div class="flex items-start">
             <%s! Pagination.render pagination_info %> 
           </div>

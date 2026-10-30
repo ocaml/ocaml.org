@@ -17,6 +17,8 @@
   ezjsonm
   ; XML for youtube scraper
   xmlm
+  ; HTML parsing for the keyword backfill
+  markup
   ; Common utilities
   unix
   uri

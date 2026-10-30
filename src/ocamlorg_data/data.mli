@@ -159,6 +159,17 @@ module Planet : sig
   include module type of Planet
 
   val all : entry list
+  val entry_title : entry -> string
+  val entry_description : entry -> string
+  val entry_date : entry -> string
+  val entry_source : entry -> string
+  val entry_authors : entry -> string list
+  val entry_keywords : entry -> string list
+  val entry_year : entry -> string
+
+  val search : string -> entry list
+  (** [search q] ranks entries by relevance to the non-empty query [q] (title >
+      keywords > description > author/source); non-matches are dropped. *)
 end
 
 module Release : sig
