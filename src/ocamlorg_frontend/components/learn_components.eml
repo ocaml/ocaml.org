@@ -183,7 +183,7 @@ let tool_card ~img_src ~title ~text ~url =
       <%s! Icons.arrow_right_circle "h-5 w-5" %></div>
   </a>
 
-let contribute_footer ~href ~description ~recommended_next_tutorials =
+let contribute_footer ~authors_href ~href ~description ~recommended_next_tutorials =
   let render_recommended_next_tutorials ~recommended_next_tutorials =
     if List.length recommended_next_tutorials > 0 then
       <div class="mb-6 pt-4 px-6 border-t border-gray-200">
@@ -226,6 +226,14 @@ let contribute_footer ~href ~description ~recommended_next_tutorials =
             Contribute</a
           >
         </div>
+        <% (match authors_href with Some authors_href -> %>
+        <div class="mb-5 text-sm">
+          <a href="<%s authors_href %>" class="flex items-center gap-2 bg-transparent font-normal sm:text-lg no-underline hover:underline">
+            <%s! Icons.user_group "h-6 w-6" %>
+            Authors and history</a
+          >
+        </div>
+        <% | None -> ()); %>
       </div>
     </div>
   </div>

@@ -70,6 +70,11 @@ let href, description = match tutorial.external_tutorial with
     external_tutorial.contribute_link.url,
     external_tutorial.contribute_link.description
 in
+let authors_href =
+  Option.map
+    (fun _ -> Url.tutorial_authors tutorial.slug)
+    (Data.Attribution.get_by_fpath tutorial.fpath)
+in
 let render_external_tutorial_banner (opt_external_tutorial : Data.Tutorial.external_tutorial option) = match opt_external_tutorial with
   | None -> ""
   | Some external_tutorial ->
@@ -90,5 +95,5 @@ Learn_layout.three_column_layout
     <%s! render_prerequisite_tutorials prerequisite_tutorials %>
     <%s! tutorial.body_html %>
     <%s! render_related_exercises related_exercises %>
-    <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials %>
+    <%s! Learn_components.contribute_footer ~authors_href ~href ~description ~recommended_next_tutorials %>
   </div>
