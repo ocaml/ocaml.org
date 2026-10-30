@@ -131,9 +131,14 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
               keywords = [];
             }
           in
+          (* Store the post body (the feed content) after the front matter, as
+             the pre-#3463 ood-gen pipeline did: front matter, a blank line,
+             then the HTML. Dropping it in #3463 was unintentional, and it is
+             what lets the site (and the keyword backfill) use the text without
+             refetching the original article. *)
           let s = Format.asprintf "%a" Post.pp_meta metadata in
           let oc = open_out output_file in
-          Printf.fprintf oc "%s" s;
+          Printf.fprintf oc "%s\n%s\n" s (String.trim content);
           close_out oc;
           Some
             (Scrape_report.New_post
