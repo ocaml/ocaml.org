@@ -36,6 +36,9 @@ end = struct
   let search_index ?version ~digest = base ?version ("/search-index/" ^ digest)
 end
 
+(* The shared sherlodoc engine is not package-scoped, so it lives at the site
+   root rather than under [Package]. *)
+let doc_search_engine ~digest = "/doc-search-engine/" ^ digest
 let sitemap = "/sitemap.xml"
 let community = "/community"
 let resources = "/resources"

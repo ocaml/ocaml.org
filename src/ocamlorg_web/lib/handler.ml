@@ -948,6 +948,15 @@ module Package_helper = struct
     in
     search_index_digest |> Option.map Dream.to_base64url |> Lwt.return
 
+  (* The sherlodoc engine is shared, so its token depends on neither the package
+     nor the universe kind. *)
+  let search_engine_digest state =
+    let open Lwt.Syntax in
+    let* search_engine_digest =
+      Ocamlorg_package.Documentation.search_engine_digest state
+    in
+    search_engine_digest |> Option.map Dream.to_base64url |> Lwt.return
+
   let frontend_package ?on_latest_url ?documentation_status state
       (package : Ocamlorg_package.t) : Ocamlorg_frontend.Package.package =
     let name = Ocamlorg_package.name package
@@ -1177,6 +1186,7 @@ let package_overview t kind req =
   let* search_index_digest =
     Package_helper.search_index_digest ~kind t package
   in
+  let* search_engine_digest = Package_helper.search_engine_digest t in
 
   let package_info = Ocamlorg_package.info package in
   let rev_dependencies =
@@ -1289,7 +1299,8 @@ let package_overview t kind req =
   in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
-       ~search_index_digest ~toc ~deps_and_conflicts frontend_package)
+       ~search_index_digest ~search_engine_digest ~toc ~deps_and_conflicts
+       frontend_package)
 
 let package_versions t _kind req =
   let</>? name =
@@ -1357,7 +1368,7 @@ let package_documentation t kind req =
       let response_404_page =
         Dream.html ~code:404
           (Ocamlorg_frontend.package_documentation_not_found ~page:path
-             ~search_index_digest:None
+             ~search_index_digest:None ~search_engine_digest:None
              ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation [])
              frontend_package)
       in
@@ -1378,6 +1389,7 @@ let package_documentation t kind req =
       let* search_index_digest =
         Package_helper.search_index_digest ~kind t package
       in
+      let* search_engine_digest = Package_helper.search_engine_digest t in
       let local_toc = Package_helper.frontend_toc doc.toc in
       let (breadcrumb_path : Ocamlorg_frontend.Package_breadcrumbs.path) =
         let breadcrumbs = doc.breadcrumbs in
@@ -1403,8 +1415,8 @@ let package_documentation t kind req =
       in
       Dream.html
         (Ocamlorg_frontend.package_documentation ?hash ~page:(Some path)
-           ~search_index_digest ~path:breadcrumb_path ~local_toc
-           ~content:doc.content frontend_package)
+           ~search_index_digest ~search_engine_digest ~path:breadcrumb_path
+           ~local_toc ~content:doc.content frontend_package)
 
 (* The documentation sidebar (the package's module tree) as a standalone HTML
    fragment, loaded by each documentation page with htmx. It is the same for
@@ -1502,13 +1514,15 @@ let package_file t kind req =
   let* search_index_digest =
     Package_helper.search_index_digest ~kind t package
   in
+  let* search_engine_digest = Package_helper.search_engine_digest t in
   let* maybe_doc = Ocamlorg_package.Documentation.file ~kind package path in
   let</>? doc = maybe_doc in
   let content = doc.content in
   let toc = Package_helper.frontend_toc doc.toc in
   Dream.html
     (Ocamlorg_frontend.package_overview_file ~sidebar_data ~content
-       ~search_index_digest ~content_title:path ~toc frontend_package)
+       ~search_index_digest ~search_engine_digest ~content_title:path ~toc
+       frontend_package)
 
 let package_search_index t kind req =
   let</>? name =
@@ -1534,6 +1548,22 @@ let package_search_index t kind req =
            ("Cache-Control", "max-age=31536000, immutable");
          ]
        search_index)
+
+(* The shared sherlodoc engine is identical for every package; it is proxied
+   same-origin and served immutable under [/doc-search-engine/<digest>]. The
+   [<digest>] path segment only cache-busts, so it is not inspected here. *)
+let package_search_engine _t _req =
+  let open Lwt.Syntax in
+  let* maybe_engine = Ocamlorg_package.Documentation.search_engine () in
+  let</>? engine = maybe_engine in
+  Lwt.return
+    (Dream.response
+       ~headers:
+         [
+           ("Content-type", "application/javascript");
+           ("Cache-Control", "max-age=31536000, immutable");
+         ]
+       engine)
 
 let sitemap _request =
   let open Lwt.Syntax in
