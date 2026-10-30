@@ -117,6 +117,9 @@ Layout.render
           <a href="https://github.com/ocaml/ocaml.org/issues/new">Open an issue</a>.
         </p>
         <p class="text-sm text-lighter">
+          According to French <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006278891" class="text-primary dark:text-dark-primary hover:underline">law</a>, authorship is perpetual, inalienable, and imprescriptible.
+        </p>
+        <p class="text-sm text-lighter">
           Generated at commit <code><%s short_hash a.generated_at_commit %></code>
         </p>
       </div>
