@@ -1,4 +1,4 @@
-FROM ocaml/opam:alpine-3.24-ocaml-5.2 AS build
+FROM ocaml/opam:alpine-3.24-ocaml-5.5 AS build
 
 # Install system dependencies
 RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
@@ -29,6 +29,7 @@ WORKDIR /home/opam
 # constraint. GitHub Actions (setup-ocaml) solves the same request well within
 # 60s; only this Docker solver is close to the limit, so give it headroom.
 COPY --chown=opam ocamlorg.opam .
+RUN opam pin add -n https://github.com/ocaml-ppx/ppx_import.git#4fffec8af4167e61a2bf934653ef8847ed472283
 RUN OPAMSOLVERTIMEOUT=300 opam install . --deps-only
 
 # Build project
