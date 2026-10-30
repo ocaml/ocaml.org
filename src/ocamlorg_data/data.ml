@@ -302,35 +302,78 @@ module Planet = struct
     let d = entry_date e in
     if String.length d >= 4 then String.sub d 0 4 else d
 
-  (* Relevance ranking, mirroring [Tutorial.search_documents]: the query becomes
-     a case-folded alternation of its words, and each field scores [log (1 +
-     #matches) * weight]. Weights encode title > keywords > description >
+  (* Count non-overlapping occurrences of [sub] in [s] (both lower-cased). *)
+  let count_sub ~sub s =
+    let ls = String.length s and lsub = String.length sub in
+    if lsub = 0 then 0
+    else
+      let rec loop i acc =
+        if i + lsub > ls then acc
+        else if String.sub s i lsub = sub then loop (i + lsub) (acc + 1)
+        else loop (i + 1) acc
+      in
+      loop 0 0
+
+  (* Relevance ranking. Each query term is scored INDEPENDENTLY and weighted by
+     its corpus IDF, so common words ("of", or "code" matching inside
+     "bytecode") get ~zero weight and a rare distinctive term dominates a
+     multi-word query. Per field, a term adds [log (1 + #matches) * field_weight
+     * idf]; field weights encode title > keywords > description >
      author/source. Only call with a non-empty query. *)
   let search q =
-    let regexp =
-      Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim q)
-      |> Str.regexp_case_fold
+    let terms =
+      Str.split (Str.regexp "[^a-z0-9_-]+") (String.lowercase_ascii q)
+      |> List.filter (fun t -> String.length t >= 2)
     in
-    let score_in field weight =
-      (* [max 1] guards empty fields: [Str.split] of "" is [], and [log 0.] is
-         [neg_infinity], which would poison the whole sum. *)
-      Float.log (float_of_int (max 1 (List.length (Str.split regexp field))))
-      *. weight
-    in
-    let score entry =
-      score_in (entry_title entry) 3.0
-      +. score_in (String.concat " " (entry_keywords entry)) 2.5
-      +. score_in (entry_description entry) 1.2
-      +. score_in (entry_source entry) 0.6
-      +. score_in (String.concat " " (entry_authors entry)) 0.6
-    in
-    List.filter_map
-      (fun e ->
-        let s = score e in
-        if s > 0.0 then Some (e, s) else None)
-      all
-    |> List.stable_sort (fun (_, s1) (_, s2) -> Float.compare s2 s1)
-    |> List.map fst
+    match terms with
+    | [] -> []
+    | terms ->
+        (* Lower-cased weighted fields per entry. *)
+        let docs =
+          List.map
+            (fun e ->
+              ( e,
+                [
+                  (String.lowercase_ascii (entry_title e), 3.0);
+                  ( String.lowercase_ascii (String.concat " " (entry_keywords e)),
+                    2.5 );
+                  (String.lowercase_ascii (entry_description e), 1.2);
+                  (String.lowercase_ascii (entry_source e), 0.6);
+                  ( String.lowercase_ascii (String.concat " " (entry_authors e)),
+                    0.6 );
+                ] ))
+            all
+        in
+        let n = List.length docs in
+        let idf term =
+          let df =
+            List.fold_left
+              (fun acc (_, fields) ->
+                if List.exists (fun (f, _) -> count_sub ~sub:term f > 0) fields
+                then acc + 1
+                else acc)
+              0 docs
+          in
+          Float.log (float_of_int (1 + n) /. float_of_int (1 + df))
+        in
+        let weighted_terms = List.map (fun t -> (t, idf t)) terms in
+        let score fields =
+          List.fold_left
+            (fun acc (term, idf) ->
+              List.fold_left
+                (fun a (f, w) ->
+                  let c = count_sub ~sub:term f in
+                  if c = 0 then a
+                  else a +. (Float.log (1. +. float_of_int c) *. w *. idf))
+                acc fields)
+            0.0 weighted_terms
+        in
+        docs
+        |> List.filter_map (fun (e, fields) ->
+               let s = score fields in
+               if s > 0.0 then Some (e, s) else None)
+        |> List.stable_sort (fun (_, s1) (_, s2) -> Float.compare s2 s1)
+        |> List.map fst
 end
 
 module Release = struct
