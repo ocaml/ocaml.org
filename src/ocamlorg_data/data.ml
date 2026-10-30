@@ -272,6 +272,60 @@ module Planet = struct
   include Data_intf.Planet
 
   let all = data.planet
+
+  (* Field accessors over the [BlogPost | Video] variant, so the handler and
+     templates don't repeat the match. Videos have no keywords. *)
+  let entry_title = function BlogPost p -> p.title | Video v -> v.title
+
+  let entry_description = function
+    | BlogPost p -> Option.value ~default:"" p.description
+    | Video v -> v.description
+
+  let entry_date = function BlogPost p -> p.date | Video v -> v.published
+
+  let entry_source = function
+    | BlogPost p -> p.source.name
+    | Video v -> v.source_title
+
+  let entry_authors = function
+    | BlogPost p -> p.authors
+    | Video v -> [ v.author_name ]
+
+  let entry_keywords = function BlogPost p -> p.keywords | Video _ -> []
+
+  let entry_year e =
+    let d = entry_date e in
+    if String.length d >= 4 then String.sub d 0 4 else d
+
+  (* Relevance ranking, mirroring [Tutorial.search_documents]: the query becomes
+     a case-folded alternation of its words, and each field scores [log (1 +
+     #matches) * weight]. Weights encode title > keywords > description >
+     author/source. Only call with a non-empty query. *)
+  let search q =
+    let regexp =
+      Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim q)
+      |> Str.regexp_case_fold
+    in
+    let score_in field weight =
+      (* [max 1] guards empty fields: [Str.split] of "" is [], and [log 0.] is
+         [neg_infinity], which would poison the whole sum. *)
+      Float.log (float_of_int (max 1 (List.length (Str.split regexp field))))
+      *. weight
+    in
+    let score entry =
+      score_in (entry_title entry) 3.0
+      +. score_in (String.concat " " (entry_keywords entry)) 2.5
+      +. score_in (entry_description entry) 1.2
+      +. score_in (entry_source entry) 0.6
+      +. score_in (String.concat " " (entry_authors entry)) 0.6
+    in
+    List.filter_map
+      (fun e ->
+        let s = score e in
+        if s > 0.0 then Some (e, s) else None)
+      all
+    |> List.stable_sort (fun (_, s1) (_, s2) -> Float.compare s2 s1)
+    |> List.map fst
 end
 
 module Release = struct
