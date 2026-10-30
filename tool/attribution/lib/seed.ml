@@ -111,7 +111,13 @@ let ts_of_date s =
 (* --- aggregation ---------------------------------------------------------- *)
 
 (* Collect per-name (count, earliest-ts, hash-at-earliest), choosing the
-   lexicographically smallest hash on a timestamp tie for determinism. *)
+   lexicographically smallest hash on a timestamp tie for determinism.
+
+   The final order is keyed on (first_date, name), NOT the raw timestamp: the
+   incremental fold re-anchors a base contributor at midnight of its recorded
+   [first_date] (day granularity is all the record carries), so ordering on the
+   sub-day timestamp would make [seed] and the fold disagree whenever two
+   contributors share a first date. Day + name is identical on both paths. *)
 let aggregate_contributors events =
   let tbl = Hashtbl.create 16 in
   List.iter
@@ -126,16 +132,12 @@ let aggregate_contributors events =
           Hashtbl.replace tbl name (n + 1, best_ts, best_hash))
     events;
   Hashtbl.fold
-    (fun name (commits, ts, hash) acc -> (ts, name, commits, hash) :: acc)
+    (fun name (commits, ts, hash) acc ->
+      { Record.name; commits; first_commit = hash; first_date = date_of_ts ts }
+      :: acc)
     tbl []
-  |> List.sort compare
-  |> List.map (fun (ts, name, commits, hash) ->
-         {
-           Record.name;
-           commits;
-           first_commit = hash;
-           first_date = date_of_ts ts;
-         })
+  |> List.sort (fun (a : Record.contributor) b ->
+         compare (a.first_date, a.name) (b.first_date, b.name))
 
 (* --- shared commit processing --------------------------------------------- *)
 
@@ -186,17 +188,26 @@ let fold_kept ~resolve kept =
   let ai = Hashtbl.create 8 in
   List.iter
     (fun c ->
+      (* A commit credits each distinct identity once. Someone who is both the
+         author and a Co-authored-by trailer on the same commit — or appears
+         under two e-mail spellings that mailmap to one name — must count once,
+         not twice, towards their commit tally. *)
+      let people = List.sort_uniq compare (credited ~resolve c) in
+      let humans = ref [] in
       let ai_tools =
         List.filter_map
           (fun (name, email) ->
             match Identity.classify ~name ~email with
             | Identity.Human ->
-                events := (name, c.hash, c.ts) :: !events;
+                humans := name :: !humans;
                 None
             | Identity.Ai -> Some name
             | Identity.Bot -> None)
-          (credited ~resolve c)
+          people
       in
+      List.iter
+        (fun name -> events := (name, c.hash, c.ts) :: !events)
+        (List.sort_uniq compare !humans);
       if
         ai_tools <> [] || c.assisted_by <> [] || c.ai_sections <> []
         || c.ai_context <> []
@@ -275,17 +286,23 @@ let compute_record ~cfg ~head ~generator ~ignore_revs ~sources ~imports path =
     |> fun ts -> if ts = 0 then None else Some (date_of_ts ts)
   in
   let overrides_applied =
-    List.filter_map
-      (fun h ->
-        if List.exists (fun c -> c.hash = h) commits then Some ("exclude:" ^ h)
-        else None)
-      excluded
-    @ List.map (fun n -> "add:" ^ n) override.Inputs.add
-    @ List.map (fun d -> "derived:" ^ d) override.Inputs.derived_from
-    @ (match import with
-      | Some (src, _) when imported_commits <> [] -> [ "import:" ^ src ]
-      | _ -> [])
-    @ match override.Inputs.notes with Some n -> [ "note:" ^ n ] | None -> []
+    (* Sorted/deduped to match [append_record], which applies
+       [sort_uniq_strings] to its own audit trail; otherwise seed and fold would
+       differ on any document carrying more than one override category. *)
+    sort_uniq_strings
+      (List.filter_map
+         (fun h ->
+           if List.exists (fun c -> c.hash = h) commits then
+             Some ("exclude:" ^ h)
+           else None)
+         excluded
+      @ List.map (fun n -> "add:" ^ n) override.Inputs.add
+      @ List.map (fun d -> "derived:" ^ d) override.Inputs.derived_from
+      @ (match import with
+        | Some (src, _) when imported_commits <> [] -> [ "import:" ^ src ]
+        | _ -> [])
+      @
+      match override.Inputs.notes with Some n -> [ "note:" ^ n ] | None -> [])
   in
   {
     Record.path;
@@ -469,6 +486,13 @@ let seed cfg =
    watermark and splice it back in place. Needs only the commits since that
    watermark (shallow-friendly), not the full history [seed] uses. *)
 let update cfg paths =
+  (* Guard against a typo'd path silently writing an empty record: a document
+     must exist on disk to be folded. *)
+  List.iter
+    (fun path ->
+      if not (Sys.file_exists (Filename.concat cfg.root path)) then
+        Fmt.failwith "no such document: %s (nothing to update)" path)
+    paths;
   let head = Git.head_commit ~root:cfg.root () in
   let generator =
     Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
@@ -497,6 +521,45 @@ let update cfg paths =
   in
   write_lines cfg.output (sort_lines (kept @ List.map snd updated));
   Printf.printf "updated %d record(s) in %s\n" (List.length updated) cfg.output
+
+(* Re-anchor the watermark onto a reachable commit, WITHOUT folding anything:
+   set [generated_at_commit] (and refresh [generator]) to the current HEAD for
+   the given documents, leaving every content field exactly as committed.
+
+   This exists because the project squash-merges PRs. [update]/[verify] stamp a
+   record at the PR's branch head; a squash merge discards that commit, so once
+   merged the watermark names a commit that is no longer on the branch, and the
+   next document edit's fold ([<watermark>..HEAD]) cannot resolve it. Running
+   [restamp] on the default branch after a merge moves each touched record's
+   watermark onto the (reachable) merge commit, so incremental maintenance stays
+   anchored. It is safe precisely because it does no folding: the attribution
+   gate already verified this tree's content before the merge, so only the stamp
+   needs to advance. A document with no committed record yet is skipped. *)
+let restamp cfg paths =
+  List.iter
+    (fun path ->
+      if not (Sys.file_exists (Filename.concat cfg.root path)) then
+        Fmt.failwith "no such document: %s (nothing to restamp)" path)
+    paths;
+  let head = Git.head_commit ~root:cfg.root () in
+  let generator =
+    Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
+  in
+  let targets = List.sort_uniq compare paths in
+  let restamped = ref 0 in
+  let lines =
+    List.map
+      (fun line ->
+        if List.mem (Record.path_of_line line) targets then (
+          incr restamped;
+          Record.to_line
+            { (Record.of_line line) with generated_at_commit = head; generator })
+        else line)
+      (read_lines cfg.output)
+  in
+  write_lines cfg.output (sort_lines lines);
+  Printf.printf "restamped %d record(s) at %s in %s\n" !restamped head
+    cfg.output
 
 (* Recompute the full store and compare it against what is committed, ignoring
    the generation-time provenance stamp so an advancing HEAD does not flag an

@@ -54,6 +54,17 @@ let check_cmd =
   Cmd.v (Cmd.info "check" ~doc)
     Term.(const (fun cfg -> Stdlib.exit (Seed.check cfg)) $ config_t)
 
+let restamp_cmd =
+  let paths =
+    let doc = "Document paths whose watermark to re-anchor at HEAD." in
+    Arg.(non_empty & pos_all string [] & info [] ~docv:"PATH" ~doc)
+  in
+  let doc =
+    "Re-anchor the given records' watermark at HEAD without folding \
+     (post-merge fix-up for squash merges; see the generator README)."
+  in
+  Cmd.v (Cmd.info "restamp" ~doc) Term.(const Seed.restamp $ config_t $ paths)
+
 let verify_cmd =
   let base =
     let doc = "Base revision whose committed store the records fold onto." in
@@ -76,6 +87,6 @@ let main =
   let doc = "Generate ocaml.org per-document attribution records." in
   Cmd.group
     (Cmd.info "data-attribution" ~version:"0.1" ~doc)
-    [ seed_cmd; update_cmd; check_cmd; verify_cmd ]
+    [ seed_cmd; update_cmd; check_cmd; verify_cmd; restamp_cmd ]
 
 let () = exit (Cmd.eval main)

@@ -26,4 +26,7 @@ book. The generator resolves each `source:<key>` through `attribution/sources.ym
 into the record's `external_authors`, crediting the original authors that git
 history alone would miss.
 
-No document needs an override yet, so this directory holds only this note.
+The six `.yml` files alongside this note are the current overrides: each
+declares an external `derived_from` source for a tutorial excerpted/adapted from
+a book (cs3110's "OCaml Programming", Real World OCaml), crediting authors git
+history alone would miss.

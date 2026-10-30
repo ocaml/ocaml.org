@@ -9,6 +9,10 @@ name: Attribution
 # enters CI. We fetch only the base tip and then deepen each document back to
 # its own record watermark, so the depth is that record's lag (commits since it
 # was last updated / re-seeded), never the whole repository.
+#
+# Post-merge, attribution-restamp.yml re-anchors each merged record's watermark
+# onto the (reachable) merge commit, so the shallow deepen below always has a
+# resolvable `<watermark>..HEAD` even though the project squash-merges.
 
 on:
   pull_request:
@@ -26,25 +30,86 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - name: Checkout (PR commits only)
+      - name: Checkout (PR head, PR commits only)
         uses: actions/checkout@v7
         with:
+          # Check out the PR head itself, not the synthetic merge ref: with the
+          # merge ref, `fetch-depth: <commits>` counts from the merge commit and
+          # stops one short of the oldest PR commit (H_1 — usually the doc edit
+          # itself), so `<watermark>..HEAD` would miss it. The head SHA makes
+          # depth=<commits> reach H_1 exactly. It also keeps the watermark the
+          # "Compute the fix" step stamps stable (the head SHA, not an ephemeral
+          # merge SHA that no later checkout could resolve).
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: ${{ github.event.pull_request.commits }}
 
       - name: Detect changed documents
         id: changed
-        uses: tj-actions/changed-files@v47
+        # Pinned by commit SHA (v47): tj-actions has a supply-chain history
+        # (the March 2025 tag-rewrite incident), so a moving tag is not trusted.
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
         with:
           files: |
             data/tutorials/**/*.md
             data/tool_pages/**/*.md
+          include_all_old_new_renamed_files: true
           separator: " "
 
-      - name: Fetch base and deepen to each record's watermark
+      - name: Guard deletions and renames
+        id: scope
         if: steps.changed.outputs.any_changed == 'true'
         env:
-          BASE: ${{ github.base_ref }}
           CHANGED: ${{ steps.changed.outputs.all_changed_files }}
+          DELETED: ${{ steps.changed.outputs.deleted_files }}
+          RENAMED_PAIRS: ${{ steps.changed.outputs.all_old_new_renamed_files }}
+        run: |
+          set -eu
+          store=data/attribution.jsonl
+          fail=0
+          has_record () { grep -qF "\"path\":\"$1\"" "$store" 2>/dev/null; }
+          # Removed (deleted or renamed-away) documents must not keep a record;
+          # dropping it is a maintainer step (`make attribution-seed`) because the
+          # shallow gate cannot recompute it.
+          removed="$DELETED"
+          renamed_new=""
+          # all_old_new_renamed_files is "old,new old,new …" (separator is a space).
+          for pair in $RENAMED_PAIRS; do
+            removed="$removed ${pair%%,*}"
+            renamed_new="$renamed_new ${pair##*,}"
+          done
+          for p in $removed; do
+            [ -n "$p" ] || continue
+            if has_record "$p"; then
+              echo "::error file=$p::$p was removed but still has an attribution record; run 'make attribution-seed' and commit the result"
+              fail=1
+            fi
+          done
+          # A renamed document's new path can't be verified shallowly: recovering
+          # its pre-rename history needs `git log --follow` over the full clone.
+          # Require only that a record exists (seeded locally by the maintainer).
+          for p in $renamed_new; do
+            [ -n "$p" ] || continue
+            if ! has_record "$p"; then
+              echo "::error file=$p::renamed document $p has no attribution record; run 'make attribution-seed' and commit the result"
+              fail=1
+            fi
+          done
+          # The strict verifier only gets the documents it can shallow-check:
+          # everything changed, minus the renamed new paths handled above.
+          verify_paths=""
+          for p in $CHANGED; do
+            skip=0
+            for r in $renamed_new; do [ "$p" = "$r" ] && skip=1; done
+            [ "$skip" = 0 ] && verify_paths="$verify_paths $p"
+          done
+          echo "verify_paths=$(echo $verify_paths | xargs)" >> "$GITHUB_OUTPUT"
+          exit $fail
+
+      - name: Fetch base and deepen to each record's watermark
+        if: steps.scope.outputs.verify_paths != ''
+        env:
+          BASE: ${{ github.base_ref }}
+          CHANGED: ${{ steps.scope.outputs.verify_paths }}
         run: |
           set -eu
           # Base branch tip — one commit, enough for `git show origin/$BASE:…`
@@ -65,7 +130,7 @@ jobs:
           rm -f base.jsonl
 
       - name: Set up OCaml
-        if: steps.changed.outputs.any_changed == 'true'
+        if: steps.scope.outputs.verify_paths != ''
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: "5.2.0"
@@ -75,16 +140,19 @@ jobs:
           opam-disable-sandboxing: true
 
       - name: Install the tool's dependencies
-        if: steps.changed.outputs.any_changed == 'true'
+        if: steps.scope.outputs.verify_paths != ''
+        # Keep in sync with tool/attribution/lib/dune's (libraries …).
         run: opam install --yes bos cmdliner yojson yaml fmt fpath
 
       - name: Verify
         id: verify
-        if: steps.changed.outputs.any_changed == 'true'
+        if: steps.scope.outputs.verify_paths != ''
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          VERIFY_PATHS: ${{ steps.scope.outputs.verify_paths }}
         run: |
           opam exec -- dune exec tool/attribution/bin/main.exe -- \
-            verify --base "origin/${{ github.base_ref }}" \
-            ${{ steps.changed.outputs.all_changed_files }}
+            verify --base "origin/$BASE_REF" $VERIFY_PATHS
 
       # On failure, compute the fix the author needs to commit (the same
       # incremental fold `verify` checks against) and surface its diff.
@@ -92,9 +160,9 @@ jobs:
         id: fix
         if: failure() && steps.verify.outcome == 'failure'
         env:
-          CHANGED: ${{ steps.changed.outputs.all_changed_files }}
+          VERIFY_PATHS: ${{ steps.scope.outputs.verify_paths }}
         run: |
-          opam exec -- dune exec tool/attribution/bin/main.exe -- update $CHANGED || true
+          opam exec -- dune exec tool/attribution/bin/main.exe -- update $VERIFY_PATHS || true
           {
             echo 'patch<<ATTRIBUTION_PATCH_EOF'
             git --no-pager diff -- data/attribution.jsonl
@@ -107,7 +175,7 @@ jobs:
         uses: actions/github-script@v7
         env:
           PATCH: ${{ steps.fix.outputs.patch }}
-          CHANGED: ${{ steps.changed.outputs.all_changed_files }}
+          CHANGED: ${{ steps.scope.outputs.verify_paths }}
         with:
           script: |
             const marker = '<!-- attribution-gate -->';

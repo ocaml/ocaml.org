@@ -46,6 +46,7 @@ dune exec -- data-attribution seed                       # full history; run onc
 dune exec -- data-attribution update PATHS…               # fold these documents forward, in place
 dune exec -- data-attribution check                       # local: fail if the committed store is stale
 dune exec -- data-attribution verify --base REV PATHS…    # CI gate (shallow): base record + PR commits
+dune exec -- data-attribution restamp PATHS…              # post-merge: re-anchor the watermark at HEAD
 ```
 
 - **`seed`** — rewrites the whole store from full history. The one step that
@@ -67,6 +68,14 @@ dune exec -- data-attribution verify --base REV PATHS…    # CI gate (shallow):
   its own watermark (so the watermark covers the content and a later fold cannot
   double-count). `update` and `verify` share the same fold, so what a maintainer
   commits locally and what CI recomputes are identical by construction.
+- **`restamp PATHS`** — moves the given records' `generated_at_commit` to the
+  current HEAD **without folding**, leaving content untouched. The project
+  squash-merges, which discards the branch-head commit `update`/`verify` stamped;
+  once merged that watermark is unreachable from `main`, so a later fold could
+  not resolve `<watermark>..HEAD`. `.github/workflows/attribution-restamp.yml`
+  runs this on `push` to `main` to re-anchor each merged record onto the merge
+  commit. Safe because the gate verified the content before the merge, so only
+  the stamp advances. (Not a maintainer command in the normal loop — CI owns it.)
 
 ### The `generated_at_commit` watermark
 
@@ -83,6 +92,20 @@ make attribution-update PATHS="data/tutorials/…/foo.md"   # then commit the st
 
 By default the seed covers the documents the frontend surfaces
 (`data/tutorials` + `data/tool_pages`); `--docs-root DIR` (repeatable) widens it.
+
+### Renames and deletions need a local re-seed
+
+The shallow gate can only *fold forward* an existing record; it cannot recover a
+document's history across a path change. So:
+
+- **Renaming** a document: `git log --follow` over the full clone is required to
+  carry the pre-rename contributors onto the new path, which shallow CI does not
+  have. Run `make attribution-seed` (or `attribution-update PATHS=<new path>`)
+  locally and commit. The gate does **not** content-verify a renamed document —
+  it only checks a record exists under the new path and that the old path's
+  record is gone.
+- **Deleting** a document: remove its record too (a local `seed` does this). The
+  gate fails if a deleted or renamed-away path still has a record.
 
 ## Record schema
 
@@ -141,6 +164,13 @@ Two consequences:
   needed when regenerating those records.
 - A contributor recovered from an imported repo has a **`first_commit` hash that
   belongs to that repo**, not this one — the date is the portable signal.
+
+A related caveat: because contributor ordering and `first_date` are keyed on the
+**author date** (which a rebase preserves even as commits are reordered), a
+periodic full `seed` can occasionally reshuffle contributors whose first dates
+are close, relative to an incrementally-folded store. This is harmless — the gate
+compares fold against fold, both using day-granularity author dates — but it is
+why a re-seed sometimes produces a diff beyond the documents that changed.
 
 ## How it works
 

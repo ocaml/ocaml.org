@@ -326,6 +326,10 @@ space-separated paths if you touched more than one. If the check fails, its log
 prints the exact command and the diff to apply. (A one-line typo fix still
 counts as a contribution and updates the record — that is intended.)
 
+If you **rename or delete** a tutorial or tool page, run `make attribution-seed`
+instead and commit the result: recovering the pre-rename history needs the full
+git clone, which the CI check deliberately does not fetch.
+
 ## Git and GitHub Workflow
 
 The preferred workflow for contributing to a repository is to fork the main repository on GitHub, clone, and develop on a new branch.

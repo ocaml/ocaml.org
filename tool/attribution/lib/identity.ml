@@ -14,11 +14,16 @@ let ends_with suffix s =
   let ls = String.length s and lsuf = String.length suffix in
   ls >= lsuf && String.sub s (ls - lsuf) lsuf = suffix
 
+(* AI is detected by the committer e-mail domain, never by the display name:
+   "Claude" is also a common human given name in this community (e.g. Claude
+   Marché), so a name heuristic would mis-file a real contributor into the AI
+   facet. The repository's convention is the standard "Co-authored-by: Claude …
+   <noreply@anthropic.com>" trailer, so the anthropic domain is the reliable
+   signal; any other AI tool is credited through the explicit [Assisted-by]
+   trailer, which bypasses this classifier entirely. *)
 let classify ~name ~email =
   let email = String.lowercase_ascii (String.trim email) in
-  if
-    email = "noreply@anthropic.com" || String.starts_with ~prefix:"Claude " name
-  then Ai
+  if ends_with "@anthropic.com" email then Ai
   else if
     ends_with "[bot]" name || ends_with " Bot" name
     || ends_with "[bot]@users.noreply.github.com" email
