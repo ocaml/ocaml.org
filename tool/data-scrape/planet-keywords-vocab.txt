@@ -1,0 +1,81 @@
+# Controlled vocabulary for Planet blog-post keywords (issue #3875).
+#
+# One term per line. Blank lines and lines starting with '#' are ignored.
+# A line may be a single term ("dune") or "variant => Canonical" to normalise a
+# spelling to a canonical display form ("gadts => GADT"). Matching is
+# case-insensitive against the article text (and the post title); the canonical
+# form is what gets written into the front matter.
+#
+# This seed is deliberately small. It is meant to grow: add distinctive OCaml
+# topics, tools, and concepts as the backfill surfaces them. Generic words that
+# occur in almost every OCaml post (ocaml, function, module, value) are left out
+# on purpose -- corpus TF-IDF already discounts them, and they make poor
+# keywords.
+
+# -- Tooling --------------------------------------------------------------
+dune
+opam
+merlin
+odoc
+dune-release
+ocamlformat
+ocaml-lsp => OCaml LSP
+ppx
+utop
+js_of_ocaml
+melange
+flambda
+
+# -- Platform & ecosystem -------------------------------------------------
+mirageos
+mirage => MirageOS
+unikernel
+eio
+lwt
+async
+domainslib
+multicore
+ocaml-ci
+ocurrent
+
+# -- Language concepts ----------------------------------------------------
+gadt
+gadts => GADT
+functor
+functors => functor
+polymorphic variant
+pattern matching
+type inference
+module system
+first-class module
+type class
+monad
+monads => monad
+applicative
+effect handler
+algebraic effect
+tail recursion
+continuation
+immutability
+garbage collection
+metaprogramming
+
+# -- Runtime & systems ----------------------------------------------------
+domain
+effect
+condition variable
+mutex
+marshalling
+foreign function interface
+ffi => foreign function interface
+
+# -- Domains --------------------------------------------------------------
+compiler
+parser
+type checker
+formal verification
+concurrency
+parallelism
+cryptography
+web development
+functional programming
