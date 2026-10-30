@@ -628,34 +628,185 @@ let conference req =
 
 let ocaml_planet req =
   let category = Dream.query req "category" in
-  let matches_criteria (item : Data.Planet.entry) cat =
-    match cat with
-    | Some d when d = "All" -> true
-    | Some d when d = "Article" -> (
-        match item with BlogPost _ -> true | Video _ -> false)
-    | Some d when d = "Video" -> (
-        match item with BlogPost _ -> false | Video _ -> true)
-    | Some _ -> true
-    | None -> true
+  let q = Dream.query req "q" in
+  let has_query =
+    match q with Some s -> String.trim s <> "" | None -> false
   in
-  let filtered_entries =
-    Data.Planet.all |> List.filter (fun item -> matches_criteria item category)
+  let sel_sources = Dream.queries req "source"
+  and sel_authors = Dream.queries req "author"
+  and sel_years = Dream.queries req "year"
+  and sel_keywords = Dream.queries req "keyword" in
+  let eq a b =
+    String.equal (String.lowercase_ascii a) (String.lowercase_ascii b)
+  in
+  let matches_category (item : Data.Planet.entry) =
+    match category with
+    | Some "Article" -> (
+        match item with BlogPost _ -> true | Video _ -> false)
+    | Some "Video" -> ( match item with BlogPost _ -> false | Video _ -> true)
+    | _ -> true
+  in
+  (* Rank by relevance when there is a query (ranking preserves order through
+     the filters), otherwise keep the packed chronological order. *)
+  let base =
+    if has_query then Data.Planet.search (Option.get q) else Data.Planet.all
+  in
+  (* [type_filtered] = query + type applied; it is the basis for facet counts,
+     so each facet shows what is still reachable given the search and type. *)
+  let type_filtered = List.filter matches_category base in
+  let one sel v = sel = [] || List.exists (eq v) sel in
+  let any sel vs =
+    sel = [] || List.exists (fun v -> List.exists (eq v) sel) vs
+  in
+  let filtered =
+    List.filter
+      (fun e ->
+        one sel_sources (Data.Planet.entry_source e)
+        && one sel_years (Data.Planet.entry_year e)
+        && any sel_authors (Data.Planet.entry_authors e)
+        && any sel_keywords (Data.Planet.entry_keywords e))
+      type_filtered
+  in
+  (* Facet value counts over [type_filtered]. *)
+  let tally key_fn =
+    let tbl = Hashtbl.create 256 in
+    List.iter
+      (fun e ->
+        List.iter
+          (fun v ->
+            if v <> "" then
+              Hashtbl.replace tbl v
+                (1 + Option.value ~default:0 (Hashtbl.find_opt tbl v)))
+          (key_fn e))
+      type_filtered;
+    Hashtbl.fold (fun v c acc -> (v, c) :: acc) tbl []
+  in
+  let by_count =
+    List.sort (fun (v1, c1) (v2, c2) ->
+        if c1 <> c2 then compare c2 c1 else compare v1 v2)
+  in
+  let top n l = List.filteri (fun i _ -> i < n) l in
+  (* Active params (raw values) drive both the toggle links and pagination. *)
+  let cat_param =
+    match category with
+    | Some c when c <> "All" -> [ ("category", c) ]
+    | _ -> []
+  in
+  let q_param = if has_query then [ ("q", Option.get q) ] else [] in
+  let facet_params =
+    List.map (fun v -> ("source", v)) sel_sources
+    @ List.map (fun v -> ("author", v)) sel_authors
+    @ List.map (fun v -> ("year", v)) sel_years
+    @ List.map (fun v -> ("keyword", v)) sel_keywords
+  in
+  let all_params = cat_param @ q_param @ facet_params in
+  let encode ps =
+    match ps with
+    | [] -> Url.ocaml_planet
+    | _ ->
+        Url.ocaml_planet ^ "?"
+        ^ String.concat "&"
+            (List.map (fun (k, v) -> k ^ "=" ^ Dream.to_percent_encoded v) ps)
+  in
+  (* URL with [(name,value)] toggled in/out of the current query. *)
+  let toggle name value =
+    if List.exists (fun (k, v) -> k = name && eq v value) all_params then
+      encode
+        (List.filter (fun (k, v) -> not (k = name && eq v value)) all_params)
+    else encode (all_params @ [ (name, value) ])
+  in
+  let selected_of = function
+    | "source" -> sel_sources
+    | "author" -> sel_authors
+    | "year" -> sel_years
+    | _ -> sel_keywords
+  in
+  (* (value, count, toggle-href, selected?), with selected values always
+     kept. *)
+  let options name counts =
+    let selected = selected_of name in
+    let counts =
+      counts
+      @ List.filter_map
+          (fun sv ->
+            if List.exists (fun (v, _) -> eq v sv) counts then None
+            else Some (sv, 0))
+          selected
+    in
+    List.map
+      (fun (v, c) -> (v, c, toggle name v, List.exists (eq v) selected))
+      counts
+  in
+  let facets =
+    [
+      ( "Source",
+        options "source"
+          (top 15 (by_count (tally (fun e -> [ Data.Planet.entry_source e ]))))
+      );
+      ( "Keyword",
+        options "keyword" (top 20 (by_count (tally Data.Planet.entry_keywords)))
+      );
+      ( "Year",
+        options "year"
+          (List.sort
+             (fun (a, _) (b, _) -> compare b a)
+             (tally (fun e -> [ Data.Planet.entry_year e ]))) );
+      ( "Author",
+        options "author" (top 15 (by_count (tally Data.Planet.entry_authors)))
+      );
+    ]
+  in
+  (* Active filters as (label, value, remove-href) for the summary bar; each
+     remove-href toggles that one param off. *)
+  let label_of = function
+    | "q" -> "Search"
+    | "category" -> "Type"
+    | "source" -> "Source"
+    | "author" -> "Author"
+    | "year" -> "Year"
+    | "keyword" -> "Keyword"
+    | s -> s
+  in
+  (* Type is shown by its own segmented control, so keep it out of the
+     active-filters bar; the search query and the multi-select facets stay. *)
+  let active_filters =
+    List.map
+      (fun (name, value) -> (label_of name, value, toggle name value))
+      (q_param @ facet_params)
+  in
+  (* Type is single-select: each option sets [category] (replacing any current
+     one), preserving the query and facets; "All" clears it. *)
+  let set_category value =
+    let others = List.filter (fun (k, _) -> k <> "category") all_params in
+    encode (if value = "All" then others else others @ [ ("category", value) ])
+  in
+  let type_options =
+    List.map
+      (fun v ->
+        let selected =
+          match category with Some c -> c = v | None -> v = "All"
+        in
+        (v, set_category v, selected))
+      [ "All"; "Article"; "Video" ]
   in
   let page_number, total_page_count, current_items =
-    paginate ~req ~n:10 filtered_entries
+    paginate ~req ~n:10 filtered
   in
+  let enc = Dream.to_percent_encoded in
   let pagination_info =
     Ocamlorg_frontend.Pagination.
       {
         total_page_count;
         page_number;
         base_url = Url.ocaml_planet;
-        queries = query_param ~name:"category" category;
+        queries = List.map (fun (k, v) -> (k, enc v)) all_params;
       }
   in
-
   Dream.html
-    (Ocamlorg_frontend.ocaml_planet ~pagination_info ?category current_items)
+    (Ocamlorg_frontend.ocaml_planet ~pagination_info ?category
+       ~search:(Option.value ~default:"" q)
+       ~type_options ~facets ~active_filters ~hidden_params:facet_params
+       current_items)
 
 let news req =
   let page_number, total_page_count, current_items =
