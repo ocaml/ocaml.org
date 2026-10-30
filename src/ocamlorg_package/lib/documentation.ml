@@ -582,11 +582,16 @@ let documentation_asset ~kind (t : Package.t) path =
   let url = package_url ^ "doc/" ^ path in
   odoc_asset ~url
 
+(* The payload served under [/search-index/<digest>] is now odoc's per-package
+   sherlodoc database ([doc/sherlodoc_db.js]), not the generic [doc/index.js]
+   document index. The frontend feeds it to the sherlodoc engine
+   ([search_engine] below) for type-aware search. The fetch/cache/route plumbing
+   is otherwise unchanged. See ocaml/ocaml.org#3883. *)
 let search_index ~kind (t : Package.t) =
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
   in
-  let url = package_url ^ "doc/index.js" in
+  let url = package_url ^ "doc/sherlodoc_db.js" in
 
   let open Lwt.Syntax in
   let* content = http_get url in
@@ -595,6 +600,14 @@ let search_index ~kind (t : Package.t) =
   | Error _ ->
       Logs.info (fun m -> m "Failed to fetch search index at %s" url);
       Lwt.return None
+
+(* The shared sherlodoc query engine ([sherlodoc.js], ~143 KB) lives at the docs
+   root, not under a package. Neither it nor the per-package db sends CORS
+   headers, so both are proxied same-origin through ocaml.org (as the document
+   index was) and served under [/doc-search-engine/<digest>]. *)
+let search_engine () =
+  let url = Config.documentation_url ^ "sherlodoc.js" in
+  odoc_asset ~url
 
 (* TODO: this needs to be computed in ocaml-docs-ci / voodoo and be part of the
    documentation status information *)
@@ -606,6 +619,9 @@ let search_index ~kind (t : Package.t) =
 type doc_cache = {
   doc_status_cache : Status.t option Bounded_cache.t;
   search_index_cache : string option Bounded_cache.t;
+  (* The sherlodoc engine is shared across all packages, so this cache holds a
+     single entry (its cache-busting token). *)
+  search_engine_cache : string option Bounded_cache.t;
 }
 
 let doc_cache_create () =
@@ -615,6 +631,10 @@ let doc_cache_create () =
         ~max_bytes:Config.doc_cache_max_bytes ~sizer:status_bytes
         ~ttl:Config.package_caches_ttl;
     search_index_cache =
+      Bounded_cache.create ~max_entries:Config.doc_cache_max
+        ~max_bytes:Config.doc_cache_max_bytes ~sizer:string_opt_bytes
+        ~ttl:Config.package_caches_ttl;
+    search_engine_cache =
       Bounded_cache.create ~max_entries:Config.doc_cache_max
         ~max_bytes:Config.doc_cache_max_bytes ~sizer:string_opt_bytes
         ~ttl:Config.package_caches_ttl;
@@ -653,15 +673,18 @@ let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
   let open Lwt.Syntax in
   let index_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
-    ^ "doc/index.js"
+    ^ "doc/sherlodoc_db.js"
   in
-  (* Produce a cache-busting token for the search index. Prefer dill's ETag (a
-     per-version fingerprint from a headers-only HEAD, so no body is
-     transferred); only when no ETag is served do we fall back to downloading
-     and hashing the (size-capped) index. The token is opaque —
-     base64url-encoded into a URL and never compared server-side — so any value
-     that changes with the content works. See ocaml/ocaml.org#3765 and
-     ocurrent/ocaml-docs-ci#193. *)
+  (* Produce a cache-busting token for the per-package sherlodoc db. Prefer
+     dill's ETag (a per-version fingerprint from a headers-only HEAD, so no body
+     is transferred); only when no ETag is served do we fall back to downloading
+     and hashing the (size-capped) db. The token is opaque — base64url-encoded
+     into a URL and never compared server-side — so any value that changes with
+     the content works. See ocaml/ocaml.org#3765 and ocurrent/ocaml-docs-ci#193.
+
+     The [search_index_digest] field published in status.json fingerprints the
+     generic [index.js], not [sherlodoc_db.js], so it is no longer consulted
+     here — we fingerprint the db we actually serve. *)
   let compute_token () =
     let* etag = head_etag index_url in
     match etag with
@@ -670,20 +693,30 @@ let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
         let+ content = search_index ~kind t in
         Option.map Digest.string content
   in
-  let from_backend () =
-    let key = version_key t in
-    match Bounded_cache.find state.search_index_cache ~now:(now ()) ~key with
-    | Some token -> Lwt.return token
-    | None ->
-        let+ token = compute_token () in
-        Bounded_cache.store state.search_index_cache ~now:(now ()) ~key token;
-        token
-  in
+  let key = version_key t in
+  match Bounded_cache.find state.search_index_cache ~now:(now ()) ~key with
+  | Some token -> Lwt.return token
+  | None ->
+      let+ token = compute_token () in
+      Bounded_cache.store state.search_index_cache ~now:(now ()) ~key token;
+      token
 
-  (* Prefer the digest published in status.json (no network beyond the status
-     fetch we already cache). Otherwise fall back to the backend: ETag first,
-     then hashing. *)
-  let* status = status ~kind state t in
-  match Option.bind status (fun s -> s.Status.search_index_digest) with
-  | Some _ as digest -> Lwt.return digest
-  | None -> from_backend ()
+let search_engine_digest state : string option Lwt.t =
+  let open Lwt.Syntax in
+  let url = Config.documentation_url ^ "sherlodoc.js" in
+  (* The engine is shared, so one cache entry under a constant key suffices.
+     Same ETag-then-hash token scheme as [search_index_digest]. *)
+  let key = "sherlodoc.js" in
+  match Bounded_cache.find state.search_engine_cache ~now:(now ()) ~key with
+  | Some token -> Lwt.return token
+  | None ->
+      let* etag = head_etag url in
+      let+ token =
+        match etag with
+        | Some _ as token -> Lwt.return token
+        | None ->
+            let+ content = search_engine () in
+            Option.map Digest.string content
+      in
+      Bounded_cache.store state.search_engine_cache ~now:(now ()) ~key token;
+      token
