@@ -25,7 +25,7 @@ let render_small_changelog_entry (item : Data.Changelog.t) = match item with
                 <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
             </div>
             <p class="prose dark:prose-invert prose-orange">
-              <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
+              <%s item.excerpt %>
             </p>
             <a href="<%s Url.changelog %>" class="text-primary dark:text-dark-primary mt-2 hover:underline">
               See full changelog
@@ -45,7 +45,7 @@ let render_small_changelog_entry (item : Data.Changelog.t) = match item with
                 <time datetime="<%s item.date %>" class="block mt-1 font-sans text-sm text-content dark:text-dark-content"><%s Utils.human_date item.date %></time>
             </div>
             <p class="prose dark:prose-invert prose-orange">
-              <%s! String.sub item.body 0 (min (String.length item.body - 1) 100) %>...
+              <%s item.excerpt %>
             </p>
             <a href="<%s Url.changelog %>" class="text-primary dark:text-dark-primary mt-2 hover:underline">
               See full changelog

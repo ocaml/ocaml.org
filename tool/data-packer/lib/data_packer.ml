@@ -4,6 +4,7 @@ module Types = Types
 module Packer = Packer
 module Unpacker = Unpacker
 module Utils = Utils
+module Markdown = Markdown
 module Feed = Feed
 module Import = Import
 module Exn = Exn

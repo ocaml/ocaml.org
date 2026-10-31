@@ -29,7 +29,7 @@ Community_layout.single_column_layout
                                 <p class="text-sm text-content dark:text-dark-content m-2">Mentee</p> 
                                 <div class="flex items-center">
                                   <div class="shrink-0 inline-flex items-center justify-center text-xl font-medium h-10 w-10 rounded-full bg-avatar-<%s string_of_int ((Hashtbl.hash project.mentee) mod 12 )%> text-white mr-2">
-                                    <%s String.uppercase_ascii (String.sub project.mentee 0 1); %>
+                                    <%s String.uppercase_ascii (Ocamlorg.Import.String.utf_8_first project.mentee); %>
                                     </div>
                                     <p class="text-content dark:text-dark-content text-sm font-bold"><%s project.mentee %></p>
                                 </div>                                        
@@ -40,7 +40,7 @@ Community_layout.single_column_layout
                               <% project.mentors |> List.iter (fun (mentor: string) -> %>
                                 <div class="flex items-center mr-5 mt-2 md:mt-0">
                                   <div class="shrink-0 inline-flex items-center justify-center text-xl font-medium h-10 w-10 rounded-full bg-avatar-<%s string_of_int ((Hashtbl.hash mentor) mod 12 )%> text-white mr-2">
-                                    <%s String.uppercase_ascii (String.sub mentor 0 1); %>
+                                    <%s String.uppercase_ascii (Ocamlorg.Import.String.utf_8_first mentor); %>
                                     </div>
                                     <p class="text-content dark:text-dark-content text-sm font-bold"><%s mentor %></p>
                                 </div> 
@@ -49,7 +49,7 @@ Community_layout.single_column_layout
                             </div>
                         </div>
                         <div class="w-full max-w-full prose dark:prose-invert">
-                            <% if String.length project.description > 240 then ( %>
+                            <% if Ocamlorg.Import.String.utf_8_length project.description > 240 then ( %>
                                 <div :class="is_shown ? '' : 'relative max-h-24 overflow-hidden'">
                                     <%s! project.description %>
                                 </div>

@@ -375,7 +375,8 @@ let emit st s =
     let len = String.length s in
     if st.body_len + len > st.max_bytes then (
       let room = st.max_bytes - st.body_len in
-      if room > 0 then Buffer.add_string st.body (String.sub s 0 room);
+      if room > 0 then
+        Buffer.add_string st.body (Ocamlorg.Import.String.utf_8_prefix s room);
       Buffer.add_string st.body
         "\n\n[\xe2\x80\xa6 documentation truncated \xe2\x80\xa6]";
       st.body_len <- st.max_bytes;

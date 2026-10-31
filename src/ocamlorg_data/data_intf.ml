@@ -94,7 +94,6 @@ module Backstage = struct
     tags : string list;
     changelog_html : string option;
     body_html : string;
-    body : string;
     authors : string list;
     contributors : string list;
     project_name : string;
@@ -108,7 +107,6 @@ module Backstage = struct
     date : string;
     tags : string list;
     body_html : string;
-    body : string;
     authors : string list;
   }
 
@@ -123,7 +121,8 @@ module Changelog = struct
     tags : string list;
     changelog_html : string option;
     body_html : string;
-    body : string;
+    excerpt : string;
+        (** Plain text of the first paragraph, cut to about 100 bytes. *)
     authors : string list;
     contributors : string list;
     project_name : string;
@@ -137,7 +136,8 @@ module Changelog = struct
     date : string;
     tags : string list;
     body_html : string;
-    body : string;
+    excerpt : string;
+        (** Plain text of the first paragraph, cut to about 100 bytes. *)
     authors : string list;
   }
 

@@ -35,6 +35,22 @@ let test_suffix () =
       Alcotest.(check bool) (what ^ " >= n - 3") true (ls >= n - 3)
   done
 
+let test_first () =
+  Alcotest.(check string) "empty" "" (S.utf_8_first "");
+  List.iter
+    (fun c ->
+      Alcotest.(check string) ("first of " ^ c) c (S.utf_8_first (c ^ "xyz")))
+    chars;
+  Alcotest.(check string) "invalid leading byte" "\xff" (S.utf_8_first "\xffab")
+
+let test_length () =
+  Alcotest.(check int) "empty" 0 (S.utf_8_length "");
+  Alcotest.(check int) "ASCII" 3 (S.utf_8_length "abc");
+  Alcotest.(check int) "1 to 4 bytes" 12 (S.utf_8_length sample);
+  Alcotest.(check int)
+    "invalid bytes count as one each" 2
+    (S.utf_8_length "\xff\xfe")
+
 (* Multi-byte filler, longer than the 200-byte snippet budget. *)
 let filler = List.concat (List.init 25 (fun _ -> chars))
 let filler_length = List.length filler
@@ -76,6 +92,8 @@ let () =
         [
           Alcotest.test_case "utf_8_prefix" `Quick test_prefix;
           Alcotest.test_case "utf_8_suffix" `Quick test_suffix;
+          Alcotest.test_case "utf_8_first" `Quick test_first;
+          Alcotest.test_case "utf_8_length" `Quick test_length;
         ] );
       ("search", [ Alcotest.test_case "snippet" `Quick test_snippet ]);
     ]

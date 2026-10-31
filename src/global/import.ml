@@ -86,6 +86,22 @@ module String = struct
       in
       let start = forward (len - n) 0 in
       sub s start (len - start)
+
+  (* [utf_8_first s] is the first character of [s], or [""] if [s] is empty. An
+     invalid leading sequence yields its first byte. *)
+  let utf_8_first s =
+    if s = "" then ""
+    else sub s 0 (Uchar.utf_decode_length (get_utf_8_uchar s 0))
+
+  (* [utf_8_length s] is the number of characters in [s]. Each invalid byte
+     counts as one character. *)
+  let utf_8_length s =
+    let len = length s in
+    let rec go i n =
+      if i >= len then n
+      else go (i + Uchar.utf_decode_length (get_utf_8_uchar s i)) (n + 1)
+    in
+    go 0 0
 end
 
 module List = struct

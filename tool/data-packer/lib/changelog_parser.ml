@@ -15,7 +15,7 @@ module Posts = struct
   [@@deriving
     of_yaml,
       stable_record ~version:post ~modify:[ authors ]
-        ~add:[ slug; body_html; body; date ]]
+        ~add:[ slug; body_html; excerpt; date ]]
 
   let of_post_metadata m =
     post_metadata_to_post m ~modify_authors:(Option.value ~default:[])
@@ -25,10 +25,9 @@ module Posts = struct
     let metadata =
       post_metadata_of_yaml head |> Result.map_error (Utils.where fname)
     in
-    let body_html =
-      Markdown.Content.render ~syntax_highlighting:true
-        (Cmarkit.Doc.of_string ~strict:true (String.trim body))
-    in
+    let doc = Cmarkit.Doc.of_string ~strict:true (String.trim body) in
+    let body_html = Markdown.Content.render ~syntax_highlighting:true doc in
+    let excerpt = Markdown.Excerpt.of_doc doc in
 
     Result.map
       (fun metadata ->
@@ -40,7 +39,7 @@ module Posts = struct
                 "date is not present in metadata and could not be parsed from \
                  slug"
         in
-        of_post_metadata ~slug ~body ~body_html ~date metadata)
+        of_post_metadata ~slug ~excerpt ~body_html ~date metadata)
       metadata
 
   let all () =
@@ -61,7 +60,7 @@ let platform_tools_release_to_release (r : Platform_release_parser.t) : release
     github_release_tags = r.github_release_tags;
     changelog_html = r.changelog_html;
     body_html = r.body_html;
-    body = r.body;
+    excerpt = r.excerpt;
     authors = r.authors;
   }
 
