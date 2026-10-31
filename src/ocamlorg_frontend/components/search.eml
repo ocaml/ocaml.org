@@ -3,21 +3,18 @@ let highlight_search_terms
 ~search
 (text: string)
 =
-  let r =
-    Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim search)
-  in
-  if r <> "" then
+  match Data.Tutorial.search_terms_re search with
+  | Some r ->
     let render_item = function
-      | Str.Delim s -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape s ^ {|</span>|}
-      | Text s -> Dream.html_escape s
+      | `Delim g -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape (Re.Group.get g 0) ^ {|</span>|}
+      | `Text s -> Dream.html_escape s
     in
-    let split = Str.full_split (Str.regexp_case_fold r) text in
+    let split = Re.split_full r text in
     List.fold_left (fun a b -> a ^ render_item b) "" split
-  else
+  | None ->
     Dream.html_escape text
 
 let display_surrounding_text ~search (text : string) =
-  let r = Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim search) in
   let shorten_from_right text ~length =
     let content_length = String.length text in
     let shortened_content =
@@ -40,9 +37,10 @@ let display_surrounding_text ~search (text : string) =
       ^ " [...] "
       ^ shorten_from_left text ~length:(length / 2)
   in
-  if r <> "" then
-    let render_item f = function Str.Delim s -> s | Text s -> f s in
-    match Str.full_split (Str.regexp r) text with
+  match Data.Tutorial.search_terms_re search with
+  | Some r -> (
+    let render_item f = function `Delim g -> Re.Group.get g 0 | `Text s -> f s in
+    match Re.split_full r text with
     | [ x ] -> render_item (shorten_from_right ~length:200) x
     | [ x; y ] ->
         render_item (shorten_from_left ~length:200) x
@@ -62,8 +60,8 @@ let display_surrounding_text ~search (text : string) =
         ^ render_item (shorten_from_middle ~length:100) z
         ^ render_item (shorten_from_middle ~length:100) a
         ^ render_item (shorten_from_right ~length:100) b
-    | [] -> shorten_from_right ~length:200 text
-  else shorten_from_right ~length:200 text
+    | [] -> shorten_from_right ~length:200 text)
+  | None -> shorten_from_right ~length:200 text
 
 
 let script =

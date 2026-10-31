@@ -1,5 +1,5 @@
 (library
  (name ocamlorg_frontend)
- (libraries ocamlorg.global dream ocamlorg.data timedesc ocamlorg_static))
+ (libraries ocamlorg.global dream ocamlorg.data re timedesc ocamlorg_static))
 
 (include_subdirs unqualified)
