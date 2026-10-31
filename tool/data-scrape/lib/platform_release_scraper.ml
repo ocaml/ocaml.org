@@ -193,7 +193,14 @@ let write_release_announcement_file project github_tag tags ~ignore
     River.date post |> Option.get |> Ptime.to_rfc3339
     |> String.split_on_char 'T' |> List.hd
   in
-  let title = project_display_name project ^ " " ^ River.title post in
+  let what field =
+    Printf.sprintf "the %s of the %s release %s" field project github_tag
+  in
+  let title =
+    project_display_name project
+    ^ " "
+    ^ (River.title post |> Utf_8.sanitize ~what:(what "title"))
+  in
   let github_release_tags =
     [ River.link post |> Option.map github_release_tag_from_url ]
   in
@@ -201,8 +208,10 @@ let write_release_announcement_file project github_tag tags ~ignore
     "data/platform_releases/" ^ project ^ "/" ^ yyyy_mm_dd ^ "-" ^ project ^ "-"
     ^ github_tag ^ "-draft.md"
   in
-  let content = River.content post in
-  let released_on_github_by = Some (River.author post) in
+  let content = River.content post |> Utf_8.sanitize ~what:(what "body") in
+  let released_on_github_by =
+    Some (River.author post |> Utf_8.sanitize ~what:(what "author"))
+  in
   let metadata : metadata =
     {
       title;

@@ -25,10 +25,42 @@ let extract_metadata_body path s =
 
 let root_dir = Fpath.(v (Sys.getcwd ()) // v "data")
 
+(* Byte offset of the first invalid UTF-8 sequence in [s], if any. *)
+let first_invalid_utf_8 s =
+  let len = Stdlib.String.length s in
+  let rec go i =
+    if i >= len then None
+    else
+      let d = Stdlib.String.get_utf_8_uchar s i in
+      if Uchar.utf_decode_is_valid d then go (i + Uchar.utf_decode_length d)
+      else Some i
+  in
+  go 0
+
+(* Every file in data/ must be UTF-8 without a byte-order mark. *)
+let check_utf_8 filepath s =
+  let fail fmt =
+    Printf.ksprintf
+      (fun msg -> failwith (Printf.sprintf "data/%s: %s" filepath msg))
+      fmt
+  in
+  if Stdlib.String.starts_with ~prefix:"\xef\xbb\xbf" s then
+    fail "starts with a UTF-8 byte-order mark; remove it";
+  match first_invalid_utf_8 s with
+  | Some i -> fail "invalid UTF-8 at byte offset %d; files must be UTF-8" i
+  | None -> ()
+
 let read_file filepath =
   let filepath = Fpath.(root_dir // filepath) in
+  let filepath_str =
+    Fpath.rem_prefix root_dir filepath
+    |> Option.value ~default:filepath
+    |> Fpath.to_string
+  in
   Bos.OS.File.read filepath
-  |> Result.map (fun r -> Some r)
+  |> Result.map (fun r ->
+         check_utf_8 filepath_str r;
+         Some r)
   |> Result.map_error (fun (`Msg msg) -> failwith msg)
   |> Result.value ~default:None
 

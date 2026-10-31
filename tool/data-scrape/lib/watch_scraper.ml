@@ -29,10 +29,18 @@ let get_publish_date json =
 let get_string_or_none = function `String s -> s | _ -> ""
 
 let of_json json =
+  let url = Ezjsonm.find json [ "url" ] |> Ezjsonm.get_string in
+  let what field = Printf.sprintf "the %s of video %s" field url in
   {
-    Data_packer.Vid.title = Ezjsonm.find json [ "name" ] |> Ezjsonm.get_string;
-    description = Ezjsonm.find json [ "description" ] |> get_string_or_none;
-    url = Ezjsonm.find json [ "url" ] |> Ezjsonm.get_string;
+    Data_packer.Vid.title =
+      Ezjsonm.find json [ "name" ]
+      |> Ezjsonm.get_string
+      |> Utf_8.sanitize ~what:(what "title");
+    description =
+      Ezjsonm.find json [ "description" ]
+      |> get_string_or_none
+      |> Utf_8.sanitize ~what:(what "description");
+    url;
     thumbnail =
       "https://watch.ocaml.org"
       ^ (Ezjsonm.find json [ "thumbnailPath" ] |> Ezjsonm.get_string);
