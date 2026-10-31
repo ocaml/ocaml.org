@@ -372,7 +372,7 @@ module Tutorial = struct
   let search_documents_matching terms =
     let regexp = Re.(compile (alt (List.map (fun t -> str (fold t)) terms))) in
     let search_in_field field weight =
-      Float.log (float_of_int (List.length (Re.split regexp field))) *. weight
+      Float.log1p (float_of_int (List.length (Re.all regexp field))) *. weight
     in
     List.filter_map
       (fun (doc, title, section, content) ->

@@ -81,6 +81,22 @@ let test_tutorial_search () =
     (u3a40 ^ {| <span class="h">|} ^ e_acute ^ "</span>")
     html
 
+let test_sectionless_search () =
+  (* A missing section used to score log 0 = -inf, so these documents (the
+     preamble of each tutorial) never matched any query (issue #3918). *)
+  let sectionless =
+    List.filter
+      (fun (doc : Data.Tutorial.search_document) -> doc.section = None)
+      Data.Tutorial.all_search_documents
+  in
+  Alcotest.(check bool) "some documents" true (sectionless <> []);
+  List.iter
+    (fun (doc : Data.Tutorial.search_document) ->
+      Alcotest.(check bool)
+        doc.title true
+        (List.memq doc (Data.Tutorial.search_documents doc.title)))
+    sectionless
+
 let () =
   Alcotest.run "case_fold"
     [
@@ -91,5 +107,7 @@ let () =
           Alcotest.test_case "fold_split" `Quick test_fold_split;
           Alcotest.test_case "utf_8_uppercase_first" `Quick test_uppercase_first;
           Alcotest.test_case "search highlighting" `Quick test_tutorial_search;
+          Alcotest.test_case "sectionless search documents" `Quick
+            test_sectionless_search;
         ] );
     ]

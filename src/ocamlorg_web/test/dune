@@ -11,6 +11,7 @@
   yojson
   lwt.unix
   ocamlorg.global
+  ocamlorg.data
   ocamlorg_frontend
   ocamlorg_mcp
   ocamlorg_web))
