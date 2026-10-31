@@ -70,9 +70,10 @@ let map_md_files f glob =
 
 let slugify value =
   value
-  |> Str.global_replace (Str.regexp " ") "-"
-  |> Stdlib.String.lowercase_ascii
-  |> Str.global_replace (Str.regexp "[^a-z0-9\\-]") ""
+  |> Stdlib.String.map (function ' ' -> '-' | c -> c)
+  |> Stdlib.String.lowercase_ascii |> Stdlib.String.to_seq
+  |> Seq.filter (function 'a' .. 'z' | '0' .. '9' | '-' -> true | _ -> false)
+  |> Stdlib.String.of_seq
 
 let yaml_file filepath_str =
   let* filepath = filepath_str |> Fpath.of_string in

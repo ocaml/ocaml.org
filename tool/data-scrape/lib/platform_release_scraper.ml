@@ -171,28 +171,20 @@ let group_releases_by_project all =
       SMap.add t.project_name updated acc)
     SMap.empty all
 
-let is_prerelease github_tag =
-  let tag = String.lowercase_ascii github_tag in
-  let has pattern =
-    try
-      let _ = Str.search_forward (Str.regexp pattern) tag 0 in
-      true
-    with Not_found -> false
+let is_prerelease =
+  let re =
+    Re.(
+      compile
+        (alt
+           [ str "alpha"; str "beta"; seq [ str "rc"; digit ]; str "preview" ]))
   in
-  has "alpha" || has "beta" || has "rc[0-9]" || has "preview"
+  fun github_tag -> Re.execp re (String.lowercase_ascii github_tag)
 
 let tag_matches_ignore_patterns ignore_patterns github_tag =
   let tag = String.lowercase_ascii github_tag in
   List.exists
     (fun pattern ->
-      try
-        let _ =
-          Str.search_forward
-            (Str.regexp_string (String.lowercase_ascii pattern))
-            tag 0
-        in
-        true
-      with Not_found -> false)
+      Re.execp (Re.compile (Re.str (String.lowercase_ascii pattern))) tag)
     ignore_patterns
 
 let write_release_announcement_file project github_tag tags ~ignore

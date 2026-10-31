@@ -56,15 +56,12 @@ let decode (tasks : task list) (fpath, (head, body)) =
     let rec extract_explanation_code_pairs split_result =
       match split_result with
       | [] -> []
-      | Str.Text code :: rest when String.trim code = "" ->
+      | `Text code :: rest when String.trim code = "" ->
           extract_explanation_code_pairs rest
-      | Str.Text code :: rest ->
+      | `Text code :: rest ->
           { explanation = ""; code } :: extract_explanation_code_pairs rest
-      | Str.Delim "(*"
-        :: Str.Text explanation
-        :: Str.Delim "*)\n"
-        :: Str.Text code
-        :: rest ->
+      | `Delim "(*" :: `Text explanation :: `Delim "*)\n" :: `Text code :: rest
+        ->
           { explanation; code } :: extract_explanation_code_pairs rest
       | _ ->
           failwith
@@ -72,8 +69,10 @@ let decode (tasks : task list) (fpath, (head, body)) =
               in " ^ fpath)
     in
     body
-    |> Str.full_split (Str.regexp {|^(\*\|\*)
-|})
+    |> Re.split_full Re.(compile (alt [ seq [ bol; str "(*" ]; str "*)\n" ]))
+    |> List.map (function
+         | `Text s -> `Text s
+         | `Delim g -> `Delim (Re.Group.get g 0))
     |> extract_explanation_code_pairs
     |> List.map (fun (c : code_block_with_explanation) ->
            let code =

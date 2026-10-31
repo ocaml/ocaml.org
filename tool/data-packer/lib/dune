@@ -11,7 +11,6 @@
   fpath
   cmarkit
   hilite.markdown
-  str
   re
   syndic
   uri)
