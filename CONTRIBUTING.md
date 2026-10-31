@@ -35,6 +35,8 @@ OCaml Platform maintainers can contribute to these sections:
 - [Backstage OCaml](#content-backstage)
 - [Platform Tools Releases](#content-platform-tools-release)
 
+All files in `data/` must be encoded in UTF-8, without a byte-order mark. The build rejects any other file and reports its path and the offset of the first invalid byte. Most editors use UTF-8 by default; the repository's `.editorconfig` sets it for editors that support EditorConfig.
+
 The following sections give more details on how to contribute.
 
 ### <a name="images"></a>Adding Images

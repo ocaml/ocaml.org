@@ -88,7 +88,10 @@ module Post = struct
 end
 
 let scrape_post ~source (post : River.post) : Scrape_report.entry option =
-  let title = River.title post in
+  let what field =
+    Printf.sprintf "the %s of a post from %s" field source.Data_intf.Blog.id
+  in
+  let title = River.title post |> Utf_8.sanitize ~what:(what "title") in
   let slug = Data_packer.Utils.slugify title in
   let source_path = "data/planet/" ^ source.Data_intf.Blog.id in
   print_string
@@ -115,8 +118,13 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
         then (
           let url = String.trim (Uri.to_string url) in
           let preview_image = River.seo_image ~timeout ~user_agent post in
-          let description = River.meta_description ~timeout ~user_agent post in
-          let author = River.author post in
+          let description =
+            River.meta_description ~timeout ~user_agent post
+            |> Option.map (Utf_8.sanitize ~what:(what "description"))
+          in
+          let author =
+            River.author post |> Utf_8.sanitize ~what:(what "author")
+          in
           let metadata : Post.metadata =
             {
               title;

@@ -57,6 +57,8 @@ Pages use `.eml` files which are preprocessed by `dream_eml`. These mix OCaml co
 
 Site content lives in `data/` as YAML and Markdown — one subdirectory per content type (`books/`, `tutorials/`, …) plus top-level `.yml` files (`jobs.yml`, `governance.yml`, …). The data packer enforces structure via the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. After editing, `make build` repacks the `data.bin` blob.
 
+**Files in `data/` must be UTF-8 without a byte-order mark.** The packer (`read_file` in `tool/data-packer/lib/utils.ml`) fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
+
 **Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, and `data/platform_releases/` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
 
 **When you rename or remove `data/` content, update `asset/llms.txt` too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:`/`id:` (not its filename), and CI never checks them, so stale links break silently.

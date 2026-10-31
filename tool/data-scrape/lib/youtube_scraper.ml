@@ -114,14 +114,15 @@ let video_opt source = function
       Some published,
       Some author_name,
       Some author_uri ) ->
+      let what field = Printf.sprintf "the %s of video %s" field url in
       Some
         {
-          Data_packer.Vid.title;
+          Data_packer.Vid.title = Utf_8.sanitize ~what:(what "title") title;
           url;
           thumbnail;
-          description;
+          description = Utf_8.sanitize ~what:(what "description") description;
           published;
-          author_name;
+          author_name = Utf_8.sanitize ~what:(what "author") author_name;
           author_uri;
           source_link = source |> source_to_url |> Uri.to_string;
           source_title = source.name;
