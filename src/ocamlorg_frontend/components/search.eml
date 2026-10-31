@@ -15,21 +15,8 @@ let highlight_search_terms
     Dream.html_escape text
 
 let display_surrounding_text ~search (text : string) =
-  let shorten_from_right text ~length =
-    let content_length = String.length text in
-    let shortened_content =
-      if content_length < length then text else String.sub text 0 length
-    in
-    shortened_content
-  in
-  let shorten_from_left text ~length =
-    let content_length = String.length text in
-    let shortened_content =
-      if content_length < length then text
-      else String.sub text (content_length - length) length
-    in
-    shortened_content
-  in
+  let shorten_from_right text ~length = Ocamlorg.Import.String.utf_8_prefix text length in
+  let shorten_from_left text ~length = Ocamlorg.Import.String.utf_8_suffix text length in
   let shorten_from_middle text ~length =
     if String.length text < length then text
     else

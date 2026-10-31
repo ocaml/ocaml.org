@@ -4,6 +4,7 @@ module Navmap = Navmap
 module Toc = Toc
 module Package = Package
 module Pagination = Pagination
+module Search = Search
 
 let about = About.render
 let academic_users = Academic_users.render
