@@ -228,8 +228,13 @@ module Opam_user = struct
   let make ~name ?email ?github_username ?avatar () =
     { name; email; github_username; avatar }
 
+  (* Users with their case-folded names, computed once: package search calls
+     [find_by_name] for every author of every package. *)
+  let folded_names =
+    lazy (List.map (fun u -> (Ocamlorg.Import.String.fold u.name, u)) all)
+
   let find_by_name s =
-    let pattern = String.lowercase_ascii s in
+    let pattern = Ocamlorg.Import.String.fold s in
     let contains s1 s2 =
       try
         let len = String.length s2 in
@@ -239,9 +244,9 @@ module Opam_user = struct
         false
       with Exit -> true
     in
-    all
-    |> List.find_opt (fun { name; _ } ->
-           contains pattern (String.lowercase_ascii name))
+    Lazy.force folded_names
+    |> List.find_map (fun (name, user) ->
+           if contains pattern name then Some user else None)
 end
 
 module Outreachy = struct
@@ -343,40 +348,48 @@ module Tutorial = struct
   let all_search_documents = data.tutorial_search_documents
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
-  let search_terms_re q =
-    match
-      String.split_on_char ' ' q
-      |> List.concat_map (String.split_on_char '\t')
-      |> List.filter (fun s -> s <> "")
-    with
-    | [] -> None
-    | terms -> Some Re.(compile (no_case (alt (List.map str terms))))
+  let search_terms q =
+    String.split_on_char ' ' q
+    |> List.concat_map (String.split_on_char '\t')
+    |> List.filter (fun s -> s <> "")
 
-  let search_documents_matching regexp =
-    let score_document (doc : search_document) =
-      let search_in_field field weight =
-        Float.log (float_of_int (List.length (Re.split regexp field))) *. weight
-      in
-      search_in_field doc.title 1.2
-      +. search_in_field
-           (doc.section
-           |> Option.map (fun (s : search_document_section) -> s.title)
-           |> Option.value ~default:"")
-           2.0
-      +. search_in_field doc.content 1.0
+  let fold = Ocamlorg.Import.String.fold
+
+  (* Each document with its title, section title and content case-folded,
+     computed once rather than on every query. *)
+  let folded_search_documents =
+    lazy
+      (List.map
+         (fun (doc : search_document) ->
+           ( doc,
+             fold doc.title,
+             doc.section
+             |> Option.map (fun (s : search_document_section) -> fold s.title)
+             |> Option.value ~default:"",
+             fold doc.content ))
+         all_search_documents)
+
+  let search_documents_matching terms =
+    let regexp = Re.(compile (alt (List.map (fun t -> str (fold t)) terms))) in
+    let search_in_field field weight =
+      Float.log (float_of_int (List.length (Re.split regexp field))) *. weight
     in
     List.filter_map
-      (fun doc ->
-        let score = score_document doc in
+      (fun (doc, title, section, content) ->
+        let score =
+          search_in_field title 1.2
+          +. search_in_field section 2.0
+          +. search_in_field content 1.0
+        in
         if score > 0.0 then Some (doc, score) else None)
-      all_search_documents
+      (Lazy.force folded_search_documents)
     |> List.sort (fun (_, score1) (_, score2) -> Float.compare score2 score1)
     |> List.map fst
 
   let search_documents q =
-    match search_terms_re q with
-    | None -> all_search_documents
-    | Some regexp -> search_documents_matching regexp
+    match search_terms q with
+    | [] -> all_search_documents
+    | terms -> search_documents_matching terms
 end
 
 module Video = struct

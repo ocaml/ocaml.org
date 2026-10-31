@@ -434,8 +434,8 @@ let academic_institutions req =
   let resource_type = Dream.query req "resource_type" in
   let search_user pattern t =
     let open Data.Academic_institution in
-    let pattern = String.lowercase_ascii pattern in
-    let name_is_s { name; _ } = String.lowercase_ascii name = pattern in
+    let pattern = String.fold pattern in
+    let name_is_s { name; _ } = String.fold name = pattern in
     let name_contains_s { name; _ } = String.is_sub_ignore_case pattern name in
     let score user =
       if name_is_s user then -1
@@ -562,9 +562,7 @@ let books req =
 let releases req =
   let search_release pattern t =
     let open Data.Release in
-    let is_version { version; _ } =
-      String.(lowercase_ascii version = lowercase_ascii pattern)
-    in
+    let is_version { version; _ } = String.(fold version = fold pattern) in
     let version_contains_s { version; _ } =
       String.is_sub_ignore_case pattern version
     in
@@ -725,9 +723,7 @@ let governance_team req =
 let papers req =
   let search_paper pattern t =
     let open Data.Paper in
-    let title_is_s { title; _ } =
-      String.(lowercase_ascii title = lowercase_ascii pattern)
-    in
+    let title_is_s { title; _ } = String.(fold title = fold pattern) in
     let title_contains_s { title; _ } =
       String.is_sub_ignore_case pattern title
     in
@@ -1074,11 +1070,11 @@ let packages state _req =
 
 let is_author_match name pattern =
   let match_opt = function
-    | Some s -> String.contains_s s pattern
+    | Some s -> String.contains_s (String.fold s) pattern
     | None -> false
   in
   match Data.Opam_user.find_by_name name with
-  | None -> String.contains_s name pattern
+  | None -> String.contains_s (String.fold name) pattern
   | Some { name; email; github_username; _ } ->
       match_opt (Some name) || match_opt email || match_opt github_username
 
