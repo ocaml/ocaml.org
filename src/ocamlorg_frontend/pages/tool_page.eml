@@ -19,13 +19,12 @@ let left_sidebar ~pages ~current_page =
   </div>
 
 let render
-commit_hash
 (page : Data.Tool_page.t)
 ~pages
 ~canonical
 =
 let href, description =
-    ("https://github.com/ocaml/ocaml.org/blob/"^ commit_hash ^"/data/"^ page.fpath,
+    ("https://github.com/ocaml/ocaml.org/blob/main/data/"^ page.fpath,
     "All OCaml docs are open source. See something that's wrong or unclear? Submit a pull request.")
 in
 let current_section =
