@@ -215,6 +215,20 @@ let truncation () =
   Alcotest.(check bool) "body bounded" true (String.length r.body <= 600);
   Alcotest.(check bool) "has marker" true (contains ~needle:"truncated" r.body)
 
+(* A cut that lands inside a multi-byte character must not split it. *)
+let truncation_utf_8 () =
+  let text =
+    String.concat ""
+      (List.init 400 (fun _ -> "a\xc3\xa9\xe2\x86\x92\xf0\x9f\x9a\x80"))
+  in
+  for max_bytes = 100 to 140 do
+    let r = run ~max_bytes ("<p>" ^ text ^ "</p>") in
+    Alcotest.(check bool)
+      (Printf.sprintf "valid UTF-8 at max_bytes %d" max_bytes)
+      true
+      (String.is_valid_utf_8 r.body)
+  done
+
 let refs_cap () =
   let links =
     String.concat ""
@@ -269,6 +283,8 @@ let () =
         [
           Alcotest.test_case "code block" `Quick code_block_preserved;
           Alcotest.test_case "truncation" `Quick truncation;
+          Alcotest.test_case "truncation keeps characters whole" `Quick
+            truncation_utf_8;
           Alcotest.test_case "references cap flagged" `Quick refs_cap;
           Alcotest.test_case "oversized input" `Quick oversized_input;
         ] );
