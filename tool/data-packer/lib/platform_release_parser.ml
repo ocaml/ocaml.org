@@ -11,7 +11,6 @@ type t = {
   ignore : bool;
   changelog_html : string option;
   body_html : string;
-  body : string;
   excerpt : string;
   authors : string list;
   contributors : string list;
@@ -90,7 +89,6 @@ let decode (fname, (head, body)) =
         ignore = Option.value ~default:false metadata.ignore;
         changelog_html;
         body_html;
-        body;
         excerpt;
         authors = Option.value ~default:[] metadata.authors;
         contributors = Option.value ~default:[] metadata.contributors;
