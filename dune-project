@@ -51,7 +51,8 @@
   logs
   (cmarkit
    (>= 0.2.0))
-  uucp
+  (uucp
+   (>= 15.0.0))
   opam-format
   (timedesc
    (>= 2.0.0))
