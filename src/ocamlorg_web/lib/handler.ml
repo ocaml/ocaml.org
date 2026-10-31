@@ -775,17 +775,17 @@ let tools_platform _req =
   Dream.html
     (Ocamlorg_frontend.tools_platform ~pages:(visible_tool_pages ()) tools)
 
-let tool_page commit_hash req =
+let tool_page req =
   let slug = Dream.param req "id" in
   let pages = visible_tool_pages () in
   let</>? page =
     List.find_opt (fun (p : Data.Tool_page.t) -> p.slug = slug) pages
   in
   Dream.html
-    (Ocamlorg_frontend.tool_page commit_hash ~pages
-       ~canonical:(Url.tool_page page.slug) page)
+    (Ocamlorg_frontend.tool_page ~pages ~canonical:(Url.tool_page page.slug)
+       page)
 
-let tutorial commit_hash req =
+let tutorial req =
   let slug = Dream.param req "id" in
   let</>? tutorial = Data.Tutorial.get_by_slug slug in
   let all_tutorials = Data.Tutorial.all in
@@ -816,7 +816,7 @@ let tutorial commit_hash req =
   let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
 
   Dream.html
-    (Ocamlorg_frontend.tutorial commit_hash ~tutorials
+    (Ocamlorg_frontend.tutorial ~tutorials
        ~canonical:(Url.tutorial tutorial.slug)
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
        tutorial)
