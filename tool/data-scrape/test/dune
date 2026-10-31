@@ -1,0 +1,3 @@
+(test
+ (name utf_8_test)
+ (libraries alcotest data_scrape))
