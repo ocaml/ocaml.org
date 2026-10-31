@@ -205,9 +205,10 @@ module Tutorial : sig
   val all_search_documents : search_document list
   val get_by_slug : string -> t option
 
-  val search_terms_re : string -> Re.re option
-  (** Case-insensitive regexp matching any of the whitespace-separated terms of
-      a search query, taken literally. [None] if the query has no terms. *)
+  val search_terms : string -> string list
+  (** The whitespace-separated terms of a search query. Documents match a term
+      literally, ignoring case (Unicode case folding), and
+      [Ocamlorg.Import.String.fold_split] finds the matches in a text. *)
 
   val search_documents : string -> search_document list
 end
