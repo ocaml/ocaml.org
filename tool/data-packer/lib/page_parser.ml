@@ -21,7 +21,7 @@ let decode (fpath, (head, body)) =
   in
   let slug =
     Filename.basename fpath |> Filename.remove_extension
-    |> Str.global_replace (Str.regexp "_") "-"
+    |> String.map (function '_' -> '-' | c -> c)
   in
   let body_md = String.trim body in
   let body_html =

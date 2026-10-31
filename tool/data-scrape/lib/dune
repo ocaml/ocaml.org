@@ -21,7 +21,7 @@
   unix
   uri
   yaml
-  str
+  re
   ptime
   fmt)
  (preprocess
