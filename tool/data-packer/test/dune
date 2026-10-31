@@ -1,0 +1,3 @@
+(test
+ (name excerpt_test)
+ (libraries alcotest cmarkit data_packer))

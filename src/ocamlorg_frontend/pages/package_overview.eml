@@ -25,7 +25,7 @@ let render_user_avatar ~x_show (user: Data.Opam_user.t) =
     <a href="<%s Url.packages_search %>?q=author%3A%22<%s Dream.to_percent_encoded user.name %>%22" class="flex items-center gap-3">
       <% (match user.avatar with | None -> %>
       <div class="shrink-0 inline-flex items-center justify-center text-xl font-medium h-10 w-10 rounded-full bg-avatar-<%s string_of_int ((Hashtbl.hash user.name) mod 12 )%> text-white">
-      <%s String.uppercase_ascii (String.sub user.name 0 1); %>
+      <%s String.uppercase_ascii (Ocamlorg.Import.String.utf_8_first user.name); %>
       </div>
       <% | Some avatar -> %>
       <img class="shrink-0 inline-flex h-10 w-10 rounded-full" src="<%s avatar %>" alt="">
