@@ -3,16 +3,14 @@ let highlight_search_terms
 ~search
 (text: string)
 =
-  match Data.Tutorial.search_terms_re search with
-  | Some r ->
-    let render_item = function
-      | `Delim g -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape (Re.Group.get g 0) ^ {|</span>|}
-      | `Text s -> Dream.html_escape s
-    in
-    let split = Re.split_full r text in
-    List.fold_left (fun a b -> a ^ render_item b) "" split
-  | None ->
-    Dream.html_escape text
+  let render_item = function
+    | `Delim s -> {|<span class="|} ^ Dream.html_escape class_ ^ {|">|} ^ Dream.html_escape s ^ {|</span>|}
+    | `Text s -> Dream.html_escape s
+  in
+  let terms = Data.Tutorial.search_terms search in
+  Ocamlorg.Import.String.fold_split ~terms text
+  |> List.map render_item
+  |> String.concat ""
 
 let display_surrounding_text ~search (text : string) =
   let shorten_from_right text ~length = Ocamlorg.Import.String.utf_8_prefix text length in
@@ -24,10 +22,9 @@ let display_surrounding_text ~search (text : string) =
       ^ " [...] "
       ^ shorten_from_left text ~length:(length / 2)
   in
-  match Data.Tutorial.search_terms_re search with
-  | Some r -> (
-    let render_item f = function `Delim g -> Re.Group.get g 0 | `Text s -> f s in
-    match Re.split_full r text with
+  let terms = Data.Tutorial.search_terms search in
+  let render_item f = function `Delim s -> s | `Text s -> f s in
+  match Ocamlorg.Import.String.fold_split ~terms text with
     | [ x ] -> render_item (shorten_from_right ~length:200) x
     | [ x; y ] ->
         render_item (shorten_from_left ~length:200) x
@@ -47,8 +44,7 @@ let display_surrounding_text ~search (text : string) =
         ^ render_item (shorten_from_middle ~length:100) z
         ^ render_item (shorten_from_middle ~length:100) a
         ^ render_item (shorten_from_right ~length:100) b
-    | [] -> shorten_from_right ~length:200 text)
-  | None -> shorten_from_right ~length:200 text
+    | [] -> shorten_from_right ~length:200 text
 
 
 let script =

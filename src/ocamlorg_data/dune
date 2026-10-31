@@ -97,7 +97,7 @@
  (name data)
  (public_name ocamlorg.data)
  (modules data v2)
- (libraries ocamlorg.data_intf bigarray re)
+ (libraries ocamlorg.data_intf ocamlorg.global bigarray re)
  (foreign_stubs
   (language c)
   (names data_blob_stubs)
