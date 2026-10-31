@@ -1,3 +1,15 @@
 (tests
- (names graphql_test mcp_doc_html_test mcp_transport_test mcp_tools_test)
- (libraries alcotest yojson lwt.unix ocamlorg_mcp ocamlorg_web))
+ (names
+  graphql_test
+  mcp_doc_html_test
+  mcp_transport_test
+  mcp_tools_test
+  utf_8_snippet_test)
+ (libraries
+  alcotest
+  yojson
+  lwt.unix
+  ocamlorg.global
+  ocamlorg_frontend
+  ocamlorg_mcp
+  ocamlorg_web))
