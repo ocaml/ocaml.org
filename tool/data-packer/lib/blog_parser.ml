@@ -98,7 +98,9 @@ module Post = struct
       metadata_of_yaml head |> Result.map_error (Utils.where fpath)
     in
     let source =
-      match Str.split (Str.regexp_string "/") fpath with
+      match
+        String.split_on_char '/' fpath |> List.filter (fun s -> s <> "")
+      with
       | _ :: second :: _ -> (
           match
             List.find_opt (fun (s : source) -> s.id = second) all_sources

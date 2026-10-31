@@ -343,15 +343,19 @@ module Tutorial = struct
   let all_search_documents = data.tutorial_search_documents
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
-  let search_documents q =
+  let search_terms_re q =
+    match
+      String.split_on_char ' ' q
+      |> List.concat_map (String.split_on_char '\t')
+      |> List.filter (fun s -> s <> "")
+    with
+    | [] -> None
+    | terms -> Some Re.(compile (no_case (alt (List.map str terms))))
+
+  let search_documents_matching regexp =
     let score_document (doc : search_document) =
-      let regexp =
-        Str.global_replace (Str.regexp "[ \t]+") "\\|" (String.trim q)
-        |> Str.regexp_case_fold
-      in
       let search_in_field field weight =
-        Float.log (float_of_int (List.length (Str.split regexp field)))
-        *. weight
+        Float.log (float_of_int (List.length (Re.split regexp field))) *. weight
       in
       search_in_field doc.title 1.2
       +. search_in_field
@@ -368,6 +372,11 @@ module Tutorial = struct
       all_search_documents
     |> List.sort (fun (_, score1) (_, score2) -> Float.compare score2 score1)
     |> List.map fst
+
+  let search_documents q =
+    match search_terms_re q with
+    | None -> all_search_documents
+    | Some regexp -> search_documents_matching regexp
 end
 
 module Video = struct

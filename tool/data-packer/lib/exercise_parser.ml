@@ -35,8 +35,8 @@ let split_body body =
   let statement_marker = "# Statement" in
   let solution_marker = "# Solution" in
   let find_section marker =
-    try Some (Str.search_forward (Str.regexp_string marker) body 0)
-    with Not_found -> None
+    Re.exec_opt (Re.compile (Re.str marker)) body
+    |> Option.map (fun g -> Re.Group.start g 0)
   in
   match (find_section solution_marker, find_section statement_marker) with
   | Some sol_pos, Some stmt_pos when sol_pos < stmt_pos ->
