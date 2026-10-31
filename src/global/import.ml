@@ -53,6 +53,39 @@ module String = struct
           let right_start = !i + sep_max + 1 in
           Some
             (sub s 0 (left_end + 1), sub s right_start (s_max - right_start + 1))
+
+  (* A UTF-8 continuation byte has the form 0b10xxxxxx. A character is at most 4
+     bytes long, so at most 3 continuation bytes follow its first byte. *)
+  let is_utf_8_continuation c = Char.code c land 0xC0 = 0x80
+
+  (* [utf_8_prefix s n] is the longest prefix of [s] of at most [n] bytes that
+     does not end inside a UTF-8 character. *)
+  let utf_8_prefix s n =
+    let len = length s in
+    if n >= len then s
+    else
+      let rec back i steps =
+        if i > 0 && steps < 3 && is_utf_8_continuation (unsafe_get s i) then
+          back (i - 1) (steps + 1)
+        else i
+      in
+      let stop = if n <= 0 then 0 else back n 0 in
+      sub s 0 stop
+
+  (* [utf_8_suffix s n] is the longest suffix of [s] of at most [n] bytes that
+     does not start inside a UTF-8 character. *)
+  let utf_8_suffix s n =
+    let len = length s in
+    if n >= len then s
+    else if n <= 0 then ""
+    else
+      let rec forward i steps =
+        if i < len && steps < 3 && is_utf_8_continuation (unsafe_get s i) then
+          forward (i + 1) (steps + 1)
+        else i
+      in
+      let start = forward (len - n) 0 in
+      sub s start (len - start)
 end
 
 module List = struct
