@@ -334,8 +334,11 @@ module Search : sig
   val match_request :
     is_author_match:(string -> string -> bool) -> search_request -> t -> bool
 
-  val compare : search_request -> t -> t -> int
-  val compare_by_popularity : search_request -> t -> t -> int
+  val relevance : search_request -> t -> float
+  (** Higher is better. *)
+
+  val relevance_by_popularity : search_request -> t -> float
+  (** [relevance], weighted by the number of reverse dependencies. *)
 end = struct
   type search_constraint =
     | Tag of string
@@ -364,7 +367,7 @@ end = struct
     Re.compile atom
 
   let to_request str =
-    let str = String.lowercase_ascii str in
+    let str = Ocamlorg.Import.String.fold str in
     let to_constraint = function
       | [ _; s ] -> Any s
       | [ _; "tag:"; s ] -> Tag s
@@ -382,7 +385,7 @@ end = struct
         |> to_constraint)
       g
 
-  let match_ f s pattern = f (String.lowercase_ascii @@ s) pattern
+  let match_ f s pattern = f (Ocamlorg.Import.String.fold s) pattern
 
   let match_tag ?(f = String.contains_s) pattern package =
     List.exists (fun tag -> match_ f tag pattern) package.info.tags
@@ -469,25 +472,23 @@ end = struct
     (score p query |> score_to_float)
     *. (1.0 +. Float.log (Float.of_int (List.length p.info.rev_deps + 1)))
 
-  let compare query p1 p2 =
-    let s1 = score p1 query |> score_to_float in
-    let s2 = score p2 query |> score_to_float in
-    Float.compare s2 s1
-
-  let compare_by_popularity query p1 p2 =
-    let s1 = adjust_score_by_popularity query p1 in
-    let s2 = adjust_score_by_popularity query p2 in
-    Float.compare s2 s1
+  let relevance query p = score p query |> score_to_float
+  let relevance_by_popularity = adjust_score_by_popularity
 end
 
 let search ~is_author_match ?(sort_by_popularity = false) t query =
-  let compare =
-    Search.(if sort_by_popularity then compare_by_popularity else compare)
-  in
   let request = Search.to_request query in
+  let score =
+    Search.(if sort_by_popularity then relevance_by_popularity else relevance)
+      request
+  in
+  (* Score each package once, not on every comparison. The sort is stable, so
+     packages with equal scores keep their order. *)
   all_latest t
   |> List.filter (Search.match_request ~is_author_match request)
-  |> List.sort (compare request)
+  |> List.map (fun p -> (score p, p))
+  |> List.stable_sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
+  |> List.map snd
 
 module Documentation = struct
   include Documentation
