@@ -2,9 +2,10 @@
 
 open Import
 
-type difficulty = [%import: Data_intf.Exercise.difficulty] [@@deriving show]
+type difficulty = Data_intf.Exercise.difficulty
 
-let difficulty_of_string = function
+let difficulty_of_string : string -> (difficulty, [> `Msg of string ]) result =
+  function
   | "beginner" -> Ok Beginner
   | "intermediate" -> Ok Intermediate
   | "advanced" -> Ok Advanced
@@ -14,7 +15,7 @@ let difficulty_of_yaml = function
   | `String s -> difficulty_of_string s
   | _ -> Error (`Msg "Expected string for difficulty")
 
-type t = [%import: Data_intf.Exercise.t] [@@deriving show]
+type t = Data_intf.Exercise.t
 
 type metadata = {
   title : string;

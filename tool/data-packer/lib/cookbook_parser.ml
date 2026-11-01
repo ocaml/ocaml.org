@@ -2,15 +2,14 @@
 
 open Import
 
-type category = [%import: Data_intf.Cookbook.category] [@@deriving show]
-type task = [%import: Data_intf.Cookbook.task] [@@deriving show]
+type category = Data_intf.Cookbook.category
+type task = Data_intf.Cookbook.task
 
 type code_block_with_explanation =
-  [%import: Data_intf.Cookbook.code_block_with_explanation]
-[@@deriving show]
+  Data_intf.Cookbook.code_block_with_explanation
 
-type package = [%import: Data_intf.Cookbook.package] [@@deriving of_yaml, show]
-type t = [%import: Data_intf.Cookbook.t] [@@deriving show]
+type package = [%import: Data_intf.Cookbook.package] [@@deriving of_yaml]
+type t = Data_intf.Cookbook.t
 
 type task_metadata = {
   title : string;
@@ -32,8 +31,7 @@ type metadata = { packages : package list; discussion : string option }
     stable_record ~version:t
       ~add:
         [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
-      ~remove:[ discussion ],
-    show]
+      ~remove:[ discussion ]]
 
 let render_markdown str =
   str |> String.trim
@@ -53,7 +51,8 @@ let decode (tasks : task list) (fpath, (head, body)) =
   let metadata = metadata_of_yaml head in
 
   let code_blocks =
-    let rec extract_explanation_code_pairs split_result =
+    let rec extract_explanation_code_pairs split_result :
+        code_block_with_explanation list =
       match split_result with
       | [] -> []
       | `Text code :: rest when String.trim code = "" ->
@@ -74,7 +73,8 @@ let decode (tasks : task list) (fpath, (head, body)) =
          | `Text s -> `Text s
          | `Delim g -> `Delim (Re.Group.get g 0))
     |> extract_explanation_code_pairs
-    |> List.map (fun (c : code_block_with_explanation) ->
+    |> List.map
+         (fun (c : code_block_with_explanation) : code_block_with_explanation ->
            let code =
              Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
            in
@@ -97,10 +97,10 @@ let all_categories_and_tasks () =
       "cookbook/tasks.yml"
   in
   let rec extract_tasks_from_category (path : string list) (tasks, categories)
-      (meta_cat : category_metadata) : task list * category list =
-    let cat_slug = Utils.slugify meta_cat.title in
+      (cat : category_metadata) : task list * category list =
+    let cat_slug = Utils.slugify cat.title in
     let cat_tasks =
-      meta_cat.tasks |> Option.value ~default:[]
+      cat.tasks |> Option.value ~default:[]
       |> List.map (fun (t : task_metadata) : task ->
              {
                title = t.title;
@@ -113,9 +113,11 @@ let all_categories_and_tasks () =
       List.fold_left
         (extract_tasks_from_category (cat_slug :: path))
         ([], [])
-        (Option.value ~default:[] meta_cat.subcategories)
+        (Option.value ~default:[] cat.subcategories)
     in
-    let category = { title = meta_cat.title; slug = cat_slug; subcategories } in
+    let category : category =
+      { title = cat.title; slug = cat_slug; subcategories }
+    in
     (cat_tasks @ subcategories_tasks @ tasks, category :: categories)
   in
   List.fold_left
