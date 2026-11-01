@@ -201,7 +201,7 @@ exhaustive or not, based on the *type* only. So in the following
 example, the compiler doesn't know what range of ints the "mod" operator
 would return:
 
-```ocamltop
+```ocaml
 let is_even x =
   match x mod 2 with
   | 0 -> true

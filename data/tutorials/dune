@@ -8,6 +8,22 @@
 ; files or run external tools) and are tracked as a follow-up rather than
 ; silently skipped block by block. The platform/ subdirectory has no tutorial
 ; with testable OCaml blocks yet, so it has no stanza.
+;
+; A file in the tested set must verify something: tool/check-mdx-coverage.sh
+; fails the build if a listed file has no ocaml/sh/bash block left that mdx
+; actually runs (every block `$MDX skip`ped), or uses a fence label mdx
+; silently ignores. Without it a file can be "tested" and check nothing.
+
+(rule
+ (alias runtest)
+ (deps
+  %{project_root}/tool/check-mdx-coverage.sh
+  dune
+  ../exercises/dune
+  (glob_files_rec *.md)
+  (glob_files ../exercises/*.md))
+ (action
+  (run sh %{project_root}/tool/check-mdx-coverage.sh dune ../exercises/dune)))
 
 (subdir
  getting-started
@@ -23,7 +39,6 @@
    0tt_01_command_line_arguments.md
    0tt_02_file_manipulation.md
    0tt_03_calling_c_libraries.md
-   0tt_04_calling_fortran_libraries.md
    1wf_00_using_the_ocaml_compiler_toolchain.md
    1wf_05_garbage_collection.md
    rs_00_guidelines.md)
