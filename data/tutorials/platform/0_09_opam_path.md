@@ -13,7 +13,7 @@ Opam is a package manager for OCaml that facilitates the installation and manage
 The `opam env` command is used to set environment variables for a specific opam switch. This method is useful for configuring your shell environment to work with a particular opam switch.
 
 Usage:
-```bash
+```shell
 eval "$(opam env)"
 ```
 
@@ -24,13 +24,13 @@ This command evaluates the output of opam env and sets the necessary environment
 The opam exec command allows you to run a command in the context of a specific opam switch without modifying your shell environment.
 
 Usage:
-```bash
+```shell
 opam exec -- <command>
 ```
 Replace `<command>` with the actual command you want to run. This ensures that the command is executed within the opam switch's environment.
 
 Example:
-```bash
+```shell
 opam exec -- ocaml
 ```
 
