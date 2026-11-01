@@ -120,6 +120,8 @@ are intended to be raised by user-written functions:
 Functions are provided by the standard library to raise `Invalid_argument` and
 `Failure` using a string parameter:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val invalid_arg : string -> 'a
 (** @raise Invalid_argument *)
@@ -145,6 +147,8 @@ Because handling exceptions interrupts normal control flow, using them can
 complicate some tasks requiring strictly ordered and coupled processes. For
 these scenarios, the `Fun` module of the standard library provides:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
 ```
@@ -236,6 +240,8 @@ OCAMLRUNPARAM=b ./myprogram [args]
 And you will get a stack trace. Alternatively, you can call, from within the
 program,
 
+<!-- Not run: it would add a backtrace to every exception shown below. -->
+<!-- $MDX skip -->
 ```ocaml
 let () = Printexc.record_backtrace true
 ```
@@ -387,6 +393,8 @@ the above examples, the convention of the standard library is used: adding an
 `_opt` suffix to the name of the version of the function that returns an option
 instead of raising an exception.
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val find: ('a -> bool) -> 'a list -> 'a
 (** @raise Not_found *)
@@ -400,6 +408,7 @@ a context, the opposite convention is relatively common: the version of the
 function that raises exceptions is suffixed with `_exn`. Using the same
 functions, that would give the specification:
 
+<!-- $MDX skip -->
 ```ocaml
 val find_exn: ('a -> bool) -> 'a list -> 'a
 (** @raise Not_found *)
@@ -417,6 +426,7 @@ versa.
 
 ```ocaml
 # 21 + Some 21;;
+Line 1, characters 6-13:
 Error: This expression has type 'a option
        but an expression was expected of type int
 ```
@@ -425,6 +435,8 @@ In order to combine option values with other values, conversion functions are
 needed. Here are the functions provided by the **`option`** module to extract the
 data contained in an option:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val get : 'a t -> 'a
 val value : 'a t -> default:'a -> 'a
@@ -449,6 +461,8 @@ val value : default:'a -> 'a option -> 'a = <fun>
 
 It is also possible to perform pattern matching on option values:
 
+<!-- Illustrative: the names are placeholders. -->
+<!-- $MDX skip -->
 ```ocaml
 match opt with
 | None -> ...    (* Something *)
@@ -527,6 +541,8 @@ claim it is worse.
 Before showing how to improve this code, we need to explain how `Option.map` and
 `Option.bind` work. Here are their types:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val map : ('a -> 'b) -> 'a option -> 'b option
 val bind : 'a option -> ('a -> 'b option) -> 'b option
@@ -617,6 +633,8 @@ errors like exceptions.
 
 The **`result`** module of the standard library defines the following type:
 
+<!-- Illustrative: would shadow the Standard Library's own definition. -->
+<!-- $MDX skip -->
 ```ocaml
 type ('a, 'b) result =
   | Ok of 'a
@@ -638,6 +656,8 @@ also behaves like identity.
 
 Here is its type:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val map : ('a -> 'b) -> ('a, 'c) result -> ('b, 'c) result
 ```
@@ -655,6 +675,8 @@ one, with the same logic, applied to `Error`
 
 Here is its type:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val map_error : ('c -> 'd) -> ('a, 'c) result -> ('a, 'd) result
 ```
@@ -671,6 +693,8 @@ The same reasoning applies to `Result.bind`, except there's no `bind_error`.
 Using those functions, here is an hypothetical example of code using [Anil
 Madhavapeddy's OCaml YAML library](https://github.com/avsm/ocaml-yaml):
 
+<!-- Hypothetical: the File and Yaml modules are not available here. -->
+<!-- $MDX skip -->
 ```ocaml
 let file_opt = File.read_opt path in
 begin
@@ -683,6 +707,8 @@ end |> Result.map_error (fun (`Msg e) -> Printf.sprintf "%s, error: %s" path e)
 
 Here are the types of the involved functions:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val File.read_opt : string -> string option
 val Yaml.of_string : string -> (Yaml.value, [`Msg of string]) result
@@ -711,6 +737,8 @@ On the other hand, functions passed to `Result.bind` are allowed to fail. As
 stated before there isn't a `Result.bind_error`. One way to make sense out of
 that absence is to consider its type, it would have to be:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val Result.bind_error : ('a, 'e) result -> ('e -> ('a, 'f) result) -> ('a, 'f) result
 ```
@@ -771,14 +799,18 @@ languages, especially in Haskell.
 Assuming `a` and `b` are valid OCaml expressions, the following three pieces of
 source code are functionally identical:
 
+<!-- Illustrative: the names are placeholders. -->
+<!-- $MDX skip -->
 ```ocaml
 bind a (fun x -> b)
 ```
 
+<!-- $MDX skip -->
 ```ocaml
 let* x = a in b
 ```
 
+<!-- $MDX skip -->
 ```ocaml
 a >>= fun x -> b
 ```
@@ -786,16 +818,19 @@ a >>= fun x -> b
 It may seem pointless. To make sense, one must look at expressions where several
 calls to `bind` are chained. The following three are also equivalent:
 
+<!-- $MDX skip -->
 ```ocaml
 bind a (fun x -> bind b (fun y -> c))
 ```
 
+<!-- $MDX skip -->
 ```ocaml
 let* x = a in
 let* y = b in
 c
 ```
 
+<!-- $MDX skip -->
 ```ocaml
 a >>= fun x -> b >>= fun y -> c
 ```
@@ -808,12 +843,14 @@ parentheses in that precise case, but it's easy to get lost. Nevertheless, it
 has some appeal when named functions are used. It looks a bit like good old Unix
 pipes:
 
+<!-- $MDX skip -->
 ```ocaml
 a >>= f >>= g
 ```
 
 looks better than:
 
+<!-- $MDX skip -->
 ```ocaml
 let* x = a in
 let* y = f x in
@@ -828,6 +865,8 @@ Go, Rust, Swift, or even modern Java, where it would look like:
 Here is the same code as presented at the end of the previous section, rewritten
 using `Result.bind` as a binary operator:
 
+<!-- Hypothetical: the File and Yaml modules are not available here. -->
+<!-- $MDX skip -->
 ```ocaml
 File.read_opt path
 |> Option.to_result ~none:(`Msg "File not found")
@@ -917,7 +956,7 @@ example:
 
 ```ocaml
 # assert (Sys.os_type = "Win32");;
-Exception: Assert_failure ("//toplevel//", 1, 0).
+Exception: Assert_failure ("//toplevel//", 1, 1).
 ```
 
 Running this on Win32, of course, won't throw an error.
