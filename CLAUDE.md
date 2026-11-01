@@ -59,6 +59,8 @@ Site content lives in `data/` as YAML and Markdown — one subdirectory per cont
 
 **Files in `data/` must be UTF-8 without a byte-order mark.** The packer (`read_file` in `tool/data-packer/lib/utils.ml`) fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
 
+**Code blocks in `data/tutorials/` and `data/exercises/` are tests.** mdx runs the `ocaml`, `sh` and `bash` fences of the files listed in `data/tutorials/dune` and of every exercise; `make test_code_examples` runs them, `opam exec -- dune promote` accepts changed output after you have reviewed the diff, and `make mdx-coverage` shows what is covered. The authoring rules — only column-0 fences count, `shell` blocks are not run, toplevel continuation lines need two spaces of indentation, fenced blocks inside HTML comments still execute, a skip needs a reason in the comment above it — are in `CONTRIBUTING.md` under "Tutorials and Exercises". A listed file must keep at least one live block or `tool/check-mdx-coverage.sh` fails the build.
+
 **Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, and `data/platform_releases/` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
 
 **When you rename or remove `data/` content, update `asset/llms.txt` too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:`/`id:` (not its filename), and CI never checks them, so stale links break silently.

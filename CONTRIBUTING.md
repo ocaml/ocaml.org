@@ -29,6 +29,7 @@ Anyone can contribute to these sections:
 - [OCaml Cookbook Recipes](#content-cookbook)
 - [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
+- [Tutorials and Exercises](#content-tutorial)
 
 OCaml Platform maintainers can contribute to these sections:
 - [The OCaml Changelog](#content-changelog)
@@ -239,6 +240,32 @@ You can add a new recurring event by adding it to the YAML file [data/events/rec
 > Contribute to the [Upcoming Event](https://ocaml.org/community).
 
 You can add a new upcoming event by creating a new Markdown file in [data/events/](data/events/).
+
+### <a name="content-tutorial"></a>Tutorials and Exercises
+
+Tutorials live in `data/tutorials/`, one subdirectory per section, and exercises in `data/exercises/`. The code blocks in them are tests: [mdx](https://github.com/realworldocaml/mdx) runs every OCaml and shell block of the files listed in `data/tutorials/dune` (all exercises are tested) and fails the build if the output in the file differs from what the current compiler produces. Run the tests with `make test_code_examples`, and see what is covered with `make mdx-coverage`.
+
+#### How mdx Reads a Code Block
+
+- Only fences written as three backticks at the start of a line count. Indented or quoted fences, `~~~` fences and fences with a space before the label (```` ``` ocaml ````) are not tested; the last form fails the whole file.
+- ` ```ocaml ` blocks are evaluated in a toplevel. A block whose lines start with a `#` and a space is a toplevel session: each phrase ends with `;;`, continuation lines are indented by two spaces, and what follows a phrase is its expected output. A block without prompts is compiled as a whole, and only has to compile without errors or warnings.
+- ` ```sh ` and ` ```bash ` blocks are shell sessions: lines starting with a `$` and a space are commands, the other lines are their expected output, and `mdx` runs them with `sh` in the build directory. ` ```shell ` is **not** run; use it for commands the reader is meant to type but that cannot run in a test, such as installing opam or creating a switch.
+- Use ` ```text ` for anything that is not code to run: elided output, pseudo-code, the shape of a value.
+- A `<!-- $MDX ... -->` comment on the line just before a fence changes how it is handled. The usual ones are `skip` (do not run), `env=name` (run in a separate toplevel, so that an `open` does not leak into the rest of the file), `dir=examples` for shell blocks, and `file=examples/foo.ml` to show and check a file's contents.
+- Fenced blocks inside HTML comments are still run.
+
+#### Checking a Change
+
+Run `make test_code_examples`. When the only differences are output that legitimately changed, for instance after a compiler upgrade, `opam exec -- dune promote` writes the new output into the file; review the diff before committing it. When mdx reports a syntax error inside a block that is valid OCaml, the cause is almost always a continuation line that is not indented, or a comment placed before the `#` prompt instead of after it.
+
+Skip a block only when it cannot run: it reads the terminal, needs a library or files the test has no access to, loops or overflows by design, or deliberately does not type-check. Say why in a comment on the line above the directive:
+
+```markdown
+<!-- Reads from standard input, which the test harness does not provide. -->
+<!-- $MDX skip -->
+```
+
+The coverage report lists these reasons. A file added to `data/tutorials/dune` must keep at least one live block; `tool/check-mdx-coverage.sh` fails the build otherwise, and also rejects labels mdx would silently ignore.
 
 ### <a name="content-changelog"></a>OCaml Changelog
 

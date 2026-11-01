@@ -58,6 +58,10 @@ jobs:
       - name: Run tests
         run: make test
 
+      - name: Report mdx coverage of tutorials and exercises
+        run: sh tool/check-mdx-coverage.sh --report data/tutorials/dune data/exercises/dune >> "$GITHUB_STEP_SUMMARY"
+        if: always() && runner.os == 'Linux'
+
       - name: Format code
         run: make fmt
         if: runner.os == 'Linux'
