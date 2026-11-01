@@ -40,7 +40,7 @@ Next, it's necessary to disable Rosetta if you have it installed. This [Apple Su
 
 1. Reinstall Homebrew:
 
-```Shell
+```shell
 brew install /Users/tarides/Library/Caches/Homebrew/downloads/9e6d2a225119ad88cde6474d39696e66e4f87dc4a4d101243b91986843df691e--libev--4.33.arm64_monterey.bottle.tar.gz
 ```
 
