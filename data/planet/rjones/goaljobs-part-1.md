@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "c_file"
+- "goaljobs"
+- "goals"
+- "o_file"
+- "program"
+- "recipe"
+- "shell"
+- "target"
+- "utils"
+- "whenjobs"
 ---
 
 <p>A little more than a year ago I released <a href="http://people.redhat.com/~rjones/whenjobs/">whenjobs</a> which was an attempt to create a practical language for automating complex &ldquo;business rules&rdquo;.  The kind of thing I&rsquo;m talking about is managing the many diverse steps between me <a href="https://github.com/libguestfs/libguestfs/commit/4d955be4fb9fe304d5ab4222f0e9592f5fc1ef5b">tagging a libguestfs commit with a version number</a> and a <a href="http://libguestfs.org/download/1.23-development/">fully tested tarball appearing on the website</a>.  Or the hundreds of steps that go into <a href="https://rwmj.wordpress.com/2013/09/14/ocaml-4-01-0-entering-rawhide/">100 OCaml packages being updated and rebuilt for Rawhide</a>.</p>

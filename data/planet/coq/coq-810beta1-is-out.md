@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "cleanups"
+- "coq"
+- "definitionally"
+- "deprecations"
+- "irrelevant"
+- "refinements"
+- "removals"
+- "sprop"
+- "stabilization"
+- "user-visible"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image: https://priver.dev/images/ocaml/dbcaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "dbcaml"
+- "driver"
+- "pet_name"
+- "pets"
+- "pets_array"
+- "postgres"
+- "riot"
+- "serde"
+- "silo"
+- "some_bool"
 ---
 
 <p>I&rsquo;ve spent the last four months working on DBCaml. Some of you may be familiar with this project, while others may not. When I started DBCaml, I had one primary goal: to build a toolkit for OCaml that handles pooling and mapping to types and more. This toolkit would also run on Riot, which is an actor-model multi-core scheduler for OCaml 5.</p>

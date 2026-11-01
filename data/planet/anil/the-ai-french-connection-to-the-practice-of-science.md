@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "arxiv"
+- "cam"
+- "conservation"
+- "copilots"
+- "evidence"
+- "french"
+- "lawrence"
+- "royal"
+- "science"
+- "society"
 ---

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "caml_page_table_lookup"
+- "camlset__add_1073"
+- "compare_val"
+- "kallsyms"
+- "ocaml-4"
+- "ocamlopt"
+- "opt"
+- "patch"
+- "profiling"
+- "tar"
 ---
 
 <p>We have recently worked on modifying the OCaml system to be able to profile OCaml code on Linux amd64 systems, using the processor performance counters now supported by stable kernels. This page presents this work, funded by Jane Street.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "checker"
+- "dynamic"
+- "errors"
+- "gradual"
+- "gradually"
+- "ill-typed"
+- "ill-typedness"
+- "type checker"
+- "type inference"
+- "typing"
 ---
 
 <h1>Gradually debugging type errors</h1>

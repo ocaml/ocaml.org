@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "bnf_parser"
+- "bnf_parser_messages"
+- "bnfgen"
+- "checkpoint"
+- "error"
+- "grammar"
+- "lexbuf"
+- "menhir"
+- "menhirLib"
+- "token"
 ---
 
 

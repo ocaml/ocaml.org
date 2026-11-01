@@ -6,6 +6,17 @@ date: 2011-04-11T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "MirageOS"
+- "acunu"
+- "bugbear"
+- "buzzword"
+- "functional programming"
+- "mirage"
+- "unikernel"
+- "verisign"
+- "wiki"
+- "xen"
 ---
 
 

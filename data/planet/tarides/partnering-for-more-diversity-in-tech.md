@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/6b03b0cada1534ce78483ee37b3475c8/7d5a2
 authors:
 - Tarides
 source:
+keywords:
+- "ada"
+- "democratize"
+- "diversity"
+- "feminization"
+- "france"
+- "ladder"
+- "positions"
+- "school"
+- "tech"
+- "women"
 ---
 
 <p>Tarides is very glad to announce our partnership with <a href="https://adatechschool.fr">Ada Tech

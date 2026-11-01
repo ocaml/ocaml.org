@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "bdd"
+- "cascade"
+- "check_related"
+- "i32"
+- "ocaml-sbom"
+- "qiskit"
+- "simple_httpd"
+- "theo"
+- "type checker"
+- "wax"
 ---

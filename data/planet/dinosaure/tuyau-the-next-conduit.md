@@ -7,6 +7,14 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "about"
+- "conduit"
+- "introduction"
+- "problem"
+- "solve"
+- "tuyau"
+- "wants"
 ---
 
 An introduction about `tuyau` which wants to solve the Conduit's problem.

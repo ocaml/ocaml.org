@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "algortihms"
+- "chorcaml"
+- "choreographic"
+- "dmirtij"
+- "implementing"
+- "language"
+- "multi-participant"
+- "pirouette"
+- "rokas"
+- "urbonas"
 ---
 
 <h1>Implementing a higher-order choreographic language</h1>

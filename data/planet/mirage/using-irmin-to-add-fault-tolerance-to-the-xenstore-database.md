@@ -6,6 +6,17 @@ date: 2014-07-21T00:00:00-00:00
 preview_image:
 authors:
 - Dave Scott
+keywords:
+- "bench"
+- "dir"
+- "domain"
+- "irmin"
+- "shared-memory-ring"
+- "transactions"
+- "uuid-10"
+- "vms"
+- "xen-evtchn"
+- "xenstore"
 ---
 
 

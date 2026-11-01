@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "dk0"
+- "funded"
+- "funding"
+- "merlin"
+- "module system"
+- "ocamlformat"
+- "opam-publish"
+- "testo"
+- "ufind"
+- "utop"
 ---

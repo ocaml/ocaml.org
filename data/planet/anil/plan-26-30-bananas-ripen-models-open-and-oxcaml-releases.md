@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "bananas"
+- "conservation"
+- "evidence"
+- "forester"
+- "models"
+- "openness"
+- "oxcaml"
+- "ranger"
+- "summit"
+- "tessera"
 ---

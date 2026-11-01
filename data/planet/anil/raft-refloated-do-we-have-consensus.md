@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "acm"
+- "consensus"
+- "heidi"
+- "howard"
+- "malte"
+- "paxos"
+- "raft"
+- "refloated"
+- "schwarzkopf"
+- "sigops"
 ---

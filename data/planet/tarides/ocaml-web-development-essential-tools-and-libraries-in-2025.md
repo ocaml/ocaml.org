@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/Web-icon-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "cryptography"
+- "development"
+- "formal verification"
+- "garbage collection"
+- "immutability"
+- "js_of_ocaml"
+- "melange"
+- "ocaml-vdom"
+- "web"
+- "web development"
 ---
 
 <p>Should you use OCaml for web projects? Web development trends are a hotly debated topic in the computer programming world and the familiar faces of languages and frameworks are unlikely to change: hypertext markup language or HTML, CSS, and JavaScript are the core technologies (with server-side technologies such as PHP, Python, etc.), and React, Vue, Svelte, and Angular are proving to be as popular as ever. AI and machine learning might be the biggest foreseeable <a href="https://medium.com/theymakedesign/ai-in-web-development-9a1b5f04eee">changes to the industry</a>, driving the emergence of new tools and workflows. But there is something else gaining momentum in the world of web development: functional programming!</p>

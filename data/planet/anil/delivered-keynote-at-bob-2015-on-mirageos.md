@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "bloat"
+- "bob"
+- "functional"
+- "functional programming"
+- "hopped"
+- "keynote"
+- "mirageos"
+- "operating"
+- "superbly"
+- "systems"
 ---

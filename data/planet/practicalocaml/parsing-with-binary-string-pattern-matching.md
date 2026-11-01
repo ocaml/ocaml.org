@@ -9,6 +9,17 @@ preview_image: https://practicalocaml.com/content/images/size/w1200/2023/12/DALL
 authors:
 - Practical OCaml
 source:
+keywords:
+- "bigstringaf"
+- "bits"
+- "fin"
+- "frame"
+- "length"
+- "mask"
+- "opcode"
+- "pattern matching"
+- "payload"
+- "rsv"
 ---
 
 <img src="https://practicalocaml.com/content/images/2023/12/DALL-E-2023-12-31-21.53.55---A-wide--horizontal-header-image-for-a-blog-post-titled--Parsing-with-Binary-String-Pattern-Matching--Part-1-.-The-image-captures-the-spirit-of-a-deser.png" alt="Parsing with Binary String Pattern Matching"/><p>If you've ever had to parse anything, (anything really), I want to show you a glimpse of what it could look like when you parse it binary string pattern matching, like you'd do on Erlang, Elixir, or Gleam.</p><p>In OCaml, we can do this with the <code>bitstring</code> package.</p><p>To do this we'll use a small example of something I've had to parse recently: WebSocket Frames.</p><p>A WebSocket frame looks like this:</p><figure class="kg-card kg-code-card"><pre><code>

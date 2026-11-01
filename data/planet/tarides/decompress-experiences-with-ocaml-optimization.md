@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/fff1a2a9a2dbdd9ac7efd7c97ac5aa2a/96c5f
 authors:
 - Tarides
 source:
+keywords:
+- "byte"
+- "caml_modify"
+- "decompress"
+- "hot-loop"
+- "movq"
+- "optimization"
+- "rax"
+- "rbx"
+- "rcx"
+- "rdi"
 ---
 
 <p>In our <a href="https://tarides.com/blog/2019-08-26-decompress-the-new-decompress-api.html">first article</a> we mostly discussed

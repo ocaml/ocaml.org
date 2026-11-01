@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Mike McClurg
 source:
+keywords:
+- "done"
+- "nexta"
+- "nextb"
+- "sa0"
+- "sb0"
+- "skip"
+- "stream"
+- "type class"
+- "unlifted"
+- "yield"
 ---
 
 <p>So I took a look at the Haskell <a href="http://www.cse.unsw.edu.au/~dons/papers/CLS07.html">Stream Fusion</a> <a href="http://hackage.haskell.org/packages/archive/stream-fusion/0.1.2.2/doc/html/Data-Stream.html">library</a> the other day, and got the idea to write a new <code>append</code> combinator that would merge the two streams in sort order. This seemed simple enough to code directly using Streams, but my first instinct is always to write the code using lists, and then translate it into the more complicated syntax. Here&rsquo;s what a sorting merge function looks like over lists:</p>

@@ -6,6 +6,17 @@ date: 2016-07-18T00:00:00-00:00
 preview_image:
 authors:
 - Gemma Gordon
+keywords:
+- "datakit"
+- "foreign function interface"
+- "functoria"
+- "hack"
+- "mirage-console"
+- "mirage-types"
+- "mirageos"
+- "parser"
+- "ppx"
+- "unikernel"
 ---
 
 

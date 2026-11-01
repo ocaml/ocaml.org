@@ -9,4 +9,15 @@ authors:
 - Jane Street Tech Blog
 source:
 ignore:
+keywords:
+- "algebraic"
+- "circuit"
+- "computation"
+- "effect handler"
+- "effects"
+- "handled_effect"
+- "handler"
+- "hardcaml"
+- "simulations"
+- "txn"
 ---

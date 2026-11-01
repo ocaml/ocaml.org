@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "base"
+- "concurrency"
+- "effects"
+- "eio"
+- "eio_main"
+- "merge"
+- "open-trace"
+- "shell"
+- "sorta"
+- "stdenv"
 ---

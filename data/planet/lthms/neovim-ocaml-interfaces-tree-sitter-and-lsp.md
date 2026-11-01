@@ -8,6 +8,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "absolutely"
+- "filetype"
+- "highlighting"
+- "lsp"
+- "mli"
+- "neovim"
+- "ocamlinterface"
+- "ocamllsp"
+- "parser"
+- "tree-sitter"
 ---
 
 

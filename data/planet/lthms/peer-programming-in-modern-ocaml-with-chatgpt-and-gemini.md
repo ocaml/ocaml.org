@@ -10,6 +10,17 @@ authors:
 - "Thomas Letan\u2019s Blog"
 source:
 ignore:
+keywords:
+- "chatgpt"
+- "cohttp_eio"
+- "eio"
+- "eio-trace"
+- "gemini"
+- "llms"
+- "neovim"
+- "ollama"
+- "resto"
+- "vosk"
 ---
 
 

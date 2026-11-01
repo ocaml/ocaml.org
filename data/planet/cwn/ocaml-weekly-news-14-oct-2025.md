@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "atomic"
+- "dune-release"
+- "dune-release-action"
+- "iarray"
+- "installers"
+- "lwt_ssl"
+- "ocaml-compiler"
+- "oui"
+- "pattern matching"
+- "tls-lwt"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "cloud"
+- "functional programming"
+- "guests"
+- "plane"
+- "programming"
+- "sharp"
+- "unikernel"
+- "workshop"
+- "xen"
 ---
 
 <p>Paper on programming the Xen cloud using OCaml at the OCaml Workshop</p>

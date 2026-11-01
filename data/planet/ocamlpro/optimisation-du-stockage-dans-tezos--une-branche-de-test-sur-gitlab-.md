@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "branche"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "gitlab"
+- "opam"
+- "optimisation"
+- "stockage"
+- "tezos"
 ---
 
 <p>Ce troisi&egrave;me article consacr&eacute; &agrave; l&rsquo;am&eacute;lioration du stockage dans Tezos fait suite &agrave; l&rsquo;annonce de la mise &agrave; disposition d&rsquo;une image docker pour

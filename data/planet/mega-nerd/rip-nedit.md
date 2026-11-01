@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "editor"
+- "gedit"
+- "highlighting"
+- "lesstif"
+- "literal"
+- "motif"
+- "nedit"
+- "openmotif"
+- "regex"
+- "search"
 ---
 
 

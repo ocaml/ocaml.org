@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "amazon"
+- "beginner-oriented"
+- "beginning"
+- "book"
+- "charge"
+- "exercises"
+- "functional programming"
+- "john"
+- "paris-rocquencourt"
+- "whitington"
 ---
 
 

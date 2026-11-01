@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "computation"
+- "datetime"
+- "float"
+- "jde"
+- "phantom"
+- "pierre-alexandre"
+- "sun_apparent_longitude"
+- "sun_geometric_longitude"
+- "to_jcen"
+- "to_jde"
 ---
 
 You don't have to be writing an interpreter or some other kind of abstract code to profit from some phantom types. Suppose you have two or more functions that work by &quot;cooking&quot; a simple value (a float, say) with a lengthy computation before proceeding:

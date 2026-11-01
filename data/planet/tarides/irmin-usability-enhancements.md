@@ -13,6 +13,8 @@ preview_image: https://global.discourse-cdn.com/business7/uploads/ocaml/original
 authors:
 - Tarides
 source:
+keywords:
+- "irmin"
 ---
 
 <p>Zach Shipko is working on improving the UI/UX for Irmin.

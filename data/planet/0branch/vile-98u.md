@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "brendan"
+- "dea"
+- "deletions"
+- "dickey"
+- "insensitive"
+- "insertions"
+- "nvi"
+- "pattern"
+- "simpson"
+- "vile"
 ---
 
 <div>

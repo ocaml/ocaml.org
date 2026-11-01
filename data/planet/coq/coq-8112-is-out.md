@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "available"
+- "brings"
+- "changelog"
+- "coq"
+- "details"
+- "few"
+- "fixes"
+- "minor"
+- "release"
+- "version"
 ---
 
 

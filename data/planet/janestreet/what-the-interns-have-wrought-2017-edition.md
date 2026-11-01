@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2017/wh
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "diffs"
+- "gene"
+- "genome"
+- "interns"
+- "justin"
+- "ppx_diff"
+- "revision"
+- "snapshot"
+- "trait"
 ---
 
 <p>Intern season is coming to a close, and it&rsquo;s a nice time to look back

@@ -6,6 +6,17 @@ date: 2015-10-15T00:00:00-00:00
 preview_image:
 authors:
 - Amir Chaudhry
+keywords:
+- "amir"
+- "chaudhry"
+- "leaping"
+- "mirageos"
+- "opam"
+- "pioneer"
+- "playlist"
+- "screencasts"
+- "started"
+- "unikernel"
 ---
 
 

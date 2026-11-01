@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "coq"
+- "definitionally"
+- "gtk3"
+- "lra"
+- "nia"
+- "notations"
+- "nra"
+- "numeral"
+- "proof-irrelevant"
+- "simplex-based"
 ---
 
 

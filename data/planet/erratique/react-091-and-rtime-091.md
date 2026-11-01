@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "delayed"
+- "events"
+- "frp"
+- "opam"
+- "react"
+- "rtime"
+- "signals"
+- "stamp"
+- "timeline"
+- "varying"
 ---
 
 <p>Minor release of React and Rtime.</p>

@@ -8,4 +8,15 @@ authors:
 - The Ocsigen team
 source:
 ignore:
+keywords:
+- "deriving"
+- "functor"
+- "js_of_ocaml"
+- "lwt"
+- "multicore"
+- "ocsipersist"
+- "ocsipersist-dbm"
+- "ocsipersist-pgsql"
+- "ocsipersist-sqlite"
+- "ref_json"
 ---

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "bare"
+- "deps-only"
+- "dir"
+- "init"
+- "initialisation"
+- "install"
+- "opam"
+- "packages"
+- "pinned"
+- "switch"
 ---
 
 <p>After the <a href="https://ocamlpro.com/blog/2017_03_16_new_opam_features_opam_build">opam build</a> feature was announced followed a lot of discussions, mainly having to do with its interface, and misleading name. The base features it offered, though, were still widely asked for:</p>

@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "addq"
+- "gotpcrel"
+- "leaq"
+- "monad"
+- "movq"
+- "r15"
+- "rax"
+- "rbx"
+- "rsp"
+- "subq"
 ---
 
 Back to OCaml! Catching up with StackOverflow's OCaml questions, I found an interesting one about private type abbreviations in module signatures. One thing in that conversation that struck me as odd was the assertion that the compiler optimizes single-constructor variants, thereby subsuming the semantics of Haskell's all three declarators, data, type and newtype, into one. Definitive proof would

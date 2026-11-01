@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "aoah"
+- "archival-20260101"
+- "functor"
+- "lwt_direct"
+- "lwt_domain"
+- "lwt_runtime_events"
+- "ocurrent"
+- "parallelism"
+- "serial"
+- "serialport"
 ---

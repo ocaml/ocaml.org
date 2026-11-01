@@ -9,4 +9,15 @@ authors:
 source:
   name: "sancho.dev"
   url: https://sancho.dev/blog
+keywords:
+- "GADT"
+- "OCaml LSP"
+- "functor"
+- "js_of_ocaml"
+- "learning"
+- "melange"
+- "merlin"
+- "metaprogramming"
+- "pattern matching"
+- "type inference"
 ---

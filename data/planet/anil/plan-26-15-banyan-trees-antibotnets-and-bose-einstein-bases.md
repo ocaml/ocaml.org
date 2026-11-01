@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "global_0"
+- "indian"
+- "launchpad"
+- "madhavapeddy"
+- "summit"
+- "tangled"
+- "tessera"
+- "tessera-embeddings"
+- "type checker"
+- "zarr"
 ---

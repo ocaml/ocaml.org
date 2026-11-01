@@ -23,4 +23,15 @@ authors:
 - Patrick Ferris
 source:
 ignore:
+keywords:
+- "committee"
+- "corpus"
+- "hazel"
+- "icfp"
+- "ill-typed"
+- "metaprogramming"
+- "onward"
+- "organizing"
+- "splash"
+- "tyde"
 ---

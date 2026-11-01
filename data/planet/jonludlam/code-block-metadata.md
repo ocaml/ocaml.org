@@ -8,6 +8,17 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "block"
+- "blocks"
+- "file-sync"
+- "lexer"
+- "mdx"
+- "metadata"
+- "mld"
+- "odoc"
+- "parser"
+- "suggested"
 ---
 
 <section><h1><a href="https://jon.recoil.org/atom.xml#code-block-metadata" class="anchor"></a>Code block metadata</h1><ul class="at-tags"><li class="published"><span class="at-tag">published</span> <p>2025-03-07</p></li></ul><p>Back in 2021 <a href="https://github.com/julow">julow</a> introduced some <a href="https://github.com/ocaml-doc/odoc-parser/pull/2">new syntax</a> to odoc’s code blocks to allow us to attach arbitrary metadata to the blocks. We imposed no structure on this; it was simply a block of text in between the language tag and the start of the code block. Now odoc needs to use it itself, we need to be a bit more precise about how it’s defined.</p><p>The original concept looked like this:</p><pre>{@ocaml metadata goes here in an unstructured way[

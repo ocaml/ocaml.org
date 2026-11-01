@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "abstract"
+- "analysis"
+- "author"
+- "formal"
+- "formal verification"
+- "frama-c"
+- "methods"
+- "rac"
+- "slides"
+- "verification"
 ---
 
 

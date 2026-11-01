@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "dockerfile"
+- "flambda"
+- "libcamlrun"
+- "libcamlrun_pic"
+- "libcamlrund"
+- "libcamlruni"
+- "ocaml-variants"
+- "prims"
+- "ranlib"
+- "tar"
 ---

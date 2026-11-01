@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "belt"
+- "dune"
+- "effect"
+- "foreign function interface"
+- "mel"
+- "melange"
+- "multicore"
+- "ppx"
+- "reason-react"
+- "type checker"
 ---
 
 <p>Today, the Melange team is excited to introduce Melange 2.0. This iteration

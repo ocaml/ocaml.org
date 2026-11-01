@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "ast"
+- "async"
+- "generated"
+- "lexer"
+- "parser"
+- "ppx"
+- "rewriters"
+- "sexp"
+- "sexp_of"
+- "sexp_of_t"
 ---
 
 <p>Ppx is a preprocessing system for OCaml where one maps over the OCaml abstract

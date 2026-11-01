@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "backup"
+- "backup-server"
+- "borg"
+- "borg-backup"
+- "duration"
+- "gpt"
+- "log"
+- "lz4"
+- "sat"
+- "ssh"
 ---
 
 <p>Our PeerTube installation at <a href="https://watch.ocaml.org/">watch.ocaml.org</a> holds hundreds of videos we wouldn’t want to lose! It’s a VM hosted at Scaleway so the chances of a loss are pretty small, but having a second copy would give us extra reassurance. I’m going to use <a href="https://www.borgbackup.org">Borg Backup</a>.</p>

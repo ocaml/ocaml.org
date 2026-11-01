@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "compilation"
+- "compiler"
+- "dune"
+- "effect"
+- "effects"
+- "ocamlbuild"
+- "parallelism"
+- "pipeline"
+- "scheduling"
+- "type checker"
 ---
 
 <h1>Effects based scheduling for the OCaml compiler pipeline</h1>

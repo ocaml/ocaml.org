@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "applicative"
+- "counter_1"
+- "functor"
+- "generative"
+- "generative_make_counter"
+- "incr"
+- "make_counter"
+- "module system"
+- "ocamlformat"
+- "stride"
 ---
 
 

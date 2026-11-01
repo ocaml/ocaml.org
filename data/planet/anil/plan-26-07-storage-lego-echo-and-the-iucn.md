@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "ceph"
+- "conservation"
+- "echo"
+- "evidence"
+- "iucn"
+- "jan"
+- "lego"
+- "oxcaml"
+- "parser"
+- "tessera"
 ---

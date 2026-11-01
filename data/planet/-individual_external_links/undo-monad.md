@@ -8,4 +8,15 @@ authors:
 source:
   name: "panglesd on his personal website"
   url: https://choum.net/panglesd
+keywords:
+- "elem"
+- "monad"
+- "pauseancestor"
+- "query"
+- "set_u"
+- "slide"
+- "slipshow"
+- "undo"
+- "undo-able"
+- "undoable"
 ---

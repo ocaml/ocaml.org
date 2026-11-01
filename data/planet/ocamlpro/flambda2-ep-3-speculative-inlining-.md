@@ -10,6 +10,17 @@ preview_image: https://www.ocamlpro.com/blog/assets/img/picture_egyptian_weighin
 authors:
 - "\n    Pierre Chambart\n  "
 source:
+keywords:
+- "condition"
+- "decision"
+- "flambda2"
+- "foo"
+- "g_real"
+- "heuristic"
+- "inline"
+- "inlining"
+- "module system"
+- "speculative"
 ---
 
 <p></p>

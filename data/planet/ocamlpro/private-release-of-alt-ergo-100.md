@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "activated"
+- "alt-ergo"
+- "arithmetic"
+- "case-split"
+- "fourier-motzkin"
+- "inequalities"
+- "linear"
+- "plugin"
+- "sat"
+- "theories"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/logo_alt_ergo.png" alt="altergo logo"/></p>

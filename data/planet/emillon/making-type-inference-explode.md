@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Etienne Millon
 source:
+keywords:
+- "compiler"
+- "effect"
+- "exp-complete"
+- "explodes"
+- "exponential"
+- "infer"
+- "inference"
+- "length"
+- "size"
+- "type inference"
 ---
 
 <p>Hindley-Milner type systems are in a sweet spot in that they are both expressive

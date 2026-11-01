@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "analysis"
+- "bind"
+- "form"
+- "logically"
+- "must"
+- "premise"
+- "rule"
+- "separation"
+- "subprogram"
+- "verify"
 ---
 
 

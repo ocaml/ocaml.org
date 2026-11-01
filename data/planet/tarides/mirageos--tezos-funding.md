@@ -8,6 +8,17 @@ preview_image: https://tezos.foundation/wp-content/uploads/2020/04/blue-bg.png
 authors:
 - Tarides
 source:
+keywords:
+- "builders"
+- "cookies"
+- "deploys"
+- "energy-efficient"
+- "entities"
+- "foundation"
+- "political"
+- "self-upgradable"
+- "stake"
+- "tezos"
 ---
 
 <p>We are excited to announce that the <a href="https://tezos.foundation">Tezos Foundation</a>

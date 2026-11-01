@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "chunk"
+- "chunksize"
+- "ebu"
+- "file"
+- "libsndfile"
+- "rf64"
+- "samplerate"
+- "typedef"
+- "unsigned"
+- "wav"
 ---
 
 

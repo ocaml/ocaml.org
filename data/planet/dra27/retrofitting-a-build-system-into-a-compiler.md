@@ -14,6 +14,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "bar"
+- "compiler"
+- "continuation"
+- "domain"
+- "effect"
+- "lucas"
+- "merlin"
+- "mli"
+- "ocamlbuild"
+- "type checker"
 ---
 
 <p>Over the summer, <a href="https://github.com/lucasma8795">Lucas Ma</a> has been

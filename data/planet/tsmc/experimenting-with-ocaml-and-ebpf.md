@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "caml_start_program"
+- "camlliquidsoap_test"
+- "ebpf"
+- "exe"
+- "frame"
+- "liquidsoap_test"
+- "ocaml-option-fp"
+- "ocaml-performance"
+- "tsmc"
+- "uprobe"
 ---

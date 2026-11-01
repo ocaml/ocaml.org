@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/f40f61613e381ebad045c51adb0241ed/18869
 authors:
 - Tarides
 source:
+keywords:
+- "bakers"
+- "commit"
+- "nodes"
+- "objects"
+- "offset"
+- "pack"
+- "prefix"
+- "reachable"
+- "rolling"
+- "tezos"
 ---
 
 <p>Over the last few months, Tarides has focused on designing,

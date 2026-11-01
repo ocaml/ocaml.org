@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "binding"
+- "caml"
+- "facets"
+- "forge"
+- "koolinus"
+- "life"
+- "lua"
+- "objective"
+- "ocaml-lua"
+- "opam"
 ---
 
 <div>

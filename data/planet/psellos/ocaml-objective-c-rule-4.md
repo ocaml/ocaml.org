@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Psellos
 source:
+keywords:
+- "camlreturn"
+- "g_dict"
+- "iteration"
+- "nsmutabledictionary"
+- "nsnumber"
+- "nsstring"
+- "nsstring_val"
+- "sval"
+- "table_add"
+- "table_lookup"
 ---
 
 <div class="date">December 4, 2014</div>

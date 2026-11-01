@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "cmx"
+- "cmxa"
+- "conversation"
+- "first_name"
+- "functor"
+- "greeting"
+- "name_printer"
+- "objdump"
+- "ocamlopt"
+- "unused"
 ---

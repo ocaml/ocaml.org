@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "candidate"
+- "compiler"
+- "curl"
+- "enable"
+- "init"
+- "manually"
+- "opam"
+- "opam-devel"
+- "release"
+- "sandboxing"
 ---
 
 <p>We are pleased to announce the release of a second release candidate for opam 2.0.0.</p>

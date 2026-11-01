@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/oxidizing-ocaml-ownership/oxidizing-o
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "box"
+- "callee"
+- "exclusive"
+- "immutability"
+- "linearity"
+- "mutable"
+- "ownership"
+- "unique"
+- "uniquely"
+- "uniqueness"
 ---
 
 <p>In <a href="https://blog.janestreet.com/oxidizing-ocaml-locality">part one</a>, we discussed how OCaml&rsquo;s

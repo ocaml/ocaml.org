@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "MirageOS"
+- "async"
+- "async_kernel"
+- "camlp4"
+- "core"
+- "functional programming"
+- "lwt"
+- "merlin"
+- "metaprogramming"
+- "ppx"
 ---
 
 <p>We recently released a version of our open source libraries with a much

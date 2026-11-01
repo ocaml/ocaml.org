@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "alphabet"
+- "cca"
+- "fmt"
+- "gen"
+- "neg"
+- "pos"
+- "qcheck"
+- "regenerate"
+- "regex"
+- "regular"
 ---
 
 

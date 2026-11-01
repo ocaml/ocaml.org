@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Caml INRIA
 source:
+keywords:
+- "beta2"
+- "bz2"
+- "dmg"
+- "dvi"
+- "ocaml-4"
+- "pdf"
+- "rc1"
+- "tar"
+- "txt"
+- "zip"
 ---
 
 

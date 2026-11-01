@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "cloud"
+- "down"
+- "hotcloud"
+- "lamp"
+- "mirageos"
+- "outing"
+- "software"
+- "specialisation"
+- "turning"
+- "usenix"
 ---

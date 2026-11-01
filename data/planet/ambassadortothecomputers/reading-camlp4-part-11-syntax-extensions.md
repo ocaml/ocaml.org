@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "alist"
+- "ast"
+- "clause"
+- "expr"
+- "level"
+- "match_case"
+- "opt_rec"
+- "pa_alist_patt_1"
+- "patt"
+- "syntax"
 ---
 
 <p>In this final (?) post in my series on Camlp4, I want at last to cover syntax extensions. A nontrivial syntax extension involves almost all the topics we have <a href="http://ambassadortothecomputers.blogspot.com/p/reading-camlp4.html">previously covered</a>, so it seems fitting that we treat them last.</p> 

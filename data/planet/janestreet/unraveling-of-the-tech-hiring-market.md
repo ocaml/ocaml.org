@@ -7,6 +7,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "functional programming"
+- "jane"
+- "market"
+- "matching"
+- "offers"
+- "ppx"
+- "roth"
+- "street"
+- "unraveling"
 ---
 
 <p>Recruiting talented people has always been challenging.</p>

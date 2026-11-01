@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "buttery"
+- "cambridge"
+- "college"
+- "compiler"
+- "compiler-hacking"
+- "dinner"
+- "evening"
+- "pembroke"
+- "porters"
+- "thirteenth"
 ---
 
 <p>It's Spring, and time for the thirteenth Cambridge OCaml compiler-hacking evening! We'll be back in <a href="http://www.pem.cam.ac.uk/">Pembroke College</a> again, in the centre of Cambridge.</p>

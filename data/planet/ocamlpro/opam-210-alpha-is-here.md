@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "alpha"
+- "commands"
+- "compiler"
+- "curl"
+- "dependencies"
+- "depexts"
+- "ocaml-system"
+- "opam"
+- "project_root"
+- "sub_project"
 ---
 
 <p>We are happy to announce a alpha for opam 2.1.0, one year and a half in the

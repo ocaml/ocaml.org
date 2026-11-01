@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "def"
+- "evar"
+- "logic"
+- "logicstate"
+- "scala"
+- "subst"
+- "term"
+- "unification"
+- "unify"
+- "varterm"
 ---
 
 <p>In this post I want to build on the backtracking logic monad we covered <a href="http://ambassadortothecomputers.blogspot.com/2011/04/logic-programming-in-scala-part-2.html">last time</a> by adding <em>unification</em>, yielding an embedded DSL for Prolog-style logic programming.</p> 

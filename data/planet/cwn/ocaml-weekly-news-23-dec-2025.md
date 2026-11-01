@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "aoah"
+- "camp"
+- "combinator"
+- "dream"
+- "gen"
+- "parser"
+- "pull"
+- "qcheck"
+- "renaming"
+- "web development"
 ---

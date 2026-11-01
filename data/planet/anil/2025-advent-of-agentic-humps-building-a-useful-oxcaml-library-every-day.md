@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "agentic"
+- "aoah"
+- "building"
+- "claude"
+- "codecs"
+- "day"
+- "dec"
+- "eio"
+- "oxcaml"
+- "sortal"
 ---

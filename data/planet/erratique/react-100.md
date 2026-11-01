@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "delayed"
+- "events"
+- "frp"
+- "opam"
+- "react"
+- "rtime"
+- "signals"
+- "stamp"
+- "timeline"
+- "varying"
 ---
 
 <p>Release of React 1.0.0, consult the release notes for details.</p>

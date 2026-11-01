@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "MlFront_Errors"
+- "aacplus"
+- "aarch64-esperanto"
+- "abella"
+- "abstract_algebra"
+- "accessor_async"
+- "accessor_base"
+- "accessor_core"
+- "acgtk"
+- "day10"
 ---

@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "dns"
+- "dnsvizor"
+- "https"
+- "mirageos"
+- "queries"
+- "resolver"
+- "tampering"
+- "tcp"
+- "tls"
+- "udp"
 ---
 
 

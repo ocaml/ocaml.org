@@ -8,4 +8,15 @@ authors:
 - Ryan Gibb
 source:
 ignore:
+keywords:
+- "dependencies"
+- "hillingar"
+- "immutability"
+- "metaprogramming"
+- "monorepo"
+- "nix"
+- "nixos"
+- "nixpkgs"
+- "opam-nix"
+- "unikernels"
 ---

@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "ansible"
+- "base"
+- "images"
+- "obuilder"
+- "ocaml-ci"
+- "ocluster"
+- "ocurrent"
+- "opam"
+- "openbsd"
+- "unattended"
 ---

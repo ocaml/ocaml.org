@@ -11,6 +11,17 @@ authors:
 - "\n    Raja Boujbel (OCamlPro)\n  "
 source:
 ignore:
+keywords:
+- "admin"
+- "contribution"
+- "diff"
+- "dune"
+- "effect"
+- "ocaml-system"
+- "opam"
+- "packages"
+- "patch"
+- "pkg"
 ---
 
 <p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-4-0-is-out/16989">Discuss</a>!</em></p>

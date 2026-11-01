@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gemma Gordon (OCaml Labs)
 source:
+keywords:
+- "domain"
+- "links"
+- "policy"
+- "privacy"
+- "relevant"
+- "resources"
+- "reynard"
+- "sale"
+- "service"
+- "terms"
 ---
 
 <p>Over the last year I&rsquo;ve worked on a few t-shirt designs to represent specific releases and/or events.</p>

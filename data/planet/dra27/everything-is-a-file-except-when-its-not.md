@@ -20,6 +20,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "closed"
+- "create_process"
+- "crt"
+- "fds"
+- "msvs-detect"
+- "spawn"
+- "test"
+- "unix"
+- "visual"
+- "windows"
 ---
 
 <p>Some titles make more sense than others. One of my oldest contributions to OCaml

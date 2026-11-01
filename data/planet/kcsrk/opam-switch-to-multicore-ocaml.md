@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "bin"
+- "compiler-conf"
+- "config"
+- "installations"
+- "multicore"
+- "ocaml-multicore"
+- "official"
+- "opam"
+- "opam-compiler-conf"
+- "switch"
 ---
 
 <p>OPAM has a great <a href="https://opam.ocaml.org/doc/Usage.html#opamswitch">compiler

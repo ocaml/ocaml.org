@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/37764a38e8f54d5c37372b33689f3dab/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "acm"
+- "award"
+- "effect"
+- "functional programming"
+- "garbage collection"
+- "languages"
+- "parallelism"
+- "programming"
+- "sigplan"
+- "software"
 ---
 
 <p><a href="https://ocaml.org/">OCaml</a> has received one of the most <a href="https://www.sigplan.org/Awards/Software/">prestigious

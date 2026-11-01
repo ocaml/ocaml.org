@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Sebastien Mondet
 source:
+keywords:
+- "cmt"
+- "mondet"
+- "mpp"
+- "ocaml2020"
+- "pandoc"
+- "pdf"
+- "smartpy"
+- "smondet"
+- "tmpml"
+- "with_comments"
 ---
 
 

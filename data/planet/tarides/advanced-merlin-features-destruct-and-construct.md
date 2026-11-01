@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/371712405081c46dba0f64c07c4d36da/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "calling"
+- "construct"
+- "cursor"
+- "destruct"
+- "hole"
+- "merlin"
+- "none"
+- "option"
+- "pattern-matching"
+- "snippet"
 ---
 
 <p>Merlin is one of the most important tools for OCaml users, but a lot of its

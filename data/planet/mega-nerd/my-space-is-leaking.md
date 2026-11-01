@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "compiler"
+- "conduit"
+- "deepseq"
+- "deepseq-generics"
+- "deepseq-th"
+- "haskell"
+- "herbert"
+- "nfdata"
+- "space"
+- "thunk"
 ---
 
 

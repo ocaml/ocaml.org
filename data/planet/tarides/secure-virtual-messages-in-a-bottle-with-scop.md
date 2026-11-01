@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/610748ca5fff5dcffb66e090e6406e2a/88e9c
 authors:
 - Tarides
 source:
+keywords:
+- "bottle"
+- "dapsi"
+- "dkim"
+- "email"
+- "matrix"
+- "receiver"
+- "scop"
+- "smtp"
+- "spam"
+- "spf"
 ---
 
 <p>People love to receive mail, especially from loved ones. It&rsquo;s heartwarming to read

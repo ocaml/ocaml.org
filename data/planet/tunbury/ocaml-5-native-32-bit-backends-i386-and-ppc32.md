@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "arm32"
+- "backends"
+- "bytecode"
+- "domain"
+- "i386"
+- "multicore"
+- "native"
+- "parallelism"
+- "ppc32"
+- "r30"
 ---

@@ -9,4 +9,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "calendars"
+- "contacts"
+- "fund"
+- "host"
+- "mirageos"
+- "pim"
+- "privacy-respecting"
+- "reproduced"
+- "unikernel"
+- "us-based"
 ---

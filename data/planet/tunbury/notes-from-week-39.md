@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "amx"
+- "conf-automake"
+- "conf-clang"
+- "conf-libclang"
+- "conf-libtool"
+- "day10"
+- "libdash"
+- "obuilder"
+- "ocurrent"
+- "ppx_windtrap"
 ---

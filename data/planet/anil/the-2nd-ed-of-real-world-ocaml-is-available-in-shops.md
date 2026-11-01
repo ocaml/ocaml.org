@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "book"
+- "cambridge"
+- "cup"
+- "freely"
+- "functional programming"
+- "masses"
+- "press"
+- "real"
+- "rwo-2"
+- "world"
 ---
 
 <p>I'm delighted to report that the second edition of <a href="https://realworldocaml.org">Real World OCaml</a> is now available from Cambridge University Press! It's also freely available <a href="https://realworldocaml.org">online</a>, and CUP also kindly agreed that the PDF version could be freely available online thanks to sponsorship from <a href="https://tarides.com">Tarides</a>.  <span class="morewords">[…<a href="https://anil.recoil.org/news/rwo-2">105 words</a>]</span></p>

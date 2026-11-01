@@ -8,4 +8,15 @@ authors:
 - Terrateam Blog
 source:
 ignore:
+keywords:
+- "implementation"
+- "in-place"
+- "method"
+- "old"
+- "refactoring"
+- "refactorings"
+- "scavenger"
+- "sometimes"
+- "terraform"
+- "tit-for-tat"
 ---

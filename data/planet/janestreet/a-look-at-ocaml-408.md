@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/a-look-at-ocaml-4.08/ocaml_release-20
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "flambda"
+- "foo"
+- "gadt"
+- "merged"
+- "module system"
+- "or-patterns"
+- "parser"
+- "ppx"
+- "type checker"
 ---
 
 <p>Now that OCaml 4.08 has been released, let&rsquo;s have a look at what was

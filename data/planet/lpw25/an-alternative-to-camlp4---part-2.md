@@ -6,6 +6,17 @@ date: 2013-02-05T00:00:00-00:00
 preview_image:
 authors:
 - lpw25
+keywords:
+- "ast"
+- "camlp4"
+- "ctx"
+- "foo"
+- "functor"
+- "gadt"
+- "module system"
+- "quotation"
+- "quotations"
+- "side-effects"
 ---
 
 <p>In my <a href="http://lpw25.net/2013/01/23/camlp4-alternative-part-1.html">previous blog post</a> I

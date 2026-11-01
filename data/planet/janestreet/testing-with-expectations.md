@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "colors"
+- "cram"
+- "domain"
+- "merlin"
+- "ppx"
+- "sexp"
+- "sort"
+- "testing"
+- "yellow"
 ---
 
 <p>Testing is important, and it&rsquo;s hard to get people to do as much of it as they

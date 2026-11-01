@@ -10,6 +10,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "argument"
+- "complaining"
+- "considering"
+- "foo"
+- "functor"
+- "indirection"
+- "infers"
+- "polymorphic"
+- "trick"
+- "whose"
 ---
 
 

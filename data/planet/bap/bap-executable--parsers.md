@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "architecture"
+- "bap"
+- "bfd"
+- "elf"
+- "executable"
+- "image"
+- "parser"
+- "plugin"
+- "plugins"
+- "utop"
 ---
 
 <p>One of the fundamental tasks in binary analysis is parsing executable

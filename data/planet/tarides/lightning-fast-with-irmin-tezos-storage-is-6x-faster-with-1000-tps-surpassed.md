@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/efce619e39c2a72fb0b935be481a220b/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "garbage collection"
+- "hangzhou"
+- "index"
+- "irmin"
+- "mainnet"
+- "octez"
+- "replaying"
+- "storage"
+- "tezos"
+- "tps"
 ---
 
 <p>Over the last year, the Tarides

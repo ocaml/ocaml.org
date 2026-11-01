@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/introducing-incremental/introducing_i
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "computation"
+- "effect"
+- "functor"
+- "inc"
+- "incremental"
+- "sac"
+- "stabilize"
+- "var"
+- "volume"
 ---
 
 <p>I&rsquo;m pleased to announce the release of

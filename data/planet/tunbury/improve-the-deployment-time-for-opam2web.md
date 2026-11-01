@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "blog_git_sha"
+- "cache"
+- "caddy"
+- "caddyfile"
+- "ocurrent"
+- "opam"
+- "opam-archive"
+- "opam-legacy"
+- "opam2web"
+- "staging"
 ---
 
 <p>The opam2web image for <a href="https://opam.ocaml.org">opam.ocaml.org</a> is huge weighing in at more than 25 GB. The bulk of this data is opam archives, which are updated and copied into a stock caddy image.</p>

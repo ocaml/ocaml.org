@@ -9,4 +9,15 @@ authors:
 - Grim
 source:
 ignore:
+keywords:
+- "dependency"
+- "do_log"
+- "handler"
+- "injection"
+- "normal_form"
+- "objects"
+- "print_endline"
+- "read_line"
+- "teletype_example"
+- "using_both"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "audio"
+- "codehacking"
+- "fp-syd"
+- "geany"
+- "ghci"
+- "haskell"
+- "music"
+- "planet"
+- "validator"
+- "wtf"
 ---
 
 

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "bin"
+- "coq"
+- "install"
+- "ocaml-base-compiler"
+- "ocaml-system"
+- "ocaml-variants"
+- "ocaml-version"
+- "opam"
+- "opam-devel"
+- "synopsis"
 ---
 
 <p>We are pleased to announce a preview release for <code>opam</code> 2.0, with over 700

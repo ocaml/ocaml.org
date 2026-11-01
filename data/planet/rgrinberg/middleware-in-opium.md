@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "body"
+- "env"
+- "middleware"
+- "monad"
+- "opium"
+- "rack"
+- "req"
+- "request"
+- "rock"
+- "univ_map"
 ---
 
 <p>In my <a href="http://rgrinberg.com/blog/2014/04/04/introducing-opium/" class="reference external">previous

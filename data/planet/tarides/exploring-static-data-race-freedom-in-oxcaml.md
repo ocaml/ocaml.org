@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "capsule"
+- "contended"
+- "mutable"
+- "mutex"
+- "oxcaml"
+- "portable"
+- "race"
+- "shareable"
+- "spawn"
+- "uncontended"
 ---

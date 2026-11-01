@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "editions"
+- "forge"
+- "fusionforge"
+- "github"
+- "gitorious"
+- "interaction"
+- "meeting"
+- "ocamlcore"
+- "ocamlforge"
+- "vcs"
 ---
 
 <p>4 weeks ago, on Friday April 15th, the annual OCaml Meeting took place at Telecom Paris. OCamlCore (the company), organized this meeting for the fourth time. The event was quite a successful day. There were 65 attendees and 12 talks.</p>

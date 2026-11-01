@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Tarides
 source:
+keywords:
+- "cd-rom"
+- "cdrom"
+- "cdromeject"
+- "configurator"
+- "constant"
+- "constants"
+- "define"
+- "dune"
+- "stdio"
+- "unikernel"
 ---
 
 <p>Dune comes with a library to query OS-specific information, called configurator.

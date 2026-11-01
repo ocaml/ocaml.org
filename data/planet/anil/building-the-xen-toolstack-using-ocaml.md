@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "building"
+- "experiences"
+- "functional programming"
+- "groundwork"
+- "icfp"
+- "mirageos"
+- "provers"
+- "safety"
+- "toolstack"
+- "xen"
 ---
 
 <p>Talk on building the Xen toolstack using OCaml</p>

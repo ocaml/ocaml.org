@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/dunepkgmain-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "async"
+- "build"
+- "dependencies"
+- "dune"
+- "lwt"
+- "management"
+- "opam"
+- "opam-health-check"
+- "package"
+- "packages"
 ---
 
 <p>Since we published <a href="https://preview.dune.build">The Dune Developer Preview</a> a lot of things have improved on the package management front. While the developer preview has demonstrated how Dune can manage dependencies in a unified workflow, we have been working on making it practical for more projects to adopt Dune to handle their package dependencies. Our goal is to slowly move from a developer preview to a mature feature that the general public can use and rely on.</p>

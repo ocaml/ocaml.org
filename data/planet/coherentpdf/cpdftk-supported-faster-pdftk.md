@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "coherent"
+- "cpdftk"
+- "faster"
+- "january"
+- "july"
+- "ltd"
+- "march"
+- "pdf"
+- "pdftk"
+- "supported"
 ---
 
 <p>Coherent Graphics Ltd is pleased to introduce a commercial, supported, faster pdf command line tool with the same interface as the popular open source PDFTK tool.</p>

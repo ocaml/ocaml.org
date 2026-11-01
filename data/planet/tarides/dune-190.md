@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/a7294df7159db3785da6121fc6ecadf8/10057
 authors:
 - Tarides
 source:
+keywords:
+- "bar_js"
+- "dune"
+- "equations"
+- "js_of_ocaml"
+- "mirage-solo5"
+- "mirage-unix"
+- "mirage-xen"
+- "mirageos"
+- "synopsis"
+- "variants"
 ---
 
 <p>Tarides is pleased to have contributed to the dune 1.9.0 release which

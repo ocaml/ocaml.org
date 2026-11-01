@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/70275227498eaa34249beb282f986523/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "chromium"
+- "consumerreports"
+- "cyber"
+- "cybersecurity"
+- "formal verification"
+- "languages"
+- "memory"
+- "programming"
+- "protection"
+- "safety"
 ---
 
 <p><strong>Did you know that the programming language you use can have a huge impact on the cybersecurity of your applications?</strong></p>

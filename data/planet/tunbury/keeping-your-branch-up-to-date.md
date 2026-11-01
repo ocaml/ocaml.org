@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "actions-runner-linux-arm-2"
+- "branch"
+- "compiler"
+- "config"
+- "configuration"
+- "curl"
+- "echo"
+- "runner"
+- "tar"
+- "validate"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "buffet"
+- "buttery"
+- "cash"
+- "cb2"
+- "college"
+- "compiler"
+- "internals"
+- "pembroke"
+- "refreshments"
+- "wiki"
 ---
 
 <p>Happy New Year! Our first compiler hacking event of 2017 will be at Pembroke College.</p>

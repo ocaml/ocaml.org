@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "bsd"
+- "client"
+- "decrypting"
+- "fund"
+- "mirageos"
+- "miragevpn"
+- "qubesos-style"
+- "unikernel"
+- "wireguard"
+- "zostera"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/ef4a627bd5fecdf6d8f80a4d8054242a/b5854
 authors:
 - Tarides
 source:
+keywords:
+- "competitions"
+- "conference"
+- "hackathon"
+- "high"
+- "languages"
+- "paradigm"
+- "pattern matching"
+- "rohan"
+- "school"
+- "students"
 ---
 
 <p>Tarides is excited to sponsor the <a href="https://esolangconf.com/">Paradigm Conference</a> (previously EsoLangConf) high school hackathon. This weekend, students from all over the world will team up to solve tricky programming problems, investigate diverse features of a range of programming languages, and build cool things!</p>

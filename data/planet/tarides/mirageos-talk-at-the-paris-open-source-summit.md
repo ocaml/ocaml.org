@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/646b9e94e874374ddd8450022db7c3e2/96c5f
 authors:
 - Tarides
 source:
+keywords:
+- "armv8"
+- "committers"
+- "ctos"
+- "iot"
+- "mirageos"
+- "open"
+- "paris"
+- "secure"
+- "secure-by-design"
+- "summit"
 ---
 
 <p>We are thrilled to have been selected by the <a href="https://www.opensourcesummit.paris">Paris Open Source Summit</a>

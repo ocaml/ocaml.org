@@ -7,6 +7,17 @@ preview_image: /images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "append"
+- "appending"
+- "associativity"
+- "chshersh"
+- "functional programming"
+- "intadd"
+- "module system"
+- "semigroup"
+- "theory"
+- "utop"
 ---
 
 Introducing the Semigroup abstraction

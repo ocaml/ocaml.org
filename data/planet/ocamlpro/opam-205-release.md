@@ -13,6 +13,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "bump"
+- "curl"
+- "dra27"
+- "dune"
+- "macos"
+- "manually"
+- "mehdid"
+- "opam"
+- "opam-devel"
+- "rjbou"
 ---
 
 <p>We are pleased to announce the minor release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.5">opam 2.0.5</a>.</p>

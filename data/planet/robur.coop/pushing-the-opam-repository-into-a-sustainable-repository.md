@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "archived"
+- "archiving"
+- "dune"
+- "opam"
+- "opam-repository"
+- "package"
+- "packages"
+- "phase"
+- "pushing"
+- "repository"
 ---
 
 

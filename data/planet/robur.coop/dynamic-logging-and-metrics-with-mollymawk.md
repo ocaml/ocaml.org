@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "awa"
+- "carton-lwt"
+- "dnsvizor"
+- "git-kv"
+- "info"
+- "metrics"
+- "mirage-monitoring"
+- "mollymawk"
+- "robur"
+- "unipi"
 ---

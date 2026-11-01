@@ -4,6 +4,17 @@ description:
 url: https://hannes.robur.coop/Posts/Pinata
 date: 2018-04-18T11:38:17-00:00
 preview_image:
+keywords:
+- "bitcoin"
+- "bitcoins"
+- "bounty"
+- "ipredator"
+- "mirageos"
+- "pinata"
+- "private"
+- "tls"
+- "unikernel"
+- "wallet"
 ---
 
 <h2>History</h2>

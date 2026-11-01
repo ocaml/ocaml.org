@@ -8,4 +8,15 @@ authors:
 - Ahrefs
 source:
 ignore:
+keywords:
+- "hashtbl"
+- "lwt"
+- "lwt-exit"
+- "lwt-pipe"
+- "lwt-pipeline"
+- "lwt-watcher"
+- "lwt_io"
+- "lwt_stream"
+- "prom"
+- "ringo"
 ---

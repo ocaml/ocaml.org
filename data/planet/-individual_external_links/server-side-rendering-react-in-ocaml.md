@@ -9,4 +9,15 @@ authors:
 source:
   name: "sancho.dev"
   url: https://sancho.dev/blog
+keywords:
+- "ahrefs"
+- "foreign function interface"
+- "immutability"
+- "melange"
+- "node"
+- "react"
+- "rendering"
+- "server-reason-react"
+- "type checker"
+- "type inference"
 ---

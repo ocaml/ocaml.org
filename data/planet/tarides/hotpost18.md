@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Tarides
 source:
+keywords:
+- "area"
+- "buildings"
+- "connected"
+- "gemma"
+- "gordon"
+- "hotpost"
+- "irmin"
+- "mirageos"
+- "osmose"
+- "presented"
 ---
 
 <p>Anil Madhavapeddy and Gemma Gordon presented our new operating system for

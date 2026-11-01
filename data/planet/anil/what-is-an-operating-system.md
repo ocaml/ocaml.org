@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "aficionado"
+- "anil"
+- "beaches"
+- "functional programming"
+- "madhavapeddy"
+- "masses"
+- "minsky"
+- "non-"
+- "signals-and-threads"
+- "yaron"
 ---
 
 <p>I am the latest person to feature on the first season of the <a href="https://signalsandthreads.com/what-is-an-operating-system/">Signals and

@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "dashboard"
+- "grafana"
+- "measurements"
+- "metrics"
+- "mirageos"
+- "mollymawk"
+- "spike"
+- "unikernel"
+- "unikernels"
+- "virtual"
 ---

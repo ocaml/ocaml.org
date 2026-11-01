@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "broadcast"
+- "concurrency"
+- "dispatch"
+- "div"
+- "eloc"
+- "loc"
+- "opa"
+- "scalable"
+- "web"
+- "web development"
 ---
 
 <p style="text-align:justify;"><em>The Opa platform was created to address the problem of developing secure, scalable web applications. Opa is a commercially supported open-source programming language designed for web, concurrency, distribution, scalability and security. We have entered closed beta and the code will be released soon on <a href="http://opalang.org" target="_blank">http://opalang.org</a>, as an <a href="http://owasp.org">Owasp project</a> .<br/>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "duck"
+- "object"
+- "phi"
+- "polar"
+- "repr"
+- "self"
+- "type class"
+- "type inference"
+- "typing"
+- "work_miracles"
 ---
 
 

@@ -10,4 +10,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "GADT"
+- "borealis"
+- "bundle"
+- "ccsds"
+- "dphi"
+- "otar"
+- "payload"
+- "satellite"
+- "scid"
+- "space"
 ---

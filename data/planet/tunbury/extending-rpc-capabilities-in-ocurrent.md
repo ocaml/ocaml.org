@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base-images"
+- "cap_file"
+- "client"
+- "client_cmd"
+- "cmdliner"
+- "current_rpc"
+- "exit"
+- "job_id"
+- "ocurrent"
+- "rpc"
 ---

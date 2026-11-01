@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    chambart\n  "
 source:
+keywords:
+- "build_my_closure"
+- "const"
+- "eval_expr"
+- "expr"
+- "flambda"
+- "jtrt"
+- "obj"
+- "optimize"
+- "repr"
+- "this_is_the_right_time"
 ---
 
 <p>This time of the year is, just like Christmas time, a time for laughs and magic... although the magic we are talking about, in the OCaml community, is not exactly nice, nor beautiful. Let's say that we are somehow akin to many religions: we know magic <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Obj.html#VALmagic"><em>does</em> exist</a> , but that it is <a href="https://en.wikipedia.org/wiki/Religious_debates_over_the_Harry_Potter_series">satanic and shouldn't be introduced to children</a>.</p>

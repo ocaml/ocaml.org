@@ -9,4 +9,15 @@ authors:
 source:
   name: "Stack Overflow Blog"
   url: https://stackoverflow.blog/
+keywords:
+- "alice"
+- "conflict"
+- "conflicts"
+- "gigabytes"
+- "git"
+- "meunier"
+- "okay"
+- "pierre-etienne"
+- "pijul"
+- "yeah"
 ---

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "algebraic"
+- "algebraic effect"
+- "concurrency"
+- "continuation"
+- "continuations"
+- "effects"
+- "forking"
+- "monad"
+- "number"
+- "yield"
 ---
 
 <p>Algebraic effects and handlers provide a modular abstraction for expressing

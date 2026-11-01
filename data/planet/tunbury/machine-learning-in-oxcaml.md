@@ -12,4 +12,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "backward"
+- "d_model"
+- "digit_acc"
+- "ex_acc"
+- "gradient"
+- "layernorm"
+- "loss"
+- "model"
+- "row"
+- "training"
 ---

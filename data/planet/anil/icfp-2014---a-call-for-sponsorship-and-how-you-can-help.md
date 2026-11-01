@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "companies"
+- "conference"
+- "functional programming"
+- "generosity"
+- "icfp"
+- "industrial"
+- "logo"
+- "reception"
+- "students"
+- "supporter"
 ---
 
 <p>The call for papers for this year’s <a href="http://icfpconference.org/icfp2014/">International Conference on Functional Programming</a> has just closed, with around a hundred cutting-edge research papers submitted on the theory, application, and experiences behind functional programming. This marks just the beginning of sorting out the program, as there are also over 10 big <a href="http://icfpconference.org/icfp2014/affiliated.html">affiliated workshops</a> that run throughout the week on topics ranging from specific languages (<a href="http://www.erlang.org/workshop/2014/">Erlang</a>, <a href="http://www.haskell.org/haskellwiki/HaskellImplementorsWorkshop">Haskell</a>, <a href="http://ocaml.org/meetings/ocaml/2014/">OCaml</a>), the broader <a href="http://cufp.org/">commercial community</a>, and even <a href="http://functional-art.org/">art and music</a>.</p>

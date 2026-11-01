@@ -8,6 +8,17 @@ authors:
 - https://patrick.sirref.org/Patrick%20Ferris/
 source:
 ignore:
+keywords:
+- "dismayed"
+- "effect"
+- "mentors"
+- "mid-internship"
+- "nathan"
+- "outreachy"
+- "ppx"
+- "ppxlib"
+- "sadder"
+- "unrecognised"
 ---
 
 

@@ -8,4 +8,15 @@ authors:
 - The Ocsigen team
 source:
 ignore:
+keywords:
+- "apps"
+- "dune"
+- "eliom"
+- "js_of_ocaml"
+- "lwt"
+- "merlin"
+- "ocsigen"
+- "ocsipersist"
+- "odoc"
+- "wodoc"
 ---

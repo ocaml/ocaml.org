@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "astring"
+- "caddy"
+- "css"
+- "current_web"
+- "dockerfile"
+- "effect"
+- "ocurrent"
+- "proof-of-work"
+- "routes"
+- "uniq"
 ---

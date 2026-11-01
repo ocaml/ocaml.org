@@ -13,4 +13,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "clojure-ts-mode"
+- "emacs"
+- "font-lock"
+- "font-locking"
+- "grammar"
+- "indentation"
+- "modes"
+- "neocaml"
+- "scm"
+- "tree-sitter"
 ---

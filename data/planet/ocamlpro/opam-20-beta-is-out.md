@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "admin"
+- "format"
+- "hex-value"
+- "lwt"
+- "ocaml-base-compiler"
+- "ocaml-variants"
+- "ocaml-version"
+- "opam"
+- "opam-devel"
+- "synopsis"
 ---
 
 <blockquote>

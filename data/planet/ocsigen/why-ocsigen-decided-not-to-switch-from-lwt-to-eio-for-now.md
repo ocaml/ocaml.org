@@ -8,4 +8,15 @@ authors:
 - Vincent Balat
 source:
 ignore:
+keywords:
+- "div_content"
+- "effect handler"
+- "eio"
+- "eliom"
+- "eliom_content"
+- "eliom_reference"
+- "elt"
+- "eref"
+- "lwt"
+- "popup"
 ---

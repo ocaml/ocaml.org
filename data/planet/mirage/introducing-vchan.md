@@ -6,6 +6,17 @@ date: 2013-08-23T00:00:00-00:00
 preview_image:
 authors:
 - Vincent Bernardoff
+keywords:
+- "MirageOS"
+- "dom0"
+- "domain"
+- "domid"
+- "echo"
+- "mirage-xen"
+- "mirari"
+- "unikernel"
+- "vchan"
+- "xen"
 ---
 
 

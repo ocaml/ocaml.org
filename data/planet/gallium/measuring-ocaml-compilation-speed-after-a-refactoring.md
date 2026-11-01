@@ -6,6 +6,17 @@ date: 2021-09-17T08:00:00-00:00
 preview_image:
 authors:
 - gallium
+keywords:
+- "average"
+- "compilation"
+- "increase"
+- "noise"
+- "non-typechecking"
+- "quantiles"
+- "relative"
+- "theoretical_computation_time"
+- "total"
+- "typechecking"
 ---
 
 

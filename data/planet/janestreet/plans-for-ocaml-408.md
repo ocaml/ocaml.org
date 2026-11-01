@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/plans-for-ocaml-408/ocaml_release.jpg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "ascription"
+- "bool"
+- "end"
+- "flambda"
+- "foo"
+- "functor"
+- "gadt"
+- "module system"
+- "sig"
+- "ty_pair"
 ---
 
 <p>With the external release of OCaml 4.07.0 imminent, we in Jane Street&rsquo;s

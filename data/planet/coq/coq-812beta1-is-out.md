@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "beta"
+- "coq"
+- "experts"
+- "improvements"
+- "learn"
+- "manual"
+- "notations"
+- "reference"
+- "scopes"
+- "writers"
 ---
 
 

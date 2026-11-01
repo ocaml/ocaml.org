@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "advancements"
+- "bib"
+- "dune"
+- "emphasizing"
+- "icfp23"
+- "innovations"
+- "milestones"
+- "opam"
+- "platform"
+- "shaped"
 ---
 
 <p>We deliver the annual presentation about the OCaml Platform in the OCaml Workshop at ICFP 2023.</p>

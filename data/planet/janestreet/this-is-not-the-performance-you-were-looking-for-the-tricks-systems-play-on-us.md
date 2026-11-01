@@ -10,6 +10,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "affinitize"
+- "app"
+- "async"
+- "cores"
+- "hdiff"
+- "isolcpus"
+- "node"
+- "numa"
+- "ppx"
+- "proc"
 ---
 
 <p>It&rsquo;s often surprising just how much software performance depends on how the

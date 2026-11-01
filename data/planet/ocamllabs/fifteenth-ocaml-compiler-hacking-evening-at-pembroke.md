@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCaml Labs compiler hacking
 source:
+keywords:
+- "buffet"
+- "buttery"
+- "cash"
+- "college"
+- "compiler"
+- "internals"
+- "inviting"
+- "mirageos"
+- "pembroke"
+- "wiki"
 ---
 
 <p>&#8203;Our Autumn Compiler Hacking event will be held at Pembroke College! We are also inviting MirageOS users and devs to prepare for Mirage 3.0.</p>

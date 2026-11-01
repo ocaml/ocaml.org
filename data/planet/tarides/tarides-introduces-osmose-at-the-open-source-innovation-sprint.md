@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/61be7fbf64e3a8abb9518d02f63aa5e6/0d665
 authors:
 - Tarides
 source:
+keywords:
+- "cloud"
+- "devices"
+- "innovation"
+- "innovative"
+- "iot"
+- "osis"
+- "osmose"
+- "securely"
+- "sprint"
+- "tarides"
 ---
 
 <p>Tarides is excited to announce that our CEO, Dr. Thomas Gazagnaire, and Prof.

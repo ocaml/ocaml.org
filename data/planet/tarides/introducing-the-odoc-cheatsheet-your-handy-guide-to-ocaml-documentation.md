@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/ca71e80b792e246a00b7ba379ec7fad1/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "cheatsheet"
+- "concise"
+- "documentation"
+- "doxygen"
+- "learning"
+- "markup"
+- "odoc"
+- "quickly"
+- "resource"
+- "syntax"
 ---
 
 <p>For developers diving into the OCaml ecosystem, one of the essential tools you'll encounter is <code>odoc</code>. Whether you're a seasoned OCaml programmer or just starting out, understanding how to generate and navigate documentation efficiently is crucial. This is where <code>odoc</code> comes in, OCaml's official documentation generator. To make your experience with <code>odoc</code> even smoother, the <code>odoc</code> team has created the <code>odoc</code> Cheatsheet.</p>

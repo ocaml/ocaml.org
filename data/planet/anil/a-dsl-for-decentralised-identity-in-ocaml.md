@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "adze-arciuch"
+- "alice"
+- "decentralised"
+- "document"
+- "identity"
+- "mge"
+- "micha"
+- "prove"
+- "provider"
+- "revealing"
 ---
 
 <h1>A DSL for decentralised identity in OCaml</h1>

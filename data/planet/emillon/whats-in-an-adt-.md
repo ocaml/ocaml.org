@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Etienne Millon
 source:
+keywords:
+- "deconstruct_range"
+- "domain"
+- "fullrange"
+- "halfleft"
+- "halfright"
+- "minusinfinity"
+- "obj"
+- "pattern matching"
+- "range"
+- "repr"
 ---
 
 <h2>Introduction</h2>

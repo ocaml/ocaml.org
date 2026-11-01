@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "day10"
+- "github"
+- "merge"
+- "merge_group"
+- "overlay"
+- "queue"
+- "regressions"
+- "results"
+- "runner"
+- "solvable"
 ---

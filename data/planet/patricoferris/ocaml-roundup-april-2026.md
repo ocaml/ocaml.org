@@ -8,4 +8,15 @@ authors:
 - https://patrick.sirref.org/Patrick Ferris/
 source:
 ignore:
+keywords:
+- "cmd"
+- "eio"
+- "eio_linux"
+- "foreign function interface"
+- "hxd"
+- "landlock"
+- "ocaml-ci"
+- "pulseaudio"
+- "shell"
+- "texttt"
 ---

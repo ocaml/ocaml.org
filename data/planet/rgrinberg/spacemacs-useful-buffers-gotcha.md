@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "buffer"
+- "buffers"
+- "dune"
+- "lwt"
+- "monad"
+- "ppx"
+- "spacemacs"
+- "spc"
+- "terminal"
 ---
 
 <p>I&rsquo;ve ran into a little spacemacs annoyance that took me a while to resolve, and

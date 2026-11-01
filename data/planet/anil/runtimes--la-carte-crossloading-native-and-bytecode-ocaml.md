@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "bytecode"
+- "carte"
+- "cmxs"
+- "compiler"
+- "crossloading"
+- "efuns"
+- "extending"
+- "natdynlink"
+- "native"
+- "toplevel"
 ---
 
 <h1>Runtimes à la carte: crossloading native and bytecode OCaml</h1>

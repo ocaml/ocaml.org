@@ -6,6 +6,17 @@ date: 2019-11-26T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "announcing"
+- "branching"
+- "celebrate"
+- "git-like"
+- "irmin"
+- "mirageos"
+- "substrate"
+- "underneath"
+- "underpins"
+- "wodan"
 ---
 
 

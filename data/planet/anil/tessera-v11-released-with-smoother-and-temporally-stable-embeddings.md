@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "coverage"
+- "eio"
+- "embeddings"
+- "geospatial"
+- "geotessera"
+- "jun"
+- "npy"
+- "parser"
+- "tessera"
+- "tiles"
 ---

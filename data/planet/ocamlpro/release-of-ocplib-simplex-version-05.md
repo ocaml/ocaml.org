@@ -12,6 +12,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Steven de Oliveira\n  "
 source:
+keywords:
+- "algorithm"
+- "chairs"
+- "coresig"
+- "documentated"
+- "dune"
+- "inequalities"
+- "linear"
+- "ocplib-simplex"
+- "profit"
+- "simplex"
 ---
 
 <p></p>

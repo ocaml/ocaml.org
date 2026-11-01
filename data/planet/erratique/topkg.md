@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "distributed"
+- "distribution"
+- "isc"
+- "license"
+- "opam"
+- "opam-format"
+- "package"
+- "procedures"
+- "topkg"
+- "topkg-care"
 ---
 
 <p>It seems the Topkg rewrite went unannounced on this feed. If you are in need of a no-nonsense release workflow to package and publish your packages on OPAM, simply topkg them.</p>

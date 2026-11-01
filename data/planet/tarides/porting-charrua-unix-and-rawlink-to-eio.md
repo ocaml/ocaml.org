@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/674773ed3cc5b11161973c10d44bd4c5/dfe86
 authors:
 - Tarides
 source:
+keywords:
+- "charrua"
+- "charrua-core"
+- "charrua-dhcp"
+- "charrua-unix"
+- "concurrency"
+- "dhcp"
+- "eio"
+- "lwt"
+- "parallelism"
+- "rawlink"
 ---
 
 <p>This article describes the porting of the DHCP daemon <code>charrua-unix</code> and its companion library <code>rawlink</code> to <a href="https://github.com/ocaml-multicore/eio">Eio</a> for the upcoming OCaml 5 release. Before we get started, it makes sense to briefly describe what DHCP is and how we use it in production.</p>

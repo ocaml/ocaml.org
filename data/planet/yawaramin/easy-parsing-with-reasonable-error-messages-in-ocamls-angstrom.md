@@ -8,6 +8,17 @@ authors:
 - Yawar Amin
 source:
 ignore:
+keywords:
+- "angstrom"
+- "consume"
+- "count_while1"
+- "error"
+- "expected"
+- "num"
+- "parse_string"
+- "parser"
+- "person"
+- "take_while1"
 ---
 
 <p>PARSER combinators are widely used in the world of functional programming, and OCaml's <a href="https://github.com/inhabitedtype/angstrom" rel="noopener noreferrer">Angstrom</a> library is one of them. It is used to implement many foundational parsers in the OCaml ecosystem, eg HTTP parsers for the <a href="https://github.com/inhabitedtype/httpaf" rel="noopener noreferrer">httpaf</a> stack.</p>

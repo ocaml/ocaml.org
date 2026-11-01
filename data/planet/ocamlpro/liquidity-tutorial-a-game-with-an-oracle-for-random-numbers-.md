@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Alain Mebsout\n  "
 source:
+keywords:
+- "bet"
+- "contract"
+- "game"
+- "number"
+- "oracle"
+- "oracle_id"
+- "player"
+- "random"
+- "smart"
+- "storage"
 ---
 
 <h1>A Game with an oracle</h1>

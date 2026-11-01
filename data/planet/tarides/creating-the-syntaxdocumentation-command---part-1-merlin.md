@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/51d265b4859973fb259a8f7ec6093ff5/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "command"
+- "cursor"
+- "merlin"
+- "pattern matching"
+- "pos"
+- "position"
+- "syntax_doc_result"
+- "syntax_document"
+- "syntaxdocumentation"
+- "type checker"
 ---
 
 <p>OCaml development has never been more enchanting, thanks to Merlin &ndash; the wizard of the editor realm. The <a href="https://tarides.com/blog/2022-07-05-the-magic-of-merlin/">magic of Merlin</a> is something that makes programming in OCaml a very nice experience. By Merlin, I don't mean the old gray-haired, staff-bearing magic guy. I'm talking about the editor service that provides modern IDE features for OCaml.</p>

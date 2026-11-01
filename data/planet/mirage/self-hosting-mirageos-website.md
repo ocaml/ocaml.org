@@ -6,6 +6,17 @@ date: 2010-10-11T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "collect"
+- "e-mail"
+- "mature"
+- "mirageos"
+- "musings"
+- "preparing"
+- "self-hosting"
+- "stabilise"
+- "website"
+- "work-in-progress"
 ---
 
 

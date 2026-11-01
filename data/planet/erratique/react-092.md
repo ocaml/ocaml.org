@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "delayed"
+- "events"
+- "frp"
+- "opam"
+- "react"
+- "rtime"
+- "signals"
+- "stamp"
+- "timeline"
+- "varying"
 ---
 
 <p>Fixes a bug in the weak heap implementation. Thanks to <a href="http://jaked.org">Jake Donham</a> for reporting and discussing the fix.</p>

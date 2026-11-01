@@ -6,6 +6,17 @@ date: 2014-07-08T00:00:00-00:00
 preview_image:
 authors:
 - Anil Madhavapeddy
+keywords:
+- "irmin"
+- "mindy"
+- "mirageos"
+- "opam"
+- "oscon"
+- "runup"
+- "series"
+- "summer"
+- "unikernel"
+- "xen"
 ---
 
 

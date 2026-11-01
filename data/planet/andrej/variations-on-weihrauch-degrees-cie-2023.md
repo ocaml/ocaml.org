@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "cie"
+- "computability"
+- "degrees"
+- "generalizations"
+- "georgia"
+- "klst"
+- "tbilisi"
+- "unexplored"
+- "variations"
+- "weihrauch"
 ---
 
 <p>I gave a talk &ldquo;Variations on Weihrauch degrees&rdquo; at <a href="https://www.viam.science.tsu.ge/cie2023/">Computability in Europe

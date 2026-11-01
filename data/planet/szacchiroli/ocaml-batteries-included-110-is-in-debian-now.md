@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "batteries"
+- "camomile"
+- "coordinated"
+- "debian"
+- "diet"
+- "fleshed"
+- "included"
+- "intertwining"
+- "open"
+- "transition"
 ---
 
 <h1>OCaml Batteries Included 1.1.0 has arrived in Debian</h1>

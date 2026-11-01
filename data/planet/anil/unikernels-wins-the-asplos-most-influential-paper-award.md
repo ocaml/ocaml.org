@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "asplos"
+- "award"
+- "influential"
+- "jon"
+- "libos"
+- "mirageos"
+- "osdi"
+- "paper"
+- "reviewer"
+- "unikernel"
 ---
 
 <p>I was gobsmacked to get a note from the SIGARCH <a href="https://www.asplos-conference.org">ASPLOS</a> steering committee that our 2013 paper "<a href="https://anil.recoil.org/papers/2013-asplos-mirage">Unikernels: library operating systems for the cloud</a>" won the <a href="https://www.sigarch.org/benefit/awards/acm-sigarch-sigplan-sigops-asplos-influential-paper-award/">most influential paper</a> award at the conference last week!  I couldn't make it to Rotterdam myself due to the <a href="https://www.businesstraveller.com/forums/topic/reminder-no-direct-eurostar-amsterdam-rotterdam-london-for-six-months/">travel time</a>, but <a href="https://github.com/mor1" class="contact">Richard Mortier</a> was <a href="https://mort.io/blog/tdis-accepted/">already there</a> and so accepted the award on the whole team's behalf!</p>

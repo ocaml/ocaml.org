@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/how-to-build-an-exchange/build_exchan
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "brian"
+- "compiler"
+- "cookies"
+- "ecn"
+- "exchange"
+- "functional programming"
+- "jane"
+- "ppx"
+- "street"
 ---
 
 <p><strong>UPDATE</strong>: <em>We are full up. Tons of people signed up for the talk, and we&rsquo;re

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "doc"
+- "git-mirage"
+- "git-paf"
+- "influx"
+- "logs-syslog"
+- "metrics"
+- "monitoring"
+- "paf"
+- "syslog"
+- "unikernel"
 ---
 
 <h1>Introduction to monitoring</h1>

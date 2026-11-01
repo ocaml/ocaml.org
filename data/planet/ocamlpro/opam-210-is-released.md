@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    David Allsopp (OCamlLabs)\n  "
 source:
+keywords:
+- "cli"
+- "conf-mariadb"
+- "conf-mysql"
+- "depext"
+- "mysql"
+- "ocaml-base-compiler"
+- "ocaml-system"
+- "opam"
+- "switch"
+- "utop"
 ---
 
 <p><em>Feedback on this post is welcomed on <a href="https://discuss.ocaml.org/t/ann-opam-2-1-0/8255">Discuss</a>!</em></p>

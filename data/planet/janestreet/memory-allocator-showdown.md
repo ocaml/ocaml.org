@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/memory-allocator-showdown/MemoryAlloc
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "allocator"
+- "async"
+- "best-fit"
+- "garbage collection"
+- "heap"
+- "memory"
+- "next-fit"
+- "ppx"
+- "space_overhead"
+- "top_heap_size"
 ---
 
 Since version 4.10, OCaml offers a new best-fit memory allocator

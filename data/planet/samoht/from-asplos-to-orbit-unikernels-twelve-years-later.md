@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "asplos"
+- "cloud"
+- "hypervisor"
+- "mirageos"
+- "orbit"
+- "parser"
+- "regis"
+- "twelve"
+- "unikernel"
+- "unikernels"
 ---

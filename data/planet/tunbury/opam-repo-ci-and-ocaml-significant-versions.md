@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "alpine"
+- "dockerfile"
+- "matrix"
+- "ocaml-dockerfile"
+- "ocaml-version"
+- "ocaml_version"
+- "opam"
+- "opam-repo-ci"
+- "significant"
+- "ubuntu"
 ---

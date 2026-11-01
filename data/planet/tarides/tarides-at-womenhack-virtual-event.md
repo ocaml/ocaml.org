@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/d57d3ef7c12240d9300498f6be74d3a9/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "company"
+- "diverse"
+- "event"
+- "heloise"
+- "recruiting"
+- "talented"
+- "tarides"
+- "tech"
+- "women"
+- "womenhack"
 ---
 
 <p>Tarides takes great pride in a diverse workforce and strives to continue

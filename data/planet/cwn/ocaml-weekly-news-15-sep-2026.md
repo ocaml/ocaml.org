@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "buf"
+- "bytes"
+- "conf-gtk3-webkit"
+- "cstruct"
+- "data_len"
+- "dpm"
+- "jose"
+- "jwt"
+- "marshal"
+- "owebview"
 ---

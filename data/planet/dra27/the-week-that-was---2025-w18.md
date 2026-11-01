@@ -9,6 +9,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "adversary"
+- "covenant"
+- "dune"
+- "gritty"
+- "module system"
+- "musing"
+- "ocaml-system"
+- "opam"
+- "testrelocation"
+- "week"
 ---
 
 <p>Don’t let the road to perfect intentions be the enemy of the good. Or some other

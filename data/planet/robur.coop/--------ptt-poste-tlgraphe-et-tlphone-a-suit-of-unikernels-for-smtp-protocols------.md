@@ -9,4 +9,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "mirageos"
+- "poste"
+- "protocols"
+- "ptt"
+- "service"
+- "smtp"
+- "suit"
+- "telegraphe"
+- "telephone"
+- "unikernels"
 ---

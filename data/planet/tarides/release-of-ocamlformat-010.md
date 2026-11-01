@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/dd98e4198ca9305bbbd638c382587e5b/eee8e
 authors:
 - Tarides
 source:
+keywords:
+- "break-string-literals"
+- "indentation"
+- "indicate-multiline-delimiters"
+- "line"
+- "nested-match"
+- "ocamlformat"
+- "ocamlformat-enable"
+- "ocp-indent"
+- "option"
+- "pattern matching"
 ---
 
 <p>We are pleased to announce the release of OCamlFormat 0.10 (available on opam).</p>

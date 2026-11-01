@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/37ab792f992f4bdb89846ecd0bda664c/2ae3d
 authors:
 - Tarides
 source:
+keywords:
+- "benchmark"
+- "blockchain"
+- "cactus"
+- "irmin"
+- "irmin-bench"
+- "irmin-git"
+- "irmin-pack"
+- "octez"
+- "replay"
+- "tezos"
 ---
 
 <p>As mentioned in our <a href="https://forum.tezosagora.org/t/tezos-storage-irmin-summer-2021-update/3744">Tezos Storage / Irmin Summer 2021 Update</a> on the Tezos Agora forum, the Irmin team's goal has been to improve Irmin's performance in order to speed up the <em>Baking Account</em> migration process in Octez, and we managed to make it 10x faster in the first quarter of 2021. Since then, we've been working on a new benchmark program for Irmin that's based on the interactions between Irmin and Octez. This won't just help make Irmin even faster, it will also help speed up the Tezos blockchain process and enable us to monitor Irmin's behavior in Octez.</p>

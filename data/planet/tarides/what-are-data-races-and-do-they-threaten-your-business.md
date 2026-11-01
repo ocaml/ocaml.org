@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/7a1f116c59d462b95296e8d7770a69a2/d0eb8
 authors:
 - Tarides
 source:
+keywords:
+- "behaviours"
+- "coffee"
+- "data"
+- "multicore"
+- "partners"
+- "programs"
+- "race"
+- "races"
+- "tsan"
+- "unpredictability"
 ---
 
 <p>Imagine you have a brand-new coffee machine. One morning, you traipse excitedly down the stairs only to discover that, alas, your appliance has turned into a potato. The next day, it turns back into a coffee machine.</p>

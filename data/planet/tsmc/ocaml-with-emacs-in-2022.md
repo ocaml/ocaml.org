@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "caml-mode"
+- "direnv"
+- "emacs"
+- "lsp"
+- "merlin"
+- "prelude"
+- "tsmc"
+- "tuareg-mode"
+- "use-package"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/e3e33d67d94b07cf3c0f363f980d79fa/69f4d
 authors:
 - Tarides
 source:
+keywords:
+- "mirageos"
+- "orchide"
+- "satellite"
+- "satellites"
+- "solutions"
+- "space"
+- "spaceos"
+- "technology"
+- "thales"
+- "unikernel"
 ---
 
 <p>It has been a few months since we announced our new product for both older and newer models of satellites: <a href="https://tarides.com/blog/2023-07-31-ocaml-in-space-welcome-spaceos/">SpaceOS</a>. Since then, there have been exciting updates to the use of SpaceOS for innovative satellite applications.</p>

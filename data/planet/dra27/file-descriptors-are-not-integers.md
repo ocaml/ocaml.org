@@ -12,4 +12,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "descriptor"
+- "descriptors"
+- "eio"
+- "fdopen"
+- "file"
+- "file_descr"
+- "integers"
+- "ocaml-uring"
+- "unix"
+- "windows"
 ---

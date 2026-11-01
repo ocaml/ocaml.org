@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "context-free"
+- "expanders"
+- "ppx"
+- "ppx-jane"
+- "ppx_bench"
+- "ppx_core"
+- "ppx_driver"
+- "ppx_inline_test"
+- "ppx_jane"
+- "rewriters"
 ---
 
 <p>At Jane Street, we have always been heavy users of pre-processors, first with

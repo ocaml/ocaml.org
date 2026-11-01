@@ -9,6 +9,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "backslash"
+- "greeting"
+- "hello"
+- "literals"
+- "ppx"
+- "quoted"
+- "quoted-string-id"
+- "sexp"
+- "strings"
+- "superscript_plus"
 ---
 
 <p>While learning OCaml I’ve noticed one curious feature - it has two

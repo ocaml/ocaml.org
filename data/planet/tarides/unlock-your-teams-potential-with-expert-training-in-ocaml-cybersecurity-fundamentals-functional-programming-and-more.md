@@ -9,6 +9,17 @@ preview_image: https://tarides.com/blog/images/aeroplanes-1360w~tQCKJ6gNjoOlV6kH
 authors:
 - Tarides
 source:
+keywords:
+- "GADT"
+- "courses"
+- "eio"
+- "functional programming"
+- "immutability"
+- "monad"
+- "multicore"
+- "teams"
+- "training"
+- "type inference"
 ---
 
 <p>Training your teams has proven benefits, <a href="https://seismic.com/uk/enablement-explainers/the-importance-of-training/">enhancing the efficiency and quality of work</a>, and equipping members with the skills they need to tackle new challenges. Specialist training empowers them to use new techniques, leverage advanced technologies, and solve more complex problems.</p>

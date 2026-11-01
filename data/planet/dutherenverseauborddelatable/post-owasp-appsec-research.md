@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - David Teller
 source:
+keywords:
+- "appsec"
+- "current-generation"
+- "dailymotion"
+- "opa"
+- "owasp"
+- "research"
+- "sound"
+- "uploaded"
+- "valhalla"
+- "wichers"
 ---
 
 <p>Well, I&rsquo;m just back from the <a href="http://maps.google.fr/maps?f=q&amp;source=s_q&amp;hl=fr&amp;geocode=&amp;q=valhallav%C3%A4gen,%20stockholm,%20sweden&amp;sll=59.341703,18.085642&amp;sspn=0.011554,0.038581&amp;ie=UTF8&amp;hq=&amp;hnear=Valhallav%C3%A4gen,%20Stockholm,%20Su%C3%A8de&amp;z=14&amp;layer=c&amp;cbll=59.342492,18.082905&amp;panoid=eR1USBvCpPGSpsXEMaH3cg&amp;cbp=12,0,,0,5">Way to Valhalla</a> and <a href="http://www.owasp.org/index.php/OWASP_AppSec_Research_2010_-_Stockholm,_Sweden">OWASP AppSec Research 2010</a>.</p>

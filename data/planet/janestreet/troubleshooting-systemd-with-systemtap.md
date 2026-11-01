@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/troubleshooting-systemd-with-systemta
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "automounter"
+- "bus_send_internal"
+- "dbus"
+- "freedesktop"
+- "mount"
+- "mounted"
+- "propertieschanged"
+- "systemd"
+- "systemd-logind"
+- "systemd1"
 ---
 
 <p>When we set up a schedule on a computer, such as a list of commands to

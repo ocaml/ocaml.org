@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "ast"
+- "camlp4"
+- "cons"
+- "filters"
+- "functor"
+- "marshalling"
+- "ocamlc"
+- "str_item"
+- "tid"
+- "to_of_string"
 ---
 
 <p>Hey, long time no see!</p> 

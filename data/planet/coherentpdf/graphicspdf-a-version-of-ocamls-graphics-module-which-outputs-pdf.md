@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "camlgpc"
+- "clipper"
+- "gpc"
+- "graphics"
+- "graphicspdf"
+- "january"
+- "july"
+- "march"
+- "murta"
+- "pdf"
 ---
 
 <p>I&rsquo;ve been packaging up some little pieces of previously-released software as OPAM packages, hoping that will make them more widely used.</p>

@@ -8,4 +8,15 @@ authors:
 - Ryan Gibb
 source:
 ignore:
+keywords:
+- "conf-gmp"
+- "conf-gmp-powm-sec"
+- "conf-pkg-config"
+- "garbage collection"
+- "gmp"
+- "letsencrypt"
+- "mirage-crypto-pk"
+- "nix"
+- "opam"
+- "zarith"
 ---

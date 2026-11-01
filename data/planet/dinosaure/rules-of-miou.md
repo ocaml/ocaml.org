@@ -7,6 +7,11 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "description"
+- "design"
+- "miou"
+- "rules"
 ---
 
 A description of the Miou design and its rules

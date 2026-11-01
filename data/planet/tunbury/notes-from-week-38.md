@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "conf-sdl2"
+- "cpm"
+- "day10"
+- "dolog"
+- "dose3"
+- "moonpool-lwt"
+- "ocaml-ci"
+- "parany"
+- "shard"
+- "shards"
 ---

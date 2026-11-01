@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/fcf6e8df1774f9ba9b4d317c50ae1496/a1432
 authors:
 - Tarides
 source:
+keywords:
+- "auroville"
+- "functional programming"
+- "joy"
+- "kaustubh"
+- "mirageos"
+- "multicore"
+- "participants"
+- "puneeth"
+- "retreat"
+- "retreats"
 ---
 
 <p>Hacking retreats are great ways for programmers to connect, explore new ideas, and learn from each other. One of the most popular OCaml retreats is the much-loved <a href="https://retreat.mirage.io/">Mirage retreat</a>, organised annually in Morocco. But for us OCaml enthusiasts located elsewhere, the journey can be challenging (not to mention the climate impact!). That&rsquo;s why the Chennai office decided to host a retreat in Tamil Nadu, India, this past March.<br/>

@@ -9,6 +9,17 @@ preview_image: https://soap.coffee/~lthms/img/thinking.png
 authors:
 - "Thomas Letan\u2019s Blog"
 source:
+keywords:
+- "chaotic"
+- "codebase"
+- "data-encoding"
+- "direction"
+- "exploration"
+- "feels"
+- "phase"
+- "prototype"
+- "rationalization"
+- "software"
 ---
 
 

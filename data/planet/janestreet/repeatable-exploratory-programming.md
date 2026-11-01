@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/repeatable-exploratory-programming/la
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "expect_test"
+- "expect_test_helpers_kernel"
+- "get_hrefs"
+- "href"
+- "hrefs"
+- "janestreet"
+- "lambdasoup"
+- "opensource"
+- "print_s"
+- "soup"
 ---
 
 <p>Expect tests are a technique I&rsquo;ve written about

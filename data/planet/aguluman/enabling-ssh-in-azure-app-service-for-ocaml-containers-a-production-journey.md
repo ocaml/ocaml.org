@@ -10,4 +10,15 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "app"
+- "appuser"
+- "azure"
+- "chaufr"
+- "migrate"
+- "migrations"
+- "pgcrypto"
+- "postgresql"
+- "service"
+- "ssh"
 ---

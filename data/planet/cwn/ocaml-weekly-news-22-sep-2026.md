@@ -11,4 +11,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "boulodrome"
+- "jsonkit"
+- "jsonkit-melange"
+- "jsonschema"
+- "melange-json"
+- "melange-json-native"
+- "ozstd"
+- "rpmfile"
+- "rtree"
+- "unicode"
 ---

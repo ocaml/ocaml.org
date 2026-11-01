@@ -7,6 +7,14 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "how-to"
+- "implement"
+- "mirageos"
+- "protocols"
+- "simple"
+- "spoke"
+- "understand"
 ---
 
 A simple how-to to understand how we implement protocols for MirageOS

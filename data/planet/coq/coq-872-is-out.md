@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "affected"
+- "bug"
+- "coq"
+- "critical"
+- "fixes"
+- "improved"
+- "improvements"
+- "milestone"
+- "num"
+- "universes"
 ---
 
 

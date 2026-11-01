@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "base32"
+- "claude"
+- "crockford"
+- "day"
+- "devcontainer"
+- "dune"
+- "eio"
+- "slop"
+- "tangled"
 ---

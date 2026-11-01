@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "binders"
+- "columns"
+- "coq"
+- "coq-makefile"
+- "individually"
+- "installer"
+- "soundness"
+- "swapping"
+- "tolerate"
+- "universes"
 ---
 
 

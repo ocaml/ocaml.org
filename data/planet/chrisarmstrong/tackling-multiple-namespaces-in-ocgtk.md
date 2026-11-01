@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "cross-namespace"
+- "gdk"
+- "gio"
+- "gir"
+- "gobject"
+- "gtk"
+- "marshalling"
+- "namespace"
+- "namespaces"
+- "ocgtk"
 ---

@@ -6,6 +6,17 @@ date: 2012-02-29T00:00:00-00:00
 preview_image:
 authors:
 - Richard Mortier
+keywords:
+- "controller"
+- "ctrl"
+- "datapath_join"
+- "dpid"
+- "evt"
+- "haris"
+- "mirageos"
+- "nox"
+- "openflow"
+- "switch_data"
 ---
 
 

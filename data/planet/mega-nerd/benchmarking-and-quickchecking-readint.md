@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "benchmarking"
+- "bytestring"
+- "content-length"
+- "integral"
+- "quickcheck"
+- "readdec"
+- "readint"
+- "std"
+- "type class"
+- "warp"
 ---
 
 

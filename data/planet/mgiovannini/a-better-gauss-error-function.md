@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "approximation"
+- "bitand"
+- "buf"
+- "coefficient"
+- "erf"
+- "erfc"
+- "error"
+- "gauss"
+- "horner2"
+- "mathematica"
 ---
 
 If you do statistics you know of erf and erfc; if you work in OCaml you surely miss them. It is not very difficult to port the canonical implementation given by Numerical Recipes (which I won't show and not just for licensing reasons); if you Google for a coefficient you'll see that this approximation is, indeed, ubiquitous. There exists a better approximation in the literature, one that is more 

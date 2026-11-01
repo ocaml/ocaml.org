@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "committment"
+- "cutover"
+- "lgpl2"
+- "mirageos"
+- "much-improved"
+- "non-gratuitous"
+- "opam"
+- "post-installation"
+- "public-domain-like"
+- "underline"
 ---
 
 <p><a href="https://github.com/samoht" class="contact">Thomas Gazagnaire</a> just announced the availability of the

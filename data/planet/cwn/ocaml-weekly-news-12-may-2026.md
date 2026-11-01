@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "hurl"
+- "lwd"
+- "mfat"
+- "mhttp"
+- "miou"
+- "mnet-dns"
+- "msendmail"
+- "mtbox"
+- "orcaset"
+- "revenue"
 ---

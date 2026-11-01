@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "agreed"
+- "arlen"
+- "become"
+- "cuss"
+- "forge"
+- "http"
+- "kindly"
+- "maintainer"
+- "ocaml-http"
+- "thanking"
 ---
 
 <h1>OCaml HTTP is now on the OCaml forge</h1>

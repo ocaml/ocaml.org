@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "MirageOS"
+- "async"
+- "concurrency"
+- "deferred"
+- "effect"
+- "js_of_ocaml"
+- "lwt"
+- "monad"
+- "ppx"
+- "unikernel"
 ---
 
 <p>There is an old and great schism in the OCaml community. The schism is

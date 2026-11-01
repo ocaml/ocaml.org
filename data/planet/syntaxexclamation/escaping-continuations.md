@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Matthias Puech
 source:
+keywords:
+- "callcc"
+- "continuation"
+- "cps"
+- "effect"
+- "exception"
+- "fun"
+- "jump"
+- "monad"
+- "ret"
+- "ser"
 ---
 
 <p><a href="https://www.mpi-sws.org/~beta/Research.html">Beta</a>&nbsp;had a funny joke at POPL last year; he said: &ldquo;you exit a monad like you exit a building on fire: by running&rdquo;. I recently got myself in the stressful situation of being trapped in a monad&mdash;the continuation monad&mdash;but without a possibility to &ldquo;run&rdquo;. There&nbsp;an exit nonetheless: just jump out! This is the (short) story of an escape.</p>

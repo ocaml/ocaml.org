@@ -10,6 +10,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "fst"
+- "int_of_string"
+- "len"
+- "local_opt"
+- "minor_words"
+- "ofs"
+- "oxcaml"
+- "snd"
+- "sub"
+- "sub_local"
 ---
 
 <p><a href="https://opensource.janestreet.com/">Jane Street</a> have been working for a few

@@ -11,4 +11,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "age"
+- "deriving"
+- "interpolation"
+- "player"
+- "ppx"
+- "ppx_let"
+- "ppx_string"
+- "score"
+- "sprintf"
+- "to_string"
 ---

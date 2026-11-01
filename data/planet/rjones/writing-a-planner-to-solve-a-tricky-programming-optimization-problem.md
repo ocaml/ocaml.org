@@ -9,6 +9,17 @@ preview_image: http://libguestfs.org/virt-builder.svg
 authors:
 - Richard Jones
 source:
+keywords:
+- "banana"
+- "convert"
+- "monkey"
+- "planner"
+- "qemu-img"
+- "template"
+- "transitions"
+- "virt-builder"
+- "virt-resize"
+- "xzcat"
 ---
 
 <p>Suppose a monkey is in one corner of a room, a box is in another corner of a room, and a banana is hanging from the ceiling in the middle of the room.  The monkey can&rsquo;t reach the banana without standing on the box, but he first has to move the box under the banana.  The problem of how to get a computer to work out that the monkey has to move the box first, then climb on the box second, was solved by Nils Nilsson&rsquo;s <a href="https://en.wikipedia.org/wiki/STRIPS">STRIPS</a> system in 1971.  STRIPS is now an A.I. standard, and is used in <a href="http://web.media.mit.edu/~jorkin/goap.html">game A.I.</a> and elsewhere.</p>

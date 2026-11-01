@@ -7,6 +7,17 @@ preview_image:
 authors:
 - hannes
 source:
+keywords:
+- "authoritative"
+- "dns"
+- "encrypt"
+- "git"
+- "git-repo"
+- "mirage"
+- "primary"
+- "secondary"
+- "servers"
+- "zone"
 ---
 
 <h2>Goal</h2>

@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "combobulate"
+- "elisp"
+- "emacs"
+- "grammar"
+- "mini-languages"
+- "month"
+- "neocaml"
+- "odoc"
+- "parser"
+- "tree-sitter"
 ---

@@ -9,6 +9,17 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "accelerator"
+- "autumn"
+- "mirageos"
+- "mission"
+- "parsimoni"
+- "programme"
+- "spaceos"
+- "startups"
+- "techstars"
+- "unikernel"
 ---
 
 <p>We are thrilled to announce that our sister company, <a href="https://parsimoni.co/">Parsimoni</a>, is part of <a href="https://www.techstars.com/newsroom/meet-the-startups-joining-techstars-fall-2025-accelerator-programs">Techstars’</a> autumn 2025 space accelerator programme in Los Angeles! They are in great company, with 4 other very synergistic space startups <a href="https://www.ant61.com/beacon">ANT61</a>, <a href="https://www.azora.space/">Azora</a>, <a href="https://cisgam.com/">CISGAM</a>, and <a href="https://www.translunar-esi.com/">Translunar Exports and Servicing Incorporated</a>.</p>

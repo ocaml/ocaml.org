@@ -8,6 +8,17 @@ authors:
 - Jon Ludlam
 source:
 ignore: true
+keywords:
+- "branson"
+- "cicirello"
+- "climate"
+- "day"
+- "driscoll"
+- "hattie"
+- "hinsley"
+- "leach"
+- "luz-ricca"
+- "talked"
 ---
 
 <section><h1><a href="https://jon.recoil.org/atom.xml#ai-for-climate-%26-nature-community-day" class="anchor"></a>AI for Climate &amp; Nature Community Day</h1><ul class="at-tags"><li class="published"><span class="at-tag">published</span> <p>2025-05-01</p></li></ul><p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "corrected"
+- "dune"
+- "exec"
+- "foo"
+- "gen"
+- "jbuild"
+- "jbuilder"
+- "monad"
+- "ocaml-expect"
+- "utop"
 ---
 
 <p>The 17th beta of jbuilder represents a few months of development. While that&rsquo;s a

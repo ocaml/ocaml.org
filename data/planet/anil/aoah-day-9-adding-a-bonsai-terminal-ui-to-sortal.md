@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "async"
+- "bonsai"
+- "day"
+- "effect"
+- "eio"
+- "lwt"
+- "oxcaml"
+- "sortal"
+- "terminal"
 ---

@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/research-internships-tnc/ResearchInte
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compilers"
+- "functional programming"
+- "greta"
+- "internships"
+- "jane"
+- "join-jane-street"
+- "ppx"
+- "research"
+- "street"
 ---
 
 <p>We are excited to announce research internships in our Tools and

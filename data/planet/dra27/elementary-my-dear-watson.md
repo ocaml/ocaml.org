@@ -21,6 +21,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "crt"
+- "execv"
+- "halo"
+- "handle"
+- "inheritable"
+- "nullptr"
+- "o_noinherit"
+- "process_info"
+- "traits"
+- "windows"
 ---
 
 <p>Overall, I enjoy bug-hunting. Getting there can be really quite tortuous, via

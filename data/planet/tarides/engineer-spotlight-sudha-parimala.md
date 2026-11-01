@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/02816a276050c6a46c9ac941aea89f94/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "compiler"
+- "concurrency"
+- "engineer"
+- "functional programming"
+- "learning"
+- "multicore"
+- "parimala"
+- "rewarding"
+- "spotlight"
+- "sudha"
 ---
 
 <p>For our third and final Engineer Spotlight, we interviewed Sudha Parimala, a Tarides engineer who works primarily on the Multicore Applications team. She talks about what lead her to become an OCaml programmer and why she's excited about OCaml 5, as our blog series on <a href="https://tarides.com/blog/2022-12-19-ocaml-5-with-multicore-support-is-here">Multicore OCaml</a> continues.</p>

@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/visualizing-information-propagation-i
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "equity"
+- "futures"
+- "movements"
+- "ppx"
+- "price"
+- "prices"
+- "rice"
+- "traded"
+- "yomiji"
 ---
 
 <p>The Dojima rice market, established around 1716, is widely considered to

@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "claude"
+- "merlin"
+- "notebook"
+- "notebooks"
+- "odoc"
+- "oxcaml"
+- "plugin"
+- "plugins"
+- "uutf"
+- "widgets"
 ---

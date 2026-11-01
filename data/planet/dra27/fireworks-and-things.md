@@ -18,6 +18,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "bin"
+- "cloning"
+- "co-opted"
+- "config"
+- "lib"
+- "ljubljana"
+- "man"
+- "man1"
+- "opam"
+- "wednesday"
 ---
 
 <p>Thanks to some targetted optimisations in the <a href="https://github.com/dra27/relocatable/commits/main/stack">script which manages Relocatable

@@ -9,4 +9,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "arn"
+- "aws"
+- "cloudformation"
+- "getatt"
+- "iam"
+- "intrinsic"
+- "lambda"
+- "ref"
+- "resource"
+- "token"
 ---

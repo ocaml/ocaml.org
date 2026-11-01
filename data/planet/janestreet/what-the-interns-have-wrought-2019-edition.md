@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2019/wh
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "GADT"
+- "applicative"
+- "asn"
+- "foreign function interface"
+- "latencies"
+- "latviz"
+- "ldap"
+- "ocamldap"
+- "ppx_let"
+- "vim"
 ---
 
 <p>Jane Street&rsquo;s intern program yet again is coming to an end, which is a

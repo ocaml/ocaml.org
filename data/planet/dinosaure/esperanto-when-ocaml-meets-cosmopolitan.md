@@ -7,6 +7,10 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "build-once"
+- "esperanto"
+- "run-anywhere"
 ---
 
 Build-once Run-anywhere

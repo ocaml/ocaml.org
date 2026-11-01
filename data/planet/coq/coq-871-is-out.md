@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "brings"
+- "bug"
+- "compatibility"
+- "coq"
+- "details"
+- "documentation"
+- "fixes"
+- "improvements"
+- "message"
+- "milestone"
 ---
 
 

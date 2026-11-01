@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "concurrency"
+- "effect"
+- "functional programming"
+- "labs"
+- "mirageos"
+- "multicore"
+- "odoc"
+- "parallelism"
+- "platform"
+- "ppx"
 ---
 
 <div>

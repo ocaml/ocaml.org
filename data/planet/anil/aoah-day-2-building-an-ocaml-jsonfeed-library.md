@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "claude"
+- "codec"
+- "codecs"
+- "concurrency"
+- "day"
+- "dec"
+- "json"
+- "jsonfeed"
+- "jsont"
 ---

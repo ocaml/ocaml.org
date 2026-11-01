@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/computations-that-differentiate-debug
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "aapl"
+- "account"
+- "bank"
+- "computation"
+- "computations"
+- "goog"
+- "map"
+- "sum"
+- "texttt"
+- "ticker"
 ---
 
 <p>One of the problems we wrestle with at Jane Street is how to

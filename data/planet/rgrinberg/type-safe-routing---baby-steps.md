@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "baby"
+- "gadt"
+- "inp"
+- "lwt"
+- "monad"
+- "parser"
+- "routing"
+- "substring"
+- "try_parse"
 ---
 
 <p>Type safe routing means different things to different people. So let&rsquo;s

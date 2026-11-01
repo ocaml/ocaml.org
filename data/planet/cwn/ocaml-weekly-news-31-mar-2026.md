@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "OCaml LSP"
+- "alpha"
+- "domainslib"
+- "ortac-dune"
+- "ortac-qcheck-stm"
+- "ortac-wrapper"
+- "parallelism"
+- "qcheck-stm"
+- "signature-help"
+- "survey"
 ---

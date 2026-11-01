@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "bigarray"
+- "cstruct"
+- "err"
+- "functor"
+- "functors"
+- "gadt"
+- "http-lwt-client"
+- "monad"
+- "succ"
+- "tar"
 ---
 
 A little retrospective to the new Tar release and changes

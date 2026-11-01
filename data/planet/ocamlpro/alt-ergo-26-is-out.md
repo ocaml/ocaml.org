@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/blog/assets/img/alt-ergo-8-colors.png
 authors:
 - "\n    Basile Cl\xE9ment\n  "
 source:
+keywords:
+- "alt-ergo"
+- "bit-vector"
+- "bit-vectors"
+- "cryptography"
+- "dolmen"
+- "dune-site"
+- "formal verification"
+- "fpa"
+- "smt-lib"
+- "theory"
 ---
 
 <p></p>

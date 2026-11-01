@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "apr"
+- "days"
+- "frama-c"
+- "interventions"
+- "junior"
+- "machdep"
+- "maison"
+- "musique"
+- "radio"
+- "slides"
 ---
 
 

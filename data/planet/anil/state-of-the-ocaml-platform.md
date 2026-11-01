@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "adopted"
+- "anil"
+- "annual"
+- "momentum"
+- "opam"
+- "platform"
+- "practitioners"
+- "progress"
+- "state"
+- "workshop"
 ---
 
 <p>Talk on the state of the OCaml Platform</p>

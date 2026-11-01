@@ -8,6 +8,17 @@ preview_image: //4.bp.blogspot.com/-AaVcyyAosxU/UjFRnhc-zHI/AAAAAAAAADE/3XI_Ien7
 authors:
 - Tony Tavener
 source:
+keywords:
+- "database"
+- "first-class module"
+- "functor"
+- "hashtbl"
+- "hermetic"
+- "inheritance"
+- "key"
+- "of_score"
+- "prop"
+- "sig"
 ---
 
 <div dir="ltr" style="text-align: left;" trbidi="on">

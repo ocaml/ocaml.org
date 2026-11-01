@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "camlcity"
+- "connected"
+- "connectivity"
+- "datacenter"
+- "dns"
+- "dslite"
+- "internets"
+- "ipv6"
+- "peer-to-peer"
+- "user-controlled"
 ---
 
 

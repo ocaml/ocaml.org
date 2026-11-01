@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/1d805022c72839f1abe63b28f225fd32/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "camlzip"
+- "checkseum"
+- "decompress"
+- "duff"
+- "eqaf"
+- "git"
+- "ocaml-git"
+- "optint"
+- "rfc1951"
+- "xduff"
 ---
 
 <p>I'm very happy to announce a new major release of <code>ocaml-git</code> (2.0).

@@ -7,6 +7,16 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "bugs"
+- "changes"
+- "coq"
+- "file"
+- "fixes"
+- "found"
+- "information"
+- "several"
+- "version"
 ---
 
 

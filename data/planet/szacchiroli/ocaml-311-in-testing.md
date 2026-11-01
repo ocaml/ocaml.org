@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Stefano Zacchiroli
 source:
+keywords:
+- "congrats"
+- "dato"
+- "dogguy"
+- "iow"
+- "mehdi"
+- "migrated"
+- "newbies"
+- "stephane"
+- "testing"
+- "transition"
 ---
 
 <h1>OCaml 3.11 has migrated to testing</h1>

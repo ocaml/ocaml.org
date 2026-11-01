@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "dbd7546a-95d8-40af-b286-3cf930767682-1"
+- "docker"
+- "functional"
+- "functionals"
+- "innards"
+- "london"
+- "mac"
+- "meetup"
+- "windows"
 ---
 
 <p>I gave a talk at the <a href="https://functional.works-hub.com">Functional Works</a> meetup, held in <a href="https://janestreet.com">Jane Street London</a> about how Docker for Mac and Windows use OCaml and unikernels <a href="https://www.docker.com/blog/docker-unikernels-open-source/">under the hood</a>.</p>

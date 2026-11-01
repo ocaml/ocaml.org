@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "alleged"
+- "coq"
+- "days"
+- "downtime"
+- "hack"
+- "inria"
+- "investigations"
+- "led"
+- "nothing"
+- "spam"
 ---
 
 

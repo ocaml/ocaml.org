@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "concurrency"
+- "concurrent"
+- "deterministic"
+- "dimitar"
+- "functional programming"
+- "limplementation"
+- "parallel"
+- "popov"
+- "revisions"
+- "tasks"
 ---
 
 <h1>Concurrent revisions for OCaml</h1>

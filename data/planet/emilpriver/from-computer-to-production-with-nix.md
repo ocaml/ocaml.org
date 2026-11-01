@@ -8,6 +8,17 @@ preview_image: https://priver.dev/images/ocaml.jpeg
 authors:
 - "Emil Priv\xE9r"
 source:
+keywords:
+- "builddunepackage"
+- "buildinputs"
+- "dontdetectocamlconflicts"
+- "inherit"
+- "inputs"
+- "nix"
+- "nixpkgs"
+- "ocamlpackages"
+- "pkgs"
+- "riot"
 ---
 
 <p>A while ago, I wrote &ldquo;<a href="https://priver.dev/blog/ocaml/bye-opam-hello-nix/">Bye Opam, Hello Nix</a>&rdquo; where the topic of that post was that I replaced Opam with Nix as it works much better. This post is about taking this a bit further, discussing how I use Nix for local development, testing, and building Docker images.</p>

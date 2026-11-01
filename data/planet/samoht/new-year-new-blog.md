@@ -8,4 +8,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "dune"
+- "enclosure"
+- "jpl"
+- "merlin"
+- "mirageos"
+- "odoc"
+- "opam"
+- "optimism"
+- "perseverance"
+- "prime"
 ---

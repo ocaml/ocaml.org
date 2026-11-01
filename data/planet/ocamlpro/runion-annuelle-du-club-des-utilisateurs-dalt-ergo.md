@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Aurore Dromby\n  "
 source:
+keywords:
+- "alt-ergo"
+- "annee"
+- "annuelle"
+- "club"
+- "concernant"
+- "membres"
+- "nouveaux"
+- "priorites"
+- "reunion"
+- "utilisateurs"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/altergo-meeting.jpeg" alt="Alt-Ergo meeting"/>

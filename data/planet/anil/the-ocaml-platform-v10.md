@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "chaudhry"
+- "community-driven"
+- "consolidated"
+- "dimino"
+- "jeremie"
+- "madhavapeddy"
+- "matured"
+- "opam"
+- "platform"
 ---
 
 <p>Paper on the OCaml Platform status</p>

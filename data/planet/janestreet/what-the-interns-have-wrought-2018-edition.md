@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/what-the-interns-have-wrought-2018/sm
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "apply_action"
+- "incr"
+- "incr_dom"
+- "incremental"
+- "interns"
+- "model"
+- "monad"
+- "netlink"
+- "vdom"
+- "view"
 ---
 
 <p>Yet again, intern season is coming to a close, and so it&rsquo;s time to

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/statmemprof-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "allocation"
+- "domain"
+- "garbage collection"
+- "heap"
+- "memory"
+- "minor"
+- "object"
+- "profiler"
+- "profiling"
+- "statmemprof"
 ---
 
 <p>Welcome to part two of our feature parity series! In it, we present returning features that were originally lost when OCaml gained multicore support.  The addition of multiple domains means that the underpinning design decisions behind certain features have had to change significantly, and work is ongoing to adapt them and return them to OCaml 5.</p>

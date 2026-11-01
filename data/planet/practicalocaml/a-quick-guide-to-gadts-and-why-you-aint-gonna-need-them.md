@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Practical OCaml
 source:
+keywords:
+- "err"
+- "gadt"
+- "gadts"
+- "gonna"
+- "guest"
+- "invalid"
+- "pending"
+- "role"
+- "valid"
+- "validation"
 ---
 
 <p>I've been seeing some more posts about how to use and when to use GADTs. GADTs (Generalized Abstract Data Types, I pronounce them &quot;gats&quot; like in &quot;cats&quot; but with a &quot;g&quot;) are an extension to regular ADTs that is usually reserved for very specific scenarios, but its not always clear which those are and why.</p><p>So I figured I'd give this a shot, and write a super small primer on them, by example. We're gonna write a library that didn't need to use GADTs, and along the way we're gonna feel the pains that come with GADTs, and what specific things they are amazing for.</p><p>Buckle on to your camels! &#128043;</p><h2>GADTs by Example</h2><p>Alright usually you'd write your variant as:</p><pre><code class="language-ocaml">type role = 

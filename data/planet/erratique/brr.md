@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "browsers"
+- "brr"
+- "compiler"
+- "ffi"
+- "foreign function interface"
+- "idiomatic"
+- "isc"
+- "js_of_ocaml"
+- "opam"
+- "toolkit"
 ---
 
 First release of <a href="https://erratique.ch/software/brr">Brr</a>, a toolkit for programming browsers in OCaml.

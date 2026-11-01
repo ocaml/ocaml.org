@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/619c072d0a24bc8e8421e02cdafca46e/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "acquaint"
+- "dune"
+- "forthcoming"
+- "iqy-urht-rcn"
+- "live"
+- "live-streaming"
+- "lucas"
+- "mirageos"
+- "presentation"
+- "tomorrow"
 ---
 
 <p>The official release of MirageOS 4.0 quickly approaches! Learn about some general MirageOS concepts and get a

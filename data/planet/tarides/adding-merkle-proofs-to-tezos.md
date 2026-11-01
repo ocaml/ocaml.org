@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/2c0480f27aceb19ab86b870835c01b7a/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "MirageOS"
+- "coins"
+- "hash"
+- "jakarta"
+- "merkle"
+- "proof"
+- "proofs"
+- "storage"
+- "tezos"
+- "trees"
 ---
 
 <p>The Upcoming Tezos <a href="https://tezos.gitlab.io/protocols/013_jakarta.html#protocol-jakarta">Jakarta Protocol</a> will support compact Merkle

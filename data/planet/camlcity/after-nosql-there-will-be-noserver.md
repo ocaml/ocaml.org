@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "database"
+- "effect"
+- "lucene"
+- "noserver"
+- "nosql"
+- "paradigm"
+- "plasma"
+- "plasmafs"
+- "queue"
+- "transactional"
 ---
 
 

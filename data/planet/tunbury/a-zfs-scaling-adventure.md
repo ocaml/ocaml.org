@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "base-domains"
+- "base-effects"
+- "base-nnp"
+- "bechamel"
+- "ocaml-options-vanilla"
+- "ounit2"
+- "stdlib-shims"
+- "sysctl"
+- "vfs"
+- "zfs"
 ---
 
 <p>The FreeBSD workers have been getting [slower](

@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "dkim"
+- "dovecot"
+- "email"
+- "ipv4"
+- "maildir"
+- "pork"
+- "postfix"
+- "recoil"
+- "sieve"
+- "spf"
 ---

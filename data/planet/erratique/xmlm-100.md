@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "codec"
+- "decode"
+- "documents"
+- "in-memory"
+- "isc"
+- "mirror"
+- "opam"
+- "streaming"
+- "xml"
+- "xmlm"
 ---
 
 <p>New release of Xmlm. Changes are detailed in the release notes of the distribution.</p>

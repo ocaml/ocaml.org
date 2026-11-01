@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "conf-git-daemon"
+- "devfs"
+- "freebsd"
+- "git-daemon"
+- "git-kv"
+- "git-net"
+- "jail"
+- "obuilder"
+- "ocurrent"
+- "tidy"
 ---

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/c5f8545605bcadc615295dc02a4e63e0/99ec5
 authors:
 - Tarides
 source:
+keywords:
+- "capacity"
+- "formal verification"
+- "gospel"
+- "ortac"
+- "plugin"
+- "postconditions"
+- "qcheck-stm"
+- "sequence"
+- "specification"
+- "specifications"
 ---
 
 <p>Part of the benefit of open-source development is the opportunity to collaborate on projects across traditional organisational boundaries, such as academia and industry. Tarides is part of a larger effort to develop a behavioural specification language and associated tooling for OCaml. The project creates an easy-to-use foundation for formal specifications, allowing users to include them in generated documentation and perform automated testing and verification. This important work is funded in part by <a href="https://anr.fr/en/">ANR</a>.</p>

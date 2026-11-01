@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Till
 source:
+keywords:
+- "combine"
+- "cons"
+- "deplist"
+- "gadt"
+- "length"
+- "nil"
+- "phantom"
+- "succ"
+- "type inference"
+- "zero"
 ---
 
 <p>Phantom types are a nifty trick: types are used to store additional

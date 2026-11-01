@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "build"
+- "config"
+- "flambda"
+- "local"
+- "merlin"
+- "opam"
+- "packages"
+- "recompilation"
+- "switch"
+- "switches"
 ---
 
 <blockquote>

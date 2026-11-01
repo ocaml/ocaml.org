@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "digital"
+- "ecological"
+- "ecology"
+- "ecosystems"
+- "edinburgh"
+- "nature"
+- "nave"
+- "rewilding"
+- "robin"
+- "workshop"
 ---

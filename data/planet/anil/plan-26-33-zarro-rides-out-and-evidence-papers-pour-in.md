@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "concurrency"
+- "downscaling"
+- "eio"
+- "embeddings"
+- "evidence"
+- "js_of_ocaml"
+- "papers"
+- "tei"
+- "tessera"
+- "weather"
 ---

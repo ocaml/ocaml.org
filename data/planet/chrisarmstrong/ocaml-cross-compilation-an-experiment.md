@@ -10,4 +10,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "concurrency"
+- "cross-compilation"
+- "cross-compile"
+- "cross-compiler"
+- "packages"
+- "packman"
+- "piaf"
+- "serverless"
+- "uring"
+- "zig"
 ---

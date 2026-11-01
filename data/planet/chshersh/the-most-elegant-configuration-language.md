@@ -7,6 +7,17 @@ preview_image: https://chshersh.com/images/logo.jpg
 authors:
 - chshersh
 source:
+keywords:
+- "ccl"
+- "config"
+- "configs"
+- "configuration"
+- "key"
+- "key-value"
+- "monoid"
+- "pairs"
+- "parse"
+- "smoosh"
 ---
 
 CCL: Categorical Configuration Language

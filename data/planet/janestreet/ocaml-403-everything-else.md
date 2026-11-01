@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/static/img/header.png
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "circle"
+- "ephemerons"
+- "flambda"
+- "float"
+- "multicore"
+- "ppx"
+- "rect"
+- "uchar"
+- "weak"
 ---
 
 <p>In my <a href="https://blog.janestreet.com/flambda">previous post</a> I wrote about Flambda, which is the single

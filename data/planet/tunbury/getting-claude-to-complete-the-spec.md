@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "claude"
+- "concurrency"
+- "dispatch"
+- "dune"
+- "echo"
+- "imap"
+- "maildir"
+- "moderator"
+- "parser"
+- "tls"
 ---

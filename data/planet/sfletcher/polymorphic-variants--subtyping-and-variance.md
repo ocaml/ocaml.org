@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "coercion"
+- "expr"
+- "polymorphic variant"
+- "sigma"
+- "subtype"
+- "subtypes"
+- "subtyping"
+- "tau"
+- "typ_"
+- "variance"
 ---
 
 

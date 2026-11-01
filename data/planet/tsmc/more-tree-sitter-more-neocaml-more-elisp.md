@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "delim"
+- "elisp"
+- "emacs"
+- "fmt"
+- "grammar"
+- "markup"
+- "neocaml"
+- "odoc"
+- "parser"
+- "tree-sitter"
 ---

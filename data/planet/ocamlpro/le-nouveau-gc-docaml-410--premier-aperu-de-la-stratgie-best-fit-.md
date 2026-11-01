@@ -11,6 +11,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Thomas Blanc\n  "
 source:
+keywords:
+- "apercu"
+- "best-fit"
+- "compiler"
+- "dune"
+- "flambda"
+- "flambda2"
+- "nouveau"
+- "nouvelle"
+- "opam"
+- "strategie"
 ---
 
 <p><a href="https://ocamlpro.com/blog/2020_03_23_in_depth_look_at_best_fit_gc"><img src="https://ocamlpro.com/blog/assets/img/logo_round_ocaml_search.png" alt="An in-depth Look at OCaml&rsquo;s new &quot;Best-fit&quot; Garbage Collector Strategy"/></a></p>

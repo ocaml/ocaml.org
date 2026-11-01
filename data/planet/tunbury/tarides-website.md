@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cmarkit"
+- "dune"
+- "gen"
+- "generate-images"
+- "hilite"
+- "mdx"
+- "ocaml-config"
+- "odoc"
+- "slug"
+- "textmate-language"
 ---
 
 <p>Bella was in touch as the tarides.com website is no longer building. The initial error is that <code class="language-plaintext highlighter-rouge">cmarkit</code> was missing, which I assumed was due to an outdated PR which needed to be rebased.</p>

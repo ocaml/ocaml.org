@@ -10,6 +10,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "compiler"
+- "effect"
+- "freebsd"
+- "golf"
+- "harness"
+- "syncthing"
+- "test"
+- "tmux"
+- "trim"
+- "yak"
 ---
 
 <p>Since presenting Relocatable OCaml at <a href="https://www.dra27.uk/blog/platform/2025/03/28/ocaml-dev-meeting.html">OCaml Dev Meeting</a>,

@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "caelum"
+- "chives"
+- "deployer"
+- "dev"
+- "docker"
+- "mirageos"
+- "ocurrent"
+- "scaleway"
+- "volume"
+- "watcher"
 ---

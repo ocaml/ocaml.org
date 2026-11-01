@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/learn-ocaml-nyc/ocaml_workshop.jpg
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "dune"
+- "functional programming"
+- "jane"
+- "js_of_ocaml"
+- "merlin"
+- "nyc"
+- "ppx"
+- "street"
+- "workshop"
 ---
 
 <p>Interested in learning OCaml? In the NYC area? Then this might

@@ -6,6 +6,17 @@ date: 2013-07-18T00:00:00-00:00
 preview_image:
 authors:
 - Dave Scott
+keywords:
+- "buf"
+- "devices"
+- "disk"
+- "len_sectors"
+- "mirage"
+- "mirageos"
+- "mmap"
+- "offset_sectors"
+- "xen"
+- "xen-disk"
 ---
 
 

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "based"
+- "hashing"
+- "isc"
+- "md5"
+- "mirror"
+- "opam"
+- "random"
+- "sha-1"
+- "universally"
+- "uuidm"
 ---
 
 <p>First release of Uuidm, an OCaml module for universally unique identifiers (<abbr>UUID</abbr>s).</p>

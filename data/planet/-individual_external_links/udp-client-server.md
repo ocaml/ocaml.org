@@ -9,4 +9,15 @@ authors:
 source:
   name: "Aryan Godara on Medium"
   url: https://medium.com/@aryangodara_19887
+keywords:
+- "asynchronous"
+- "client"
+- "datagram"
+- "lwt"
+- "monad"
+- "promise"
+- "server"
+- "transmission"
+- "udp"
+- "workdir"
 ---

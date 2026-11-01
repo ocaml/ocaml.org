@@ -8,6 +8,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "certs"
+- "curl"
+- "freebsd"
+- "freebsd-update"
+- "mib"
+- "ocaml-ci"
+- "ocurrent"
+- "sshd"
+- "uname"
+- "upgrade"
 ---
 
 <p>CI workers <code class="language-plaintext highlighter-rouge">spring</code> and <code class="language-plaintext highlighter-rouge">summer</code> run FreeBSD and need to be updated.</p>

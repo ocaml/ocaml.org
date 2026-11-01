@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/notafs-1-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "file"
+- "filesystem"
+- "functor"
+- "irmin"
+- "irmin-pack"
+- "mirageos"
+- "monad"
+- "notafs"
+- "spaceos"
+- "system"
 ---
 
 <p>We are pleased to announce one (or two) new filesystems for MirageOS! The motivation behind creating them is an exciting new use case requiring the system to store data on disk.</p>

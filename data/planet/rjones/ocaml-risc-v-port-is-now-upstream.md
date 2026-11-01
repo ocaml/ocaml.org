@@ -7,6 +7,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "graphical"
+- "hat"
+- "jones"
+- "libnbd"
+- "nbdkit"
+- "red"
+- "rhel"
+- "richard"
+- "risc-v"
+- "virt-v2v"
 ---
 
 <p><a href="https://github.com/ocaml/ocaml/commit/8f3833c4d0ef656c826359f4137c1eb3d46ea0ef">https://github.com/ocaml/ocaml/commit/8f3833c4d0ef656c826359f4137c1eb3d46ea0ef</a></p>

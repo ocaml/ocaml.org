@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "binary64"
+- "cleanups"
+- "coq"
+- "datatypes"
+- "floats"
+- "ltac2"
+- "monad"
+- "multi-goal"
+- "tactic"
+- "tactics"
 ---
 
 

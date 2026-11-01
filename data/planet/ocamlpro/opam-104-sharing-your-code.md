@@ -13,4 +13,15 @@ authors:
 - "\n    Raja Boujbel\n  "
 source:
 ignore:
+keywords:
+- "cmdliner"
+- "dune-release"
+- "helloer"
+- "lock"
+- "locked"
+- "ocaml-syntax-shims"
+- "opam"
+- "opam-publish"
+- "with-test"
+- "world-org"
 ---

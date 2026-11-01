@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gerd Stolpmann
 source:
+keywords:
+- "block"
+- "data"
+- "dfs"
+- "hdfs"
+- "name"
+- "node"
+- "nodes"
+- "plasma"
+- "plasmafs"
+- "two-phase"
 ---
 
 

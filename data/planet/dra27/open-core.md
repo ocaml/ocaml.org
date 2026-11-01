@@ -19,4 +19,15 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "carvings"
+- "cathedral"
+- "continuation"
+- "core"
+- "dei"
+- "dra"
+- "functional programming"
+- "opam"
+- "open"
+- "sine"
 ---

@@ -9,6 +9,17 @@ preview_image: https://tarides.com/blog/images/enhancing_dune-1360w~ShYsBjqZWg1n
 authors:
 - Tarides
 source:
+keywords:
+- "compiler"
+- "dune"
+- "installation"
+- "installed"
+- "installing"
+- "management"
+- "ocaml-base-compiler"
+- "opam"
+- "package"
+- "preview"
 ---
 
 <p>We’re excited to share a significant update to Dune's Package Management system, particularly one that will be of great interest to OCaml developers. For those who have been exploring Dune’s experimental package management capabilities over the past six months, you’ll be pleased to know that we've recently merged a feature allowing OCaml compiler packages to be installed directly through Dune.</p>

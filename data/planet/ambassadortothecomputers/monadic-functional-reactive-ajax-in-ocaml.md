@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Jake Donham
 source:
+keywords:
+- "froc"
+- "functional"
+- "ocamljs"
+- "ocamlnet"
+- "onc"
+- "orpc"
+- "programming"
+- "reactive"
+- "rpc"
+- "skydeck"
 ---
 
 Yesterday I released three related projects which I've been working on for a long time:

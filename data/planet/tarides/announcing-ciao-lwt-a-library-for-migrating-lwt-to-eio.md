@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "ciao-lwt"
+- "ciao_lwt"
+- "concurrency"
+- "eio"
+- "lwt"
+- "lwt_log"
+- "lwt_ppx"
+- "merlin"
+- "monad"
+- "ocaml-index"
 ---

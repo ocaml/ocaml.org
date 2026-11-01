@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Erik de Castro Lopo
 source:
+keywords:
+- "addblock"
+- "ddc"
+- "dstreg"
+- "int32"
+- "llvm"
+- "llvmm"
+- "llvmstatement"
+- "monad"
+- "objptr"
+- "readslot"
 ---
 
 

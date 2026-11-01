@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "algebraic effect"
+- "concurrency"
+- "dolan"
+- "effect"
+- "handlers"
+- "multicore"
+- "onto"
+- "parallelism"
+- "retrofitting"
+- "sivaramakrishnan"
 ---
 
 <p>Paper on retrofitting effects in OCaml presented in PLDI 2024</p>

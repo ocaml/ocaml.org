@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Melange Blog
 source:
+keywords:
+- "discriminated"
+- "dynamicallyimporteduseeffect"
+- "import"
+- "javascript"
+- "mel"
+- "melange"
+- "promise"
+- "react"
+- "unions"
+- "useeffect"
 ---
 
 <p>We are excited to announce the release of Melange 5, the compiler for OCaml

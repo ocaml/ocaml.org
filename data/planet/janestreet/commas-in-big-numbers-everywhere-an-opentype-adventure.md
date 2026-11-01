@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/commas-in-big-numbers-everywhere/numd
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "commas"
+- "digit"
+- "digits"
+- "glyph"
+- "glyphs"
+- "nd0"
+- "nd6"
+- "opentype"
+- "reversesub"
+- "shaping"
 ---
 
 <p>My job involves a lot of staring at large numbers, mostly latencies in

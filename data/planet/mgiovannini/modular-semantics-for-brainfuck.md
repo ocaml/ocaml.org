@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "brainfuck"
+- "cell"
+- "functor"
+- "mem"
+- "putc"
+- "res"
+- "semantics"
+- "stk"
+- "tape"
+- "zeros"
 ---
 
 

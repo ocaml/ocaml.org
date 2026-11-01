@@ -7,6 +7,13 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "coq"
+- "edinburgh"
+- "held"
+- "july"
+- "program"
+- "workshop"
 ---
 
 

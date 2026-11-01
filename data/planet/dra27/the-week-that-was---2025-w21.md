@@ -9,6 +9,17 @@ authors:
 - ""
 source:
 ignore:
+keywords:
+- "attempting"
+- "compiler"
+- "distracted"
+- "git"
+- "got"
+- "holiday"
+- "opam"
+- "relocatable"
+- "routine"
+- "week"
 ---
 
 <p>This week was a grant application, build systems, and code review - which it

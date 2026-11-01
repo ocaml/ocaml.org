@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/37eb312d700b065239a4797fa427a8ee/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "beta2"
+- "bookkeeping"
+- "chiming"
+- "coming"
+- "effect"
+- "fix"
+- "fixes"
+- "multicore"
+- "release"
+- "segfault"
 ---
 
 <p>Just about a month after the <a href="https://tarides.com/blog/2022-10-17-ocaml-5-beta-release">OCaml 5 Beta release</a>, the OCaml 5 Beta2 version has been released, taking us one step closer to the full OCaml 5 with Multicore release later this year. The OCaml community's collaboration is coming to fruition! Although we're not quite ready for the RC1 (Release Candidate) version, several things have been added and improved with Beta2.</p>

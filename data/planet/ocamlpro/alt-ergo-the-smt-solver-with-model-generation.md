@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Steven de Oliveira\n  "
 source:
+keywords:
+- "alt-ergo"
+- "arithmetic"
+- "counterexample"
+- "generation"
+- "model"
+- "models"
+- "prover"
+- "qualification"
+- "smt"
+- "theories"
 ---
 
 <p>The Alt-Ergo automatic theorem prover developed at OCamlPro has just been released with a major update : counterexample model can now be generated. This is now available on the next branch, and will officially be part of the 2.5.0 release, coming this year !</p>

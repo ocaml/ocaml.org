@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "assertion"
+- "cea"
+- "compilation"
+- "e-acsl"
+- "formal"
+- "formal verification"
+- "frama-c"
+- "functional programming"
+- "position"
+- "postdoc"
 ---
 
 

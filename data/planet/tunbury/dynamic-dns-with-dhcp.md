@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "arpa"
+- "bind"
+- "dhcp"
+- "dns"
+- "hmac-md5"
+- "hmac-sha256"
+- "key"
+- "mykey"
+- "rndc-key"
+- "zone"
 ---

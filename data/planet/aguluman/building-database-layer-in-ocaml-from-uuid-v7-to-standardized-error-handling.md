@@ -10,6 +10,17 @@ authors:
 - Chukwuma Akunyili
 source:
 ignore:
+keywords:
+- "database"
+- "error"
+- "handling"
+- "id_str"
+- "layer"
+- "query"
+- "query_error"
+- "query_name"
+- "standardized"
+- "uuid"
 ---
 
 A comprehensive sprint retrospective documenting the implementation of a near-production-ready database and service layer using OCaml, Caqti, UUID v7, and standardized error handling for the Chaufr MVP

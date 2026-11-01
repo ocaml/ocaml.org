@@ -8,6 +8,17 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "async"
+- "digestif"
+- "js_of_ocaml"
+- "js_of_ocaml-toplevel"
+- "lwt"
+- "merlin"
+- "ocaml-system"
+- "ocamlformat"
+- "odoc"
+- "x-ocaml"
 ---
 
 <ol><li><a href="https://alan.petitepomme.net/cwn/2025.07.22.html#1">Third outreachy internship blog</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.22.html#2">opam 2.4.0 is out!</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.22.html#3">x-ocaml, notebooks as a webcomponent</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.22.html#4">Dune dev meeting</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.22.html#5">Lwt.6.0.0~alpha (direct-style)</a></li><li><a href="https://alan.petitepomme.net/cwn/2025.07.22.html#6">Other OCaml News</a></li></ol>

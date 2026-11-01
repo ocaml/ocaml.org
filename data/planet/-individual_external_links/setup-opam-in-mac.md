@@ -9,4 +9,15 @@ authors:
 source:
   name: "Aryan Godara on Medium"
   url: https://medium.com/@aryangodara_19887
+keywords:
+- "apple"
+- "bin"
+- "curl"
+- "functional programming"
+- "homebrew"
+- "mirageos"
+- "opam"
+- "silicon"
+- "unikernel"
+- "utop"
 ---

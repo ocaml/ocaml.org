@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Paolo Donadeo
 source:
+keywords:
+- "caml"
+- "facets"
+- "koolinus"
+- "life"
+- "lua"
+- "objective"
+- "opam"
+- "pdonadeo"
+- "personal_blog"
+- "spare"
 ---
 
 <div><p class="noindent">

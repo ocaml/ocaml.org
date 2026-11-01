@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "effect"
+- "eio"
+- "environmental"
+- "functional programming"
+- "gdal"
+- "geospatial"
+- "high-level"
+- "multicore"
+- "parallelism"
+- "yirgacheffe"
 ---
 
 <h1>Effective geospatial code in OCaml</h1>

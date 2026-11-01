@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "apr"
+- "cambridge"
+- "evidence"
+- "parallelism"
+- "ppx_jane"
+- "sexp"
+- "stdio"
+- "tessera"
+- "tiles"
+- "utop"
 ---

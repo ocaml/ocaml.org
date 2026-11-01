@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "asteria"
+- "enomem"
+- "io_uring"
+- "io_uring_setup"
+- "probe"
+- "quota"
+- "ret"
+- "rings"
+- "uring_probe"
+- "urtest"
 ---

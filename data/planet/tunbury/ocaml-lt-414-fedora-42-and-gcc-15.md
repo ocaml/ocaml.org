@@ -10,6 +10,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "c-development"
+- "compilter"
+- "dnf"
+- "fedora"
+- "gcc"
+- "ocaml-ci"
+- "porting"
+- "specifically"
+- "syntax"
+- "unburden"
 ---
 
 <p>Late last week, @MisterDA added Fedora 42 support to the <a href="https://images.ci.ocaml.org">Docker base image builder</a>. The new base images attempted to build over the weekend, but there have been a few issues!</p>

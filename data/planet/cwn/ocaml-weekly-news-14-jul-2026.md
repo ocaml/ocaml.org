@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "caqti"
+- "caqti-dynload"
+- "curl"
+- "dune"
+- "everparse"
+- "foreign function interface"
+- "ocgtk"
+- "parser"
+- "validate"
+- "wire"
 ---

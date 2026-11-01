@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "cea"
+- "cybersecurity"
+- "frama-c"
+- "lsl"
+- "oscs"
+- "permanent"
+- "position"
+- "properties"
+- "scientific"
+- "scientist"
 ---
 
 

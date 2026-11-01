@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "domain"
+- "effect"
+- "hazel"
+- "holes"
+- "imperative"
+- "interative"
+- "investigate"
+- "javascript-compiled"
+- "language"
+- "specification"
 ---
 
 <h1>An imperative, pure and effective specification language</h1>

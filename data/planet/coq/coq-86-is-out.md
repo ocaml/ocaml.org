@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "coq"
+- "cyprien"
+- "eauto"
+- "enrico"
+- "intro-patterns"
+- "irrefutable"
+- "ltac"
+- "ltacprof"
+- "tactic"
+- "tassi"
 ---
 
 

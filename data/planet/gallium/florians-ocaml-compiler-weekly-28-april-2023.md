@@ -7,6 +7,17 @@ preview_image:
 authors:
 - GaGallium
 source:
+keywords:
+- "backward"
+- "bar"
+- "compiler"
+- "foo"
+- "inline_code"
+- "irr"
+- "messages"
+- "object"
+- "override"
+- "polymorphic variant"
 ---
 
 

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "ati"
+- "compass"
+- "embeddings"
+- "hedgehogs"
+- "india"
+- "madhavapeddy"
+- "mirageos"
+- "openuk"
+- "summit"
+- "zfs"
 ---

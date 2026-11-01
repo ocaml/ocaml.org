@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "accepts"
+- "binder"
+- "coq"
+- "deprecation"
+- "favor"
+- "non-maximal"
+- "notation"
+- "restructured"
+- "search"
+- "tactic"
 ---
 
 

@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/8ec96e439c32fa8aca635373a2f53e00/2070e
 authors:
 - Tarides
 source:
+keywords:
+- "backtrace"
+- "compiler"
+- "jenkins-ci"
+- "long-term"
+- "maintain"
+- "maintenance"
+- "multicore"
+- "ppx"
+- "statmemprof"
+- "tarides"
 ---
 
 <p>Not all of our projects have a definite end: a grand culmination of effort and time where we pop champagne and set off fireworks (which is, of course, how we celebrate most of the time). Indeed, providing ongoing support for the OCaml ecosystem is one of our biggest priorities, and it means that we resolve issues, maintain libraries, and improve features continuously over time.</p>

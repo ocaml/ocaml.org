@@ -14,6 +14,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Raja Boujbel\n  "
 source:
+keywords:
+- "curl"
+- "extraction"
+- "git-url"
+- "macos"
+- "manually"
+- "opam"
+- "opam-devel"
+- "openbsd"
+- "sandboxing"
+- "upgrade"
 ---
 
 <p>We are pleased to announce the release of <a href="https://github.com/ocaml/opam/releases/tag/2.0.1">opam 2.0.1</a>.</p>

@@ -7,6 +7,11 @@ preview_image:
 authors:
 - Romain Calascibetta
 source:
+keywords:
+- "connect"
+- "details"
+- "hides"
+- "lot"
 ---
 
 When connect() hides a lot of details.

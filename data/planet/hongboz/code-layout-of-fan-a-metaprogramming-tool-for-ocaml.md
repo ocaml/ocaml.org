@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Hong bo Zhang
 source:
+keywords:
+- "cold"
+- "directory"
+- "fan"
+- "metaprogramming"
+- "native"
+- "ocamlbuild"
+- "preprocessor"
+- "src"
+- "treeparser"
+- "vanilla"
 ---
 
 <div>

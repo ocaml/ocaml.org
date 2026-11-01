@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Andrej Bauer
 source:
+keywords:
+- "andrej"
+- "bauer"
+- "invariance"
+- "isomorphism"
+- "judgementally"
+- "klst"
+- "reflection"
+- "strange"
+- "theory"
+- "type-theoretic"
 ---
 
 <p>At <a href="https://types2023.webs.upv.es">TYPES 2023</a> I had the honor of giving an invited talk &ldquo;On Isomorphism Invariance and Isomorphism Reflection in Type Theory&rdquo; in which I discussed isomorphism reflection, which states that isomorphic types are judgementally equal. This strange principle is consistent, and it validates some fairly strange type-theoretic statements.</p>

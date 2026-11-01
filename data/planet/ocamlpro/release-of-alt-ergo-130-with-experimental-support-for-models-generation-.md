@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "alt-ergo"
+- "benchmarks"
+- "formula"
+- "generation"
+- "model"
+- "models"
+- "opam"
+- "seconds"
+- "triggers"
+- "vcs"
 ---
 
 <p>We have recently released a new (public up-to-date) version of Alt-Ergo. We focus in this article on its main new feature: experimental support for models generation. This work has been done with <em>Fr&eacute;d&eacute;ric Lang</em>, an intern at OCamlPro from February to July 2016.</p>

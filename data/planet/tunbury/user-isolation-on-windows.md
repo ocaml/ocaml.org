@@ -11,6 +11,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "domain"
+- "isolation"
+- "ocal"
+- "ocurrent"
+- "ome"
+- "opam"
+- "pam"
+- "subst"
+- "user"
+- "windows"
 ---
 
 <p>For a long time, we have struggled to match the performance and functionality of <code class="language-plaintext highlighter-rouge">runc</code> on Windows. Antonin wrote the Docker-based isolation for <a href="https://github.com/ocurrent/obuilder">ocurrent/obuilder</a> with <a href="https://github.com/ocurrent/obuilder/pull/127">PR#127</a>, and I wrote machine-level isolation using QEMU <a href="https://github.com/ocurrent/obuilder/pull/195">PR#195</a>. Sadly, the most obvious approach of using <code class="language-plaintext highlighter-rouge">runhcs</code> doesn’t work, see <a href="https://github.com/microsoft/hcsshim/issues/2156">issue#2156</a>.</p>

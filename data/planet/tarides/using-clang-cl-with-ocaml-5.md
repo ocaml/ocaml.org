@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/clang-cl-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "c11"
+- "clang"
+- "clang-cl"
+- "concurrency"
+- "gcc"
+- "mingw-w64"
+- "msvc"
+- "multicore"
+- "port"
+- "winpthreads"
 ---
 
 <p>Bringing new features to OCaml is not a trivial procedure, and any new contribution is subject to rigorous testing and inspection. The introduction of <a href="https://tarides.com/blog/2023-07-07-making-ocaml-5-succeed-for-developers-and-organisations/">Multicore OCaml</a> added a whole new dimension of complexity to the process, and this post takes you behind-the-scenes of a project that sprang from troubleshooting the restoration of MSVC to OCaml 5.</p>

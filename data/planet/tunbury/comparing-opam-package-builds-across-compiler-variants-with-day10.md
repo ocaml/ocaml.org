@@ -9,4 +9,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "ambient-context-eio"
+- "apronext"
+- "bap-emacs-dot"
+- "bls12-381-js"
+- "bls12-381-js-gen"
+- "calli"
+- "day10"
+- "exn-source"
+- "mlgmpidl"
+- "ocamldoc"
 ---

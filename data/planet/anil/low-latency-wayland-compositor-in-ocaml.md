@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "compositor"
+- "display"
+- "displays"
+- "freedesktop"
+- "low-latency"
+- "sway"
+- "swaywm"
+- "tinywl"
+- "wayland"
+- "wlroots"
 ---
 
 <h1>Low-latency wayland compositor in OCaml</h1>

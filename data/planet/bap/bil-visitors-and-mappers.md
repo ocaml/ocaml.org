@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The BAP Blog
 source:
+keywords:
+- "bil"
+- "bil_stmts"
+- "enter_stmt"
+- "inherit"
+- "insn"
+- "mapper"
+- "rsp"
+- "stmt"
+- "visitor"
+- "visitors"
 ---
 
 <p>During disassembly, BAP lifts native binary instructions to a

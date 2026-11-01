@@ -11,4 +11,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "cacm"
+- "containerization"
+- "containers"
+- "cover"
+- "decade"
+- "docker"
+- "hcs"
+- "solomon"
+- "tessera"
+- "unikernel"
 ---

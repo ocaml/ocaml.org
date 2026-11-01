@@ -6,6 +6,17 @@ date: 2016-06-29T00:00:00-00:00
 preview_image:
 authors:
 - Gemma Gordon
+keywords:
+- "amir"
+- "arm"
+- "compiler"
+- "enguerrand"
+- "gina"
+- "his"
+- "js_of_ocaml"
+- "mirageos"
+- "slides"
+- "unikernel"
 ---
 
 

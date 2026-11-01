@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Muriel\n  "
 source:
+keywords:
+- "GADT"
+- "alt-ergo"
+- "cheat-sheets"
+- "flambda"
+- "functor"
+- "garbage collection"
+- "liquidity"
+- "ocamlpro"
+- "packs"
+- "type inference"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/logo_ocp_2019.png" alt="2019 at OCamlPro"/></p>

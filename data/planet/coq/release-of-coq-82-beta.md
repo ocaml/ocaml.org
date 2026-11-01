@@ -7,6 +7,14 @@ preview_image:
 authors:
 - Coq
 source:
+keywords:
+- "beta"
+- "coq"
+- "informations"
+- "look"
+- "now"
+- "page"
+- "release"
 ---
 
 

@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "MirageOS"
+- "alt-ergo"
+- "domain"
+- "his"
+- "luca"
+- "multi-runtime"
+- "ocamlpro"
+- "presented"
+- "september-october"
+- "souhire"
 ---
 
 <p>Here is a short report of our activities in September-October 2013.</p>

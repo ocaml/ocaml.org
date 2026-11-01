@@ -8,6 +8,17 @@ preview_image: https://tarides.com/static/eb48bbf490e4011a9fa8806a56d4098b/0132d
 authors:
 - Tarides
 source:
+keywords:
+- "decode"
+- "decode_int32"
+- "index"
+- "irmin"
+- "irmin-pack"
+- "read-only"
+- "readers"
+- "staged"
+- "store"
+- "writer"
 ---
 
 <p>This post will survey the latest design decisions and performance improvements

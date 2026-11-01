@@ -9,6 +9,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "applicative"
+- "defn"
+- "fmap"
+- "functor"
+- "january"
+- "lemma"
+- "monad"
+- "november"
+- "october"
+- "odd"
 ---
 
 While proving that every monad is an applicative functor, I extracted the following derivation as a lemma:

@@ -9,4 +9,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "closed"
+- "component"
+- "fpp"
+- "functor"
+- "gadt"
+- "guard"
+- "mirageos"
+- "prime"
+- "sensor"
+- "thermometer"
 ---

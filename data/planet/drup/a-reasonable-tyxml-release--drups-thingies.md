@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Gabriel Radanne
 source:
+keywords:
+- "content"
+- "github"
+- "js_of_ocaml-tyxml"
+- "jsx"
+- "motivational"
+- "reason"
+- "reasonreact"
+- "tyxml"
+- "tyxml-jsx"
+- "validity"
 ---
 
 

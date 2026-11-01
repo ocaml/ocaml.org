@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "beta5"
+- "candidate"
+- "curl"
+- "future-proof"
+- "in-source"
+- "long-awaited"
+- "manpages"
+- "manually"
+- "opam"
+- "opam-devel"
 ---
 
 <p>We are pleased to announce a first release candidate for the long-awaited opam 2.0.0.</p>

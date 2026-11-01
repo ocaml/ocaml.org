@@ -9,4 +9,15 @@ authors:
 - Tarides
 source:
 ignore:
+keywords:
+- "arrays"
+- "atomic"
+- "domain"
+- "frame"
+- "garbage collection"
+- "iarray"
+- "immutability"
+- "labelled"
+- "lst"
+- "multicore"
 ---

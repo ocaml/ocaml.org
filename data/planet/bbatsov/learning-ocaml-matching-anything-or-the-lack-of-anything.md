@@ -8,6 +8,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "anything"
+- "contrived"
+- "discarding"
+- "foo"
+- "matching"
+- "pattern matching"
+- "placeholder"
+- "revealing"
+- "stricter"
+- "unit"
 ---
 
 <p>I’ve noticed that some newcomers to OCaml are a bit confused by code like the following:</p>

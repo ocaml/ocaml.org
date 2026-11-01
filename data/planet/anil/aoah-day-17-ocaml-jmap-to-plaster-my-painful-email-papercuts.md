@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "day"
+- "email"
+- "functor"
+- "jmap"
+- "jstr"
+- "notifications"
+- "pcre"
+- "ptime"
+- "zulip"
 ---

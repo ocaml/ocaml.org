@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "boy"
+- "embed"
+- "existential"
+- "girl"
+- "inj"
+- "monad"
+- "plist"
+- "prj"
+- "property"
+- "univ"
 ---
 
 In a long discussion at LtU, user Jules Jacobs advances a use-case that for him would have been difficult to solve in a statically-typed language. I focus on his first two points:

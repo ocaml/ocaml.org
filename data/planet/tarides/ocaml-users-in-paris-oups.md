@@ -8,6 +8,17 @@ preview_image: https://secure.meetupstatic.com/next/images/shared/meetup-logo.jp
 authors:
 - Tarides
 source:
+keywords:
+- "MirageOS"
+- "acceder"
+- "irill"
+- "mai"
+- "meetup"
+- "omicrob"
+- "oups"
+- "paris"
+- "salle"
+- "suivants"
 ---
 
 <p>Thomas Gazagnaire gave a presentation on MirageOS to the

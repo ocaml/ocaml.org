@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Matthias Puech
 source:
+keywords:
+- "app"
+- "definitions"
+- "exp"
+- "functor"
+- "lam"
+- "lookup_or"
+- "num"
+- "tbl"
+- "to_string"
+- "var"
 ---
 
 <p>Here is a quick hack. <a href="https://syntaxexclamation.wordpress.com/2013/05/04/malloc-is-the-new-gensym/" title="malloc() is the new&nbsp;gensym()">A few months ago</a>, I advocated for pointer equality in OCaml (==) as a way to deal with fresh symbols in a toy compiler. Today, I&rsquo;ll show another application of pointer equality: how to trivially implement a mechanism of definitions, to e.g. pretty-print programs in a more readable way. Once again, this is really easy, but I never heard of such a trick, so here it is.<span></span></p>

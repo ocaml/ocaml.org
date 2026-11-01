@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Mohamed Iguernlala\n  "
 source:
+keywords:
+- "alt-ergo"
+- "axioms"
+- "bharat"
+- "formula"
+- "js_of_ocaml"
+- "main_js"
+- "panel"
+- "predicates"
+- "try"
+- "why3"
 ---
 
 <p>Recently, we worked on an <a href="https://alt-ergo.ocamlpro.com/try.php">online Javascript-based serverless version of the Alt-Ergo SMT solver</a>. In what follows, we will explain the principle of this version of Alt-Ergo, show how it can be used on a realistic example and compare its performances with bytecode and native binaries of Alt-Ergo.</p>

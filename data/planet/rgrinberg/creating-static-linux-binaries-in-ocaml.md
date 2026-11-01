@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "cohttp-curl-lwt"
+- "cohttp-lwt-unix"
+- "cohttp_curl_lwt"
+- "depext"
+- "jbuilder"
+- "lwt"
+- "monad"
+- "ssl"
+- "static"
 ---
 
 <p>Creating truly static binaries for Linux like golang is a capability that is

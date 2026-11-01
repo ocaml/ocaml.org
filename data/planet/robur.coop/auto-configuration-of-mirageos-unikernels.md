@@ -8,6 +8,17 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "authoritative"
+- "auto-configuration"
+- "dhcp"
+- "dns"
+- "dnsvizor"
+- "fqdn"
+- "macaddr"
+- "mirageos"
+- "unikernel"
+- "unikernels"
 ---
 
 Removing tedious manual labor, use basic network protocols instead

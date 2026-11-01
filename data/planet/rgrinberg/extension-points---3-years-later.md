@@ -7,6 +7,17 @@ preview_image:
 authors:
 - ""
 source:
+keywords:
+- "extension"
+- "getenv"
+- "jbuilder"
+- "loc"
+- "monad"
+- "ppx"
+- "ppx_deriving_yojson"
+- "ppx_driver"
+- "ppx_getenv2"
+- "rewriter"
 ---
 
 <p>UPDATE: 2017-12-05 <a href="https://github.com/smondet" class="reference external">smondet</a> pointed out that the extension doesn&rsquo;t work quite as

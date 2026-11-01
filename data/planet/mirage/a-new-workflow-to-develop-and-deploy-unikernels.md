@@ -8,4 +8,15 @@ authors:
 - Hannes Mehnert
 source:
 ignore:
+keywords:
+- "deploy"
+- "develop"
+- "developing"
+- "embodies"
+- "emphasis"
+- "grips"
+- "uniker"
+- "unikernels"
+- "website"
+- "workflow"
 ---

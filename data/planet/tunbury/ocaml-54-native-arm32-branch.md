@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "arm32"
+- "armv6"
+- "bench"
+- "byte"
+- "compiler"
+- "git"
+- "multicore"
+- "native"
+- "opt"
+- "slowest"
 ---

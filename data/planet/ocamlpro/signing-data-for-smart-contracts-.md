@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\n  "
 source:
+keywords:
+- "bytearray"
+- "bytes"
+- "ed25519"
+- "hex"
+- "liquidity"
+- "sign"
+- "signature"
+- "signing"
+- "smart"
+- "tezos"
 ---
 
 <p>Smart contracts calls already provide a built-in authentication mechanism as transactions (i.e. call operations) are cryptographically signed by the sender of the transaction. This is a guarantee on which programs can rely.</p>

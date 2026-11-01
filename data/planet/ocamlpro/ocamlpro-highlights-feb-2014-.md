@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    \xC7agdas Bozman\t\n  "
 source:
+keywords:
+- "conf-gtksourceview"
+- "custom_printf"
+- "downgrade"
+- "fieldslib"
+- "ocaml-top"
+- "ocp-manager"
+- "recompile"
+- "scilab"
+- "type_conv"
+- "variantslib"
 ---
 
 <p>Here is a short report of some of our activities in February 2014 !</p>

@@ -10,4 +10,15 @@ authors:
 - Jane Street Tech Blog
 source:
 ignore:
+keywords:
+- "arg"
+- "count"
+- "decref"
+- "my_list"
+- "obj"
+- "object"
+- "pyocaml"
+- "python"
+- "reference"
+- "res"
 ---

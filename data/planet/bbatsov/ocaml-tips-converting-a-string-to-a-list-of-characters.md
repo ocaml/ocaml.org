@@ -11,6 +11,17 @@ preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg
 authors:
 - Bozhidar Batsov
 source:
+keywords:
+- "char"
+- "character"
+- "characters"
+- "chars"
+- "explode_string"
+- "hello"
+- "implode_char_list"
+- "init"
+- "inverse"
+- "operation"
 ---
 
 <p>While playing with OCaml I was surprised to learn there’s no built-in

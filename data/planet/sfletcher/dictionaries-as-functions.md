@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "class"
+- "const"
+- "despicable"
+- "dict_t"
+- "dict_type"
+- "int64_t"
+- "minion"
+- "ostream"
+- "pre"
+- "std"
 ---
 
 &amp;#60;h2&amp;#62;&amp;#60;/h2&amp;#62;

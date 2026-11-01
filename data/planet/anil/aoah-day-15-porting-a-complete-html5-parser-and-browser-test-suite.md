@@ -9,4 +9,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "browser"
+- "day"
+- "dec"
+- "domain"
+- "html5"
+- "odoc"
+- "parser"
+- "suite"
+- "test"
 ---

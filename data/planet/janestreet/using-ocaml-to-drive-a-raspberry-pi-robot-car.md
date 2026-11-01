@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/using-ocaml-to-drive-a-raspberry-pi-r
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "distance"
+- "distances"
+- "f3w"
+- "float"
+- "mdev"
+- "motors"
+- "raspberry"
+- "robot"
+- "set_rgb"
+- "ultrasonic"
 ---
 
 <p>Back when the Raspberry Pi was first released in 2012 Michael Bacarella wrote

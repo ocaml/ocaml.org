@@ -11,4 +11,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cni"
+- "containerd"
+- "ethernet"
+- "lwt"
+- "nat"
+- "ocaml-ci"
+- "ocurrent"
+- "ppx"
+- "routes"
+- "subnet"
 ---

@@ -8,6 +8,17 @@ preview_image: https://blog.janestreet.com/announcing-signals-and-threads-index/
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "async"
+- "compiler"
+- "episode"
+- "functional programming"
+- "jane"
+- "podcast"
+- "ppx"
+- "signals"
+- "street"
+- "threads"
 ---
 
 <p>I&rsquo;m excited (and slightly terrified) to announce that Jane Street is

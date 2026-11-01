@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "alice"
+- "crypt"
+- "drm"
+- "moonpool"
+- "ocamlformat"
+- "pci"
+- "plane"
+- "ppx_deriving_jsont"
+- "salt"
+- "utop"
 ---

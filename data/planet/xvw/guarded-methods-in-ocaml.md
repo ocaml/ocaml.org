@@ -8,6 +8,17 @@ authors:
 - xvw, Xavier Van de Woestyne
 source:
 ignore:
+keywords:
+- "class"
+- "flatten"
+- "guarded"
+- "method"
+- "methods"
+- "mylist"
+- "obj_list"
+- "olist"
+- "refl"
+- "witness"
 ---
 
 

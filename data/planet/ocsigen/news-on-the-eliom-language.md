@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Gabriel `Drup` Radanne
 source:
+keywords:
+- "client"
+- "converters"
+- "eliom"
+- "extension"
+- "functor"
+- "language"
+- "ocsigen"
+- "ppx"
+- "scheme"
+- "server"
 ---
 
 <p>The <a href="https://ocsigen.org/eliom/">Eliom framework</a> is the part of the <a href="https://ocsigen.org">ocsigen project</a> that aims to provide

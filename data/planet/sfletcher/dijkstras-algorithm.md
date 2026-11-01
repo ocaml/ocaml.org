@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Shayne Fletcher
 source:
+keywords:
+- "dijkstra"
+- "extern_t"
+- "load_error"
+- "map"
+- "sexp"
+- "shortest"
+- "state"
+- "v_s"
+- "vert"
+- "vertex_t"
 ---
 
 

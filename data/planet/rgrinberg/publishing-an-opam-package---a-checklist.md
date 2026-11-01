@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "cmxs"
+- "dune"
+- "dyn"
+- "lwt"
+- "merlin"
+- "monad"
+- "opam"
+- "ppx"
+- "publishing"
 ---
 
 <p>The process of publishing an opam package has come a long way from its

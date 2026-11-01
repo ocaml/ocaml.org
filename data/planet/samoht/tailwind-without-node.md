@@ -10,4 +10,15 @@ authors:
 - Thomas Gazagnaire
 source:
 ignore:
+keywords:
+- "cascade"
+- "class"
+- "css"
+- "cssdiff"
+- "flex"
+- "js_of_ocaml"
+- "stylesheet"
+- "tailwind"
+- "tailwindcss"
+- "text-white"
 ---

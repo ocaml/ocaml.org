@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "api-exchange"
+- "exchange"
+- "functional programming"
+- "fund"
+- "gnu"
+- "high"
+- "mirageos"
+- "mte"
+- "taler"
+- "unikernel"
 ---

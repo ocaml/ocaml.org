@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "algebraic effect"
+- "benchmarking"
+- "benchmarks"
+- "dockerfile"
+- "effect"
+- "flambda"
+- "lwt"
+- "marshalling"
+- "multicore"
+- "ppx"
 ---
 
 <p>Over the past few weeks, at <a href="http://ocamllabs.io/">OCaml Labs</a>, we&rsquo;ve deployed

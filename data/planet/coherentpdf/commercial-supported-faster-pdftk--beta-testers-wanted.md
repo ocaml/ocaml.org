@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Coherent Graphics
 source:
+keywords:
+- "coherent"
+- "cpdftk"
+- "faster"
+- "january"
+- "july"
+- "march"
+- "pdf"
+- "pdftk"
+- "proview"
+- "supported"
 ---
 
 <p>We&rsquo;re writing a front end for our PDF tools with the same command line interface as <a href="http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/">pdftk</a>, so that it can be used as a drop-in replacement for pdftk for people who can&rsquo;t compile pdftk on their system and don&rsquo;t want to change to our normal command line system cpdf, or who want a supported, commercial pdftk.</p>

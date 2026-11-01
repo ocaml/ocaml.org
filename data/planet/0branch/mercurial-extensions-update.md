@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Marc Simpson
 source:
+keywords:
+- "archived"
+- "disqus"
+- "extensions"
+- "hg-persona"
+- "hg-prettypaths"
+- "lightly"
+- "marc"
+- "mercurial"
+- "simpson"
+- "tidied"
 ---
 
 <div>

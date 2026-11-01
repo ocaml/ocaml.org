@@ -9,6 +9,17 @@ preview_image: https://blog.janestreet.com/advent-of-hardcaml-2024/snowglobe_cam
 authors:
 - Jane Street Tech Blog
 source:
+keywords:
+- "advent"
+- "check_fn"
+- "fpga"
+- "functor"
+- "hardcaml"
+- "list_match_reversible"
+- "make_sliding_window"
+- "metaprogramming"
+- "puzzles"
+- "window"
 ---
 
 <p><a href="https://adventofcode.com/">Advent of Code</a> is an annual Advent calendar

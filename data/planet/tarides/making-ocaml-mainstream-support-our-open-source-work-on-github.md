@@ -8,6 +8,17 @@ preview_image: https://tarides.com/blog/images/camel-train-1360w.webp
 authors:
 - Tarides
 source:
+keywords:
+- "OCaml LSP"
+- "concurrency"
+- "effect"
+- "eio"
+- "js_of_ocaml"
+- "merlin"
+- "multicore"
+- "ocaml-ci"
+- "ocamlformat"
+- "odoc"
 ---
 
 <p>We are steadfast OCaml advocates, <a href="https://tarides.com/blog/2024-06-19-keeping-up-with-the-compiler-how-we-help-maintain-the-ocaml-language/">providing core maintenance</a>, <a href="https://tarides.com/blog/2024-05-01-we-host-our-first-ocaml-retreat-in-india/">hosting community events</a>, and <a href="https://tarides.com/blog/2023-03-02-the-journey-to-ocaml-multicore-bringing-big-ideas-to-life/">bringing groundbreaking new features to the language</a>. We choose OCaml because it is a programming language with a unique combination of strengths, combining an expressive syntax and strong type system with memory safety and the power of multicore programming.</p>

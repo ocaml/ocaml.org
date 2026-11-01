@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "abstr"
+- "behavioural"
+- "foo3"
+- "linearityviolation"
+- "polymorphic variant"
+- "read"
+- "ref"
+- "rw_prot"
+- "succ"
+- "utop"
 ---
 
 <p>Behavioural types such as session types, contracts and choreography describe the

@@ -10,4 +10,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "aoah"
+- "connection"
+- "day"
+- "dec"
+- "eio"
+- "outgoing"
+- "pooling"
+- "self-contained"
+- "tracing"
+- "visualisations"
 ---

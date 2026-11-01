@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Adrien Champion\n  "
 source:
+keywords:
+- "callstack"
+- "chart"
+- "ctf"
+- "dumps"
+- "file_name_"
+- "filter"
+- "filters"
+- "memthol"
+- "mini_ae"
+- "rsc"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/banner_memprof_banniere_blue.png" alt=""/></p>

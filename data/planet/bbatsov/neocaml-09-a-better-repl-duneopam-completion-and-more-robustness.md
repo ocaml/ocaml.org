@@ -12,4 +12,15 @@ authors:
 - Bozhidar Batsov
 source:
 ignore:
+keywords:
+- "abi"
+- "completion"
+- "dune"
+- "emacs"
+- "neocaml"
+- "ocaml-lsp-server"
+- "ocamlformat"
+- "repl"
+- "tree-sitter"
+- "utop"
 ---

@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "day10"
+- "day11"
+- "docs"
+- "dune"
+- "git"
+- "ocurrent"
+- "odoc"
+- "opam"
+- "parseff"
+- "plugin"
 ---

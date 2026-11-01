@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore: true
+keywords:
+- "ad-free"
+- "currie"
+- "eeg"
+- "panopticon"
+- "propl"
+- "sites"
+- "talks"
+- "video"
+- "videos"
+- "viral"
 ---
 
 <p>The sister conference to <a href="https://anil.recoil.org/notes/propl-at-splash">PROPL</a> was held late last year in Scotland with a bumper attendance from Cambridge. All of the talks from it are now available online at <a href="https://www.youtube.com/@loco-workshop">YouTube</a>, or on our ad-free <a href="https://watch.eeg.cl.cam.ac.uk/c/loco/videos">EEG video site</a>.

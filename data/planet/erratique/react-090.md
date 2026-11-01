@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "delayed"
+- "events"
+- "frp"
+- "opam"
+- "react"
+- "rtime"
+- "signals"
+- "stamp"
+- "timeline"
+- "varying"
 ---
 
 <p>First release of React, an OCaml module for functional reactive programming (<abbr>FRP</abbr>).</p>

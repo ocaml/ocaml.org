@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "arm64"
+- "frame"
+- "ldp"
+- "multicore"
+- "perf"
+- "pointer"
+- "pointers"
+- "x29"
+- "x30"
+- "x86_64-"
 ---

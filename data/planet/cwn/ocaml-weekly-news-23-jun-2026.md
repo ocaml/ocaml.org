@@ -8,4 +8,15 @@ authors:
 - Caml Weekly News
 source:
 ignore:
+keywords:
+- "GADT"
+- "flambda"
+- "foreign function interface"
+- "functor"
+- "google-drive-ocamlfuse"
+- "int_gmp"
+- "map"
+- "ocamlfuse"
+- "polymorphic variant"
+- "ppf"
 ---

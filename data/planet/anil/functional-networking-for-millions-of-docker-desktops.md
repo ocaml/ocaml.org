@@ -8,6 +8,17 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "conclude"
+- "desktops"
+- "docker"
+- "drives"
+- "millions"
+- "non-linux"
+- "observing"
+- "shipping"
+- "unikernel"
+- "virtualisation"
 ---
 
 

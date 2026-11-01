@@ -9,6 +9,17 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "apache"
+- "clickhouse"
+- "commit"
+- "curl"
+- "echo"
+- "json"
+- "no_solution"
+- "ocaml-base-compiler"
+- "parquet"
+- "sha"
 ---
 
 <p>If you haven’t discovered the <a href="https://parquet.apache.org">Apache Parquet</a> file format, allow me to introduce it along with <a href="https://clickhouse.com">ClickHouse</a>.</p>

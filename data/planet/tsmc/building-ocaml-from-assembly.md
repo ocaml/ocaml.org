@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "assembly"
+- "c_to_ocaml"
+- "foreign function interface"
+- "ldp"
+- "lib"
+- "meander"
+- "meander_c"
+- "owee"
+- "tsmc"
+- "x16"
 ---

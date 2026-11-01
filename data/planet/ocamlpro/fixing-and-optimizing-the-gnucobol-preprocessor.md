@@ -10,6 +10,17 @@ preview_image: https://ocamlpro.com/blog/assets/img/craiyon-gnucobol-optimizatio
 authors:
 - "\n    Fabrice Le Fessant\n  "
 source:
+keywords:
+- "cobol"
+- "copy"
+- "gnucobol"
+- "my-record"
+- "pic"
+- "replace"
+- "replacements"
+- "tokens"
+- "val1"
+- "xxx"
 ---
 
 <p></p>

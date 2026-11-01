@@ -10,4 +10,15 @@ authors:
 - Mark Elvers
 source:
 ignore:
+keywords:
+- "cat-file"
+- "day10"
+- "dir_context"
+- "eio"
+- "fork"
+- "git-unix"
+- "ocurrent"
+- "opam"
+- "opam-0install"
+- "prefetch"
 ---

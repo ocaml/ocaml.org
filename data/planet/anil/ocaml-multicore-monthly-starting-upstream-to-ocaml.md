@@ -8,6 +8,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "anil"
+- "contribute"
+- "forum"
+- "mainline"
+- "multicore"
+- "multicore-monthly-jan20"
+- "outstanding"
+- "posting"
+- "steadily"
+- "upstreaming"
 ---
 
 <p>We started the process of upstreaming our <a href="https://anil.recoil.org/papers/2014-oud-multicore">multicore OCaml</a> branch to mainline OCaml, and so I started posting regular updates to the community forum.</p>

@@ -7,6 +7,17 @@ preview_image:
 authors:
 - "Daniel B\xFCnzli"
 source:
+keywords:
+- "abstraction"
+- "compositional"
+- "four"
+- "glsl"
+- "lightweight"
+- "lua"
+- "lubyk"
+- "opengl"
+- "rendering"
+- "shader"
 ---
 
 <p><a href="http://gaspardbuma.org/en">Gaspard Buma</a>'s show <em>Boats to nowhere</em> is now playing at the <a href="http://www.arsenic.ch">Arsenic</a>. I helped with the show's visuals and along the way prototyped <a href="https://erratique.ch/software/four">Four</a> a lightweight modern OpenGL rendering engine for Lua.</p>

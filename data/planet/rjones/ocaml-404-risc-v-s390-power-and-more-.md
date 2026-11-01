@@ -9,6 +9,17 @@ preview_image: https://s0.wp.com/i/blank.jpg
 authors:
 - Richard Jones
 source:
+keywords:
+- "apprehensive"
+- "backend"
+- "fedora"
+- "mass-rebuild"
+- "non-upstream"
+- "ppc64"
+- "ppc64le"
+- "rawhide"
+- "rds"
+- "risc-v"
 ---
 
 <p>I pushed <a href="https://ocaml.org/releases/4.04.html">OCaml 4.04.0</a> <a href="https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/X63CN5B7FMFES3SCQKVUWTQO6TGVK7KU/">to Fedora Rawhide</a> last week.  There are loads of new features for OCaml users, but the ones that particularly affect Fedora are:</p>

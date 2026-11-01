@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Robur Cooperative
 source:
+keywords:
+- "bsdtar"
+- "exit"
+- "gnu"
+- "gpt"
+- "gptar"
+- "libarchive"
+- "tar"
+- "to_consume"
+- "unconsumed"
+- "volume"
 ---
 
 libarchive vs hybrid GUID partition table and GNU tar volume header

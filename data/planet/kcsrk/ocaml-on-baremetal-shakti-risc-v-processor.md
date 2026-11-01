@@ -7,6 +7,17 @@ preview_image:
 authors:
 - KC Sivaramakrishnan
 source:
+keywords:
+- "directory"
+- "entering"
+- "mirageos"
+- "ocaml-baremetal-riscv"
+- "ocaml-boot"
+- "processor"
+- "risc-v"
+- "root"
+- "shakti"
+- "stdio"
 ---
 
 <p>It has been 3 months since I joined <a href="https://www.iitm.ac.in/">IIT Madras</a> and it

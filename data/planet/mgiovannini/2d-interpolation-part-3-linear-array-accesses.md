@@ -8,6 +8,17 @@ preview_image:
 authors:
 - "Mat\xEDas Giovannini"
 source:
+keywords:
+- "arraycopy"
+- "c11"
+- "c12"
+- "c21"
+- "c22"
+- "cubic"
+- "float"
+- "ncols"
+- "nrows"
+- "srcpix"
 ---
 
 Last time I've hoisted all accesses to the source array. This opens the door to being able to process linear arrays representing a matrix in row-major order by stenciling. Not only that, but I was able to completely eliminate the need to have a bordered array on input by explicitly replicating elements as needed. The first step is to use a row buffer into which to copy the elements to be 

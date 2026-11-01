@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Anil Madhavapeddy
 source:
+keywords:
+- "build"
+- "dawn"
+- "dune"
+- "exotic"
+- "lucas"
+- "mirageos"
+- "pluvinage"
+- "practical"
+- "targets"
+- "unikernel"
 ---
 
 <p>Paper on the MirageOS 4 build system at OCaml Workshop</p>

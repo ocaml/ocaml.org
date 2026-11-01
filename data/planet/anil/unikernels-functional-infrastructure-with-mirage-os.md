@@ -8,4 +8,15 @@ authors:
 - Anil Madhavapeddy
 source:
 ignore:
+keywords:
+- "california"
+- "esper"
+- "functional"
+- "functional programming"
+- "infrastructure"
+- "meetup"
+- "mirage"
+- "mirageos"
+- "packed"
+- "unikernels"
 ---

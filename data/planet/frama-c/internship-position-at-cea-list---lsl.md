@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Frama-C
 source:
+keywords:
+- "analysis"
+- "cea"
+- "formal verification"
+- "frama-c"
+- "functional programming"
+- "internship"
+- "learning"
+- "lsl"
+- "persons"
+- "techniques"
 ---
 
 

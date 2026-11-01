@@ -7,6 +7,17 @@ preview_image:
 authors:
 - The Ocsigen Team
 source:
+keywords:
+- "apps"
+- "demo"
+- "js_of_ocaml"
+- "mobile"
+- "moi"
+- "ocsigen"
+- "ot_tongue"
+- "swipable"
+- "toolkit"
+- "widget"
 ---
 
 <p>New release: Ocsigen Toolkit 2.7</p>

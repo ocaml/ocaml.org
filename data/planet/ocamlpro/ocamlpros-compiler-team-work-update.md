@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Vincent Laviron\n  "
 source:
+keywords:
+- "compilation"
+- "compiler"
+- "flambda"
+- "functor"
+- "lambda"
+- "multicore"
+- "my_f"
+- "pattern matching"
+- "recursive"
+- "result_bind"
 ---
 
 <p><img src="https://ocamlpro.com/blog/assets/img/picture_cpu_compiler.jpeg" alt=""/></p>

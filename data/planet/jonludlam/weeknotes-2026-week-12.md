@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "bbox"
+- "geo_bounds"
+- "js_of_ocaml"
+- "linalg"
+- "mat"
+- "max_pixels"
+- "odoc"
+- "status_view"
+- "stride"
+- "widget"
 ---

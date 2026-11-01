@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Thomas Leonard
 source:
+keywords:
+- "ack"
+- "bpftrace"
+- "client"
+- "echo_bench"
+- "fiber"
+- "io_uring"
+- "io_uring_enter"
+- "null"
+- "pollin"
+- "tracepoint"
 ---
 
 <p>Linux and OCaml provide a huge range of tools for investigating performance problems.

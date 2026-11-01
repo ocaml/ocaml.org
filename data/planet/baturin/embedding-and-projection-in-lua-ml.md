@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Daniil Baturin
 source:
+keywords:
+- "bool"
+- "embed"
+- "embed_anything"
+- "embedding"
+- "float"
+- "lua"
+- "lua-ml"
+- "ocamlfind"
+- "polymorphic variant"
+- "projection"
 ---
 
 

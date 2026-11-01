@@ -8,4 +8,15 @@ authors:
 - Jon Ludlam
 source:
 ignore:
+keywords:
+- "bigstring"
+- "claude"
+- "docs"
+- "dune"
+- "eio"
+- "odoc"
+- "odoc_driver"
+- "opam-format"
+- "opam-repository"
+- "seemed"
 ---

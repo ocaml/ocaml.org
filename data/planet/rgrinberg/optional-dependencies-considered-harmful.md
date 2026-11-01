@@ -7,6 +7,17 @@ preview_image:
 authors:
 - Rudi Grinberg
 source:
+keywords:
+- "async"
+- "cohttp"
+- "dependencies"
+- "depopts"
+- "effect"
+- "js_of_ocaml"
+- "lwt"
+- "monad"
+- "optional"
+- "ppx_tools"
 ---
 
 <p>This will be a short PSA to opam package maintainers to avoid spurious optional

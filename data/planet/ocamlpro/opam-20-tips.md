@@ -10,6 +10,17 @@ preview_image: URL_de_votre_image
 authors:
 - "\n    Louis Gesbert\n  "
 source:
+keywords:
+- "depext"
+- "effect"
+- "foo"
+- "foo-bin"
+- "foo-lib"
+- "local"
+- "opam"
+- "reproduce"
+- "some-package"
+- "switch"
 ---
 
 <p>This blog post looks back on some of the improvements in opam 2.0, and gives

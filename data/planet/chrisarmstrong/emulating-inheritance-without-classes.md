@@ -10,4 +10,15 @@ authors:
 - Chris Armstrong
 source:
 ignore:
+keywords:
+- "button"
+- "button_clicked"
+- "foreign function interface"
+- "gobject"
+- "obj_"
+- "polymorphic variant"
+- "set_focusable"
+- "text_changed"
+- "type checker"
+- "widget"
 ---

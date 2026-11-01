@@ -7,6 +7,17 @@ preview_image:
 authors:
 - OCamlCore.com
 source:
+keywords:
+- "cocan"
+- "functional programming"
+- "gall"
+- "grenoble"
+- "leblanc"
+- "meeting"
+- "ocamlcore"
+- "parallelism"
+- "serge"
+- "trackback"
 ---
 
 <p>OCaml Meeting 2009 will be sponsored by OCamlCore. This year event takes place in Grenoble just after the <a href="http://jfla.inria.fr/2009/">JFLA</a>.</p>

@@ -9,6 +9,17 @@ preview_image:
 authors:
 - Xinuo Chen
 source:
+keywords:
+- "element"
+- "functional"
+- "immutable"
+- "imperative"
+- "java"
+- "left"
+- "mutable"
+- "pattern matching"
+- "pivot"
+- "quicksort"
 ---
 
 <p><img src="http://typeocaml.com/content/images/2014/12/Immutable.jpg#hero" alt="immutable"/></p>

@@ -8,4 +8,15 @@ authors:
 - Tim McGilchrist
 source:
 ignore:
+keywords:
+- "abi"
+- "back-chain"
+- "cfa"
+- "cfi"
+- "frame"
+- "pointer"
+- "pointers"
+- "power"
+- "save"
+- "stack"
 ---
