@@ -61,8 +61,10 @@ If you want to use a library from a package installed in the current opam switch
 
 into the toplevel to make all definitions from the library available. For example, try
 
-<!-- Depends on the libraries installed in the switch, and since OCaml 5.0 the
-     toplevel finds Str on its own (with an alert) before any #require. -->
+<!-- FIXME: since OCaml 5.0 the toplevel finds Str on its own (with an alert)
+     before any #require, so this no longer shows an unbound module; the
+     example needs a library that is not auto-included. Not run: depends on
+     the libraries installed in the switch. -->
 <!-- $MDX skip -->
 ```ocaml
 # Str.quote {|"hello"|};;
