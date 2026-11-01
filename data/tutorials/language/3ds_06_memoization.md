@@ -270,7 +270,7 @@ choosing certain pairs of words to put line breaks in between. For example, when
 applied to the list of words in this paragraph, with width 60, we want output
 like the following:
 
-```ocaml
+```text
 let it =
   ["Here is a more involved example of memoization. Suppose that",
    "we have some text that we want to format as a paragraph",
@@ -407,5 +407,9 @@ let linebreak2 (words : string list) (target : int) : string list =
   in
   let result, cost = lb 0 words in
   result
+```
+```mdx-error
+Line 27, characters 26-30:
+Error: Unbound value cube
 ```
 -->

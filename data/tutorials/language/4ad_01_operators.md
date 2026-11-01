@@ -86,7 +86,7 @@ val ( !! ) : 'a lazy_t -> 'a = <fun>
 val transpose : 'a list list -> 'a list list = <fun>
 
 # let ( ~: ) = transpose;;
-val ( ~: ) : 'a list list -> 'a list list
+val ( ~: ) : 'a list list -> 'a list list = <fun>
 ```
 
 This allows users to write more compact code. However, be careful not to write excessively terse code, as it is harder to maintain. Understanding operators must be obvious to most readers, otherwise they do more harm than good.
@@ -202,6 +202,7 @@ val ( let* ) : 'a option -> ('a -> 'b option) -> 'b option = <fun>
     Some (registrant, identifier)
   else
     None;;
+val doi_parts : string -> (string * string) option = <fun>
 
 # doi_parts "doi:10.1000/182";;
 - : (string * string) option = Some ("1000", "182")

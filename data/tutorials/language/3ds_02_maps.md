@@ -27,8 +27,14 @@ For a different implementation of an association table in OCaml's Standard Libra
 on [Hash Tables](/docs/hash-tables).
 
 ```ocaml
-# module StringMap = Map.Make(String);;
+module StringMap = Map.Make(String)
+```
 
+After naming the newly-created module `StringMap`, OCaml's toplevel displays the
+module's signature. Since it contains a large number of functions, the output
+copied here is shortened for brevity `(...)`.
+
+```text
 module StringMap :
   sig
     type key = string
@@ -42,10 +48,6 @@ module StringMap :
     (* ... *)
   end
 ```
-
-After naming the newly-created module `StringMap`, OCaml's toplevel displays the
-module's signature. Since it contains a large number of functions, the output
-copied here is shortened for brevity `(...)`.
 
 When we created the `StringMap` module, we fed the `Map.Make` functor the `String` module to
 define the type of the map's keys, which we can observe in the `StringMap`'s signature
@@ -191,7 +193,7 @@ You should experiment with different update functions; several behaviors are pos
 To check if a key is a member of a map, use the `mem` function:
 
 ```ocaml
-# StringMap.mem "paguzar" less_lucky_numbers;;
+# StringMap.mem "paguzar" lucky_numbers;;
 - : bool = false
 ```
 
@@ -265,7 +267,7 @@ val even_numbers : int StringMap.t = <abstr>
 Map modules have a `map` function:
 
 ```ocaml
-StringMap.map;;
+# StringMap.map;;
 - : ('a -> 'b) -> 'a StringMap.t -> 'b StringMap.t = <fun>
 ```
 
@@ -310,28 +312,17 @@ We'll start by defining a module for strings that compares them in a case-insens
     type t = string
     let compare a b = String.(compare (lowercase_ascii a) (lowercase_ascii b))
   end;;
-module Istring : sig type t val compare : t -> t -> int end
+module Istring : sig type t = string val compare : t -> t -> int end
 ```
 
 Note that our module has a `type t` and also a `compare` function. Now we can
 call the `Map.Make` functor to get a map for non-negative numbers:
 
 ```ocaml
-# module IstringMap = Map.Make(Istring);;
-module IstringMap :
-  sig
-    type key = Istring.t
-    type 'a t = 'a Map.Make(Istring).t
-    val empty : 'a t
-    val is_empty : 'a t -> bool
-    val mem : key -> 'a t -> bool
-    val add : key -> 'a -> 'a t -> 'a t
-    val update : key -> ('a option -> 'a option) -> 'a t -> 'a t
-    val singleton : key -> 'a -> 'a t
-    val remove : key -> 'a t -> 'a t
-    (* ... *)
-end
+module IstringMap = Map.Make(Istring)
+```
 
+```ocaml
 # let lucky_int_numbers = IstringMap.of_seq @@ List.to_seq [
     ("leostera", 2112);
     ("charstring88", 88);

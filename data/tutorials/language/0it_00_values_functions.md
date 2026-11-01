@@ -40,7 +40,7 @@ Like most functional programming languages, OCaml is an [expression-oriented](ht
 
 # print_endline "Hello!";;
 Hello!
-- : unit
+- : unit = ()
 ```
 
 An expression's type (before evaluation) and its resulting value's type (after computation) are the same. This allows the compiler to avoid runtime type checks in binaries. In OCaml, the compiler removes type information, so it's not available at runtime. In programming theory, this is called [subject reduction](https://en.wikipedia.org/wiki/Subject_reduction).
@@ -67,6 +67,7 @@ Local definitions bind a name inside an expression:
 - : int = 42
 
 # d;;
+Line 1, characters 1-2:
 Error: Unbound value d
 ```
 
@@ -84,8 +85,10 @@ Local definitions can be chained (one after another) or nested (one inside anoth
 - : int = 252
 
 # d;;
+Line 1, characters 1-2:
 Error: Unbound value d
 # e;;
+Line 1, characters 1-2:
 Error: Unbound value e
 ```
 
@@ -102,8 +105,10 @@ Here is an example of nesting:
 - : int = 210
 
 # d;;
+Line 1, characters 1-2:
 Error: Unbound value d
 # e;;
+Line 1, characters 1-2:
 Error: Unbound value e
 ```
 Here is how scoping works:
@@ -137,7 +142,7 @@ types.
 A common case is tuples. It allows the creation of two names with a single `let`.
 ```ocaml
 # List.split;;
-- : ('a * 'b) list -> 'a list * 'b list
+- : ('a * 'b) list -> 'a list * 'b list = <fun>
 
 # let (x, y) = List.split [(1, 2); (3, 4); (5, 6); (7, 8)];;
 val x : int list = [1; 3; 5; 7]
@@ -256,8 +261,8 @@ type person = {
     contact = ("jane@example.com", 1234567890);
   };;
 val jane : person =
-  {name = "Jane Doe"; street = "123 Elm St"; city = "Springfield"; zip = 12345;
-   contact = ("jane@example.com", 1234567890)}
+  {name = "Jane Doe"; street = "123 Elm St"; city = "Springfield";
+   zip = 12345; contact = ("jane@example.com", 1234567890)}
 ```
 
 The following examples demonstrate two methods by which we can extract Jane's `email` and `phone` number data in the nested `contact` tuple. We will do so first by using nested deconstruction, then demonstrate another approach by first extracting `content` followed by accessing the `email` and `phone` by deconstructing `contact`.
@@ -278,6 +283,7 @@ Notice that `contact` is not available in our top-level scope:
 
 ```ocaml
 # contact;;
+Line 1, characters 1-8:
 Error: Unbound value contact
 ```
 
@@ -286,16 +292,16 @@ This is because "contact" is not a top-level definition; rather, it is a local d
 Next, we demonstrate the two-phase approach for accessing `email` and `phone`. This brings `contact` into our top-level scope and requires two steps:
 
 ```ocaml
-(* Step 1: deconstruct all record fields *)
-# let { name; street; city; zip; contact } = jane;;
+# (* Step 1: deconstruct all record fields *)
+  let { name; street; city; zip; contact } = jane;;
 val name : string = "Jane Doe"
 val street : string = "123 Elm St"
 val city : string = "Springfield"
 val zip : int = 12345
 val contact : string * int = ("jane@example.com", 1234567890)
 
-(* Step 2: deconstruct the tuple *)
-# let ( email, phone ) = contact;;
+# (* Step 2: deconstruct the tuple *)
+  let ( email, phone ) = contact;;
 val email : string = "jane@example.com"
 val phone : int = 1234567890
 ```
@@ -314,8 +320,8 @@ When pattern matching, it is possible to discard or ignore values that are not d
 Continuing from the above `jane` record example, we can simply omit the `zip` field in the pattern if we don't want to bind it to a name:
 
 ```ocaml
-# let { name; street; city; contact = (email, phone) } = john;;
-val name : string = "Nohn Doe"
+# let { name; street; city; contact = (email, phone) } = jane;;
+val name : string = "Jane Doe"
 val street : string = "123 Elm St"
 val city : string = "Springfield"
 val email : string = "jane@example.com"
@@ -325,7 +331,7 @@ val phone : int = 1234567890
 Tuples behave differently from records; contained data is anonymous, and its position is used to access it. To discard the `email` value from the tuple of the `contact` field, we need to use the catch-all pattern (`_`):
 
 ```ocaml
-# let { name; street; city; contact = (_, phone) } = john;;
+# let { name; street; city; contact = (_, phone) } = jane;;
 val name : string = "Jane Doe"
 val street : string = "123 Elm St"
 val city : string = "Springfield"
@@ -355,7 +361,9 @@ Here, the global environment is unchanged:
 - : int = 20
 
 # ten;;
+Line 1, characters 1-4:
 Error: Unbound value ten
+Hint: Did you mean tan?
 ```
 
 Evaluating `ten` results in an error because it hasn't been added to the global environment. However, in the expression `2 * ten`, the local environment contains the definition of `ten`.
@@ -537,6 +545,7 @@ A function may be defined locally.
 - : int = 2401
 
 # sq;;
+Line 1, characters 1-3:
 Error: Unbound value sq
 ```
 
@@ -717,6 +726,7 @@ With parentheses, it is obvious that a multiple-argument function is a single-pa
 Putting the parentheses the other way does not work:
 ```ocaml
 # let bogus_cat : (string -> string) -> string = sweet_cat;;
+Line 1, characters 48-57:
 Error: This expression has type string -> string -> string
        but an expression was expected of type (string -> string) -> string
        Type string is not compatible with type string -> string

@@ -48,8 +48,24 @@
  language
  (mdx
   (files
+   0it_00_values_functions.md
+   0it_01_basic_datatypes.md
+   0it_02_loops_and_recursion.md
+   0it_03_lists.md
+   0it_04_higher_order_functions.md
+   0it_05_labels.md
+   0it_06_imperative.md
    1ms_02_first_class_modules.md
+   3ds_00_options.md
+   3ds_01_arrays.md
+   3ds_02_maps.md
+   3ds_03_sets.md
    3ds_04_hashtbl.md
+   3ds_05_seq.md
+   3ds_06_memoization.md
+   3ds_07_monads.md
    4ad_00_metaprogramming.md
+   4ad_01_operators.md
+   4ad_02_objects.md
    5rt_00_memory_representation.md)
   (libraries unix)))

@@ -70,7 +70,7 @@ make it more specific. So you can't write, for example, `( 1 : float )`:
 Line 1, characters 2-3:
 Error: This expression has type int but an expression was expected of type
          float
-  Hint: Did you mean `1.'?
+  Hint: Did you mean 1.?
 ```
 
 Type safety is preserved. Back to the example ...
@@ -265,6 +265,7 @@ widget. This was my first attempt:
       name
     method virtual repaint : unit
   end;;
+Lines 1-6, characters 1-6:
 Error: Some type variables are unbound in this type:
          class virtual widget :
            'a ->
@@ -327,6 +328,7 @@ using `new`:
 
 ```ocaml
 # let w = new widget "my widget";;
+Line 1, characters 9-19:
 Error: Cannot instantiate the virtual class widget
 ```
 
@@ -375,6 +377,8 @@ Notes:
  basically comes down to the fact that OCaml's linked lists are
  immutable. Let's imagine that someone wrote this code:
 
+<!-- Illustrative: neither container nor x is defined. -->
+<!-- $MDX skip -->
 ```ocaml
 # let list = container#get_widgets in
   x :: list;;
@@ -384,7 +388,7 @@ Would this modify the private internal representation of my `container`
 class, by prepending `x` to the list of widgets? No it wouldn't. If you run
 the above code, you'll see it throws an error:
 
-```ocaml
+```text
 Error: Unbound value container
 ```
 
@@ -476,12 +480,15 @@ val b : button = <obj>
 
 # b#repaint;;
 Button being repainted, state is Released
+
 - : unit = ()
 # b#press;;
 Ouch!
+
 - : unit = ()
 # b#repaint;;
 Button being repainted, state is Pressed
+
 - : unit = ()
 # b#release;;
 - : unit = ()
@@ -511,6 +518,7 @@ val l : label = <obj>
 # b#repaint;;
 Label: Press me!
 Button being repainted, state is Released
+
 - : unit = ()
 ```
 
@@ -544,6 +552,7 @@ val b : button = <obj>
 # let l = new label "label" "Press me!";;
 val l : label = <obj>
 # [b; l];;
+Line 1, characters 5-6:
 Error: This expression has type label but an expression was expected of type
          button
        The first object type has no method add
@@ -558,6 +567,7 @@ that we want a `widget list`. Let's try telling it:
 # let wl = ([] : widget list);;
 val wl : widget list = []
 # let wl = b :: wl;;
+Line 1, characters 15-17:
 Error: This expression has type widget list
        but an expression was expected of type button list
        Type widget = < get_name : string; repaint : unit >
@@ -723,6 +733,7 @@ val x : < get : int > = <obj>
 # let y = object method get = 80 method special = "hello" end;;
 val y : < get : int; special : string > = <obj>
 # let l = [x; y];;
+Line 1, characters 13-14:
 Error: This expression has type < get : int; special : string >
        but an expression was expected of type < get : int >
        The second object type has no method special

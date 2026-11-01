@@ -59,10 +59,13 @@ val pi : float = 3.14159
 val tau : float = 6.28318
 
 # let tau = 2 *. pi;;
+Line 1, characters 11-12:
 Error: This expression has type int but an expression was expected of type
          float
+  Hint: Did you mean 2.?
 
 # let tau = 2 * pi;;
+Line 1, characters 15-17:
 Error: This expression has type float but an expression was expected of type
          int
 ```
@@ -140,7 +143,7 @@ Indexed access to string characters is possible using the following syntax:
 
 ```ocaml
 # "buenos dias".[4];;
-- : char : 'o'
+- : char = 'o'
 ```
 
 Operations on `string` values are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`String`](/manual/api/String.html) modules.
@@ -398,7 +401,7 @@ In OCaml, functions may terminate without returning the expected type value by t
 
 ```ocaml
 # raise;;
-- : exn -> 'a' = <fun>
+- : exn -> 'a = <fun>
 ```
 
 Exceptions are discussed in the [Error Handling](/docs/error-handling) guide.
@@ -433,8 +436,10 @@ The `unit` type has several uses. Mainly, it serves as a token when a function d
 
 The function `read_line` reads an end-of-line terminated sequence of characters from standard input and returns it as a string. Reading input begins when `()` is passed.
 
+<!-- Reads from standard input, which the test harness does not provide. -->
+<!-- $MDX skip -->
 ```ocaml
- # read_line ();;
+# read_line ();;
 foo bar
 - : string = "foo bar"
 
@@ -539,7 +544,6 @@ type commit =
   | Fetch_head
   | Orig_head
   | Merge_head
-
 ```
 
 Here is how to convert a `commit` to a `string` using pattern matching:
@@ -559,7 +563,7 @@ val commit_to_string : commit -> string = <fun>
 Above, the `function …` construct is used instead of the `match … with …` construct used previously:
 
 ```ocaml
-let commit_to_string' x = match x with
+# let commit_to_string' x = match x with
   | Hash sha -> sha
   | Tag name -> name
   | Branch name -> name
@@ -584,6 +588,7 @@ type t = C1 of int * bool | C2 of (int * bool)
 val p : int * bool = (4, false)
 
 # C1 p;;
+Line 1, characters 1-5:
 Error: The constructor C1 expects 2 argument(s),
        but is applied here to 1 argument(s)
 
@@ -643,24 +648,24 @@ The predefined type `option` is a variant type with two constructors: `Some` and
 
 ```ocaml
 # #show option;;
-type 'a option = None | Some of 'a
+type nonrec 'a option = None | Some of 'a
 ```
 
 The predefined type `list` is polymorphic in the same sense. It is a variant with two constructors and can hold data of any type. Here is how it is defined in the standard library:
 
 ```ocaml
 # #show list;;
-type 'a list = [] | (::) of 'a * 'a list
+type nonrec 'a list = [] | (::) of 'a * 'a list
 ```
 
 The only magic here is turning constructors into symbols, which we don't cover in this tutorial. The types `bool` and `unit` also are regular variants, with the same magic:
 
 ```ocaml
 # #show unit;;
-type unit = ()
+type nonrec unit = ()
 
 # #show bool;;
-type bool = false | true
+type nonrec bool = false | true
 ```
 
 Implicitly, product types also behave as variant types. For instance, pairs can be seen as inhabitants of this type:
@@ -733,7 +738,7 @@ For instance, here is the definition of a record type meant to partially represe
   class_type : character_class;
   alignment : firmness * rectitude;
   armor_class : int;
-};;
+  };;
 type character = {
   name : string;
   level : int;
@@ -805,16 +810,16 @@ This is mostly useful as a means of documentation or to shorten long type expres
 Function parameters can also be given a name with pattern matching for tuples and records.
 
 ```ocaml
-(* Tuples as parameters *)
-# let tuple_sum (x, y) = x + y;;
+# (* Tuples as parameters *)
+  let tuple_sum (x, y) = x + y;;
 val tuple_sum : int * int -> int = <fun>
 
 # let f ((x, y) as arg) = tuple_sum arg;;
 val f : int * int -> int = <fun>
 
 
-(* Records as parameters *)
-# type dummy_record = {a: int; b: int};;
+# (* Records as parameters *)
+  type dummy_record = {a: int; b: int};;
 type dummy_record = { a : int; b : int; }
 
 # let record_sum ({a; b}: dummy_record) = a + b;;
@@ -894,6 +899,7 @@ This is how it can be used:
 ```ocaml env=expr
 # e |> distrib |> to_string |> print_endline;;
 ((n * x) + (n * y))
+
 - : unit = ()
 ```
 
