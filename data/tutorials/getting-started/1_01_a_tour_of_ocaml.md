@@ -24,9 +24,9 @@ UTop allows users to interact with OCaml by reading and evaluating OCaml phrases
 Some of the examples in this tour include comments. Comments in OCaml start with `(*` and end with `*)` and can be nested. Since they are ignored by OCaml, they can be used anywhere whitespace is permitted. When entering the code below into UTop, the comments can be left out. Here are some examples:
 
 ```ocaml
-(* Here is a comment *)
-(* Outside of the nested comment is still a comment. (* Here is a nested comment *) Outside of the nested comment again. *)
-# 50 + (* A comment in between parts of an expression *) 50;;
+# (* Here is a comment *)
+  (* Outside of the nested comment is still a comment. (* Here is a nested comment *) Outside of the nested comment again. *)
+  50 + (* A comment in between parts of an expression *) 50;;
 - : int = 100
 ```
 
@@ -136,6 +136,7 @@ Names can be defined locally, within an expression, using the `let … = … in 
 - : int = 2500
 
 # y;;
+Line 1, characters 1-2:
 Error: Unbound value y
 ```
 
@@ -263,6 +264,8 @@ The function `List.map` can be applied on any kind of list. Here it is given a l
 
 Performing operating system level input-output operations is done using functions. Here is an example of each:
 
+<!-- Reads from standard input, which the test harness does not provide. -->
+<!-- $MDX skip -->
 ```ocaml
 # read_line;;
 - : unit -> string = <fun>
@@ -270,12 +273,15 @@ Performing operating system level input-output operations is done using function
 # read_line ();;
 caramba
 - : string = "caramba"
+```
 
+```ocaml
 # print_endline;;
 - : string -> unit = <fun>
 
 # print_endline "¿Cuándo se come aquí?";;
 ¿Cuándo se come aquí?
+
 - : unit = ()
 ```
 
@@ -336,13 +342,15 @@ OCaml never implicitly converts values from one type to another. It is not possi
 
 ```ocaml
 # 1 + 2.5;;
+Line 1, characters 5-8:
 Error: This expression has type float but an expression was expected of type
          int
 
 # 1 +. 2.5;;
+Line 1, characters 1-2:
 Error: This expression has type int but an expression was expected of type
          float
-  Hint: Did you mean `1.'?
+  Hint: Did you mean 1.?
 ```
 
 In the first example, `+` is intended to be used with integers, so it can't be used with the `2.5` float. In the second example, `+.` is intended to be used with floats, so it can't be used with the `1` integer.
@@ -431,7 +439,7 @@ It is possible to pass a function as argument to another function. Functions hav
 
 ```ocaml
 # let square x = x * x;;
-val square : int -> int
+val square : int -> int = <fun>
 
 # let rec map f u =
     match u with
@@ -449,13 +457,13 @@ Pattern matching isn't limited to lists. Any kind of data can be inspected using
 
 ```ocaml
 # #show option;;
-type 'a option = None | Some of 'a
+type nonrec 'a option = None | Some of 'a
 
 # let f opt = match opt with
     | None -> None
     | Some None -> None
     | Some (Some x) -> Some x;;
-val f : 'a option option-> 'a option = <fun>
+val f : 'a option option -> 'a option = <fun>
 ```
 
 The inspected value is `opt` of type `option`. It is compared against the patterns from top to bottom. If `opt` is the `None` option, it is a match with the first pattern. If `opt` is the `Some None` option, it's a match with the second pattern. If `opt` is a double-wrapped option with a value, it's a match with the third pattern. Patterns can introduce names, just as `let` does. In the third pattern, `x` designates the data inside the double-wrapped option.
@@ -488,10 +496,11 @@ Note that OCaml throws a warning when pattern matching does not catch all cases:
 
 ```ocaml
 # fun i -> match i with 0 -> 1;;
-Line 1, characters 9-28:
+Line 1, characters 10-29:
 Warning 8 [partial-match]: this pattern-matching is not exhaustive.
 Here is an example of a case that is not matched:
 1
+
 - : int -> int = <fun>
 ```
 
@@ -546,19 +555,18 @@ Here is the definition of a variant type acting as a union type:
 type http_response = Data of string | Error_code of int
 
 # Data "<!DOCTYPE html>
-<html lang=\"en\">
-  <head>
-    <meta charset=\"utf-8\">
-    <title>Dummy</title>
-  </head>
-  <body>
-    Dummy Page
-  </body>
-</html>";;
-
+  <html lang=\"en\">
+    <head>
+      <meta charset=\"utf-8\">
+      <title>Dummy</title>
+    </head>
+    <body>
+      Dummy Page
+    </body>
+  </html>";;
 - : http_response =
 Data
- "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Dummy</title>\n  </head>\n  <body>\n    Dummy Page\n  </body>\n</html>"
+ "<!DOCTYPE html>\n  <html lang=\"en\">\n    <head>\n      <meta charset=\"utf-8\">\n      <title>Dummy</title>\n    </head>\n    <body>\n      Dummy Page\n    </body>\n  </html>"
 
 # Error_code 404;;
 - : http_response = Error_code 404
@@ -604,7 +612,7 @@ Like a function, a variant can be recursive if it refers to itself in its own de
 
 ```ocaml
 # #show list;;
-type 'a list = [] | (::) of 'a * 'a list
+type nonrec 'a list = [] | (::) of 'a * 'a list
 ```
 
 As previously shown, `sum`, `length`, and `map` functions provide examples of pattern matching over the list variant type.
@@ -688,7 +696,7 @@ which can represent either the correct result or an error. Here is how it is def
 
 ```ocaml
 # #show result;;
-type ('a, 'b) result = Ok of 'a | Error of 'b
+type nonrec ('a, 'b) result = Ok of 'a | Error of 'b
 ```
 
 So one may write:
@@ -754,6 +762,7 @@ val text : string ref = {contents = "hello "}
 
 # print_string !text; text := "world!"; print_endline !text;;
 hello world!
+
 - : unit = ()
 ```
 
@@ -771,6 +780,7 @@ Organising source code in OCaml is done using something called _modules_. A modu
 
 ```ocaml
 # #show Option;;
+module Option = Option
 module Option :
   sig
     type 'a t = 'a option = None | Some of 'a
