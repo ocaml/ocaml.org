@@ -48,6 +48,10 @@ test: ## Run the unit tests
 test_code_examples: ## Checks exercices and tutorials code blocks
 	opam exec -- dune runtest data
 
+.PHONY: mdx-coverage
+mdx-coverage: ## Report which tutorial and exercise code blocks mdx tests
+	sh tool/check-mdx-coverage.sh --report data/tutorials/dune data/exercises/dune
+
 .PHONY: clean
 clean: ## Clean build artifacts and other generated files
 	opam exec -- dune clean --root .
