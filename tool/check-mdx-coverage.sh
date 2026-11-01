@@ -11,7 +11,8 @@
 # Without this, a file can sit in the allow-list, be reported green by
 # `dune runtest`, and verify nothing. Also rejects fence labels that look like
 # OCaml to a reader but that mdx silently ignores or refuses: `ocamltop`, and
-# labels with a leading space such as "``` ocaml".
+# labels with a leading space such as "``` ocaml"; and `bash`, which mdx
+# accepts but runs with sh, so `sh` is the honest label.
 #
 # Report mode. For every markdown file under each dune file's directory, show
 # whether it is in the allow-list and how many blocks are live and skipped,
@@ -109,8 +110,8 @@ scan='
     if (total == 0) return
     name = file; sub(/^(\.\/)?data\//, "", name)
     if (index(listed, " " file " ") > 0) {
-      n_listed++; t_total += total; t_live += live; t_skip += skipped
-      rows = rows sprintf("| `%s` | %d | %d | %d |\n", name, total, live, skipped)
+      n_listed++; t_total += total; t_live += live; t_skip += skipped; t_shell += shells
+      rows = rows sprintf("| `%s` | %d | %d | %d | %d |\n", name, total, live, skipped, shells)
       if (skipped > 0) {
         line = ""; first = 1
         for (r in reasons) {
@@ -125,7 +126,7 @@ scan='
     }
   }
   function reset_file() {
-    file = FILENAME; total = 0; live = 0; skipped = 0
+    file = FILENAME; total = 0; live = 0; skipped = 0; shells = 0
     pending = ""; reason = ""; in_fence = 0; comment = ""; comment_open = 0; last_comment = ""
     delete reasons
   }
@@ -162,6 +163,8 @@ scan='
       if (mode == "check") err("fence label has a leading space; mdx does not accept it")
     }
     else if (label == "ocaml" || label == "sh" || label == "bash") {
+      if (label == "bash" && mode == "check")
+        err("mdx runs `bash` blocks with sh; label it `sh`, or `shell` if it is not meant to run")
       total++
       if (has_skip(pending) || has_skip(rest)) {
         skipped++
@@ -173,6 +176,7 @@ scan='
     else if (label == "ocamltop") {
       if (mode == "check") err("label `ocamltop` is unknown to mdx, which ignores the block; use `ocaml`")
     }
+    else if (label == "shell") shells++
     pending = ""; reason = ""; last_comment = ""
     in_fence = 1
     next
@@ -182,9 +186,9 @@ scan='
     flush_file()
     if (mode == "check") exit problems > 0
     printf "### %s\n\n", title
-    printf "%d of %d files with mdx-runnable blocks are in the allow-list: %d blocks, %d live, %d skipped.", n_listed, n_listed + n_unlisted, t_total, t_live, t_skip
+    printf "%d of %d files with mdx-runnable blocks are in the allow-list: %d blocks, %d live, %d skipped, plus %d `shell` blocks that are commands for the reader and are not run.", n_listed, n_listed + n_unlisted, t_total, t_live, t_skip, t_shell
     if (n_unlisted > 0) printf " The %d files outside it hold %d more blocks.", n_unlisted, u_total
-    printf "\n\n| File | Blocks | Live | Skipped |\n| --- | ---: | ---: | ---: |\n%s", rows
+    printf "\n\n| File | Blocks | Live | Skipped | Shell (not run) |\n| --- | ---: | ---: | ---: | ---: |\n%s", rows
     if (skips != "") printf "\n**Skipped blocks and the reason given above each `$MDX skip`:**\n\n%s", skips
     if (untested != "") printf "\n**Not in the allow-list:**\n\n%s", untested
   }'

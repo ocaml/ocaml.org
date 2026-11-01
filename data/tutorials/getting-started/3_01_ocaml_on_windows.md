@@ -30,7 +30,7 @@ The recommendations are based on the availability table below:
 
 Opam is distributed via winget for Windows. To install it, run the following command in your terminal:
 
-```shell-session
+```shell
 > winget install Git.Git OCaml.opam
 ```
 
@@ -39,7 +39,7 @@ Opam will look for a compatible Git, and if none is found, it will prompt you wi
 
 After installation, launch a new shell to access the opam binary.
 
-```shell-session
+```shell
 $ opam --version
 2.2.1
 ```
@@ -65,7 +65,7 @@ well as an OCaml compiler of version `> 4.05`. By default, opam chooses `mingw` 
 a C compiler when creating switches, but know that you can choose to install an
 alternative instead, like `msvc`, with the following command:
 
-```sh
+```shell
 opam install system-msvc
 ```
 
@@ -140,7 +140,7 @@ that covers getting WSL2 and Visual Studio Code connected.
 **For Vim and Emacs** install the [Merlin](https://github.com/ocaml/merlin)
 system using opam:
 
-```console
+```shell
 opam install merlin
 ```
 

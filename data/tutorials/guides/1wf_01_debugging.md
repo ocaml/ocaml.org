@@ -203,6 +203,7 @@ starting, please note that
 Consider the following obviously wrong program written in the file
 `uncaught.ml`:
 
+<!-- $MDX file=examples/uncaught.ml -->
 ```ocaml
 (* file uncaught.ml *)
 let l = ref []
@@ -212,12 +213,6 @@ let add_address name address = l := (name, address) :: ! l
 let () =
   add_address "IRIA" "Rocquencourt";;
   print_string (find_address "INRIA"); print_newline ();;
-```
-```mdx-error
-val l : (string * string) list ref = {contents = [("IRIA", "Rocquencourt")]}
-val find_address : string -> string = <fun>
-val add_address : string -> string -> unit = <fun>
-Exception: Not_found.
 ```
 
 At runtime, the program raises an uncaught exception `Not_found`.  Suppose we
@@ -375,24 +370,29 @@ Getting a back trace for an uncaught exception can be informative to
 understand in which context a problem occurs. However, by default,
 programs compiled with both `ocamlc` and `ocamlopt` will not print it:
 
-```shell
-ocamlc -g uncaught.ml
-./a.out
+<!-- $MDX dir=examples -->
+```sh
+$ ocamlc -g uncaught.ml
+$ ./a.out
 Fatal error: exception Not_found
-ocamlopt -g uncaught.ml
-./a.out
+[2]
+$ ocamlopt -g uncaught.ml
+$ ./a.out
 Fatal error: exception Not_found
+[2]
 ```
 
 By running with the environment variable `OCAMLRUNPARAM` set to `b`
 (for back trace) we get something more informative:
 
-```shell
-OCAMLRUNPARAM=b ./a.out
+<!-- $MDX dir=examples -->
+```sh
+$ OCAMLRUNPARAM=b ./a.out
 Fatal error: exception Not_found
-Raised at Stdlib__List.assoc in file "list.ml", line 191, characters 10-25
+Raised at Stdlib__List.assoc in file "list.ml", line 199, characters 10-25
 Called from Uncaught.find_address in file "uncaught.ml" (inlined), line 3, characters 24-42
 Called from Uncaught in file "uncaught.ml", line 8, characters 15-37
+[2]
 ```
 
 From this back trace it should be clear that we receive a `Not_found`

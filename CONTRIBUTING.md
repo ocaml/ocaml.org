@@ -249,10 +249,11 @@ Tutorials live in `data/tutorials/`, one subdirectory per section, and exercises
 
 - Only fences written as three backticks at the start of a line count. Indented or quoted fences, `~~~` fences and fences with a space before the label (```` ``` ocaml ````) are not tested; the last form fails the whole file.
 - ` ```ocaml ` blocks are evaluated in a toplevel. A block whose lines start with a `#` and a space is a toplevel session: each phrase ends with `;;`, continuation lines are indented by two spaces, and what follows a phrase is its expected output. A block without prompts is compiled as a whole, and only has to compile without errors or warnings.
-- ` ```sh ` and ` ```bash ` blocks are shell sessions: lines starting with a `$` and a space are commands, the other lines are their expected output, and `mdx` runs them with `sh` in the build directory. ` ```shell ` is **not** run; use it for commands the reader is meant to type but that cannot run in a test, such as installing opam or creating a switch.
+- ` ```sh ` and ` ```bash ` blocks are shell sessions: lines starting with a `$` and a space are commands, the other lines are their expected output, and `mdx` runs them with `sh` in the build directory. Label them `sh`: mdx also accepts `bash` but still runs it with `sh`, so the coverage check rejects `bash` in tested files. ` ```shell ` is **not** run; use it for commands the reader is meant to type but that cannot run in a test, such as installing opam or creating a switch.
 - Use ` ```text ` for anything that is not code to run: elided output, pseudo-code, the shape of a value.
 - A `<!-- $MDX ... -->` comment on the line just before a fence changes how it is handled. The usual ones are `skip` (do not run), `env=name` (run in a separate toplevel, so that an `open` does not leak into the rest of the file), `dir=examples` for shell blocks, and `file=examples/foo.ml` to show and check a file's contents.
 - Fenced blocks inside HTML comments are still run.
+- To test commands that compile a file the tutorial shows, put the file in the section's `examples/` directory, show it with `file=examples/foo.ml`, and run the commands in a ` ```sh ` block marked `dir=examples`; `data/tutorials/guides/0tt_01_command_line_arguments.md` is the model. Dune picks up the example files as dependencies on its own.
 
 #### Checking a Change
 
