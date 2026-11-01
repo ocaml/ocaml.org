@@ -163,6 +163,8 @@ mechanism.
 Compiler builtins help display useful debugging messages. They indicate a location in the program's source.
 For example,
 
+<!-- Illustrative: Message and response are not defined. -->
+<!-- $MDX skip -->
 ```ocaml
 match Message.unpack response with
 | Some y -> y
@@ -171,6 +173,8 @@ match Message.unpack response with
 
 At compile time, the `__LOC__` builtin is substituted with its location in the program, described as a string `"File %S, line %d, characters %d-%d"`. File name, line number, start character and end character are also available through the `__POS__` builtin:
 
+<!-- Illustrative: Message and response are not defined. -->
+<!-- $MDX skip -->
 ```ocaml
 match Message.unpack response with
 | Some y -> y
@@ -209,7 +213,6 @@ let () =
   add_address "IRIA" "Rocquencourt";;
   print_string (find_address "INRIA"); print_newline ();;
 ```
-
 ```mdx-error
 val l : (string * string) list ref = {contents = [("IRIA", "Rocquencourt")]}
 val find_address : string -> string = <fun>
