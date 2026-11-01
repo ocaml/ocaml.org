@@ -25,7 +25,9 @@ tool to help make your OCaml code 5.x ready.
 Consider a little bank library with the following signature in
 `bank.mli`:
 
-``` ocaml
+<!-- Interface file: declarations outside a signature do not evaluate. -->
+<!-- $MDX skip -->
+```ocaml
 type t
 (** a collective type representing a bank *)
 
@@ -48,7 +50,7 @@ val iter_accounts : t -> (account:int -> balance:int -> unit) -> unit
 Underneath the hood, the library may have been implemented in various
 ways. Consider the following thread-unsafe implementation in `bank.ml`:
 
-``` ocaml
+```ocaml
 type t = int array
 
 let init ~num_accounts ~init_balance =
@@ -87,7 +89,7 @@ application.
 
 TSan is included in OCaml starting from OCaml 5.2, but has to be explicitly enabled. You can install a TSan switch as follows (here we create a 5.2.0 switch named `5.2.0+tsan`):
 
-``` shell
+```shell
 opam switch create 5.2.0+tsan ocaml-variants.5.2.0+options ocaml-option-tsan
 ```
 
@@ -103,7 +105,9 @@ For a start, we can test our library under parallel usage by running
 two `Domain`s in parallel. Here's a quick little test runner in
 `bank_test.ml` utilising this idea:
 
-``` ocaml
+<!-- Needs bank.ml compiled as the Bank module. -->
+<!-- $MDX skip -->
+```ocaml
 let num_accounts = 7
 
 let money_shuffle t = (* simulate an economy *)
@@ -139,7 +143,7 @@ each and then runs two loops in parallel with:
 - One transferring money with `money_shuffle`
 - Another one repeatedly printing the account balances with `print_balances`:
 
-``` shell
+```shell
 $ opam switch 5.2.0
 $ opam exec -- dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
@@ -165,7 +169,7 @@ $700 as expected, indicating that no money is lost.
 Let us now perform the same test run under TSan. Doing so is as simple
 as follows and immediately complains about races:
 
-``` shell
+```shell
 $ opam switch 5.2.0+tsan
 $ opam exec -- dune runtest
 File "test/dune", line 2, characters 7-16:
@@ -219,7 +223,7 @@ exclusive access to the underlying array. A first attempt could be
 to wrap `transfer` and `iter_accounts` with `lock`-`unlock` calls as
 follows:
 
-``` ocaml
+```ocaml
 let lock = Mutex.create () (* addition *)
 
 let transfer t ~src_acc ~dst_acc ~amount =
@@ -241,7 +245,7 @@ let iter_accounts t f = (* inspect the bank accounts *)
 
 Rerunning our tests, we obtain:
 
-``` shell
+```shell
 $ opam exec -- dune runtest
 File "test/dune", line 2, characters 7-16:
 2 |  (name bank_test)
@@ -261,7 +265,7 @@ pairs of `Mutex.lock` and `Mutex.unlock` calls?
 Oh, wait! When raising an exception in `transfer`, we forgot to unlock
 the `Mutex` again. Let's adapt the function to do so:
 
-``` ocaml
+```ocaml
 let transfer t ~src_acc ~dst_acc ~amount =
   begin
     if amount <= 0 then raise (Invalid_argument "Amount has to be positive");
@@ -278,7 +282,7 @@ let transfer t ~src_acc ~dst_acc ~amount =
 
 We can now rerun our tests under TSan to confirm the fix:
 
-``` shell
+```shell
 $ opam exec -- dune runtest
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
 0 100 1 100 2 100 3 100 4 100 5 100 6 100   total = 700
@@ -303,6 +307,8 @@ The programming pattern of 'always-having-to-do-something-at-the-end'
 that we encountered with the missing `Mutex.unlock` is a recurring
 one for which OCaml offers a dedicated function:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
  Fun.protect : finally:(unit -> unit) -> (unit -> 'a) -> 'a
 ```
@@ -342,6 +348,8 @@ to make sure both `Domain`s are up and running before the parallel
 test code proceeds. To do so, we can adapt our parallel test runner as
 follows:
 
+<!-- Needs bank.ml compiled as the Bank module. -->
+<!-- $MDX skip -->
 ```ocaml
 let _ =
   let wait = Atomic.make 2 in
