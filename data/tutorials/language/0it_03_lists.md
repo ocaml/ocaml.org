@@ -358,14 +358,14 @@ The largest number in the list is found. Let's look at the type of the
 
 ```ocaml
 # List.fold_left;;
-- : ('a -> 'b -> 'a) -> 'a -> 'b list -> 'a = <fun>
+- : ('acc -> 'a -> 'acc) -> 'acc -> 'a list -> 'acc = <fun>
 ```
 
-The function is of type `'a -> 'b -> 'a` where `'a` is the accumulator and `'b`
+The function is of type `'acc -> 'a -> 'acc` where `'acc` is the accumulator and `'a`
 is the type of each element of the list. The next parameter is the initial
-accumulator, which must be of type `'a`, and then finally the input list of
-type `'b list`. The result is the final value of the accumulator, so it must
-have type `'a`. Of course, in both of our examples, `'a` and `'b` are the same
+accumulator, which must be of type `'acc`, and then finally the input list of
+type `'a list`. The result is the final value of the accumulator, so it must
+have type `'acc`. Of course, in both of our examples, `'acc` and `'a` are the same
 as one another. But this is not always so.
 
 Consider the following definition of `append` which uses
@@ -386,7 +386,7 @@ fold right parameters is a little different:
 
 ```ocaml
 # List.fold_right;;
-- : ('a -> 'b -> 'b) -> 'a list -> 'b -> 'b = <fun>
+- : ('a -> 'acc -> 'acc) -> 'a list -> 'acc -> 'acc = <fun>
 ```
 
 The function comes first, then the list of elements, then the initial

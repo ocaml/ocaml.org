@@ -100,7 +100,7 @@ Any field in a record can be tagged using the `mutable` keyword. Such a field ca
   title : string;
   author : string;
   mutable stock : int;
-};;
+  };;
 type book = {
   series : string;
   volume : int;
@@ -138,7 +138,7 @@ When the bookshop receives a delivery of 10 of these books, we update the mutabl
 # vol_7;;
 - : book =
 {series = "Murderbot Diaries"; volume = 7; title = "System Collapse";
- author = "Martha Wells"; stock = 10 }
+ author = "Martha Wells"; stock = 10}
 ```
 
 Mutable record fields are updated using the left arrow symbol `<-`. In the expression `vol_7.stock <- vol_7.stock + 10`, the meaning of `vol_7.stock` depends on its context:
@@ -155,7 +155,7 @@ In OCaml, references are records with a single mutable field:
 
 ```ocaml
 # #show_type ref;;
-type 'a ref = { mutable contents : 'a; }
+type nonrec 'a ref = { mutable contents : 'a; }
 ```
 
 The type `'a ref` is a record with a single field `contents`, which is marked with the `mutable` keyword.
@@ -358,7 +358,9 @@ This is arguably convoluted and does not work:
 
 ```ocaml
 # let f r = r := incr r; 2 * !r;;
-Error: This expression has type unit but an expression was expected of type int
+Line 1, characters 16-22:
+Error: This expression has type unit but an expression was expected of type
+         int
 ```
 
 But here is how it can be made to work:
@@ -396,6 +398,7 @@ A conditional expression return type can be `unit` if both branches are too.
 ```ocaml
 # if 0 = 1 then print_endline "foo" else print_endline "bar";;
 bar
+
 - : unit = ()
 ```
 
@@ -404,6 +407,7 @@ The above can also be expressed this way:
 ```ocaml
 # print_endline (if 0 = 1 then "foo" else "bar");;
 bar
+
 - : unit = ()
 ```
 
@@ -427,6 +431,7 @@ In parsing, conditional expressions groups more than sequencing:
 # if true then print_endline "A" else print_endline "B"; print_endline "C";;
 A
 C
+
 - : unit = ()
 ```
 
@@ -442,6 +447,7 @@ If you want to have two prints in a conditional expression branch, use `begin â€
     print_endline "C"
   end;;
 A
+
 - : unit = ()
 ```
 
@@ -453,6 +459,7 @@ Here is an error you might encounter:
     print_endline "C"
   else
     print_endline "B";;
+Line 4, characters 3-7:
 Error: Syntax error
 ```
 
@@ -488,8 +495,9 @@ The body of a `for` loop must be an expression of type `unit`:
 val j : int array = [|2; 3; 4; 5; 6; 7; 8|]
 
 # for i = Array.length j - 1 downto 0 do 0 done;;
-Line 1, characters 39-40:
+Line 1, characters 40-41:
 Warning 10 [non-unit-statement]: this expression should have type unit.
+
 - : unit = ()
 ```
 
@@ -544,6 +552,8 @@ Throwing the `Exit` exception is a recommended way to immediately exit from a lo
 
 The following example uses the `get_char` function we defined earlier (in the section [Example: `get_char` Function](#example-get_char-function)).
 
+<!-- Reads keystrokes from the terminal, which the test harness does not provide. -->
+<!-- $MDX skip -->
 ```ocaml
 # try
     print_endline "Press Escape to exit";
@@ -654,7 +664,11 @@ val state_to_string : char list -> string = <fun>
     flush stdout;
     loop state;;
 val loop : char list ref -> 'a = <fun>
+```
 
+<!-- Reads keystrokes from the terminal, which the test harness does not provide. -->
+<!-- $MDX skip -->
+```ocaml
 # let state = ref [] in try loop state with Exit -> state_to_string !state;;
 ```
 
@@ -679,12 +693,13 @@ Let's imagine you store angles as fractions of the circle in 8-bit unsigned inte
 val char_cos : char -> float = <fun>
 ```
 
-However, it is possible to make a faster implementation by precomputing all the possible values in advance. There are only 256 of them, which you'll see listed after the first result below:
+However, it is possible to make a faster implementation by precomputing all the possible values in advance. There are only 256 of them:
 
 ```ocaml
-# let char_cos_tab = Array.init 256 (fun i -> i |> char_of_int |> char_cos);;
-val char_cos_tab : float array =
+let char_cos_tab = Array.init 256 (fun i -> i |> char_of_int |> char_cos)
+```
 
+```ocaml
 # let char_cos c = char_cos_tab.(int_of_char c);;
 val char_cos : char -> float = <fun>
 ```
@@ -718,7 +733,7 @@ For example, the [`Hashtbl`](/manual/api/Hashtbl.html) module provides an interf
 
 ```ocaml
 # #show Hashtbl.t;;
-type ('a, 'b) t = ('a, 'b) Hashtbl.t
+type nonrec ('a, 'b) t = ('a, 'b) Hashtbl.t
 
 #  Hashtbl.create;;
 - : ?random:bool -> int -> ('a, 'b) Hashtbl.t = <fun>
@@ -753,6 +768,7 @@ Here's an example of bad code:
       end
     done;
     (Array.truncate k_len k, Array.truncate m_len m);;
+Line 14, characters 6-20:
 Error: Unbound value Array.truncate
 ```
 
@@ -788,6 +804,7 @@ Consider this code:
       if Array.length a > 1000000 then Analytics.collect "Array.copy" a;
       copy a
     end;;
+Line 4, characters 40-57:
 Error: Unbound module Analytics
 ```
 
@@ -812,7 +829,8 @@ val id_print : string -> string = <fun>
       (id_print "Monday")
       (id_print "Tuesday")
       (id_print "Wednesday");;
-Wednesday Tuesday Monday val s : string = "Monday Tuesday Wednesday "
+Wednesday Tuesday Monday
+val s : string = "Monday Tuesday Wednesday"
 ```
 
 The function `id_print` returns its input unchanged. However, it has a side effect: it first prints the string it receives as an argument.
@@ -839,6 +857,7 @@ You can use the sequence operator `;` to execute expressions in a particular ord
 # print_endline "ha"; print_endline "ho";;
 ha
 ho
+
 - : unit = ()
 ```
 
@@ -848,6 +867,7 @@ ho
 # let () = print_endline "ha" in print_endline "hu";;
 ha
 hu
+
 - : unit = ()
 ```
 -->

@@ -17,7 +17,6 @@ it's an example of how to write the code.
 OCaml supports a rather limited form of the familiar `for` loop:
 
 <!-- $MDX skip -->
-
 ```ocaml
 for variable = start_value to end_value do
   expression
@@ -66,6 +65,7 @@ returns `unit`:
 # for i = 1 to 10 do i done;;
 Line 1, characters 20-21:
 Warning 10 [non-unit-statement]: this expression should have type unit.
+
 - : unit = ()
 ```
 
@@ -738,6 +738,13 @@ Let's call it:
 ```ocaml
 # List.length (range 1 10);;
 - : int = 10
+```
+
+<!-- OCaml 5 gives the main fiber a 1 GiB stack, so overflowing it takes a
+     list of hundreds of millions of elements, which is too slow and too
+     memory-hungry for the test suite. -->
+<!-- $MDX skip -->
+```ocaml
 # List.length (range 1 1000000);;
 Stack overflow during evaluation (looping recursion?).
 ```
@@ -912,11 +919,13 @@ val n : name = {name = "Richard Jones"; access_count = 0}
 - : name = {name = "Richard Jones"; access_count = 0}
 # print_name n;;
 The name is Richard Jones
+
 - : unit = ()
 # n;;
 - : name = {name = "Richard Jones"; access_count = 1}
 # print_name n;;
 The name is Richard Jones
+
 - : unit = ()
 # n;;
 - : name = {name = "Richard Jones"; access_count = 2}
@@ -961,10 +970,7 @@ you can randomly change elements, too.
 The basics of arrays are simple:
 
 ```ocaml
-# let a = Array.create 10 0;;
-Line 1, characters 9-21:
-Alert deprecated: Stdlib.Array.create
-Use Array.make/ArrayLabels.make instead.
+# let a = Array.make 10 0;;
 val a : int array = [|0; 0; 0; 0; 0; 0; 0; 0; 0; 0|]
 # for i = 0 to Array.length a - 1 do
     a.(i) <- i
