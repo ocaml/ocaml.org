@@ -496,5 +496,6 @@ module Documentation = struct
   let search_index_digest ~kind state pkg =
     search_index_digest ~kind state.docs pkg
 
+  let search_engine_digest state = search_engine_digest state.docs
   let status ~kind state pkg = status ~kind state.docs pkg
 end

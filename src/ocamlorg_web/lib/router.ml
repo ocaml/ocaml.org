@@ -123,6 +123,9 @@ let package_route t =
         (Url.Package.search_index ":name" ~version:":version" ~digest:":digest")
         ((Handler.package_search_index t) Handler.Package);
       Dream.get
+        (Url.doc_search_engine ~digest:":digest")
+        (Handler.package_search_engine t);
+      Dream.get
         (Url.Package.file ":name" ~version:":version" ~filepath:"**")
         ((Handler.package_file t) Handler.Package);
       Dream.get
