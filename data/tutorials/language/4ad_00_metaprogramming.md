@@ -92,7 +92,8 @@ to drive the preprocessing). Consider the following simple preprocessor which
 replaces the string `"World"` by the string `"Universe"`, here in the form of a
 shell script:
 
-```shell
+<!-- $MDX dir=examples -->
+```sh
 $ cat preprocessor.sh
 #!/bin/sh
 
@@ -102,10 +103,10 @@ sed 's/World/Universe/g' $1
 Compiling a classic "Hello, World!" program with this option
 would alter the compilation:
 
-```shell
+<!-- $MDX dir=examples -->
+```sh
 $ cat hello.ml
 print_endline "Hello, World!";;
-
 $ ocamlopt -pp ./preprocessor.sh hello.ml
 $ ./a.out
 Hello, Universe!
@@ -195,11 +196,8 @@ extension](https://marketplace.visualstudio.com/items?itemName=ocamllabs.ocaml-p
 or even directly with the OCaml toplevel using the option `-dparsetree` (also
 available in UTop).
 
-```shell
-$ ocaml -dparsetree
-[Omitted output]
-# let x = 1 + 2 ;;
-
+```sh
+$ echo 'let x = 1 + 2;;' | ocaml -dparsetree -no-version -noprompt -noinit
 Ptop_def
   [
     structure_item (//toplevel//[1,0+0]..[1,0+13])
@@ -226,6 +224,7 @@ Ptop_def
   ]
 
 val x : int = 3
+
 ```
 
 Note that the Parsetree is an internal representation of the code that happens
