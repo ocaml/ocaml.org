@@ -1,13 +1,33 @@
 type entry =
-  | New_post of { source_id : string; title : string }
+  | New_post of { source_id : string; title : string; keywords : string list }
   | Video_update of { file : string; new_count : int }
   | Error of { source_id : string; message : string }
 
 let post_entries entries =
   List.filter_map
     (function
-      | New_post { source_id; title } -> Some (source_id, title) | _ -> None)
+      | New_post { source_id; title; _ } -> Some (source_id, title) | _ -> None)
     entries
+
+(* The most frequent keywords across the new posts, for a descriptive commit
+   subject / PR title. *)
+let aggregate_keywords ?(n = 6) entries =
+  let tbl = Hashtbl.create 64 in
+  List.iter
+    (function
+      | New_post { keywords; _ } ->
+          List.iter
+            (fun k ->
+              Hashtbl.replace tbl k
+                (1 + Option.value ~default:0 (Hashtbl.find_opt tbl k)))
+            keywords
+      | _ -> ())
+    entries;
+  Hashtbl.fold (fun k c acc -> (k, c) :: acc) tbl []
+  |> List.sort (fun (k1, c1) (k2, c2) ->
+         if c1 <> c2 then compare c2 c1 else compare k1 k2)
+  |> List.filteri (fun i _ -> i < n)
+  |> List.map fst
 
 let video_entries entries =
   List.filter_map
@@ -25,7 +45,12 @@ let format_commit_message buf entries =
   let posts = post_entries entries in
   let videos = video_entries entries in
   if posts <> [] || videos <> [] then (
-    Buffer.add_string buf "[scrape] New OCaml Planet blog posts and videos\n";
+    let subject =
+      match aggregate_keywords entries with
+      | [] -> "[posts] new OCaml Planet posts and videos"
+      | kws -> "[posts] " ^ String.concat ", " kws
+    in
+    Buffer.add_string buf (subject ^ "\n");
     List.iter
       (fun (source_id, title) ->
         Buffer.add_string buf (Printf.sprintf "\n- %s: %s" source_id title))

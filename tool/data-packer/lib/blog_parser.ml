@@ -56,6 +56,7 @@ module Post = struct
     authors : string list option;
     source : source_on_external_post option;
     ignore : bool option;
+    keywords : string list; [@default []]
   }
   [@@deriving of_yaml]
 
@@ -91,6 +92,7 @@ module Post = struct
           authors = Option.value ~default:[] m.authors;
           date = m.date;
           preview_image = m.preview_image;
+          keywords = m.keywords;
         }
 
   let decode (fpath, (head, _)) =

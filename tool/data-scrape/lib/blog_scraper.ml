@@ -76,6 +76,7 @@ module Post = struct
     authors : string list option;
     source : source_on_external_post option;
     ignore : bool option;
+    keywords : string list; [@default []]
   }
   [@@deriving yaml]
 
@@ -87,7 +88,8 @@ module Post = struct
       |> Result.get_ok ~error:(fun (`Msg m) -> Data_packer.Exn.Decode_error m))
 end
 
-let scrape_post ~source (post : River.post) : Scrape_report.entry option =
+let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
+    Scrape_report.entry option =
   let what field =
     Printf.sprintf "the %s of a post from %s" field source.Data_intf.Blog.id
   in
@@ -125,6 +127,11 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
           let author =
             River.author post |> Utf_8.sanitize ~what:(what "author")
           in
+          (* Generate keywords from the post body at scrape time, using the
+             corpus document frequencies computed once in [scrape]. *)
+          let keywords =
+            Blog_backfill.keywords_for ~df ~ndocs ~dict ~title content
+          in
           let metadata : Post.metadata =
             {
               title;
@@ -135,15 +142,21 @@ let scrape_post ~source (post : River.post) : Scrape_report.entry option =
               authors = Some [ author ];
               source = None;
               ignore = None;
+              keywords;
             }
           in
+          (* Store the post body (the feed content) after the front matter, as
+             the pre-#3463 ood-gen pipeline did: front matter, a blank line,
+             then the HTML. Dropping it in #3463 was unintentional, and it is
+             what lets the site (and the keyword backfill) use the text without
+             refetching the original article. *)
           let s = Format.asprintf "%a" Post.pp_meta metadata in
           let oc = open_out output_file in
-          Printf.fprintf oc "%s" s;
+          Printf.fprintf oc "%s\n%s\n" s (String.trim content);
           close_out oc;
           Some
             (Scrape_report.New_post
-               { source_id = source.Data_intf.Blog.id; title }))
+               { source_id = source.Data_intf.Blog.id; title; keywords }))
         else (
           print_string "skipping, flagged as not caml related";
           None))
@@ -165,18 +178,22 @@ let rec fetch_with_retry ?(attempt = 1) ~repair (source : Data_intf.Blog.source)
     Unix.sleepf delay;
     fetch_with_retry ~attempt:(attempt + 1) ~repair source
 
-let scrape_source ({ source; repair } : Source.resolved) :
+let scrape_source ~df ~ndocs ~dict ({ source; repair } : Source.resolved) :
     Scrape_report.entry list =
   try
     [ fetch_with_retry ~repair source ]
     |> River.posts
-    |> List.filter_map (scrape_post ~source)
+    |> List.filter_map (scrape_post ~df ~ndocs ~dict ~source)
   with e ->
     let message = Printexc.to_string e in
     print_endline (Printf.sprintf "failed to scrape %s: %s" source.id message);
     [ Scrape_report.Error { source_id = source.id; message } ]
 
 let scrape () : Scrape_report.entry list =
+  (* Corpus document frequencies + dictionary, computed once, for scoring the
+     new posts' keywords. *)
+  let df, ndocs = Blog_backfill.corpus_df_from_disk () in
+  let dict = Blog_backfill.load_dictionary () in
   Source.all ()
   |> List.filter (fun ({ source; _ } : Source.resolved) -> not source.disabled)
-  |> List.concat_map scrape_source
+  |> List.concat_map (scrape_source ~df ~ndocs ~dict)

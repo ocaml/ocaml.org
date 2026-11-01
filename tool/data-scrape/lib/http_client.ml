@@ -21,7 +21,7 @@ and follow_redirect ~max_redirects request_uri (response, body) =
   | `OK -> Lwt.return (response, body)
   | `Permanent_redirect | `Moved_permanently ->
       handle_redirect ~permanent:true ~max_redirects request_uri response
-  | `Found | `Temporary_redirect ->
+  | `Found | `See_other | `Temporary_redirect ->
       handle_redirect ~permanent:false ~max_redirects request_uri response
   | status ->
       Lwt.fail_with
@@ -36,7 +36,9 @@ and handle_redirect ~permanent ~max_redirects request_uri response =
     | None -> Lwt.fail_with "Redirection without Location header"
     | Some url ->
         let open Lwt.Syntax in
-        let uri = Uri.of_string url in
+        (* [Location] may be relative (e.g. a bare "/path/"); resolve it against
+           the request URI so the next hop keeps a scheme and host. *)
+        let uri = Uri.resolve "" request_uri (Uri.of_string url) in
         let* () =
           if permanent then
             Logs_lwt.warn (fun m ->
