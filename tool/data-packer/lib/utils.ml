@@ -115,6 +115,34 @@ let yaml_file filepath_str =
   in
   Yaml.of_string file
 
+(* Read a JSON Lines file (one compact JSON object per line, blank lines
+   ignored) and decode each line with [of_yojson]. Any malformed line fails the
+   build, mirroring [yaml_sequence_file]. *)
+let jsonl_file of_yojson filepath_str =
+  let filepath =
+    filepath_str |> Fpath.of_string
+    |> Result.get_ok ~error:(fun (`Msg m) -> Invalid_argument m)
+  in
+  let file =
+    read_file filepath
+    |> Option.to_result ~none:(where filepath_str (`Msg "read failed"))
+    |> Result.get_ok ~error:(fun (`Msg msg) -> Exn.Decode_error msg)
+  in
+  file
+  |> Stdlib.String.split_on_char '\n'
+  |> Stdlib.List.filter (fun line -> Stdlib.String.trim line <> "")
+  |> Stdlib.List.map (fun line ->
+         match of_yojson (Yojson.Safe.from_string line) with
+         | Ok v -> v
+         | Error msg ->
+             raise
+               (Exn.Decode_error
+                  (Printf.sprintf "data/%s : %s" filepath_str msg))
+         | exception Yojson.Json_error msg ->
+             raise
+               (Exn.Decode_error
+                  (Printf.sprintf "data/%s : invalid JSON: %s" filepath_str msg)))
+
 let yaml_sequence_file ?key of_yaml filepath_str =
   let filepath =
     filepath_str |> Fpath.of_string

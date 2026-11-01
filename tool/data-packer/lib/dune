@@ -13,7 +13,8 @@
   hilite.markdown
   re
   syndic
-  uri)
+  uri
+  yojson)
  ; Exclude blob.ml - it requires C stubs and is for runtime use only
  (modules
   ; Core utilities
@@ -55,6 +56,7 @@
   is_ocaml_yet_parser
   outreachy_parser
   tool_page_parser
+  attribution_parser
   ; Platform releases and changelog (changelog depends on platform_release)
   platform_release_parser
   changelog_parser
@@ -70,4 +72,9 @@
   unpacker
   data_packer)
  (preprocess
-  (staged_pps ppx_import ppx_deriving_yaml ppx_stable ppx_deriving.show)))
+  (staged_pps
+   ppx_import
+   ppx_deriving_yaml
+   ppx_deriving_yojson
+   ppx_stable
+   ppx_deriving.show)))

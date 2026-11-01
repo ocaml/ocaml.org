@@ -1,0 +1,3 @@
+(library
+ (name attribution)
+ (libraries bos fpath fmt yojson yaml unix))

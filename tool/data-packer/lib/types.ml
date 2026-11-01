@@ -257,6 +257,16 @@ module Planet = struct
   [@@deriving show]
 end
 
+module Attribution = struct
+  type contributor = [%import: Data_intf.Attribution.contributor]
+  [@@deriving of_yojson, show]
+
+  type ai_section = [%import: Data_intf.Attribution.ai_section]
+  [@@deriving of_yojson, show]
+
+  type t = [%import: Data_intf.Attribution.t] [@@deriving of_yojson, show]
+end
+
 (* The aggregated data structure containing all types.
 
    Keep this structurally identical (same fields, same order) to
@@ -307,6 +317,7 @@ module All_data = struct
     governance_teams : Governance.team list;
     governance_working_groups : Governance.team list;
     tool_pages : Tool_page.t list;
+    attribution : Attribution.t list;
   }
 
   let empty =
@@ -349,5 +360,6 @@ module All_data = struct
       governance_teams = [];
       governance_working_groups = [];
       tool_pages = [];
+      attribution = [];
     }
 end

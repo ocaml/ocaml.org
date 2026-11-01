@@ -558,6 +558,46 @@ module Planet = struct
   type entry = BlogPost of Blog.post | Video of Video.t
 end
 
+(* Per-document attribution record ("Authors and history").
+
+   Precomputed from git history by tool/attribution and committed to
+   data/attribution.jsonl; the packer reads that file back (with yojson) into
+   this type. This is the only data_intf type that derives [repr]: it is the
+   forward-looking serialization direction for data.bin (today still Marshalled
+   as part of All_data, like every other content type). See the generator's
+   Record.t (tool/attribution/lib/record.ml) for the authoritative schema. *)
+module Attribution = struct
+  type contributor = {
+    name : string;
+    commits : int;
+    first_commit : string; (* full hash, stable as the repo grows *)
+    first_date : string; (* YYYY-MM-DD, UTC *)
+  }
+  [@@deriving repr]
+
+  type ai_section = {
+    commit : string;
+    assisted_by : string list;
+    sections : string list;
+    context : string list;
+  }
+  [@@deriving repr]
+
+  type t = {
+    path : string;
+    contributors : contributor list;
+    derived_from : string list; (* internal "path@commit" entries *)
+    external_authors : string list; (* resolved via the sources manifest *)
+    provenance_unknown_before : string option;
+        (* date, if any import is unknown *)
+    ai_assisted : ai_section list;
+    overrides_applied : string list;
+    generated_at_commit : string; (* the per-record watermark *)
+    generator : string;
+  }
+  [@@deriving repr]
+end
+
 (* The aggregated data structure embedded in data.bin.
 
    This is the runtime-facing definition: Data.all_data deserialises the blob to
@@ -609,5 +649,6 @@ module All_data = struct
     governance_teams : Governance.team list;
     governance_working_groups : Governance.team list;
     tool_pages : Tool_page.t list;
+    attribution : Attribution.t list;
   }
 end

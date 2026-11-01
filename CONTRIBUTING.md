@@ -29,6 +29,7 @@ Anyone can contribute to these sections:
 - [OCaml Cookbook Recipes](#content-cookbook)
 - [Recurring Events](#content-recurring-event)
 - [Upcoming Events](#content-upcoming_event)
+- [Tutorials and Tool Pages](#content-attribution)
 
 OCaml Platform maintainers can contribute to these sections:
 - [The OCaml Changelog](#content-changelog)
@@ -305,6 +306,31 @@ To contribute OCaml Platform Tools release notes:
 2. Use a clear, descriptive filename (e.g., `2025-02-03-dune-release-2.1.0.md`).
 3. Include relevant metadata at the top of the file (title, tags, etc.).
 4. Submit a pull request with your new file.
+
+### <a name="content-attribution"></a>Editing a Tutorial or Tool Page
+
+Tutorials (`data/tutorials/`) and tool pages (`data/tool_pages/`) carry a
+per-document **"Authors and history"** record in `data/attribution.jsonl`,
+regenerated from git history so contributors are credited uniformly. A CI check
+(the "Attribution" workflow) gates every pull request that edits one of these
+documents: if you change a tutorial or tool page, you must also regenerate its
+record and commit the one-line change, the same way `make fmt` gates code
+formatting.
+
+After editing the document and committing, run:
+
+```sh
+make attribution-update PATHS="data/tutorials/<path-you-changed>.md"
+```
+
+then commit the resulting change to `data/attribution.jsonl`. List several
+space-separated paths if you touched more than one. If the check fails, its log
+prints the exact command and the diff to apply. (A one-line typo fix still
+counts as a contribution and updates the record — that is intended.)
+
+If you **rename or delete** a tutorial or tool page, run `make attribution-seed`
+instead and commit the result: recovering the pre-rename history needs the full
+git clone, which the CI check deliberately does not fetch.
 
 ## Git and GitHub Workflow
 

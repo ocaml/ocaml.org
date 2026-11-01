@@ -972,6 +972,28 @@ let tutorial commit_hash req =
        ~related_exercises ~recommended_next_tutorials ~prerequisite_tutorials
        tutorial)
 
+let tutorial_authors req =
+  let slug = Dream.param req "id" in
+  let</>? tutorial = Data.Tutorial.get_by_slug slug in
+  let</>? attribution = Data.Attribution.get_by_fpath tutorial.fpath in
+  Dream.html
+    (Ocamlorg_frontend.authors ~title:tutorial.title
+       ~canonical:(Url.tutorial_authors tutorial.slug)
+       ~back_url:(Url.tutorial tutorial.slug)
+       attribution)
+
+let tool_page_authors req =
+  let slug = Dream.param req "id" in
+  let pages = visible_tool_pages () in
+  let</>? page =
+    List.find_opt (fun (p : Data.Tool_page.t) -> p.slug = slug) pages
+  in
+  let</>? attribution = Data.Attribution.get_by_fpath page.fpath in
+  Dream.html
+    (Ocamlorg_frontend.authors ~title:page.title
+       ~canonical:(Url.tool_page_authors page.slug)
+       ~back_url:(Url.tool_page page.slug) attribution)
+
 let exercises req =
   let all_exercises = Data.Exercise.all in
   let difficulty_level = Dream.query req "difficulty_level" in

@@ -1,0 +1,90 @@
+name: Attribution restamp
+
+# After a PR that edited a tutorial / tool page merges to main, re-anchor each
+# touched document's attribution watermark (generated_at_commit) onto the merge
+# commit.
+#
+# Why this is needed: the project squash-merges PRs. The gate (attribution.yml)
+# stamps a record at the PR's branch head, but a squash merge discards that
+# commit — so once merged the watermark names a commit no longer reachable from
+# main, and the next edit's incremental fold (`<watermark>..HEAD`) could not
+# resolve it (and, if it could, would re-count the squashed change). Restamping
+# moves each merged record's watermark to the reachable merge commit. It is safe
+# because `restamp` does no folding: the gate already verified this tree's
+# content before the merge, so only the stamp advances.
+#
+# The restamp commit touches only data/attribution.jsonl (never a document), so
+# it does not match this workflow's or the gate's path filter and cannot loop;
+# `[skip ci]` is belt-and-braces.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/tutorials/**/*.md'
+      - 'data/tool_pages/**/*.md'
+
+# NOTE: writing to a protected `main` requires that the default GITHUB_TOKEN is
+# permitted to push (Settings → Branches, "allow specified actors / GitHub
+# Actions to bypass"). If branch protection forbids it, swap the final push for
+# peter-evans/create-pull-request (as the scrape workflows do) — the restamp PR
+# touches only data/attribution.jsonl, so the attribution gate is skipped.
+jobs:
+  restamp:
+    name: Re-anchor attribution watermarks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # HEAD + parent is enough to diff the push and to read/rewrite the
+          # store on disk; restamp does no history walk.
+          fetch-depth: 2
+
+      - name: Detect documents changed by the merge
+        id: changed
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
+        with:
+          files: |
+            data/tutorials/**/*.md
+            data/tool_pages/**/*.md
+          separator: " "
+
+      - name: Set up OCaml
+        if: steps.changed.outputs.any_changed == 'true'
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.0"
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+          opam-disable-sandboxing: true
+
+      - name: Install the tool's dependencies
+        if: steps.changed.outputs.any_changed == 'true'
+        # Keep in sync with tool/attribution/lib/dune's (libraries …).
+        run: opam install --yes bos cmdliner yojson yaml fmt fpath
+
+      - name: Restamp the changed documents
+        if: steps.changed.outputs.any_changed == 'true'
+        env:
+          CHANGED: ${{ steps.changed.outputs.all_changed_files }}
+        run: |
+          opam exec -- dune exec tool/attribution/bin/main.exe -- restamp $CHANGED
+
+      - name: Commit and push the restamp
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          set -eu
+          if git diff --quiet -- data/attribution.jsonl; then
+            echo "watermarks already current; nothing to restamp"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/attribution.jsonl
+          git commit -m "attribution: re-anchor watermarks after merge [skip ci]"
+          # Land on top of any concurrent main advance rather than failing.
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main

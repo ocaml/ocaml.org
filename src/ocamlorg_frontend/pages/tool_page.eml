@@ -33,6 +33,11 @@ let current_section =
   then Tools_layout.Infrastructure
   else Tools_layout.Overview
 in
+let authors_href =
+  Option.map
+    (fun _ -> Url.tool_page_authors page.slug)
+    (Data.Attribution.get_by_fpath page.fpath)
+in
 Tools_layout.three_column_layout
 ~title:(Printf.sprintf "%s · OCaml Documentation" page.short_title)
 ~description:page.description
@@ -43,5 +48,5 @@ Tools_layout.three_column_layout
   <div class="prose prose-orange dark:prose-invert max-w-full">
     <%s! render_title page %>
     <%s! page.body_html %>
-    <%s! Learn_components.contribute_footer ~href ~description ~recommended_next_tutorials:[] %>
+    <%s! Learn_components.contribute_footer ~authors_href ~href ~description ~recommended_next_tutorials:[] %>
   </div>

@@ -4,6 +4,8 @@ This document explains how to write documentation such as tutorials, guides, or 
 
 Apply the [*Spiral Learning*](https://en.wikipedia.org/wiki/Spiral_approach) approach in tutorials. This teaching method first creates a solid foundation of a topic. By starting with an overview, it gives the reader the context and general information. Subsequent sections and tutorials review the important foundational information and expands, going into more detail and giving examples.
 
+When you edit a tutorial or tool page, remember to regenerate its "Authors and history" attribution record and commit the change — a required check gates it, the same way formatting is gated. See [Editing a Tutorial or Tool Page](CONTRIBUTING.md#content-attribution) in the contributing guide for the one command to run.
+
 ## Materials
 
 - References, e.g.:

@@ -46,6 +46,7 @@ let success_story = Success_story.render
 let tools_platform = Tools_platform.render
 let tool_page = Tool_page.render
 let tutorial = Tutorial.render
+let authors = Authors.render
 let tutorial_search = Tutorial_search.render
 let conferences = Conferences.render
 let conference = Conference.render
