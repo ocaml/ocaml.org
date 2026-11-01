@@ -28,7 +28,11 @@
 (subdir
  getting-started
  (mdx
-  (files 1_00_install_OCaml.md 3_03_ocaml_playground.md)
+  (files
+   1_00_install_OCaml.md
+   1_01_a_tour_of_ocaml.md
+   2_01_toplevel.md
+   3_03_ocaml_playground.md)
   (libraries unix)))
 
 (subdir
