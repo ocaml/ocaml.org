@@ -67,7 +67,7 @@ Our custom `map` function is the same as the standard library's `Option.map`:
 - : int option = Some 9
 
 # Option.map (fun x -> x * x) None;;
-- : int option : None
+- : int option = None
 ```
 
 The following are a few simple examples demonstrating how the `Option.map` function works with different types and transformations:
@@ -164,7 +164,7 @@ val safe_divide : int -> int -> int option = <fun>
 - : int option = None
 
 # Option.join None;;
-- : int option = None
+- : 'a option = None
 ```
 
 ### Extract the Content of an Option
@@ -204,7 +204,7 @@ The function successfully retrieves the value inside `Some 42`.
 
 ```ocaml
 # Option.get None;;
-Exception: Invalid_argument "Option.get".
+Exception: Invalid_argument "option is None".
 ```
 
 Since `None` has no value, `Option.get` raises an exception.
@@ -235,7 +235,7 @@ val username : string option = Some "alice"
 val display_name : string = "alice"
 
 # let missing_username = None;;
-val missing_username : string option = None
+val missing_username : 'a option = None
 
 # let display_name = Option.value missing_username ~default:"Guest";;
 val display_name : string = "Guest"
@@ -304,7 +304,7 @@ Here, `Option.fold` applies `String.length` to `"hello"`, returning `5`.
 
 ```ocaml
 # let missing_string = None;;
-val missing_string : string option = None
+val missing_string : 'a option = None
 
 # Option.fold ~none:0 ~some:String.length missing_string;;
 - : int = 0
@@ -318,8 +318,7 @@ This function safely handles optional names by providing a fallback greeting:
 
 ```ocaml
 # let greet name_opt =
-    Option.fold ~none:"Hello, Guest!" ~some:(fun name -> "Hello, " ^ name ^ "!")
-;;
+    Option.fold ~none:"Hello, Guest!" ~some:(fun name -> "Hello, " ^ name ^ "!") name_opt;;
 val greet : string option -> string = <fun>
 
 # greet (Some "Alice");;

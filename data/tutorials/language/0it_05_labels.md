@@ -38,6 +38,7 @@ Labelled arguments are passed using a tilde `~` and can be placed at any positio
 
 ```ocaml
 # ~default:42 |> Option.value None;;
+Line 1, characters 1-10:
 Error: Syntax error
 ```
 
@@ -188,16 +189,16 @@ In the first version, the optional separator is the last declared parameter.
 
 ```ocaml
 # let concat_warn ss ?(sep="") = String.concat sep ss;;
-Line 1, characters 15-18:
-  Warning 16 [unerasable-optional-argument]:
-  this optional argument cannot be erased.
+Line 1, characters 22-25:
+Warning 16 [unerasable-optional-argument]: this optional argument cannot be erased.
+
 val concat_warn : string list -> ?sep:string -> string = <fun>
 
 # concat_warn ~sep:"--" ["foo"; "bar"; "baz"];;
 - : string = "foo--bar--baz"
 
 # concat_warn ~sep:"";;
-- : string list -> string
+- : string list -> string = <fun>
 
 # concat_warn ["foo"; "bar"; "baz"];;
 - : ?sep:string -> string = <fun>
@@ -214,7 +215,6 @@ val concat : ?sep:string -> string list -> string = <fun>
 
 # concat ~sep:"--";;
 - : string list -> string = <fun>
-t
 # concat ["foo"; "bar"; "baz"];;
 - : string = "foobarbaz"
 ```
@@ -247,7 +247,7 @@ When all parameters of a function need to be optional, a dummy, positional and o
 
 ```ocaml
 # let hello ?(who="world") () = "hello, " ^ who;;
-val hello : ?who:string -> string = <fun>
+val hello : ?who:string -> unit -> string = <fun>
 
 # hello;;
 - : ?who:string -> unit -> string = <fun>

@@ -146,7 +146,11 @@ let div (x:int) (y:int) : int option =
   if y = 0 then None else Some (x / y)
 
 let ( / ) = div
+```
 
+<!-- Does not type-check, which is the point made below. -->
+<!-- $MDX skip -->
+```ocaml
 (* won't type check *)
 let x = 1 + (4 / 2)
 ```
@@ -451,6 +455,8 @@ let id = inc >> dec
 and that would have worked just fine. But trying to do the same thing with the
 loggable versions of the functions produces a type-checking error:
 
+<!-- Does not type-check, which is the point made below. -->
+<!-- $MDX skip -->
 ```ocaml
 let id = inc_log >> dec_log
 ```
@@ -610,6 +616,8 @@ By now, it's probably obvious that the Lwt promises library that we discussed is
 also a monad. The type `'a Lwt.t` of promises has a `return` and `bind`
 operation of the right types to be a monad:
 
+<!-- Signature excerpt, not a compilable fragment. -->
+<!-- $MDX skip -->
 ```ocaml
 val return : 'a -> 'a t
 val bind : 'a t -> ('a -> 'b t) -> 'b t
