@@ -135,6 +135,9 @@ type dependencies_and_conflicts = {
   slug: string;
   items: dependency_or_conflict list;
   collapsible: bool;
+  (* When set, [items] is a server-side-truncated prefix and this links to the
+     full, untruncated list (e.g. reverse deps, which can run to thousands). *)
+  more_url: string option;
 }
 
 let right_sidebar
@@ -183,9 +186,13 @@ let render
           <%s! render_dependency ~name ~cstr ~version %>
           <% ); %>
         </ol>
-        <% if is_collapsible then (%>
-        <button class="text-primary dark:text-dark-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
-        <% ) else (); %>
+        <% (match section.more_url with Some url -> %>
+        <a class="text-primary dark:text-dark-primary py-4 inline-block hover:underline" href="<%s url %>">Show all &rarr;</a>
+        <% | None -> %>
+          <% if is_collapsible then (%>
+          <button class="text-primary dark:text-dark-primary py-4" x-on:click="open = !open; $dispatch('resize')" x-show="open">Hide</button>
+          <% ) else (); %>
+        <% ); %>
       <% ); %>
     </div>
   in

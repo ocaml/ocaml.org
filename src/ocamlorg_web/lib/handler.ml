@@ -1185,6 +1185,25 @@ let package_overview t kind req =
                version = Some (Ocamlorg_package.Version.to_string version);
              })
   in
+  (* Reverse deps can run to thousands for a popular package; rendering them all
+     server-side bloats the hot overview page (the `ocaml` page is ~1.2 MB) for
+     a list collapsed by default. Truncate to [rev_deps_max] and link to the
+     full list behind [?used-by=all], so the expensive render happens only when
+     a visitor explicitly asks for it — not on every (crawler) hit. *)
+  let rev_deps_total = List.length rev_dependencies in
+  let rev_deps_max = 100 in
+  let show_all_rev_deps = Dream.query req "used-by" = Some "all" in
+  let hash = match kind with `Package -> None | `Universe h -> Some h in
+  let rev_dependencies, rev_deps_more_url =
+    if show_all_rev_deps || rev_deps_total <= rev_deps_max then
+      (rev_dependencies, None)
+    else
+      ( List.take rev_deps_max rev_dependencies,
+        Some
+          (Url.Package.overview ?hash ~version:version_from_url
+             (Ocamlorg_package.Name.to_string name)
+          ^ "?used-by=all#used-by") )
+  in
   let dependencies :
       Ocamlorg_frontend.Package_overview.dependency_or_conflict list =
     package_info.Ocamlorg_package.Info.dependencies
@@ -1225,6 +1244,7 @@ let package_overview t kind req =
         slug = "dependencies";
         items = dependencies;
         collapsible = false;
+        more_url = None;
       };
       {
         title =
@@ -1232,18 +1252,21 @@ let package_overview t kind req =
         slug = "development-dependencies";
         items = dev_dependencies;
         collapsible = false;
+        more_url = None;
       };
       {
-        title = title_with_number "Used by" (List.length rev_dependencies);
+        title = title_with_number "Used by" rev_deps_total;
         slug = "used-by";
         items = rev_dependencies;
         collapsible = true;
+        more_url = rev_deps_more_url;
       };
       {
         title = title_with_number "Conflicts" (List.length conflicts);
         slug = "conflicts";
         items = conflicts;
         collapsible = false;
+        more_url = None;
       };
     ]
   in
