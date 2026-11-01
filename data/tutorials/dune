@@ -45,6 +45,7 @@
    0tt_03_calling_c_libraries.md
    1wf_00_using_the_ocaml_compiler_toolchain.md
    1wf_01_debugging.md
+   1wf_02_error_handling.md
    1wf_03_profiling.md
    1wf_04_multicore_ready.md
    1wf_05_garbage_collection.md
