@@ -51,12 +51,12 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
 # The server runs as an unprivileged user. It only writes to the package state
 # and to the opam-repository clone it pulls from (see Ocamlorg_package.init), so
 # only those belong to it; everything else stays owned by root.
-RUN adduser -D -h /home/ocamlorg ocamlorg
+RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg
 
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/package.state
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam-repository
 # Without --chown, COPY --from keeps the build stage's owner (opam, uid 1000),
-# which is the uid of ocamlorg here.
+# which is also the uid given to ocamlorg above.
 COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 
 COPY playground/asset playground/asset
