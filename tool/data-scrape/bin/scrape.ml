@@ -13,32 +13,44 @@ let report_file_arg =
   Arg.(
     value & opt (some string) None & info [ "report-file" ] ~docv:"FILE" ~doc)
 
+let write_messages commit_file report_file entries =
+  Option.iter
+    (fun p -> Scrape_report.write_commit_message p entries)
+    commit_file;
+  Option.iter (fun p -> Scrape_report.write_report p entries) report_file
+
+let scrape_videos () =
+  Youtube_scraper.scrape "data/video-youtube.yml"
+  @ Watch_scraper.scrape "data/video-watch.yml"
+
 let planet_cmd =
-  let run commit_file report_file =
-    let entries = Blog_scraper.scrape () in
-    Option.iter
-      (fun p -> Scrape_report.write_commit_message p entries)
-      commit_file;
-    Option.iter (fun p -> Scrape_report.write_report p entries) report_file
+  let with_videos =
+    let doc =
+      "Also scrape the videos, so that one commit message covers both."
+    in
+    Arg.(value & flag & info [ "with-videos" ] ~doc)
   in
-  Cmd.v (Cmd.info "planet") Term.(const run $ commit_file_arg $ report_file_arg)
+  let run with_videos commit_file report_file =
+    let entries = Blog_scraper.scrape () in
+    let entries = if with_videos then entries @ scrape_videos () else entries in
+    write_messages commit_file report_file entries
+  in
+  Cmd.v (Cmd.info "planet")
+    Term.(const run $ with_videos $ commit_file_arg $ report_file_arg)
 
 let video_cmd =
   let run commit_file report_file =
-    let entries =
-      Youtube_scraper.scrape "data/video-youtube.yml"
-      @ Watch_scraper.scrape "data/video-watch.yml"
-    in
-    Option.iter
-      (fun p -> Scrape_report.append_commit_message p entries)
-      commit_file;
-    Option.iter (fun p -> Scrape_report.append_report p entries) report_file
+    write_messages commit_file report_file (scrape_videos ())
   in
   Cmd.v (Cmd.info "video") Term.(const run $ commit_file_arg $ report_file_arg)
 
 let platform_releases_cmd =
-  let run () = Platform_release_scraper.scrape () in
-  Cmd.v (Cmd.info "platform_releases") Term.(const run $ const ())
+  let run commit_file report_file =
+    Platform_release_scraper.scrape ?commit_file ?report_file ()
+  in
+  Cmd.v
+    (Cmd.info "platform_releases")
+    Term.(const run $ commit_file_arg $ report_file_arg)
 
 let opam_health_cmd =
   let base_url =

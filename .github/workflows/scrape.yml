@@ -37,8 +37,8 @@ jobs:
         id: scrape
         run: |
           { echo "msg<<EOF"; cat _scrape_commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
-          # The commit subject (first line) names the day's top keywords; use it
-          # as the PR title so the notification email subject is descriptive.
+          # The commit subject (first line), e.g. "planet: 4 posts (effects, eio),
+          # 2 videos", is also the PR title, hence the notification email subject.
           echo "title=$(head -1 _scrape_commit.md)" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request

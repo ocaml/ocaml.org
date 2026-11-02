@@ -128,13 +128,34 @@ let aggregate_keywords =
              ]));
     test_case "empty when there are no post keywords" (fun () ->
         check_strings "empty" [] (R.aggregate_keywords [ post [] ]));
-    test_case "commit subject is \"[posts] <keywords>\"" (fun () ->
-        let buf = Buffer.create 64 in
-        R.format_commit_message buf [ post [ "effects"; "dune" ] ];
-        let subject =
-          List.hd (String.split_on_char '\n' (Buffer.contents buf))
+    test_case "subject: post count and top keywords" (fun () ->
+        check_string "subject" "planet: 1 post (dune, effects)"
+          (R.planet_subject [ post [ "effects"; "dune" ] ]));
+    test_case "subject: posts and videos" (fun () ->
+        check_string "subject" "planet: 2 posts (effects, dune), 3 videos"
+          (R.planet_subject
+             [
+               post [ "effects"; "dune" ];
+               post [ "effects" ];
+               R.Video_update { file = "a"; new_count = 2 };
+               R.Video_update { file = "b"; new_count = 1 };
+             ]));
+    test_case "subject: videos only" (fun () ->
+        check_string "subject" "planet: 1 video"
+          (R.planet_subject [ R.Video_update { file = "v"; new_count = 1 } ]));
+    test_case "subject: posts without keywords" (fun () ->
+        check_string "subject" "planet: 1 post" (R.planet_subject [ post [] ]));
+    test_case "subject: nothing new" (fun () ->
+        check_string "subject" "planet: no new posts or videos"
+          (R.planet_subject []));
+    test_case "fit: elides what does not fit in 72 bytes" (fun () ->
+        let s =
+          R.fit ~prefix:"planet: 9 posts (" ~suffix:")"
+            (List.init 20 (fun i -> Printf.sprintf "keyword%02d" i))
         in
-        check_string "subject" "[posts] dune, effects" subject);
+        check_string "subject"
+          "planet: 9 posts (keyword00, keyword01, keyword02, keyword03, …)" s;
+        Alcotest.(check bool) "short enough" true (String.length s <= 72));
   ]
 
 let () =

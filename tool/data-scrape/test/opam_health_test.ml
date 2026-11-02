@@ -90,6 +90,27 @@ let diff () =
     (List.map (fun (k, _, _) -> k) d.changed);
   Alcotest.(check bool) "same compilers" false d.compilers_changed
 
+(* The subject leads with what changed; the opam-repository commit goes in the
+   body. *)
+let commit_message () =
+  let run = { id = run_id; timestamp = 0.; commit; compilers = [ "5.4" ] } in
+  let r name statuses = { name; version = "1"; statuses } in
+  let old = { run; releases = [ r "a" [ Good ]; r "b" [ Good ] ] } in
+  let t =
+    { run; releases = [ r "a" [ Bad ]; r "c" [ Good ]; r "d" [ Good ] ] }
+  in
+  let subject m = List.hd (String.split_on_char '\n' m) in
+  Alcotest.(check string)
+    "update" "opam-health: 1970-01-01 run, 1 changed, 2 added, 1 removed"
+    (subject (S.commit_message ~old:(Some old) t));
+  Alcotest.(check string)
+    "first import"
+    "opam-health: 1970-01-01 run, first import, 3 package versions"
+    (subject (S.commit_message ~old:None t));
+  Alcotest.(check string)
+    "no change" "opam-health: 1970-01-01 run, no status change"
+    (subject (S.commit_message ~old:(Some t) t))
+
 let () =
   Alcotest.run "opam_health_scraper"
     [
@@ -100,5 +121,6 @@ let () =
           Alcotest.test_case "pre-releases dropped" `Quick pre_releases_dropped;
           Alcotest.test_case "decoding errors" `Quick decoding_errors;
           Alcotest.test_case "diff" `Quick diff;
+          Alcotest.test_case "commit message" `Quick commit_message;
         ] );
     ]

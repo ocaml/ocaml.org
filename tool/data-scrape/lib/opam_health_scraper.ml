@@ -181,9 +181,34 @@ let date_of t =
 
 let short_commit t = String.sub t.run.commit 0 7
 
-let commit_message t =
-  Printf.sprintf "[opam-health] check.ci run of %s (opam-repository %s)\n"
-    (date_of t) (short_commit t)
+(* [opam-health: 2026-10-27 run, 37 changed, 120 added, 4 removed]: what the new
+   run changes; the run and the opam-repository commit go in the body. *)
+let commit_message ~old t =
+  let d = diff ~old t in
+  let headline =
+    match old with
+    | None ->
+        Printf.sprintf "first import, %d package versions"
+          (List.length t.releases)
+    | Some _ when d.compilers_changed ->
+        Printf.sprintf "compilers now %s" (String.concat ", " t.run.compilers)
+    | Some _ -> (
+        match
+          List.filter_map
+            (fun (n, what) ->
+              if n > 0 then Some (Printf.sprintf "%d %s" n what) else None)
+            [
+              (List.length d.changed, "changed");
+              (List.length d.added, "added");
+              (List.length d.removed, "removed");
+            ]
+        with
+        | [] -> "no status change"
+        | l -> String.concat ", " l)
+  in
+  Printf.sprintf
+    "opam-health: %s run, %s\n\ncheck.ci run %s, against opam-repository %s.\n"
+    (date_of t) headline t.run.id (short_commit t)
 
 let max_listed = 50
 
@@ -280,12 +305,12 @@ let scrape ?(base_url = default_base_url) ?(file = default_file) ?commit_file
       Printf.printf "opam-health: run %s already committed, nothing to do\n"
         run_id;
       Option.iter
-        (fun p -> write_file p "[opam-health] No new check.ci run\n")
+        (fun p -> write_file p "opam-health: no new check.ci run\n")
         commit_file;
       Option.iter (fun p -> write_file p "No new check.ci run.\n") report_file
   | Updated t ->
       write_file file (Codec.to_string t);
       Printf.printf "opam-health: wrote %d package versions from run %s to %s\n"
         (List.length t.releases) t.run.id file;
-      Option.iter (fun p -> write_file p (commit_message t)) commit_file;
+      Option.iter (fun p -> write_file p (commit_message ~old t)) commit_file;
       Option.iter (fun p -> write_file p (report ~base_url ~old t)) report_file

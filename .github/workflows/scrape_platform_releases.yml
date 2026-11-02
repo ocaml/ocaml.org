@@ -27,15 +27,23 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run scrapers
-        run: make scrape_platform_releases SCRAPE=./scrape.exe
+        run: >-
+          make scrape_platform_releases SCRAPE=./scrape.exe
+          COMMIT_FILE=_scrape_commit.md REPORT_FILE=_scrape_report.md
+
+      - name: Read commit message
+        id: scrape
+        run: |
+          { echo "msg<<EOF"; cat _scrape_commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          echo "title=$(head -1 _scrape_commit.md)" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          title: '[scrape_platform_releases.yml] New Platform Releases'
+          title: ${{ steps.scrape.outputs.title }}
+          commit-message: ${{ steps.scrape.outputs.msg }}
+          body-path: _scrape_report.md
           labels: scrape
           branch: create-pull-request/patch-scrape-changelog
           add-paths: |
             data/**/*.md
-          commit-message: |
-            [scrape_platform_releases.yml] New Platform Releases
