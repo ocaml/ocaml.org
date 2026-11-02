@@ -234,21 +234,35 @@ let write_release_announcement_file project github_tag tags ~ignore
   let s = Format.asprintf "%a\n%s\n" pp_meta metadata content in
   let oc = open_out output_file in
   Printf.fprintf oc "%s" s;
-  close_out oc
+  close_out oc;
+  output_file
+
+(* A release announcement this run wrote, as a draft to complete. *)
+type draft = {
+  project : string;
+  github_tag : string;
+  file : string;
+  ignore : bool;
+  experimental : bool;
+}
 
 let check_if_uptodate project known_tags =
   let known_github_tags = SSet.of_list known_tags in
   let check repo tags ignore_patterns =
     let scraped_versions = fetch_github repo in
-    List.iter
+    List.filter_map
       (fun { github_tag; post } ->
-        if not (SSet.mem github_tag known_github_tags) then (
+        if SSet.mem github_tag known_github_tags then None
+        else
           let ignore = tag_matches_ignore_patterns ignore_patterns github_tag in
           let experimental = is_prerelease github_tag in
           warn "We don't have the release notes for %S github tag %S\n%!"
             project github_tag;
-          write_release_announcement_file project github_tag tags ~ignore
-            ~experimental post))
+          let file =
+            write_release_announcement_file project github_tag tags ~ignore
+              ~experimental post
+          in
+          Some { project; github_tag; file; ignore; experimental })
       scraped_versions
   in
   match List.assoc_opt project github_project_release_feeds with
@@ -259,9 +273,63 @@ let check_if_uptodate project known_tags =
         "Don't know how to lookup project %S. Please update \
          'tool/data-scrape/lib/platform_release_scraper.ml'\n\
          %!"
-        project
+        project;
+      []
 
-let scrape () =
-  Data_packer.Platform_release_parser.all_including_ignored ()
-  |> group_releases_by_project
-  |> SMap.iter check_if_uptodate
+(* [platform: dune 3.24.0_alpha1, 3.24.0_alpha2; ocaml 5.5.0-rc1] *)
+let subject drafts =
+  if drafts = [] then "platform: no new releases"
+  else
+    let projects =
+      List.sort_uniq String.compare (List.map (fun d -> d.project) drafts)
+    in
+    let groups =
+      List.map
+        (fun p ->
+          p ^ " "
+          ^ String.concat ", "
+              (List.filter_map
+                 (fun d -> if d.project = p then Some d.github_tag else None)
+                 drafts))
+        projects
+    in
+    Scrape_report.fit ~sep:"; " ~prefix:"platform: " ~suffix:"" groups
+
+let flags d =
+  match
+    (if d.experimental then [ "pre-release" ] else [])
+    @ if d.ignore then [ "ignored" ] else []
+  with
+  | [] -> ""
+  | l -> " (" ^ String.concat ", " l ^ ")"
+
+let commit_message drafts =
+  subject drafts ^ "\n"
+  ^ String.concat ""
+      (List.mapi
+         (fun i d ->
+           (if i = 0 then "\n" else "")
+           ^ Printf.sprintf "- %s %s%s\n" d.project d.github_tag (flags d))
+         drafts)
+
+let report drafts =
+  if drafts = [] then "No new platform releases.\n"
+  else
+    "Release announcements drafted from releases published on GitHub:\n\n"
+    ^ String.concat ""
+        (List.map
+           (fun d -> Printf.sprintf "- `%s`%s\n" d.file (flags d))
+           drafts)
+
+let scrape ?commit_file ?report_file () =
+  let drafts =
+    Data_packer.Platform_release_parser.all_including_ignored ()
+    |> group_releases_by_project |> SMap.bindings
+    |> List.concat_map (fun (project, tags) -> check_if_uptodate project tags)
+  in
+  Option.iter
+    (fun p -> Scrape_report.write_to_file p (commit_message drafts))
+    commit_file;
+  Option.iter
+    (fun p -> Scrape_report.write_to_file p (report drafts))
+    report_file

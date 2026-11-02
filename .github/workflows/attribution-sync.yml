@@ -88,29 +88,50 @@ jobs:
 
       # A sync always re-stamps every record at HEAD. Only propose it when some
       # record's content changed, otherwise every merged sync would trigger a
-      # stamp-only pull request of its own.
-      - name: Did any record's content change?
+      # stamp-only pull request of its own. The pages whose record changed name
+      # the pull request: "attribution: 3 pages (roadmap, principles, …)".
+      - name: Which records' content changed?
         id: diff
         run: |
-          norm () { jq -c 'del(.generated_at_commit, .generator)'; }
-          if git show HEAD:data/attribution.jsonl | norm | cmp -s - <(norm < data/attribution.jsonl); then
+          norm () { jq -c 'del(.generated_at_commit, .generator)' | sort; }
+          comm -3 <(git show HEAD:data/attribution.jsonl | norm) \
+                  <(norm < data/attribution.jsonl) \
+            | sed 's/^\t//' | jq -r .path | sort -u > "$RUNNER_TEMP/paths"
+          n=$(wc -l < "$RUNNER_TEMP/paths")
+          if [ "$n" -eq 0 ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             git checkout -- data/attribution.jsonl
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          pages=$([ "$n" -eq 1 ] && echo "1 page" || echo "$n pages")
+          # Page names without directory, extension and ordering prefix, as
+          # many as fit in a 72-byte subject.
+          title=$(sed 's|.*/||; s|\.md$||; s|^[0-9a-z]*_[0-9]*_||' "$RUNNER_TEMP/paths" \
+            | awk -v head="attribution: $pages (" '
+                { names[NR] = $0 }
+                END {
+                  s = head names[1]
+                  for (i = 2; i <= NR; i++) {
+                    t = s ", " names[i]
+                    if (length(t ((i < NR) ? ", …)" : ")")) > 72) { s = s ", …"; break }
+                    s = t
+                  }
+                  print s ")"
+                }')
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+          { echo "msg<<EOF"; echo "$title"; echo; sed 's/^/- /' "$RUNNER_TEMP/paths"; echo "EOF"; } >> "$GITHUB_OUTPUT"
 
       - name: Create or update the sync pull request
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          title: '[attribution-sync.yml] Update authors and history records'
+          title: ${{ steps.diff.outputs.title }}
           labels: attribution
           branch: ${{ env.BRANCH }}
           add-paths: |
             data/attribution.jsonl
-          commit-message: |
-            [attribution-sync.yml] Update authors and history records
+          commit-message: ${{ steps.diff.outputs.msg }}
           body: |
             Automated by `.github/workflows/attribution-sync.yml`: the records in `data/attribution.jsonl`, folded forward to ${{ github.sha }} with `data-attribution sync`.
 

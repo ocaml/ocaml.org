@@ -72,14 +72,14 @@ SCRAPE ?= opam exec -- dune exec --root . tool/data-scrape/bin/scrape.exe --
 
 .PHONY: scrape_ocaml_planet
 scrape_ocaml_planet:
-	$(SCRAPE) planet $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
-	                 $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
-	$(SCRAPE) video $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
-	                $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
+	$(SCRAPE) planet --with-videos \
+	  $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
+	  $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
 
 .PHONY: scrape_platform_releases
 scrape_platform_releases:
-	$(SCRAPE) platform_releases
+	$(SCRAPE) platform_releases $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
+	                            $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
 
 .PHONY: scrape_opam_health
 scrape_opam_health: ## Scrape check.ci.ocaml.org build results into data/opam_health.yml
