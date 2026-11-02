@@ -1,8 +1,8 @@
 (** MCP (Model Context Protocol) server for ocaml.org (issue #3775).
 
-    Phase 1 smoke test: a Streamable HTTP endpoint exposing the [initialize] and
-    [tools/list] handshake plus a single no-op [ping] tool. Feature blocks
-    (package dependencies, docs, search) register further tools in {!Tool}. *)
+    A Streamable HTTP endpoint exposing the [initialize] and [tools/list]
+    handshake. The tools themselves (package dependencies, docs) are defined by
+    the web layer and injected into {!handle}. *)
 
 (** MCP routes to mount on the Dream router (a POST + a GET on [/mcp], wrapped
     in a per-IP rate-limit middleware and sharing an in-app response cache). The

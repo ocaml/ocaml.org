@@ -47,10 +47,10 @@ let rec canonical_json : Yojson.Safe.t -> Yojson.Safe.t = function
 
 let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
     Yojson.Safe.t Lwt.t =
-  (* The effective registry is [ping] plus any tools injected by the web layer
-     (Block A onward). [ping] stays first and is always present, so the isolated
-     library keeps a working handshake even with no tools injected. *)
-  let registry = Tool.ping :: tools in
+  (* The registry is the tools injected by the web layer (Block A onward). With
+     none injected, [tools/list] answers an empty list, which is still a valid
+     handshake. *)
+  let registry = tools in
   match req.method_ with
   | "initialize" ->
       (* Echo the client's requested protocol version when we support it,
@@ -70,7 +70,7 @@ let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
       in
       Lwt.return (Protocol.ok_response id result)
   | "ping" ->
-      (* JSON-RPC-level ping (distinct from the "ping" tool): empty result. *)
+      (* MCP-mandated JSON-RPC-level ping: empty result. *)
       Lwt.return (Protocol.ok_response id (`Assoc []))
   | "tools/list" ->
       let tools = List.map Tool.to_json registry in

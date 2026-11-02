@@ -13,7 +13,7 @@ type t = {
   cacheable : bool;
       (* whether identical [tools/call] arguments always yield the same result,
          so the response may be served from {!Cache}. Deterministic data tools
-         (Blocks A/B) set this; [ping] does not. *)
+         (Blocks A/B) set this. *)
   annotations : Yojson.Safe.t option;
       (* Optional MCP [ToolAnnotations] emitted in [tools/list]: behavioural
          hints (readOnly / destructive / idempotent / openWorld) a client may
@@ -48,16 +48,3 @@ let to_json (t : t) : Yojson.Safe.t =
        ("inputSchema", t.input_schema);
      ]
     @ match t.annotations with Some a -> [ ("annotations", a) ] | None -> [])
-
-(* No-op smoke-test tool (Phase 1). Later feature blocks register real tools for
-   package dependencies, docs, and search. *)
-let ping : t =
-  {
-    name = "ping";
-    description = "No-op health check. Returns \"pong\".";
-    input_schema =
-      `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
-    handler = (fun _args -> Lwt.return (Ok [ text_content "pong" ]));
-    cacheable = false;
-    annotations = Some read_only_annotations;
-  }
