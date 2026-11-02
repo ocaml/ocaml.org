@@ -509,7 +509,7 @@ let check cfg =
 (* --- post-merge synchronisation ------------------------------------------- *)
 
 (* Bring the whole store up to date with HEAD, which must be a commit of the
-   default branch: the post-merge workflow (attribution-sync.yml) runs this on a
+   default branch: the post-merge workflow (sync-attribution.yml) runs this on a
    checkout of [main] and proposes the result as a pull request.
 
    This is the store's only writer in normal operation. Pull requests never

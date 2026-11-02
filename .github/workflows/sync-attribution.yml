@@ -1,4 +1,4 @@
-name: Attribution sync
+name: Sync attribution
 
 # Keep data/attribution.jsonl (the per-document "Authors and history" records,
 # see tool/attribution) up to date with main, after the fact.
@@ -33,15 +33,15 @@ on:
 # Every run recomputes the whole store from main, so a newer run supersedes an
 # older one.
 concurrency:
-  group: attribution-sync
+  group: sync-attribution
   cancel-in-progress: true
 
 env:
-  BRANCH: create-pull-request/attribution-sync
+  BRANCH: bot/attribution
 
 jobs:
   sync:
-    name: Sync attribution records
+    name: sync
     if: github.repository == 'ocaml/ocaml.org'
     runs-on: ubuntu-latest
     permissions:
@@ -133,7 +133,7 @@ jobs:
             data/attribution.jsonl
           commit-message: ${{ steps.diff.outputs.msg }}
           body: |
-            Automated by `.github/workflows/attribution-sync.yml`: the records in `data/attribution.jsonl`, folded forward to ${{ github.sha }} with `data-attribution sync`.
+            Automated by `.github/workflows/sync-attribution.yml`: the records in `data/attribution.jsonl`, folded forward to ${{ github.sha }} with `data-attribution sync`.
 
             Generated from main, so it never conflicts with other pull requests. Each new push to main that touches a tutorial or tool page regenerates this pull request. Merge it whenever convenient.
 

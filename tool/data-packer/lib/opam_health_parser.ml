@@ -90,7 +90,7 @@ let header =
   {|# Build results of opam packages from https://check.ci.ocaml.org
 # (opam-health-check), latest run. Machine-managed: written by
 # `make scrape_opam_health` (tool/data-scrape) and refreshed by the
-# scrape_opam_health.yml workflow. Do not edit by hand.
+# scrape-opam-health.yml workflow. Do not edit by hand.
 #
 # `packages` maps each "<name>.<version>" to one status letter per compiler,
 # in the order of `compilers`:

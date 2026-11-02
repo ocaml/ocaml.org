@@ -1,4 +1,4 @@
-name: Release Scrapers
+name: Release scraper
 
 on:
   workflow_dispatch:
@@ -9,11 +9,11 @@ on:
       - 'src/**'
       - 'dune-project'
       - '*.opam'
-      - '.github/workflows/release-scrapers.yml'
+      - '.github/workflows/release-scraper.yml'
 
 jobs:
   release:
-    name: Build and Release Scraper Binary
+    name: release
     runs-on: ubuntu-latest
 
     permissions:
@@ -50,7 +50,7 @@ jobs:
         run: |
           gh release create scraper-latest \
             _build/default/tool/data-scrape/bin/scrape.exe \
-            --title "Scraper (latest)" \
+            --title "Scraper @ ${GITHUB_SHA::7}" \
             --notes "Built from ${{ github.sha }}" \
             --latest=false
         env:

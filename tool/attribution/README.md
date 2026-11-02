@@ -42,9 +42,9 @@ than by email alone, so a later owner of that login is not mis-credited.
 ## How the store is kept up to date
 
 Pull requests **never** touch `data/attribution.jsonl`. After a pull request
-that edits a tutorial or tool page merges, `.github/workflows/attribution-sync.yml`
+that edits a tutorial or tool page merges, `.github/workflows/sync-attribution.yml`
 runs `sync` on `main` and proposes the result as a single rolling pull request
-(branch `create-pull-request/attribution-sync`), the same way the scrape
+(branch `bot/attribution`), the same way the scrape
 workflows propose new content. A maintainer merges it whenever convenient.
 
 The result:

@@ -50,7 +50,7 @@ let sync_cmd =
   let doc =
     "Bring every record up to date with HEAD (a commit of the default branch): \
      fold each forward, re-stamp it at HEAD, and follow renames and deletions. \
-     Run post-merge by the attribution-sync workflow."
+     Run post-merge by the sync-attribution workflow."
   in
   Cmd.v (Cmd.info "sync" ~doc) Term.(const Seed.sync $ config_t)
 
