@@ -164,8 +164,9 @@ let version_builds =
             ~resolve:(fun _ (r : Health.release) -> r.version);
           field "summary"
             ~doc:
-              "all_good, some_failures, all_failing or not_available \
-               (not-available results are not failures)"
+              "all_good, some_failures, not_on_latest (builds wherever it \
+               installs, but not on the newest compiler), all_failing or \
+               not_available (not-available results are not failures)"
             ~args:Arg.[]
             ~typ:(non_null string)
             ~resolve:(fun _ (r : Health.release) ->

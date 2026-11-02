@@ -41,10 +41,12 @@ let cell (r : H.release) (compiler, status) =
   <td class="py-2 pr-3"><%s! pill ~href:(H.log_url ~compiler ~status r) ~title status %></td>
 
 let summary_badge ~href (summary : H.summary) =
+  let latest_compiler = match List.rev H.run.compilers with c :: _ -> c | [] -> "" in
   let classes, icon, label =
     match summary with
     | All_good -> ("border-green-600 bg-green-100 text-green-900 dark:border-green-500 dark:bg-green-900 dark:text-green-100", Icons.shield_check "h-4 w-4", "Builds on all available compilers")
     | Some_failures -> ("border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100", Icons.error "h-4 w-4", "Fails on some compilers")
+    | Not_on_latest -> ("border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100", Icons.error "h-4 w-4", "Not available on OCaml " ^ latest_compiler)
     | All_failing -> ("border-red-600 bg-red-100 text-red-900 dark:border-red-500 dark:bg-red-900 dark:text-red-100", Icons.error "h-4 w-4", "Fails on all available compilers")
     | Not_available_anywhere -> ("border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100", "", "Not available on checked compilers")
   in

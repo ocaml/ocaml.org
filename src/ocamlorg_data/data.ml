@@ -593,22 +593,30 @@ module Opam_health = struct
   type summary =
     | All_good
     | Some_failures
+    | Not_on_latest
     | All_failing
     | Not_available_anywhere
 
   (* [Not_available] is not a failure: the package simply does not install with
      that compiler (e.g. an upper bound on OCaml), so it is ignored unless no
-     compiler is available at all. *)
+     compiler is available at all. Still, a package that builds everywhere it
+     installs but not on the newest compiler tested is lagging behind, so it is
+     not [All_good]. [statuses] is aligned with [run.compilers], ascending. *)
   let summary statuses =
+    let latest_good =
+      match List.rev statuses with Good :: _ -> true | _ -> false
+    in
     match List.filter (fun s -> s <> Not_available) statuses with
     | [] -> Not_available_anywhere
-    | l when List.for_all (fun s -> s = Good) l -> All_good
+    | l when List.for_all (fun s -> s = Good) l ->
+        if latest_good then All_good else Not_on_latest
     | l when List.for_all (fun s -> s <> Good) l -> All_failing
     | _ -> Some_failures
 
   let summary_to_string = function
     | All_good -> "all_good"
     | Some_failures -> "some_failures"
+    | Not_on_latest -> "not_on_latest"
     | All_failing -> "all_failing"
     | Not_available_anywhere -> "not_available"
 end

@@ -280,6 +280,7 @@ module Opam_health : sig
   type summary =
     | All_good
     | Some_failures
+    | Not_on_latest
     | All_failing
     | Not_available_anywhere
 

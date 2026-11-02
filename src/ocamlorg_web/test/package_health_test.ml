@@ -83,6 +83,8 @@ let summary () =
   in
   s "all good" "all_good" [ H.Good; H.Good ];
   s "not-available is not a failure" "all_good" [ H.Not_available; H.Good ];
+  s "not on the newest compiler" "not_on_latest" [ H.Good; H.Not_available ];
+  s "newest failing" "some_failures" [ H.Good; H.Bad ];
   s "mixed" "some_failures" [ H.Good; H.Partial ];
   s "all failing" "all_failing" [ H.Bad; H.Internal_failure; H.Not_available ];
   s "nothing available" "not_available" [ H.Not_available ]
