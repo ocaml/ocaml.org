@@ -49,6 +49,18 @@ let is_error name = function
   | Ok _ -> Alcotest.failf "%s: expected an error" name
   | Error _ -> ()
 
+let pre_releases_dropped () =
+  match
+    decode
+      {|[{"name":"a.1","statuses":[{"compiler":"5.4","status":"good"},{"compiler":"5.5~alpha1","status":"not-available"},{"compiler":"trunk","status":"bad"}]}]|}
+  with
+  | Error e -> Alcotest.fail e
+  | Ok t ->
+      Alcotest.(check (list string)) "compilers" [ "5.4" ] t.run.compilers;
+      Alcotest.(check bool)
+        "statuses" true
+        (t.releases = [ { name = "a"; version = "1"; statuses = [ Good ] } ])
+
 let decoding_errors () =
   is_error "unknown status"
     (decode {|[{"name":"a.1","statuses":[{"compiler":"5.4","status":"meh"}]}]|});
@@ -85,6 +97,7 @@ let () =
         [
           Alcotest.test_case "run id" `Quick run_id_extraction;
           Alcotest.test_case "decoding" `Quick decoding;
+          Alcotest.test_case "pre-releases dropped" `Quick pre_releases_dropped;
           Alcotest.test_case "decoding errors" `Quick decoding_errors;
           Alcotest.test_case "diff" `Quick diff;
         ] );

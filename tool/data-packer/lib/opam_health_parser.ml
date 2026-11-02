@@ -73,17 +73,17 @@ let key r = r.name ^ "." ^ r.version
 let sort releases =
   List.sort (fun a b -> String.compare (key a) (key b)) releases
 
+(* A released compiler: "5.4", not "5.5~alpha1" or "trunk". *)
+let is_release_compiler c =
+  c <> "" && String.for_all (fun c -> is_digit c || c = '.') c
+
 let check_compilers compilers =
   let sorted = List.sort_uniq compare_compiler compilers in
   if compilers = [] then Error "compilers: empty list"
   else if sorted <> compilers then
     Error "compilers: must be distinct and in ascending order"
-  else if
-    not
-      (List.for_all
-         (fun c -> c <> "" && String.for_all (fun c -> is_digit c || c = '.') c)
-         compilers)
-  then Error "compilers: expected versions such as \"5.4\""
+  else if not (List.for_all is_release_compiler compilers) then
+    Error "compilers: expected versions such as \"5.4\""
   else Ok ()
 
 let header =

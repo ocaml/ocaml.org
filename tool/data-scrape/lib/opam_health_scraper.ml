@@ -82,9 +82,25 @@ end
 
 (* Turn the decoded JSON into the data type. The compilers are the union over
    all entries; an entry missing one of them is an error rather than a guess.
-   Keys that are not a valid <name>.<version> are skipped with a warning. *)
+   Pre-release compilers ("5.6~alpha1", "trunk") are dropped: the newest
+   compiler decides whether a package is up to date, and an alpha must not. Keys
+   that are not a valid <name>.<version> are skipped with a warning. *)
 let of_json ~run_id entries =
   let ( let* ) = Result.bind in
+  let dropped =
+    List.concat_map (fun (_, builds) -> List.map fst builds) entries
+    |> List.filter (fun c -> not (Codec.is_release_compiler c))
+    |> List.sort_uniq String.compare
+  in
+  if dropped <> [] then
+    Printf.eprintf "[WARN] opam-health: ignoring pre-release compilers %s\n%!"
+      (String.concat ", " dropped);
+  let entries =
+    List.map
+      (fun (key, builds) ->
+        (key, List.filter (fun (c, _) -> Codec.is_release_compiler c) builds))
+      entries
+  in
   let compilers =
     List.concat_map (fun (_, builds) -> List.map fst builds) entries
     |> List.sort_uniq compare_compiler
