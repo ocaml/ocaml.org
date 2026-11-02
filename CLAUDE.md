@@ -1,141 +1,17 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. The human-facing documentation is the source of truth; read it rather than relying on this summary:
 
-## Build and Development Commands
+- [`HACKING.md`](HACKING.md): setup, running the server, tests, environment variables, dependency pinning, architecture, `data/` rules, CI workflows, and repository structure.
+- [`CONTRIBUTING.md`](CONTRIBUTING.md): how each kind of content in `data/` is contributed.
+- [`DOCUMENTATION_WRITING.md`](DOCUMENTATION_WRITING.md): writing guidelines for tutorials.
+- [`doc/FOR_MAINTAINERS.md`](doc/FOR_MAINTAINERS.md): the `staging` branch and pushing to contributors' forks.
+- [`tool/attribution/README.md`](tool/attribution/README.md), [`tool/data-packer/DESIGN.md`](tool/data-packer/DESIGN.md): tool-specific documentation.
 
-Run `make help` to list the available targets. First-time setup is `make switch` (creates a local opam switch bound to the pinned opam-repository, then installs dependencies); `make watch` runs the server with auto-reload.
+## Rules That Are Easy to Miss
 
-## Before Submitting a PR
-
-Formatting and linting failures are the #1 cause of CI failures. Always run these before pushing:
-
-```bash
-make fmt                        # Format OCaml code (auto-promotes changes)
-npx markdownlint-cli2 '**/*.md' # Lint Markdown files (config: .markdownlint-cli2.jsonc)
-```
-
-CI checks both on every push/PR. `make fmt` auto-promotes changes in place; commit any files it touches.
-
-**OCamlFormat is pinned to 0.26.2** (in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`). With any other version installed, `make fmt` does *not* reformat — OCamlFormat's default version check aborts with a `version mismatch` error and exits non-zero. Install the pinned binary via `make deps` (or `opam install ocamlformat=0.26.2`).
-
-Markdown lint rules live in `.markdownlint-cli2.jsonc`; CI lints only changed files and skips `data/planet/` and `data/changelog/`.
-
-## Architecture Overview
-
-This is a Dream-based OCaml web application that serves ocaml.org. The architecture separates data (YAML/Markdown), code generation, and rendering.
-
-The stack is Lwt-based (Dream is Lwt-only) — do not introduce Eio dependencies.
-
-### Data Flow
-
-1. **Content** lives in `data/` as YAML and Markdown files (tutorials, books, jobs, events, etc.)
-2. **Data packer** (`tool/data-packer/`) packs the YAML/Markdown into a binary blob, `data.bin`, at build time
-3. The blob is embedded in the binary via an `.incbin` assembly directive; `src/ocamlorg_data/data.ml` deserializes it lazily (`bin_prot`) and exposes hand-written accessor modules (`Book`, `Changelog`, …)
-4. **Frontend** (`src/ocamlorg_frontend/`) uses `.eml` templates (Dream's HTML templating) to render pages
-5. **Web server** (`src/ocamlorg_web/`) handles routing and serves the site
-6. **Data scraper** (`tool/data-scrape/`) fetches external content (planet feeds, videos, platform releases, opam build results)
-
-### Key Source Directories
-
-- `src/ocamlorg_data/` - `data_intf.ml` defines the data types; `data.ml` is the hand-written accessor layer over the deserialized blob. The build artifact `data.bin` is generated from `data/` (never committed)
-- `src/ocamlorg_frontend/pages/` - EML templates (OCaml + HTML) for all pages
-- `src/ocamlorg_web/lib/` - Dream server, routing, handlers
-- `src/ocamlorg_package/` - Package management and opam-repository integration
-- `src/ocamlorg_static/` - Static file serving
-- `src/global/` - Project-wide definitions (URL helpers, ppx import)
-- `tool/data-packer/` - Packs YAML/Markdown data into the `data.bin` blob
-- `tool/data-scrape/` - Scraper for external content (planet feeds, videos, platform releases, opam build results)
-
-### The EML Templating System
-
-Pages use `.eml` files which are preprocessed by `dream_eml`. These mix OCaml code with HTML:
-- OCaml expressions: `<%s variable %>` or `<% code %>`
-- Templates are in `src/ocamlorg_frontend/pages/`
-
-### Working with `data/`
-
-Site content lives in `data/` as YAML and Markdown — one subdirectory per content type (`books/`, `tutorials/`, …) plus top-level `.yml` files (`jobs.yml`, `governance.yml`, …). The data packer enforces structure via the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. After editing, `make build` repacks the `data.bin` blob.
-
-**Files in `data/` must be UTF-8 without a byte-order mark.** The packer (`read_file` in `tool/data-packer/lib/utils.ml`) fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
-
-**Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, `data/platform_releases/`, and `data/opam_health.yml` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
-
-**When you rename or remove `data/` content, update `asset/llms.txt` too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:`/`id:` (not its filename), and CI never checks them, so stale links break silently.
-
-### Tailwind CSS
-
-CSS uses Tailwind. The binary is downloaded by Dune during build. Run `dune install tailwind` to persist it in the local switch across `dune clean`.
-
-## System Dependencies
-
-Required: libev, oniguruma, openssl, gmp. See `Dockerfile` for exact packages.
-
-## Dependency Pinning
-
-The opam repository is pinned to a specific commit in the following files, which must be updated together:
-
-- `Makefile`
-- `Dockerfile`
-- `.devcontainer/Dockerfile`
-- `dune-workspace`
-- `.github/workflows/ci.yml`
-- `.github/workflows/debug-ci.yml`
-- `.github/workflows/release-scraper.yml`
-
-### Choosing the pin commit: stay at or below the base image's opam-repo tip
-
-`Dockerfile` and `.devcontainer/Dockerfile` both derive from an `ocaml/opam` base image, which bundles a full (non-shallow) clone of opam-repository frozen at some tip. They select the pin with `git reset --hard <sha>` / `git checkout <sha>` **without a `git fetch`**, so the commit must already be present in that bundled clone:
-
-- **At or below the base image's tip** → the commit is in local history, so plain checkout works with **no network fetch** — the fast path, and preferable because these images rebuild frequently on ocaml-ci.
-- **Beyond the base image's tip** → checkout fails with `Could not parse object` (a fast Docker-build failure that only surfaces in the `deployability` check, not in GitHub Actions, whose setup-ocaml fetches the commit directly). Recovering requires prepending `git fetch origin <sha> &&` to the reset/checkout, which costs a full opam-repository download on every build.
-
-So the default is to pin to the base image's current opam-repo tip. Find it with:
-
-```bash
-docker run --rm ocaml/opam:alpine-3.21-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'   # production Dockerfile
-docker run --rm ocaml/opam:debian-ocaml-5.2  sh -c 'cd ~/opam-repository && git rev-parse HEAD'        # .devcontainer
-```
-
-The two base images can sit at different tips; pick a commit at or below the **older** of the two so both build without a fetch. Only pin beyond the tip (and add the `git fetch`) if you specifically need a package version newer than the base image snapshot.
-
-After updating the pin, run `opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>`, then `opam update && opam upgrade`. If OCamlFormat is upgraded in the process, update its version in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml` together.
-
-## Environment Variables
-
-Defined in `src/ocamlorg_web/lib/config.ml` and `src/ocamlorg_package/lib/config.ml`. The ones you typically override when running locally:
-
-| Variable | Default | Description |
-| -------- | ------- | ----------- |
-| `OCAMLORG_HTTP_PORT` | `8080` | HTTP server port |
-| `OCAMLORG_DOC_URL` | `https://dill.caelum.ci.dev/profiles/full/docs/` | External package-documentation server (see below) |
-| `OCAMLORG_REPO_PATH` | `~/.cache/ocamlorg/opam-repository` | Local opam-repository clone |
-| `OCAMLORG_PKG_STATE_PATH` | `~/.cache/ocamlorg/package.state` | Package state cache file |
-
-The remaining variables (`OCAMLORG_PACKAGE_CACHES_TTL`, `OCAMLORG_OPAM_POLLING`, `OCAMLORG_MANUAL_PATH`, `OCAMLORG_V2_PATH`) are tuning/path overrides rarely changed in development.
-
-## CI Workflows
-
-Two gate every PR: **ci.yml** (build + test + `make fmt` check; Ubuntu + macOS, OCaml 5.2.0) and **markdown-lint.yml** (lints changed `*.md`, skipping `data/planet/` and `data/changelog/`).
-
-The rest are automation: **scrape-planet.yml**, **scrape-platform-releases.yml**, and **scrape-opam-health.yml** (check.ci.ocaml.org build results) run daily, and **sync-attribution.yml** runs after merges touching tutorials or tool pages; each keeps one rolling PR open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Their commit subject, which is also the PR title and the log entry, reads `<area>: <what changed>`, e.g. `planet: 4 posts (effects, eio, …), 2 videos`. **release-scraper.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
-
-## Deployment
-
-- `main` branch deploys to <https://ocaml.org/>
-- `staging` branch deploys to <https://staging.ocaml.org/>
-- Pipeline managed by [ocurrent-deployer](https://github.com/ocurrent/ocurrent-deployer), monitor at <https://deploy.ci.ocaml.org/?repo=ocaml/ocaml.org>
-
-### Package Documentation
-
-Package docs under `/p/<package>/<version>/doc/` are served from an external documentation server (`https://dill.caelum.ci.dev/profiles/full/docs/`) built by [ocaml-docs-ci](https://github.com/ocurrent/ocaml-docs-ci). Configurable via `OCAMLORG_DOC_URL`.
-
-## Pushing to contributor forks
-
-When pushing fixes to a contributor's fork you don't own, git-lfs lock
-verification fails: pushing over SSH, git-lfs calls the fork's LFS locks API,
-but you have no lock authorization on a repo you don't own, so it returns 403
-and aborts the push. This is not a gap in your account's rights — you are not
-meant to hold lock rights on a third party's fork.
-
-Bypass the lock check: `GIT_LFS_SKIP_PUSH=1 git push <remote> HEAD:<branch>`
+- **Before pushing**, run `make fmt` (commit what it changes) and `npx markdownlint-cli2 '**/*.md'`. These are the most common CI failures. OCamlFormat is pinned to 0.26.2; with any other version, `make fmt` aborts with `version mismatch` instead of formatting. See [Before Submitting a PR](HACKING.md#before-submitting-a-pr).
+- **Lwt only**: Dream is Lwt-based, so don't introduce Eio dependencies.
+- **`data/` rules** (UTF-8 without BOM, no hand-editing of scraped files, never touch `data/attribution.jsonl` in a PR, update `asset/llms.txt` on renames/removals): see [Working With `data/`](HACKING.md#working-with-data).
+- **Bumping the opam-repository pin**: all pin sites change together, and the commit must be at or below the base images' bundled opam-repository tip. See [Managing Dependencies](HACKING.md#managing-dependencies).
+- **Package docs** under `/p/<package>/<version>/doc/` come from an external server, not from this code base. See [External Services](HACKING.md#external-services).
