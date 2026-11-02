@@ -186,7 +186,7 @@ Arrays may contain values of any type. Here arrays are `int array`, `char array`
 - : 'a array = [||]
 ```
 
-Remember, `'a` ("alpha") is a type parameter that will be replaced by another type.
+Remember, `'a` ("alpha") is a type variable that will be replaced by another type.
 
 Like `string` and `bytes`, arrays support direct access, but the syntax is not the same.
 
@@ -367,7 +367,7 @@ The second expression is function application. The argument `9` is applied, and 
 
 The first expression is another anonymous function. It is the _identity_ function, it can be applied to anything, and it returns its argument unchanged. This means that its argument can be of any type, and its result has the same type. The same code can be applied to data of different types. This is called _polymorphism_.
 
-Remember, the `'a` is a _type parameter_, so values of any type can be passed to the function and their type replaces the type parameter. The identity function has the same input and output type, whatever it may be.
+Remember, the `'a` is a _type variable_, so values of any type can be passed to the function and their type replaces the type variable. The identity function has the same input and output type, whatever it may be.
 
 The following example shows that the identity function can apply to arguments of different types:
 
@@ -678,7 +678,37 @@ In the end, the only type construction that does not reduce to a variant is the 
 
 #### User-Defined Polymorphic Types
 
-Here is an example of a variant type that combines constructors with data, constructors without data, polymorphism, and recursion:
+The previous section showed how several of OCaml's predefined polymorphic types are defined as variants. You can define your own in exactly the same way. The following type could be used to render a setting in a GUI. Three cases are possible:
+
+- `User_defined` means the user can pick a value.
+- `Policy_defined` means a value is enforced by the system.
+- `Disabled` means the setting isn't available.
+
+```ocaml
+# type 'a setting =
+  | User_defined of 'a
+  | Policy_defined of 'a
+  | Disabled;;
+type 'a setting = User_defined of 'a | Policy_defined of 'a | Disabled
+```
+
+This type definition has a _type parameter_: the type variable `'a` on the first line. Strictly, `'a` is a type variable, and here it plays the role of a parameter, standing for any type. That is what makes `int setting`, `string setting`, and `(bool -> float) setting` all legal types. Just like `list` and `option`, a `setting` can carry a value of any type.
+
+Each of these is a distinct type, though. The expression `User_defined 11` has type `int setting`, whilst `Policy_defined "Comic Sans"` has type `string setting`, so the two can't be placed in the same list. The repeated `'a` is the key feature: the parameter may be any type at all, but every occurrence must stand for the _same_ type. So within one `setting`, `User_defined` and `Policy_defined` always carry values of the same type.
+
+The `Disabled` constructor carries no `'a`. Like `None` and `[]`, it belongs to every instance of the type, so its own type is the fully polymorphic `'a setting`. Because `Disabled` carries no data, the same value can be used at any `setting` type:
+
+```ocaml
+# (Disabled : int setting);;
+- : int setting = Disabled
+
+# (Disabled : string setting);;
+- : string setting = Disabled
+```
+
+#### A Recursive and Polymorphic Type: `tree`
+
+The `json` type seen earlier was recursive but not polymorphic, whereas `setting` just above was polymorphic but not recursive. The `tree` type combines both traits: it takes a type parameter `'a`, like `setting`, and refers to itself, like `json`. It also mixes constructors carrying data with one that doesn't:
 
 ```ocaml
 # type 'a tree =
@@ -704,6 +734,8 @@ Here is how the map function can be defined in this type:
   | Node (x, lft, rht) -> Node (f x, map f lft, map f rht);;
 val map : ('a -> 'b) -> 'a tree -> 'b tree = <fun>
 ```
+
+Notice that `map` has two type variables, `'a` and `'b`. The function it receives may change the element type, so an `'a tree` can become a `'b tree`. For instance, `map string_of_int` turns an `int tree` into a `string tree`.
 
 In the OCaml community, as well as in the larger functional programming community, the word _polymorphism_ is used loosely. It is applied to things working in a similar fashion with various types. In this broad sense, several features of OCaml are polymorphic. Each uses a particular form of polymorphism and has a name. In summary, OCaml has several forms of polymorphism. In most cases, the distinction between those concepts is blurred, but it is sometimes necessary to distinguish them.
 
