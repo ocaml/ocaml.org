@@ -24,10 +24,7 @@ OCaml's Standard Library also provides hash tables, another implementation of an
 association table; see the [Hash Tables](/docs/hash-tables) tutorial. Hash
 tables have better lookup performance on average, but `Map` offers a functional
 interface that `Hashtbl` does not. It also keeps its keys ordered, which
-enables operations such as `min_binding`, `find_first`, or `split`. For more on
-where balanced trees are the better choice, see [applications of self-balancing
-binary search trees](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Applications)
-on Wikipedia.
+enables operations such as `min_binding`, `find_first`, or `split`.
 
 To use `Map`, we first have to use the [`Map.Make`](/manual/api/Map.Make.html) functor to
 create our custom map module. Refer to the [Functors](/docs/functors) for more information
