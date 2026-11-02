@@ -5,5 +5,6 @@ module Blog_backfill = Blog_backfill
 module Youtube_scraper = Youtube_scraper
 module Watch_scraper = Watch_scraper
 module Platform_release_scraper = Platform_release_scraper
+module Opam_health_scraper = Opam_health_scraper
 module Scrape_report = Scrape_report
 module Utf_8 = Utf_8

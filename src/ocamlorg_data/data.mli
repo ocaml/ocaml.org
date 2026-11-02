@@ -248,4 +248,44 @@ module Attribution : sig
       {!Tutorial.t} and {!Tool_page.t} (records are keyed by repo-root path). *)
 end
 
+(** Build results from check.ci.ocaml.org, see [data/opam_health.yml]. *)
+module Opam_health : sig
+  include module type of Opam_health
+
+  val run : run
+  val releases : release list
+
+  val versions : string -> release list
+  (** All checked releases of a package, in no particular order. *)
+
+  val find : name:string -> version:string -> release option
+
+  val builds : release -> (string * status) list
+  (** [(compiler, status)] pairs, compilers ascending. *)
+
+  val date : string
+  (** Date of the run, [YYYY-MM-DD] (UTC). *)
+
+  val age_in_days : now:float -> float
+  val short_commit : string
+  val commit_url : string
+  val run_url : string
+
+  val package_url : string -> string
+  (** check.ci page listing every checked version of a package. *)
+
+  val log_url : compiler:string -> status:status -> release -> string
+  val status_description : status -> string
+
+  type summary =
+    | All_good
+    | Some_failures
+    | Not_on_latest
+    | All_failing
+    | Not_available_anywhere
+
+  val summary : status list -> summary
+  val summary_to_string : summary -> string
+end
+
 module V2 : module type of V2

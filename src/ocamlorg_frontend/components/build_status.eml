@@ -1,0 +1,131 @@
+(* Build results from check.ci.ocaml.org (opam-health-check) on package pages.
+   The data is scraped into data/opam_health.yml, see Data.Opam_health. *)
+
+module H = Data.Opam_health
+
+type t = {
+  current : H.release option;  (* The version being viewed, if checked. *)
+  releases : H.release list;  (* Every checked version, newest first. *)
+  stale : bool;  (* The run is old enough that results may be outdated. *)
+}
+
+let slug = "build-status"
+
+let status_classes : H.status -> string = function
+  | Good -> "border-green-600 bg-green-100 text-green-900 dark:border-green-500 dark:bg-green-900 dark:text-green-100"
+  | Partial -> "border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100"
+  | Bad -> "border-red-600 bg-red-100 text-red-900 dark:border-red-500 dark:bg-red-900 dark:text-red-100"
+  | Not_available -> "border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100"
+  | Internal_failure -> "border-gray-500 border-dashed bg-white text-title dark:border-gray-400 dark:bg-dark-card dark:text-dark-title"
+
+let status_label : H.status -> string = function
+  | Good -> "good"
+  | Partial -> "partial"
+  | Bad -> "bad"
+  | Not_available -> "n/a"
+  | Internal_failure -> "internal"
+
+let pill ?href ~title status =
+  let classes = "inline-block min-w-[4.5rem] text-center px-2 py-0.5 rounded border text-sm font-medium " ^ status_classes status in
+  match href with
+  | Some href ->
+    <a href="<%s href %>" target="_blank" rel="noopener" title="<%s title %>" aria-label="<%s title %>" class="<%s classes %> hover:underline"><%s status_label status %></a>
+  | None ->
+    <span title="<%s title %>" class="<%s classes %>"><%s status_label status %></span>
+
+let cell (r : H.release) (compiler, status) =
+  let title =
+    Printf.sprintf "OCaml %s: %s. View the build log on check.ci.ocaml.org (requires signing in with GitHub)." compiler
+      (H.status_description status)
+  in
+  <td class="py-2 pr-3"><%s! pill ~href:(H.log_url ~compiler ~status r) ~title status %></td>
+
+let summary_badge ~href (summary : H.summary) =
+  let latest_compiler = match List.rev H.run.compilers with c :: _ -> c | [] -> "" in
+  let checked = "check.ci.ocaml.org, run of " ^ H.date ^ ": OCaml " ^ String.concat ", " H.run.compilers in
+  let classes, icon, label =
+    match summary with
+    | All_good -> ("border-green-600 bg-green-100 text-green-900 dark:border-green-500 dark:bg-green-900 dark:text-green-100", Icons.shield_check "h-4 w-4", "All checked builds pass")
+    | Some_failures -> ("border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100", Icons.error "h-4 w-4", "Some checked builds fail")
+    | Not_on_latest -> ("border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100", Icons.error "h-4 w-4", "Not available on OCaml " ^ latest_compiler)
+    | All_failing -> ("border-red-600 bg-red-100 text-red-900 dark:border-red-500 dark:bg-red-900 dark:text-red-100", Icons.error "h-4 w-4", "All checked builds fail")
+    | Not_available_anywhere -> ("border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100", "", "Not available on checked compilers")
+  in
+  <a href="<%s href %>" title="<%s checked %>"
+    class="self-center inline-flex items-center gap-1 px-2 py-0.5 rounded border text-sm font-medium hover:underline <%s classes %>">
+    <%s! icon %><%s label %>
+  </a>
+
+let badge ~href t =
+  match t.current with
+  | None -> ""
+  | Some r -> summary_badge ~href (H.summary r.statuses)
+
+(* Built as a string, not a template: a template ends with a newline, which
+   would render as a space before the punctuation that follows the link. *)
+let link ~href text =
+  Printf.sprintf
+    {|<a href="%s" target="_blank" rel="noopener" class="text-primary dark:text-dark-primary hover:underline">%s</a>|}
+    (Dream.html_escape href) (Dream.html_escape text)
+
+let render ~package_name (t : t) =
+  let viewed = Option.map (fun (r : H.release) -> r.version) t.current in
+  <div class="border-l-4 border-l-primary dark:border-l-dark-primary border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
+    <h2 id="<%s slug %>" class="text-xl font-medium my-2 text-title dark:text-dark-title">Build status</h2>
+  </div>
+  <div class="space-y-4 text-content dark:text-dark-content">
+    <p>
+      Results of building <%s package_name %> with each compiler on
+      <%s! link ~href:H.run_url "check.ci.ocaml.org" %>,
+      run of <time datetime="<%s H.date %>"><%s H.date %></time> against
+      opam-repository <%s! link ~href:H.commit_url H.short_commit %>.
+      <%s! link ~href:(H.package_url package_name) "All results for this package" %>.
+    </p>
+    <p>
+      Each result links to its build log. To keep crawlers from overloading the site,
+      build logs require a GitHub sign-in (see
+      <%s! link ~href:"https://github.com/ocurrent/opam-health-check" "ocurrent/opam-health-check" %>).
+      On your first log, GitHub asks you to “Authorize opam-health-check”, the OCurrent app that runs these checks;
+      it sees only your public profile, not your repositories. The sign-in lasts 30 days.
+    </p>
+    <% if t.stale then ( %>
+    <p class="px-3 py-2 rounded border border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100">
+      These results come from a check run on <%s H.date %> and may be outdated.
+    </p>
+    <% ); %>
+    <% if t.current = None then ( %>
+    <p>This version is not in the latest run; the versions below are.</p>
+    <% ); %>
+    <div class="overflow-x-auto">
+      <table class="text-left">
+        <thead>
+          <tr class="border-b border-separator_20 dark:border-dark-separator_30">
+            <th scope="col" class="py-2 pr-4 font-semibold text-title dark:text-dark-title">Version</th>
+            <% H.run.compilers |> List.iter (fun c -> %>
+            <th scope="col" class="py-2 pr-3 font-semibold text-title dark:text-dark-title">OCaml <%s c %></th>
+            <% ); %>
+          </tr>
+        </thead>
+        <tbody>
+          <% t.releases |> List.iter (fun (r : H.release) -> let is_viewed = viewed = Some r.version in %>
+          <tr class="border-b border-separator_20 dark:border-dark-separator_30 <%s if is_viewed then "bg-primary_25 dark:bg-dark-primary_10" else "" %>">
+            <th scope="row" class="py-2 pr-4 font-normal whitespace-nowrap">
+              <% if is_viewed then ( %>
+              <span class="font-semibold text-title dark:text-dark-title"><%s r.version %></span>
+              <span class="sr-only">(this version)</span>
+              <% ) else ( %>
+              <a href="<%s Url.Package.overview package_name ~version:r.version %>#<%s slug %>" class="text-primary dark:text-dark-primary hover:underline"><%s r.version %></a>
+              <% ); %>
+            </th>
+            <% H.builds r |> List.iter (fun b -> %><%s! cell r b %><% ); %>
+          </tr>
+          <% ); %>
+        </tbody>
+      </table>
+    </div>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+      <% [ H.Good; Partial; Bad; Not_available; Internal_failure ] |> List.iter (fun s -> %>
+      <li class="flex items-center gap-2"><%s! pill ~title:(H.status_description s) s %><span><%s H.status_description s %></span></li>
+      <% ); %>
+    </ul>
+  </div>

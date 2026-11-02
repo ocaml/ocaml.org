@@ -524,4 +524,101 @@ module Attribution = struct
 end
 
 (* V2 assets - comes from separately generated v2.ml *)
+module Opam_health = struct
+  include Data_intf.Opam_health
+
+  let run = data.opam_health.run
+  let releases = data.opam_health.releases
+  let base_url = "https://check.ci.ocaml.org"
+
+  (* Releases grouped by package name, built on first lookup. *)
+  let by_name =
+    lazy
+      (let tbl = Hashtbl.create 8192 in
+       List.iter
+         (fun r ->
+           let prev = Option.value ~default:[] (Hashtbl.find_opt tbl r.name) in
+           Hashtbl.replace tbl r.name (r :: prev))
+         (List.rev releases);
+       tbl)
+
+  let versions name =
+    Option.value ~default:[] (Hashtbl.find_opt (Lazy.force by_name) name)
+
+  let find ~name ~version =
+    List.find_opt (fun r -> String.equal r.version version) (versions name)
+
+  let builds r = List.combine run.compilers r.statuses
+
+  let date =
+    match Ptime.of_float_s run.timestamp with
+    | Some t ->
+        let y, m, d = Ptime.to_date t in
+        Printf.sprintf "%04d-%02d-%02d" y m d
+    | None -> ""
+
+  let age_in_days ~now = (now -. run.timestamp) /. 86400.
+
+  let short_commit =
+    if String.length run.commit >= 7 then String.sub run.commit 0 7
+    else run.commit
+
+  let commit_url =
+    "https://github.com/ocaml/opam-repository/commit/" ^ run.commit
+
+  let run_url = base_url ^ "/run/" ^ run.id
+
+  let package_url name =
+    base_url ^ "/?packages=" ^ name ^ "&show-latest-only=false"
+
+  let log_url ~compiler ~status r =
+    String.concat "/"
+      [
+        base_url;
+        "log";
+        run.id;
+        compiler;
+        status_to_string status;
+        r.name ^ "." ^ r.version;
+      ]
+
+  (* check.ci's own legend. *)
+  let status_description = function
+    | Good -> "Package successfully built"
+    | Partial -> "One of the dependencies failed to build"
+    | Bad -> "Package failed to build"
+    | Not_available -> "Package is not available in this environment"
+    | Internal_failure -> "Internal failure"
+
+  type summary =
+    | All_good
+    | Some_failures
+    | Not_on_latest
+    | All_failing
+    | Not_available_anywhere
+
+  (* [Not_available] is not a failure: the package simply does not install with
+     that compiler (e.g. an upper bound on OCaml), so it is ignored unless no
+     compiler is available at all. Still, a package that builds everywhere it
+     installs but not on the newest compiler tested is lagging behind, so it is
+     not [All_good]. [statuses] is aligned with [run.compilers], ascending. *)
+  let summary statuses =
+    let latest_good =
+      match List.rev statuses with Good :: _ -> true | _ -> false
+    in
+    match List.filter (fun s -> s <> Not_available) statuses with
+    | [] -> Not_available_anywhere
+    | l when List.for_all (fun s -> s = Good) l ->
+        if latest_good then All_good else Not_on_latest
+    | l when List.for_all (fun s -> s <> Good) l -> All_failing
+    | _ -> Some_failures
+
+  let summary_to_string = function
+    | All_good -> "all_good"
+    | Some_failures -> "some_failures"
+    | Not_on_latest -> "not_on_latest"
+    | All_failing -> "all_failing"
+    | Not_available_anywhere -> "not_available"
+end
+
 module V2 = V2

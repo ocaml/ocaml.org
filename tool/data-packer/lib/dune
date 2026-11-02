@@ -57,6 +57,7 @@
   outreachy_parser
   tool_page_parser
   attribution_parser
+  opam_health_parser
   ; Platform releases and changelog (changelog depends on platform_release)
   platform_release_parser
   changelog_parser

@@ -1,0 +1,54 @@
+name: Scrape (opam build health)
+
+# Build results of opam packages from check.ci.ocaml.org (opam-health-check),
+# into data/opam_health.yml (#3847). check.ci runs about weekly, on Mondays
+# around 09:25 UTC; checking daily a few hours later keeps the lag short and
+# is almost free when nothing changed (the scraper stops after a ~10 KB
+# request if the run is already committed, and no PR is opened).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 12 * * *
+
+jobs:
+  scrape:
+    name: Run Scraper
+    if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Install runtime dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libev4 libonig5
+
+      - name: Download scraper binary
+        run: |
+          gh release download scraper-latest --pattern scrape.exe
+          chmod +x scrape.exe
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run scraper
+        run: >-
+          make scrape_opam_health SCRAPE=./scrape.exe
+          COMMIT_FILE=_scrape_commit.md REPORT_FILE=_scrape_report.md
+
+      - name: Read commit message
+        id: scrape
+        run: |
+          { echo "msg<<EOF"; cat _scrape_commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          echo "title=$(head -1 _scrape_commit.md)" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: ${{ steps.scrape.outputs.title }}
+          commit-message: ${{ steps.scrape.outputs.msg }}
+          body-path: _scrape_report.md
+          labels: scrape
+          branch: create-pull-request/patch-scrape-opam-health
+          add-paths: |
+            data/opam_health.yml

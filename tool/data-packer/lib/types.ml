@@ -267,6 +267,10 @@ module Attribution = struct
   type t = [%import: Data_intf.Attribution.t] [@@deriving of_yojson, show]
 end
 
+(* Decoded by hand in Opam_health_parser: the file format is a compact
+   one-line-per-release encoding that no deriver produces. *)
+module Opam_health = Data_intf.Opam_health
+
 (* The aggregated data structure containing all types.
 
    Keep this structurally identical (same fields, same order) to
@@ -318,6 +322,7 @@ module All_data = struct
     governance_working_groups : Governance.team list;
     tool_pages : Tool_page.t list;
     attribution : Attribution.t list;
+    opam_health : Opam_health.t;
   }
 
   let empty =
@@ -361,5 +366,11 @@ module All_data = struct
       governance_working_groups = [];
       tool_pages = [];
       attribution = [];
+      opam_health =
+        {
+          Opam_health.run =
+            { Opam_health.id = ""; timestamp = 0.; commit = ""; compilers = [] };
+          releases = [];
+        };
     }
 end

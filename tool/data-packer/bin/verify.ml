@@ -14,6 +14,8 @@ let () =
   Printf.printf "  %d jobs\n" (List.length original.jobs);
   Printf.printf "  %d opam_users\n" (List.length original.opam_users);
   Printf.printf "  %d resources\n" (List.length original.resources);
+  Printf.printf "  %d opam_health releases\n"
+    (List.length original.opam_health.releases);
 
   Printf.printf "\nPacking to %s...\n" bin_file;
   Packer.pack_to_file ~output:bin_file original;
@@ -26,6 +28,8 @@ let () =
   Printf.printf "  %d jobs\n" (List.length unpacked.jobs);
   Printf.printf "  %d opam_users\n" (List.length unpacked.opam_users);
   Printf.printf "  %d resources\n" (List.length unpacked.resources);
+  Printf.printf "  %d opam_health releases\n"
+    (List.length unpacked.opam_health.releases);
 
   Printf.printf "\nVerifying data integrity...\n";
 
@@ -37,6 +41,7 @@ let () =
   assert (List.length original.jobs = List.length unpacked.jobs);
   assert (List.length original.opam_users = List.length unpacked.opam_users);
   assert (List.length original.resources = List.length unpacked.resources);
+  assert (original.opam_health = unpacked.opam_health);
 
   (* Verify first testimonial if any *)
   (match (original.testimonials, unpacked.testimonials) with

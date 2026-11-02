@@ -33,7 +33,8 @@ odoc content shown on package pages.
 
 - `ocaml_package_documentation`: a documentation overview of a package,
   covering its synopsis, description, licence, homepage, tags, documentation
-  build status, and the libraries and top-level modules it exposes. Each
+  build status, opam build results (`build_status`, see below), and the
+  libraries and top-level modules it exposes. Each
   library and module comes with a `path` you can hand to
   `ocaml_module_documentation`. Takes a `package` name and an optional
   `version` (defaulting to the latest *documented* version, falling back to the
@@ -60,11 +61,34 @@ dependency information in memory for every package in the opam repository.
   package ("used by"), each with its version constraint and latest release, plus
   a total count. Takes the same arguments.
 
+### Build Results
+
+ocaml.org keeps a copy of the latest
+[check.ci.ocaml.org](https://check.ci.ocaml.org) run, which builds every opam
+package with several OCaml compilers. A result is `good`, `partial` (a
+dependency failed), `bad`, `not-available` (the package does not install with
+that compiler, which is not a failure), or `internal-failure`. Each result
+links to its build log on check.ci, which asks you to sign in with GitHub.
+
+- `ocaml_package_documentation` includes a `build_status` field: the run
+  (date and opam-repository commit), the results for the resolved version on
+  each compiler, and the results of the package's other checked versions. It
+  is `null` when check.ci has no result for any version of the package.
+- `ocaml_package_build_information`: queries the results across all packages,
+  for example which packages fail on OCaml 5.5, or which build on 4.14 but not
+  on 5.x. Every argument is optional: `package` (a name, or a glob such as
+  `lwt*`), `compiler_min` and `compiler_max` (an inclusive compiler range),
+  `status` (a list of statuses), `match` (`any` or `all` compilers in the range
+  must have one of those statuses), `latest_only` (the newest checked version
+  of each package, the default), and `limit` and `offset` for paging.
+
 Each tool returns a JSON document. For example, asking
 `ocaml_package_documentation` about `lwt` returns its synopsis and the list of
 modules to drill into with `ocaml_module_documentation`; asking
 `ocaml_package_dependencies` about `dream` returns that package's resolved
-version alongside its `dependencies`, `optional`, and `conflicts` lists.
+version alongside its `dependencies`, `optional`, and `conflicts` lists;
+asking `ocaml_package_build_information` for `status` `["bad"]` with `match`
+`all` lists the packages that fail with every compiler checked.
 
 ## Connecting Your Assistant
 

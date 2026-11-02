@@ -11,7 +11,15 @@ type sidebar_data = {
   readme_filename : string option;
   changes_filename : string option;
   license_filename : string option;
+  health : Build_status.t option;  (* None when check.ci has no data for any version. *)
 }
+
+let build_badge ~(sidebar_data : sidebar_data) (package : Package.package) =
+  match sidebar_data.health with
+  | None -> ""
+  | Some health ->
+    let href = Url.Package.overview package.name ?version:(Package.url_version package) ^ "#" ^ Build_status.slug in
+    Build_status.badge ~href health
 
 let sidebar
 ~toc
@@ -197,6 +205,7 @@ let render
   ~canonical:(Url.Package.overview package.name ~version:specific_version)
   ~package
   ~documentation_status:sidebar_data.documentation_status
+  ~build_badge:(build_badge ~sidebar_data package)
   ~path:(Overview None)
   ~left_sidebar_html:(sidebar ~toc ~sidebar_data ~specific_version ~version package)
   ~right_sidebar_html:(right_sidebar ~toc) @@
@@ -243,6 +252,9 @@ let render
             <% deps_and_conflicts |> List.iter (fun section -> %>
               <%s! render_collapsible_dependencies section %>
             <% ); %>
+            <% (match sidebar_data.health with None -> () | Some health -> %>
+              <%s! Build_status.render ~package_name:package.name health %>
+            <% ); %>
           </div>
         </div>
       </div>
@@ -263,6 +275,7 @@ Package_layout.render
 ~canonical:(Url.Package.overview package.name ~version:specific_version)
 ~package
 ~documentation_status:sidebar_data.documentation_status
+~build_badge:(build_badge ~sidebar_data package)
 ~path:(Overview (Some content_title))
 ~left_sidebar_html:(sidebar ~toc ~sidebar_data ~specific_version ~version package)
 ~right_sidebar_html:(right_sidebar ~toc) @@

@@ -15,6 +15,8 @@
   syndic
   ; JSON for watch scraper
   ezjsonm
+  ; JSON for the opam-health scraper
+  yojson
   ; XML for youtube scraper
   xmlm
   ; HTML parsing for the keyword backfill

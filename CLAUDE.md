@@ -34,7 +34,7 @@ The stack is Lwt-based (Dream is Lwt-only) — do not introduce Eio dependencies
 3. The blob is embedded in the binary via an `.incbin` assembly directive; `src/ocamlorg_data/data.ml` deserializes it lazily (`bin_prot`) and exposes hand-written accessor modules (`Book`, `Changelog`, …)
 4. **Frontend** (`src/ocamlorg_frontend/`) uses `.eml` templates (Dream's HTML templating) to render pages
 5. **Web server** (`src/ocamlorg_web/`) handles routing and serves the site
-6. **Data scraper** (`tool/data-scrape/`) fetches external content (planet feeds, videos, platform releases)
+6. **Data scraper** (`tool/data-scrape/`) fetches external content (planet feeds, videos, platform releases, opam build results)
 
 ### Key Source Directories
 
@@ -45,7 +45,7 @@ The stack is Lwt-based (Dream is Lwt-only) — do not introduce Eio dependencies
 - `src/ocamlorg_static/` - Static file serving
 - `src/global/` - Project-wide definitions (URL helpers, ppx import)
 - `tool/data-packer/` - Packs YAML/Markdown data into the `data.bin` blob
-- `tool/data-scrape/` - Scraper for external content (planet feeds, videos, platform releases)
+- `tool/data-scrape/` - Scraper for external content (planet feeds, videos, platform releases, opam build results)
 
 ### The EML Templating System
 
@@ -59,7 +59,7 @@ Site content lives in `data/` as YAML and Markdown — one subdirectory per cont
 
 **Files in `data/` must be UTF-8 without a byte-order mark.** The packer (`read_file` in `tool/data-packer/lib/utils.ml`) fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
 
-**Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, and `data/platform_releases/` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
+**Don't hand-edit scraped content.** `data/planet/`, `data/video-watch.yml`, `data/video-youtube.yml`, `data/platform_releases/`, and `data/opam_health.yml` are machine-managed — the scrape workflows open PRs against them and manual edits get overwritten (see CI Workflows).
 
 **When you rename or remove `data/` content, update `asset/llms.txt` too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:`/`id:` (not its filename), and CI never checks them, so stale links break silently.
 
@@ -118,7 +118,7 @@ The remaining variables (`OCAMLORG_PACKAGE_CACHES_TTL`, `OCAMLORG_OPAM_POLLING`,
 
 Two gate every PR: **ci.yml** (build + test + `make fmt` check; Ubuntu + macOS, OCaml 5.2.0) and **markdown-lint.yml** (lints changed `*.md`, skipping `data/planet/` and `data/changelog/`).
 
-The rest are automation: **scrape.yml** and **scrape_platform_releases.yml** run daily and open PRs with newly scraped content; **release-scrapers.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
+The rest are automation: **scrape.yml**, **scrape_platform_releases.yml**, and **scrape_opam_health.yml** (check.ci.ocaml.org build results) run daily and open PRs with newly scraped content; **release-scrapers.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
 
 ## Deployment
 

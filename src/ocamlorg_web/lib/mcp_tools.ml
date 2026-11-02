@@ -15,7 +15,12 @@
    [Documentation] proxy to docs-ci ([dill.caelum.ci.dev]), so those tools fetch
    asynchronously — hence the [Lwt]-returning handler. We reuse the same
    accessors the GraphQL API and the package pages use (see [Graphql.get_info]
-   and the [Handler] package overview / documentation handlers). *)
+   and the [Handler] package overview / documentation handlers).
+
+   Build results from check.ci.ocaml.org (issue #3847) come from the packed
+   [Data.Opam_health] snapshot through {!Package_health}: per package as the
+   [build_status] field of ocaml_package_documentation, and across packages with
+   ocaml_package_build_information. Both are pure lookups. *)
 
 module Package = Ocamlorg_package
 module Info = Ocamlorg_package.Info
@@ -402,13 +407,79 @@ let documentation_status_string = function
       if s.failed then "failure" else "success"
   | None -> "unknown"
 
+(* --- Build results from check.ci.ocaml.org (issue #3847). ---
+
+   The data is scraped weekly into data/opam_health.yml and packed into the
+   binary (see [Data.Opam_health]), so these are pure lookups. *)
+
+module Health = Data.Opam_health
+
+let health_run_json =
+  `Assoc
+    [
+      ("id", `String Health.run.id);
+      ("date", `String Health.date);
+      ("opam_repository_commit", `String Health.run.commit);
+      ("compilers", `List (List.map (fun c -> `String c) Health.run.compilers));
+      ("url", `String Health.run_url);
+    ]
+
+let build_json (r : Health.release) (compiler, status) =
+  `Assoc
+    [
+      ("compiler", `String compiler);
+      ("status", `String (Health.status_to_string status));
+      ("description", `String (Health.status_description status));
+      ("log_url", `String (Health.log_url ~compiler ~status r));
+    ]
+
+let builds_json r builds = `List (List.map (build_json r) builds)
+
+let summary_json statuses =
+  `String (Health.summary_to_string (Health.summary statuses))
+
+let version_builds_json (r : Health.release) =
+  `Assoc
+    [
+      ("version", `String r.version);
+      ("summary", summary_json r.statuses);
+      ("builds", builds_json r (Health.builds r));
+    ]
+
+(* The [build_status] field of ocaml_package_documentation: [null] when no
+   version of the package was checked. *)
+let build_status_json ~name ~version : Yojson.Safe.t =
+  match Package_health.for_package ~name ~version with
+  | None -> `Null
+  | Some { current; others } ->
+      `Assoc
+        ([
+           ("checked", `Bool (Option.is_some current)); ("run", health_run_json);
+         ]
+        @ (match current with
+          | Some r ->
+              [
+                ("summary", summary_json r.statuses);
+                ("builds", builds_json r (Health.builds r));
+              ]
+          | None ->
+              [
+                ( "note",
+                  `String
+                    "This version is not in the latest check.ci run; see \
+                     other_versions." );
+              ])
+        @ [ ("other_versions", `List (List.map version_builds_json others)) ])
+
 let package_documentation state : Tool.t =
   {
     name = "ocaml_package_documentation";
     description =
       "Documentation overview of an opam package: synopsis, description, \
-       license, homepage, tags, documentation build status, and the libraries \
-       and top-level modules it exposes (each with a \"path\" you can pass to \
+       license, homepage, tags, documentation build status, opam build results \
+       per compiler from check.ci.ocaml.org (\"build_status\", with build-log \
+       links and the other checked versions), and the libraries and top-level \
+       modules it exposes (each with a \"path\" you can pass to \
        ocaml_module_documentation). Defaults to the latest documented version; \
        pass \"version\" for a specific one. For a package with a very large \
        module tree the libraries and modules lists are capped: when that \
@@ -438,6 +509,7 @@ let package_documentation state : Tool.t =
                     `List (List.map (fun h -> `String h) info.homepage) );
                   ( "documentation_status",
                     `String (documentation_status_string status) );
+                  ("build_status", build_status_json ~name ~version);
                   ("libraries", libraries);
                   ("modules", modules);
                   ("libraries_truncated", `Bool libraries_truncated);
@@ -588,6 +660,224 @@ let module_documentation state : Tool.t =
     annotations = Some Tool.read_only_annotations;
   }
 
+let status_names =
+  [ "good"; "partial"; "bad"; "not-available"; "internal-failure" ]
+
+let build_information_schema =
+  let str description =
+    `Assoc [ ("type", `String "string"); ("description", `String description) ]
+  in
+  `Assoc
+    [
+      ("type", `String "object");
+      ( "properties",
+        `Assoc
+          [
+            ( "package",
+              str
+                "Optional package name, exact (\"lwt\") or a glob with * \
+                 (\"lwt*\"). Default: all packages." );
+            ( "compiler_min",
+              str
+                "Optional lowest compiler to consider, inclusive, e.g. \"5.0\"."
+            );
+            ( "compiler_max",
+              str
+                "Optional highest compiler to consider, inclusive, e.g. \
+                 \"4.14\"." );
+            ( "status",
+              `Assoc
+                [
+                  ("type", `String "array");
+                  ( "items",
+                    `Assoc
+                      [
+                        ("type", `String "string");
+                        ( "enum",
+                          `List (List.map (fun s -> `String s) status_names) );
+                      ] );
+                  ( "description",
+                    `String
+                      "Optional statuses to look for. partial means a \
+                       dependency failed; not-available means the package does \
+                       not install with that compiler (not a failure). \
+                       Default: no status filter." );
+                ] );
+            ( "match",
+              `Assoc
+                [
+                  ("type", `String "string");
+                  ("enum", `List [ `String "any"; `String "all" ]);
+                  ( "description",
+                    `String
+                      "any (default): at least one compiler in range has one \
+                       of the statuses; all: every compiler in range does." );
+                ] );
+            ( "latest_only",
+              `Assoc
+                [
+                  ("type", `String "boolean");
+                  ( "description",
+                    `String
+                      "Only the newest checked version of each package. \
+                       Default: true." );
+                ] );
+            ( "limit",
+              `Assoc
+                [
+                  ("type", `String "integer");
+                  ( "description",
+                    `String
+                      (Printf.sprintf "Page size, 1 to %d. Default: 50."
+                         Package_health.max_limit) );
+                ] );
+            ( "offset",
+              `Assoc
+                [
+                  ("type", `String "integer");
+                  ("description", `String "Results to skip. Default: 0.");
+                ] );
+          ] );
+    ]
+
+let is_compiler_version s =
+  s <> "" && String.for_all (fun c -> (c >= '0' && c <= '9') || c = '.') s
+
+(* Arguments of ocaml_package_build_information -> query. Every malformed
+   argument is an in-band error. *)
+let parse_build_query (args : Yojson.Safe.t) :
+    (Package_health.query, string) result =
+  let ( let* ) = Result.bind in
+  let fields = match args with `Assoc f -> f | _ -> [] in
+  let member k =
+    match List.assoc_opt k fields with None | Some `Null -> None | v -> v
+  in
+  let opt_string k =
+    match member k with
+    | None -> Ok None
+    | Some (`String s) -> Ok (Some s)
+    | Some _ -> Error (Printf.sprintf "argument %S must be a string" k)
+  in
+  let compiler k =
+    let* v = opt_string k in
+    match v with
+    | Some c when not (is_compiler_version c) ->
+        Error
+          (Printf.sprintf
+             "argument %S: %S is not a compiler version such as \"5.4\"" k c)
+    | v -> Ok v
+  in
+  let int k ~default ~min ~max =
+    match member k with
+    | None -> Ok default
+    | Some (`Int n) when n >= min && n <= max -> Ok n
+    | Some _ ->
+        Error
+          (Printf.sprintf "argument %S must be an integer from %d to %d" k min
+             max)
+  in
+  let* package =
+    let* p = opt_string "package" in
+    match p with Some "" -> Ok None | p -> Ok p
+  in
+  let* compiler_min = compiler "compiler_min" in
+  let* compiler_max = compiler "compiler_max" in
+  let* statuses =
+    let one = function
+      | `String s -> (
+          match Health.status_of_string s with
+          | Some st -> Ok st
+          | None ->
+              Error
+                (Printf.sprintf "unknown status %S; expected one of %s" s
+                   (String.concat ", " status_names)))
+      | _ -> Error "argument \"status\" must be an array of strings"
+    in
+    match member "status" with
+    | None -> Ok []
+    | Some (`List l) ->
+        List.fold_right
+          (fun x acc ->
+            let* acc = acc in
+            let* st = one x in
+            Ok (st :: acc))
+          l (Ok [])
+    | Some (`String _ as x) -> Result.map (fun s -> [ s ]) (one x)
+    | Some _ -> Error "argument \"status\" must be an array of strings"
+  in
+  let* match_mode =
+    match member "match" with
+    | None | Some (`String "any") -> Ok Package_health.Any
+    | Some (`String "all") -> Ok Package_health.All
+    | Some _ -> Error "argument \"match\" must be \"any\" or \"all\""
+  in
+  let* latest_only =
+    match member "latest_only" with
+    | None -> Ok true
+    | Some (`Bool b) -> Ok b
+    | Some _ -> Error "argument \"latest_only\" must be a boolean"
+  in
+  let* limit = int "limit" ~default:50 ~min:1 ~max:Package_health.max_limit in
+  let* offset = int "offset" ~default:0 ~min:0 ~max:max_int in
+  Ok
+    {
+      Package_health.package;
+      compiler_min;
+      compiler_max;
+      statuses;
+      match_mode;
+      latest_only;
+      limit;
+      offset;
+    }
+
+let build_information_json (q : Package_health.query)
+    (r : Package_health.result) =
+  `Assoc
+    [
+      ("run", health_run_json);
+      ("compilers", `List (List.map (fun c -> `String c) r.compilers));
+      ("total", `Int r.total);
+      ("offset", `Int q.offset);
+      ("truncated", `Bool (q.offset + List.length r.results < r.total));
+      ( "results",
+        `List
+          (List.map
+             (fun ((rel : Health.release), builds) ->
+               `Assoc
+                 [
+                   ("package", `String rel.name);
+                   ("version", `String rel.version);
+                   ("builds", builds_json rel builds);
+                 ])
+             r.results) );
+    ]
+
+let build_information : Tool.t =
+  {
+    name = "ocaml_package_build_information";
+    description =
+      "Query opam build results from check.ci.ocaml.org (opam-health-check) \
+       across all packages, e.g. which packages fail on OCaml 5.5, or which \
+       build on 4.14 but not on 5.x. Filters: package name or glob, an \
+       inclusive compiler range, statuses, and whether any or all compilers in \
+       range must match. Results are paginated (total, offset, truncated), \
+       sorted by package name then newest version, and each result carries \
+       per-compiler statuses with build-log links. For one package's full \
+       results use ocaml_package_documentation (build_status).";
+    input_schema = build_information_schema;
+    handler =
+      (fun args ->
+        Lwt.return
+          (Result.bind (parse_build_query args) (fun q ->
+               ok_json
+                 (match build_information_json q (Package_health.query q) with
+                 | `Assoc f -> f
+                 | _ -> []))));
+    cacheable = true;
+    annotations = Some Tool.read_only_annotations;
+  }
+
 (* All MCP tools, closing over the in-memory package state. Injected into the
    MCP routes by {!Router.mcp_route}. *)
 let tools state : Tool.t list =
@@ -596,4 +886,5 @@ let tools state : Tool.t list =
     reverse_dependencies state;
     package_documentation state;
     module_documentation state;
+    build_information;
   ]
