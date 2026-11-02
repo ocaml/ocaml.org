@@ -7,6 +7,7 @@ type t = {
   current : H.release option;  (* The version being viewed, if checked. *)
   releases : H.release list;  (* Every checked version, newest first. *)
   stale : bool;  (* The run is old enough that results may be outdated. *)
+  newer_than_checked : bool;  (* The viewed version is newer than every checked one. *)
 }
 
 let slug = "build-status"
@@ -56,9 +57,20 @@ let summary_badge ~href (summary : H.summary) =
     <%s! icon %><%s label %>
   </a>
 
+(* The viewed version is not in the run, but other versions are, see [render].
+   A version newer than all of them was most likely released after the run
+   (check.ci runs weekly) and should be in the next one. *)
+let not_checked_badge ~href ~newer_than_checked =
+  let label = if newer_than_checked then "Not yet checked" else "Not checked" in
+  let title = "Not in the check.ci.ocaml.org run of " ^ H.date ^ ". See the results for other versions." in
+  <a href="<%s href %>" title="<%s title %>"
+    class="self-center inline-flex items-center gap-1 px-2 py-0.5 rounded border text-sm font-medium hover:underline border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100">
+    <%s label %>
+  </a>
+
 let badge ~href t =
   match t.current with
-  | None -> ""
+  | None -> not_checked_badge ~href ~newer_than_checked:t.newer_than_checked
   | Some r -> summary_badge ~href (H.summary r.statuses)
 
 (* Built as a string, not a template: a template ends with a newline, which

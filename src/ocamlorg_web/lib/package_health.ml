@@ -34,6 +34,10 @@ let for_page ~now ~name ~version : Ocamlorg_frontend.Build_status.t option =
           current = find_version version releases;
           releases;
           stale = H.age_in_days ~now > stale_after_days;
+          newer_than_checked =
+            List.for_all
+              (fun (r : H.release) -> compare_versions version r.version > 0)
+              releases;
         }
 
 (* The results for one version of a package, plus its other checked versions

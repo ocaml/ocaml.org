@@ -106,6 +106,31 @@ let for_package () =
     "unknown package" true
     (P.for_package ~name:"no-such-package-3847" ~version:"1" = None)
 
+(* A version absent from the run is "newer than checked" only when it sorts
+   after every checked version of its package. In opam's order, appending ".1"
+   to a version gives a newer one and appending "~" an older one. *)
+let for_page () =
+  match H.releases with
+  | [] -> ()
+  | (r : H.release) :: _ ->
+      let checked = P.versions r.name in
+      let newest = (List.hd checked).version in
+      let oldest = (List.hd (List.rev checked)).version in
+      let page version =
+        match P.for_page ~now:0. ~name:r.name ~version with
+        | None -> Alcotest.fail "a packed package has no page view"
+        | Some t -> t
+      in
+      let t = page newest in
+      Alcotest.(check bool) "checked: current" true (t.current <> None);
+      Alcotest.(check bool) "checked: not newer" false t.newer_than_checked;
+      let t = page (newest ^ ".1") in
+      Alcotest.(check bool) "newer: no current" true (t.current = None);
+      Alcotest.(check bool) "newer: newer" true t.newer_than_checked;
+      let t = page (oldest ^ "~") in
+      Alcotest.(check bool) "older: no current" true (t.current = None);
+      Alcotest.(check bool) "older: not newer" false t.newer_than_checked
+
 let parse () =
   let ok name json =
     match M.parse_build_query (Yojson.Safe.from_string json) with
@@ -155,6 +180,7 @@ let () =
           Alcotest.test_case "glob" `Quick glob;
           Alcotest.test_case "summary" `Quick summary;
           Alcotest.test_case "for_package" `Quick for_package;
+          Alcotest.test_case "for_page" `Quick for_page;
           Alcotest.test_case "MCP arguments" `Quick parse;
         ] );
     ]
