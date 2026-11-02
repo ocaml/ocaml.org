@@ -12,7 +12,7 @@ In the most general sense, the [`Map`](/manual/api/Map.html) module lets you cre
 [associative array](https://en.wikipedia.org/wiki/Associative_array) for your types. More concretely,
 OCaml's `Map` module is implemented using a [self-balancing binary search tree
 algorithm](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree)
-to support fast lookups (of O(Log n)).
+to support fast lookups (of O(log n)).
 
 **Note**: The concept of a `Map` in this tutorial refers to a data structure that stores a
 set of key-value pairs. It is sometimes called a dictionary or an association table. This
@@ -20,20 +20,19 @@ is a distinct concept from the maps we've explored in previous lessons, such as 
 `Array.map`, and `Option.map`, which are functions that operate over data rather than
 being data themselves.
 
+OCaml's Standard Library also provides hash tables, another implementation of an
+association table; see the [Hash Tables](/docs/hash-tables) tutorial. Hash
+tables have better lookup performance on average, but `Map` offers a functional
+interface that `Hashtbl` does not. It also keeps its keys ordered, which
+enables operations such as `min_binding`, `find_first`, or `split`. For more on
+where balanced trees are the better choice, see [applications of self-balancing
+binary search trees](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Applications)
+on Wikipedia.
+
 To use `Map`, we first have to use the [`Map.Make`](/manual/api/Map.Make.html) functor to
 create our custom map module. Refer to the [Functors](/docs/functors) for more information
 on functors. This functor has a module parameter that defines the keys' type to be used in
 the maps, and a function for comparing them.
-
-For a different implementation of an association table in OCaml's Standard Library, see the tutorial
-on [Hash Tables](/docs/hash-tables).
-
-`Map` offers a functional interface that `Hashtbl` does not.
-`Map` also maintain total ordering of the keys, allowing more operations;
-while hash tables have better search performance on average.
-For more on their differences and the applications of Maps, see the corresponding
-paragraph on wikipedia: [applications of balanced binary search
-trees](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree#Applications).
 
 ```ocaml
 # module StringMap = Map.Make(String);;
