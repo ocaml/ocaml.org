@@ -40,15 +40,21 @@ module Playground = struct
   let file_root = "playground/asset/"
   let digest = Playground_digests.digest
 
+  (* Only files listed in the build-time digest table are read from disk. This
+     keeps [read] confined to [file_root] on its own, instead of relying solely
+     on [Dream.static] rejecting [..] and similar path components. *)
   let read filepath =
     let open Lwt.Syntax in
-    let file = Filename.concat file_root filepath in
-    Lwt.catch
-      (fun () ->
-        Lwt_io.(with_file ~mode:Input file) (fun channel ->
-            let* content = Lwt_io.read channel in
-            Some content |> Lwt.return))
-      (fun _exn -> None |> Lwt.return)
+    match digest filepath with
+    | None -> Lwt.return None
+    | Some _ ->
+        let file = Filename.concat file_root filepath in
+        Lwt.catch
+          (fun () ->
+            Lwt_io.(with_file ~mode:Input file) (fun channel ->
+                let* content = Lwt_io.read channel in
+                Some content |> Lwt.return))
+          (fun _exn -> None |> Lwt.return)
 
   (* given the path of a file from `assets.ml`: 1. looks up the file's digest in
      and 2. returns the corresponding digest URL for use in templates *)
