@@ -4,10 +4,9 @@
    bypass forces caching in-app but does *not* likewise force rate limiting).
 
    A thin specialisation of the shared {!Bounded_cache} (bounded FIFO + TTL) at
-   Yojson values, keyed on a canonical [(method, params)] string. The no-op
-   [ping] tool is not cacheable, so Phase 2 registers no entries; the substrate
-   is here for Blocks A/B to opt deterministic tools into. All access is
-   synchronous under cooperative Lwt scheduling, so the cache needs no lock. *)
+   Yojson values, keyed on a canonical [(method, params)] string. Deterministic
+   tools opt in through [Tool.cacheable]. All access is synchronous under
+   cooperative Lwt scheduling, so the cache needs no lock. *)
 
 type t = Yojson.Safe.t Bounded_cache.t
 

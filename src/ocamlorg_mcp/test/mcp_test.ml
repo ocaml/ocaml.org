@@ -62,27 +62,14 @@ let test_tools_list () =
     | `List l -> l
     | _ -> []
   in
-  Alcotest.(check int) "one tool" 1 (List.length tools);
-  check_string "tool name" "ping"
-    (match List.nth tools 0 |> member_exn "name" with
-    | `String s -> s
-    | _ -> "<none>")
+  (* No built-in tool: without injected tools the registry is empty. *)
+  Alcotest.(check int) "no tools" 0 (List.length tools)
 
-let test_tools_call () =
-  let params = `Assoc [ ("name", `String "ping"); ("arguments", `Assoc []) ] in
-  let result =
-    handle (req ~id:3 "tools/call" (Some params)) |> member_exn "result"
-  in
-  (match member_exn "isError" result with
-  | `Bool b -> Alcotest.(check bool) "not error" false b
-  | _ -> Alcotest.fail "missing isError");
-  let text =
-    match member_exn "content" result with
-    | `List (block :: _) -> (
-        match member_exn "text" block with `String s -> s | _ -> "")
-    | _ -> ""
-  in
-  check_string "pong" "pong" text
+let test_jsonrpc_ping () =
+  (* The protocol-level [ping] method stays, independent of any tool. *)
+  match handle (req ~id:3 "ping" None) |> member_exn "result" with
+  | `Assoc [] -> ()
+  | _ -> Alcotest.fail "ping should return an empty result"
 
 let test_unknown_tool () =
   (* An unknown tool name is a protocol error (JSON-RPC invalid params), not an
@@ -241,9 +228,9 @@ let test_cache_eviction () =
   in
   Alcotest.(check bool) "oldest evicted" true !recomputed
 
-(* --- Tool injection (Phase 3): the registry is [ping] plus tools injected by
-   the web layer. Here we inject a dummy tool directly, without pulling package
-   data into this isolated library's tests. --- *)
+(* --- Tool injection (Phase 3): the registry is the tools injected by the web
+   layer. Here we inject a dummy tool directly, without pulling package data
+   into this isolated library's tests. --- *)
 
 let handle_tools ?cache tools body =
   match Lwt_main.run (Ocamlorg_mcp.handle ?cache ~tools body) with
@@ -274,10 +261,7 @@ let test_injected_tools_list () =
     | `List l -> l
     | _ -> []
   in
-  Alcotest.(check int) "ping + injected" 2 (List.length tools);
-  let names = tool_names tools in
-  Alcotest.(check bool) "has ping" true (List.mem "ping" names);
-  Alcotest.(check bool) "has injected echo" true (List.mem "echo" names)
+  Alcotest.(check (list string)) "injected only" [ "echo" ] (tool_names tools)
 
 let test_injected_tool_call () =
   let params = `Assoc [ ("name", `String "echo"); ("arguments", `Assoc []) ] in
@@ -395,7 +379,7 @@ let () =
           Alcotest.test_case "initialize falls back on unsupported version"
             `Quick test_initialize_falls_back_on_unsupported_version;
           Alcotest.test_case "tools/list" `Quick test_tools_list;
-          Alcotest.test_case "tools/call ping" `Quick test_tools_call;
+          Alcotest.test_case "ping method" `Quick test_jsonrpc_ping;
           Alcotest.test_case "unknown tool" `Quick test_unknown_tool;
           Alcotest.test_case "unknown method" `Quick test_unknown_method;
           Alcotest.test_case "notification" `Quick test_notification_no_reply;
