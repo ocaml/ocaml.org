@@ -40,6 +40,25 @@ let platform_releases_cmd =
   let run () = Platform_release_scraper.scrape () in
   Cmd.v (Cmd.info "platform_releases") Term.(const run $ const ())
 
+let opam_health_cmd =
+  let base_url =
+    let doc = "Base URL of the opam-health-check instance." in
+    Arg.(
+      value
+      & opt string Opam_health_scraper.default_base_url
+      & info [ "base-url" ] ~docv:"URL" ~doc)
+  in
+  let run base_url commit_file report_file =
+    try Opam_health_scraper.scrape ~base_url ?commit_file ?report_file ()
+    with Failure msg ->
+      Printf.eprintf "[ERROR] opam-health: %s\n" msg;
+      exit 1
+  in
+  Cmd.v
+    (Cmd.info "opam_health"
+       ~doc:"Scrape check.ci.ocaml.org build results into data/opam_health.yml")
+    Term.(const run $ base_url $ commit_file_arg $ report_file_arg)
+
 (* One-off backfill of [keywords:] front matter for existing Planet posts (issue
    #3875). Not part of the daily scrape. *)
 let planet_keywords_cmd =
@@ -81,7 +100,13 @@ let planet_keywords_cmd =
 
 let cmds =
   Cmd.group (Cmd.info "data-scrape")
-    [ planet_cmd; video_cmd; platform_releases_cmd; planet_keywords_cmd ]
+    [
+      planet_cmd;
+      video_cmd;
+      platform_releases_cmd;
+      opam_health_cmd;
+      planet_keywords_cmd;
+    ]
 
 let () =
   Printexc.record_backtrace true;

@@ -1,5 +1,6 @@
 module Package_breadcrumbs = Package_breadcrumbs
 module Package_overview = Package_overview
+module Build_status = Build_status
 module Navmap = Navmap
 module Toc = Toc
 module Package = Package

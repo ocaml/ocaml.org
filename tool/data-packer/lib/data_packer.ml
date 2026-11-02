@@ -10,5 +10,6 @@ module Import = Import
 module Exn = Exn
 module Vid = Vid
 module Platform_release_parser = Platform_release_parser
+module Opam_health_parser = Opam_health_parser
 
 (* Blob module requires the C stubs to be linked, so we don't include it here *)

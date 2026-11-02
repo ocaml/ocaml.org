@@ -75,6 +75,10 @@ val package_versions_result :
     to [upto] versions specified. An error message is returned if no package or
     versions was found. *)
 
+val package_build_status : Package.t -> Package_health.package_view option
+(** [package_build_status p] is the check.ci build status exposed as the
+    [buildStatus] field of a package. *)
+
 val schema : Package.state -> Dream.request Graphql_lwt.Schema.schema
 (** This schema allows to query for opam packages from the opam-repository as
     graphql api data *)

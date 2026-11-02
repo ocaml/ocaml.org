@@ -81,6 +81,11 @@ scrape_ocaml_planet:
 scrape_platform_releases:
 	$(SCRAPE) platform_releases
 
+.PHONY: scrape_opam_health
+scrape_opam_health: ## Scrape check.ci.ocaml.org build results into data/opam_health.yml
+	$(SCRAPE) opam_health $(if $(COMMIT_FILE),--commit-file $(COMMIT_FILE)) \
+	                      $(if $(REPORT_FILE),--report-file $(REPORT_FILE))
+
 ATTRIBUTION ?= opam exec -- dune exec --root . tool/attribution/bin/main.exe --
 
 # Seeding stamps every record at HEAD, which must be a commit of main: a squash

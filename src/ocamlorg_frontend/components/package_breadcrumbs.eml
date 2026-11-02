@@ -31,6 +31,7 @@ type path =
 
 let render_package_and_version
 ~path
+?(build_badge = "")
 ?page
 ?hash
 (package: Package.package)
@@ -58,6 +59,7 @@ let render_package_and_version
       style="background-position: right 0.25rem center">
       <%s! package.versions |> List.map version_options |> String.concat "" %>
     </select>
+    <%s! build_badge %>
   </div>
 
 let path_item_to_breadcrumb = function

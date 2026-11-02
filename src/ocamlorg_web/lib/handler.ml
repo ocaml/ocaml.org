@@ -1163,6 +1163,13 @@ module Package_helper = struct
       | Some { failed = true; _ } -> Failure
       | None -> Unknown
     in
+    let health =
+      Package_health.for_page ~now:(Unix.gettimeofday ())
+        ~name:(Ocamlorg_package.Name.to_string (Ocamlorg_package.name package))
+        ~version:
+          (Ocamlorg_package.Version.to_string
+             (Ocamlorg_package.version package))
+    in
     Lwt.return
       Ocamlorg_frontend.Package_overview.
         {
@@ -1170,6 +1177,7 @@ module Package_helper = struct
           readme_filename;
           changes_filename;
           license_filename;
+          health;
         }
 
   let frontend_toc (xs : Ocamlorg_package.Documentation.toc list) :
@@ -1455,6 +1463,18 @@ let package_overview t kind req =
                  href = "#" ^ section.slug;
                  children = [];
                }))
+    @
+    match sidebar_data.health with
+    | None -> []
+    | Some _ ->
+        [
+          Ocamlorg_frontend.Toc.
+            {
+              title = "Build status";
+              href = "#" ^ Ocamlorg_frontend.Build_status.slug;
+              children = [];
+            };
+        ]
   in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~readme

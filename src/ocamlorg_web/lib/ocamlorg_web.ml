@@ -13,6 +13,9 @@ module Mcp_doc_html = Mcp_doc_html
    JSON-RPC transport. *)
 module Mcp_tools = Mcp_tools
 
+(* Exposed for tests: build results from check.ci.ocaml.org (#3847). *)
+module Package_health = Package_health
+
 (* Set up basic logging for logs that would happen before Dream is set up. *)
 let () =
   Logs.set_reporter (Logs.format_reporter ());

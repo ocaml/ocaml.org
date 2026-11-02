@@ -251,7 +251,8 @@ The following snippet describes the repository structure:
 │   │   Packs YAML/Markdown data from `data/` into the `data.bin` binary blob.
 │   │
 │   ├── data-scrape
-│   │   Scraper for external content (planet feeds, videos, platform releases).
+│   │   Scraper for external content (planet feeds, videos, platform releases,
+│   │   opam build results from check.ci.ocaml.org).
 │   │
 │   ├── static-file-digest
 │   │   Static file digest utility.

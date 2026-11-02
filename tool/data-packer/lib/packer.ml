@@ -58,6 +58,7 @@ let load_all () =
   let governance_working_groups = Governance_parser.working_groups () in
   let tool_pages = Tool_page_parser.all () in
   let attribution = Attribution_parser.all () in
+  let opam_health = Opam_health_parser.all () in
   {
     All_data.testimonials;
     academic_testimonials;
@@ -98,4 +99,5 @@ let load_all () =
     governance_working_groups;
     tool_pages;
     attribution;
+    opam_health;
   }

@@ -598,6 +598,51 @@ module Attribution = struct
   [@@deriving repr]
 end
 
+(* Build results of opam packages from check.ci.ocaml.org (opam-health-check),
+   scraped into data/opam_health.yml by tool/data-scrape. A release's [statuses]
+   are aligned with [run.compilers]. *)
+module Opam_health = struct
+  type status = Good | Partial | Bad | Not_available | Internal_failure
+
+  type run = {
+    id : string;  (** ["<unix timestamp>-<opam-repository commit>"] *)
+    timestamp : float;
+    commit : string;
+    compilers : string list;  (** Ascending, e.g. [["4.14"; "5.2"; "5.5"]]. *)
+  }
+
+  type release = { name : string; version : string; statuses : status list }
+  type t = { run : run; releases : release list }
+
+  (* The helpers below are shared by the packer, the scraper and the server,
+     whose only common dependency is this library. *)
+
+  (* The spelling used by check.ci in its JSON API, log URLs and CSS classes. *)
+  let status_to_string = function
+    | Good -> "good"
+    | Partial -> "partial"
+    | Bad -> "bad"
+    | Not_available -> "not-available"
+    | Internal_failure -> "internal-failure"
+
+  let status_of_string = function
+    | "good" -> Some Good
+    | "partial" -> Some Partial
+    | "bad" -> Some Bad
+    | "not-available" -> Some Not_available
+    | "internal-failure" -> Some Internal_failure
+    | _ -> None
+
+  (* Compiler versions as check.ci names them ("4.14", "5.5"), ordered
+     numerically so that "4.9" < "4.14". *)
+  let compare_compiler a b =
+    let ints s =
+      String.split_on_char '.' s
+      |> List.map (fun x -> Option.value ~default:(-1) (int_of_string_opt x))
+    in
+    compare (ints a) (ints b)
+end
+
 (* The aggregated data structure embedded in data.bin.
 
    This is the runtime-facing definition: Data.all_data deserialises the blob to
@@ -650,5 +695,6 @@ module All_data = struct
     governance_working_groups : Governance.team list;
     tool_pages : Tool_page.t list;
     attribution : Attribution.t list;
+    opam_health : Opam_health.t;
   }
 end

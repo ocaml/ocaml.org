@@ -124,6 +124,114 @@ let url =
             ~resolve:(fun _ p -> p.Package.Info.checksum);
         ])
 
+module Health = Data.Opam_health
+
+let build =
+  Graphql_lwt.Schema.(
+    obj "build" ~doc:"The result of building a package with one compiler"
+      ~fields:
+        [
+          field "compiler" ~doc:"OCaml compiler version, e.g. \"5.4\""
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (compiler, _, _) -> compiler);
+          field "status"
+            ~doc:
+              "One of good, partial (a dependency failed), bad, not-available, \
+               internal-failure"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (_, status, _) -> Health.status_to_string status);
+          field "description" ~doc:"What the status means"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (_, status, _) -> Health.status_description status);
+          field "logUrl" ~doc:"Build log on check.ci.ocaml.org"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (compiler, status, release) ->
+              Health.log_url ~compiler ~status release);
+        ])
+
+let version_builds =
+  Graphql_lwt.Schema.(
+    obj "versionBuilds" ~doc:"Build results of one package version"
+      ~fields:
+        [
+          field "version" ~doc:"Package version"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (r : Health.release) -> r.version);
+          field "summary"
+            ~doc:
+              "all_good, some_failures, all_failing or not_available \
+               (not-available results are not failures)"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ (r : Health.release) ->
+              Health.summary_to_string (Health.summary r.statuses));
+          field "builds" ~doc:"One result per compiler, compilers ascending"
+            ~args:Arg.[]
+            ~typ:(non_null (list (non_null build)))
+            ~resolve:(fun _ (r : Health.release) ->
+              List.map (fun (c, s) -> (c, s, r)) (Health.builds r));
+        ])
+
+let build_run =
+  Graphql_lwt.Schema.(
+    obj "buildRun" ~doc:"The check.ci.ocaml.org run the results come from"
+      ~fields:
+        [
+          field "id" ~doc:"Run id: <unix timestamp>-<opam-repository commit>"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ () -> Health.run.id);
+          field "date" ~doc:"Date of the run (YYYY-MM-DD, UTC)"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ () -> Health.date);
+          field "opamRepositoryCommit"
+            ~doc:"The opam-repository commit that was checked"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ () -> Health.run.commit);
+          field "compilers" ~doc:"Compilers checked, ascending"
+            ~args:Arg.[]
+            ~typ:(non_null (list (non_null string)))
+            ~resolve:(fun _ () -> Health.run.compilers);
+          field "url" ~doc:"The run on check.ci.ocaml.org"
+            ~args:Arg.[]
+            ~typ:(non_null string)
+            ~resolve:(fun _ () -> Health.run_url);
+        ])
+
+let build_status =
+  Graphql_lwt.Schema.(
+    obj "buildStatus"
+      ~doc:"Build results from check.ci.ocaml.org (opam-health-check)"
+      ~fields:
+        [
+          field "run" ~doc:"The check.ci run the results come from"
+            ~args:Arg.[]
+            ~typ:(non_null build_run)
+            ~resolve:(fun _ _ -> ());
+          field "current"
+            ~doc:"Results for this version; null if it was not checked"
+            ~args:Arg.[]
+            ~typ:version_builds
+            ~resolve:(fun _ (v : Package_health.package_view) -> v.current);
+          field "otherVersions"
+            ~doc:"Results for the other checked versions, newest first"
+            ~args:Arg.[]
+            ~typ:(non_null (list (non_null version_builds)))
+            ~resolve:(fun _ (v : Package_health.package_view) -> v.others);
+        ])
+
+let package_build_status p =
+  Package_health.for_package
+    ~name:(Package.Name.to_string (Package.name p))
+    ~version:(Package.Version.to_string (Package.version p))
+
 let package =
   Graphql_lwt.Schema.(
     obj "package"
@@ -220,6 +328,13 @@ let package =
             ~resolve:(fun _ p ->
               let info = Package.info p in
               info.Package.Info.publication);
+          field "buildStatus"
+            ~doc:
+              "Build results from check.ci.ocaml.org; null if no version of \
+               the package was checked"
+            ~args:Arg.[]
+            ~typ:build_status
+            ~resolve:(fun _ p -> package_build_status p);
         ])
 
 let packages_result =
