@@ -101,10 +101,6 @@ attribution-seed: ## Re-seed every record from full history (on an up-to-date ma
 attribution-check: ## Local full-history check: fail if the committed store is stale
 	$(ATTRIBUTION) check
 
-.PHONY: attribution-sync
-attribution-sync: ## What CI runs post-merge: fold every record forward to HEAD
-	$(ATTRIBUTION) sync
-
 .PHONY: docker
 docker: ## Generate docker container
 	docker build -f Dockerfile . -t ocamlorg:latest
