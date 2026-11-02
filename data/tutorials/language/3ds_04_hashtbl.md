@@ -9,7 +9,7 @@ category: "Data Structures"
 ## Introduction
 
 The OCaml Standard Library's `Hashtbl` module implements an associative array
-similar to the standard library's [`Map`](https://ocaml.org/docs/maps) module.
+similar to the standard library's [`Map`](/docs/maps) module.
 
 While these modules share a similar structure and purpose, there are several
 differences that can be weighed when choosing between the two.
@@ -18,6 +18,12 @@ One of the benefits of a hash table over a map is that instead of having a
 logarithmic time complexity (O(log n)), a [`hash
 table`](https://en.wikipedia.org/wiki/Hash_table) is able to retrieve
 information at a nearly instantaneous constant time complexity (O(1)).
+
+**Note:** OCaml's [`Map`](/docs/maps) is implemented with a [self-balancing binary search
+tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree). For a
+comparison of the two approaches, see [associative array
+implementations](https://en.wikipedia.org/wiki/Associative_array#Comparison)
+on Wikipedia.
 
 A hash table data structure achieves efficient reads and writes by employing a
 hashing function that converts the key of a key/value pair into an
@@ -59,7 +65,7 @@ solving program and I want to find all words that start with a certain
 letter. First I need to enter the data into `my_hash`.
 
 Note that a hash table is modified by in-place updates, so unlike a
-[map](https://ocaml.org/docs/maps), another hash table is _not_ created every
+[map](/docs/maps), another hash table is _not_ created every
 time you change the table. Thus, the code `let my_hash = Hashtbl.add my_hash
 ...` does not make sense. Instead, using an imperative style we would write
 something like this:
