@@ -48,16 +48,21 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     gmp \
     libev
 
-COPY --from=build /home/opam/package.state /var/package.state
-COPY --from=build /home/opam/opam-repository /var/opam-repository
-COPY --from=build /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
+# The server runs as an unprivileged user. It only writes to the package state
+# and to the opam-repository clone it pulls from (see Ocamlorg_package.init), so
+# only those belong to it; everything else stays owned by root.
+RUN adduser -D -h /home/ocamlorg ocamlorg
+
+COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/package.state
+COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam-repository
+# Without --chown, COPY --from keeps the build stage's owner (opam, uid 1000),
+# which is the uid of ocamlorg here.
+COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 
 COPY playground/asset playground/asset
 
 RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
 ADD data/v2 /v2
-
-RUN git config --global --add safe.directory /var/opam-repository
 
 ENV DREAM_VERBOSITY=info \
     OCAMLORG_HTTP_PORT=8080 \
@@ -69,4 +74,5 @@ ENV DREAM_VERBOSITY=info \
 
 EXPOSE 8080
 
+USER ocamlorg
 ENTRYPOINT ["/bin/server"]
