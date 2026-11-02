@@ -174,6 +174,12 @@ let middleware_text_utf8 handler request =
   Dream.add_header response "Content-Type" (content_type ^ "; charset=utf-8");
   response
 
+(* [root] is the v2 directory; the route serves [root/conferences/ocaml/]. *)
+let v2_assets_route ~root =
+  let prefix = "/conferences/ocaml" in
+  Dream.get (prefix ^ "/**")
+    (Dream.static ~loader:Handler.v2_asset (root ^ prefix))
+
 let router t =
   Dream.router
     [
@@ -185,7 +191,7 @@ let router t =
                 content
           | None -> Dream.respond ~status:`Not_Found "Not found");
       Redirection.t;
-      Dream.get "/conferences/ocaml/**" Handler.v2_asset;
+      v2_assets_route ~root:Config.v2_path;
       page_routes t;
       package_route t;
       graphql_route t;

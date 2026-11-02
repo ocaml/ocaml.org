@@ -6,7 +6,8 @@
   mcp_tools_test
   utf_8_snippet_test
   case_fold_test
-  package_health_test)
+  package_health_test
+  v2_asset_test)
  (libraries
   alcotest
   yojson

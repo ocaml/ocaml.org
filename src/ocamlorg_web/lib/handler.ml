@@ -1734,9 +1734,13 @@ let sitemap _request =
 
 let logos _req = Dream.html (Ocamlorg_frontend.logos ())
 
-let v2_asset req =
-  let</>? path =
-    try Some (Config.v2_path ^ Dream.target req) with _ -> None
+(* A [Dream.static] loader. [path] comes from Dream's routing: the decoded
+   wildcard components, without the query string. Missing files and directories
+   get the 404 page. *)
+let v2_asset local_root path req =
+  let file = Filename.concat local_root path in
+  let</>? () =
+    if Sys.file_exists file && not (Sys.is_directory file) then Some ()
+    else None
   in
-  let</>? () = if Sys.file_exists path then Some () else None in
-  Filename.(Dream.from_filesystem (dirname path) (basename path) req)
+  Dream.from_filesystem local_root path req
