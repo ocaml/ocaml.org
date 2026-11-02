@@ -82,27 +82,23 @@ scrape_platform_releases:
 	$(SCRAPE) platform_releases
 
 ATTRIBUTION ?= opam exec -- dune exec --root . tool/attribution/bin/main.exe --
-BASE ?= origin/main
 
+# Seeding stamps every record at HEAD, which must be a commit of main: a squash
+# merge would discard a branch commit and leave the records unreachable.
 .PHONY: attribution-seed
-attribution-seed: ## Re-seed every attribution record from full history (local, once)
+attribution-seed: ## Re-seed every record from full history (on an up-to-date main checkout)
+	git fetch --quiet origin main
+	@git merge-base --is-ancestor HEAD origin/main || { \
+	  echo "attribution-seed: HEAD is not on origin/main; run it from e.g. \`git switch --detach origin/main\`" >&2; exit 1; }
 	$(ATTRIBUTION) seed
-
-.PHONY: attribution-update
-attribution-update: ## Fold the given docs' records forward: PATHS="data/tutorials/a.md ..."
-	$(ATTRIBUTION) update $(PATHS)
 
 .PHONY: attribution-check
 attribution-check: ## Local full-history check: fail if the committed store is stale
 	$(ATTRIBUTION) check
 
-.PHONY: attribution-verify
-attribution-verify: ## Shallow gate: verify changed docs against a base (BASE=origin/main)
-	$(ATTRIBUTION) verify --base $(BASE) $(PATHS)
-
-.PHONY: attribution-restamp
-attribution-restamp: ## Re-anchor records' watermark at HEAD (post-merge, squash fix-up)
-	$(ATTRIBUTION) restamp $(PATHS)
+.PHONY: attribution-sync
+attribution-sync: ## What CI runs post-merge: fold every record forward to HEAD
+	$(ATTRIBUTION) sync
 
 .PHONY: docker
 docker: ## Generate docker container

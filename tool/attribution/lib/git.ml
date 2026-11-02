@@ -79,3 +79,25 @@ let log_document ?root ?range ~path () =
 (* The options recorded in each record's [generator] field, so the output is
    self-describing and reproducible. *)
 let generator_options = String.concat " " (List.tl options)
+
+(* Renames between [since] and HEAD as (old, new) pairs, at the similarity
+   threshold [log_document] follows renames with, so [sync] carries a record
+   across exactly the renames the per-document log would follow. *)
+let renames ?root ~since () =
+  run_out ?root [ "diff"; "--name-status"; "-M90%"; since; "HEAD" ]
+  |> String.split_on_char '\n'
+  |> List.filter_map (fun l ->
+         match String.split_on_char '\t' l with
+         | [ s; o; n ] when String.length s > 0 && s.[0] = 'R' -> Some (o, n)
+         | _ -> None)
+
+(* Whether [ancestor] is reachable from HEAD in the local history. In a shallow
+   clone that was not deepened far enough this is false, which is what [sync]
+   relies on to refuse folding over a truncated history. *)
+let is_ancestor ?root ancestor =
+  match
+    Bos.OS.Cmd.run_status ~err:Bos.OS.Cmd.err_null
+      (git ?root [ "merge-base"; "--is-ancestor"; ancestor; "HEAD" ])
+  with
+  | Ok (`Exited 0) -> true
+  | _ -> false

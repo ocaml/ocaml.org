@@ -11,11 +11,11 @@ deployed container has no `.git` of this repo).
 
 ## The one rule: never hand-edit `data/attribution.jsonl`
 
-It is a **derived artifact**. The tool rewrites it on every run, and `check`
-(see below) fails if it differs from a fresh recompute — so a hand-edit does not
-persist, it just turns CI red. Express every correction as an **input** instead;
-the generator re-applies it on every run, so it is reproducible and reviewable
-in the PR diff.
+It is a **derived artifact**. `sync` folds forward from what is committed, so a
+hand-edit would linger until the next re-seed, and `check` (see below) flags it
+as differing from a fresh recompute. Express every correction as an **input**
+instead; the next `seed` applies it, so it is reproducible and reviewable in the
+PR diff.
 
 | To fix… | Edit this input (read-only to the tool) |
 | --- | --- |
@@ -39,73 +39,84 @@ not the login: a login can be **recycled** to a different person. If a *bare*
 the name+email form (`Canon <canon-email> Commit-Name <commit-email>`) rather
 than by email alone, so a later owner of that login is not mis-credited.
 
+## How the store is kept up to date
+
+Pull requests **never** touch `data/attribution.jsonl`. After a pull request
+that edits a tutorial or tool page merges, `.github/workflows/attribution-sync.yml`
+runs `sync` on `main` and proposes the result as a single rolling pull request
+(branch `create-pull-request/attribution-sync`), the same way the scrape
+workflows propose new content. A maintainer merges it whenever convenient.
+
+The result:
+
+- **No conflicts.** Only that bot pull request edits the store, and each run
+  regenerates it from `main`, so an open one is overwritten rather than merged.
+- **Nothing to do for contributors.** No command to run, and no check to fail.
+- **One commit per merged pull request.** The project squash-merges, so the
+  history `sync` folds over has one commit per pull request: a contributor's
+  `commits` count is the number of their merged pull requests touching the
+  document. Trailers (`Co-authored-by`, `Assisted-by`, `Derived-from`, …) count
+  when they survive into the squash commit message.
+
 ## Commands
 
 ```sh
-dune exec -- data-attribution seed                       # full history; run once locally, then commit
-dune exec -- data-attribution update PATHS…               # fold these documents forward, in place
-dune exec -- data-attribution check                       # local: fail if the committed store is stale
-dune exec -- data-attribution verify --base REV PATHS…    # CI gate (shallow): base record + PR commits
-dune exec -- data-attribution restamp PATHS…              # post-merge: re-anchor the watermark at HEAD
+dune exec -- data-attribution sync     # fold every record forward to HEAD (CI, post-merge)
+dune exec -- data-attribution seed     # full history; a maintainer runs it on main, then opens a PR
+dune exec -- data-attribution check    # local: fail if the committed store is stale
 ```
 
-- **`seed`** — rewrites the whole store from full history. The one step that
-  needs the complete clone; a maintainer runs it locally and commits the result,
-  so the full history never enters CI. Re-seeding re-bases any drift the
-  incremental path accumulated.
-- **`update PATHS`** — folds just those documents **forward from their own
-  committed watermark** (`generated_at_commit`): it reads each record, adds only
-  the commits since that watermark, and re-stamps it. Additions-only, so shallow
-  history is enough, and it needs neither the full clone nor the imported-repo
-  clone (everything already summed is carried in the record).
+- **`sync`** — brings the whole store up to date with HEAD, which must be a
+  commit of `main`. Each record is folded **forward from its own watermark**
+  (`generated_at_commit`): only the commits since then are added, and the record
+  is re-stamped at HEAD. It also:
+  - drops the records of deleted documents;
+  - carries a renamed document's record to its new path (rename detection at
+    `-M90%`, the threshold `git log --follow` uses) and folds it forward;
+  - creates records for new documents.
+
+  This is additions-only, so shallow history is enough, and it needs neither the
+  full clone nor the imported-repo clone: everything already summed is carried
+  in the record. It refuses to run when a watermark is not an ancestor of HEAD
+  locally (unreachable, or a clone too shallow), rather than silently
+  under-counting.
+- **`seed`** — rewrites the whole store from full history. This is the one step
+  that needs the complete clone (and the imported-repo clones), so the full
+  history never enters CI. Re-seeding also re-bases any drift the incremental
+  path accumulated, and is the way to apply a change to `.mailmap`,
+  `.git-blame-ignore-revs`, or `attribution/overrides/` to commits already
+  counted. Run it **on a checkout of `main`** (`make attribution-seed` checks
+  this): it stamps every record at HEAD, and a branch commit would be discarded
+  by the squash merge.
 - **`check`** — full recompute, compared **ignoring the generation-time
   provenance stamp** (`generated_at_commit` / `generator`) so an advancing HEAD
-  does not flag an otherwise-fresh store. The local counterpart of `verify`.
-- **`verify --base REV PATHS`** — the CI gate (`.github/workflows/attribution.yml`).
-  For each changed document it independently recomputes the expected record by
-  folding the PR's commits onto `REV`'s committed record, and fails unless the
-  committed record (a) matches that recompute and (b) has no kept commit after
-  its own watermark (so the watermark covers the content and a later fold cannot
-  double-count). `update` and `verify` share the same fold, so what a maintainer
-  commits locally and what CI recomputes are identical by construction.
-- **`restamp PATHS`** — moves the given records' `generated_at_commit` to the
-  current HEAD **without folding**, leaving content untouched. The project
-  squash-merges, which discards the branch-head commit `update`/`verify` stamped;
-  once merged that watermark is unreachable from `main`, so a later fold could
-  not resolve `<watermark>..HEAD`. `.github/workflows/attribution-restamp.yml`
-  runs this on `push` to `main` to re-anchor each merged record onto the merge
-  commit. Safe because the gate verified the content before the merge, so only
-  the stamp advances. (Not a maintainer command in the normal loop — CI owns it.)
+  does not flag an otherwise-fresh store.
 
 ### The `generated_at_commit` watermark
 
-Each record's `generated_at_commit` is **load-bearing**: it is the commit the
-record was last folded up to. Incremental maintenance resumes from it, so a
-record that lags `main` by more than the current PR's commits — a doc touched by
-an earlier PR that didn't update it, or the one-off gap before this gate went
-live — still catches up correctly (`watermark..HEAD`), rather than silently
-missing the gap. The maintainer loop per PR is simply:
+Each record's `generated_at_commit` is **load-bearing**: it is the commit of
+`main` the record was last folded up to, and the next `sync` resumes from it
+(`watermark..HEAD`). Because `sync` and `seed` only ever run on `main`, the
+watermark is always reachable, even though the project squash-merges. After a
+sync every record shares one watermark, so the workflow only deepens its shallow
+clone back to the last merged sync.
 
-```sh
-make attribution-update PATHS="data/tutorials/…/foo.md"   # then commit the store change
-```
+The workflow proposes a pull request only when some record's **content**
+changed. A sync that would only move watermarks is dropped, so merging the bot's
+pull request does not trigger another one.
 
 By default the seed covers the documents the frontend surfaces
 (`data/tutorials` + `data/tool_pages`); `--docs-root DIR` (repeatable) widens it.
 
-### Renames and deletions need a local re-seed
+### When `sync` asks for a re-seed
 
-The shallow gate can only *fold forward* an existing record; it cannot recover a
-document's history across a path change. So:
-
-- **Renaming** a document: `git log --follow` over the full clone is required to
-  carry the pre-rename contributors onto the new path, which shallow CI does not
-  have. Run `make attribution-seed` (or `attribution-update PATHS=<new path>`)
-  locally and commit. The gate does **not** content-verify a renamed document —
-  it only checks a record exists under the new path and that the old path's
-  record is gone.
-- **Deleting** a document: remove its record too (a local `seed` does this). The
-  gate fails if a deleted or renamed-away path still has a record.
+If a document disappears and another appears since the last sync, and rename
+detection cannot pair them (a rename combined with heavy edits, say), `sync`
+cannot tell a rename from an unrelated deletion and addition. Guessing wrong
+would silently drop the old document's history, so it fails and asks for a
+maintainer re-seed: on an up-to-date `main` checkout, run
+`make attribution-seed`, commit the store on a branch, and open a pull request.
+The next sync then starts from the re-seeded records.
 
 ## Record schema
 
@@ -123,7 +134,7 @@ into `Data_intf.Attribution.t`.
 | `provenance_unknown_before` | string \| null | Date before which authorship is unknown (`Imported-from` / `Provenance: unknown`); **the only nullable field** |
 | `ai_assisted` | ai_section[] | AI-assistance facet (one entry per AI-assisted commit) |
 | `overrides_applied` | string[] | Audit trail: `exclude:<hash>`, `add:<name>`, `note:<…>` |
-| `generated_at_commit` | string | The record's **watermark** — commit it was last folded up to; **excluded from `check`/`verify` content comparison** but drives incremental maintenance |
+| `generated_at_commit` | string | The record's **watermark** — commit it was last folded up to; **excluded from `check` content comparison** but drives incremental maintenance |
 | `generator` | string | `git` version + options, for reproducibility |
 
 `contributor`:
@@ -168,9 +179,8 @@ Two consequences:
 A related caveat: because contributor ordering and `first_date` are keyed on the
 **author date** (which a rebase preserves even as commits are reordered), a
 periodic full `seed` can occasionally reshuffle contributors whose first dates
-are close, relative to an incrementally-folded store. This is harmless — the gate
-compares fold against fold, both using day-granularity author dates — but it is
-why a re-seed sometimes produces a diff beyond the documents that changed.
+are close, relative to an incrementally-folded store. This is harmless — both paths use
+day-granularity author dates — but it is why a re-seed sometimes produces a diff beyond the documents that changed.
 
 ## How it works
 

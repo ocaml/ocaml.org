@@ -1,0 +1,127 @@
+name: Attribution sync
+
+# Keep data/attribution.jsonl (the per-document "Authors and history" records,
+# see tool/attribution) up to date with main, after the fact.
+#
+# Pull requests never touch the store: on every push to main that changes a
+# tutorial or tool page, this job runs `data-attribution sync` on main itself
+# and proposes the result as a single rolling pull request, like the scrape
+# workflows do. That's why records cannot conflict between pull requests, and
+# why the watermark each record carries (`generated_at_commit`) is always a
+# commit of main: a squash merge can't discard it, and no restamp is needed.
+#
+# Each run starts again from main and recomputes every record, so a stale or
+# superseded bot pull request is simply overwritten, and a missed run is caught
+# up by the next one.
+#
+# Shallow by design (#3902: the repository's full history never enters CI): we
+# fetch main's tip, then deepen back to each record's watermark only. After a
+# sync every record shares one watermark, so the depth is the lag since the
+# last merged sync.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/tutorials/**/*.md'
+      - 'data/tool_pages/**/*.md'
+      # A maintainer re-seed (or a merged sync) changes the store alone: run
+      # again so an open sync pull request is regenerated or closed.
+      - 'data/attribution.jsonl'
+  workflow_dispatch:
+
+# Every run recomputes the whole store from main, so a newer run supersedes an
+# older one.
+concurrency:
+  group: attribution-sync
+  cancel-in-progress: true
+
+env:
+  BRANCH: create-pull-request/attribution-sync
+
+jobs:
+  sync:
+    name: Sync attribution records
+    if: github.repository == 'ocaml/ocaml.org'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Deepen to every record's watermark
+        run: |
+          set -eu
+          for wm in $(jq -r .generated_at_commit data/attribution.jsonl | sort -u); do
+            # Deepen main's history until it reaches the watermark, so
+            # `<watermark>..HEAD` covers every commit since. (Fetch filters like
+            # --shallow-exclude take a ref, not a commit, hence the loop.)
+            until git merge-base --is-ancestor "$wm" HEAD 2>/dev/null; do
+              msg="::error::watermark $wm is not an ancestor of main; run 'make attribution-seed' on main and open a PR"
+              if [ "$(git rev-parse --is-shallow-repository)" = false ]; then
+                echo "$msg"; exit 1
+              fi
+              git fetch --no-tags --deepen=100 origin "${GITHUB_SHA}" \
+                || { echo "$msg"; exit 1; }
+            done
+          done
+
+      - name: Set up OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.0"
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+          opam-disable-sandboxing: true
+
+      - name: Install the tool's dependencies
+        # Keep in sync with tool/attribution/lib/dune's (libraries …).
+        run: opam install --yes bos cmdliner yojson yaml fmt fpath
+
+      - name: Sync
+        run: opam exec -- dune exec tool/attribution/bin/main.exe -- sync
+
+      # A sync always re-stamps every record at HEAD. Only propose it when some
+      # record's content changed, otherwise every merged sync would trigger a
+      # stamp-only pull request of its own.
+      - name: Did any record's content change?
+        id: diff
+        run: |
+          norm () { jq -c 'del(.generated_at_commit, .generator)'; }
+          if git show HEAD:data/attribution.jsonl | norm | cmp -s - <(norm < data/attribution.jsonl); then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            git checkout -- data/attribution.jsonl
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create or update the sync pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: '[attribution-sync.yml] Update authors and history records'
+          labels: attribution
+          branch: ${{ env.BRANCH }}
+          add-paths: |
+            data/attribution.jsonl
+          commit-message: |
+            [attribution-sync.yml] Update authors and history records
+          body: |
+            Automated by `.github/workflows/attribution-sync.yml`: the records in `data/attribution.jsonl`, folded forward to ${{ github.sha }} with `data-attribution sync`.
+
+            Generated from main, so it never conflicts with other pull requests. Each new push to main that touches a tutorial or tool page regenerates this pull request. Merge it whenever convenient.
+
+      - name: Close a superseded sync pull request
+        if: steps.diff.outputs.changed == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh pr view "$BRANCH" --json state --jq .state 2>/dev/null | grep -qx OPEN; then
+            gh pr close "$BRANCH" --delete-branch \
+              --comment "Superseded: the records on main are already up to date."
+          fi
