@@ -3,7 +3,7 @@
 open Data_packer.Import
 
 (* external RSS feeds that we aggregate - they will all be scraped by the
-   scrape.yml workflow *)
+   scrape-planet.yml workflow *)
 
 (* Connection timeout (seconds) for feed and post fetches. River's built-in
    default is 3s, which is too aggressive for many feeds and causes spurious

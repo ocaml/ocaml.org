@@ -1,14 +1,19 @@
-name: Scrape (OCaml Platform Releases)
+name: Scrape opam health
+
+# Build results of opam packages from check.ci.ocaml.org (opam-health-check),
+# into data/opam_health.yml (#3847). check.ci runs about weekly, on Mondays
+# around 09:25 UTC; checking daily a few hours later keeps the lag short and
+# is almost free when nothing changed (the scraper stops after a ~10 KB
+# request if the run is already committed, and no PR is opened).
 
 on:
   workflow_dispatch:
   schedule:
-    # Run every day
-    - cron: 36 5 * * *
+    - cron: 0 12 * * *
 
 jobs:
   scrape:
-    name: Run Scrapers
+    name: scrape
     if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
     runs-on: ubuntu-latest
 
@@ -26,9 +31,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run scrapers
+      - name: Run scraper
         run: >-
-          make scrape_platform_releases SCRAPE=./scrape.exe
+          make scrape_opam_health SCRAPE=./scrape.exe
           COMMIT_FILE=_scrape_commit.md REPORT_FILE=_scrape_report.md
 
       - name: Read commit message
@@ -44,6 +49,6 @@ jobs:
           commit-message: ${{ steps.scrape.outputs.msg }}
           body-path: _scrape_report.md
           labels: scrape
-          branch: create-pull-request/patch-scrape-changelog
+          branch: bot/opam-health
           add-paths: |
-            data/**/*.md
+            data/opam_health.yml

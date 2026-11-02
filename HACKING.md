@@ -191,7 +191,7 @@ Makefile
 Dockerfile
 .github/workflows/ci.yml
 .github/workflows/debug-ci.yml
-.github/workflows/release-scrapers.yml
+.github/workflows/release-scraper.yml
 ```
 
 When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once.

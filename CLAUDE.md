@@ -81,7 +81,7 @@ The opam repository is pinned to a specific commit in the following files, which
 - `dune-workspace`
 - `.github/workflows/ci.yml`
 - `.github/workflows/debug-ci.yml`
-- `.github/workflows/release-scrapers.yml`
+- `.github/workflows/release-scraper.yml`
 
 ### Choosing the pin commit: stay at or below the base image's opam-repo tip
 
@@ -118,7 +118,7 @@ The remaining variables (`OCAMLORG_PACKAGE_CACHES_TTL`, `OCAMLORG_OPAM_POLLING`,
 
 Two gate every PR: **ci.yml** (build + test + `make fmt` check; Ubuntu + macOS, OCaml 5.2.0) and **markdown-lint.yml** (lints changed `*.md`, skipping `data/planet/` and `data/changelog/`).
 
-The rest are automation: **scrape.yml**, **scrape_platform_releases.yml**, and **scrape_opam_health.yml** (check.ci.ocaml.org build results) run daily and open PRs with newly scraped content; **release-scrapers.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
+The rest are automation: **scrape-planet.yml**, **scrape-platform-releases.yml**, and **scrape-opam-health.yml** (check.ci.ocaml.org build results) run daily, and **sync-attribution.yml** runs after merges touching tutorials or tool pages; each keeps one rolling PR open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Their commit subject, which is also the PR title and the log entry, reads `<area>: <what changed>`, e.g. `planet: 4 posts (effects, eio, …), 2 videos`. **release-scraper.yml** rebuilds the scraper binary when `tool/`, `src/`, or build files land on `main`.
 
 ## Deployment
 
