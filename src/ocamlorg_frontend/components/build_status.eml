@@ -60,8 +60,12 @@ let badge ~href t =
   | None -> ""
   | Some r -> summary_badge ~href (H.summary r.statuses)
 
+(* Built as a string, not a template: a template ends with a newline, which
+   would render as a space before the punctuation that follows the link. *)
 let link ~href text =
-  <a href="<%s href %>" target="_blank" rel="noopener" class="text-primary dark:text-dark-primary hover:underline"><%s text %></a>
+  Printf.sprintf
+    {|<a href="%s" target="_blank" rel="noopener" class="text-primary dark:text-dark-primary hover:underline">%s</a>|}
+    (Dream.html_escape href) (Dream.html_escape text)
 
 let render ~package_name (t : t) =
   let viewed = Option.map (fun (r : H.release) -> r.version) t.current in
@@ -74,8 +78,14 @@ let render ~package_name (t : t) =
       <%s! link ~href:H.run_url "check.ci.ocaml.org" %>,
       run of <time datetime="<%s H.date %>"><%s H.date %></time> against
       opam-repository <%s! link ~href:H.commit_url H.short_commit %>.
-      Each result links to its build log; check.ci asks you to sign in with GitHub to read logs.
       <%s! link ~href:(H.package_url package_name) "All results for this package" %>.
+    </p>
+    <p>
+      Each result links to its build log. To keep crawlers from overloading the site,
+      build logs require a GitHub sign-in (see
+      <%s! link ~href:"https://github.com/ocurrent/opam-health-check" "ocurrent/opam-health-check" %>).
+      On your first log, GitHub asks you to “Authorize opam-health-check”, the OCurrent app that runs these checks;
+      it sees only your public profile, not your repositories. The sign-in lasts 30 days.
     </p>
     <% if t.stale then ( %>
     <p class="px-3 py-2 rounded border border-yellow-600 bg-yellow-100 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-900 dark:text-yellow-100">
@@ -83,7 +93,7 @@ let render ~package_name (t : t) =
     </p>
     <% ); %>
     <% if t.current = None then ( %>
-    <p>This version is not in the latest check.ci run; the versions below are.</p>
+    <p>This version is not in the latest run; the versions below are.</p>
     <% ); %>
     <div class="overflow-x-auto">
       <table class="text-left">
