@@ -42,6 +42,8 @@ make deps
 
 Opam will likely ask questions about installing system dependencies. For the project to work, you will have to answer yes to installing these.
 
+Run `make help` to list the other common `make` targets.
+
 ### Running the Server
 
 After building the project, you can run the server with:
@@ -136,7 +138,9 @@ The Docker images automatically build from the `live` and `staging` branches. Th
 
 ### Environment Variables
 
-The following environment variables can be used to configure the server:
+The following environment variables configure the server. They are defined in [`src/ocamlorg_web/lib/config.ml`](src/ocamlorg_web/lib/config.ml) and [`src/ocamlorg_package/lib/config.ml`](src/ocamlorg_package/lib/config.ml), where comments explain the reasoning behind each default.
+
+The ones you typically override when running locally:
 
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
@@ -145,10 +149,29 @@ The following environment variables can be used to configure the server:
 | `OCAMLORG_DOC_STATUS_URL` | `https://dill.caelum.ci.dev/profiles/full/` | Documentation build status server URL (see [External Services](#external-services)) |
 | `OCAMLORG_REPO_PATH` | `~/.cache/ocamlorg/opam-repository` | Path to local opam-repository clone |
 | `OCAMLORG_PKG_STATE_PATH` | `~/.cache/ocamlorg/package.state` | Path to package state cache file |
-| `OCAMLORG_PACKAGE_CACHES_TTL` | `3600` | Package cache time-to-live in seconds |
-| `OCAMLORG_OPAM_POLLING` | `3600` | Opam repository polling interval in seconds |
-| `OCAMLORG_MANUAL_PATH` | `html-compiler-manuals` | Path to OCaml compiler manual HTML files |
+| `OCAMLORG_MANUAL_PATH` | `html-compiler-manuals` | Path to the OCaml compiler manual HTML files, a clone of [`ocaml-web/html-compiler-manuals`](https://github.com/ocaml-web/html-compiler-manuals) (relative to the working directory) |
+| `OCAMLORG_MCP_ENABLED` | `false` | Enable the `/mcp` endpoint (the hosted MCP server) |
+
+Tuning knobs, rarely changed in development:
+
+| Variable | Default | Description |
+| -------- | ------- | ----------- |
 | `OCAMLORG_V2_PATH` | `data/v2` | Path to v2 data files |
+| `OCAMLORG_OPAM_POLLING` | `3600` | Opam repository polling interval in seconds |
+| `OCAMLORG_PACKAGE_CACHES_TTL` | `3600` | Package cache time-to-live in seconds |
+| `OCAMLORG_DOC_CACHE_MAX` | `1000` | Maximum entries in each documentation cache |
+| `OCAMLORG_DOC_CACHE_MAX_BYTES` | `134217728` (128 MB) | Byte budget for each documentation cache |
+| `OCAMLORG_DOC_NEGATIVE_TTL` | `60` | Time-to-live in seconds of cached "documentation missing" outcomes |
+| `OCAMLORG_LATEST_DOC_VERSION_DEPTH` | `25` | How many versions to probe, newest first, when looking for the latest documented one |
+| `OCAMLORG_MAX_DOC_FETCH_BYTES` | `52428800` (50 MB) | Maximum size of a single response from the documentation server |
+| `OCAMLORG_DOC_FETCH_TIMEOUT` | `30` | Timeout in seconds of a single fetch from the documentation server |
+| `OCAMLORG_MCP_RATE_LIMIT` | `300` | Per-IP request limit on `/mcp`, per window |
+| `OCAMLORG_MCP_RATE_WINDOW` | `60` | Length in seconds of the `/mcp` rate-limit window |
+| `OCAMLORG_MCP_TRUST_XFF` | `false` | Key the `/mcp` rate limit on `X-Forwarded-For`; enable only behind a proxy that sets it |
+| `OCAMLORG_MCP_CACHE_TTL` | `300` | Time-to-live in seconds of cached `/mcp` responses |
+| `OCAMLORG_MCP_CACHE_MAX` | `1024` | Maximum entries in the `/mcp` response cache |
+| `OCAMLORG_MCP_CACHE_MAX_BYTES` | `33554432` (32 MB) | Byte budget of the `/mcp` response cache |
+| `OCAMLORG_MCP_MAX_BODY` | `1048576` (1 MB) | Maximum `/mcp` request body size in bytes |
 
 ### Package Metadata and State
 
@@ -184,17 +207,38 @@ before they get merged.
 
 ### Managing Dependencies
 
-OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository is specified in the following files:
+OCaml.org is using an opam switch that is local and bound to a pinned commit in `opam-repository`. This is intended to protect the build from upstream regressions. The opam repository commit is specified in the following files:
 
-```bash
+```text
 Makefile
 Dockerfile
+.devcontainer/Dockerfile
+dune-workspace
 .github/workflows/ci.yml
 .github/workflows/debug-ci.yml
 .github/workflows/release-scraper.yml
+.github/workflows/sync-attribution.yml
 ```
 
 When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once.
+
+#### Choosing the Pin Commit
+
+`Dockerfile` and `.devcontainer/Dockerfile` both derive from an `ocaml/opam` base image (see their `FROM` lines), which bundles a full clone of opam-repository frozen at some tip. They select the pin with `git reset --hard <sha>` or `git checkout <sha>` **without** a `git fetch`, so the commit must already be present in that bundled clone:
+
+* **At or below the base image's tip**, the commit is in local history, and the checkout works without any network fetch. This is the fast path, and it matters because these images are rebuilt frequently.
+* **Beyond the base image's tip**, the checkout fails with `Could not parse object`. This only surfaces in the `deployability` check, not in GitHub Actions, where `setup-ocaml` fetches the commit directly. Recovering requires prepending `git fetch origin <sha> &&` to the reset or checkout, which costs a full opam-repository download on every build.
+
+So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines:
+
+```bash
+docker run --rm ocaml/opam:alpine-3.24-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'  # Dockerfile
+docker run --rm ocaml/opam:debian-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'       # .devcontainer/Dockerfile
+```
+
+The two base images can sit at different tips: pick a commit at or below the **older** of the two. Only pin beyond the tip (and add the `git fetch`) if you need a package version newer than the base image snapshot.
+
+#### Updating the Local Switch
 
 Once the opam repo pin is updated, the local switch must be updated using the following command:
 
@@ -204,13 +248,46 @@ opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 
 Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
-Once this is done, you can run `opam update` and `opam upgrade`. If OCamlFormat
-was upgraded in the process, its version must be updated together in
-`.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`.
+Once this is done, you can run `opam update` and `opam upgrade`. OCamlFormat is pinned independently: if you upgrade it, update its version together in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`.
 
 ### Handling the Tailwind CSS
 
 The site uses the Tailwind CSS framework. The Tailwind binary is pulled from its GitHub [repo](https://github.com/tailwindlabs/tailwindcss). Download is performed by Dune during the build. When working on a local switch for hacking, you don't want `dune clean` to delete this binary. Just do `dune install tailwind` to have it installed in the local switch.
+
+## Architecture
+
+OCaml.org is a [Dream](https://github.com/camlworks/dream) web application. It separates data (YAML and Markdown), code generation, and rendering. The stack is based on Lwt, since Dream only supports Lwt: please don't introduce Eio dependencies.
+
+### Data Flow
+
+1. **Content** lives in `data/` as YAML and Markdown files (tutorials, books, jobs, events, etc.).
+2. **The data packer** (`tool/data-packer/`) packs the YAML and Markdown into a binary blob, `data.bin`, at build time. Its design is described in [`tool/data-packer/DESIGN.md`](tool/data-packer/DESIGN.md).
+3. The blob is embedded in the server executable with an `.incbin` assembly directive. [`src/ocamlorg_data/data.ml`](src/ocamlorg_data/data.ml) deserialises it lazily (with `bin_prot`) and exposes hand-written accessor modules (`Book`, `Changelog`, …). The types are defined in [`src/ocamlorg_data/data_intf.ml`](src/ocamlorg_data/data_intf.ml).
+4. **The frontend** (`src/ocamlorg_frontend/`) renders pages from `.eml` templates.
+5. **The web server** (`src/ocamlorg_web/`) handles routing and serves the site.
+6. **The data scraper** (`tool/data-scrape/`) fetches external content: OCaml Planet feeds, videos, platform releases, and opam build results.
+
+### EML Templates
+
+Pages are written as `.eml` files in `src/ocamlorg_frontend/pages/`, preprocessed by Dream's [templating preprocessor](https://camlworks.github.io/dream/#templates). They mix OCaml and HTML: `<%s expr %>` inserts an escaped string, and `<% code %>` embeds OCaml code.
+
+### Working With `data/`
+
+The data packer enforces the structure of `data/` through the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. After editing, `make build` repacks `data.bin`. In addition:
+
+* **Files in `data/` must be UTF-8 without a byte-order mark.** The packer fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
+* **Don't hand-edit scraped content.** `data/planet/` (except `data/planet/-individual_external_links/`), `data/video-watch.yml`, `data/video-youtube.yml`, `data/platform_releases/`, and `data/opam_health.yml` are machine-managed: the scrape workflows open pull requests against them, and manual edits get overwritten.
+* **Don't touch `data/attribution.jsonl` in pull requests.** It is updated after merging, see [`tool/attribution`](tool/attribution/README.md).
+* **When you rename or remove content, update [`asset/llms.txt`](asset/llms.txt) too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:` or `id:` (not its filename), and CI doesn't check them.
+
+### CI Workflows
+
+Two workflows gate every pull request:
+
+* [`ci.yml`](.github/workflows/ci.yml) builds and tests the project on Ubuntu and macOS, and checks `make fmt`.
+* [`markdown-lint.yml`](.github/workflows/markdown-lint.yml) lints the changed Markdown files.
+
+The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`.
 
 ## Repository Structure
 
@@ -246,7 +323,13 @@ The following snippet describes the repository structure:
 │   └── ocamlorg_web
 │       The main entry-point of the server.
 │
+├── test/
+│   Load tests.
+│
 ├── tool/
+│   ├── attribution
+│   │   Maintains the "Authors and history" records of tutorials and tool pages.
+│   │
 │   ├── data-packer
 │   │   Packs YAML/Markdown data from `data/` into the `data.bin` binary blob.
 │   │
@@ -285,6 +368,11 @@ The following snippet describes the repository structure:
 │   `Makefile` containing common development commands.
 │
 ├── README.md
+│
+├── HACKING.md
+│
+├── doc/
+│   Maintainer documentation.
 │
 └── tailwind.config.js
     Configuration used by TailwindCSS to generate the CSS file for the site.

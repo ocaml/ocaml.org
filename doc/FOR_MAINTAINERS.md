@@ -62,3 +62,16 @@ An alternative method to get a squashed PR onto staging is this:
 ## Remove a PR from staging
 
 To remove a commit from `staging`, a simple method is to `git rebase -i main`. This gives you a list of commits that you can edit to remove the commit.
+
+## Push to a contributor's fork
+
+Maintainers can push commits to a contributor's pull request branch. Over SSH,
+`git-lfs` verifies locks through the fork's LFS locks API, which returns 403
+because you hold no lock rights on a repository you don't own, and the push
+aborts. This is expected, not a missing permission. Skip the `git-lfs` pre-push
+step (this also skips uploading LFS objects, so only do it when your commits add
+none):
+
+```sh
+GIT_LFS_SKIP_PUSH=1 git push <remote> HEAD:<branch>
+```

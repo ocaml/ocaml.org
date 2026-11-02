@@ -6,7 +6,7 @@ This guide documents the best way to contribute to the project when adding thing
 
 - **Good First Issues**: if you are either new to the repository or still getting started with OCaml in general, issues marked as a `good first issue` are ideal.
 - **Suggesting Changes**: most of the site content is stored in the `data` directory as Markdown or YAML. To suggest a change or update this content, you can edit those files directly and rebuild the website, detailed in the [HACKING](./HACKING.md) guide. This will promote the content into their `.ml` counterparts. If you would like to suggest entirely new website content or code, please [open an issue](https://github.com/ocaml/ocaml.org/issues) to discuss it first.
-- **Implementing Pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://aantron.github.io/dream/#templates). This is a mixture of OCaml and HTML.
+- **Implementing Pages**: most pages are implemented in `src/ocamlorg_frontend/pages` using the [.eml templating preprocessor](https://camlworks.github.io/dream/#templates). This is a mixture of OCaml and HTML.
 
 ## Reporting Bugs
 
@@ -36,7 +36,7 @@ OCaml Platform maintainers can contribute to these sections:
 - [Backstage OCaml](#content-backstage)
 - [Platform Tools Releases](#content-platform-tools-release)
 
-All files in `data/` must be encoded in UTF-8, without a byte-order mark. The build rejects any other file and reports its path and the offset of the first invalid byte. Most editors use UTF-8 by default; the repository's `.editorconfig` sets it for editors that support EditorConfig.
+All files in `data/` must be encoded in UTF-8, without a byte-order mark. The build rejects any other file and reports its path and the offset of the first invalid byte. Most editors use UTF-8 by default; the repository's `.editorconfig` sets it for editors that support EditorConfig. See [Working With `data/`](HACKING.md#working-with-data) in the HACKING guide for the other rules that apply to `data/`.
 
 The following sections give more details on how to contribute.
 
@@ -62,7 +62,7 @@ Anyone can contribute to the [OCaml Planet](https://ocaml.org/ocaml-planet), whi
 
 If you write about OCaml and have an RSS or Atom feed, you can add your feed to [`data/planet-sources.yml`](data/planet-sources.yml).
 
-When compiling, the feed entries will be downloaded, and Markdown files for each item will be created in [`data/rss`](data/rss/). For instance: [building-ahrefs-codebase-with-melange.md`](data/rss/ahrefs/building-ahrefs-codebase-with-melange.md).
+A daily scraping workflow downloads the feed entries and opens a pull request creating a Markdown file for each item in [`data/planet/`](data/planet/). For instance: [`building-ahrefs-codebase-with-melange.md`](data/planet/ahrefs/building-ahrefs-codebase-with-melange.md). These files are machine-managed, so don't edit them by hand.
 
 If you enable the `publish_all: true` flag in `data/planet-sources.yml`, you must make sure your feed only contains articles about OCaml.
 
