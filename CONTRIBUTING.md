@@ -311,26 +311,15 @@ To contribute OCaml Platform Tools release notes:
 
 Tutorials (`data/tutorials/`) and tool pages (`data/tool_pages/`) carry a
 per-document **"Authors and history"** record in `data/attribution.jsonl`,
-regenerated from git history so contributors are credited uniformly. A CI check
-(the "Attribution" workflow) gates every pull request that edits one of these
-documents: if you change a tutorial or tool page, you must also regenerate its
-record and commit the one-line change, the same way `make fmt` gates code
-formatting.
+regenerated from git history so contributors are credited uniformly. You don't
+need to do anything about it: pull requests should **not** touch
+`data/attribution.jsonl`. After your pull request merges, a workflow updates
+the records on `main` and proposes the change in a separate, automated pull
+request (see [`tool/attribution`](tool/attribution/README.md)).
 
-After editing the document and committing, run:
-
-```sh
-make attribution-update PATHS="data/tutorials/<path-you-changed>.md"
-```
-
-then commit the resulting change to `data/attribution.jsonl`. List several
-space-separated paths if you touched more than one. If the check fails, its log
-prints the exact command and the diff to apply. (A one-line typo fix still
-counts as a contribution and updates the record — that is intended.)
-
-If you **rename or delete** a tutorial or tool page, run `make attribution-seed`
-instead and commit the result: recovering the pre-rename history needs the full
-git clone, which the CI check deliberately does not fetch.
+To correct a record (a wrong name, a missing credit, a mechanical commit
+counted as authorship), edit the inputs listed in that README, such as
+`.mailmap` or `attribution/overrides/`, never the store itself.
 
 ## Git and GitHub Workflow
 

@@ -41,52 +41,23 @@ let seed_cmd =
   let doc = "Seed every document's record from its full history." in
   Cmd.v (Cmd.info "seed" ~doc) Term.(const Seed.seed $ config_t)
 
-let update_cmd =
-  let paths =
-    let doc = "Document paths to recompute (relative to the root)." in
-    Arg.(non_empty & pos_all string [] & info [] ~docv:"PATH" ~doc)
-  in
-  let doc = "Recompute the records for the given documents in place." in
-  Cmd.v (Cmd.info "update" ~doc) Term.(const Seed.update $ config_t $ paths)
-
 let check_cmd =
   let doc = "Fail if the committed store differs from a fresh recompute." in
   Cmd.v (Cmd.info "check" ~doc)
     Term.(const (fun cfg -> Stdlib.exit (Seed.check cfg)) $ config_t)
 
-let restamp_cmd =
-  let paths =
-    let doc = "Document paths whose watermark to re-anchor at HEAD." in
-    Arg.(non_empty & pos_all string [] & info [] ~docv:"PATH" ~doc)
-  in
+let sync_cmd =
   let doc =
-    "Re-anchor the given records' watermark at HEAD without folding \
-     (post-merge fix-up for squash merges; see the generator README)."
+    "Bring every record up to date with HEAD (a commit of the default branch): \
+     fold each forward, re-stamp it at HEAD, and follow renames and deletions. \
+     Run post-merge by the attribution-sync workflow."
   in
-  Cmd.v (Cmd.info "restamp" ~doc) Term.(const Seed.restamp $ config_t $ paths)
-
-let verify_cmd =
-  let base =
-    let doc = "Base revision whose committed store the records fold onto." in
-    Arg.(value & opt string "origin/main" & info [ "base" ] ~docv:"REV" ~doc)
-  in
-  let paths =
-    let doc = "Changed document paths to verify (relative to the root)." in
-    Arg.(non_empty & pos_all string [] & info [] ~docv:"PATH" ~doc)
-  in
-  let doc =
-    "Shallow CI gate: fail unless each changed document's committed record is \
-     the base record folded with the PR's commits."
-  in
-  Cmd.v (Cmd.info "verify" ~doc)
-    Term.(
-      const (fun cfg base paths -> Stdlib.exit (Seed.verify cfg ~base paths))
-      $ config_t $ base $ paths)
+  Cmd.v (Cmd.info "sync" ~doc) Term.(const Seed.sync $ config_t)
 
 let main =
   let doc = "Generate ocaml.org per-document attribution records." in
   Cmd.group
     (Cmd.info "data-attribution" ~version:"0.1" ~doc)
-    [ seed_cmd; update_cmd; check_cmd; verify_cmd; restamp_cmd ]
+    [ seed_cmd; check_cmd; sync_cmd ]
 
 let () = exit (Cmd.eval main)

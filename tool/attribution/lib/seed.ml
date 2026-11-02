@@ -322,10 +322,9 @@ let compute_record ~cfg ~head ~generator ~ignore_revs ~sources ~imports path =
 (* Extend a committed record ([base]) with the commits that touched [path] since
    that record's own watermark ([generated_at_commit]), for a new document the
    full history. Additions-only, so it needs neither the full clone nor the
-   imported-repo clone: everything already summed is carried in [base]. [update]
-   and [verify] share this, so what a maintainer commits locally and what CI
-   recomputes are identical by construction; a periodic full [seed] re-bases any
-   drift from [compute_record]. *)
+   imported-repo clone: everything already summed is carried in [base]. [sync]
+   folds every record with it; a periodic full [seed] re-bases any drift from
+   [compute_record]. *)
 let append_record ~cfg ~head ~generator ~ignore_revs ~sources ~base path =
   let override = Inputs.load_override ~doc_path:path () in
   let excluded = override.Inputs.exclude_commits in
@@ -417,15 +416,6 @@ let append_record ~cfg ~head ~generator ~ignore_revs ~sources ~base path =
     generator;
   }
 
-(* Kept commits that touch [path] after [stamp] — a non-empty result means the
-   committed record's watermark lags its content, which would cause a later
-   incremental fold to double-count, so it must fail the freshness gate. *)
-let unfolded_commits ~cfg ~ignore_revs ~stamp path =
-  let override = Inputs.load_override ~doc_path:path () in
-  let excluded = override.Inputs.exclude_commits in
-  parse_log (Git.log_document ~root:cfg.root ~range:(stamp ^ "..HEAD") ~path ())
-  |> List.filter (keep_commit ~cfg ~ignore_revs ~excluded)
-
 (* --- document discovery --------------------------------------------------- *)
 
 let documents cfg =
@@ -482,89 +472,10 @@ let seed cfg =
   write_lines cfg.output (sort_lines lines);
   Printf.printf "wrote %d records to %s\n" (List.length lines) cfg.output
 
-(* Incrementally fold each path's record forward from its own committed
-   watermark and splice it back in place. Needs only the commits since that
-   watermark (shallow-friendly), not the full history [seed] uses. *)
-let update cfg paths =
-  (* Guard against a typo'd path silently writing an empty record: a document
-     must exist on disk to be folded. *)
-  List.iter
-    (fun path ->
-      if not (Sys.file_exists (Filename.concat cfg.root path)) then
-        Fmt.failwith "no such document: %s (nothing to update)" path)
-    paths;
-  let head = Git.head_commit ~root:cfg.root () in
-  let generator =
-    Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
-  in
-  let ignore_revs = Inputs.load_ignore_revs () in
-  let sources = Inputs.load_sources () in
-  let store = read_lines cfg.output in
-  let base_of path =
-    List.find_opt (fun l -> Record.path_of_line l = path) store
-    |> Option.map Record.of_line
-  in
-  let updated =
-    List.map
-      (fun path ->
-        let base = base_of path in
-        let r =
-          append_record ~cfg ~head ~generator ~ignore_revs ~sources ~base path
-        in
-        (path, Record.to_line r))
-      paths
-  in
-  let kept =
-    store
-    |> List.filter (fun l ->
-           not (List.mem_assoc (Record.path_of_line l) updated))
-  in
-  write_lines cfg.output (sort_lines (kept @ List.map snd updated));
-  Printf.printf "updated %d record(s) in %s\n" (List.length updated) cfg.output
-
-(* Re-anchor the watermark onto a reachable commit, WITHOUT folding anything:
-   set [generated_at_commit] (and refresh [generator]) to the current HEAD for
-   the given documents, leaving every content field exactly as committed.
-
-   This exists because the project squash-merges PRs. [update]/[verify] stamp a
-   record at the PR's branch head; a squash merge discards that commit, so once
-   merged the watermark names a commit that is no longer on the branch, and the
-   next document edit's fold ([<watermark>..HEAD]) cannot resolve it. Running
-   [restamp] on the default branch after a merge moves each touched record's
-   watermark onto the (reachable) merge commit, so incremental maintenance stays
-   anchored. It is safe precisely because it does no folding: the attribution
-   gate already verified this tree's content before the merge, so only the stamp
-   needs to advance. A document with no committed record yet is skipped. *)
-let restamp cfg paths =
-  List.iter
-    (fun path ->
-      if not (Sys.file_exists (Filename.concat cfg.root path)) then
-        Fmt.failwith "no such document: %s (nothing to restamp)" path)
-    paths;
-  let head = Git.head_commit ~root:cfg.root () in
-  let generator =
-    Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
-  in
-  let targets = List.sort_uniq compare paths in
-  let restamped = ref 0 in
-  let lines =
-    List.map
-      (fun line ->
-        if List.mem (Record.path_of_line line) targets then (
-          incr restamped;
-          Record.to_line
-            { (Record.of_line line) with generated_at_commit = head; generator })
-        else line)
-      (read_lines cfg.output)
-  in
-  write_lines cfg.output (sort_lines lines);
-  Printf.printf "restamped %d record(s) at %s in %s\n" !restamped head
-    cfg.output
-
 (* Recompute the full store and compare it against what is committed, ignoring
    the generation-time provenance stamp so an advancing HEAD does not flag an
-   otherwise-fresh store. This is the local, full-history check; CI uses the
-   shallow [verify] below instead. *)
+   otherwise-fresh store. This is the local, full-history check; CI only runs
+   the shallow [sync] below. *)
 let check cfg =
   let paths = documents cfg in
   let content l = (Record.path_of_line l, Record.content_of_line l) in
@@ -595,83 +506,95 @@ let check cfg =
           missing);
     1)
 
-(* The shallow CI gate. For each changed document, independently recompute the
-   expected record by folding the PR's commits onto the base branch's committed
-   record, and require that:
+(* --- post-merge synchronisation ------------------------------------------- *)
 
-   - the committed record's content matches that recompute (so the author ran
-   [update] and it is correct), and - no kept commit touches the document after
-   the committed record's watermark (so the watermark covers the content and a
-   later fold will not double-count).
+(* Bring the whole store up to date with HEAD, which must be a commit of the
+   default branch: the post-merge workflow (attribution-sync.yml) runs this on a
+   checkout of [main] and proposes the result as a pull request.
 
-   This needs only the base record (via [git show]) and the commits since each
-   watermark — never the full history — so CI stays shallow. *)
-let verify cfg ~base paths =
+   This is the store's only writer in normal operation. Pull requests never
+   touch it, so they cannot conflict over it. Every record is folded forward
+   from its own watermark and re-stamped at HEAD. HEAD is a commit of the
+   default branch, not a PR head that a squash merge would discard, so the
+   watermark stays reachable; and since every record shares it after a sync, the
+   next sync only needs the history since then.
+
+   Structural changes since a record's watermark are handled as well: - a
+   deleted document loses its record; - a renamed document (detected at the
+   -M90% threshold [git log --follow] uses) keeps its record, re-keyed to the
+   new path and folded forward; - a new document gets a record from its own
+   history.
+
+   A deletion and an addition that rename detection could not pair (a rename
+   combined with heavy edits, say) are ambiguous. Treating them as unrelated
+   would silently drop the old document's history, including authors recovered
+   from imports, which need clones CI does not have. So [sync] fails and asks
+   for a maintainer [seed] instead. *)
+let sync cfg =
   let head = Git.head_commit ~root:cfg.root () in
   let generator =
     Git.version ~root:cfg.root () ^ "; " ^ Git.generator_options
   in
   let ignore_revs = Inputs.load_ignore_revs () in
   let sources = Inputs.load_sources () in
-  let base_lines =
-    match Git.show_file ~root:cfg.root ~rev:base ~path:cfg.output () with
-    | Some s ->
-        String.split_on_char '\n' s
-        |> List.filter (fun l -> String.trim l <> "")
-    | None -> []
+  let store = List.map Record.of_line (read_lines cfg.output) in
+  let on_disk = documents cfg in
+  (* Folding over a history that does not reach a watermark would silently
+     under-count (a too-shallow clone looks like "no new commits"), so
+     refuse. *)
+  List.sort_uniq compare
+    (List.map (fun (r : Record.t) -> r.generated_at_commit) store)
+  |> List.iter (fun wm ->
+         if not (Git.is_ancestor ~root:cfg.root wm) then
+           Fmt.failwith
+             "watermark %s is not an ancestor of HEAD in the local history \
+              (unreachable, or the clone is too shallow); cannot fold from it"
+             wm);
+  let recorded p = List.exists (fun (r : Record.t) -> r.path = p) store in
+  let missing =
+    List.filter (fun (r : Record.t) -> not (List.mem r.path on_disk)) store
   in
-  let line_for lines path =
-    List.find_opt (fun l -> Record.path_of_line l = path) lines
-  in
-  let committed = read_lines cfg.output in
-  let hint path =
-    Printf.sprintf
-      "run `make attribution-update PATHS=%s` and commit the result" path
-  in
-  let failures =
-    List.filter_map
-      (fun path ->
-        let base_record =
-          Option.map Record.of_line (line_for base_lines path)
+  let carried, dropped =
+    List.partition_map
+      (fun (r : Record.t) ->
+        let targets =
+          Git.renames ~root:cfg.root ~since:r.generated_at_commit ()
+          |> List.filter_map (fun (o, n) ->
+                 if o = r.path && List.mem n on_disk && not (recorded n) then
+                   Some n
+                 else None)
         in
-        let expected =
-          append_record ~cfg ~head ~generator ~ignore_revs ~sources
-            ~base:base_record path
-        in
-        match line_for committed path with
-        | None ->
-            Some
-              (Printf.sprintf "%s: changed but has no attribution record; %s"
-                 path (hint path))
-        | Some line ->
-            let committed_record = Record.of_line line in
-            let content_ok =
-              Record.content_of_line (Record.to_line expected)
-              = Record.content_of_line line
-            in
-            let fresh_ok =
-              unfolded_commits ~cfg ~ignore_revs
-                ~stamp:committed_record.generated_at_commit path
-              = []
-            in
-            if not content_ok then
-              Some
-                (Printf.sprintf
-                   "%s: attribution record does not match base + PR commits; %s"
-                   path (hint path))
-            else if not fresh_ok then
-              Some
-                (Printf.sprintf
-                   "%s: attribution record is not re-stamped past its newest \
-                    commit; %s"
-                   path (hint path))
-            else None)
-      paths
+        match targets with
+        | n :: _ -> Left (n, { r with path = n })
+        | [] -> Right r.path)
+      missing
   in
-  match failures with
-  | [] ->
-      Printf.printf "attribution: %d record(s) verified\n" (List.length paths);
-      0
-  | fs ->
-      List.iter (Printf.eprintf "%s\n") fs;
-      1
+  let fresh =
+    List.filter (fun p -> not (recorded p || List.mem_assoc p carried)) on_disk
+  in
+  if dropped <> [] && fresh <> [] then
+    Fmt.failwith
+      "cannot tell whether %s %s renamed to %s: rename detection found no \
+       pairing. Run `make attribution-seed` on an up-to-date main checkout and \
+       open a pull request with the result."
+      (String.concat ", " dropped)
+      (if List.length dropped = 1 then "was" else "were")
+      (String.concat ", " fresh);
+  let base_of p =
+    match List.assoc_opt p carried with
+    | Some r -> Some r
+    | None -> List.find_opt (fun (r : Record.t) -> r.path = p) store
+  in
+  let lines =
+    List.map
+      (fun p ->
+        Record.to_line
+          (append_record ~cfg ~head ~generator ~ignore_revs ~sources
+             ~base:(base_of p) p))
+      on_disk
+  in
+  write_lines cfg.output (sort_lines lines);
+  Printf.printf
+    "synced %d record(s) at %s in %s (%d renamed, %d removed, %d new)\n"
+    (List.length lines) head cfg.output (List.length carried)
+    (List.length dropped) (List.length fresh)
