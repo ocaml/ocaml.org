@@ -63,11 +63,20 @@ let summary_badge ~href (summary : H.summary) =
     <%s! icon %><%s label %>
   </a>
 
-let grey_badge ~href ~title label =
+let plain_badge ~classes ?(icon = "") ~href ~title label =
   <a href="<%s href %>" title="<%s title %>"
-    class="self-center inline-flex items-center gap-1 px-2 py-0.5 rounded border text-sm font-medium hover:underline border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100">
-    <%s label %>
+    class="self-center inline-flex items-center gap-1 px-2 py-0.5 rounded border text-sm font-medium hover:underline <%s classes %>">
+    <%s! icon %><%s label %>
   </a>
+
+let grey_badge =
+  plain_badge ~classes:"border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100"
+
+(* Compiler packages: check.ci does not build them on their own, but every
+   build it runs starts by installing a compiler. *)
+let green_badge =
+  plain_badge ~classes:"border-green-600 bg-green-100 text-green-900 dark:border-green-500 dark:bg-green-900 dark:text-green-100"
+    ~icon:(Icons.shield_check "h-4 w-4")
 
 let not_yet_checked_label = "Build not yet checked"
 let not_yet_checked_title = "Published after the check.ci.ocaml.org run of " ^ H.date ^ ". It should be in a later run."
@@ -87,7 +96,7 @@ let badge ~href = function
   | Results { current = None; newer_than_checked; _ } -> not_checked_badge ~href ~newer_than_checked
   | Not_yet_checked -> grey_badge ~href ~title:not_yet_checked_title not_yet_checked_label
   | Cannot_be_checked ->
-    grey_badge ~href ~title:"check.ci.ocaml.org does not build the OCaml compiler packages themselves."
+    green_badge ~href ~title:"check.ci.ocaml.org does not build the OCaml compiler packages themselves."
       "Build cannot be checked"
   | No_information ->
     grey_badge ~href ~title:("No version of this package is in the check.ci.ocaml.org run of " ^ H.date ^ ".")
