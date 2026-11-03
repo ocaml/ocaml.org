@@ -73,9 +73,4 @@
   unpacker
   data_packer)
  (preprocess
-  (staged_pps
-   ppx_import
-   ppx_deriving_yaml
-   ppx_deriving_yojson
-   ppx_stable
-   ppx_deriving.show)))
+  (staged_pps ppx_import ppx_deriving_yaml ppx_deriving_yojson ppx_stable)))
