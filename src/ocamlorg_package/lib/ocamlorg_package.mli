@@ -153,6 +153,25 @@ end
 
 module Package_info = Package_info
 
+(** Publication dates of package versions, read from opam-repository's Git
+    history. *)
+module Publication_dates : sig
+  val compute :
+    ?repo:Fpath.t ->
+    previous:string option * Info.t Version.Map.t Name.Map.t ->
+    commit:string ->
+    _ Version.Map.t Name.Map.t ->
+    float OpamPackage.Map.t Lwt.t
+  (** [compute ~previous:(old, old_packages) ~commit packages] maps every
+      package version to the time of the last commit, on the first-parent
+      history of [commit], that added, copied or renamed its opam file. When
+      [old] is an ancestor of [commit], only [old..commit] is read and folded
+      onto the dates in [old_packages]; it falls back to the whole history when
+      there is no [old], when [old] is not an ancestor, or when a version of
+      [packages] gets no date that way. [repo] defaults to the opam-repository
+      clone. *)
+end
+
 val mockup_state : t list -> state
 (** [mockup_state ts] produces the opam-repository state from a list of packages *)
 

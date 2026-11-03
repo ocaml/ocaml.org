@@ -190,7 +190,7 @@ let time_it_lwt name f =
   Logs.info (fun log -> log "%s: %.2fs" name (t1 -. t0));
   result
 
-let of_opamfiles
+let of_opamfiles ~timestamps
     (opams : OpamFile.OPAM.t OpamPackage.Version.Map.t OpamPackage.Name.Map.t) =
   let open Lwt.Syntax in
   let packages =
@@ -213,10 +213,6 @@ let of_opamfiles
   in
   let* rev_deps =
     time_it_lwt "Reverse dependencies" (fun () -> rev_depends dependencies)
-  in
-  let* timestamps =
-    time_it_lwt "Publication dates" (fun () ->
-        Opam_repository.create_package_to_timestamp ())
   in
   time_it_lwt "Generate package info" (fun () ->
       Lwt_fold.package_name_map

@@ -36,6 +36,21 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
     file as been added, in Git's relative format. Returns more recent files
     first. *)
 
-val create_package_to_timestamp : unit -> float OpamPackage.Map.t Lwt.t
-(** Creates a map of package to timestamp, where the timestamp is the first
-    commit of the package's opam file. *)
+val is_ancestor : ?repo:Fpath.t -> string -> string -> bool Lwt.t
+(** [is_ancestor a b] is [true] if commit [a] is an ancestor of (or equal to)
+    commit [b]. Returns [false], without raising, when either commit is unknown.
+    [repo] defaults to the opam-repository clone. *)
+
+val create_package_to_timestamp :
+  ?repo:Fpath.t ->
+  ?since:string ->
+  ?init:float OpamPackage.Map.t ->
+  string ->
+  float OpamPackage.Map.t Lwt.t
+(** [create_package_to_timestamp commit] maps each package to the commit time of
+    the last commit, on the first-parent history of [commit], that added, copied
+    or renamed its opam file. With [~since], only the commits in [since..commit]
+    are read and folded onto [init] (default: empty): when [since] is on the
+    first-parent history of [commit] and [init] holds the dates at [since], the
+    result is the same as a full scan. [repo] defaults to the opam-repository
+    clone. *)

@@ -41,8 +41,8 @@ end
 let clone_path = Config.opam_repository_path
 let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
-let git_cmd args =
-  ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string clone_path :: args))
+let git_cmd ?(repo = clone_path) args =
+  ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string repo :: args))
 
 let last_commit () =
   let open Lwt.Syntax in
@@ -153,9 +153,22 @@ let new_files_since ~a ~b =
        ])
   |> Lwt.map parse_commits
 
+let is_ancestor ?repo a b =
+  let open Lwt.Syntax in
+  let+ res =
+    Process.exec (git_cmd ?repo [ "merge-base"; "--is-ancestor"; a; b ])
+  in
+  match res with
+  | Ok () -> true
+  | Error (_, Unix.WEXITED 1) -> false
+  | Error (cmd, status) ->
+      (* E.g. [a] is not in the clone: a state built from another clone. *)
+      Logs.warn (fun m -> m "%a %a" Process.pp_cmd cmd Process.pp_status status);
+      false
+
 (* Borrowed from
    https://github.com/ocaml-opam/opam2web/blob/ad2ddb01865c891949f3560b653247bdbb2a0f75/src/o2wUniverse.ml#L25 *)
-let parse_git_commit_times =
+let parse_git_commit_times ~init =
   let any_opam_path = "*/opam" in
   let rec read_time found = function
     | [] -> found
@@ -175,13 +188,15 @@ let parse_git_commit_times =
         in
         read_file found time rest
   in
-  read_time OpamPackage.Map.empty
+  read_time init
 
-let create_package_to_timestamp () =
+let create_package_to_timestamp ?repo ?since ?(init = OpamPackage.Map.empty)
+    commit =
   let open Lwt.Syntax in
+  let range = match since with None -> commit | Some a -> a ^ ".." ^ commit in
   let+ output =
     Process.pread_lines
-      (git_cmd
+      (git_cmd ?repo
          [
            "log";
            "--name-only";
@@ -190,8 +205,9 @@ let create_package_to_timestamp () =
            "--pretty=format:%ct";
            "-m";
            "--first-parent";
+           range;
            "--";
            "*/opam";
          ])
   in
-  parse_git_commit_times output
+  parse_git_commit_times ~init output
