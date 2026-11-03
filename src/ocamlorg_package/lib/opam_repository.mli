@@ -38,14 +38,16 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
 
 type ancestry =
   | First_parent  (** On the first-parent history (or equal). *)
-  | Other_parent
-      (** An ancestor, reachable only through a merge's other parent. *)
-  | Not_ancestor
+  | Not_first_parent
+      (** Not an ancestor, an ancestor reachable only through a merge's other
+          parent, or ahead of the second commit. *)
   | Unknown_commit  (** The first commit is not in the repository. *)
+  | Git_failed of string  (** Any other Git failure, with Git's message. *)
 
 val ancestry : ?repo:Fpath.t -> string -> string -> ancestry Lwt.t
-(** [ancestry a b] tells how commit [a] relates to commit [b]. Raises on any
-    other Git failure. [repo] defaults to the opam-repository clone. *)
+(** [ancestry a b] tells whether commit [a] is on the first-parent history of
+    commit [b]. It never raises on a Git failure. [repo] defaults to the
+    opam-repository clone. *)
 
 val create_package_to_timestamp :
   ?repo:Fpath.t ->

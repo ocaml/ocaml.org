@@ -194,6 +194,22 @@ let test_other_parent () =
   check "ancestor through a second parent: full history" expected
     (compute (Some h.side, marked_state))
 
+let test_same_commit () =
+  let h = Lazy.force history in
+  (* Nothing to read: every date comes from the state. *)
+  check "same commit: dates from the state"
+    (with_date "b.1" 42. expected)
+    (compute (Some h.new_, state (with_date "b.1" 42. expected)))
+
+let test_ahead () =
+  let h = Lazy.force history in
+  (* The state was built at [new_] but the clone is at [old] (e.g. a state baked
+     from another clone): [new_..old] is empty, yet [new_] is not on the
+     first-parent history of [old]. *)
+  check "state ahead of the clone: full history"
+    (to_list (compute ~commit:h.old (None, state [])))
+    (compute ~commit:h.old (Some h.new_, marked_state))
+
 let test_missing_date () =
   let h = Lazy.force history in
   (* b.1 was present at [old] but is not in the state (e.g. its opam file did
@@ -231,6 +247,10 @@ let () =
             test_not_ancestor;
           Alcotest.test_case "falls back off the first-parent history" `Quick
             test_other_parent;
+          Alcotest.test_case "incremental from the same commit" `Quick
+            test_same_commit;
+          Alcotest.test_case "falls back when the state is ahead" `Quick
+            test_ahead;
           Alcotest.test_case "falls back when a date is missing" `Quick
             test_missing_date;
           Alcotest.test_case "incremental equals full from every commit" `Quick

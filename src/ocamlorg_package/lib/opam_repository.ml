@@ -153,67 +153,76 @@ let new_files_since ~a ~b =
        ])
   |> Lwt.map parse_commits
 
-type ancestry = First_parent | Other_parent | Not_ancestor | Unknown_commit
+type ancestry =
+  | First_parent
+  | Not_first_parent
+  | Unknown_commit
+  | Git_failed of string
 
-(* Run [cmd] with stderr discarded: these Git calls are expected to fail on an
-   unknown commit, and their status is reported by the caller. *)
-let pread_quiet cmd =
+(* Run [cmd] and return its stdout lines, or its exit status and stderr. These
+   Git calls are expected to fail on an unknown commit, so the caller decides
+   what a failure means. *)
+let pread_result cmd =
   let open Lwt.Syntax in
-  let proc = Lwt_process.open_process_in ~stderr:`Dev_null cmd in
-  let* lines = Lwt_io.read_lines proc#stdout |> Lwt_stream.to_list in
-  let+ status = proc#status in
-  match status with Unix.WEXITED 0 -> Ok lines | s -> Error (cmd, s)
+  Lwt_process.with_process_full cmd (fun proc ->
+      let* lines = Lwt_io.read_lines proc#stdout |> Lwt_stream.to_list
+      and* stderr = Lwt_io.read proc#stderr in
+      let+ status = proc#status in
+      match status with
+      | Unix.WEXITED 0 -> Ok lines
+      | status -> Error (cmd, status, String.trim stderr))
+
+let git_failed (cmd, status, stderr) =
+  Git_failed
+    (Fmt.str "%a %a: %s" Process.pp_cmd cmd Process.pp_status status stderr)
 
 let ancestry ?repo a b =
   let open Lwt.Syntax in
-  let fail (cmd, status) =
-    Fmt.failwith "%a %a" Process.pp_cmd cmd Process.pp_status status
-  in
-  let* resolved =
-    pread_quiet
+  let rev_parse rev =
+    pread_result
       (git_cmd ?repo
          [
            "rev-parse";
            "--verify";
            "--quiet";
            "--end-of-options";
-           a ^ "^{commit}";
+           rev ^ "^{commit}";
          ])
   in
+  let* resolved = rev_parse a in
   match resolved with
-  | Error _ | Ok [] -> Lwt.return Unknown_commit
+  | Error (_, Unix.WEXITED 1, _) | Ok [] -> Lwt.return Unknown_commit
+  | Error e -> Lwt.return (git_failed e)
   | Ok (a :: _) -> (
-      let* is_ancestor =
-        pread_quiet
+      (* Walking first parents from [b], the walk leaves [a..b] at the first
+         commit reachable from [a] that it meets, which is [a] itself iff [a] is
+         on that history. Each line is a commit followed by its parents. *)
+      let* walk =
+        pread_result
           (git_cmd ?repo
-             [ "merge-base"; "--is-ancestor"; "--end-of-options"; a; b ])
+             [
+               "rev-list";
+               "--first-parent";
+               "--parents";
+               "--reverse";
+               "--end-of-options";
+               a ^ ".." ^ b;
+             ])
       in
-      match is_ancestor with
-      | Error (_, Unix.WEXITED 1) -> Lwt.return Not_ancestor
-      | Error e -> fail e
-      | Ok _ -> (
-          (* Walking first parents from [b], the walk leaves [a..b] at the first
-             ancestor of [a] it meets: [a] itself iff [a] is on that history.
-             Each line is a commit followed by its parents. *)
-          let+ walk =
-            pread_quiet
-              (git_cmd ?repo
-                 [
-                   "rev-list";
-                   "--first-parent";
-                   "--parents";
-                   "--reverse";
-                   "--end-of-options";
-                   a ^ ".." ^ b;
-                 ])
-          in
-          match walk with
-          | Error e -> fail e
-          | Ok [] -> First_parent (* [a] = [b] *)
-          | Ok (oldest :: _) -> (
-              match String.split_on_char ' ' oldest with
-              | _ :: parent :: _ when parent = a -> First_parent
-              | _ -> Other_parent)))
+      match walk with
+      | Error e -> Lwt.return (git_failed e)
+      | Ok (oldest :: _) ->
+          Lwt.return
+            (match String.split_on_char ' ' oldest with
+            | _ :: parent :: _ when parent = a -> First_parent
+            | _ -> Not_first_parent)
+      | Ok [] -> (
+          (* [b] is reachable from [a]: they are equal, or [a] is ahead. *)
+          let+ resolved = rev_parse b in
+          match resolved with
+          | Ok (b :: _) when b = a -> First_parent
+          | Ok _ | Error (_, Unix.WEXITED 1, _) -> Not_first_parent
+          | Error e -> git_failed e))
 
 (* Borrowed from
    https://github.com/ocaml-opam/opam2web/blob/ad2ddb01865c891949f3560b653247bdbb2a0f75/src/o2wUniverse.ml#L25 *)

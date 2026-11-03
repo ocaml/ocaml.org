@@ -45,9 +45,12 @@ let compute ?repo ~previous ~commit opams =
       let* ancestry = Opam_repository.ancestry ?repo old commit in
       match ancestry with
       | Unknown_commit -> full (old ^ " is not in the clone")
-      | Not_ancestor -> full (old ^ " is not an ancestor of " ^ commit)
-      | Other_parent ->
+      | Not_first_parent ->
           full (old ^ " is not on the first-parent history of " ^ commit)
+      | Git_failed reason ->
+          (* The range is only a speed-up: a Git failure here must not stop the
+             update. *)
+          full ("Git failed: " ^ reason)
       | First_parent -> (
           let* timestamps =
             Opam_repository.create_package_to_timestamp ?repo ~since:old

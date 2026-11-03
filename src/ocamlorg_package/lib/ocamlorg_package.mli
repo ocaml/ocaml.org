@@ -165,11 +165,14 @@ module Publication_dates : sig
   (** [compute ~previous:(old, old_packages) ~commit packages] maps every
       package version to the time of the last commit, on the first-parent
       history of [commit], that added, copied or renamed its opam file. When
-      [old] is an ancestor of [commit], only [old..commit] is read and folded
-      onto the dates in [old_packages]; it falls back to the whole history when
-      there is no [old], when [old] is not an ancestor, or when a version of
-      [packages] gets no date that way. [repo] defaults to the opam-repository
-      clone. *)
+      [old] is on the first-parent history of [commit], only [old..commit] is
+      read and folded onto the dates in [old_packages]. It falls back to the
+      whole history when there is no [old], when [old] is not in the clone, when
+      [old] is not on the first-parent history of [commit] (even if it is
+      reachable through a merge's other parent, since [old..commit] would then
+      miss first-parent commits that the full scan counts), when Git fails while
+      checking this, or when a version of [packages] gets no date that way.
+      [repo] defaults to the opam-repository clone. *)
 end
 
 val mockup_state : t list -> state
