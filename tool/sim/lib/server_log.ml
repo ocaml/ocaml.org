@@ -83,6 +83,7 @@ let follow ~container ~t0 ~stop ~raw csv =
           (fun line ->
             output_string raw line;
             output_char raw '\n';
+            flush raw;
             match split_timestamp line with
             | None -> ()
             | Some (t, msg) -> (

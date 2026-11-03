@@ -45,12 +45,17 @@ let absolute p =
 let hour_utc t = int_of_float (Float.rem t 86400. /. 3600.)
 
 let rec wait_http base ~until =
+  (* Docker's port proxy accepts connections before the server listens, and such
+     a connection can hang: bound every probe. *)
+  let probe () =
+    let* resp, body = Cohttp_lwt_unix.Client.get (Uri.with_path base "/") in
+    let+ () = Cohttp_lwt.Body.drain_body body in
+    Cohttp.Code.code_of_status (Cohttp.Response.status resp) < 500
+  in
   let ready =
     Lwt.catch
       (fun () ->
-        let* resp, body = Cohttp_lwt_unix.Client.get (Uri.with_path base "/") in
-        let+ () = Cohttp_lwt.Body.drain_body body in
-        Cohttp.Code.code_of_status (Cohttp.Response.status resp) < 500)
+        Lwt.pick [ probe (); Lwt.map (fun () -> false) (Lwt_unix.sleep 5.) ])
       (fun _ -> Lwt.return_false)
   in
   let* ok = ready in
