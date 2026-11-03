@@ -589,9 +589,25 @@ let extract_keywords ~df ~ndocs ~dict ~title a =
   |> List.sort String.compare
 
 (* Keywords for a single post's HTML [content], given a precomputed corpus DF
-   and dictionary. Used by the scraper to tag new posts at scrape time. *)
-let keywords_for ~df ~ndocs ~dict ~title content =
-  extract_keywords ~df ~ndocs ~dict ~title (analyse (html_to_text content))
+   and dictionary. Used by the scraper to tag new posts at scrape time.
+
+   Some feeds carry no article body, only a one-line summary (Robur's RSS has
+   just a [<description>]), which yields few and weak keywords. As [ensure_text]
+   does for stored bodies, fall back to the article page, obtained with [fetch],
+   when the feed text is shorter than [min_local_prose]. The page is used only
+   if it has more prose than the feed; a failed fetch keeps the feed text. *)
+let keywords_for ?(fetch = fun () -> None) ~df ~ndocs ~dict ~title content =
+  let ((feed_prose, _) as feed) = html_to_text content in
+  let text =
+    if String.length feed_prose >= min_local_prose then feed
+    else
+      match fetch () with
+      | Some html ->
+          let ((prose, _) as page) = html_to_text html in
+          if String.length prose > String.length feed_prose then page else feed
+      | None -> feed
+  in
+  extract_keywords ~df ~ndocs ~dict ~title (analyse text)
 
 (* ------------------------------------------------------------------ *)
 (* Write-back: minimal textual patch                                    *)

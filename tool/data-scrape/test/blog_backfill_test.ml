@@ -158,9 +158,51 @@ let aggregate_keywords =
         Alcotest.(check bool) "short enough" true (String.length s <= 72));
   ]
 
+(* [keywords_for] falls back to the article page when the feed has no body
+   (Robur's RSS carries only a one-line [<description>]). An empty dictionary
+   and DF keep this to plain TF-IDF over the text actually used. *)
+let keywords_for =
+  let dict : B.dictionary =
+    { canon = Hashtbl.create 1; vocab = B.SSet.empty }
+  in
+  let kw ?fetch content =
+    B.keywords_for ?fetch ~df:(Hashtbl.create 1) ~ndocs:100 ~dict
+      ~title:"Untitled" content
+  in
+  let summary = "<p>Moving things around.</p>" in
+  let page =
+    "<html><body><nav>menu</nav><article><p>"
+    ^ String.concat " "
+        (List.init 120 (fun _ -> "albatross unikernel orchestration"))
+    ^ "</p></article></body></html>"
+  in
+  let has k l = List.mem k l in
+  [
+    test_case "uses the article page when the feed has only a summary"
+      (fun () ->
+        let l = kw ~fetch:(fun () -> Some page) summary in
+        check_bool "albatross" true (has "albatross" l);
+        check_bool "no summary word" false (has "moving" l));
+    test_case "keeps the feed text when the fetch fails" (fun () ->
+        let l = kw ~fetch:(fun () -> None) summary in
+        check_bool "albatross" false (has "albatross" l);
+        check_bool "summary word" true (has "moving" l));
+    test_case "does not fetch when the feed has a full body" (fun () ->
+        let fetched = ref false in
+        let _ =
+          kw
+            ~fetch:(fun () ->
+              fetched := true;
+              Some page)
+            page
+        in
+        check_bool "fetched" false !fetched);
+  ]
+
 let () =
   Alcotest.run "planet-keywords"
     [
+      ("keywords_for", keywords_for);
       ("fold_accents", fold_accents);
       ("tokenize", tokenize);
       ("keep_token", keep_token);

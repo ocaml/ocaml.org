@@ -88,6 +88,23 @@ module Post = struct
       |> Result.get_ok ~error:(fun (`Msg m) -> Data_packer.Exn.Decode_error m))
 end
 
+(* Fetch an article page, for keyword extraction when the feed has no body.
+   Bounded by [timeout] so one slow host cannot stall the scrape; any failure
+   yields [None]. *)
+let fetch_article url =
+  try
+    Some
+      (Lwt_main.run
+         (Lwt_unix.with_timeout timeout (fun () ->
+              let open Lwt.Syntax in
+              let* _, body = Http_client.get (Uri.of_string url) in
+              Cohttp_lwt.Body.to_string body)))
+  with e ->
+    print_string
+      (Printf.sprintf "(article fetch for keywords failed: %s) "
+         (Printexc.to_string e));
+    None
+
 let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
     Scrape_report.entry option =
   let what field =
@@ -128,9 +145,12 @@ let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
             River.author post |> Utf_8.sanitize ~what:(what "author")
           in
           (* Generate keywords from the post body at scrape time, using the
-             corpus document frequencies computed once in [scrape]. *)
+             corpus document frequencies computed once in [scrape]. When the
+             feed carries no real body, the article page is fetched instead. *)
           let keywords =
-            Blog_backfill.keywords_for ~df ~ndocs ~dict ~title content
+            Blog_backfill.keywords_for
+              ~fetch:(fun () -> fetch_article url)
+              ~df ~ndocs ~dict ~title content
           in
           let metadata : Post.metadata =
             {
