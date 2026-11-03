@@ -56,15 +56,11 @@ let mockup_state (pkgs : t list) =
   }
 
 let read_versions package_name versions =
-  let open Lwt.Syntax in
-  Lwt_list.fold_left_s
+  List.fold_left
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
       | Some pkg -> (
-          let+ opam_opt =
-            Opam_repository.opam_file package_name package_version
-          in
-          match opam_opt with
+          match Opam_repository.opam_file package_name package_version with
           | Some opam -> Version.Map.add pkg.version opam acc
           | None ->
               Logs.err (fun m ->
@@ -73,7 +69,7 @@ let read_versions package_name versions =
               acc)
       | None ->
           Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
-          Lwt.return acc)
+          acc)
     Version.Map.empty versions
 
 let read_packages () =
@@ -92,7 +88,9 @@ let read_packages () =
                   (Printexc.to_string ex));
             Lwt.return acc
         | _name ->
-            let+ versions = read_versions package_name versions in
+            (* Reading is synchronous, so yield between packages. *)
+            let+ () = Lwt.pause () in
+            let versions = read_versions package_name versions in
             Name.Map.add (Name.of_string package_name) versions acc)
       Name.Map.empty packages_and_versions
   in
