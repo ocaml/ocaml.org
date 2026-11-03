@@ -187,7 +187,6 @@ let time_it_lwt name f =
 let update ~commit t =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "Opam repository is currently at %s" commit);
-  t.opam_repository_commit <- Some commit;
   Logs.info (fun m -> m "Updating opam package list");
   let* packages = time_it_lwt "Read packages" (fun () -> read_packages ()) in
   let* packages =
@@ -196,8 +195,12 @@ let update ~commit t =
   let+ stats =
     time_it_lwt "Compute statistics" (fun () -> Statistics.compute packages)
   in
+  (* Record [commit] only once its data is in place: [maybe_update] skips the
+     rebuild when the commit is unchanged, so setting it before a rebuild that
+     then raises would leave stale packages that are never retried. *)
   t.packages <- packages;
   t.stats <- Some stats;
+  t.opam_repository_commit <- Some commit;
   Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
 
 let maybe_update t commit =
