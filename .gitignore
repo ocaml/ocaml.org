@@ -33,3 +33,6 @@ _scrape_report.md
 a.out
 # ...except the in-browser playground, which ships prebuilt stdlib .cmi files.
 !playground/asset/stdlib/*.cmi
+
+# Simulation runs (tool/sim)
+tool/sim/out/

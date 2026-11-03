@@ -1,0 +1,18 @@
+# The simulated server. Started by `sim run` (tool/sim/bin/main.ml), which
+# sets the SIM_* variables; see tool/sim/README.md.
+services:
+  server:
+    image: ${SIM_IMAGE:?}
+    entrypoint: ["/bin/sh", "/sim/entrypoint.sh"]
+    environment:
+      SIM_START: ${SIM_START:?}
+      OCAMLORG_OPAM_POLLING: ${SIM_POLL:-30}
+      OCAML_RUNTIME_EVENTS_START: "1"
+      OCAML_RUNTIME_EVENTS_DIR: /sim/rte
+    ports:
+      - "127.0.0.1:${SIM_PORT:-18080}:8080"
+    mem_limit: ${SIM_MEM:-7g}
+    cpus: ${SIM_CPUS:-0}
+    volumes:
+      - ./entrypoint.sh:/sim/entrypoint.sh:ro
+      - ${SIM_RTE_DIR:?}:/sim/rte

@@ -134,6 +134,8 @@ This will build the Docker image and run a Docker container with the port `8080`
 
 With the Docker container running, visit the site at <http://localhost:8080/>.
 
+To watch how a build behaves over many opam-repository updates, with realistic traffic and memory, CPU, GC, and latency recorded, see the server simulation in [`tool/sim/`](tool/sim/README.md).
+
 The Docker images automatically build from the `live` and `staging` branches. They are then pushed to Docker Hub: <https://hub.docker.com/r/ocurrent/v3.OCaml.org-server>.
 
 ### Environment Variables
@@ -336,6 +338,10 @@ The following snippet describes the repository structure:
 │   ├── data-scrape
 │   │   Scraper for external content (planet feeds, videos, platform releases,
 │   │   opam build results from check.ci.ocaml.org).
+│   │
+│   ├── sim
+│   │   Accelerated, instrumented simulation of the server: replays opam-repository
+│   │   history and traffic into the Docker image (see `tool/sim/README.md`).
 │   │
 │   ├── static-file-digest
 │   │   Static file digest utility.
