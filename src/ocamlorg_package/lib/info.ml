@@ -46,27 +46,46 @@ let parse_formula =
     (fun lst (name, cstr) -> (name, string_of_formula cstr) :: lst)
     []
 
+module Lwt_fold = struct
+  let fold fn =
+    let open Lwt.Syntax in
+    Lwt_list.fold_left_s (fun acc (key, value) ->
+        let* () = Lwt.pause () in
+        fn key value acc)
+
+  let package_map fn map init = OpamPackage.Map.bindings map |> fold fn init
+
+  let package_name_map fn map init =
+    OpamPackage.Name.Map.bindings map |> fold fn init
+
+  let package_version_map fn map init =
+    OpamPackage.Version.Map.bindings map |> fold fn init
+end
+
+(* This runs on the server's event loop during each rebuild, so it yields
+   between package names (see ocaml/ocaml.org#3959). Each version is added
+   straight into the accumulator: names are disjoint, so this gives the same map
+   as merging a per-name map into it, without walking the accumulator once per
+   name. *)
 let depends packages opams f =
   let open OpamTypes in
-  OpamPackage.Name.Map.fold
+  Lwt_fold.package_name_map
     (fun name vmap acc ->
-      let v =
-        OpamPackage.Version.Map.fold
-          (fun version opam acc ->
-            let env v =
-              match OpamVariable.Full.to_string v with
-              | "name" -> Some (S (OpamPackage.Name.to_string name))
-              | "version" -> Some (S (OpamPackage.Version.to_string version))
-              | _ -> None
-            in
-            let deps =
-              OpamFormula.packages packages
-              @@ OpamFilter.filter_formula ~default:true env (f opam)
-            in
-            OpamPackage.Map.add (OpamPackage.create name version) deps acc)
-          vmap OpamPackage.Map.empty
-      in
-      OpamPackage.Map.union (fun a _ -> a) acc v)
+      Lwt.return
+      @@ OpamPackage.Version.Map.fold
+           (fun version opam acc ->
+             let env v =
+               match OpamVariable.Full.to_string v with
+               | "name" -> Some (S (OpamPackage.Name.to_string name))
+               | "version" -> Some (S (OpamPackage.Version.to_string version))
+               | _ -> None
+             in
+             let deps =
+               OpamFormula.packages packages
+               @@ OpamFilter.filter_formula ~default:true env (f opam)
+             in
+             OpamPackage.Map.add (OpamPackage.create name version) deps acc)
+           vmap acc)
     opams OpamPackage.Map.empty
 
 let get_dependency_set pkgs map =
@@ -84,22 +103,6 @@ let get_dependencies (opam : OpamFile.OPAM.t) =
 let get_depopts (opam : OpamFile.OPAM.t) =
   let data = OpamFile.OPAM.depopts opam in
   parse_formula data
-
-module Lwt_fold = struct
-  let fold fn =
-    let open Lwt.Syntax in
-    Lwt_list.fold_left_s (fun acc (key, value) ->
-        let* () = Lwt.pause () in
-        fn key value acc)
-
-  let package_map fn map init = OpamPackage.Map.bindings map |> fold fn init
-
-  let package_name_map fn map init =
-    OpamPackage.Name.Map.bindings map |> fold fn init
-
-  let package_version_map fn map init =
-    OpamPackage.Version.Map.bindings map |> fold fn init
-end
 
 let rev_depends deps =
   Lwt_fold.package_map
@@ -175,13 +178,6 @@ let make ~package ~packages ~rev_deps ~timestamps opam =
     flags = flags opam;
   }
 
-let time_it name f =
-  let t0 = Unix.gettimeofday () in
-  let result = f () in
-  let t1 = Unix.gettimeofday () in
-  Logs.info (fun log -> log "%s: %.2fs" name (t1 -. t0));
-  result
-
 let time_it_lwt name f =
   let open Lwt.Syntax in
   let t0 = Unix.gettimeofday () in
@@ -208,8 +204,8 @@ let of_opamfiles ~timestamps
     in
     List.fold_left f OpamPackage.Set.empty names
   in
-  let dependencies =
-    time_it "Dependencies" (fun () -> get_dependency_set packages opams)
+  let* dependencies =
+    time_it_lwt "Dependencies" (fun () -> get_dependency_set packages opams)
   in
   let* rev_deps =
     time_it_lwt "Reverse dependencies" (fun () -> rev_depends dependencies)
