@@ -8,4 +8,15 @@ authors:
 - Robur Cooperative
 source:
 ignore:
+keywords:
+- "mcrunch"
+- "mfetch"
+- "mhttp-client"
+- "mkernel"
+- "mnet"
+- "mnet-dhcp"
+- "mnet-dns"
+- "mnet-tls"
+- "mollymawk"
+- "vif"
 ---
