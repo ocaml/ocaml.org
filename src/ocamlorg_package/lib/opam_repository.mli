@@ -24,8 +24,11 @@ val list_package_versions : string -> string list option
     [packages/<package>/] directory. Returns [None] if the specified package
     doesn't exist in [packages/]. *)
 
-val opam_file : string -> string -> OpamFile.OPAM.t option
-(** Return the opam file structure given a package name and package version. *)
+val opam_file : string -> string -> (OpamFile.OPAM.t, string) result
+(** [opam_file name version] reads and parses [packages/<name>/<version>/opam],
+    or returns why it could not: the file cannot be read, or does not parse. It
+    reads synchronously, holding the event loop: a caller that reads many files
+    must yield between them, as [read_packages] does between packages. *)
 
 val commit_at_date : string -> string Lwt.t
 (** Find the first commit that happened before or at a date. Will be passed to

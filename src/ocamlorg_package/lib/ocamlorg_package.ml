@@ -61,14 +61,15 @@ let read_versions package_name versions =
       match OpamPackage.of_string_opt package_version with
       | Some pkg -> (
           match Opam_repository.opam_file package_name package_version with
-          | Some opam -> Version.Map.add pkg.version opam acc
-          | None ->
+          | Ok opam -> Version.Map.add pkg.version opam acc
+          | Error reason ->
               Logs.err (fun m ->
-                  m "Failed to read opam file for %S %s" package_name
-                    package_version);
+                  m "Failed to read opam file for %S %s: %s" package_name
+                    package_version reason);
               acc)
       | None ->
-          Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
+          Logs.err (fun m ->
+              m "Invalid package version %S for %S" package_version package_name);
           acc)
     Version.Map.empty versions
 
@@ -87,11 +88,11 @@ let read_packages () =
                 m "Invalid package name %S: %s" package_name
                   (Printexc.to_string ex));
             Lwt.return acc
-        | _name ->
+        | name ->
             (* Reading is synchronous, so yield between packages. *)
             let+ () = Lwt.pause () in
             let versions = read_versions package_name versions in
-            Name.Map.add (Name.of_string package_name) versions acc)
+            Name.Map.add name versions acc)
       Name.Map.empty packages_and_versions
   in
   let t2 = Unix.gettimeofday () in
