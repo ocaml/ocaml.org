@@ -1367,16 +1367,22 @@ let package_overview t kind req =
                version = Some (Ocamlorg_package.Version.to_string version);
              })
   in
-  let dependencies :
+  let of_formula :
+      (Ocamlorg_package.Name.t * string option) list ->
       Ocamlorg_frontend.Package_overview.dependency_or_conflict list =
-    package_info.Ocamlorg_package.Info.dependencies
-    |> List.map (fun (name, x) ->
-           Ocamlorg_frontend.Package_overview.
-             {
-               name = Ocamlorg_package.Name.to_string name;
-               cstr = x;
-               version = None;
-             })
+    List.map (fun (name, x) ->
+        Ocamlorg_frontend.Package_overview.
+          {
+            name = Ocamlorg_package.Name.to_string name;
+            cstr = x;
+            version = None;
+          })
+  in
+  let dependencies =
+    of_formula package_info.Ocamlorg_package.Info.dependencies
+  in
+  let optional_dependencies =
+    of_formula package_info.Ocamlorg_package.Info.depopts
   in
   let dev_dependencies, dependencies =
     dependencies
@@ -1386,16 +1392,7 @@ let package_overview t kind req =
            let s = Option.value ~default:"" item.cstr in
            String.contains_s s "with-" || String.contains_s s "dev")
   in
-  let conflicts =
-    package_info.Ocamlorg_package.Info.conflicts
-    |> List.map (fun (name, x) ->
-           Ocamlorg_frontend.Package_overview.
-             {
-               name = Ocamlorg_package.Name.to_string name;
-               cstr = x;
-               version = None;
-             })
-  in
+  let conflicts = of_formula package_info.Ocamlorg_package.Info.conflicts in
   let title_with_number title number =
     title ^ if number > 0 then " (" ^ string_of_int number ^ ")" else ""
   in
@@ -1413,6 +1410,14 @@ let package_overview t kind req =
           title_with_number "Dev Dependencies" (List.length dev_dependencies);
         slug = "development-dependencies";
         items = dev_dependencies;
+        collapsible = false;
+      };
+      {
+        title =
+          title_with_number "Optional Dependencies"
+            (List.length optional_dependencies);
+        slug = "optional-dependencies";
+        items = optional_dependencies;
         collapsible = false;
       };
       {
