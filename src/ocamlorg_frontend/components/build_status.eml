@@ -97,7 +97,7 @@ let badge ~href = function
   | Not_yet_checked -> grey_badge ~href ~title:not_yet_checked_title not_yet_checked_label
   | Cannot_be_checked ->
     green_badge ~href ~title:"check.ci.ocaml.org does not build the OCaml compiler packages themselves."
-      "Build cannot be checked"
+      "Part of the compiler"
   | No_information ->
     grey_badge ~href ~title:("No version of this package is in the check.ci.ocaml.org run of " ^ H.date ^ ".")
       "No build information"
