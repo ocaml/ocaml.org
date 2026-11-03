@@ -308,3 +308,28 @@
 - id: grm
   name: grim.cargocut.org
   url: https://grim.cargocut.org/atom.xml
+# Mixed OCaml/Lean blog.
+- id: kirancodes
+  name: Kiran Gopinathan
+  url: https://kirancodes.me/rss.xml
+  publish_all: false
+# Mixed blog (games, synthesisers, build systems).
+- id: gridbugs
+  name: Gridbugs
+  url: https://www.gridbugs.org/rss.xml
+  publish_all: false
+# Mixed blog (systems, research, tooling).
+- id: mort
+  name: Richard Mortier
+  url: https://mort.io/rss.xml
+  publish_all: false
+- id: sim642
+  name: Simmo Saan
+  url: https://sim642.eu/feed.xml
+  publish_all: false
+# The site's <link rel="alternate"> points at its template's default feed; use
+# the real one.
+- id: tensors
+  name: tensors.ink
+  url: https://tensors.ink/rss.xml
+  publish_all: false
