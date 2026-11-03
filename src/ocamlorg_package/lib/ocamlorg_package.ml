@@ -92,7 +92,13 @@ let read_packages () =
             (* Reading is synchronous, so yield between packages. *)
             let+ () = Lwt.pause () in
             let versions = read_versions package_name versions in
-            Name.Map.add name versions acc)
+            (* A name with no readable version would have no entry in the
+               package index, and no latest version for the statistics. *)
+            if Version.Map.is_empty versions then (
+              Logs.err (fun m ->
+                  m "No readable version of %S: skipping it" package_name);
+              acc)
+            else Name.Map.add name versions acc)
       Name.Map.empty packages_and_versions
   in
   let t2 = Unix.gettimeofday () in
