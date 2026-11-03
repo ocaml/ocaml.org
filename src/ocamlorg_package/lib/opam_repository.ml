@@ -153,18 +153,67 @@ let new_files_since ~a ~b =
        ])
   |> Lwt.map parse_commits
 
-let is_ancestor ?repo a b =
+type ancestry = First_parent | Other_parent | Not_ancestor | Unknown_commit
+
+(* Run [cmd] with stderr discarded: these Git calls are expected to fail on an
+   unknown commit, and their status is reported by the caller. *)
+let pread_quiet cmd =
   let open Lwt.Syntax in
-  let+ res =
-    Process.exec (git_cmd ?repo [ "merge-base"; "--is-ancestor"; a; b ])
+  let proc = Lwt_process.open_process_in ~stderr:`Dev_null cmd in
+  let* lines = Lwt_io.read_lines proc#stdout |> Lwt_stream.to_list in
+  let+ status = proc#status in
+  match status with Unix.WEXITED 0 -> Ok lines | s -> Error (cmd, s)
+
+let ancestry ?repo a b =
+  let open Lwt.Syntax in
+  let fail (cmd, status) =
+    Fmt.failwith "%a %a" Process.pp_cmd cmd Process.pp_status status
   in
-  match res with
-  | Ok () -> true
-  | Error (_, Unix.WEXITED 1) -> false
-  | Error (cmd, status) ->
-      (* E.g. [a] is not in the clone: a state built from another clone. *)
-      Logs.warn (fun m -> m "%a %a" Process.pp_cmd cmd Process.pp_status status);
-      false
+  let* resolved =
+    pread_quiet
+      (git_cmd ?repo
+         [
+           "rev-parse";
+           "--verify";
+           "--quiet";
+           "--end-of-options";
+           a ^ "^{commit}";
+         ])
+  in
+  match resolved with
+  | Error _ | Ok [] -> Lwt.return Unknown_commit
+  | Ok (a :: _) -> (
+      let* is_ancestor =
+        pread_quiet
+          (git_cmd ?repo
+             [ "merge-base"; "--is-ancestor"; "--end-of-options"; a; b ])
+      in
+      match is_ancestor with
+      | Error (_, Unix.WEXITED 1) -> Lwt.return Not_ancestor
+      | Error e -> fail e
+      | Ok _ -> (
+          (* Walking first parents from [b], the walk leaves [a..b] at the first
+             ancestor of [a] it meets: [a] itself iff [a] is on that history.
+             Each line is a commit followed by its parents. *)
+          let+ walk =
+            pread_quiet
+              (git_cmd ?repo
+                 [
+                   "rev-list";
+                   "--first-parent";
+                   "--parents";
+                   "--reverse";
+                   "--end-of-options";
+                   a ^ ".." ^ b;
+                 ])
+          in
+          match walk with
+          | Error e -> fail e
+          | Ok [] -> First_parent (* [a] = [b] *)
+          | Ok (oldest :: _) -> (
+              match String.split_on_char ' ' oldest with
+              | _ :: parent :: _ when parent = a -> First_parent
+              | _ -> Other_parent)))
 
 (* Borrowed from
    https://github.com/ocaml-opam/opam2web/blob/ad2ddb01865c891949f3560b653247bdbb2a0f75/src/o2wUniverse.ml#L25 *)

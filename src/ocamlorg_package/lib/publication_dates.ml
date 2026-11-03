@@ -2,13 +2,13 @@
    opam-repository's first-parent history, that added, copied or renamed its
    opam file.
 
-   Scanning the whole history is slow, so when the previous state was built at
-   an ancestor [old] of [commit], only [old..commit] is read and folded onto the
-   dates already in that state. This gives the same result as a full scan: a
-   version present at [commit] but not at [old] was necessarily added in
-   [old..commit]. A version present at [old] that has no date in the previous
-   state (its opam file did not parse then) is the one case it can't handle, so
-   it falls back to the full scan. *)
+   Scanning the whole history is slow, so when the previous state was built at a
+   commit [old] on the first-parent history of [commit], only [old..commit] is
+   read and folded onto the dates already in that state. This gives the same
+   result as a full scan: a version present at [commit] but not at [old] was
+   necessarily added in [old..commit]. A version present at [old] that has no
+   date in the previous state (its opam file did not parse then) is the one case
+   it can't handle, so it falls back to the full scan. *)
 
 open Package
 
@@ -33,31 +33,33 @@ let missing timestamps (opams : _ Version.Map.t Name.Map.t) =
         versions acc)
     opams []
 
-let full ?repo commit = Opam_repository.create_package_to_timestamp ?repo commit
-
 let compute ?repo ~previous ~commit opams =
   let open Lwt.Syntax in
   let full reason =
     Logs.info (fun m -> m "Publication dates: full history (%s)" reason);
-    full ?repo commit
+    Opam_repository.create_package_to_timestamp ?repo commit
   in
   match previous with
   | None, _ -> full "no previous state"
   | Some old, old_packages -> (
-      let* ancestor = Opam_repository.is_ancestor ?repo old commit in
-      if not ancestor then full (old ^ " is not an ancestor of " ^ commit)
-      else
-        let* timestamps =
-          Opam_repository.create_package_to_timestamp ?repo ~since:old
-            ~init:(of_state old_packages) commit
-        in
-        match missing timestamps opams with
-        | [] ->
-            Logs.info (fun m ->
-                m "Publication dates: incremental %s..%s" old commit);
-            Lwt.return timestamps
-        | pkgs ->
-            full
-              (Printf.sprintf "no date for %d versions, e.g. %s"
-                 (List.length pkgs)
-                 (OpamPackage.to_string (List.hd pkgs))))
+      let* ancestry = Opam_repository.ancestry ?repo old commit in
+      match ancestry with
+      | Unknown_commit -> full (old ^ " is not in the clone")
+      | Not_ancestor -> full (old ^ " is not an ancestor of " ^ commit)
+      | Other_parent ->
+          full (old ^ " is not on the first-parent history of " ^ commit)
+      | First_parent -> (
+          let* timestamps =
+            Opam_repository.create_package_to_timestamp ?repo ~since:old
+              ~init:(of_state old_packages) commit
+          in
+          match missing timestamps opams with
+          | [] ->
+              Logs.info (fun m ->
+                  m "Publication dates: incremental %s..%s" old commit);
+              Lwt.return timestamps
+          | pkgs ->
+              full
+                (Printf.sprintf "no date for %d versions, e.g. %s"
+                   (List.length pkgs)
+                   (OpamPackage.to_string (List.hd pkgs)))))

@@ -1,25 +1,38 @@
 (* Publication dates read incrementally from [old..new] must match a scan of the
    whole history. The history is a throwaway Git repository with fixed commit
-   times, shaped like opam-repository: a merge commit (first-parent diff), and
-   an opam file removed then added back. *)
+   times, shaped like opam-repository: a merge commit (first-parent diff), an
+   opam file removed then added back, and a branch that is never merged. *)
 
 module Package = Ocamlorg_package
 
+(* Git must only see the throwaway repository: a [GIT_DIR] or [GIT_INDEX_FILE]
+   inherited from a Git hook would point it at the enclosing repository, and the
+   user's configuration could change its output. OCaml can't unset an
+   environment variable, so re-run the test without them. *)
+let isolate_git () =
+  let wanted = [ "GIT_CONFIG_GLOBAL=/dev/null"; "GIT_CONFIG_NOSYSTEM=1" ] in
+  let env = Array.to_list (Unix.environment ()) in
+  let is_git v = String.starts_with ~prefix:"GIT_" v in
+  if List.sort compare (List.filter is_git env) <> wanted then
+    Unix.execve Sys.executable_name Sys.argv
+      (Array.of_list (List.filter (fun v -> not (is_git v)) env @ wanted))
+
+let () = isolate_git ()
+
 let git repo args =
-  let cmd =
-    Filename.quote_command "git"
-      ("-c" :: "commit.gpgsign=false" :: "-c" :: "core.hooksPath=/dev/null"
-     :: "-C" :: repo :: args)
-  in
+  let cmd = Filename.quote_command "git" ("-C" :: repo :: args) in
   let ic = Unix.open_process_in cmd in
   let out = In_channel.input_all ic in
   match Unix.close_process_in ic with
   | WEXITED 0 -> String.trim out
   | _ -> Alcotest.failf "command failed: %s" cmd
 
-let commit repo time msg =
+let set_time time =
   Unix.putenv "GIT_AUTHOR_DATE" (Printf.sprintf "@%d +0000" time);
-  Unix.putenv "GIT_COMMITTER_DATE" (Printf.sprintf "@%d +0000" time);
+  Unix.putenv "GIT_COMMITTER_DATE" (Printf.sprintf "@%d +0000" time)
+
+let commit repo time msg =
+  set_time time;
   ignore (git repo [ "commit"; "-q"; "--allow-empty"; "-m"; msg ]);
   git repo [ "rev-parse"; "HEAD" ]
 
@@ -32,7 +45,13 @@ let add_opam repo pkg =
       Printf.fprintf oc "opam-version: \"2.0\"\nsynopsis: %S\n" pkg);
   ignore (git repo [ "add"; "packages" ])
 
-type history = { repo : string; old : string; new_ : string }
+type history = {
+  repo : string;
+  old : string;  (** On the first-parent history of [new_]. *)
+  side : string;  (** An ancestor of [new_] through a merge's second parent. *)
+  stray : string;  (** Not an ancestor of [new_]. *)
+  new_ : string;
+}
 
 (* Expected dates at [new_], from the first-parent history. *)
 let expected =
@@ -48,8 +67,9 @@ let make_history () =
   let repo = Filename.temp_dir "publication-dates" "" in
   at_exit (fun () ->
       ignore (Sys.command (Filename.quote_command "rm" [ "-rf"; repo ])));
-  let env = [ "GIT_AUTHOR_NAME"; "GIT_COMMITTER_NAME" ] in
-  List.iter (fun v -> Unix.putenv v "Test") env;
+  List.iter
+    (fun v -> Unix.putenv v "Test")
+    [ "GIT_AUTHOR_NAME"; "GIT_COMMITTER_NAME" ];
   List.iter
     (fun v -> Unix.putenv v "test@example.org")
     [ "GIT_AUTHOR_EMAIL"; "GIT_COMMITTER_EMAIL" ];
@@ -61,18 +81,21 @@ let make_history () =
   let old = commit repo 2000 "a.2" in
   ignore (git repo [ "checkout"; "-q"; "-b"; "side" ]);
   add_opam repo "c.1";
-  let _ = commit repo 3000 "c.1 on a side branch" in
+  let side = commit repo 3000 "c.1 on a side branch" in
   ignore (git repo [ "checkout"; "-q"; "master" ]);
   add_opam repo "b.2";
   let _ = commit repo 4000 "b.2" in
-  Unix.putenv "GIT_COMMITTER_DATE" "@5000 +0000";
-  Unix.putenv "GIT_AUTHOR_DATE" "@5000 +0000";
+  set_time 5000;
   ignore (git repo [ "merge"; "-q"; "--no-ff"; "-m"; "merge side"; "side" ]);
   ignore (git repo [ "rm"; "-q"; "packages/a/a.2/opam" ]);
   let _ = commit repo 6000 "remove a.2" in
   add_opam repo "a.2";
   let new_ = commit repo 7000 "a.2 again" in
-  { repo; old; new_ }
+  ignore (git repo [ "checkout"; "-q"; "-b"; "stray"; old ]);
+  add_opam repo "d.1";
+  let stray = commit repo 8000 "d.1, never merged" in
+  ignore (git repo [ "checkout"; "-q"; "master" ]);
+  { repo; old; side; stray; new_ }
 
 let history = lazy (make_history ())
 let opam pkg = OpamPackage.of_string pkg
@@ -112,42 +135,64 @@ let info publication =
     flags = [];
   }
 
-(* The packages present at [new_]. *)
-let opams = packages_map ignore expected
+(* The versions present at [commit], as in [read_packages]. *)
+let present commit =
+  let h = Lazy.force history in
+  git h.repo [ "ls-tree"; "-r"; "--name-only"; commit; "packages" ]
+  |> String.split_on_char '\n'
+  |> List.filter_map (fun path ->
+         match String.split_on_char '/' path with
+         | [ "packages"; _; pkg; "opam" ] -> Some pkg
+         | _ -> None)
+
 let state dates = packages_map info dates
 
-let compute previous =
+let compute ?commit previous =
   let h = Lazy.force history in
+  let commit = Option.value ~default:h.new_ commit in
+  let opams =
+    packages_map ignore (List.map (fun p -> (p, ())) (present commit))
+  in
   Lwt_main.run
-    (Package.Publication_dates.compute ~repo:(Fpath.v h.repo) ~previous
-       ~commit:h.new_ opams)
+    (Package.Publication_dates.compute ~repo:(Fpath.v h.repo) ~previous ~commit
+       opams)
+
+let to_list dates =
+  OpamPackage.Map.bindings dates
+  |> List.map (fun (p, t) -> (OpamPackage.to_string p, t))
 
 let dates = Alcotest.(list (pair string (float 0.)))
-
-let check msg want got =
-  let got =
-    OpamPackage.Map.bindings got
-    |> List.map (fun (p, t) -> (OpamPackage.to_string p, t))
-  in
-  Alcotest.check dates msg want got
+let check msg want got = Alcotest.check dates msg want (to_list got)
 
 let with_date pkg t =
   List.map (fun (p, d) -> if p = pkg then (p, t) else (p, d))
 
-(* The state at [old], with a date for b.1 that no Git commit carries: it is
-   kept only when the incremental path is taken. *)
-let old_state = [ ("a.1", 1000.); ("a.2", 2000.); ("b.1", 42.) ]
+(* A state with a date for b.1 that no Git commit carries: it is kept only when
+   the incremental path is taken. *)
+let marked_state = state [ ("a.1", 1000.); ("a.2", 2000.); ("b.1", 42.) ]
 let test_full () = check "full history" expected (compute (None, state []))
 
 let test_incremental () =
   let h = Lazy.force history in
   check "dates of untouched versions come from the state"
     (with_date "b.1" 42. expected)
-    (compute (Some h.old, state old_state))
+    (compute (Some h.old, marked_state))
+
+let test_unknown_commit () =
+  check "unknown commit: full history" expected
+    (compute (Some (String.make 40 'f'), marked_state))
 
 let test_not_ancestor () =
-  check "unknown commit: full history" expected
-    (compute (Some (String.make 40 'f'), state old_state))
+  let h = Lazy.force history in
+  check "not an ancestor: full history" expected
+    (compute (Some h.stray, marked_state))
+
+let test_other_parent () =
+  let h = Lazy.force history in
+  (* [side..new_] on the first-parent history misses commits that the full scan
+     counts, so it can't be used. *)
+  check "ancestor through a second parent: full history" expected
+    (compute (Some h.side, marked_state))
 
 let test_missing_date () =
   let h = Lazy.force history in
@@ -156,12 +201,21 @@ let test_missing_date () =
   check "version without a date: full history" expected
     (compute (Some h.old, state [ ("a.1", 1000.); ("a.2", 2000.) ]))
 
-let test_matches_full_at_every_commit () =
+let test_every_commit () =
   let h = Lazy.force history in
-  (* Starting from the real dates at [old] gives exactly the full scan. *)
-  check "incremental equals full" expected
-    (compute
-       (Some h.old, state [ ("a.1", 1000.); ("a.2", 2000.); ("b.1", 1000.) ]))
+  (* From every commit on the first-parent history, with the state a full scan
+     gives there, the incremental scan gives exactly the full scan at [new_]. *)
+  git h.repo [ "rev-list"; "--first-parent"; h.new_ ]
+  |> String.split_on_char '\n'
+  |> List.iter (fun old ->
+         let at_old = to_list (compute ~commit:old (None, state [])) in
+         let old_state =
+           List.map (fun p -> (p, List.assoc p at_old)) (present old)
+         in
+         check
+           ("incremental from " ^ old)
+           expected
+           (compute (Some old, state old_state)))
 
 let () =
   Alcotest.run "Publication_dates"
@@ -171,11 +225,15 @@ let () =
           Alcotest.test_case "full history" `Quick test_full;
           Alcotest.test_case "incremental from an ancestor" `Quick
             test_incremental;
+          Alcotest.test_case "falls back on an unknown commit" `Quick
+            test_unknown_commit;
           Alcotest.test_case "falls back when not an ancestor" `Quick
             test_not_ancestor;
+          Alcotest.test_case "falls back off the first-parent history" `Quick
+            test_other_parent;
           Alcotest.test_case "falls back when a date is missing" `Quick
             test_missing_date;
-          Alcotest.test_case "incremental equals full" `Quick
-            test_matches_full_at_every_commit;
+          Alcotest.test_case "incremental equals full from every commit" `Quick
+            test_every_commit;
         ] );
     ]

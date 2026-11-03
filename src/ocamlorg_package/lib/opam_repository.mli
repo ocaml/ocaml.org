@@ -36,10 +36,16 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
     file as been added, in Git's relative format. Returns more recent files
     first. *)
 
-val is_ancestor : ?repo:Fpath.t -> string -> string -> bool Lwt.t
-(** [is_ancestor a b] is [true] if commit [a] is an ancestor of (or equal to)
-    commit [b]. Returns [false], without raising, when either commit is unknown.
-    [repo] defaults to the opam-repository clone. *)
+type ancestry =
+  | First_parent  (** On the first-parent history (or equal). *)
+  | Other_parent
+      (** An ancestor, reachable only through a merge's other parent. *)
+  | Not_ancestor
+  | Unknown_commit  (** The first commit is not in the repository. *)
+
+val ancestry : ?repo:Fpath.t -> string -> string -> ancestry Lwt.t
+(** [ancestry a b] tells how commit [a] relates to commit [b]. Raises on any
+    other Git failure. [repo] defaults to the opam-repository clone. *)
 
 val create_package_to_timestamp :
   ?repo:Fpath.t ->
