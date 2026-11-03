@@ -78,3 +78,7 @@ let head handler request =
       in
       Dream.empty ~headers:(Dream.all_headers response) (Dream.status response)
   | _ -> handler request
+
+(* The request middlewares in front of the router, shared by [run] and tests. *)
+let chain : Dream.middleware =
+ fun handler -> no_trailing_slash @@ language_manual_version @@ head @@ handler

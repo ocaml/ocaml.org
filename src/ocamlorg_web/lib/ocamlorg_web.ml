@@ -18,8 +18,8 @@ module Package_health = Package_health
 
 (* Exposed for tests: the /conferences/ocaml/** route and the middleware chain
    in front of it. *)
-module Middleware = Middleware
-module Router = Router
+let v2_assets_route = Router.v2_assets_route
+let middleware_chain = Middleware.chain
 
 (* Set up basic logging for logs that would happen before Dream is set up. *)
 let () =
@@ -31,9 +31,7 @@ let run () =
   let state = Ocamlorg_package.init () in
   try
     Dream.run ~interface:"0.0.0.0" ~port:Config.http_port
-    @@ Dream.logger @@ Middleware.no_trailing_slash
-    @@ Middleware.language_manual_version @@ Middleware.head
-    @@ Router.router state
+    @@ Dream.logger @@ Middleware.chain @@ Router.router state
   with
   | Unix.Unix_error (err, fn, _) ->
       Format.eprintf "%S failed: %s@." fn (Unix.error_message err);
