@@ -155,50 +155,35 @@ let load_state_from state_path =
 
 let try_load_state () = load_state_from Config.package_state_path
 
+(* Write to a temporary file, then rename it into place: an interrupted write (a
+   restart during a deploy, say) leaves the previous state intact instead of a
+   truncated one. *)
 let write_snapshot state_path (snapshot : Snapshot.t) =
-  let channel = open_out_bin (Fpath.to_string state_path) in
-  Fun.protect
-    (fun () ->
-      output_string channel (Repr.(unstage (to_bin_string Snapshot.t)) snapshot))
-    ~finally:(fun () -> close_out channel)
+  let path = Fpath.to_string state_path in
+  let tmp = path ^ ".tmp" in
+  let content = Repr.(unstage (to_bin_string Snapshot.t)) snapshot in
+  Out_channel.with_open_bin tmp (fun channel ->
+      Out_channel.output_string channel content);
+  Sys.rename tmp path
 
 let save_state_to state_path t =
   write_snapshot state_path (to_snapshot t);
   Logs.info (fun f -> f "Package state saved")
 
-(* Run [f] in a new domain and return a promise of its result, so that the event
-   loop keeps serving requests meanwhile. [f] must not touch Lwt or any other
-   state shared with the event loop. The domain wakes the event loop through an
-   Lwt notification, which is safe to send from another domain. The callback
-   runs on the event loop, after [domain] is set below. *)
-let run_in_domain f =
-  let promise, resolver = Lwt.wait () in
-  let domain = ref None in
-  let notification =
-    Lwt_unix.make_notification ~once:true (fun () ->
-        Option.iter
-          (fun d -> Lwt.wakeup_later_result resolver (Domain.join d))
-          !domain)
-  in
-  domain :=
-    Some
-      (Domain.spawn (fun () ->
-           let result = try Ok (f ()) with exn -> Error exn in
-           Lwt_unix.send_notification notification;
-           result));
-  promise
-
 (* Serializing the state takes about 0.12s, which would stall every request on
-   the event loop. The snapshot is immutable, so it is taken here and serialized
-   and written in another domain. *)
-let save_state t =
+   the event loop. The snapshot is immutable, so it is taken here, then
+   serialized and written in a system thread. Not in a domain: once a domain has
+   been spawned, OCaml 5 refuses [Unix.fork] for the rest of the process, and
+   every Git call goes through [Lwt_process], which forks. *)
+let save_state_in_background_to state_path t =
   let open Lwt.Syntax in
   let snapshot = to_snapshot t in
   let+ () =
-    run_in_domain (fun () -> write_snapshot Config.package_state_path snapshot)
+    Lwt_preemptive.detach (fun () -> write_snapshot state_path snapshot) ()
   in
   Logs.info (fun f -> f "Package state saved")
 
+let save_state t = save_state_in_background_to Config.package_state_path t
 let has_flag flag (info : Info.t) = List.exists (( = ) flag) info.flags
 
 let is_discouraged info =
