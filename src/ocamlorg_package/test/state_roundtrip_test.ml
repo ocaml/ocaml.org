@@ -133,6 +133,25 @@ let test_corrupt_file_is_empty_state () =
         "a corrupt cache file yields an empty state, not a crash" []
         (versions_of loaded "alpha"))
 
+(* The state is written in place, so a write interrupted by a restart leaves a
+   prefix of it. *)
+let test_truncated_file_is_empty_state () =
+  with_temp_file (fun path ->
+      Package.save_state_to path (sample_state ());
+      let full =
+        In_channel.with_open_bin (Fpath.to_string path) In_channel.input_all
+      in
+      let n = String.length full in
+      List.iter
+        (fun len ->
+          Out_channel.with_open_bin (Fpath.to_string path) (fun oc ->
+              Out_channel.output_string oc (String.sub full 0 len));
+          Alcotest.(check (list string))
+            (Printf.sprintf "%d of %d bytes yield an empty state" len n)
+            []
+            (versions_of (Package.load_state_from path) "alpha"))
+        (List.sort_uniq compare [ 0; 1; n / 4; n / 2; n - 1 ]))
+
 let test_case name fn = Alcotest.test_case name `Quick fn
 
 let () =
@@ -152,5 +171,7 @@ let () =
             test_missing_file_is_empty_state;
           test_case "corrupt file yields empty state"
             test_corrupt_file_is_empty_state;
+          test_case "truncated file yields empty state"
+            test_truncated_file_is_empty_state;
         ] );
     ]

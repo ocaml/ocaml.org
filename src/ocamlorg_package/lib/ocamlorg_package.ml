@@ -155,16 +155,16 @@ let load_state_from state_path =
 
 let try_load_state () = load_state_from Config.package_state_path
 
-(* Write to a temporary file, then rename it into place: an interrupted write (a
-   restart during a deploy, say) leaves the previous state intact instead of a
-   truncated one. *)
+(* Write in place, not to a temporary file renamed over [state_path]: in the
+   Docker image, [state_path] is [/var/package.state], owned by the server's
+   user in a directory it can't write to, and [init-cache] waits for the
+   build-time state with [inotifywait -e close_write] on the file itself. An
+   interrupted write leaves a truncated file, which [load_state_from] reads as
+   an empty state. *)
 let write_snapshot state_path (snapshot : Snapshot.t) =
-  let path = Fpath.to_string state_path in
-  let tmp = path ^ ".tmp" in
   let content = Repr.(unstage (to_bin_string Snapshot.t)) snapshot in
-  Out_channel.with_open_bin tmp (fun channel ->
-      Out_channel.output_string channel content);
-  Sys.rename tmp path
+  Out_channel.with_open_bin (Fpath.to_string state_path) (fun channel ->
+      Out_channel.output_string channel content)
 
 let save_state_to state_path t =
   write_snapshot state_path (to_snapshot t);
