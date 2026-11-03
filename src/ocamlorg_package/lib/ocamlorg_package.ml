@@ -209,29 +209,43 @@ let maybe_update t commit =
       let+ () = update ~commit t in
       save_state t
 
+(* Bring the opam-repository clone up to date (cloning it if it is missing) and
+   rebuild the package state if needed. Never raises: a failure is logged and
+   the next poll retries, cloning again if the first clone failed. *)
+let sync v =
+  let open Lwt.Syntax in
+  Lwt.catch
+    (fun () ->
+      let* commit =
+        if Opam_repository.exists () then (
+          Logs.info (fun m -> m "Opam repo: git pull");
+          Opam_repository.pull ())
+        else (
+          Logs.info (fun m -> m "Opam repo: git clone");
+          Opam_repository.clone ())
+      in
+      maybe_update v commit)
+    (fun exn ->
+      Logs.err (fun m ->
+          m "Failed to update the opam package list: %s"
+            (Printexc.to_string exn));
+      Lwt.return ())
+
 let rec poll_for_opam_packages ~polling v =
   let open Lwt.Syntax in
   let* () = Lwt_unix.sleep (float_of_int polling) in
-  let* () =
-    Lwt.catch
-      (fun () ->
-        Logs.info (fun m -> m "Opam repo: git pull");
-        let* commit = Opam_repository.pull () in
-        maybe_update v commit)
-      (fun exn ->
-        Logs.err (fun m ->
-            m "Failed to update the opam package list: %s"
-              (Printexc.to_string exn));
-        Lwt.return ())
-  in
+  let* () = sync v in
   poll_for_opam_packages ~polling v
 
+(* The first sync must not raise either: an exception escaping [Lwt.async]
+   reaches [Lwt.async_exception_hook], which exits the process until Dream
+   replaces it on the first request, and would in any case kill this task before
+   polling starts. *)
 let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
   let state = try_load_state () in
   Lwt.async (fun () ->
-      let* commit = Opam_repository.(if exists () then pull else clone) () in
-      let* () = maybe_update state commit in
+      let* () = sync state in
       if disable_polling then Lwt.return_unit
       else poll_for_opam_packages ~polling:Config.opam_polling state);
   state
