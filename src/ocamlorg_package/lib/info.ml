@@ -55,9 +55,6 @@ module Lwt_fold = struct
 
   let package_name_map fn map init =
     OpamPackage.Name.Map.bindings map |> fold fn init
-
-  let package_version_map fn map init =
-    OpamPackage.Version.Map.bindings map |> fold fn init
 end
 
 let get_conflicts (opam : OpamFile.OPAM.t) =
@@ -75,100 +72,118 @@ let get_depopts (opam : OpamFile.OPAM.t) =
 (* Every package version gets an integer id, in [OpamPackage.compare] order, so
    that the versions of a name have consecutive ids. Building the reverse
    dependencies on ids instead of [OpamPackage.t] keys avoids most name and
-   version comparisons, which dominated the rebuild's profile. *)
+   version comparisons, which dominated the rebuild's profile. The index is the
+   only place where ids are assigned: every pass reads them from [ranges]. *)
 type index = {
   packages : OpamPackage.t array;
   ranges : (int * int) OpamPackage.Name.Map.t;
       (** For each name, the id of its first version and its number of versions. *)
 }
 
+(* [packages] must be sorted by [OpamPackage.compare]. *)
+let index_of_packages packages =
+  let packages = Array.of_list packages in
+  let ranges = ref OpamPackage.Name.Map.empty in
+  Array.iteri
+    (fun id pkg ->
+      let name = OpamPackage.name pkg in
+      ranges :=
+        OpamPackage.Name.Map.update name
+          (fun (first, count) -> (first, count + 1))
+          (id, 0) !ranges)
+    packages;
+  { packages; ranges = !ranges }
+
 let index opams =
-  let rev_packages, ranges, _ =
-    OpamPackage.Name.Map.fold
-      (fun name vmap (packages, ranges, first) ->
-        let count = OpamPackage.Version.Map.cardinal vmap in
-        let packages =
-          OpamPackage.Version.Map.fold
-            (fun version _ acc -> OpamPackage.create name version :: acc)
-            vmap packages
-        in
-        ( packages,
-          OpamPackage.Name.Map.add name (first, count) ranges,
-          first + count ))
-      opams
-      ([], OpamPackage.Name.Map.empty, 0)
-  in
-  { packages = Array.of_list (List.rev rev_packages); ranges }
+  OpamPackage.Name.Map.fold
+    (fun name vmap acc ->
+      OpamPackage.Version.Map.fold
+        (fun version _ acc -> OpamPackage.create name version :: acc)
+        vmap acc)
+    opams []
+  |> List.rev |> index_of_packages
+
+(* [iter_ids index name vmap f] calls [f id version v] for every binding of
+   [vmap], the versions of [name], with the id that [index] gives it. *)
+let iter_ids index name vmap f =
+  let first, count = OpamPackage.Name.Map.find name index.ranges in
+  for id = first to first + count - 1 do
+    let version = OpamPackage.version index.packages.(id) in
+    f id version (OpamPackage.Version.Map.find version vmap)
+  done
+
+(* [iter_matching index formula f] calls [f] on the id of every version that
+   [OpamFormula.packages] returns for [formula], evaluating the same per-name
+   DNF directly on the consecutive ids of each name. Tested against
+   [OpamFormula.packages] in [packages_matching_test.ml]. *)
+let iter_matching index formula f =
+  let open OpamTypes in
+  let dnf = OpamFormula.dnf_of_formula formula in
+  OpamPackage.Name.Set.iter
+    (fun dep ->
+      match OpamPackage.Name.Map.find_opt dep index.ranges with
+      | None -> ()
+      | Some (first, count) ->
+          let name_formula =
+            OpamFormula.map
+              (fun ((n, _) as a) -> if n = dep then Atom a else Empty)
+              dnf
+          in
+          for target = first to first + count - 1 do
+            let v = OpamPackage.version index.packages.(target) in
+            if
+              OpamFormula.eval
+                (fun (_, cstr) -> OpamFormula.check_version_formula cstr v)
+                name_formula
+            then f target
+          done)
+    (OpamFormula.all_names formula)
+
+let packages_matching packages formula =
+  let index = index_of_packages (OpamPackage.Set.elements packages) in
+  let matching = ref OpamPackage.Set.empty in
+  iter_matching index formula (fun id ->
+      matching := OpamPackage.Set.add index.packages.(id) !matching);
+  !matching
 
 (* [rev_dependencies index opams] maps each id to the ids of the versions that
    depend on it, in decreasing order. A version depends on the versions that
-   [OpamFormula.packages] would return for its filtered [depends] formula; this
-   evaluates the same per-name DNF directly on the consecutive ids of each name.
-   It runs on the server's event loop during each rebuild, so it yields between
+   [OpamFormula.packages] would return for its filtered [depends] formula. It
+   runs on the server's event loop during each rebuild, so it yields between
    package names (see ocaml/ocaml.org#3959). *)
 let rev_dependencies index opams =
   let open OpamTypes in
-  let open Lwt.Syntax in
   let rdeps = Array.make (Array.length index.packages) [] in
-  let+ (_ : int) =
+  let open Lwt.Syntax in
+  let+ () =
     Lwt_fold.package_name_map
-      (fun name vmap id ->
-        Lwt.return
-        @@ OpamPackage.Version.Map.fold
-             (fun version opam id ->
-               let env v =
-                 match OpamVariable.Full.to_string v with
-                 | "name" -> Some (S (OpamPackage.Name.to_string name))
-                 | "version" -> Some (S (OpamPackage.Version.to_string version))
-                 | _ -> None
-               in
-               let formula =
-                 OpamFilter.filter_formula ~default:true env
-                   (OpamFile.OPAM.depends opam)
-               in
-               let dnf = OpamFormula.dnf_of_formula formula in
-               OpamPackage.Name.Set.iter
-                 (fun dep ->
-                   match OpamPackage.Name.Map.find_opt dep index.ranges with
-                   | None -> ()
-                   | Some (first, count) ->
-                       let name_formula =
-                         OpamFormula.map
-                           (fun ((n, _) as a) ->
-                             if n = dep then Atom a else Empty)
-                           dnf
-                       in
-                       for target = first to first + count - 1 do
-                         let v = OpamPackage.version index.packages.(target) in
-                         if
-                           OpamFormula.eval
-                             (fun (_, cstr) ->
-                               OpamFormula.check_version_formula cstr v)
-                             name_formula
-                         then rdeps.(target) <- id :: rdeps.(target)
-                       done)
-                 (OpamFormula.all_names formula);
-               id + 1)
-             vmap id)
-      opams 0
+      (fun name vmap () ->
+        iter_ids index name vmap (fun id version opam ->
+            let env v =
+              match OpamVariable.Full.to_string v with
+              | "name" -> Some (S (OpamPackage.Name.to_string name))
+              | "version" -> Some (S (OpamPackage.Version.to_string version))
+              | _ -> None
+            in
+            let formula =
+              OpamFilter.filter_formula ~default:true env
+                (OpamFile.OPAM.depends opam)
+            in
+            iter_matching index formula (fun target ->
+                rdeps.(target) <- id :: rdeps.(target)));
+        Lwt.return_unit)
+      opams ()
   in
   rdeps
 
 let rev_dep_entry versions_of_name name versions =
   let open OpamTypes in
-  let vf =
+  let formula =
     OpamFormula.formula_of_version_set
       (OpamPackage.Name.Map.find name versions_of_name)
       versions
-  in
-  let formula =
-    OpamFormula.ands
-      [
-        OpamFormula.map
-          (fun (op, v) ->
-            Atom (Constraint (op, FString (OpamPackage.Version.to_string v))))
-          vf;
-      ]
+    |> OpamFormula.map (fun (op, v) ->
+           Atom (Constraint (op, FString (OpamPackage.Version.to_string v))))
   in
   (name, string_of_formula formula, OpamPackage.Version.Set.max_elt versions)
 
@@ -245,21 +260,22 @@ let of_opamfiles ~timestamps
       opams
   in
   time_it_lwt "Generate package info" (fun () ->
-      let+ packages, (_ : int) =
-        Lwt_fold.package_name_map
-          (fun name vmap (acc, id) ->
-            let+ vs, id =
-              Lwt_fold.package_version_map
-                (fun version opam (acc, id) ->
-                  let package = OpamPackage.create name version in
-                  let rev_deps = mk_revdeps index versions_of_name rdeps.(id) in
-                  let t = make ~rev_deps ~package ~timestamps opam in
-                  Lwt.return (OpamPackage.Version.Map.add version t acc, id + 1))
-                vmap
-                (OpamPackage.Version.Map.empty, id)
-            in
-            (OpamPackage.Name.Map.add name vs acc, id))
-          opams
-          (OpamPackage.Name.Map.empty, 0)
-      in
-      packages)
+      Lwt_fold.package_name_map
+        (fun name vmap acc ->
+          let first, count = OpamPackage.Name.Map.find name index.ranges in
+          let rec versions id vs =
+            if id = first + count then Lwt.return vs
+            else
+              let* () = Lwt.pause () in
+              let package = index.packages.(id) in
+              let version = OpamPackage.version package in
+              let opam = OpamPackage.Version.Map.find version vmap in
+              let rev_deps = mk_revdeps index versions_of_name rdeps.(id) in
+              (* Read once: let the GC reclaim the list now. *)
+              rdeps.(id) <- [];
+              let t = make ~rev_deps ~package ~timestamps opam in
+              versions (id + 1) (OpamPackage.Version.Map.add version t vs)
+          in
+          let+ vs = versions first OpamPackage.Version.Map.empty in
+          OpamPackage.Name.Map.add name vs acc)
+        opams OpamPackage.Name.Map.empty)

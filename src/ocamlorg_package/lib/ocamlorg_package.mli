@@ -50,6 +50,13 @@ module Info : sig
     publication : float;
     flags : OpamTypes.package_flag list;
   }
+
+  val packages_matching :
+    OpamPackage.Set.t -> OpamTypes.formula -> OpamPackage.Set.t
+  (** [packages_matching packages formula] is
+      [OpamFormula.packages packages
+      formula], computed the way the
+      reverse dependencies are. Exposed for testing that the two agree. *)
 end
 
 module Statistics : sig
