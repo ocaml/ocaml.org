@@ -3,12 +3,18 @@
 
 module H = Data.Opam_health
 
-type t = {
+type results = {
   current : H.release option;  (* The version being viewed, if checked. *)
   releases : H.release list;  (* Every checked version, newest first. *)
   stale : bool;  (* The run is old enough that results may be outdated. *)
   newer_than_checked : bool;  (* The viewed version is newer than every checked one. *)
 }
+
+type t =
+  | Results of results  (* The run has at least one version of the package. *)
+  | Not_yet_checked  (* None, and the viewed version was published after the run. *)
+  | Cannot_be_checked  (* None, and check.ci never builds this package. *)
+  | No_information  (* None, for an unknown reason. *)
 
 let slug = "build-status"
 
@@ -57,21 +63,35 @@ let summary_badge ~href (summary : H.summary) =
     <%s! icon %><%s label %>
   </a>
 
-(* The viewed version is not in the run, but other versions are, see [render].
-   A version newer than all of them was most likely released after the run
-   (check.ci runs weekly) and should be in the next one. *)
-let not_checked_badge ~href ~newer_than_checked =
-  let label = if newer_than_checked then "Build not yet checked" else "Build not checked" in
-  let title = "Not in the check.ci.ocaml.org run of " ^ H.date ^ ". See the results for other versions." in
+let grey_badge ~href ~title label =
   <a href="<%s href %>" title="<%s title %>"
     class="self-center inline-flex items-center gap-1 px-2 py-0.5 rounded border text-sm font-medium hover:underline border-gray-300 bg-gray-100 text-gray-700 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-100">
     <%s label %>
   </a>
 
-let badge ~href t =
-  match t.current with
-  | None -> not_checked_badge ~href ~newer_than_checked:t.newer_than_checked
-  | Some r -> summary_badge ~href (H.summary r.statuses)
+let not_yet_checked_label = "Build not yet checked"
+let not_yet_checked_title = "Published after the check.ci.ocaml.org run of " ^ H.date ^ ". It should be in a later run."
+
+(* The viewed version is not in the run, but other versions are, see [render].
+   A version newer than all of them was most likely released after the run
+   (check.ci runs weekly) and should be in the next one. *)
+let not_checked_badge ~href ~newer_than_checked =
+  if newer_than_checked then grey_badge ~href ~title:not_yet_checked_title not_yet_checked_label
+  else
+    grey_badge ~href
+      ~title:("Not in the check.ci.ocaml.org run of " ^ H.date ^ ". See the results for other versions.")
+      "Build not checked"
+
+let badge ~href = function
+  | Results { current = Some r; _ } -> summary_badge ~href (H.summary r.statuses)
+  | Results { current = None; newer_than_checked; _ } -> not_checked_badge ~href ~newer_than_checked
+  | Not_yet_checked -> grey_badge ~href ~title:not_yet_checked_title not_yet_checked_label
+  | Cannot_be_checked ->
+    grey_badge ~href ~title:"check.ci.ocaml.org does not build the OCaml compiler packages themselves."
+      "Build cannot be checked"
+  | No_information ->
+    grey_badge ~href ~title:("No version of this package is in the check.ci.ocaml.org run of " ^ H.date ^ ".")
+      "No build information"
 
 (* Built as a string, not a template: a template ends with a newline, which
    would render as a space before the punctuation that follows the link. *)
@@ -80,11 +100,41 @@ let link ~href text =
     {|<a href="%s" target="_blank" rel="noopener" class="text-primary dark:text-dark-primary hover:underline">%s</a>|}
     (Dream.html_escape href) (Dream.html_escape text)
 
-let render ~package_name (t : t) =
-  let viewed = Option.map (fun (r : H.release) -> r.version) t.current in
+let heading () =
   <div class="border-l-4 border-l-primary dark:border-l-dark-primary border-b-2 border-t-2 border-r-2 rounded border-transparent px-4 -ml-4 mb-6 mt-12">
     <h2 id="<%s slug %>" class="text-xl font-medium my-2 text-title dark:text-dark-title">Build status</h2>
   </div>
+
+let run_reference () =
+  Printf.sprintf {|run of <time datetime="%s">%s</time> against opam-repository %s|}
+    H.date H.date (link ~href:H.commit_url H.short_commit)
+
+(* No version of the package is in the run: explain why instead of the table. *)
+let render_unchecked ~package_name t =
+  let check_ci = link ~href:H.run_url "check.ci.ocaml.org" in
+  let opam_health_check = link ~href:"https://github.com/ocurrent/opam-health-check" "opam-health-check" in
+  <%s! heading () %>
+  <div class="space-y-4 text-content dark:text-dark-content">
+    <p>
+    <% (match t with Results _ -> () | Not_yet_checked -> %>
+      This version of <%s package_name %> was published after the <%s! check_ci %>
+      <%s! run_reference () %>, so it has no build results yet. check.ci runs about once a week.
+    <% | Cannot_be_checked -> %>
+      <%s! check_ci %> installs an OCaml compiler before each build it checks, so it does not build
+      the compiler packages themselves, and <%s package_name %> is one of them
+      (see <%s! opam_health_check %>).
+    <% | No_information -> %>
+      <%s! check_ci %> has no results for any version of <%s package_name %> in its
+      <%s! run_reference () %>. check.ci only builds the packages that opam can install on its
+      Linux image (Debian, x86_64). It leaves out packages for other systems, packages whose
+      system library is missing from that image, and the packages that depend on them.
+    <% ); %>
+    </p>
+  </div>
+
+let render_results ~package_name (t : results) =
+  let viewed = Option.map (fun (r : H.release) -> r.version) t.current in
+  <%s! heading () %>
   <div class="space-y-4 text-content dark:text-dark-content">
     <p>
       Results of building <%s package_name %> with each compiler on
@@ -141,3 +191,7 @@ let render ~package_name (t : t) =
       <% ); %>
     </ul>
   </div>
+
+let render ~package_name = function
+  | Results r -> render_results ~package_name r
+  | (Not_yet_checked | Cannot_be_checked | No_information) as t -> render_unchecked ~package_name t

@@ -1169,6 +1169,7 @@ module Package_helper = struct
         ~version:
           (Ocamlorg_package.Version.to_string
              (Ocamlorg_package.version package))
+        ~published:(Ocamlorg_package.info package).publication
     in
     Lwt.return
       Ocamlorg_frontend.Package_overview.
@@ -1463,18 +1464,14 @@ let package_overview t kind req =
                  href = "#" ^ section.slug;
                  children = [];
                }))
-    @
-    match sidebar_data.health with
-    | None -> []
-    | Some _ ->
-        [
-          Ocamlorg_frontend.Toc.
-            {
-              title = "Build status";
-              href = "#" ^ Ocamlorg_frontend.Build_status.slug;
-              children = [];
-            };
-        ]
+    @ [
+        Ocamlorg_frontend.Toc.
+          {
+            title = "Build status";
+            href = "#" ^ Ocamlorg_frontend.Build_status.slug;
+            children = [];
+          };
+      ]
   in
   Dream.html
     (Ocamlorg_frontend.package_overview ~sidebar_data ~readme
