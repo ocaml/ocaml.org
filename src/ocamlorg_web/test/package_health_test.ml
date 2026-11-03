@@ -106,6 +106,60 @@ let for_package () =
     "unknown package" true
     (P.for_package ~name:"no-such-package-3847" ~version:"1" = None)
 
+(* A version absent from the run is "newer than checked" only when it sorts
+   after every checked version of its package. In opam's order, appending ".1"
+   to a version gives a newer one and appending "~" an older one. *)
+let for_page () =
+  match H.releases with
+  | [] -> ()
+  | (r : H.release) :: _ ->
+      let checked = P.versions r.name in
+      let newest = (List.hd checked).version in
+      let oldest = (List.hd (List.rev checked)).version in
+      let page version =
+        match P.for_page ~now:0. ~name:r.name ~version ~published:0. with
+        | Results t -> t
+        | _ -> Alcotest.fail "a packed package has no results"
+      in
+      let t = page newest in
+      Alcotest.(check bool) "checked: current" true (t.current <> None);
+      Alcotest.(check bool) "checked: not newer" false t.newer_than_checked;
+      let t = page (newest ^ ".1") in
+      Alcotest.(check bool) "newer: no current" true (t.current = None);
+      Alcotest.(check bool) "newer: newer" true t.newer_than_checked;
+      let t = page (oldest ^ "~") in
+      Alcotest.(check bool) "older: no current" true (t.current = None);
+      Alcotest.(check bool) "older: not newer" false t.newer_than_checked
+
+(* A package with no version in the run: published after it, a compiler package
+   check.ci never builds, or no known reason, in that order. *)
+let unchecked () =
+  let page ~name ~published =
+    match P.for_page ~now:0. ~name ~version:"1" ~published with
+    | Results _ -> "results"
+    | Not_yet_checked -> "not yet checked"
+    | Cannot_be_checked -> "cannot be checked"
+    | No_information -> "no information"
+  in
+  let before = H.run.timestamp -. 1. and after = H.run.timestamp +. 1. in
+  let t name expected got = Alcotest.(check string) name expected got in
+  t "unknown, published before" "no information"
+    (page ~name:"no-such-package-3847" ~published:before);
+  t "unknown, published after" "not yet checked"
+    (page ~name:"no-such-package-3847" ~published:after);
+  t "compiler" "cannot be checked"
+    (page ~name:"ocaml-base-compiler" ~published:before);
+  t "compiler option" "cannot be checked"
+    (page ~name:"ocaml-option-flambda" ~published:before);
+  t "new compiler" "not yet checked"
+    (page ~name:"ocaml-base-compiler" ~published:after);
+  List.iter
+    (fun name ->
+      Alcotest.(check bool)
+        (name ^ " has no results") true
+        (P.versions name = []))
+    P.not_checkable
+
 let parse () =
   let ok name json =
     match M.parse_build_query (Yojson.Safe.from_string json) with
@@ -155,6 +209,8 @@ let () =
           Alcotest.test_case "glob" `Quick glob;
           Alcotest.test_case "summary" `Quick summary;
           Alcotest.test_case "for_package" `Quick for_package;
+          Alcotest.test_case "for_page" `Quick for_page;
+          Alcotest.test_case "unchecked packages" `Quick unchecked;
           Alcotest.test_case "MCP arguments" `Quick parse;
         ] );
     ]

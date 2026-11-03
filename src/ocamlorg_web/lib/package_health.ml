@@ -25,15 +25,56 @@ let versions name = List.sort newest_first (H.versions name)
 let find_version version =
   List.find_opt (fun (r : H.release) -> String.equal r.version version)
 
-let for_page ~now ~name ~version : Ocamlorg_frontend.Build_status.t option =
+(* The packages check.ci never builds: the compiler and its options, which it
+   installs before each check. Copied from [get_pkgs] in
+   https://github.com/ocurrent/opam-health-check/blob/master/server/backend/check.ml *)
+let not_checkable =
+  [
+    "ocaml";
+    "ocaml-base-compiler";
+    "ocaml-variants";
+    "ocaml-beta";
+    "ocaml-config";
+    "ocaml-option-32bit";
+    "ocaml-option-afl";
+    "ocaml-option-bytecode-only";
+    "ocaml-option-default-unsafe-string";
+    "ocaml-option-flambda";
+    "ocaml-option-fp";
+    "ocaml-option-musl";
+    "ocaml-option-nnp";
+    "ocaml-option-nnpchecker";
+    "ocaml-option-no-flat-float-array";
+    "ocaml-option-spacetime";
+    "ocaml-option-static";
+    "ocaml-options-only-afl";
+    "ocaml-options-only-flambda";
+    "ocaml-options-only-flambda-fp";
+    "ocaml-options-only-fp";
+    "ocaml-options-only-nnp";
+    "ocaml-options-only-nnpchecker";
+    "ocaml-options-only-no-flat-float-array";
+    "ocaml-options-vanilla";
+  ]
+
+(* [published] is when the viewed version entered opam-repository (Unix
+   time). *)
+let for_page ~now ~name ~version ~published : Ocamlorg_frontend.Build_status.t =
   match versions name with
-  | [] -> None
+  | [] ->
+      if published > H.run.timestamp then Not_yet_checked
+      else if List.mem name not_checkable then Cannot_be_checked
+      else No_information
   | releases ->
-      Some
+      Results
         {
           current = find_version version releases;
           releases;
           stale = H.age_in_days ~now > stale_after_days;
+          newer_than_checked =
+            List.for_all
+              (fun (r : H.release) -> compare_versions version r.version > 0)
+              releases;
         }
 
 (* The results for one version of a package, plus its other checked versions
