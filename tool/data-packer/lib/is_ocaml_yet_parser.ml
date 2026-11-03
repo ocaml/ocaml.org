@@ -3,13 +3,11 @@
 open Import
 
 type external_package = [%import: Data_intf.Is_ocaml_yet.external_package]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type package = [%import: Data_intf.Is_ocaml_yet.package]
-[@@deriving of_yaml, show]
-
-type category = [%import: Data_intf.Is_ocaml_yet.category] [@@deriving show]
-type t = [%import: Data_intf.Is_ocaml_yet.t] [@@deriving show]
+type package = [%import: Data_intf.Is_ocaml_yet.package] [@@deriving of_yaml]
+type category = Data_intf.Is_ocaml_yet.category
+type t = Data_intf.Is_ocaml_yet.t
 
 type category_meta = {
   name : string;
@@ -17,7 +15,7 @@ type category_meta = {
   description : string;
   packages : package list;
 }
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type metadata = {
   id : string;
@@ -25,7 +23,7 @@ type metadata = {
   answer : string;
   categories : category_meta list;
 }
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 let category_of_meta ({ name; status; description; packages } : category_meta) :
     category =

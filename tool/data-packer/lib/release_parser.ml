@@ -2,7 +2,7 @@
 
 open Import
 
-type kind = [%import: Data_intf.Release.kind] [@@deriving show]
+type kind = Data_intf.Release.kind
 
 let kind_of_string = function
   | "compiler" -> Ok `Compiler
@@ -12,7 +12,7 @@ let kind_of_yaml = function
   | `String s -> kind_of_string s
   | _ -> Error (`Msg "Expected a string for release type")
 
-type t = [%import: Data_intf.Release.t] [@@deriving show]
+type t = Data_intf.Release.t
 
 type metadata = {
   kind : kind;

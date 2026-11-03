@@ -4,7 +4,7 @@ open Import
 
 module Toc = struct
   type t = { title : string; href : string; children : t list }
-  [@@deriving of_yaml, show]
+  [@@deriving of_yaml]
 
   let id_to_href id =
     match id with
