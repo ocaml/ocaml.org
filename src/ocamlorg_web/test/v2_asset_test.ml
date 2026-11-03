@@ -7,8 +7,9 @@ let write path content =
   output_string oc content;
   close_out oc
 
+(* Does not follow symbolic links. *)
 let rec remove path =
-  if Sys.is_directory path then (
+  if (Unix.lstat path).st_kind = S_DIR then (
     Array.iter
       (fun name -> remove (Filename.concat path name))
       (Sys.readdir path);
@@ -17,8 +18,9 @@ let rec remove path =
 
 (* Layout, built once and removed at exit: <top>/elsewhere.md,
    <top>/v2/elsewhere.md, <top>/v2/conferences/ocaml/2013/program.md and the
-   empty directory <top>/v2/conferences/ocaml/2013/slides. Only the last two are
-   under the route. *)
+   empty directory <top>/v2/conferences/ocaml/2013/slides, plus two symbolic
+   links in 2013: link.md to <top>/elsewhere.md and dirlink to <top>. Only the
+   2013 directory is under the route. *)
 let handler =
   let top = Filename.temp_dir "v2_asset" "" in
   at_exit (fun () -> remove top);
@@ -37,14 +39,16 @@ let handler =
   in
   write (Filename.concat year "program.md") "PROGRAM";
   Sys.mkdir (Filename.concat year "slides") 0o755;
-  Dream.router [ Web.Router.v2_assets_route ~root:v2 ]
+  Unix.symlink
+    (Filename.concat top "elsewhere.md")
+    (Filename.concat year "link.md");
+  Unix.symlink top (Filename.concat year "dirlink");
+  Dream.router [ Web.v2_assets_route ~root:v2 ]
 
 let get target =
   let response =
     Dream.test
-      (Web.Middleware.no_trailing_slash
-     @@ Web.Middleware.language_manual_version @@ Web.Middleware.head @@ handler
-      )
+      (Web.middleware_chain handler)
       (Dream.request ~method_:`GET ~target "")
   in
   ( Dream.status_to_int (Dream.status response),
@@ -78,6 +82,13 @@ let test_not_found () =
 
 let test_directory () = check_not_found_page "/conferences/ocaml/2013/slides"
 
+let test_symlinks () =
+  List.iter check_not_found_page
+    [
+      "/conferences/ocaml/2013/link.md";
+      "/conferences/ocaml/2013/dirlink/elsewhere.md";
+    ]
+
 (* Paths with dot segments or encoded separators are not resolved against the
    file system: [Dream.static] answers 404, or the middleware first redirects
    percent-encoded ones (303). *)
@@ -107,6 +118,7 @@ let () =
           Alcotest.test_case "files" `Quick test_files;
           Alcotest.test_case "not found" `Quick test_not_found;
           Alcotest.test_case "directory" `Quick test_directory;
+          Alcotest.test_case "symbolic links" `Quick test_symlinks;
           Alcotest.test_case "non-normalised paths" `Quick test_non_normalised;
         ] );
     ]

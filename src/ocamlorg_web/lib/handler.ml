@@ -1734,13 +1734,32 @@ let sitemap _request =
 
 let logos _req = Dream.html (Ocamlorg_frontend.logos ())
 
+(* Whether a component of [path], below [root], is a symbolic link. Components
+   that cannot be read are left to the caller. *)
+let has_symlink root path =
+  let rec go dir = function
+    | [] -> false
+    | "" :: rest -> go dir rest
+    | name :: rest -> (
+        let dir = Filename.concat dir name in
+        match Unix.lstat dir with
+        | { Unix.st_kind = S_LNK; _ } -> true
+        | _ -> go dir rest
+        | exception Unix.Unix_error _ -> false)
+  in
+  go root (String.split_on_char '/' path)
+
 (* A [Dream.static] loader. [path] comes from Dream's routing: the decoded
    wildcard components, without the query string. Files that cannot be read
-   (missing, directories) get the 404 page. Paths that [Dream.static] rejects
-   before calling the loader get its own empty 404. *)
+   (missing, directories) and paths through a symbolic link below [local_root]
+   get the 404 page. Paths that [Dream.static] rejects before calling the loader
+   get its own empty 404. *)
 let v2_asset local_root path req =
   let open Lwt.Syntax in
-  let* response = Dream.from_filesystem local_root path req in
-  match Dream.status response with
-  | `Not_Found -> Dream.html ~code:404 (Ocamlorg_frontend.not_found ())
-  | _ -> Lwt.return response
+  let not_found () = Dream.html ~code:404 (Ocamlorg_frontend.not_found ()) in
+  if has_symlink local_root path then not_found ()
+  else
+    let* response = Dream.from_filesystem local_root path req in
+    match Dream.status response with
+    | `Not_Found -> not_found ()
+    | _ -> Lwt.return response
