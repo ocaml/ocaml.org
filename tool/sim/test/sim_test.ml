@@ -211,6 +211,16 @@ let test_windows () =
          (12., "loaded");
        ])
 
+let test_unfinished_update () =
+  Alcotest.(check (option (float 0.)))
+    "update with nothing after it" (Some 10.)
+    (Summary.unfinished_update
+       [ (1., "update"); (5., "saved"); (10., "update"); (11., "phase") ]);
+  Alcotest.(check (option (float 0.)))
+    "every update finished" None
+    (Summary.unfinished_update
+       [ (1., "update"); (4., "loaded"); (10., "update"); (12., "saved") ])
+
 let plan_profile =
   {
     Profile.source = "";
@@ -470,6 +480,7 @@ let () =
           Alcotest.test_case "cpu seconds" `Quick test_cpu_seconds;
           Alcotest.test_case "slope" `Quick test_slope;
           Alcotest.test_case "windows" `Quick test_windows;
+          Alcotest.test_case "unfinished update" `Quick test_unfinished_update;
           Alcotest.test_case "packages" `Quick test_packages_of_find;
           Alcotest.test_case "plan deterministic" `Quick test_plan_deterministic;
           Alcotest.test_case "plan streams independent" `Quick

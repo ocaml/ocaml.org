@@ -126,7 +126,7 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `traffic.csv` | One row per request; `id` is its position in its stream |
 | `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p95/p99/p99.9/max |
 | `sync.csv` | Update cycle events, phase durations, and each commit the server loaded, from the server log |
-| `windows.csv` | Update windows: from "Update server state" to "Package state saved", plus 1 s, because the largest GC pauses of an update fall within 0.2 s of that log line |
+| `windows.csv` | Update windows: from "Update server state" to "Package state saved", plus 1 s, because the largest GC pauses of an update fall within 0.2 s of that log line; an update still running when the run ends gets a window up to the end (but no row in `cycles.csv`) |
 | `cycles.csv` | Per update: duration, CPU-seconds, peak memory, memory floor after it, longest GC pause |
 | `feed.csv` | Each upstream move: actual and planned time, commit |
 | `server.log` | The server's full log |

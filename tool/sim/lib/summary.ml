@@ -152,9 +152,33 @@ let windows_of_events events =
    major GC slices of an update land within 0.2 s of it, on either side. *)
 let window_grace = 1.
 
-let windows dir =
-  windows_of_events (List.map (fun (t, ev, _, _) -> (t, ev)) (read_sync dir))
-  |> List.map (fun (s, e) -> (s, e +. window_grace))
+(* The start of an update still running when the log ends: an ["update"] with no
+   ["loaded"] or ["saved"] after it. *)
+let unfinished_update events =
+  List.fold_left
+    (fun acc (t, ev) ->
+      match ev with "update" -> Some t | "loaded" | "saved" -> None | _ -> acc)
+    None events
+
+(* With [~unfinished:true] (the default), an update still running when the run
+   ends gets a window up to the last resource sample, so its time, CPU, requests
+   and pauses count as during an update. Per-update statistics ([cycles]) take
+   [~unfinished:false]: that update's duration is truncated. *)
+let windows ?(unfinished = true) dir =
+  let events = List.map (fun (t, ev, _, _) -> (t, ev)) (read_sync dir) in
+  let closed =
+    windows_of_events events |> List.map (fun (s, e) -> (s, e +. window_grace))
+  in
+  if not unfinished then closed
+  else
+    let samples = read_resources dir in
+    let run_end =
+      if Array.length samples = 0 then neg_infinity
+      else samples.(Array.length samples - 1).st
+    in
+    match unfinished_update events with
+    | Some s when run_end > s -> closed @ [ (s, run_end) ]
+    | _ -> closed
 
 (* {1 Minimum mutator utilisation} *)
 
@@ -638,7 +662,14 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
             (mmu ivs ~lo ~hi w))
         mmu_windows
   in
-  let cs = cycles ~samples ~pauses ~run_end wins in
+  (* all windows, so that the floor after the last finished update stops where
+     an unfinished one starts; then drop the unfinished one, whose duration and
+     CPU are truncated *)
+  let finished = List.length (windows ~unfinished:false dir) in
+  let cs =
+    cycles ~samples ~pauses ~run_end wins
+    |> List.filteri (fun i _ -> i < finished)
+  in
   let after_warmup = List.filter (fun c -> c.index > 1) cs in
   let median l =
     let a = sorted_of_list l in
@@ -834,8 +865,9 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
                 `String
                   "from the server's 'Update server state' log line to \
                    'Package state saved', plus 1 s for the work that ends \
-                   around that line; the first one is the warm-up full rebuild"
-              );
+                   around that line; an update still running when the run ends \
+                   gets a window up to the end but no cycle; the first one is \
+                   the warm-up full rebuild" );
               ( "floor",
                 `String
                   "lowest memory between the end of an update and the start of \
