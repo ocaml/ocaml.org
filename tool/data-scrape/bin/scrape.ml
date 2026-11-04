@@ -110,6 +110,25 @@ let planet_keywords_cmd =
        ~doc:"Backfill keywords for existing Planet posts (#3875)")
     Term.(const run $ dry_run $ limit $ source $ all $ cache_dir $ report)
 
+(* One-off shortening of over-long [description:] front matter in existing
+   Planet posts. Not part of the daily scrape. *)
+let planet_descriptions_cmd =
+  let dry_run =
+    let doc = "Print the new descriptions without writing any file." in
+    Arg.(value & flag & info [ "dry-run" ] ~doc)
+  in
+  let source =
+    let doc = "Restrict to the single planet source id $(docv)." in
+    Arg.(value & opt (some string) None & info [ "source" ] ~docv:"ID" ~doc)
+  in
+  let run dry_run source =
+    Description_backfill.run ~dry_run ~source_filter:source ()
+  in
+  Cmd.v
+    (Cmd.info "planet-descriptions"
+       ~doc:"Shorten over-long descriptions of existing Planet posts")
+    Term.(const run $ dry_run $ source)
+
 let cmds =
   Cmd.group (Cmd.info "data-scrape")
     [
@@ -118,6 +137,7 @@ let cmds =
       platform_releases_cmd;
       opam_health_cmd;
       planet_keywords_cmd;
+      planet_descriptions_cmd;
     ]
 
 let () =

@@ -88,7 +88,8 @@ module Post = struct
       |> Result.get_ok ~error:(fun (`Msg m) -> Data_packer.Exn.Decode_error m))
 end
 
-(* Fetch an article page, for keyword extraction when the feed has no body.
+(* Fetch an article page, for its meta description when the feed summary is
+   missing or too long, and for keyword extraction when the feed has no body.
    Bounded by [timeout] so one slow host cannot stall the scrape; any failure
    yields [None]. *)
 let fetch_article url =
@@ -101,8 +102,7 @@ let fetch_article url =
               Cohttp_lwt.Body.to_string body)))
   with e ->
     print_string
-      (Printf.sprintf "(article fetch for keywords failed: %s) "
-         (Printexc.to_string e));
+      (Printf.sprintf "(article fetch failed: %s) " (Printexc.to_string e));
     None
 
 let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
@@ -137,8 +137,12 @@ let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
         then (
           let url = String.trim (Uri.to_string url) in
           let preview_image = River.seo_image ~timeout ~user_agent post in
+          (* At most one fetch of the article page, shared by the description
+             and keyword fallbacks. *)
+          let page = lazy (fetch_article url) in
+          let page () = Lazy.force page in
           let description =
-            River.meta_description ~timeout ~user_agent post
+            Description.choose ~summary:(River.summary post) ~content ~page
             |> Option.map (Utf_8.sanitize ~what:(what "description"))
           in
           let author =
@@ -148,9 +152,8 @@ let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
              corpus document frequencies computed once in [scrape]. When the
              feed carries no real body, the article page is fetched instead. *)
           let keywords =
-            Blog_backfill.keywords_for
-              ~fetch:(fun () -> fetch_article url)
-              ~df ~ndocs ~dict ~title content
+            Blog_backfill.keywords_for ~fetch:page ~df ~ndocs ~dict ~title
+              content
           in
           let metadata : Post.metadata =
             {
