@@ -229,8 +229,11 @@ let how_to_read =
      request arrived, not on what it asked for.";
     "A percentile with reliable = false rests on fewer than 10 samples above \
      it; treat it as indicative.";
-    "The run-to-run noise of a single image is not measured here: treat small \
-     differences as unconfirmed until repeated.";
+    "An 'all' percentile mixes the samples during and outside updates, which \
+     differ a lot. When one build spends less time updating, its 'all' \
+     percentiles shift with that mix even if neither population changed: check \
+     the during_update and outside_update rows before reading a change in \
+     'all' as a change in speed.";
     "loaded_commits lists the opam-repository commits each server actually \
      loaded. Both runs replay the same upstream states at the same offsets, \
      but each server polls on its own schedule (5 s after its previous update \
@@ -251,7 +254,9 @@ let paired_definitions =
       "the same planned request (stream and id, same path) in both runs, \
        successful in both" );
     ( "during_update",
-      "the request was scheduled inside an update window in either run" );
+      "in paired_latency_ms, the request was scheduled inside an update window \
+       in either run; in metrics (latency_ms.*.during_update and \
+       gc_pause_ms.*.during_update), inside that run's own update windows" );
     ( "slow_overlap",
       Printf.sprintf
         "of the requests slower than %.0f ms in either run, the share slower \
@@ -612,7 +617,12 @@ let run ?output ?(noise = []) a b =
                    (fun s -> `String s)
                    (how_to_read
                    @
-                   if noise = [] then []
+                   if noise = [] then
+                     [
+                       "The run-to-run noise of a single image is not measured \
+                        here: treat small differences as unconfirmed until \
+                        repeated (see sim run --repeat).";
+                     ]
                    else
                      [
                        "noise_spread is the largest spread (max - min) of a \

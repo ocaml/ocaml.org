@@ -1852,8 +1852,9 @@ let paired_spec ~na ~nb (m : Compare.matching) =
       m.pairs
   in
   (* Colour: the update timing when split or merged; the stream when overlaid,
-     with the timing as filled (during an update) or hollow (outside). Human and
-     bot hues: reference palette slots 7 and 6, validated light. *)
+     with the timing as filled (during an update) or hollow (outside). Timing
+     uses greys so that it cannot be mistaken for a stream hue. Human and bot
+     hues: reference palette slots 7 and 6, validated light. *)
   let colour_scale =
     o
       [
@@ -1865,7 +1866,7 @@ let paired_spec ~na ~nb (m : Compare.matching) =
               s "human";
               s "bot";
             ] );
-        ("range", l [ s muted; s "#1baf7a"; s "#6250d6"; s "#008300" ]);
+        ("range", l [ s muted; s ink2; s "#6250d6"; s "#008300" ]);
       ]
   in
   let ax title_ field =
