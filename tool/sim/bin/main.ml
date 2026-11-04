@@ -358,6 +358,23 @@ let compare_cmd =
       const (fun a b output -> print_string (Compare.run ?output a b))
       $ dir 0 "A" $ dir 1 "B" $ output)
 
+let viz_cmd =
+  let dir n doc = Arg.(required & pos n (some dir) None & info [] ~docv:doc) in
+  let output =
+    Arg.(
+      required
+      & opt (some string) None
+      & info [ "o"; "output" ] ~docv:"FILE" ~doc:"HTML page to write.")
+  in
+  Cmd.v
+    (Cmd.info "viz"
+       ~doc:
+         "Write an HTML page comparing two runs (A, then B): inputs once, raw \
+          output per metric, then comparison charts.")
+    Term.(
+      const (fun a b output -> print_string (Viz.run ~output a b))
+      $ dir 0 "A" $ dir 1 "B" $ output)
+
 let profile_cmd =
   Cmd.group
     (Cmd.info "profile" ~doc:"Build traffic profiles.")
@@ -374,6 +391,7 @@ let () =
             summary_cmd;
             plot_cmd;
             compare_cmd;
+            viz_cmd;
             profile_cmd;
             clock_offset_cmd;
           ]))

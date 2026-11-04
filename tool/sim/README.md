@@ -215,6 +215,31 @@ or a language model. It contains:
 
 For the 10-minute comparison it is about 40 KB.
 
+### Visual Comparison
+
+```bash
+opam exec -- dune exec tool/sim/bin/main.exe -- viz DIR_A DIR_B -o page.html
+```
+
+This writes one HTML page with Vega-Lite charts (open it in a browser):
+
+1. **Inputs, shown once:** requests per 5 s by stream, and each upstream
+   move. A header checks that the run parameters, the requests and the
+   upstream moves are the same in both runs, and says so.
+2. **Raw output:** CPU, memory (RSS, OCaml major heap, container), GC pauses
+   (every pause of at least 0.5 ms) and every request's latency. Each is one
+   row per run, A above B, on the same scales, with update windows shaded.
+3. **Comparison:**
+   - updates lined up at their start;
+   - distributions (ECDF) of latency and GC pauses;
+   - the key metrics as ratios B / A;
+   - a flicker view that switches between the runs on fixed scales;
+   - the same request in both runs, one dot per request.
+
+The data is embedded in the page, which is 2 MB for the 10-minute
+comparison. The page loads pinned versions of Vega, Vega-Lite and
+vega-embed from jsDelivr, so viewing it needs network access.
+
 ## Traffic Profiles
 
 A profile is a JSON file with the following fields:
