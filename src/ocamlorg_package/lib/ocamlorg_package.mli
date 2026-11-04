@@ -50,6 +50,20 @@ module Info : sig
     publication : float;
     flags : OpamTypes.package_flag list;
   }
+
+  val of_opamfiles :
+    timestamps:float OpamPackage.Map.t ->
+    OpamFile.OPAM.t Version.Map.t Name.Map.t ->
+    t Version.Map.t Name.Map.t Lwt.t
+  (** [of_opamfiles ~timestamps opams] builds the info of every package version,
+      including its reverse dependencies. Exposed for testing. *)
+
+  val packages_matching :
+    OpamPackage.Set.t -> OpamTypes.formula -> OpamPackage.Set.t
+  (** [packages_matching packages formula] is
+      [OpamFormula.packages packages
+      formula], computed the way the
+      reverse dependencies are. Exposed for testing that the two agree. *)
 end
 
 module Statistics : sig

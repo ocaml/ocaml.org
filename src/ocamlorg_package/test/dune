@@ -4,5 +4,7 @@
   package_versions_test
   documentation_status_test
   state_roundtrip_test
-  publication_dates_test)
+  publication_dates_test
+  packages_matching_test
+  rev_deps_test)
  (libraries alcotest ocamlorg_package opam-format yojson fpath lwt.unix unix))
