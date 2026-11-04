@@ -276,7 +276,9 @@ This writes one HTML page with Vega-Lite charts (open it in a browser):
      image (every ordered pair), so the parts of the curve outside the band
      are differences beyond run-to-run noise;
    - the key metrics as ratios B / A;
-   - a flicker view that switches between the runs on fixed scales;
+   - a flicker view on fixed scales, showing both runs overlaid, A only or
+     B only, with update windows in three greys (only A updating, only B
+     updating, both);
    - the same request in both runs, one dot per request.
 
    A toggle above the latency charts (distributions, shift function, same

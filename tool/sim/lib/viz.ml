@@ -1980,7 +1980,7 @@ let dumbbell_spec ?noise ~na ~nb metrics =
       ("config", config);
     ]
 
-(* Flicker: the 10 s timelines of both runs, one at a time, fixed scales. *)
+(* Flicker data: one row per run and 10 s bin, from timeline.csv. *)
 let flicker_rows dir run =
   let header, rows = Csv.read (Filename.concat dir "timeline.csv") in
   let col name =
@@ -2014,8 +2014,19 @@ let flicker_rows dir run =
                ]))
     rows
 
+(* Flicker: the 10 s timelines of both runs on fixed scales, shown overlaid, or
+   one build at a time. The update windows are shaded in three greys: only A
+   updating, only B updating, both updating (overlaid mode); in the single-build
+   modes, only that build's shade appears. *)
 let flicker_spec ~na ~nb ~run_end rows =
   let color = run_color ~na ~nb in
+  (* legends on the first panel only: the panels have their own colour scales *)
+  let no_legend = function
+    | `Assoc f -> `Assoc (("legend", `Null) :: List.remove_assoc "legend" f)
+    | j -> j
+  in
+  let a_only = na ^ " updating" and b_only = nb ^ " updating" in
+  let both = "both updating" in
   let mx field =
     List.fold_left
       (fun acc r ->
@@ -2028,7 +2039,99 @@ let flicker_spec ~na ~nb ~run_end rows =
         | _ -> acc)
       1. rows
   in
+  (* Vega expressions: the two builds' update shares after the pivot *)
+  let ua = Printf.sprintf "(datum[%S] || 0)" na
+  and ub = Printf.sprintf "(datum[%S] || 0)" nb in
+  let shade ~first =
+    o
+      [
+        ( "transform",
+          l
+            [
+              o
+                [
+                  ("pivot", s "run");
+                  ("value", s "update");
+                  ("groupby", l [ s "t" ]);
+                ];
+              o
+                [
+                  ( "calculate",
+                    s
+                      (Printf.sprintf
+                         "fl == 'overlaid' ? (%s > 0 && %s > 0 ? %S : %s > 0 ? \
+                          %S : %s > 0 ? %S : 'none') : fl == %S ? (%s > 0 ? %S \
+                          : 'none') : (%s > 0 ? %S : 'none')"
+                         ua ub both ua a_only ub b_only na ua a_only ub b_only)
+                  );
+                  ("as", s "cat");
+                ];
+              o
+                [
+                  ( "calculate",
+                    s
+                      (Printf.sprintf
+                         "fl == 'overlaid' ? max(%s, %s) : fl == %S ? %s : %s"
+                         ua ub na ua ub) );
+                  ("as", s "h");
+                ];
+              o [ ("calculate", s "datum.t + 10"); ("as", s "t2") ];
+              o [ ("filter", s "datum.cat != 'none'") ];
+            ] );
+        ("mark", o [ ("type", s "rect") ]);
+        ( "encoding",
+          o
+            [
+              ( "x",
+                o
+                  [
+                    ("field", s "t");
+                    ("type", s "quantitative");
+                    ("scale", o [ ("domain", l [ i 0; n run_end ]) ]);
+                  ] );
+              ("x2", o [ ("field", s "t2") ]);
+              ( "y",
+                o
+                  [
+                    ("field", s "h");
+                    ("type", s "quantitative");
+                    ("title", `Null);
+                    ("axis", `Null);
+                    ("scale", o [ ("domain", l [ i 0; i 1 ]) ]);
+                  ] );
+              ("y2", o [ ("datum", i 0) ]);
+              ( "color",
+                o
+                  [
+                    ("field", s "cat");
+                    ("type", s "nominal");
+                    ("title", s "update windows");
+                    ( "scale",
+                      o
+                        [
+                          ("domain", l [ s a_only; s b_only; s both ]);
+                          ("range", l [ s "#e1e0d9"; s "#c3c2b7"; s "#9a998f" ]);
+                        ] );
+                    ( "legend",
+                      if first then o [ ("orient", s "top") ] else `Null );
+                  ] );
+              ( "tooltip",
+                l
+                  [
+                    o [ ("field", s "cat"); ("title", s "updating") ];
+                    o [ ("field", s "t"); ("title", s "from (s)") ];
+                    o
+                      [
+                        ("field", s "h");
+                        ("title", s "share of the 10 s");
+                        ("format", s ".0%");
+                      ];
+                  ] );
+            ] );
+      ]
+  in
   let panel field ytitle log last =
+    let first = field = "rss" in
     let scale =
       if log then o [ ("type", s "log"); ("domain", l [ i 1; n (mx field) ]) ]
       else o [ ("domain", l [ i 0; n (mx field) ]) ]
@@ -2037,26 +2140,28 @@ let flicker_spec ~na ~nb ~run_end rows =
       [
         ("height", i 110);
         ("width", i 900);
-        ( "transform",
-          l
-            [
-              o
-                [
-                  ( "filter",
-                    s ("datum.run == run && isValid(datum." ^ field ^ ")") );
-                ];
-            ] );
         ( "layer",
           l
             [
+              shade ~first;
               o
                 [
+                  ( "transform",
+                    l
+                      [
+                        o
+                          [
+                            ( "filter",
+                              s
+                                ("(fl == 'overlaid' || datum.run == fl) && \
+                                  isValid(datum." ^ field ^ ")") );
+                          ];
+                      ] );
                   ( "mark",
                     o
                       [
-                        ("type", s "area");
-                        ("color", s grid);
-                        ("opacity", n 0.8);
+                        ("type", s "line");
+                        ("strokeWidth", i 2);
                         ("interpolate", s "step-after");
                       ] );
                   ( "encoding",
@@ -2070,32 +2175,7 @@ let flicker_spec ~na ~nb ~run_end rows =
                               ( "title",
                                 if last then s "seconds since start" else `Null
                               );
-                              ("scale", o [ ("domain", l [ i 0; n run_end ]) ]);
                             ] );
-                        ( "y",
-                          o
-                            [
-                              ("field", s "update");
-                              ("type", s "quantitative");
-                              ("title", `Null);
-                              ("axis", `Null);
-                              ("scale", o [ ("domain", l [ i 0; i 1 ]) ]);
-                            ] );
-                      ] );
-                ];
-              o
-                [
-                  ( "mark",
-                    o
-                      [
-                        ("type", s "line");
-                        ("strokeWidth", i 2);
-                        ("interpolate", s "step-after");
-                      ] );
-                  ( "encoding",
-                    o
-                      [
-                        ("x", o [ ("field", s "t"); ("type", s "quantitative") ]);
                         ( "y",
                           o
                             ([
@@ -2111,7 +2191,7 @@ let flicker_spec ~na ~nb ~run_end rows =
                                   log_axis [ 1.; 10.; 100.; 1000.; 10000. ] );
                               ]
                             else []) );
-                        ("color", color);
+                        ("color", if first then color else no_legend color);
                         ( "tooltip",
                           l
                             [
@@ -2123,17 +2203,16 @@ let flicker_spec ~na ~nb ~run_end rows =
                                   ("title", s ytitle);
                                   ("format", s ".1f");
                                 ];
-                              o
-                                [
-                                  ("field", s "update");
-                                  ("title", s "share of 10 s in an update");
-                                  ("format", s ".0%");
-                                ];
                             ] );
                       ] );
                 ];
             ] );
-        ("resolve", o [ ("scale", o [ ("y", s "independent") ]) ]);
+        ( "resolve",
+          o
+            [
+              (* the shading greys and the build colours are separate scales *)
+              ("scale", o [ ("y", s "independent"); ("color", s "independent") ]);
+            ] );
       ]
   in
   o
@@ -2141,22 +2220,26 @@ let flicker_spec ~na ~nb ~run_end rows =
       schema;
       ( "title",
         title "Flicker: switch builds, same scales"
-          "toggle the build below and watch what moves; grey = share of each \
-           10 s spent in an update" );
+          "overlaid, or one build at a time: switch and watch what moves;\n\
+           shaded = share of each 10 s spent in an update (three greys: which \
+           build is updating)" );
       ("data", o [ ("values", l rows) ]);
       ( "params",
         l
           [
             o
               [
-                ("name", s "run");
-                ("value", s na);
+                ("name", s "fl");
+                ("value", s "overlaid");
                 ( "bind",
                   o
                     [
                       ("input", s "radio");
-                      ("options", l [ s na; s nb ]);
-                      ("name", s "build: ");
+                      ("options", l [ s "overlaid"; s na; s nb ]);
+                      ( "labels",
+                        l [ s "overlaid"; s (na ^ " only"); s (nb ^ " only") ]
+                      );
+                      ("name", s "show: ");
                     ] );
               ];
           ] );
