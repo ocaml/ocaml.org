@@ -34,6 +34,45 @@ let test_is_sub_ignore_case () =
        ("Universit" ^ e_acute_upper ^ " Paris"));
   Alcotest.(check bool) "no match" false (S.is_sub_ignore_case "rust" "OCaml")
 
+(* [contains_s] compares in place; it must agree with the definition it
+   replaced, which compared every substring of the pattern's length. *)
+let test_contains_s () =
+  let reference s1 s2 =
+    try
+      let len = String.length s2 in
+      for i = 0 to String.length s1 - len do
+        if String.sub s1 i len = s2 then raise Exit
+      done;
+      false
+    with Exit -> true
+  in
+  let rec strings n =
+    if n = 0 then [ "" ]
+    else
+      let shorter = strings (n - 1) in
+      shorter
+      @ List.concat_map
+          (fun s ->
+            if String.length s = n - 1 then [ s ^ "a"; s ^ "b" ] else [])
+          shorter
+  in
+  let all = strings 4 in
+  List.iter
+    (fun s1 ->
+      List.iter
+        (fun s2 ->
+          Alcotest.(check bool)
+            (Printf.sprintf "%S in %S" s2 s1)
+            (reference s1 s2) (S.contains_s s1 s2))
+        all)
+    all;
+  Alcotest.(check bool)
+    "multi-byte" true
+    (S.contains_s ("caf" ^ e_acute) e_acute);
+  Alcotest.(check bool)
+    "partial character" false
+    (S.contains_s e_acute ("\xc3" ^ "x"))
+
 let test_fold_split () =
   let split terms text = S.fold_split ~terms text in
   Alcotest.check pieces "no terms" [ `Text "abc" ] (split [] "abc");
@@ -104,6 +143,7 @@ let () =
         [
           Alcotest.test_case "fold" `Quick test_fold;
           Alcotest.test_case "is_sub_ignore_case" `Quick test_is_sub_ignore_case;
+          Alcotest.test_case "contains_s" `Quick test_contains_s;
           Alcotest.test_case "fold_split" `Quick test_fold_split;
           Alcotest.test_case "utf_8_uppercase_first" `Quick test_uppercase_first;
           Alcotest.test_case "search highlighting" `Quick test_tutorial_search;
