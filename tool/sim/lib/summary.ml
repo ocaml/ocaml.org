@@ -373,7 +373,16 @@ let jnum x : Yojson.Safe.t =
     (* [`Float] would print the nearest double in full (71.39400000000001);
        [`Intlit] is written verbatim, and reads back as a float. *)
     `Intlit
-      (let s = Printf.sprintf "%.3f" x in
+      (* 3 decimals from 1 up; below that, 4 significant digits, so that a
+         0.0004 ms GC pause does not become 0 *)
+      (let s =
+         if x = 0. || Float.abs x >= 1. then Printf.sprintf "%.3f" x
+         else
+           (* "%.4g" may use an exponent (4e-05): valid JSON, kept as is *)
+           let g = Printf.sprintf "%.4g" x in
+           if String.contains g 'e' || String.contains g '.' then g
+           else g ^ ".0"
+       in
        (* drop trailing zeros, keeping at least one digit after the point *)
        let rec trim s =
          let n = String.length s in
@@ -381,7 +390,7 @@ let jnum x : Yojson.Safe.t =
            trim (String.sub s 0 (n - 1))
          else s
        in
-       trim s)
+       if String.contains s 'e' then s else trim s)
   else `Null
 
 let json_key = function "p99.9" -> "p999" | name -> name

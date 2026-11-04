@@ -395,6 +395,35 @@ let test_docs_stub_kind () =
       ("GET /docs/p/dune/3.17.0/doc/README.html.json HTTP/1.1", "other");
     ]
 
+let test_jnum () =
+  let show x =
+    match Summary.jnum x with
+    | `Intlit v -> v
+    | `Null -> "null"
+    | j -> Yojson.Safe.to_string j
+  in
+  List.iter
+    (fun (x, expect) ->
+      Alcotest.(check string) (string_of_float x) expect (show x))
+    [
+      (71.39400000000001, "71.394");
+      (5., "5.0");
+      (0., "0.0");
+      (0.25, "0.25");
+      (0.00042, "0.00042");
+      (0.00004, "4e-05");
+      (4e-10, "4e-10");
+      (Float.nan, "null");
+    ];
+  (* and it reads back as the same number *)
+  Alcotest.(check (float 1e-12))
+    "reads back" 0.00042
+    (match
+       Yojson.Safe.from_string (Yojson.Safe.to_string (Summary.jnum 0.00042))
+     with
+    | `Float f -> f
+    | _ -> nan)
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -442,5 +471,6 @@ let () =
           Alcotest.test_case "paired groups" `Quick test_paired_groups;
           Alcotest.test_case "slow overlap" `Quick test_slow_overlap;
           Alcotest.test_case "docs stub kind" `Quick test_docs_stub_kind;
+          Alcotest.test_case "json numbers" `Quick test_jnum;
         ] );
     ]

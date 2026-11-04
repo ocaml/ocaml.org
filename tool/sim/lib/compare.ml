@@ -210,8 +210,15 @@ let how_to_read =
   [
     "A and B are two runs of the same simulation of the ocaml.org server \
      against two server images. They are comparable one to one only when \
-     differing_params is empty: then they replayed the same opam-repository \
-     history and sent the same requests at the same offsets.";
+     comparable_one_to_one is true: the run parameters are the same \
+     (differing_params is empty) and the inputs block confirms the same \
+     requests, the same upstream opam-repository moves and the same \
+     documentation server in both runs.";
+    "Check inputs.docs_server. With 'stub', every request the server makes to \
+     the documentation server gets 404 (no documentation built), so package \
+     pages take the no-documentation path: their latencies measure the server \
+     without documentation and without the network, not what a visitor sees in \
+     production for a package with documentation.";
     "Start with key_metrics. b_over_a below 1 means B is lower; 'better' says \
      which direction is an improvement.";
     "paired_latency_ms compares the same request in both runs: B - A in ms, \
@@ -236,6 +243,10 @@ let how_to_read =
 
 let paired_definitions =
   [
+    ( "docs_stub",
+      "a local stand-in for the external documentation server that answers 404 \
+       to every request; removes the network and name resolution from the \
+       measurements" );
     ( "pair",
       "the same planned request (stream and id, same path) in both runs, \
        successful in both" );
@@ -248,6 +259,55 @@ let paired_definitions =
         Summary.burst_ms );
   ]
 
+(* {1 Inputs}
+
+   Whether the two runs had the same inputs, checked rather than assumed from
+   their parameters: the same planned requests, the same upstream moves, and the
+   same documentation server. *)
+
+type inputs = {
+  requests_a : int;
+  requests_b : int;
+  planned : bool;  (** both runs have request ids (planned schedules) *)
+  path_mismatches : int;
+  same_traffic : bool;
+  moves_a : string list;  (** upstream commits, in order *)
+  moves_b : string list;
+  same_upstream : bool;
+  docs_a : string;
+  docs_b : string;
+}
+
+let feed_shas dir =
+  List.filter_map
+    (function _ :: sha :: _ -> Some sha | _ -> None)
+    (Summary.rows dir "feed.csv")
+
+let inputs a b =
+  let ra = Summary.read_traffic a and rb = Summary.read_traffic b in
+  let ids l = List.exists (fun (r : Summary.req) -> r.id <> None) l in
+  let m = match_requests a b in
+  let docs d =
+    match member "docs" (load d "meta.json") with
+    | Some (`String x) -> x
+    | _ -> "real (not recorded)"
+  in
+  let planned = ids ra && ids rb in
+  let moves_a = feed_shas a and moves_b = feed_shas b in
+  {
+    requests_a = List.length ra;
+    requests_b = List.length rb;
+    planned;
+    path_mismatches = m.mismatches;
+    same_traffic =
+      planned && m.mismatches = 0 && List.length ra = List.length rb;
+    moves_a;
+    moves_b;
+    same_upstream = moves_a = moves_b;
+    docs_a = docs a;
+    docs_b = docs b;
+  }
+
 let run ?output a b =
   ignore (Summary.run a);
   ignore (Summary.run b);
@@ -257,6 +317,11 @@ let run ?output a b =
     match member "image" m with Some (`String s) -> s | _ -> "?"
   in
   let params = differing_params ma mb in
+  let inp = inputs a b in
+  let same_docs = inp.docs_a = inp.docs_b in
+  let one_to_one =
+    params = [] && inp.same_traffic && inp.same_upstream && same_docs
+  in
   let fa = flatten sa and fb = flatten sb in
   (* every metric of A, then those only B has; a missing side is nan *)
   let only_b =
@@ -310,6 +375,15 @@ let run ?output a b =
     pr
       "WARNING: run parameters differ; the runs are not comparable one to one:\n";
     List.iter (fun (k, va, vb) -> pr "  %s: A=%s B=%s\n" k va vb) params);
+  let yes c = if c then "same" else "DIFFERENT" in
+  pr
+    "Inputs: traffic %s (%d vs %d requests, %d path mismatches%s); upstream %s \
+     (%d vs %d moves); docs server %s (%s vs %s)\n"
+    (yes inp.same_traffic) inp.requests_a inp.requests_b inp.path_mismatches
+    (if inp.planned then "" else ", a run predates request ids")
+    (yes inp.same_upstream) (List.length inp.moves_a) (List.length inp.moves_b)
+    (yes same_docs) inp.docs_a inp.docs_b;
+  if not one_to_one then pr "WARNING: the runs are not comparable one to one.\n";
   let short s = if String.length s > 8 then String.sub s 0 8 else s in
   let shas l = String.concat " " (List.map short l) in
   pr
@@ -421,7 +495,35 @@ let run ?output a b =
             ("schema", `String "ocamlorg-sim-report/1");
             ("how_to_read", `List (List.map (fun s -> `String s) how_to_read));
             ("runs", `Assoc [ ("a", run_json a ma); ("b", run_json b mb) ]);
-            ("comparable_one_to_one", `Bool (params = []));
+            ("comparable_one_to_one", `Bool one_to_one);
+            ( "inputs",
+              let strs l = `List (List.map (fun x -> `String x) l) in
+              `Assoc
+                [
+                  ( "traffic",
+                    `Assoc
+                      [
+                        ("same", `Bool inp.same_traffic);
+                        ("requests_a", `Int inp.requests_a);
+                        ("requests_b", `Int inp.requests_b);
+                        ("planned_in_both", `Bool inp.planned);
+                        ("path_mismatches", `Int inp.path_mismatches);
+                      ] );
+                  ( "upstream",
+                    `Assoc
+                      [
+                        ("same", `Bool inp.same_upstream);
+                        ("moves_a", strs inp.moves_a);
+                        ("moves_b", strs inp.moves_b);
+                      ] );
+                  ( "docs_server",
+                    `Assoc
+                      [
+                        ("same", `Bool same_docs);
+                        ("a", `String inp.docs_a);
+                        ("b", `String inp.docs_b);
+                      ] );
+                ] );
             ( "differing_params",
               `List
                 (List.map

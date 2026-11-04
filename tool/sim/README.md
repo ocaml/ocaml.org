@@ -188,8 +188,11 @@ opam exec -- dune exec tool/sim/bin/main.exe -- compare DIR_A DIR_B -o report.js
 
 This prints:
 
-- the run parameters that differ, apart from the image. If any do, the runs
-  are not comparable one to one.
+- the run parameters that differ, apart from the image;
+- the inputs, checked rather than assumed: the same requests (by `id` and
+  path), the same upstream moves, and the same documentation server (stub or
+  real). The runs are comparable one to one only if the parameters and all
+  three inputs match;
 - every number of the two `summary.json` files, with B − A and B / A. A
   percentile resting on fewer than 10 samples on either side is marked.
 - paired latency: each request is matched with the same request (stream and
@@ -205,8 +208,10 @@ This prints:
 With `-o`, it also writes `report.json`, a single entry point for a program
 or a language model. It contains:
 
-- reading instructions and the definitions used;
-- both runs' parameters;
+- reading instructions and the definitions used, including what the docs
+  stub implies for package-page latencies;
+- both runs' parameters, and the `inputs` checks behind
+  `comparable_one_to_one`;
 - the key metrics, each saying which direction is better;
 - every metric;
 - the paired breakdowns;
@@ -224,8 +229,9 @@ opam exec -- dune exec tool/sim/bin/main.exe -- viz DIR_A DIR_B -o page.html
 This writes one HTML page with Vega-Lite charts (open it in a browser):
 
 1. **Inputs, shown once:** requests per 5 s by stream, and each upstream
-   move. A header checks that the run parameters, the requests and the
-   upstream moves are the same in both runs, and says so.
+   move. A header checks that the run parameters, the requests, the
+   upstream moves and the documentation server are the same in both runs,
+   and says so.
 2. **Raw output:** CPU, memory (RSS, OCaml major heap, container), GC pauses
    (every pause of at least 0.5 ms) and every request's latency. Each is one
    row per run, A above B, on the same scales, with update windows shaded.

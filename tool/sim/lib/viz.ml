@@ -109,15 +109,9 @@ let inputs ~a ~b ~run_end =
         o [ ("kind", s "move"); ("t", n t); ("sha", s (String.sub sha 0 8)) ])
       (feed_rows a)
   in
-  let same_upstream = List.map snd (feed_rows a) = List.map snd (feed_rows b) in
-  let m = Compare.match_requests a b in
-  let total_a = List.length reqs
-  and total_b = List.length (Summary.read_traffic b) in
-  (* Same planned requests: ids present, same count, no id with another path. *)
-  let same_traffic =
-    m.mismatches = 0 && total_a = total_b
-    && List.exists (fun (r : Summary.req) -> r.id <> None) reqs
-  in
+  let inp = Compare.inputs a b in
+  let same_upstream = inp.same_upstream and same_traffic = inp.same_traffic in
+  let total_a = List.length reqs in
   let x =
     o
       [
@@ -1620,10 +1614,16 @@ let run ~output a b =
       ("Same request, both builds", paired_spec ~na ~nb m);
     ]
   in
+  let docs_a, docs_b =
+    let inp = Compare.inputs a b in
+    (inp.docs_a, inp.docs_b)
+  in
+  let docs_same = docs_a = docs_b in
   let note =
     let ok = "<span class=ok>✓</span>" and ko = "<span class=ko>✗</span>" in
     Printf.sprintf
-      "<p>%s Run parameters %s.<br>%s Traffic: %s.<br>%s Upstream: %s.</p>"
+      "<p>%s Run parameters %s.<br>%s Traffic: %s.<br>%s Upstream: %s.<br>%s \
+       Docs server: %s.</p>"
       (if params = [] then ok else ko)
       (if params = [] then "identical apart from the image"
        else
@@ -1643,6 +1643,16 @@ let run ~output a b =
          Printf.sprintf "the same %d moves, in the same order, in both runs"
            moves
        else "different moves in the two runs; the inputs chart shows run A's")
+      (if docs_same then ok else ko)
+      (let what = function
+         | "stub" ->
+             "stub (every documentation request gets 404: package pages take \
+              the no-documentation path, without the network)"
+         | "real" -> "the real external server"
+         | x -> x
+       in
+       if docs_same then what docs_a
+       else Printf.sprintf "A %s, B %s" (what docs_a) (what docs_b))
   in
   let sections =
     [
