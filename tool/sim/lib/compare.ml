@@ -342,6 +342,34 @@ let load_noise files =
     files;
   tbl
 
+(* Each repeat's key metrics, from a noise.json (its image and its repeats'
+   directories). Spread alone hides patterns, such as one repeat in a different
+   state from the others; the values show them. *)
+let repeat_values file =
+  let j = Yojson.Safe.from_file file in
+  let image = match member "image" j with Some (`String x) -> x | _ -> "?" in
+  let dirs =
+    match member "runs" j with
+    | Some (`List l) ->
+        List.filter_map (function `String d -> Some d | _ -> None) l
+    | _ -> []
+  in
+  ( image,
+    List.map
+      (fun d ->
+        let fl = flatten (load d "summary.json") in
+        ( d,
+          List.map
+            (fun (label, metric, _) ->
+              ( label,
+                metric,
+                Option.value ~default:nan
+                  (List.find_map
+                     (fun (p, v, _) -> if p = metric then Some v else None)
+                     fl) ))
+            key_metrics ))
+      dirs )
+
 let run ?output ?(noise = []) a b =
   let nz = load_noise noise in
   (* [Some true] when |B - A| exceeds the largest spread seen between repeats of
@@ -461,6 +489,27 @@ let run ?output ?(noise = []) a b =
   if noise <> [] then
     pr "  (! |B-A| exceeds the spread between repeats of one image, from %s)\n"
       (String.concat ", " noise);
+  let repeats = List.map (fun f -> (f, repeat_values f)) noise in
+  List.iter
+    (fun (_, (image, runs)) ->
+      pr "\nRepeats of %s (key metrics)\n  %-44s" image "";
+      List.iter (fun (d, _) -> pr " %12s" (Filename.basename d)) runs;
+      pr "\n";
+      List.iter
+        (fun (label, _, _) ->
+          pr "  %-44s" label;
+          List.iter
+            (fun (_, vs) ->
+              let v =
+                List.find_map
+                  (fun (l, _, v) -> if l = label then Some v else None)
+                  vs
+              in
+              pr " %12s" (match v with Some v -> num v | None -> "-"))
+            runs;
+          pr "\n")
+        key_metrics)
+    repeats;
   let group_line label g =
     let q x = if g.n = 0 then "-" else num (Summary.percentile g.diff x) in
     pr "  %-28s n=%-6d B faster=%5.1f%%  p10=%-10s p50=%-10s p90=%-10s%s\n"
@@ -572,8 +621,43 @@ let run ?output ?(noise = []) a b =
                         those differences are larger than run-to-run noise. \
                         With few repeats the spread underestimates the noise, \
                         so treat differences just above it with care.";
+                       "noise_repeats gives each repeat's key metrics. Look at \
+                        the values, not only the spread: a repeat that differs \
+                        from the others in one direction (for example all \
+                        latencies higher) points to a state of the \
+                        environment, not to random noise.";
                      ])) );
             ("noise_files", `List (List.map (fun s -> `String s) noise));
+            ( "noise_repeats",
+              `List
+                (List.map
+                   (fun (file, (image, runs)) ->
+                     `Assoc
+                       [
+                         ("file", `String file);
+                         ("image", `String image);
+                         ( "repeats",
+                           `List
+                             (List.map
+                                (fun (d, vs) ->
+                                  `Assoc
+                                    [
+                                      ("dir", `String d);
+                                      ( "key_metrics",
+                                        `List
+                                          (List.map
+                                             (fun (label, metric, v) ->
+                                               `Assoc
+                                                 [
+                                                   ("label", `String label);
+                                                   ("metric", `String metric);
+                                                   ("value", jnum v);
+                                                 ])
+                                             vs) );
+                                    ])
+                                runs) );
+                       ])
+                   repeats) );
             ("runs", `Assoc [ ("a", run_json a ma); ("b", run_json b mb) ]);
             ("comparable_one_to_one", `Bool one_to_one);
             ( "inputs",

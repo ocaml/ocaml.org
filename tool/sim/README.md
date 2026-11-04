@@ -206,7 +206,9 @@ writes `DIR/noise.json` and `DIR/noise.txt`:
 Pass `--noise DIR/noise.json` to `sim compare` (once per image, if both
 were repeated). Each A/B difference is then shown next to the largest spread
 seen between repeats, and marked `!` when it exceeds it. The marks also go
-to `report.json`, as `noise_spread` and `beyond_noise`. With few repeats the
+to `report.json`, as `noise_spread` and `beyond_noise`. The report also lists each repeat's
+key metrics (`noise_repeats`), so a systematic pattern, such as one repeat in
+a different state from the others, is visible and not only the spread. With few repeats the
 spread underestimates the noise, so treat differences just above it with
 care.
 
