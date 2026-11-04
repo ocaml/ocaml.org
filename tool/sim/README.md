@@ -79,8 +79,13 @@ The options most likely to matter:
 | `--keep` | | Leave the container running at the end |
 
 See `run --help` for the others. To compare two builds, run the same command
-against each image. With the same `--seed`, both runs request the same URLs
-on the same schedule.
+against each image. The traffic schedule, meaning every send time and path,
+is drawn up front from `--seed`. It is counted from the moment the server
+first answers, so two runs with the same seed and options send the same
+requests at the same offsets, whatever each server does. The one exception
+is at the end: a server that took longer to start gets fewer seconds of
+traffic before the run stops. Requests with the same `id` in `traffic.csv`
+can be compared one to one.
 
 The first update cycle rebuilds the package state from scratch: the image's
 state was built at its tip, and the run starts days before that. The summary
@@ -98,7 +103,7 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `resources.csv` | Per second: cgroup memory, anon/file, RSS, CPU |
 | `gc.csv` | Per second: minor GCs and major slices (count, total, longest), major heap size |
 | `gc-events.csv` | One row per GC pause (minor collection or major slice): start, kind, duration |
-| `traffic.csv` | One row per request |
+| `traffic.csv` | One row per request; `id` is its position in its stream |
 | `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p95/p99/p99.9/max |
 | `sync.csv` | Update cycle events and phase durations, from the server log |
 | `windows.csv` | Update windows (update → saved) |

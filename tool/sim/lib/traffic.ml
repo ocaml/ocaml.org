@@ -5,15 +5,28 @@
    does not slow the generator down (no coordinated omission), and latency is
    measured from the {e scheduled} time, so time spent queued behind a stalled
    server counts. When [max_inflight] requests are already outstanding, a new
-   one is not sent and is recorded as dropped. *)
+   one is not sent and is recorded as dropped.
+
+   The whole schedule (send times and paths) is drawn before the first request,
+   from random generators derived from the seed: one per stream for its times,
+   one per stream for its paths. It is counted from the moment traffic starts,
+   so two runs with the same seed, profile and options send the same requests at
+   the same offsets, whatever the server does. *)
 
 open Lwt.Syntax
 
 type stream = {
   name : string;
-  rate : float -> float;  (** requests per second at a given wall-clock time *)
+  rate : float -> float;
+      (** requests per second, [offset] seconds after traffic starts *)
+  peak : float;  (** an upper bound of [rate] *)
   next : unit -> string;  (** path of the next request *)
 }
+
+(* A random generator for [purpose] (e.g. a stream's times), derived from [seed]
+   alone, so that it does not depend on which other streams exist or on the
+   order in which they draw. *)
+let rng ~seed purpose = Random.State.make [| seed; Hashtbl.hash purpose |]
 
 (* Packages and their versions, from the opam repository the server runs on, to
    fill the [{pkg}] and [{ver}] placeholders and to drive the crawler. *)
@@ -69,22 +82,30 @@ let instantiate rng (pkgs : packages) path =
 
 (* Human visitors: a profile's page mix at its diurnal rate. [hour_of] maps
    wall-clock time to the UTC hour whose weight applies. *)
-let human ~rng ~profile ~packages ~scale ~hour_of =
+
+(* Human visitors: a profile's page mix at its diurnal rate. [hour_of] maps an
+   offset from the start of traffic to the UTC hour whose weight applies. *)
+let human ~seed ~profile ~packages ~scale ~hour_of =
+  let paths = rng ~seed "human paths" in
   let s = Profile.sampler profile in
+  let rate_at h =
+    profile.Profile.base_rps *. scale *. profile.hourly.(h mod 24)
+  in
   {
     name = "human";
-    rate =
-      (fun now ->
-        profile.Profile.base_rps *. scale *. profile.hourly.(hour_of now mod 24));
+    rate = (fun offset -> rate_at (hour_of offset));
+    peak = Array.fold_left Float.max 0. (Array.init 24 rate_at);
     next =
       (fun () ->
-        instantiate rng packages (Profile.pick s (Random.State.float rng 1.)));
+        instantiate paths packages
+          (Profile.pick s (Random.State.float paths 1.)));
   }
 
 (* A crawler sweeping every package and package-version page in a shuffled
    order, at a constant rate. Documentation pages are proxied to the external
    docs server, so they are only included on request. *)
-let crawler ~rng ~packages ~rps ~include_docs =
+let crawler ~seed ~packages ~rps ~include_docs =
+  let shuffle = rng ~seed "bot order" in
   let urls =
     Array.to_list packages
     |> List.concat_map (fun (name, vers) ->
@@ -99,7 +120,7 @@ let crawler ~rng ~packages ~rps ~include_docs =
   in
   let n = Array.length urls in
   for i = n - 1 downto 1 do
-    let j = Random.State.int rng (i + 1) in
+    let j = Random.State.int shuffle (i + 1) in
     let t = urls.(i) in
     urls.(i) <- urls.(j);
     urls.(j) <- t
@@ -108,6 +129,7 @@ let crawler ~rng ~packages ~rps ~include_docs =
   {
     name = "bot";
     rate = (fun _ -> rps);
+    peak = rps;
     next =
       (fun () ->
         if n = 0 then "/"
@@ -117,9 +139,52 @@ let crawler ~rng ~packages ~rps ~include_docs =
           u);
   }
 
+type planned = {
+  offset : float;  (** seconds after traffic starts *)
+  stream : string;
+  id : int;  (** position in its stream, from 0 *)
+  path : string;
+}
+
+(* Send times of a Poisson process of rate [rate] over [[0, duration)], by
+   thinning: candidates at the constant rate [peak], each kept with probability
+   [rate t / peak]. *)
+let times ~rng ~rate ~peak ~duration =
+  if peak <= 0. then []
+  else
+    let rec go t acc =
+      let t = t -. (log (1. -. Random.State.float rng 1.) /. peak) in
+      if t >= duration then List.rev acc
+      else
+        let keep = Random.State.float rng 1. *. peak < rate t in
+        go t (if keep then t :: acc else acc)
+    in
+    go 0. []
+
+(* Every request of every stream over [duration] seconds, in send order. *)
+let plan ~seed ~duration streams =
+  List.concat_map
+    (fun s ->
+      times
+        ~rng:(rng ~seed (s.name ^ " times"))
+        ~rate:s.rate ~peak:s.peak ~duration
+      |> List.mapi (fun id offset ->
+             { offset; stream = s.name; id; path = s.next () }))
+    streams
+  |> List.stable_sort (fun a b -> compare a.offset b.offset)
+  |> Array.of_list
+
 let header =
   [
-    "t_sched"; "t_send"; "latency"; "status"; "bytes"; "stream"; "class"; "path";
+    "t_sched";
+    "t_send";
+    "latency";
+    "status";
+    "bytes";
+    "stream";
+    "class";
+    "path";
+    "id";
   ]
 
 let request ~base ~timeout path =
@@ -138,9 +203,10 @@ let request ~base ~timeout path =
     (fun () -> Lwt.pick [ get; timed_out ])
     (fun _ -> Lwt.return ("error", 0))
 
-let run ~base ~t0 ~until ~max_inflight ~timeout ~rng csv streams =
+(* Send [plan] (from [plan]), counting offsets from [start], up to [until]. *)
+let run ~base ~t0 ~start ~until ~max_inflight ~timeout csv plan =
   let inflight = ref 0 in
-  let record ~sched ~send ~fin ~status ~bytes ~stream path =
+  let record ~sched ~send ~fin ~status ~bytes (p : planned) =
     Csv.row csv
       [
         Csv.float6 (sched -. t0);
@@ -148,46 +214,37 @@ let run ~base ~t0 ~until ~max_inflight ~timeout ~rng csv streams =
         Csv.float6 (fin -. sched);
         status;
         string_of_int bytes;
-        stream;
-        Profile.classify path;
+        p.stream;
+        Profile.classify p.path;
         (* the only field that may contain a comma *)
-        replace_all ~sub:"," ~by:"%2C" path;
+        replace_all ~sub:"," ~by:"%2C" p.path;
+        string_of_int p.id;
       ]
   in
-  let fire stream sched =
-    let path = stream.next () in
+  let fire p sched =
     let send = Unix.gettimeofday () in
     if !inflight >= max_inflight then
-      record ~sched ~send ~fin:send ~status:"drop" ~bytes:0 ~stream:stream.name
-        path
+      record ~sched ~send ~fin:send ~status:"drop" ~bytes:0 p
     else (
       incr inflight;
       Lwt.async (fun () ->
-          let+ status, bytes = request ~base ~timeout path in
+          let+ status, bytes = request ~base ~timeout p.path in
           decr inflight;
-          record ~sched ~send ~fin:(Unix.gettimeofday ()) ~status ~bytes
-            ~stream:stream.name path))
+          record ~sched ~send ~fin:(Unix.gettimeofday ()) ~status ~bytes p))
   in
-  let loop stream =
-    let rec go sched =
+  let rec go i =
+    if i >= Array.length plan then Lwt.return_unit
+    else
+      let p = plan.(i) in
+      let sched = start +. p.offset in
       if sched >= until then Lwt.return_unit
       else
-        let r = stream.rate sched in
-        if r <= 0. then
-          (* idle: check again in a second *)
-          let* () = Lwt_unix.sleep 1. in
-          go (Float.max sched (Unix.gettimeofday ()))
-        else
-          let dt = -.log (1. -. Random.State.float rng 1.) /. r in
-          let sched = sched +. dt in
-          let wait = sched -. Unix.gettimeofday () in
-          let* () = if wait > 0. then Lwt_unix.sleep wait else Lwt.pause () in
-          if sched < until then fire stream sched;
-          go sched
-    in
-    go (Unix.gettimeofday ())
+        let wait = sched -. Unix.gettimeofday () in
+        let* () = if wait > 0. then Lwt_unix.sleep wait else Lwt.return_unit in
+        fire p sched;
+        go (i + 1)
   in
-  let* () = Lwt.join (List.map loop streams) in
+  let* () = go 0 in
   (* let outstanding requests finish (they time out after [timeout]) *)
   let rec drain n =
     if !inflight = 0 || n <= 0 then Lwt.return_unit

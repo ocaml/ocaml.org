@@ -203,6 +203,85 @@ let test_windows () =
          (12., "loaded");
        ])
 
+let plan_profile =
+  {
+    Profile.source = "";
+    base_rps = 5.;
+    hourly =
+      Profile.normalise_hourly (Array.init 24 (fun h -> float_of_int (h + 1)));
+    pages =
+      [|
+        { path = "/"; weight = 1. }; { path = "/p/{pkg}/{ver}"; weight = 2. };
+      |];
+  }
+
+let plan_packages =
+  [| ("dune", [| "3.16.0"; "3.17.0" |]); ("lwt", [| "5.9.0" |]) |]
+
+let make_plan ?(bot = true) seed =
+  let human =
+    Traffic.human ~seed ~profile:plan_profile ~packages:plan_packages ~scale:1.
+      ~hour_of:(fun offset -> int_of_float (offset /. 60.))
+  in
+  let bot =
+    if bot then
+      [
+        Traffic.crawler ~seed ~packages:plan_packages ~rps:3.
+          ~include_docs:false;
+      ]
+    else []
+  in
+  Traffic.plan ~seed ~duration:600. (human :: bot)
+
+let show (p : Traffic.planned) =
+  Printf.sprintf "%.9f %s %d %s" p.offset p.stream p.id p.path
+
+let test_plan_deterministic () =
+  let a = Array.map show (make_plan 42) and b = Array.map show (make_plan 42) in
+  Alcotest.(check (array string)) "same seed, same plan" a b;
+  Alcotest.(check bool)
+    "another seed, another plan" false
+    (Array.map show (make_plan 7) = a)
+
+let test_plan_streams_independent () =
+  let human l =
+    Array.to_list l
+    |> List.filter (fun (p : Traffic.planned) -> p.stream = "human")
+    |> List.map show
+  in
+  Alcotest.(check (list string))
+    "the human plan does not depend on the bot stream"
+    (human (make_plan ~bot:false 42))
+    (human (make_plan 42))
+
+let test_plan_rate () =
+  let p = make_plan 42 in
+  let count s =
+    Array.fold_left
+      (fun n (x : Traffic.planned) -> if x.stream = s then n + 1 else n)
+      0 p
+  in
+  (* bot: 3 rps over 600 s; human: mean of hours 0..9 of the curve *)
+  let expect_human =
+    5.
+    *. (Array.fold_left ( +. ) 0. (Array.sub plan_profile.hourly 0 10) /. 10.)
+    *. 600.
+  in
+  let close label expect n =
+    Alcotest.(check bool)
+      (Printf.sprintf "%s: %d near %.0f" label n expect)
+      true
+      (Float.abs (float_of_int n -. expect) < 4. *. sqrt expect)
+  in
+  close "bot" 1800. (count "bot");
+  close "human" expect_human (count "human");
+  Alcotest.(check bool)
+    "sorted" true
+    (Array.for_all2
+       (fun (a : Traffic.planned) (b : Traffic.planned) -> a.offset <= b.offset)
+       (Array.sub p 0 (Array.length p - 1))
+       (Array.sub p 1 (Array.length p - 1)))
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -239,5 +318,9 @@ let () =
           Alcotest.test_case "slope" `Quick test_slope;
           Alcotest.test_case "windows" `Quick test_windows;
           Alcotest.test_case "packages" `Quick test_packages_of_find;
+          Alcotest.test_case "plan deterministic" `Quick test_plan_deterministic;
+          Alcotest.test_case "plan streams independent" `Quick
+            test_plan_streams_independent;
+          Alcotest.test_case "plan rate" `Quick test_plan_rate;
         ] );
     ]

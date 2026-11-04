@@ -109,7 +109,6 @@ let run c =
   (* the server runs as uid 1000 and must create its ring here *)
   Unix.chmod rte 0o777;
   let file name = Filename.concat c.out name in
-  let rng = Random.State.make [| c.seed |] in
   let* image_id =
     Proc.read [ "docker"; "image"; "inspect"; "-f"; "{{.Id}}"; c.image ]
   in
@@ -212,11 +211,14 @@ let run c =
     in
     let packages = Traffic.packages_of_find found in
     write_meta c ~h ~image_id ~t0 ~t_ready ~packages:(Array.length packages);
-    let hour_of now =
+    let start = Unix.gettimeofday () in
+    (* The hour of the profile's daily curve, [offset] seconds into the traffic.
+       With [Compressed], it follows the replayed history from its start, so it
+       is the same in every run with the same options. *)
+    let hour_of offset =
       match c.diurnal with
-      | Compressed ->
-          hour_utc (Upstream.replay_time ~h ~speedup:c.speedup ~t0 now)
-      | Wall -> hour_utc now
+      | Compressed -> hour_utc (h.(0).Upstream.time +. (offset *. c.speedup))
+      | Wall -> hour_utc (start +. offset)
       | Off -> 0
     in
     let streams =
@@ -228,13 +230,13 @@ let run c =
             else profile
           in
           [
-            Traffic.human ~rng ~profile ~packages ~scale:c.traffic_scale
+            Traffic.human ~seed:c.seed ~profile ~packages ~scale:c.traffic_scale
               ~hour_of;
           ])
       @
       if c.bot_rps > 0. then
         [
-          Traffic.crawler ~rng ~packages ~rps:c.bot_rps
+          Traffic.crawler ~seed:c.seed ~packages ~rps:c.bot_rps
             ~include_docs:c.include_docs;
         ]
       else []
@@ -242,8 +244,9 @@ let run c =
     let csv = Csv.create (file "traffic.csv") Traffic.header in
     let+ () =
       if ready then
-        Traffic.run ~base ~t0 ~until ~max_inflight:c.max_inflight
-          ~timeout:c.timeout ~rng csv streams
+        let plan = Traffic.plan ~seed:c.seed ~duration:c.duration streams in
+        Traffic.run ~base ~t0 ~start ~until ~max_inflight:c.max_inflight
+          ~timeout:c.timeout csv plan
       else Lwt.return_unit
     in
     Csv.close csv
