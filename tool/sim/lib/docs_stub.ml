@@ -40,7 +40,8 @@ let handle counts (ic, oc) =
       let k = kind first in
       Hashtbl.replace counts k
         (1 + Option.value ~default:0 (Hashtbl.find_opt counts k));
-      Lwt_io.write oc response)
+      let* () = Lwt_io.write oc response in
+      Lwt_io.flush oc)
     (fun _ -> Lwt.return_unit)
 
 let start ~host ~port =
