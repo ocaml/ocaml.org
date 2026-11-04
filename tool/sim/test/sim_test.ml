@@ -378,6 +378,15 @@ let test_slow_overlap () =
     [ s.both; s.only_a; s.only_b ];
   Alcotest.(check (float 1e-9)) "overlap" (1. /. 3.) s.overlap
 
+let test_docs_stub_kind () =
+  List.iter
+    (fun (line, k) -> Alcotest.(check string) line k (Docs_stub.kind line))
+    [
+      ("GET /docs/p/dune/3.17.0/status.json HTTP/1.1", "status_json");
+      ("HEAD /docs/p/dune/3.17.0/doc/index.js HTTP/1.1", "head");
+      ("GET /docs/p/dune/3.17.0/doc/README.html.json HTTP/1.1", "other");
+    ]
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -423,5 +432,6 @@ let () =
           Alcotest.test_case "timeline width" `Quick test_timeline_width;
           Alcotest.test_case "paired groups" `Quick test_paired_groups;
           Alcotest.test_case "slow overlap" `Quick test_slow_overlap;
+          Alcotest.test_case "docs stub kind" `Quick test_docs_stub_kind;
         ] );
     ]

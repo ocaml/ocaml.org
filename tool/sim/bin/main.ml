@@ -157,6 +157,23 @@ let run_cmd =
       & info [ "timeout" ] ~doc:"Request timeout, seconds.")
   in
   let seed = Arg.(value & opt int 42 & info [ "seed" ] ~doc:"Random seed.") in
+  let docs =
+    Arg.(
+      value
+      & opt (enum [ ("stub", Run.Stub); ("real", Run.Real) ]) Run.Stub
+      & info [ "docs" ]
+          ~doc:
+            "Documentation server for package pages: 1001 4 24 27 30 44 46 107 \
+             109 120 131 145 150 151 1001 30001b,stub), a local responder that \
+             answers 404 (no documentation) to everything, or 1001 4 24 27 30 \
+             44 46 107 109 120 131 145 150 151 1001 30001b,real), the external \
+             server used in production.")
+  in
+  let docs_port =
+    Arg.(
+      value & opt int 18081
+      & info [ "docs-port" ] ~doc:"Host port of the docs stub.")
+  in
   let keep =
     Arg.(
       value & flag
@@ -182,7 +199,7 @@ let run_cmd =
   in
   let go image days speedup poll duration port mem cpus profile no_human
       traffic_scale diurnal bot_rps include_docs max_inflight timeout seed keep
-      out compose project script =
+      out compose project script docs docs_port =
     let out = match out with Some o -> o | None -> default_out () in
     let poll =
       match poll with
@@ -212,6 +229,8 @@ let run_cmd =
         timeout;
         seed;
         keep;
+        docs;
+        docs_port;
       }
     in
     Lwt_main.run (Run.run c);
@@ -224,7 +243,7 @@ let run_cmd =
       const go $ image $ days $ speedup $ poll $ duration_a $ port $ mem $ cpus
       $ profile $ no_traffic $ scale $ diurnal $ bot_rps $ include_docs
       $ max_inflight $ timeout $ seed $ keep $ out $ compose $ project
-      $ plot_script)
+      $ plot_script $ docs $ docs_port)
 
 let dir_arg =
   Arg.(

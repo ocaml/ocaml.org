@@ -39,9 +39,17 @@ repository's `Dockerfile`:
     (`--diurnal compressed`).
   - `bot`: a crawler that requests every package and package-version page in
     random order, at `--bot-rps` requests per second. Plausible does not count
-    crawlers, which can make up a large share of the server's load. Documentation
-    pages come from the external docs server, so they are left out unless
-    `--include-docs` is given.
+    crawlers, which can make up a large share of the server's load. Package
+    documentation pages are left out unless `--include-docs` is given.
+- **Documentation server.** Package pages make the server fetch documentation
+  status from an external server. By default (`--docs stub`), `sim` points the
+  server at a stub on the host instead. The stub is reached by IP address and
+  answers every request with 404, which the server treats as "no
+  documentation built". This keeps the network, and name resolution inside
+  the container, out of the measurements. In our runs, intermittent DNS
+  failures towards the real docs server caused most of the 2–5 s stalls.
+  `--docs real` uses the production docs server; the stub's request counts
+  are written to `docs-stub.json`.
 - **Instrumentation.** Everything is read from the host:
   - memory and CPU from the container's cgroup (v2);
   - the server's resident set size from `/proc`;
@@ -77,6 +85,7 @@ The options most likely to matter:
 | `--bot-rps R` | `2` | Crawler rate; `0` turns it off |
 | `--mem M`, `--cpus N` | `7g`, unlimited | Container limits. In production, two servers share a 15.5 GB host |
 | `--keep` | | Leave the container running at the end |
+| `--docs M` | `stub` | Documentation server: `stub` or `real`; see above |
 
 See `run --help` for the others. To compare two builds, run the same command
 against each image. The traffic schedule, meaning every send time and path,
@@ -109,7 +118,7 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `traffic.csv` | One row per request; `id` is its position in its stream |
 | `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p95/p99/p99.9/max |
 | `sync.csv` | Update cycle events and phase durations, from the server log |
-| `windows.csv` | Update windows (update → saved) |
+| `windows.csv` | Update windows: from "Update server state" to "Package state saved", plus 1 s, because the largest GC pauses of an update fall within 0.2 s of that log line |
 | `cycles.csv` | Per update: duration, CPU-seconds, peak memory, memory floor after it, longest GC pause |
 | `feed.csv` | When upstream moved, and by how many commits |
 | `server.log` | The server's full log |
@@ -229,8 +238,9 @@ Profiles built from real data are not committed.
 
 ## Caveats
 
-- Without `--include-docs`, no request reaches the external docs server.
-  Package overview pages may still query its status endpoint.
+- With the default `--docs stub`, package pages follow the server's
+  no-documentation path. Pages whose documentation exists in production do
+  more work there, which the stub does not reproduce.
 - The GC reader must be built with the same OCaml version as the server
   image, because the ring format is version-specific.
 - Runtime events stay on in processes the server forks, such as `git`, so

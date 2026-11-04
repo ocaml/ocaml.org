@@ -147,8 +147,14 @@ let windows_of_events events =
   in
   go [] None None events
 
+(* Seconds added after each window's closing log line. The work around saving
+   the state does not end exactly with the line that reports it: the largest
+   major GC slices of an update land within 0.2 s of it, on either side. *)
+let window_grace = 1.
+
 let windows dir =
   windows_of_events (List.map (fun (t, ev, _, _) -> (t, ev)) (read_sync dir))
+  |> List.map (fun (s, e) -> (s, e +. window_grace))
 
 (* {1 Minimum mutator utilisation} *)
 
@@ -786,8 +792,9 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
               ( "update_window",
                 `String
                   "from the server's 'Update server state' log line to \
-                   'Package state saved'; the first one is the warm-up full \
-                   rebuild" );
+                   'Package state saved', plus 1 s for the work that ends \
+                   around that line; the first one is the warm-up full rebuild"
+              );
               ( "floor",
                 `String
                   "lowest memory between the end of an update and the start of \

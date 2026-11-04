@@ -5,6 +5,10 @@ open Lwt.Syntax
 
 type diurnal = Compressed | Wall | Off
 
+(* Where the server fetches package documentation from: [Docs_stub] (the
+   default), or the real external server. *)
+type docs = Stub | Real
+
 type config = {
   image : string;
   compose : string;  (** path to compose.yaml *)
@@ -26,6 +30,8 @@ type config = {
   timeout : float;
   seed : int;
   keep : bool;  (** leave the container running at the end *)
+  docs : docs;
+  docs_port : int;  (** host port of the docs stub *)
 }
 
 let compose_cmd c args =
@@ -98,6 +104,7 @@ let write_meta c ~h ~image_id ~t0 ~t_ready ~packages =
         ("include_docs", `Bool c.include_docs);
         ("packages", `Int packages);
         ("seed", `Int c.seed);
+        ("docs", `String (match c.docs with Stub -> "stub" | Real -> "real"));
       ]
   in
   Yojson.Safe.to_file (Filename.concat c.out "meta.json") json
@@ -117,16 +124,40 @@ let run c =
   let* h = Upstream.history ~image:c.image ~days:c.days in
   Printf.printf "sim: %d first-parent commits over %.1f days; start at %s\n%!"
     (Array.length h) c.days h.(0).sha;
+  (* The docs stub listens on the Docker bridge gateway, which containers reach
+     by IP: no name resolution is involved. *)
+  let* stub, docs_env =
+    match c.docs with
+    | Real -> Lwt.return (None, [])
+    | Stub ->
+        let* gw =
+          Proc.read
+            [
+              "docker";
+              "network";
+              "inspect";
+              "bridge";
+              "-f";
+              "{{(index .IPAM.Config 0).Gateway}}";
+            ]
+        in
+        let gw = String.trim gw in
+        let+ stub = Docs_stub.start ~host:gw ~port:c.docs_port in
+        let base = Printf.sprintf "http://%s:%d/" gw c.docs_port in
+        ( Some stub,
+          [ ("SIM_DOC_URL", base ^ "docs/"); ("SIM_DOC_STATUS_URL", base) ] )
+  in
   let env =
-    [
-      ("SIM_IMAGE", c.image);
-      ("SIM_START", h.(0).sha);
-      ("SIM_POLL", string_of_int c.poll);
-      ("SIM_PORT", string_of_int c.port);
-      ("SIM_MEM", c.mem);
-      ("SIM_CPUS", c.cpus);
-      ("SIM_RTE_DIR", absolute rte);
-    ]
+    docs_env
+    @ [
+        ("SIM_IMAGE", c.image);
+        ("SIM_START", h.(0).sha);
+        ("SIM_POLL", string_of_int c.poll);
+        ("SIM_PORT", string_of_int c.port);
+        ("SIM_MEM", c.mem);
+        ("SIM_CPUS", c.cpus);
+        ("SIM_RTE_DIR", absolute rte);
+      ]
   in
   let* () =
     Proc.run ~extra_env:env (compose_cmd c [ "down"; "--remove-orphans" ])
@@ -269,4 +300,14 @@ let run c =
       if Filename.check_suffix f ".events" && not (c.keep && f = "1.events")
       then try Sys.remove (Filename.concat rte f) with Sys_error _ -> ())
     (Sys.readdir rte);
-  Lwt.return_unit
+  match stub with
+  | None -> Lwt.return_unit
+  | Some stub ->
+      let* () = Docs_stub.stop stub in
+      let counts = Docs_stub.counts stub in
+      Yojson.Safe.to_file (file "docs-stub.json")
+        (`Assoc (List.map (fun (k, n) -> (k, `Int n)) counts));
+      Printf.printf "sim: docs stub answered %s\n%!"
+        (String.concat ", "
+           (List.map (fun (k, n) -> Printf.sprintf "%d %s" n k) counts));
+      Lwt.return_unit
