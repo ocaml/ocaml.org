@@ -11,10 +11,12 @@ let extract_metadata_body path s =
       (Printf.sprintf "expected metadata at the top of the file %s. Got %s" path
          s)
   in
+  (* Separators only count at the start of a line: a YAML value may contain
+     "---" followed by a newline (e.g. a table rule quoted in a description). *)
   let cut =
-    let sep = "---\n" in
-    let win_sep = "---\r\n" in
-    let cut on s = Option.to_result ~none:err (String.cut ~on s) in
+    let sep = "\n---\n" in
+    let win_sep = "\n---\r\n" in
+    let cut on s = Option.to_result ~none:err (String.cut ~on ("\n" ^ s)) in
     Result.sequential_or (cut sep) (cut win_sep)
   in
   let* pre, post = cut s in
