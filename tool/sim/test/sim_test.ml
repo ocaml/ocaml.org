@@ -181,7 +181,7 @@ let test_mmu () =
     (Summary.mmu [ (0., 0.4); (0.2, 0.5) ] ~lo:0. ~hi:2. 1.)
 
 let test_cpu_seconds () =
-  let s st cpu = { Summary.st; mem = nan; rss = nan; cpu } in
+  let s st cpu = { (Summary.empty_sample st) with cpu } in
   (* 100% of a core from 0 to 2, 50% from 2 to 4 *)
   let samples = [| s 0. nan; s 1. 100.; s 2. 100.; s 3. 50.; s 4. 50. |] in
   Alcotest.(check (float 1e-9)) "all" 3. (Summary.cpu_seconds samples 0. 4.);
@@ -220,6 +220,16 @@ let test_unfinished_update () =
     "every update finished" None
     (Summary.unfinished_update
        [ (1., "update"); (4., "loaded"); (10., "update"); (12., "saved") ])
+
+let test_psi () =
+  let path = Filename.temp_file "psi" ".txt" in
+  Out_channel.with_open_text path (fun oc ->
+      output_string oc
+        "some avg10=0.00 avg60=0.12 avg300=0.05 total=112899051\n\
+         full avg10=0.00 avg60=0.00 avg300=0.00 total=107814648\n");
+  let v = Sim.Sampler.psi_some_total path in
+  Sys.remove path;
+  Alcotest.(check (option int)) "some total" (Some 112899051) v
 
 let plan_profile =
   {
@@ -354,7 +364,12 @@ let test_flatten () =
 let test_timeline_width () =
   let samples =
     Array.init 30 (fun i ->
-        { Summary.st = float_of_int i; mem = 100.; rss = 80.; cpu = 50. })
+        {
+          (Summary.empty_sample (float_of_int i)) with
+          mem = 100.;
+          rss = 80.;
+          cpu = 50.;
+        })
   in
   let rows =
     Summary.timeline ~bin:10. ~run_end:29.
@@ -481,6 +496,7 @@ let () =
           Alcotest.test_case "slope" `Quick test_slope;
           Alcotest.test_case "windows" `Quick test_windows;
           Alcotest.test_case "unfinished update" `Quick test_unfinished_update;
+          Alcotest.test_case "psi" `Quick test_psi;
           Alcotest.test_case "packages" `Quick test_packages_of_find;
           Alcotest.test_case "plan deterministic" `Quick test_plan_deterministic;
           Alcotest.test_case "plan streams independent" `Quick

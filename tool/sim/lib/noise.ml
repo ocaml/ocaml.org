@@ -114,7 +114,7 @@ let run ~out dirs =
       | Some m ->
           pr "%-48s %12.3f %10.3f %12.3f %6.1f%%\n" label m.mean m.sd (spread m)
             (if m.mean <> 0. then Float.abs (m.sd /. m.mean) *. 100. else nan))
-    Compare.key_metrics;
+    Compare.repeat_metrics;
   pr "\nSame request across repeats (repeat k - repeat 1, ms), pooled\n";
   List.iter
     (fun (s, (g : Compare.group)) ->

@@ -104,15 +104,56 @@ type sample = {
   mem : float;  (** cgroup memory.current, MB *)
   rss : float;  (** server RSS, MB *)
   cpu : float;  (** % of a core over the second ending at [st] *)
+  swap : float;  (** cgroup memory.swap.current, MB *)
+  majflt : float;  (** container major page faults per second *)
+  stall : float;  (** % of the second the container was stalled on memory *)
+  host_avail : float;  (** host MemAvailable, MB *)
+  host_swap : float;  (** host swap in use, MB *)
+  host_majflt : float;  (** host major page faults per second *)
+  host_stall : float;  (** % of the second some host task stalled on memory *)
 }
 
+(* A sample at [st] with every value missing. *)
+let empty_sample st =
+  {
+    st;
+    mem = nan;
+    rss = nan;
+    cpu = nan;
+    swap = nan;
+    majflt = nan;
+    stall = nan;
+    host_avail = nan;
+    host_swap = nan;
+    host_majflt = nan;
+    host_stall = nan;
+  }
+
+(* Runs made before the memory-pressure columns existed read them as [nan]. *)
 let read_resources dir =
   let f s = Option.value ~default:nan (float_of_string_opt s) in
   List.filter_map
     (function
-      | t :: mem :: _ :: _ :: _ :: rss :: _ :: cpu :: _ -> (
+      | t :: mem :: _ :: _ :: _ :: rss :: _ :: cpu :: rest -> (
+          let col k =
+            match List.nth_opt rest k with Some s -> f s | None -> nan
+          in
           match float_of_string_opt t with
-          | Some st -> Some { st; mem = f mem; rss = f rss; cpu = f cpu }
+          | Some st ->
+              Some
+                {
+                  st;
+                  mem = f mem;
+                  rss = f rss;
+                  cpu = f cpu;
+                  swap = col 0;
+                  majflt = col 1;
+                  stall = col 2;
+                  host_avail = col 3;
+                  host_swap = col 4;
+                  host_majflt = col 5;
+                  host_stall = col 6;
+                }
           | None -> None)
       | _ -> None)
     (rows dir "resources.csv")
@@ -704,6 +745,50 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
           else nan )
   in
   let peak f = Array.fold_left (fun acc s -> nanmax acc (f s)) nan samples in
+  (* Memory pressure, in the container and on the host. Rates are integrated
+     over the interval before each sample; [None] for runs that predate the
+     columns. *)
+  let integral f =
+    let total = ref 0. and seen = ref false in
+    Array.iteri
+      (fun k s ->
+        let v = f s in
+        if k > 0 && not (Float.is_nan v) then (
+          seen := true;
+          total := !total +. (v *. (s.st -. samples.(k - 1).st))))
+      samples;
+    if !seen then Some !total else None
+  in
+  let some_peak f =
+    let v = peak f in
+    if Float.is_nan v then None else Some v
+  in
+  let some_low f =
+    let v = Array.fold_left (fun acc s -> nanmin acc (f s)) nan samples in
+    if Float.is_nan v then None else Some v
+  in
+  let pressure =
+    match integral (fun s -> s.majflt) with
+    | None -> None
+    | Some majflt ->
+        let pct_to_s = Option.map (fun v -> v /. 100.) in
+        Some
+          [
+            ("container_swap_peak_mb", some_peak (fun s -> s.swap));
+            ("container_major_faults", Some majflt);
+            ("container_mem_stall_s", pct_to_s (integral (fun s -> s.stall)));
+            ("host_min_available_mb", some_low (fun s -> s.host_avail));
+            ( "host_swap_growth_mb",
+              Option.bind
+                (some_peak (fun s -> s.host_swap))
+                (fun hi ->
+                  Option.map
+                    (fun lo -> hi -. lo)
+                    (some_low (fun s -> s.host_swap))) );
+            ("host_major_faults", integral (fun s -> s.host_majflt));
+            ("host_mem_stall_s", pct_to_s (integral (fun s -> s.host_stall)));
+          ]
+  in
   let phases =
     let ps =
       List.filter_map
@@ -976,6 +1061,15 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
               ("cgroup", jnum (peak (fun s -> s.mem)));
               ("rss", jnum (peak (fun s -> s.rss)));
             ] );
+        ( "memory_pressure",
+          match pressure with
+          | None -> `Null
+          | Some kvs ->
+              `Assoc
+                (List.map
+                   (fun (k, v) ->
+                     (k, match v with Some v -> jnum v | None -> `Null))
+                   kvs) );
         ( "phases_excluding_warmup_s",
           `Assoc
             (List.map
@@ -1068,6 +1162,24 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
       pr "\nMemory peaks\n";
       pr "  cgroup memory          %8.1f MB\n" (peak (fun s -> s.mem));
       pr "  server RSS             %8.1f MB\n" (peak (fun s -> s.rss)));
+  (match pressure with
+  | None -> ()
+  | Some kvs ->
+      let v k =
+        match List.assoc_opt k kvs with
+        | Some (Some v) -> Printf.sprintf "%8.1f" v
+        | _ -> "       -"
+      in
+      pr "\nMemory pressure (container; host)\n";
+      pr "  swap peak              %s MB\n" (v "container_swap_peak_mb");
+      pr "  major page faults      %s; %s\n"
+        (v "container_major_faults")
+        (v "host_major_faults");
+      pr "  stalled on memory      %s s; %s s\n"
+        (v "container_mem_stall_s")
+        (v "host_mem_stall_s");
+      pr "  host available, lowest %s MB\n" (v "host_min_available_mb");
+      pr "  host swap growth       %s MB\n" (v "host_swap_growth_mb"));
   if phases <> [] then (
     pr "\nUpdate phases excluding warm-up, s\n";
     List.iter

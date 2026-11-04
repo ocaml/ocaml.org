@@ -206,6 +206,24 @@ let key_metrics =
     ("bot latency p99 (ms)", "latency_ms.bot.all.p99", "lower");
   ]
 
+(* What the host and the container went through, not what the build did: no
+   better direction, not in the A/B key metrics, but listed for A, B and every
+   repeat, so that a run slowed by memory pressure from outside shows it. *)
+let environment_metrics =
+  [
+    ("container stalled on memory (s)", "memory_pressure.container_mem_stall_s");
+    ("container major page faults", "memory_pressure.container_major_faults");
+    ("container swap peak (MB)", "memory_pressure.container_swap_peak_mb");
+    ("host stalled on memory (s)", "memory_pressure.host_mem_stall_s");
+    ("host major page faults", "memory_pressure.host_major_faults");
+    ( "host lowest available memory (MB)",
+      "memory_pressure.host_min_available_mb" );
+  ]
+
+(* Shown for each repeat: the key metrics, then the environment. *)
+let repeat_metrics =
+  key_metrics @ List.map (fun (l, m) -> (l, m, "")) environment_metrics
+
 let how_to_read =
   [
     "A and B are two runs of the same simulation of the ocaml.org server \
@@ -234,6 +252,12 @@ let how_to_read =
      percentiles shift with that mix even if neither population changed: check \
      the during_update and outside_update rows before reading a change in \
      'all' as a change in speed.";
+    "environment gives the memory pressure that the container and the host \
+     went through: time stalled on memory (PSI), major page faults, swap. It \
+     has no better direction: it describes the machine, not the build. A run, \
+     or a repeat, with much more of it than the others was slowed from outside \
+     (for example by another process using the host's memory) and its numbers \
+     are suspect. Null for runs made before these were recorded.";
     "loaded_commits lists the opam-repository commits each server actually \
      loaded. Both runs replay the same upstream states at the same offsets, \
      but each server polls on its own schedule (5 s after its previous update \
@@ -372,7 +396,7 @@ let repeat_values file =
                   (List.find_map
                      (fun (p, v, _) -> if p = metric then Some v else None)
                      fl) ))
-            key_metrics ))
+            repeat_metrics ))
       dirs )
 
 let run ?output ?(noise = []) a b =
@@ -497,7 +521,7 @@ let run ?output ?(noise = []) a b =
   let repeats = List.map (fun f -> (f, repeat_values f)) noise in
   List.iter
     (fun (_, (image, runs)) ->
-      pr "\nRepeats of %s (key metrics)\n  %-44s" image "";
+      pr "\nRepeats of %s (key metrics, then environment)\n  %-44s" image "";
       List.iter (fun (d, _) -> pr " %12s" (Filename.basename d)) runs;
       pr "\n";
       List.iter
@@ -513,7 +537,7 @@ let run ?output ?(noise = []) a b =
               pr " %12s" (match v with Some v -> num v | None -> "-"))
             runs;
           pr "\n")
-        key_metrics)
+        repeat_metrics)
     repeats;
   let group_line label g =
     let q x = if g.n = 0 then "-" else num (Summary.percentile g.diff x) in
@@ -721,6 +745,14 @@ let run ?output ?(noise = []) a b =
                               :: ("better", `String better)
                               :: metric_json mt)))
                    key_metrics) );
+            ( "environment",
+              `List
+                (List.filter_map
+                   (fun (label, metric) ->
+                     List.find_opt (fun (p, _, _, _) -> p = metric) metrics
+                     |> Option.map (fun mt ->
+                            `Assoc (("label", `String label) :: metric_json mt)))
+                   environment_metrics) );
             ( "metrics",
               `List (List.map (fun mt -> `Assoc (metric_json mt)) metrics) );
             ( "paired_latency_ms",

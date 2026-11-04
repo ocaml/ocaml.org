@@ -120,7 +120,7 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `timeline.csv` | Per 10 s, one row: update share, memory, CPU, GC, latency per stream, upstream commits |
 | `events.csv` | Updates, upstream advances, the 10 longest GC pauses, and latency bursts |
 | `timeline.svg` | Everything on one time axis; update windows shaded |
-| `resources.csv` | Per second: cgroup memory, anon/file, RSS, CPU |
+| `resources.csv` | Per second: cgroup memory, anon/file, RSS, CPU; memory pressure in the container (swap, major page faults, share of time stalled on memory from PSI) and on the host (available memory, swap in use, major page faults, PSI) |
 | `gc.csv` | Per second: minor GCs and major slices (count, total, longest), major heap size |
 | `gc-events.csv` | One row per GC pause (minor collection or major slice): start, kind, duration |
 | `traffic.csv` | One row per request; `id` is its position in its stream |
@@ -160,6 +160,13 @@ Each kind of data is summarised in the way that suits it.
   between updates and the baseline outside them.
 - **Update phases** happen a handful of times per run, so they get min,
   median and max, without the warm-up rebuild.
+- **Memory pressure** describes the machine, not the build: seconds the
+  container and the host spent stalled on memory (PSI), their major page
+  faults, the container's peak swap, and the host's lowest available memory
+  and swap growth. Another process using the host's memory can push the
+  server into swap or evict its file cache, which slows GC pauses and
+  updates. `sim compare` lists these for A, B and every repeat (`environment`
+  in `report.json`), so a run slowed from outside shows it.
 
 ### For Programs and Language Models
 
