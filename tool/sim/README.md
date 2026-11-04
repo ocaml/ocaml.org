@@ -268,11 +268,18 @@ This writes one HTML page with Vega-Lite charts (open it in a browser):
 3. **Comparison:**
    - updates lined up at their start;
    - distributions (ECDF) of latency, and of GC pauses;
+   - an animated ECDF of latency: one button merges each build's human and
+     bot curves into its pooled curve, another morphs A's curves into B's,
+     point by point at constant quantile; press again to go back;
+   - the shift function: B − A at each quantile from 1% to 99%. With noise
+     runs, a grey band shows the same difference between repeats of one
+     image (every ordered pair), so the parts of the curve outside the band
+     are differences beyond run-to-run noise;
    - the key metrics as ratios B / A;
    - a flicker view that switches between the runs on fixed scales;
    - the same request in both runs, one dot per request.
 
-   A toggle above the two latency charts (latency distributions, same
+   A toggle above the latency charts (distributions, shift function, same
    request) shows human and bot traffic split (one panel each), overlaid (one
    panel; in the ECDF bot is dashed, in the same-request scatter colour shows
    the stream and filled/hollow the update timing), or merged (one panel,
