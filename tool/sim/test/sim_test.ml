@@ -356,6 +356,28 @@ let test_timeline_width () =
     "update share of bin 0" "0.50"
     (List.nth (List.hd rows) 1)
 
+let pair ?(stream = "bot") ?(cls = "pkg") a b =
+  { Compare.stream; cls; a_ms = a; b_ms = b; during_update = false }
+
+let test_paired_groups () =
+  let ps = [ pair 10. 5.; pair 10. 20.; pair 10. 8.; pair ~cls:"home" 1. 3. ] in
+  let g = Compare.group ps in
+  Alcotest.(check int) "pairs" 4 g.n;
+  Alcotest.(check (float 1e-9)) "B faster in 2 of 4" 0.5 g.b_faster;
+  Alcotest.(check (list string))
+    "grouped by class" [ "home"; "pkg" ]
+    (List.map fst (Compare.by (fun p -> p.Compare.cls) ps))
+
+let test_slow_overlap () =
+  let ps =
+    [ pair 3000. 2500.; pair 3000. 400.; pair 500. 2600.; pair 500. 400. ]
+  in
+  let s = Compare.slow ps in
+  Alcotest.(check (list int))
+    "both / only A / only B" [ 1; 1; 1 ]
+    [ s.both; s.only_a; s.only_b ];
+  Alcotest.(check (float 1e-9)) "overlap" (1. /. 3.) s.overlap
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -399,5 +421,7 @@ let () =
           Alcotest.test_case "bursts" `Quick test_bursts;
           Alcotest.test_case "flatten" `Quick test_flatten;
           Alcotest.test_case "timeline width" `Quick test_timeline_width;
+          Alcotest.test_case "paired groups" `Quick test_paired_groups;
+          Alcotest.test_case "slow overlap" `Quick test_slow_overlap;
         ] );
     ]

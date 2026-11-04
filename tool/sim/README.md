@@ -168,10 +168,10 @@ example to query with `awk`.
 ### Comparing Runs
 
 ```bash
-opam exec -- dune exec tool/sim/bin/main.exe -- compare DIR_A DIR_B -o compare.json
+opam exec -- dune exec tool/sim/bin/main.exe -- compare DIR_A DIR_B -o report.json
 ```
 
-This prints, and with `-o` also writes as JSON:
+This prints:
 
 - the run parameters that differ, apart from the image. If any do, the runs
   are not comparable one to one.
@@ -179,8 +179,26 @@ This prints, and with `-o` also writes as JSON:
   percentile resting on fewer than 10 samples on either side is marked.
 - paired latency: each request is matched with the same request (stream and
   `id`) in the other run, and the differences B − A are summarised per
-  stream. This needs runs made since request ids were added. A path mismatch
-  means the two schedules differ.
+  stream, then by update timing (during an update in either run, or outside)
+  and by page class. Groups of fewer than 20 pairs are marked as small. This
+  needs runs made since request ids were added. A path mismatch means the two
+  schedules differ.
+- slow requests: of the requests slower than 2 s in either run, how many are
+  slow in both. A low overlap means slowness depends on when a request
+  arrived, not on what it asked for.
+
+With `-o`, it also writes `report.json`, a single entry point for a program
+or a language model. It contains:
+
+- reading instructions and the definitions used;
+- both runs' parameters;
+- the key metrics, each saying which direction is better;
+- every metric;
+- the paired breakdowns;
+- both runs' events;
+- the path of each run's files, for detail.
+
+For the 10-minute comparison it is about 40 KB.
 
 ## Traffic Profiles
 

@@ -9,7 +9,10 @@
    summarised per stream. This is the most direct comparison, because each pair
    is the same request at the same offset.
 
-   The result is printed as text and, with [-o], written as JSON. *)
+   The result is printed as text and, with [-o], written as a single
+   [report.json]: the entry point for a program or a language model, with
+   reading instructions, definitions, key metrics, every metric, the paired
+   breakdowns, both runs' events, and where each run's files are. *)
 
 (* Numeric leaves of a summary, as [(path, value, reliable)]. Percentile objects
    ([value], [samples_above], [reliable]) become one leaf. The run parameters,
@@ -60,63 +63,185 @@ let differing_params (a : Yojson.Safe.t) (b : Yojson.Safe.t) =
         fa
   | _ -> [ ("run", "missing meta.json", "") ]
 
-type paired = {
+(* {1 Paired requests} *)
+
+type pair = {
   stream : string;
-  pairs : int;
-  path_mismatches : int;  (** same id, different path: schedules differ *)
-  only_ok_in_a : int;
-  only_ok_in_b : int;
-  b_faster_share : float;
-  diff_ms : float array;  (** sorted B - A *)
+  cls : string;  (** page class *)
+  a_ms : float;
+  b_ms : float;
+  during_update : bool;  (** in an update window in either run *)
 }
 
-let paired a b =
+type matching = {
+  pairs : pair list;  (** both successful *)
+  mismatches : int;  (** same id, different path: schedules differ *)
+  ok_only_in_a : int;
+  ok_only_in_b : int;
+}
+
+let in_windows wins t = List.exists (fun (s, e) -> t >= s && t <= e) wins
+
+let match_requests a b =
   let ra = Summary.read_traffic a and rb = Summary.read_traffic b in
+  let wa = Summary.windows a and wb = Summary.windows b in
   let key (r : Summary.req) = Option.map (fun id -> (r.stream, id)) r.id in
   let tbl = Hashtbl.create 4096 in
   List.iter (fun r -> Option.iter (fun k -> Hashtbl.replace tbl k r) (key r)) ra;
-  let streams =
-    List.sort_uniq compare (List.map (fun (r : Summary.req) -> r.stream) rb)
+  List.fold_left
+    (fun m (r : Summary.req) ->
+      match Option.bind (key r) (Hashtbl.find_opt tbl) with
+      | None -> m
+      | Some (q : Summary.req) ->
+          if q.path <> r.path then { m with mismatches = m.mismatches + 1 }
+          else
+            let oa = Summary.ok q.status and ob = Summary.ok r.status in
+            if oa && ob then
+              {
+                m with
+                pairs =
+                  {
+                    stream = r.stream;
+                    cls = r.cls;
+                    a_ms = q.latency_ms;
+                    b_ms = r.latency_ms;
+                    during_update = in_windows wa q.t || in_windows wb r.t;
+                  }
+                  :: m.pairs;
+              }
+            else if oa then { m with ok_only_in_a = m.ok_only_in_a + 1 }
+            else if ob then { m with ok_only_in_b = m.ok_only_in_b + 1 }
+            else m)
+    { pairs = []; mismatches = 0; ok_only_in_a = 0; ok_only_in_b = 0 }
+    rb
+  |> fun m -> { m with pairs = List.rev m.pairs }
+
+(* A group of pairs: how often B is faster, and the distribution of B - A. *)
+type group = {
+  n : int;
+  b_faster : float;  (** share of pairs where B took less time *)
+  diff : float array;  (** sorted B - A, ms *)
+}
+
+let group pairs =
+  let diff =
+    Summary.sorted_of_list (List.map (fun p -> p.b_ms -. p.a_ms) pairs)
   in
-  List.map
-    (fun s ->
-      let mism = ref 0 and only_a = ref 0 and only_b = ref 0 in
-      let diffs = ref [] in
-      List.iter
-        (fun (r : Summary.req) ->
-          if r.stream = s then
-            match Option.bind (key r) (Hashtbl.find_opt tbl) with
-            | None -> ()
-            | Some (q : Summary.req) ->
-                if q.path <> r.path then incr mism
-                else
-                  let oa = Summary.ok q.status and ob = Summary.ok r.status in
-                  if oa && ob then
-                    diffs := (r.latency_ms -. q.latency_ms) :: !diffs
-                  else if oa then incr only_a
-                  else if ob then incr only_b)
-        rb;
-      let d = Summary.sorted_of_list !diffs in
-      let n = Array.length d in
-      {
-        stream = s;
-        pairs = n;
-        path_mismatches = !mism;
-        only_ok_in_a = !only_a;
-        only_ok_in_b = !only_b;
-        b_faster_share =
-          (if n = 0 then nan
-           else
-             float_of_int
-               (Array.fold_left (fun c x -> if x < 0. then c + 1 else c) 0 d)
-             /. float_of_int n);
-        diff_ms = d;
-      })
-    streams
+  let n = Array.length diff in
+  {
+    n;
+    b_faster =
+      (if n = 0 then nan
+       else
+         float_of_int
+           (List.length (List.filter (fun p -> p.b_ms < p.a_ms) pairs))
+         /. float_of_int n);
+    diff;
+  }
+
+(* Fewer pairs than this and a group's figures are flagged as small. *)
+let small_group = 20
+
+let by f pairs =
+  List.sort_uniq compare (List.map f pairs)
+  |> List.map (fun k -> (k, group (List.filter (fun p -> f p = k) pairs)))
+
+(* Are the slow requests the same in both runs? Slow means slower than
+   [Summary.burst_ms]. A small overlap means slowness depends on when a request
+   arrives rather than on what it asks for. *)
+type slow = { both : int; only_a : int; only_b : int; overlap : float }
+
+let slow pairs =
+  let t = Summary.burst_ms in
+  let count p = List.length (List.filter p pairs) in
+  let both = count (fun p -> p.a_ms > t && p.b_ms > t) in
+  let only_a = count (fun p -> p.a_ms > t && p.b_ms <= t) in
+  let only_b = count (fun p -> p.a_ms <= t && p.b_ms > t) in
+  let either = both + only_a + only_b in
+  {
+    both;
+    only_a;
+    only_b;
+    overlap =
+      (if either = 0 then nan else float_of_int both /. float_of_int either);
+  }
+
+(* {1 Report} *)
 
 let load dir name =
   let path = Filename.concat dir name in
   if Sys.file_exists path then Yojson.Safe.from_file path else `Null
+
+let member k = function `Assoc f -> List.assoc_opt k f | _ -> None
+
+(* The figures a reader should look at first: (label, metric, which way is
+   better). *)
+let key_metrics =
+  [
+    ( "update duration, median after warm-up (s)",
+      "cycles_excluding_warmup.median_duration_s",
+      "lower" );
+    ( "CPU-seconds per update, median",
+      "cycles_excluding_warmup.median_cpu_s",
+      "lower" );
+    ("total CPU-seconds", "cpu.total_cpu_s", "lower");
+    ( "CPU baseline outside updates (% of a core)",
+      "cpu.baseline_outside_updates_pct_core",
+      "lower" );
+    ("peak RSS (MB)", "memory_peak_mb.rss", "lower");
+    ("peak cgroup memory (MB)", "memory_peak_mb.cgroup", "lower");
+    ( "RSS floor trend (MB per update)",
+      "cycles_excluding_warmup.rss_floor_trend_mb_per_update",
+      "lower" );
+    ("MMU, 100 ms window", "mmu.100ms.utilisation", "higher");
+    ("MMU, 1 s window", "mmu.1s.utilisation", "higher");
+    ( "longest major slice during updates (ms)",
+      "gc_pause_ms.major_slice.during_update.max",
+      "lower" );
+    ("major slice p99.9 (ms)", "gc_pause_ms.major_slice.all.p999", "lower");
+    ("minor GC p99.9 (ms)", "gc_pause_ms.minor.all.p999", "lower");
+    ("human latency p50 (ms)", "latency_ms.human.all.p50", "lower");
+    ("human latency p99 (ms)", "latency_ms.human.all.p99", "lower");
+    ("bot latency p50 (ms)", "latency_ms.bot.all.p50", "lower");
+    ("bot latency p99 (ms)", "latency_ms.bot.all.p99", "lower");
+  ]
+
+let how_to_read =
+  [
+    "A and B are two runs of the same simulation of the ocaml.org server \
+     against two server images. They are comparable one to one only when \
+     differing_params is empty: then they replayed the same opam-repository \
+     history and sent the same requests at the same offsets.";
+    "Start with key_metrics. b_over_a below 1 means B is lower; 'better' says \
+     which direction is an improvement.";
+    "paired_latency_ms compares the same request in both runs: B - A in ms, \
+     negative when B was faster. by_stream_and_class and by_stream_and_when \
+     break it down; groups with small = true have fewer than 20 pairs.";
+    "slow_requests tells whether the requests slower than the burst threshold \
+     are the same in both runs. A low overlap means slowness depends on when a \
+     request arrived, not on what it asked for.";
+    "A percentile with reliable = false rests on fewer than 10 samples above \
+     it; treat it as indicative.";
+    "The run-to-run noise of a single image is not measured here: treat small \
+     differences as unconfirmed until repeated.";
+    "events lists each run's updates, upstream advances, longest GC pauses and \
+     latency bursts; files lists each run's data for detail (timeline.csv \
+     first, then the raw CSVs).";
+  ]
+
+let paired_definitions =
+  [
+    ( "pair",
+      "the same planned request (stream and id, same path) in both runs, \
+       successful in both" );
+    ( "during_update",
+      "the request was scheduled inside an update window in either run" );
+    ( "slow_overlap",
+      Printf.sprintf
+        "of the requests slower than %.0f ms in either run, the share slower \
+         in both"
+        Summary.burst_ms );
+  ]
 
 let run ?output a b =
   ignore (Summary.run a);
@@ -124,10 +249,7 @@ let run ?output a b =
   let sa = load a "summary.json" and sb = load b "summary.json" in
   let ma = load a "meta.json" and mb = load b "meta.json" in
   let image m =
-    match m with
-    | `Assoc f -> (
-        match List.assoc_opt "image" f with Some (`String s) -> s | _ -> "?")
-    | _ -> "?"
+    match member "image" m with Some (`String s) -> s | _ -> "?"
   in
   let params = differing_params ma mb in
   let fa = flatten sa and fb = flatten sb in
@@ -139,10 +261,10 @@ let run ?output a b =
     |> List.map (fun (p, _, r) -> (p, nan, r))
   in
   let metrics =
-    List.filter_map
+    List.map
       (fun (path, x, ra) ->
         match List.find_opt (fun (p, _, _) -> p = path) fb with
-        | None -> Some (path, x, nan, ra)
+        | None -> (path, x, nan, ra)
         | Some (_, y, rb) ->
             let reliable =
               match (ra, rb) with
@@ -150,19 +272,27 @@ let run ?output a b =
               | Some a, None | None, Some a -> Some a
               | None, None -> None
             in
-            Some (path, x, y, reliable))
+            (path, x, y, reliable))
       (fa @ only_b)
   in
-  let pairs = paired a b in
+  let m = match_requests a b in
+  let streams = by (fun p -> p.stream) m.pairs in
+  let by_class s =
+    by (fun p -> p.cls) (List.filter (fun p -> p.stream = s) m.pairs)
+  in
+  let when_ p = if p.during_update then "during_update" else "outside_update" in
+  let by_when s = by when_ (List.filter (fun p -> p.stream = s) m.pairs) in
+  let slow_of s = slow (List.filter (fun p -> p.stream = s) m.pairs) in
+  (* text *)
   let buf = Buffer.create 8192 in
   let pr fmt = Printf.bprintf buf fmt in
+  let num x = if Float.is_finite x then Printf.sprintf "%.3f" x else "-" in
   pr "A: %s (%s)\nB: %s (%s)\n" a (image ma) b (image mb);
   if params = [] then pr "Run parameters: identical apart from the image.\n"
   else (
     pr
       "WARNING: run parameters differ; the runs are not comparable one to one:\n";
     List.iter (fun (k, va, vb) -> pr "  %s: A=%s B=%s\n" k va vb) params);
-  let num x = if Float.is_finite x then Printf.sprintf "%.3f" x else "-" in
   pr "\n%-58s %12s %12s %12s %8s\n" "metric" "A" "B" "B-A" "B/A";
   List.iter
     (fun (path, x, y, reliable) ->
@@ -174,30 +304,97 @@ let run ?output a b =
         (if reliable = Some false then "  *" else ""))
     metrics;
   pr "  (* a percentile on at least one side rests on fewer than 10 samples)\n";
+  let group_line label g =
+    let q x = if g.n = 0 then "-" else num (Summary.percentile g.diff x) in
+    pr "  %-28s n=%-6d B faster=%5.1f%%  p10=%-10s p50=%-10s p90=%-10s%s\n"
+      label g.n (g.b_faster *. 100.) (q 0.1) (q 0.5) (q 0.9)
+      (if g.n < small_group then "  (small)" else "")
+  in
   pr "\nPaired latency, B - A in ms, same request (stream, id) in both runs\n";
-  List.iter
-    (fun p ->
-      let q x =
-        if p.pairs = 0 then "-" else num (Summary.percentile p.diff_ms x)
-      in
-      pr
-        "  %-6s pairs=%-6d B faster=%5.1f%%  p10=%s p50=%s p90=%s  path \
-         mismatches=%d  ok only in A=%d, only in B=%d\n"
-        p.stream p.pairs (p.b_faster_share *. 100.) (q 0.1) (q 0.5) (q 0.9)
-        p.path_mismatches p.only_ok_in_a p.only_ok_in_b)
-    pairs;
-  if List.for_all (fun p -> p.pairs = 0) pairs then
+  pr "  path mismatches=%d, ok only in A=%d, ok only in B=%d\n" m.mismatches
+    m.ok_only_in_a m.ok_only_in_b;
+  if m.pairs = [] then
     pr "  (no pairs: a run predates request ids, or the schedules differ)\n";
+  List.iter
+    (fun (s, g) ->
+      group_line s g;
+      List.iter (fun (w, g) -> group_line ("  " ^ w) g) (by_when s);
+      List.iter (fun (c, g) -> group_line ("  class " ^ c) g) (by_class s);
+      let sl = slow_of s in
+      pr "    slower than %.0f ms: both=%d only A=%d only B=%d overlap=%s\n"
+        Summary.burst_ms sl.both sl.only_a sl.only_b
+        (if Float.is_finite sl.overlap then
+           Printf.sprintf "%.0f%%" (sl.overlap *. 100.)
+         else "-"))
+    streams;
+  (* report.json *)
   (match output with
   | None -> ()
   | Some path ->
       let jnum = Summary.jnum in
+      let group_json g : Yojson.Safe.t =
+        let q x =
+          if g.n = 0 then `Null else jnum (Summary.percentile g.diff x)
+        in
+        `Assoc
+          [
+            ("n", `Int g.n);
+            ("small", `Bool (g.n < small_group));
+            ("b_faster_share", jnum g.b_faster);
+            ("b_minus_a_p10", q 0.1);
+            ("b_minus_a_p50", q 0.5);
+            ("b_minus_a_p90", q 0.9);
+          ]
+      in
+      let groups l = `Assoc (List.map (fun (k, g) -> (k, group_json g)) l) in
+      let metric_json (path, x, y, reliable) =
+        [
+          ("metric", `String path);
+          ("a", jnum x);
+          ("b", jnum y);
+          ("b_minus_a", jnum (y -. x));
+          ("b_over_a", if x <> 0. then jnum (y /. x) else `Null);
+          ("reliable", match reliable with Some r -> `Bool r | None -> `Null);
+        ]
+      in
+      let run_json dir meta : Yojson.Safe.t =
+        `Assoc
+          [
+            ("dir", `String dir);
+            ("image", `String (image meta));
+            ("parameters", meta);
+          ]
+      in
+      let files dir : Yojson.Safe.t =
+        `Assoc
+          (List.map
+             (fun (k, f) -> (k, `String (Filename.concat dir f)))
+             [
+               ("summary", "summary.json");
+               ("timeline", "timeline.csv");
+               ("events", "events.csv");
+               ("cycles", "cycles.csv");
+               ("requests", "traffic.csv");
+               ("gc_pauses", "gc-events.csv");
+               ("resources", "resources.csv");
+               ("server_log", "server.log");
+             ])
+      in
+      let definitions : Yojson.Safe.t =
+        let from_summary =
+          match member "notes" sa with Some (`Assoc l) -> l | _ -> []
+        in
+        `Assoc
+          (from_summary
+          @ List.map (fun (k, v) -> (k, `String v)) paired_definitions)
+      in
       let json : Yojson.Safe.t =
         `Assoc
           [
-            ("schema", `String "ocamlorg-sim-compare/1");
-            ("a", `Assoc [ ("dir", `String a); ("image", `String (image ma)) ]);
-            ("b", `Assoc [ ("dir", `String b); ("image", `String (image mb)) ]);
+            ("schema", `String "ocamlorg-sim-report/1");
+            ("how_to_read", `List (List.map (fun s -> `String s) how_to_read));
+            ("runs", `Assoc [ ("a", run_json a ma); ("b", run_json b mb) ]);
+            ("comparable_one_to_one", `Bool (params = []));
             ( "differing_params",
               `List
                 (List.map
@@ -209,44 +406,59 @@ let run ?output a b =
                          ("b", `String vb);
                        ])
                    params) );
-            ( "metrics",
+            ("definitions", definitions);
+            ( "key_metrics",
               `List
-                (List.map
-                   (fun (path, x, y, reliable) ->
-                     `Assoc
-                       [
-                         ("metric", `String path);
-                         ("a", jnum x);
-                         ("b", jnum y);
-                         ("b_minus_a", jnum (y -. x));
-                         ("b_over_a", if x <> 0. then jnum (y /. x) else `Null);
-                         ( "reliable",
-                           match reliable with
-                           | Some r -> `Bool r
-                           | None -> `Null );
-                       ])
-                   metrics) );
+                (List.filter_map
+                   (fun (label, metric, better) ->
+                     List.find_opt (fun (p, _, _, _) -> p = metric) metrics
+                     |> Option.map (fun mt ->
+                            `Assoc
+                              (("label", `String label)
+                              :: ("better", `String better)
+                              :: metric_json mt)))
+                   key_metrics) );
+            ( "metrics",
+              `List (List.map (fun mt -> `Assoc (metric_json mt)) metrics) );
             ( "paired_latency_ms",
               `Assoc
-                (List.map
-                   (fun p ->
-                     let q x =
-                       if p.pairs = 0 then `Null
-                       else jnum (Summary.percentile p.diff_ms x)
-                     in
-                     ( p.stream,
-                       `Assoc
-                         [
-                           ("pairs", `Int p.pairs);
-                           ("path_mismatches", `Int p.path_mismatches);
-                           ("ok_only_in_a", `Int p.only_ok_in_a);
-                           ("ok_only_in_b", `Int p.only_ok_in_b);
-                           ("b_faster_share", jnum p.b_faster_share);
-                           ("b_minus_a_p10", q 0.1);
-                           ("b_minus_a_p50", q 0.5);
-                           ("b_minus_a_p90", q 0.9);
-                         ] ))
-                   pairs) );
+                [
+                  ("path_mismatches", `Int m.mismatches);
+                  ("ok_only_in_a", `Int m.ok_only_in_a);
+                  ("ok_only_in_b", `Int m.ok_only_in_b);
+                  ("by_stream", groups streams);
+                  ( "by_stream_and_when",
+                    `Assoc
+                      (List.map (fun (s, _) -> (s, groups (by_when s))) streams)
+                  );
+                  ( "by_stream_and_class",
+                    `Assoc
+                      (List.map
+                         (fun (s, _) -> (s, groups (by_class s)))
+                         streams) );
+                  ( "slow_requests",
+                    `Assoc
+                      (List.map
+                         (fun (s, _) ->
+                           let sl = slow_of s in
+                           ( s,
+                             `Assoc
+                               [
+                                 ("threshold_ms", jnum Summary.burst_ms);
+                                 ("slow_in_both", `Int sl.both);
+                                 ("slow_only_in_a", `Int sl.only_a);
+                                 ("slow_only_in_b", `Int sl.only_b);
+                                 ("slow_overlap", jnum sl.overlap);
+                               ] ))
+                         streams) );
+                ] );
+            ( "events",
+              `Assoc
+                [
+                  ("a", Option.value ~default:`Null (member "events" sa));
+                  ("b", Option.value ~default:`Null (member "events" sb));
+                ] );
+            ("files", `Assoc [ ("a", files a); ("b", files b) ]);
           ]
       in
       Yojson.Safe.to_file path json);
