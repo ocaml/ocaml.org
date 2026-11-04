@@ -1732,8 +1732,26 @@ let paired_spec ~na ~nb (m : Compare.matching) =
               s
                 (if p.during_update then "during an update (either run)"
                  else "outside updates") );
+            ("during", jb p.during_update);
           ])
       m.pairs
+  in
+  (* Colour: the update timing when split or merged; the stream when overlaid,
+     with the timing as filled (during an update) or hollow (outside). Human and
+     bot hues: reference palette slots 7 and 6, validated light. *)
+  let colour_scale =
+    o
+      [
+        ( "domain",
+          l
+            [
+              s "outside updates";
+              s "during an update (either run)";
+              s "human";
+              s "bot";
+            ] );
+        ("range", l [ s muted; s "#1baf7a"; s "#6250d6"; s "#008300" ]);
+      ]
   in
   let ax title_ field =
     o
@@ -1753,8 +1771,9 @@ let paired_spec ~na ~nb (m : Compare.matching) =
           (Printf.sprintf
              "each dot is one request (same stream and id): below the diagonal \
               = faster on %s; log axes;\n\
-              split = one panel per stream, overlaid = one panel (square = \
-              bot), merged = one panel"
+              split = one panel per stream; merged = one panel; overlaid = one \
+              panel coloured by stream, filled = during an update, hollow = \
+              outside"
              nb) );
       ("params", l [ lv_param ]);
       ("data", o [ ("values", l rows) ]);
@@ -1771,8 +1790,8 @@ let paired_spec ~na ~nb (m : Compare.matching) =
               ];
             o
               [
-                ("calculate", s "lv == 'overlaid' ? datum.stream : 'one stream'");
-                ("as", s "look");
+                ("calculate", s "lv == 'overlaid' ? datum.stream : datum.upd");
+                ("as", s "ck");
               ];
           ] );
       ( "facet",
@@ -1826,51 +1845,38 @@ let paired_spec ~na ~nb (m : Compare.matching) =
                             ("type", s "point");
                             ("filled", jb true);
                             ("size", i 22);
-                            ("opacity", n 0.55);
+                            ("opacity", n 0.6);
+                            ("strokeWidth", n 1.2);
                           ] );
                       ( "encoding",
                         o
                           [
                             ("x", ax (na ^ " latency (ms, log)") "a");
                             ("y", ax (nb ^ " latency (ms, log)") "b");
-                            ( "shape",
+                            ( "stroke",
                               o
                                 [
-                                  ("field", s "look");
-                                  ("type", s "nominal");
-                                  ( "scale",
-                                    o
-                                      [
-                                        ( "domain",
-                                          l
-                                            [
-                                              s "one stream"; s "human"; s "bot";
-                                            ] );
-                                        ( "range",
-                                          l
-                                            [
-                                              s "circle"; s "circle"; s "square";
-                                            ] );
-                                      ] );
-                                  ("legend", `Null);
-                                ] );
-                            ( "color",
-                              o
-                                [
-                                  ("field", s "upd");
+                                  ("field", s "ck");
                                   ("type", s "nominal");
                                   ("title", `Null);
-                                  ( "scale",
+                                  ("scale", colour_scale);
+                                  ("legend", o [ ("orient", s "top") ]);
+                                ] );
+                            ( "fill",
+                              o
+                                [
+                                  ( "condition",
                                     o
                                       [
-                                        ( "domain",
-                                          l
-                                            [
-                                              s "outside updates";
-                                              s "during an update (either run)";
-                                            ] );
-                                        ("range", l [ s muted; s "#1baf7a" ]);
+                                        ( "test",
+                                          s "lv == 'overlaid' && !datum.during"
+                                        );
+                                        ("value", s surface);
                                       ] );
+                                  ("field", s "ck");
+                                  ("type", s "nominal");
+                                  ("title", `Null);
+                                  ("scale", colour_scale);
                                   ("legend", o [ ("orient", s "top") ]);
                                 ] );
                             ( "tooltip",

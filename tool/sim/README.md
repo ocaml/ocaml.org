@@ -274,8 +274,9 @@ This writes one HTML page with Vega-Lite charts (open it in a browser):
 
    A toggle above the two latency charts (latency distributions, same
    request) shows human and bot traffic split (one panel each), overlaid (one
-   panel, bot dashed or as squares), or merged (one panel, all requests
-   pooled).
+   panel; in the ECDF bot is dashed, in the same-request scatter colour shows
+   the stream and filled/hollow the update timing), or merged (one panel,
+   all requests pooled).
 
 With `--noise DIR/noise.json` (once per image), the ratio chart draws each
 metric's noise band and leaves B's dot hollow where the difference is
