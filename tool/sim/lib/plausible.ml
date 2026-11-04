@@ -46,14 +46,20 @@ let rows (j : Yojson.Safe.t) =
 let hour_of s =
   if String.length s >= 13 then int_of_string_opt (String.sub s 11 2) else None
 
-let hourly rows =
+(* Plausible reports [time:hour] in the site's reporting timezone, and the API
+   cannot ask for another; [Profile.hourly] is in UTC. [utc_offset] is that
+   timezone's offset from UTC in hours (2 for Europe/Paris in summer): a
+   pageview at local hour [h] goes to UTC hour [h - utc_offset]. *)
+let hourly ?(utc_offset = 0) rows =
   let a = Array.make 24 0. in
   List.iter
     (fun (dims, v) ->
       match dims with
       | [ t ] -> (
           match hour_of t with
-          | Some h when h >= 0 && h < 24 -> a.(h) <- a.(h) +. v
+          | Some h when h >= 0 && h < 24 ->
+              let u = (((h - utc_offset) mod 24) + 24) mod 24 in
+              a.(u) <- a.(u) +. v
           | _ -> ())
       | _ -> ())
     rows;
@@ -109,7 +115,8 @@ let period_seconds = function
       | Some d -> Some (float_of_int d *. 86400.)
       | None -> None)
 
-let profile ~site ~period ~total_rows ~hour_rows ~page_rows =
+let profile ?(utc_offset = 0) ~site ~period ~total_rows ~hour_rows ~page_rows ()
+    =
   let total =
     match total_rows with (_, v) :: _ -> v | [] -> failwith "no total"
   in
@@ -119,9 +126,10 @@ let profile ~site ~period ~total_rows ~hour_rows ~page_rows =
     | None -> failwith ("unsupported period (use e.g. 30d): " ^ period)
   in
   {
-    Profile.source = Printf.sprintf "plausible:%s:%s" site period;
+    Profile.source =
+      Printf.sprintf "plausible:%s:%s:utc%+d" site period utc_offset;
     base_rps = total /. seconds;
-    hourly = hourly hour_rows;
+    hourly = hourly ~utc_offset hour_rows;
     pages = pages ~total page_rows;
   }
 
@@ -142,10 +150,10 @@ let post ~base ~key body =
       Lwt.fail_with
         (Printf.sprintf "Plausible %s: %s" (Cohttp.Code.string_of_status st) s)
 
-let fetch ~base ~key ~site ~period ~limit =
+let fetch ?utc_offset ~base ~key ~site ~period ~limit () =
   let q = query ~site ~period in
   let* total = post ~base ~key (q ()) in
   let* hours = post ~base ~key (q ~dimensions:[ "time:hour" ] ()) in
   let+ pages = post ~base ~key (q ~dimensions:[ "event:page" ] ~limit ()) in
-  profile ~site ~period ~total_rows:(rows total) ~hour_rows:(rows hours)
-    ~page_rows:(rows pages)
+  profile ?utc_offset ~site ~period ~total_rows:(rows total)
+    ~hour_rows:(rows hours) ~page_rows:(rows pages) ()

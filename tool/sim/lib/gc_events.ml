@@ -65,6 +65,8 @@ type bucket = {
   mutable major_n : int;
   mutable major_sum : float;
   mutable major_max : float;
+  mutable heap_words : int option;
+      (** last major heap size seen in the second *)
 }
 
 let empty () =
@@ -75,6 +77,7 @@ let empty () =
     major_n = 0;
     major_sum = 0.;
     major_max = 0.;
+    heap_words = None;
   }
 
 let header =
@@ -114,7 +117,13 @@ let run ~dir ~pid ~t0 ~until ~events csv =
     let cursor = Runtime_events.create_cursor (Some (dir, pid)) in
     let buckets : (int, bucket) Hashtbl.t = Hashtbl.create 64 in
     let open_spans = Hashtbl.create 8 in
-    let heap = ref None and pool = ref 0 and large = ref 0 and lost = ref 0 in
+    let pool = ref 0 and large = ref 0 and lost = ref 0 in
+    (* the heap size of the last second written, carried into seconds without a
+       counter event *)
+    let last_heap = ref None in
+    (* seconds before [flushed] are written; a pause that ends later and starts
+       in one of them stays in [events] but is left out of [csv] *)
+    let flushed = ref min_int and late = ref 0 in
     let bucket sec =
       match Hashtbl.find_opt buckets sec with
       | Some b -> b
@@ -144,29 +153,38 @@ let run ~dir ~pid ~t0 ~until ~events csv =
                   (if phase = EV_MINOR then "minor" else "major");
                   Printf.sprintf "%.4f" ms;
                 ];
-              let b = bucket (int_of_float t) in
-              if phase = EV_MINOR then (
-                b.minor_n <- b.minor_n + 1;
-                b.minor_sum <- b.minor_sum +. ms;
-                b.minor_max <- Float.max b.minor_max ms)
-              else (
-                b.major_n <- b.major_n + 1;
-                b.major_sum <- b.major_sum +. ms;
-                b.major_max <- Float.max b.major_max ms))
-        ~runtime_counter:(fun _ _ counter v ->
+              let sec = int_of_float t in
+              if sec < !flushed then incr late
+              else
+                let b = bucket sec in
+                if phase = EV_MINOR then (
+                  b.minor_n <- b.minor_n + 1;
+                  b.minor_sum <- b.minor_sum +. ms;
+                  b.minor_max <- Float.max b.minor_max ms)
+                else (
+                  b.major_n <- b.major_n + 1;
+                  b.major_sum <- b.major_sum +. ms;
+                  b.major_max <- Float.max b.major_max ms))
+        ~runtime_counter:(fun _ ts counter v ->
+          let set () =
+            let sec = int_of_float (ns ts +. offset -. t0) in
+            if sec >= !flushed then
+              (bucket sec).heap_words <- Some (!pool + !large)
+          in
           match counter with
           | EV_C_MAJOR_HEAP_POOL_WORDS ->
               pool := v;
-              heap := Some (!pool + !large)
+              set ()
           | EV_C_MAJOR_HEAP_LARGE_WORDS ->
               large := v;
-              heap := Some (!pool + !large)
+              set ()
           | _ -> ())
         ~lost_events:(fun _ n -> lost := !lost + n)
         ()
     in
-    (* Emit every bucket older than the current second. *)
+    (* Emit every bucket before second [upto], in order. *)
     let flush ~upto =
+      flushed := max !flushed upto;
       let secs =
         Hashtbl.fold
           (fun s _ acc -> if s < upto then s :: acc else acc)
@@ -186,10 +204,11 @@ let run ~dir ~pid ~t0 ~until ~events csv =
               string_of_int b.major_n;
               Csv.float b.major_sum;
               Csv.float b.major_max;
-              (match !heap with
-              | Some w ->
-                  Printf.sprintf "%.1f" (float_of_int (w * 8) /. 1048576.)
-              | None -> "");
+              (if b.heap_words <> None then last_heap := b.heap_words;
+               match !last_heap with
+               | Some w ->
+                   Printf.sprintf "%.1f" (float_of_int (w * 8) /. 1048576.)
+               | None -> "");
               string_of_int !lost;
             ])
         secs
@@ -199,9 +218,17 @@ let run ~dir ~pid ~t0 ~until ~events csv =
       let alive = Sys.file_exists ring in
       (try ignore (Runtime_events.read_poll cursor cb None)
        with Failure _ -> ());
-      flush ~upto:(int_of_float (now -. t0));
+      (* two seconds behind: a pause is counted in the second it started, and
+         ends (and is read from the ring) a little later *)
+      flush ~upto:(int_of_float (now -. t0) - 2);
       if now >= until () || not alive then (
         flush ~upto:max_int;
+        if !late > 0 then
+          Printf.eprintf
+            "sim: %d GC pauses ended after their second was written; in \
+             gc-events.csv only\n\
+             %!"
+            !late;
         Runtime_events.free_cursor cursor;
         Lwt.return_unit)
       else

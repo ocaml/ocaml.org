@@ -59,6 +59,27 @@ let sorted_of_list l =
 let ok status =
   match int_of_string_opt status with Some c -> c < 400 | None -> false
 
+(* Requests that count in latency distributions: successful ones, and the two
+   kinds that got no answer in time, counted at a lower bound. A timeout counts
+   at its measured latency, at least the timeout; a request dropped because
+   [max_inflight] were outstanding counts at the timeout, since a real visitor
+   would have waited at least that long. Leaving them out would make a build
+   that stalls look faster. Errors (failed connections, 4xx, 5xx) stay out. *)
+let has_latency status = ok status || status = "timeout" || status = "drop"
+
+(* The client timeout of a run, in seconds: [meta.json], or the default for runs
+   that predate it there. *)
+let run_timeout dir =
+  let path = Filename.concat dir "meta.json" in
+  match Yojson.Safe.from_file path with
+  | `Assoc kv -> (
+      match List.assoc_opt "timeout" kv with
+      | Some (`Float f) -> f
+      | Some (`Int i) -> float_of_int i
+      | _ -> 30.)
+  | _ -> 30.
+  | exception _ -> 30.
+
 type req = {
   t : float;  (** scheduled send time, seconds since the run started *)
   latency_ms : float;
@@ -73,7 +94,8 @@ let rows dir file =
   let path = Filename.concat dir file in
   if Sys.file_exists path then snd (Csv.read path) else []
 
-let read_traffic dir =
+let read_traffic_file dir =
+  let timeout_ms = run_timeout dir *. 1000. in
   List.filter_map
     (function
       | t :: _ :: lat :: status :: _ :: stream :: cls :: path :: rest -> (
@@ -82,14 +104,17 @@ let read_traffic dir =
               let id =
                 match rest with i :: _ -> int_of_string_opt i | [] -> None
               in
-              Some { t; latency_ms = l *. 1000.; status; stream; cls; path; id }
+              let latency_ms =
+                if status = "drop" then timeout_ms else l *. 1000.
+              in
+              Some { t; latency_ms; status; stream; cls; path; id }
           | _ -> None)
       | _ -> None)
     (rows dir "traffic.csv")
 
 type pause = { start : float; ms : float; kind : string }
 
-let read_pauses dir =
+let read_pauses_file dir =
   List.filter_map
     (function
       | t :: kind :: ms :: _ -> (
@@ -130,7 +155,7 @@ let empty_sample st =
   }
 
 (* Runs made before the memory-pressure columns existed read them as [nan]. *)
-let read_resources dir =
+let read_resources_file dir =
   let f s = Option.value ~default:nan (float_of_string_opt s) in
   List.filter_map
     (function
@@ -158,6 +183,30 @@ let read_resources dir =
       | _ -> None)
     (rows dir "resources.csv")
   |> Array.of_list
+
+(* [f dir], parsed once per command for each version of [dir]'s [file]: [sim
+   viz] and [sim compare] read the same run's files from several places, and
+   [sim run] summarises and then plots. Keyed by modification time and size, so
+   a file that changes is read again. *)
+let memo_by_file file f =
+  let tbl = Hashtbl.create 8 in
+  fun dir ->
+    let path = Filename.concat dir file in
+    let key =
+      match Unix.stat path with
+      | s -> (path, s.Unix.st_mtime, s.st_size)
+      | exception Unix.Unix_error _ -> (path, 0., -1)
+    in
+    match Hashtbl.find_opt tbl key with
+    | Some v -> v
+    | None ->
+        let v = f dir in
+        Hashtbl.replace tbl key v;
+        v
+
+let read_traffic = memo_by_file "traffic.csv" read_traffic_file
+let read_pauses = memo_by_file "gc-events.csv" read_pauses_file
+let read_resources = memo_by_file "resources.csv" read_resources_file
 
 let read_sync dir =
   List.filter_map
@@ -194,11 +243,15 @@ let windows_of_events events =
 let window_grace = 1.
 
 (* The start of an update still running when the log ends: an ["update"] with no
-   ["loaded"] or ["saved"] after it. *)
+   ["loaded"], ["saved"] or ["failed"] after it. A failed update has ended, like
+   one that saved. *)
 let unfinished_update events =
   List.fold_left
     (fun acc (t, ev) ->
-      match ev with "update" -> Some t | "loaded" | "saved" -> None | _ -> acc)
+      match ev with
+      | "update" -> Some t
+      | "loaded" | "saved" | "failed" -> None
+      | _ -> acc)
     None events
 
 (* With [~unfinished:true] (the default), an update still running when the run
@@ -379,7 +432,8 @@ let latency_buckets ~bucket reqs =
          let lat =
            sorted_of_list
              (List.filter_map
-                (fun r -> if ok r.status then Some r.latency_ms else None)
+                (fun r ->
+                  if has_latency r.status then Some r.latency_ms else None)
                 rs)
          in
          let count p = string_of_int (List.length (List.filter p rs)) in
@@ -591,7 +645,8 @@ let timeline ~bin ~run_end ~wins ~samples ~pauses ~reqs ~heap ~feed streams =
         let lat =
           sorted_of_list
             (List.filter_map
-               (fun r -> if ok r.status then Some r.latency_ms else None)
+               (fun r ->
+                 if has_latency r.status then Some r.latency_ms else None)
                rs)
         in
         let n = Array.length lat in
@@ -666,7 +721,8 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
     sorted_of_list
       (List.filter_map
          (fun r ->
-           if r.stream = s && ok r.status && f r.t then Some r.latency_ms
+           if r.stream = s && has_latency r.status && f r.t then
+             Some r.latency_ms
            else None)
          reqs)
   in
@@ -941,7 +997,9 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
               ("time", `String "seconds since the run started");
               ( "latency",
                 `String
-                  "from the scheduled send time, successful responses only" );
+                  "from the scheduled send time; successful responses, plus \
+                   timeouts (at their latency) and drops (at the timeout) as \
+                   lower bounds; errors excluded" );
               ( "percentiles",
                 `String
                   "nearest rank; value is null when no sample lies above it; \
@@ -1105,7 +1163,8 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
   let dist label a =
     pr "  %-26s n=%-7d %s\n" label (Array.length a) (distribution a)
   in
-  pr "Latency, ms (from scheduled send time; successful responses only)\n";
+  pr
+    "Latency, ms (from scheduled send time; timeouts and drops as lower bounds)\n";
   List.iter
     (fun s ->
       let sent, errors, dropped = counts s in

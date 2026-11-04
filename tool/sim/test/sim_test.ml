@@ -3,15 +3,6 @@ open Sim
 let commits l =
   Array.of_list (List.map (fun (sha, time) -> { Upstream.sha; time }) l)
 
-let test_select () =
-  let h = commits [ ("a", 100.); ("b", 200.); ("c", 200.); ("d", 350.) ] in
-  let sel t = h.(Upstream.select h t).sha in
-  Alcotest.(check string) "before first" "a" (sel 50.);
-  Alcotest.(check string) "at first" "a" (sel 100.);
-  Alcotest.(check string) "between" "a" (sel 199.);
-  Alcotest.(check string) "ties take the last" "c" (sel 200.);
-  Alcotest.(check string) "past the end" "d" (sel 1e9)
-
 let test_feed_offsets () =
   let h = commits [ ("a", 1000.); ("b", 1720.); ("c", 1720.); ("d", 8200.) ] in
   let off i = Upstream.offset ~h ~speedup:720. i in
@@ -93,9 +84,18 @@ let test_plausible () =
   let p =
     Plausible.profile ~site:"ocaml.org" ~period:"day"
       ~total_rows:(rows plausible_total) ~hour_rows:(rows plausible_hours)
-      ~page_rows:(rows plausible_pages)
+      ~page_rows:(rows plausible_pages) ()
   in
   Alcotest.(check (float 1e-9)) "rate" 1. p.base_rps;
+  let shifted =
+    Plausible.profile ~utc_offset:2 ~site:"ocaml.org" ~period:"day"
+      ~total_rows:(rows plausible_total) ~hour_rows:(rows plausible_hours)
+      ~page_rows:(rows plausible_pages) ()
+  in
+  Alcotest.(check (float 1e-9))
+    "local 12:00 at UTC+2 is 10:00 UTC" p.hourly.(12) shifted.hourly.(10);
+  Alcotest.(check (float 1e-9))
+    "local 01:00 at UTC+2 wraps to 23:00 UTC" p.hourly.(1) shifted.hourly.(23);
   Alcotest.(check bool)
     "noon busier than midnight" true
     (p.hourly.(12) > p.hourly.(0));
@@ -219,7 +219,11 @@ let test_unfinished_update () =
   Alcotest.(check (option (float 0.)))
     "every update finished" None
     (Summary.unfinished_update
-       [ (1., "update"); (4., "loaded"); (10., "update"); (12., "saved") ])
+       [ (1., "update"); (4., "loaded"); (10., "update"); (12., "saved") ]);
+  Alcotest.(check (option (float 0.)))
+    "a failed update has ended" None
+    (Summary.unfinished_update
+       [ (1., "update"); (3., "failed"); (4., "phase") ])
 
 let test_psi () =
   let path = Filename.temp_file "psi" ".txt" in
@@ -230,6 +234,36 @@ let test_psi () =
   let v = Sim.Sampler.psi_some_total path in
   Sys.remove path;
   Alcotest.(check (option int)) "some total" (Some 112899051) v
+
+let test_censored_latency () =
+  let dir = Filename.temp_dir "sim" "" in
+  let write name s =
+    Out_channel.with_open_text (Filename.concat dir name) (fun oc ->
+        output_string oc s)
+  in
+  write "meta.json" {|{"timeout": 5.0}|};
+  write "traffic.csv"
+    "t_sched,t_send,latency,status,bytes,stream,class,path,id\n\
+     1.0,1.0,0.010,200,10,bot,pkg,/a,0\n\
+     2.0,2.0,5.200,timeout,0,bot,pkg,/b,1\n\
+     3.0,3.0,0.000,drop,0,bot,pkg,/c,2\n\
+     4.0,4.0,0.001,error,0,bot,pkg,/d,3\n";
+  let lat =
+    Summary.read_traffic dir
+    |> List.filter_map (fun (r : Summary.req) ->
+           if Summary.has_latency r.status then Some r.latency_ms else None)
+  in
+  Alcotest.(check (list (float 1e-6)))
+    "ok, timeout at its latency, drop at the timeout; no error"
+    [ 10.; 5200.; 5000. ] lat
+
+let test_env_override () =
+  Unix.putenv "SIM_TEST_OVERRIDE" "old";
+  let e = Array.to_list (Proc.env [ ("SIM_TEST_OVERRIDE", "new") ]) in
+  Alcotest.(check (list string))
+    "only the value sim sets"
+    [ "SIM_TEST_OVERRIDE=new" ]
+    (List.filter (String.starts_with ~prefix:"SIM_TEST_OVERRIDE=") e)
 
 let plan_profile =
   {
@@ -474,7 +508,6 @@ let () =
     [
       ( "upstream",
         [
-          Alcotest.test_case "select" `Quick test_select;
           Alcotest.test_case "parse_log" `Quick test_parse_log;
           Alcotest.test_case "feed offsets" `Quick test_feed_offsets;
         ] );
@@ -497,6 +530,8 @@ let () =
           Alcotest.test_case "windows" `Quick test_windows;
           Alcotest.test_case "unfinished update" `Quick test_unfinished_update;
           Alcotest.test_case "psi" `Quick test_psi;
+          Alcotest.test_case "censored latency" `Quick test_censored_latency;
+          Alcotest.test_case "env override" `Quick test_env_override;
           Alcotest.test_case "packages" `Quick test_packages_of_find;
           Alcotest.test_case "plan deterministic" `Quick test_plan_deterministic;
           Alcotest.test_case "plan streams independent" `Quick

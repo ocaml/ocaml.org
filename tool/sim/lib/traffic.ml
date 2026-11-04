@@ -80,9 +80,6 @@ let instantiate rng (pkgs : packages) path =
     |> replace_all ~sub:"{pkg}" ~by:name
     |> replace_all ~sub:"{ver}" ~by:ver
 
-(* Human visitors: a profile's page mix at its diurnal rate. [hour_of] maps
-   wall-clock time to the UTC hour whose weight applies. *)
-
 (* Human visitors: a profile's page mix at its diurnal rate. [hour_of] maps an
    offset from the start of traffic to the UTC hour whose weight applies. *)
 let human ~seed ~profile ~packages ~scale ~hour_of =
@@ -206,20 +203,25 @@ let request ~base ~timeout path =
 (* Send [plan] (from [plan]), counting offsets from [start], up to [until]. *)
 let run ~base ~t0 ~start ~until ~max_inflight ~timeout csv plan =
   let inflight = ref 0 in
+  (* Once [run] returns, the caller closes [csv]: a request that resolves later
+     (only if the event loop lags past [drain]) must not write to it. *)
+  let finished = ref false in
   let record ~sched ~send ~fin ~status ~bytes (p : planned) =
-    Csv.row csv
-      [
-        Csv.float6 (sched -. t0);
-        Csv.float6 (send -. t0);
-        Csv.float6 (fin -. sched);
-        status;
-        string_of_int bytes;
-        p.stream;
-        Profile.classify p.path;
-        (* the only field that may contain a comma *)
-        replace_all ~sub:"," ~by:"%2C" p.path;
-        string_of_int p.id;
-      ]
+    if !finished then ()
+    else
+      Csv.row csv
+        [
+          Csv.float6 (sched -. t0);
+          Csv.float6 (send -. t0);
+          Csv.float6 (fin -. sched);
+          status;
+          string_of_int bytes;
+          p.stream;
+          Profile.classify p.path;
+          (* the only field that may contain a comma *)
+          replace_all ~sub:"," ~by:"%2C" p.path;
+          string_of_int p.id;
+        ]
   in
   let fire p sched =
     let send = Unix.gettimeofday () in
@@ -252,4 +254,10 @@ let run ~base ~t0 ~start ~until ~max_inflight ~timeout csv plan =
       let* () = Lwt_unix.sleep 0.1 in
       drain (n - 1)
   in
-  drain (int_of_float (timeout *. 10.) + 10)
+  let+ () = drain (int_of_float (timeout *. 10.) + 10) in
+  finished := true;
+  if !inflight > 0 then
+    Printf.eprintf
+      "sim: %d requests still outstanding when the traffic ended; not recorded\n\
+       %!"
+      !inflight

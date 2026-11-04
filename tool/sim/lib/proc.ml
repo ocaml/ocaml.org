@@ -13,8 +13,21 @@ let check argv = function
   | Unix.WSIGNALED n | Unix.WSTOPPED n ->
       raise (Failed (Printf.sprintf "%s: signal %d" (show argv) n))
 
+(* The current environment with [extra] set. Keys of [extra] are removed from
+   the inherited environment first: with a duplicate, glibc [getenv] and Go
+   (docker compose) keep the first, so an exported [SIM_IMAGE] in the shell
+   would otherwise win over the image [sim] was asked to run. *)
 let env extra =
-  Array.append (Unix.environment ())
+  let overridden kv =
+    match String.index_opt kv '=' with
+    | Some i -> List.mem_assoc (String.sub kv 0 i) extra
+    | None -> false
+  in
+  Array.append
+    (Array.of_list
+       (List.filter
+          (fun kv -> not (overridden kv))
+          (Array.to_list (Unix.environment ()))))
     (Array.of_list (List.map (fun (k, v) -> k ^ "=" ^ v) extra))
 
 (* Run [argv] and return its standard output; raise [Failed] on a non-zero

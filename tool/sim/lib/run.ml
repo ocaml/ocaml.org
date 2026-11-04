@@ -88,6 +88,7 @@ let write_meta c ~h ~image_id ~t0 ~t_ready ~packages =
         ("tip_commit", `String h.(n - 1).sha);
         ("speedup", `Float c.speedup);
         ("poll", `Int c.poll);
+        ("timeout", `Float c.timeout);
         ("duration", `Float c.duration);
         ("mem", `String c.mem);
         ("cpus", `String c.cpus);
@@ -109,7 +110,10 @@ let write_meta c ~h ~image_id ~t0 ~t_ready ~packages =
   in
   Yojson.Safe.to_file (Filename.concat c.out "meta.json") json
 
-let run c =
+(* [at_failure f] registers [f] to run if the run raises: the steps after it
+   acquired something (the docs stub, the compose stack, files, the log
+   follower) that the success path releases at its end. *)
+let run_body ~at_failure c =
   mkdir_p c.out 0o755;
   let rte = Filename.concat c.out "rte" in
   mkdir_p rte 0o777;
@@ -143,6 +147,7 @@ let run c =
         in
         let gw = String.trim gw in
         let+ stub = Docs_stub.start ~host:gw ~port:c.docs_port in
+        at_failure (fun () -> Docs_stub.stop stub);
         let base = Printf.sprintf "http://%s:%d/" gw c.docs_port in
         ( Some stub,
           [ ("SIM_DOC_URL", base ^ "docs/"); ("SIM_DOC_STATUS_URL", base) ] )
@@ -170,6 +175,22 @@ let run c =
   let startup_limit = 300. in
   let end_ = ref (t0 +. startup_limit +. c.duration) in
   let until () = !end_ in
+  (* Every process the server forks (git) inherits runtime events and leaves a
+     ring of its own behind; they are sparse, but numerous. *)
+  let remove_rings () =
+    Array.iter
+      (fun f ->
+        if Filename.check_suffix f ".events" && not (c.keep && f = "1.events")
+        then try Sys.remove (Filename.concat rte f) with Sys_error _ -> ())
+      (Sys.readdir rte)
+  in
+  at_failure (fun () ->
+      (* down first: the server keeps forking, and leaving rings, until then *)
+      let+ () =
+        if c.keep then Lwt.return_unit
+        else Proc.run ~extra_env:env (compose_cmd c [ "down" ])
+      in
+      remove_rings ());
   let* () = Proc.run ~extra_env:env (compose_cmd c [ "up"; "-d" ]) in
   let* container =
     Proc.read ~extra_env:env (compose_cmd c [ "ps"; "-q"; "server" ])
@@ -184,6 +205,11 @@ let run c =
   let raw = open_out (file "server.log") in
   let sync_csv = Csv.create (file "sync.csv") Server_log.header in
   let logs = Server_log.follow ~container ~t0 ~stop ~raw sync_csv in
+  at_failure (fun () ->
+      (try Lwt.wakeup_later stop_wakener () with Invalid_argument _ -> ());
+      let+ () = logs in
+      Csv.close sync_csv;
+      close_out raw);
   (* The ring is created by the server as soon as its runtime starts, owned by
      uid 1000 and readable by its owner only; open it up for the host. *)
   let ring_in_container = "/sim/rte/1.events" in
@@ -215,6 +241,9 @@ let run c =
   let gc_events_csv =
     Csv.create (file "gc-events.csv") Gc_events.events_header
   in
+  at_failure (fun () ->
+      List.iter Csv.close [ feed_csv; res_csv; gc_csv; gc_events_csv ];
+      Lwt.return_unit);
   (* The moment the server first answers is the origin of both the upstream
      replay and the traffic, so they stay aligned with each other whatever the
      start-up time. *)
@@ -290,6 +319,9 @@ let run c =
       else []
     in
     let csv = Csv.create (file "traffic.csv") Traffic.header in
+    at_failure (fun () ->
+        Csv.close csv;
+        Lwt.return_unit);
     let+ () =
       if t_ready <> None then
         let plan = Traffic.plan ~seed:c.seed ~duration:c.duration streams in
@@ -310,13 +342,7 @@ let run c =
       Lwt.return_unit)
     else Proc.run ~extra_env:env (compose_cmd c [ "down" ])
   in
-  (* Every process the server forks (git) inherits runtime events and leaves a
-     ring of its own behind; they are sparse, but numerous. *)
-  Array.iter
-    (fun f ->
-      if Filename.check_suffix f ".events" && not (c.keep && f = "1.events")
-      then try Sys.remove (Filename.concat rte f) with Sys_error _ -> ())
-    (Sys.readdir rte);
+  remove_rings ();
   match stub with
   | None -> Lwt.return_unit
   | Some stub ->
@@ -328,3 +354,23 @@ let run c =
         (String.concat ", "
            (List.map (fun (k, n) -> Printf.sprintf "%d %s" n k) counts));
       Lwt.return_unit
+
+(* On failure, release what was acquired, latest first, then re-raise: without
+   this, a run that fails after [compose up] leaves the server container running
+   and the docs stub's port taken, which breaks the next run. *)
+let run c =
+  let cleanups = ref [] in
+  let at_failure f = cleanups := f :: !cleanups in
+  Lwt.catch
+    (fun () -> run_body ~at_failure c)
+    (fun e ->
+      let* () =
+        Lwt_list.iter_s
+          (fun f ->
+            Lwt.catch f (fun e' ->
+                Printf.eprintf "sim: cleanup after failure: %s\n%!"
+                  (Printexc.to_string e');
+                Lwt.return_unit))
+          !cleanups
+      in
+      Lwt.reraise e)

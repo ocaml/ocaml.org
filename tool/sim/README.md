@@ -99,9 +99,11 @@ the same offsets, whatever each server does. Requests with the same `id` in
 from that moment too, so a server that took longer to start gets the same
 traffic window.
 
-What each server *loads* can still differ. Each server polls 5 s after its
-previous update ends, as in production, so a server with longer updates
-loads fewer, larger steps of the same history. `sim compare` lists the
+What each server *loads* can still differ. As in production, each server
+waits `OCAMLORG_OPAM_POLLING` seconds after its previous update ends before
+polling again (3600 in production; `--poll` here, by default 3600 divided by
+the speedup), so a server with longer updates loads fewer, larger steps of the
+same history. `sim compare` lists the
 commits each server loaded, and which ones only one of them saw.
 
 The first update cycle rebuilds the package state from scratch: the image's
@@ -316,7 +318,10 @@ from the replayed repository. They stand for the long tail of package pages.
   statistics. It needs a Stats API key in `OCAMLORG_PLAUSIBLE_KEY`. It runs
   three queries over `--period` (default `30d`): total pageviews, pageviews
   per hour, and the top `--limit` pages. The pageviews of the pages below the
-  limit go to the package-page placeholders. Plausible counts page views by
+  limit go to the package-page placeholders. Plausible reports hours in the
+  site's reporting timezone, while profiles are in UTC: pass that timezone's
+  offset with `--utc-offset` (for example `1` for Europe/Paris in winter,
+  `2` in summer). Plausible counts page views by
   browsers, not requests to the server: assets and pages served from the CDN
   cache never reach the server, so use `--traffic-scale` to explore around
   the measured rate.

@@ -1,6 +1,7 @@
 (* Minimal CSV writer. Every file starts with a header row; fields never contain
-   commas (paths are written as-is, and the paths we request have none). Rows
-   are flushed eagerly so a run that is interrupted still leaves usable data. *)
+   commas (the only field that could, a request path, has them written as [%2C]
+   by [Traffic]). Rows are flushed eagerly so a run that is interrupted still
+   leaves usable data. *)
 
 type t = out_channel
 

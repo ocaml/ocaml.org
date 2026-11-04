@@ -570,7 +570,7 @@ let raw_charts ~a ~b ~na ~nb ~run_end =
   let requests dir run =
     List.filter_map
       (fun (r : Summary.req) ->
-        if not (Summary.ok r.status) then None
+        if not (Summary.has_latency r.status) then None
         else
           Some
             (o
@@ -690,7 +690,7 @@ let epoch_rows dir run =
              List.filter_map
                (fun (r : Summary.req) ->
                  let d = r.t -. st in
-                 if d >= -10. && d <= 45. && Summary.ok r.status then
+                 if d >= -10. && d <= 45. && Summary.has_latency r.status then
                    Some
                      (o
                         [
@@ -1119,7 +1119,7 @@ let latency_rows ?(src = "compared") dir run =
   let lat f =
     List.filter_map
       (fun (r : Summary.req) ->
-        if f r && Summary.ok r.status then Some r.latency_ms else None)
+        if f r && Summary.has_latency r.status then Some r.latency_ms else None)
       reqs
   in
   let q stream values =

@@ -303,7 +303,16 @@ let plausible_cmd =
     Arg.(
       value & opt int 500 & info [ "limit" ] ~doc:"Number of top pages to keep.")
   in
-  let go base site period limit output =
+  let utc_offset =
+    Arg.(
+      value & opt int 0
+      & info [ "utc-offset" ] ~docv:"HOURS"
+          ~doc:
+            "Offset from UTC, in hours, of the site's reporting timezone in \
+             Plausible (e.g. 1 for Europe/Paris in winter, 2 in summer). \
+             Plausible reports hours in that timezone; profiles are in UTC.")
+  in
+  let go base site period limit utc_offset output =
     match Sys.getenv_opt "OCAMLORG_PLAUSIBLE_KEY" with
     | None | Some "" ->
         prerr_endline
@@ -311,7 +320,8 @@ let plausible_cmd =
         exit 2
     | Some key ->
         let p =
-          Lwt_main.run (Plausible.fetch ~base ~key ~site ~period ~limit)
+          Lwt_main.run
+            (Plausible.fetch ~utc_offset ~base ~key ~site ~period ~limit ())
         in
         Profile.save output p;
         Printf.printf "sim: %s: %.3f pages/s, %d pages\n" output p.base_rps
@@ -320,7 +330,7 @@ let plausible_cmd =
   Cmd.v
     (Cmd.info "plausible"
        ~doc:"Build a profile from Plausible (key in OCAMLORG_PLAUSIBLE_KEY).")
-    Term.(const go $ base $ site $ period $ limit $ output)
+    Term.(const go $ base $ site $ period $ limit $ utc_offset $ output)
 
 let access_log_cmd =
   let files =

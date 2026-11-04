@@ -95,7 +95,8 @@ let match_requests a b =
       | Some (q : Summary.req) ->
           if q.path <> r.path then { m with mismatches = m.mismatches + 1 }
           else
-            let oa = Summary.ok q.status and ob = Summary.ok r.status in
+            let oa = Summary.has_latency q.status
+            and ob = Summary.has_latency r.status in
             if oa && ob then
               {
                 m with
@@ -260,9 +261,10 @@ let how_to_read =
      are suspect. Null for runs made before these were recorded.";
     "loaded_commits lists the opam-repository commits each server actually \
      loaded. Both runs replay the same upstream states at the same offsets, \
-     but each server polls on its own schedule (5 s after its previous update \
-     ends), so a server with longer updates loads fewer, larger steps. Totals \
-     such as total CPU partly reflect that; per-update medians do not.";
+     but each server polls on its own schedule (parameters.poll seconds after \
+     its previous update ends, OCAMLORG_OPAM_POLLING; 3600 in production), so \
+     a server with longer updates loads fewer, larger steps. Totals such as \
+     total CPU partly reflect that; per-update medians do not.";
     "events lists each run's updates, upstream advances, longest GC pauses and \
      latency bursts; files lists each run's data for detail (timeline.csv \
      first, then the raw CSVs).";
@@ -275,8 +277,10 @@ let paired_definitions =
        to every request; removes the network and name resolution from the \
        measurements" );
     ( "pair",
-      "the same planned request (stream and id, same path) in both runs, \
-       successful in both" );
+      "the same planned request (stream and id, same path) in both runs, with \
+       a latency in both: successful, or a timeout or drop counted at a lower \
+       bound (see latency); ok_only_in_a and ok_only_in_b count the requests \
+       that failed (error) in only one run" );
     ( "during_update",
       "in paired_latency_ms, the request was scheduled inside an update window \
        in either run; in metrics (latency_ms.*.during_update and \

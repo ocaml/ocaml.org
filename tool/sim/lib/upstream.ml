@@ -62,19 +62,6 @@ let history ~image ~days =
   in
   Array.sub all first (n - first)
 
-(* Index of the last commit of [h] (sorted oldest first) whose date is at most
-   [t], or 0 if they are all later. *)
-let select h t =
-  let rec go lo hi =
-    (* invariant: h.(lo).time <= t or lo = 0, and every index > hi is > t *)
-    if lo >= hi then lo
-    else
-      let mid = (lo + hi + 1) / 2 in
-      if h.(mid).time <= t then go mid hi else go lo (mid - 1)
-  in
-  if Array.length h = 0 then invalid_arg "Upstream.select"
-  else go 0 (Array.length h - 1)
-
 (* Feed [h] into the running container: commit [i] becomes upstream's [master]
    at [origin + (time_i - time_0) / speedup], one commit at a time. The schedule
    depends only on the history and the speedup, so every run with the same
@@ -116,7 +103,3 @@ let feed ~container ~h ~speedup ~t0 ~origin ~until csv =
             go (i + 1)
       in
       go 1)
-
-(* The replayed (compressed) clock: the history date that corresponds to
-   wall-clock time [now]. *)
-let replay_time ~h ~speedup ~t0 now = h.(0).time +. ((now -. t0) *. speedup)
