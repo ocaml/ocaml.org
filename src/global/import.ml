@@ -2,14 +2,20 @@ module String = struct
   include Stdlib.String
   module Map = Map.Make (Stdlib.String)
 
-  let contains_s s1 s2 =
-    try
-      let len = String.length s2 in
-      for i = 0 to String.length s1 - len do
-        if String.sub s1 i len = s2 then raise Exit
-      done;
-      false
-    with Exit -> true
+  (* Whether [s2] occurs in [s1]. Compares in place: package search calls it on
+     every field of every package, so it must not allocate. *)
+  let contains_s =
+    (* Closed functions: local closures over [s1] and [s2] would be allocated on
+       every call. *)
+    let rec matches_at s1 s2 n2 i j =
+      j = n2
+      || unsafe_get s1 (i + j) = unsafe_get s2 j
+         && matches_at s1 s2 n2 i (j + 1)
+    in
+    let rec from s1 s2 n1 n2 i =
+      i <= n1 - n2 && (matches_at s1 s2 n2 i 0 || from s1 s2 n1 n2 (i + 1))
+    in
+    fun s1 s2 -> from s1 s2 (length s1) (length s2) 0
 
   (* ripped off stringext, itself ripping it off from one of dbuenzli's libs *)
   let cut s ~on =

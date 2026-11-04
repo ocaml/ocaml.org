@@ -6,6 +6,18 @@ module Statistics = Packages_stats
 module Publication_dates = Publication_dates
 open Package
 
+(* The latest version of a package, with the fields search matches on
+   case-folded once, instead of on every query. *)
+type search_entry = {
+  package : t;
+  folded_name : string;
+  folded_synopsis : string;
+  folded_description : string;
+  folded_tags : string list;
+  folded_authors : string list;
+  rev_deps_count : int;
+}
+
 (* When this type changes, [Info.version] needs to be incremented to invalidate
    the cache *)
 type state = {
@@ -14,6 +26,10 @@ type state = {
   mutable packages : Info.t Version.Map.t Name.Map.t;
   mutable stats : Statistics.t option;
   docs : Documentation.doc_cache;
+  mutable search_index :
+    (Info.t Version.Map.t Name.Map.t * search_entry list) option;
+      (** Not persisted: built by [search] from the [packages] it is paired
+          with, and rebuilt once [packages] is replaced. *)
 }
 
 (* Persisted projection of [state]: the [docs] runtime cache is excluded (it
@@ -53,6 +69,7 @@ let mockup_state (pkgs : t list) =
     opam_repository_commit = None;
     stats = None;
     docs = Documentation.doc_cache_create ();
+    search_index = None;
   }
 
 let read_versions package_name versions =
@@ -113,7 +130,8 @@ let to_snapshot t : Snapshot.t =
     stats = t.stats;
   }
 
-(* [docs] is not persisted; it is a runtime cache, rebuilt empty here. *)
+(* [docs] and [search_index] are not persisted; they are runtime caches, rebuilt
+   empty here. *)
 let of_snapshot (v : Snapshot.t) =
   {
     version = v.version;
@@ -121,6 +139,7 @@ let of_snapshot (v : Snapshot.t) =
     packages = v.packages;
     stats = v.stats;
     docs = Documentation.doc_cache_create ();
+    search_index = None;
   }
 
 let load_state_from state_path =
@@ -151,6 +170,7 @@ let load_state_from state_path =
       packages = Name.Map.empty;
       stats = None;
       docs = Documentation.doc_cache_create ();
+      search_index = None;
     }
 
 let try_load_state () = load_state_from Config.package_state_path
@@ -381,12 +401,15 @@ module Search : sig
   val to_request : string -> search_request
 
   val match_request :
-    is_author_match:(string -> string -> bool) -> search_request -> t -> bool
+    is_author_match:(string -> string -> bool) ->
+    search_request ->
+    search_entry ->
+    bool
 
-  val relevance : search_request -> t -> float
+  val relevance : search_request -> search_entry -> float
   (** Higher is better. *)
 
-  val relevance_by_popularity : search_request -> t -> float
+  val relevance_by_popularity : search_request -> search_entry -> float
   (** [relevance], weighted by the number of reverse dependencies. *)
 end = struct
   type search_constraint =
@@ -434,25 +457,24 @@ end = struct
         |> to_constraint)
       g
 
-  let match_ f s pattern = f (Ocamlorg.Import.String.fold s) pattern
+  (* The entry's fields are already case-folded, like the pattern. *)
+  let match_tag ?(f = String.contains_s) pattern entry =
+    List.exists (fun tag -> f tag pattern) entry.folded_tags
 
-  let match_tag ?(f = String.contains_s) pattern package =
-    List.exists (fun tag -> match_ f tag pattern) package.info.tags
+  let match_name ?(f = String.contains_s) pattern entry =
+    f entry.folded_name pattern
 
-  let match_name ?(f = String.contains_s) pattern package =
-    match_ f (Name.to_string package.name) pattern
+  let match_synopsis ?(f = String.contains_s) pattern entry =
+    f entry.folded_synopsis pattern
 
-  let match_synopsis ?(f = String.contains_s) pattern package =
-    match_ f package.info.synopsis pattern
+  let match_description ?(f = String.contains_s) pattern entry =
+    f entry.folded_description pattern
 
-  let match_description ?(f = String.contains_s) pattern package =
-    match_ f package.info.description pattern
+  let match_author ?(f = String.contains_s) pattern entry =
+    List.exists (fun author -> f author pattern) entry.folded_authors
 
-  let match_author ?(f = String.contains_s) pattern package =
-    List.exists (fun tag -> match_ f tag pattern) package.info.authors
-
-  let match_constraint ~is_author_match (package : t) (cst : search_constraint)
-      =
+  let match_constraint ~is_author_match (package : search_entry)
+      (cst : search_constraint) =
     match cst with
     | Tag pattern -> match_tag pattern package
     | Name pattern -> match_name pattern package
@@ -519,11 +541,36 @@ end = struct
 
   let adjust_score_by_popularity query p =
     (score p query |> score_to_float)
-    *. (1.0 +. Float.log (Float.of_int (List.length p.info.rev_deps + 1)))
+    *. (1.0 +. Float.log (Float.of_int (p.rev_deps_count + 1)))
 
   let relevance query p = score p query |> score_to_float
   let relevance_by_popularity = adjust_score_by_popularity
 end
+
+(* The latest version of every package, in [all_latest] order, with its search
+   fields case-folded. Built on the first search after [t.packages] is replaced,
+   about 0.03 s, instead of folding every package's text again on every
+   query. *)
+let search_index t =
+  match t.search_index with
+  | Some (packages, index) when packages == t.packages -> index
+  | _ ->
+      let fold = Ocamlorg.Import.String.fold in
+      let index =
+        all_latest t
+        |> List.map (fun (package : t) ->
+               {
+                 package;
+                 folded_name = fold (Name.to_string package.name);
+                 folded_synopsis = fold package.info.synopsis;
+                 folded_description = fold package.info.description;
+                 folded_tags = List.map fold package.info.tags;
+                 folded_authors = List.map fold package.info.authors;
+                 rev_deps_count = List.length package.info.rev_deps;
+               })
+      in
+      t.search_index <- Some (t.packages, index);
+      index
 
 let search ~is_author_match ?(sort_by_popularity = false) t query =
   let request = Search.to_request query in
@@ -533,11 +580,11 @@ let search ~is_author_match ?(sort_by_popularity = false) t query =
   in
   (* Score each package once, not on every comparison. The sort is stable, so
      packages with equal scores keep their order. *)
-  all_latest t
+  search_index t
   |> List.filter (Search.match_request ~is_author_match request)
-  |> List.map (fun p -> (score p, p))
+  |> List.map (fun e -> (score e, e))
   |> List.stable_sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
-  |> List.map snd
+  |> List.map (fun (_, e) -> e.package)
 
 module Documentation = struct
   include Documentation
