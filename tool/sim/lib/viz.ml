@@ -873,7 +873,7 @@ let epoch_spec ~na ~nb rows =
     ]
 
 (* ECDF: 200 quantiles per series. *)
-let ecdf_rows dir run =
+let ecdf_rows ?(src = "compared") dir run =
   let q name values =
     let a = Summary.sorted_of_list values in
     let len = Array.length a in
@@ -887,6 +887,7 @@ let ecdf_rows dir run =
           o
             [
               ("run", s run);
+              ("src", s src);
               ("series", s name);
               ("q", n p);
               ("value", n (Float.max 0.001 a.(idx)));
@@ -909,15 +910,20 @@ let ecdf_rows dir run =
   @ q "minor GC pause (ms)" (gc "minor")
   @ q "major slice (ms)" (gc "major")
 
-let ecdf_spec ~na ~nb rows =
+let ecdf_spec ?(repeats = false) ~na ~nb rows =
   let color = run_color ~na ~nb in
+  let compared = o [ ("filter", s "datum.src == 'compared'") ] in
   o
     [
       schema;
       ( "title",
         title "Distributions: ECDF, log x"
-          "share of samples at or below each value; the right end is the tail"
-      );
+          ("share of samples at or below each value; the right end is the tail"
+          ^
+          if repeats then
+            "; thin lines = the noise runs (repeats of each image), thick = \
+             the two runs compared"
+          else "") );
       ("data", o [ ("values", l rows) ]);
       ( "facet",
         o
@@ -944,8 +950,38 @@ let ecdf_spec ~na ~nb rows =
             ( "layer",
               l
                 [
+                  (* the noise runs, thin, behind *)
                   o
                     [
+                      ( "transform",
+                        l [ o [ ("filter", s "datum.src != 'compared'") ] ] );
+                      ( "mark",
+                        o
+                          [
+                            ("type", s "line");
+                            ("strokeWidth", i 1);
+                            ("opacity", n 0.35);
+                            ("interpolate", s "step-after");
+                          ] );
+                      ( "encoding",
+                        o
+                          [
+                            ( "x",
+                              o
+                                [
+                                  ("field", s "value");
+                                  ("type", s "quantitative");
+                                ] );
+                            ( "y",
+                              o [ ("field", s "q"); ("type", s "quantitative") ]
+                            );
+                            ("detail", o [ ("field", s "src") ]);
+                            ("color", color);
+                          ] );
+                    ];
+                  o
+                    [
+                      ("transform", l [ compared ]);
                       ( "mark",
                         o
                           [
@@ -980,6 +1016,7 @@ let ecdf_spec ~na ~nb rows =
                     ];
                   o
                     [
+                      ("transform", l [ compared ]);
                       ( "mark",
                         o
                           [
@@ -1024,7 +1061,8 @@ let ecdf_spec ~na ~nb rows =
     ]
 
 (* Summary metrics as B / A, from the comparison's key metrics. *)
-let dumbbell_spec ~na ~nb metrics =
+let dumbbell_spec ?noise ~na ~nb metrics =
+  let has_noise = noise <> None in
   let rows =
     List.filter_map
       (fun (label, metric, better) ->
@@ -1034,16 +1072,41 @@ let dumbbell_spec ~na ~nb metrics =
             let label =
               if better = "higher" then label ^ " (higher is better)" else label
             in
+            (* the noise band, as ratios to A: A +- the spread between
+               repeats *)
+            let sp =
+              match noise with
+              | Some tbl -> (
+                  match Hashtbl.find_opt tbl metric with
+                  | Some (sp, _) -> sp
+                  | None -> nan)
+              | None -> nan
+            in
+            let band =
+              if Float.is_finite sp then
+                [
+                  ("lo", n (Float.max 0.005 ((x -. sp) /. x)));
+                  ("hi", n ((x +. sp) /. x));
+                ]
+              else []
+            in
+            let beyond =
+              (* same tolerance as [Compare] for rounding *)
+              (not (Float.is_finite sp))
+              || Float.abs (y -. x) > sp +. 0.001 +. (1e-4 *. Float.abs sp)
+            in
             Some
               (o
-                 [
-                   ("label", s label);
-                   ("a", n x);
-                   ("b", n y);
-                   ("ratio", n (y /. x));
-                   ("txt", s (Printf.sprintf "×%.2f" (y /. x)));
-                   ("reliable", match rel with Some r -> jb r | None -> `Null);
-                 ])
+                 ([
+                    ("label", s label);
+                    ("a", n x);
+                    ("b", n y);
+                    ("beyond", jb beyond);
+                    ("ratio", n (y /. x));
+                    ("txt", s (Printf.sprintf "×%.2f" (y /. x)));
+                    ("reliable", match rel with Some r -> jb r | None -> `Null);
+                  ]
+                 @ band))
         | _ -> None)
       Compare.key_metrics
   in
@@ -1069,8 +1132,14 @@ let dumbbell_spec ~na ~nb metrics =
       ( "title",
         title
           (Printf.sprintf "Summary metrics, %s relative to %s" nb na)
-          "ratio B / A on a log scale; 1 = no change; unless noted, lower is \
-           better" );
+          ("ratio B / A on a log scale; 1 = no change; unless noted, lower is \
+            better"
+          ^
+          if has_noise then
+            "; grey band = run-to-run noise around A (largest spread between \
+             repeats of either image); filled dot = beyond noise, hollow = \
+             within"
+          else "") );
       ("data", o [ ("values", l rows) ]);
       ("width", i 520);
       ("height", o [ ("step", i 22) ]);
@@ -1098,6 +1167,24 @@ let dumbbell_spec ~na ~nb metrics =
                             ("type", s "quantitative");
                             ("scale", o [ ("type", s "log") ]);
                           ] );
+                    ] );
+              ];
+            o
+              [
+                ("transform", l [ o [ ("filter", s "isValid(datum.lo)") ] ]);
+                ( "mark",
+                  o
+                    [
+                      ("type", s "rule");
+                      ("strokeWidth", i 12);
+                      ("color", s grid);
+                    ] );
+                ( "encoding",
+                  o
+                    [
+                      ("y", y);
+                      ("x", o [ ("field", s "lo"); ("type", s "quantitative") ]);
+                      ("x2", o [ ("field", s "hi") ]);
                     ] );
               ];
             o
@@ -1158,13 +1245,24 @@ let dumbbell_spec ~na ~nb metrics =
                       ("filled", jb true);
                       ("size", i 90);
                       ("color", s color_b);
-                      ("stroke", s surface);
+                      ("stroke", s color_b);
                       ("strokeWidth", i 2);
                     ] );
                 ( "encoding",
                   o
                     [
                       ("y", y);
+                      ( "fill",
+                        o
+                          [
+                            ( "condition",
+                              o
+                                [
+                                  ("test", s "datum.beyond");
+                                  ("value", s color_b);
+                                ] );
+                            ("value", s surface);
+                          ] );
                       ( "x",
                         o [ ("field", s "ratio"); ("type", s "quantitative") ]
                       );
@@ -1191,6 +1289,11 @@ let dumbbell_spec ~na ~nb metrics =
                                 ("format", s ".2f");
                               ];
                             o [ ("field", s "reliable") ];
+                            o
+                              [
+                                ("field", s "beyond");
+                                ("title", s "beyond noise");
+                              ];
                           ] );
                     ] );
               ];
@@ -1565,7 +1668,7 @@ let html_escape str =
     str;
   Buffer.contents buf
 
-let run ~output a b =
+let run ?(noise = []) ~output a b =
   ignore (Summary.run a);
   ignore (Summary.run b);
   let meta d = Compare.load d "meta.json" in
@@ -1573,7 +1676,8 @@ let run ~output a b =
   let image m =
     match Compare.member "image" m with Some (`String x) -> x | _ -> "?"
   in
-  let na = image ma and nb = image mb in
+  let image_a = image ma and image_b = image mb in
+  let na = image_a and nb = image_b in
   let na, nb = if na = nb then (na ^ " (A)", nb ^ " (B)") else (na, nb) in
   let params = Compare.differing_params ma mb in
   let run_end dir =
@@ -1602,13 +1706,52 @@ let run ~output a b =
       fa
   in
   let m = Compare.match_requests a b in
+  (* The noise runs: each noise.json names its image and its repeats; they are
+     drawn in the colour of the compared run with the same image. *)
+  let noise_runs =
+    List.map
+      (fun file ->
+        let j = Yojson.Safe.from_file file in
+        let image =
+          match Compare.member "image" j with Some (`String x) -> x | _ -> "?"
+        in
+        let dirs =
+          match Compare.member "runs" j with
+          | Some (`List l) ->
+              List.filter_map (function `String d -> Some d | _ -> None) l
+          | _ -> []
+        in
+        (file, image, dirs))
+      noise
+  in
+  let label_of image =
+    if image = image_a then Some na
+    else if image = image_b then Some nb
+    else None
+  in
+  let repeat_rows =
+    List.concat_map
+      (fun (_, image, dirs) ->
+        match label_of image with
+        | None -> []
+        | Some label ->
+            List.concat_map
+              (fun d ->
+                if Sys.file_exists d then ecdf_rows ~src:d d label else [])
+              dirs)
+      noise_runs
+  in
   let comparison =
     [
       ( "A typical update, lined up",
         epoch_spec ~na ~nb (epoch_rows a na @ epoch_rows b nb) );
       ( "Distributions (ECDF)",
-        ecdf_spec ~na ~nb (ecdf_rows a na @ ecdf_rows b nb) );
-      ("Summary metrics as ratios", dumbbell_spec ~na ~nb metrics);
+        ecdf_spec ~repeats:(repeat_rows <> []) ~na ~nb
+          (repeat_rows @ ecdf_rows a na @ ecdf_rows b nb) );
+      ( "Summary metrics as ratios",
+        dumbbell_spec
+          ?noise:(if noise = [] then None else Some (Compare.load_noise noise))
+          ~na ~nb metrics );
       ( "Flicker",
         flicker_spec ~na ~nb ~run_end (flicker_rows a na @ flicker_rows b nb) );
       ("Same request, both builds", paired_spec ~na ~nb m);
@@ -1654,6 +1797,19 @@ let run ~output a b =
        if docs_same then what docs_a
        else Printf.sprintf "A %s, B %s" (what docs_a) (what docs_b))
   in
+  let noise_note =
+    if noise_runs = [] then ""
+    else
+      Printf.sprintf
+        "<p>Run-to-run noise: %s. In the ratio chart, the grey band is the \
+         noise; in the distributions, thin lines are the repeats.</p>"
+        (String.concat "; "
+           (List.map
+              (fun (file, image, dirs) ->
+                Printf.sprintf "%d repeats of <code>%s</code> (<code>%s</code>)"
+                  (List.length dirs) (html_escape image) (html_escape file))
+              noise_runs))
+  in
   let sections =
     [
       ("Inputs", [ ("Inputs", inputs_spec) ]);
@@ -1682,7 +1838,7 @@ let run ~output a b =
      %s\n"
     (html_escape na) (html_escape nb) surface grid ink2 (html_escape na)
     (html_escape nb) (html_escape a) (html_escape b) (html_escape na)
-    (html_escape nb) note;
+    (html_escape nb) (note ^ noise_note);
   let k = ref 0 in
   let specs = ref [] in
   List.iter

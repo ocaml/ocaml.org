@@ -400,8 +400,15 @@ let viz_cmd =
          "Write an HTML page comparing two runs (A, then B): inputs once, raw \
           output per metric, then comparison charts.")
     Term.(
-      const (fun a b output -> print_string (Viz.run ~output a b))
-      $ dir 0 "A" $ dir 1 "B" $ output)
+      const (fun a b output noise -> print_string (Viz.run ~noise ~output a b))
+      $ dir 0 "A" $ dir 1 "B" $ output
+      $ Arg.(
+          value & opt_all file []
+          & info [ "noise" ] ~docv:"FILE"
+              ~doc:
+                "A noise.json from $(b,sim run --repeat) (repeatable): draw \
+                 the noise band in the ratio chart and the repeats in the \
+                 distributions."))
 
 let noise_cmd =
   let dirs =

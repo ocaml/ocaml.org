@@ -272,6 +272,11 @@ This writes one HTML page with Vega-Lite charts (open it in a browser):
    - a flicker view that switches between the runs on fixed scales;
    - the same request in both runs, one dot per request.
 
+With `--noise DIR/noise.json` (once per image), the ratio chart draws each
+metric's noise band and leaves B's dot hollow where the difference is
+within noise. The distributions also draw every repeat as a thin line behind
+the two runs compared.
+
 The data is embedded in the page, which is 2 MB for the 10-minute
 comparison. The page loads pinned versions of Vega, Vega-Lite and
 vega-embed from jsDelivr, so viewing it needs network access.
