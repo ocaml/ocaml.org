@@ -1341,7 +1341,8 @@ let dumbbell_spec ?noise ~na ~nb metrics =
             better"
           ^
           if has_noise then
-            ";\ngrey band = run-to-run noise around A (largest spread between \
+            ";\n\
+             grey band = run-to-run noise around A (largest spread between \
              repeats of either image); filled dot = beyond noise, hollow = \
              within"
           else "") );
