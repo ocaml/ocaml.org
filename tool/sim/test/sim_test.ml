@@ -142,6 +142,67 @@ let test_summary_percentile () =
   Alcotest.(check (float 0.)) "p90" 9. (Summary.percentile a 0.9);
   Alcotest.(check (float 0.)) "max" 10. (Summary.percentile a 1.0)
 
+let test_quantile_display () =
+  let a n = Array.init n float_of_int in
+  (* 50 samples: one lies above p98, none above p99.9 *)
+  Alcotest.(check string) "p99.9 needs 1000" "-" (Summary.quantile (a 50) 0.999);
+  Alcotest.(check string)
+    "few above: marked" "48.0*"
+    (Summary.quantile (a 50) 0.97);
+  Alcotest.(check string) "enough above" "49.0" (Summary.quantile (a 100) 0.5)
+
+let check_mmu label expect got =
+  match got with
+  | None -> Alcotest.fail (label ^ ": no result")
+  | Some (u, _) -> Alcotest.(check (float 1e-9)) label expect u
+
+let test_mmu () =
+  (* pauses of 10 ms at t = 1.0 and 1.015 (5 ms apart), and 1 ms at t = 5 *)
+  let ivs = [ (1.0, 1.01); (1.015, 1.025); (5.0, 5.001) ] in
+  let mmu w = Summary.mmu ivs ~lo:0. ~hi:10. w in
+  check_mmu "1 ms window inside a pause" 0. (mmu 0.001);
+  check_mmu "10 ms window" 0. (mmu 0.01);
+  (* worst 25 ms window covers both pauses: 20 ms paused *)
+  check_mmu "25 ms window" 0.2 (mmu 0.025);
+  (* the pause at t = 5 is too far to share a 1 s window with the others *)
+  check_mmu "1 s window" 0.98 (mmu 1.);
+  Alcotest.(check bool)
+    "span too short" true
+    (Summary.mmu ivs ~lo:0. ~hi:1. 2. = None);
+  check_mmu "overlapping pauses merge" 0.5
+    (Summary.mmu [ (0., 0.4); (0.2, 0.5) ] ~lo:0. ~hi:2. 1.)
+
+let test_cpu_seconds () =
+  let s st cpu = { Summary.st; mem = nan; rss = nan; cpu } in
+  (* 100% of a core from 0 to 2, 50% from 2 to 4 *)
+  let samples = [| s 0. nan; s 1. 100.; s 2. 100.; s 3. 50.; s 4. 50. |] in
+  Alcotest.(check (float 1e-9)) "all" 3. (Summary.cpu_seconds samples 0. 4.);
+  Alcotest.(check (float 1e-9))
+    "partial" 1.25
+    (Summary.cpu_seconds samples 1.5 3.5)
+
+let test_slope () =
+  Alcotest.(check (option (float 1e-9)))
+    "linear" (Some 2.)
+    (Summary.slope [ 1.; 3.; 5.; 7. ]);
+  Alcotest.(check (option (float 1e-9)))
+    "too few" None
+    (Summary.slope [ 1.; 2. ])
+
+let test_windows () =
+  Alcotest.(check (list (pair (float 0.) (float 0.))))
+    "update -> saved, and update -> loaded when not saved"
+    [ (1., 5.); (10., 12.) ]
+    (Summary.windows_of_events
+       [
+         (0., "pull");
+         (1., "update");
+         (4., "loaded");
+         (5., "saved");
+         (10., "update");
+         (12., "loaded");
+       ])
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -172,6 +233,11 @@ let () =
         [
           Alcotest.test_case "server log" `Quick test_log_lines;
           Alcotest.test_case "percentile" `Quick test_summary_percentile;
+          Alcotest.test_case "quantile display" `Quick test_quantile_display;
+          Alcotest.test_case "mmu" `Quick test_mmu;
+          Alcotest.test_case "cpu seconds" `Quick test_cpu_seconds;
+          Alcotest.test_case "slope" `Quick test_slope;
+          Alcotest.test_case "windows" `Quick test_windows;
           Alcotest.test_case "packages" `Quick test_packages_of_find;
         ] );
     ]

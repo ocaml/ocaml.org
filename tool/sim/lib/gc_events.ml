@@ -5,7 +5,9 @@
    ([<pid>.events], pid 1 in the container) can be read from here without any
    change to the server. Events are aggregated into one row per second: the
    number, total and longest duration of minor collections and of major slices
-   (the pauses the mutator sees), and the last reported major heap size.
+   (the pauses the mutator sees), and the last reported major heap size. Each
+   pause is also written on its own to [events], for percentiles and minimum
+   mutator utilisation ([Summary]).
 
    Event timestamps come from the monotonic clock shared by every process on the
    host. To place them on the wall clock, a short-lived child ([sim
@@ -95,7 +97,11 @@ let rec wait_for path ~until =
     let* () = Lwt_unix.sleep 0.2 in
     wait_for path ~until
 
-let run ~dir ~pid ~t0 ~until csv =
+(* Header of the per-event file: one row per minor collection or major slice,
+   with its start time and duration. *)
+let events_header = [ "t"; "kind"; "ms" ]
+
+let run ~dir ~pid ~t0 ~until ~events csv =
   let* offset = clock_offset ~dir in
   let ring = Filename.concat dir (string_of_int pid ^ ".events") in
   let* ok =
@@ -132,6 +138,12 @@ let run ~dir ~pid ~t0 ~until csv =
               Hashtbl.remove open_spans (ring, phase);
               let t = start +. offset -. t0 in
               let ms = (ns ts -. start) *. 1000. in
+              Csv.row events
+                [
+                  Csv.float6 t;
+                  (if phase = EV_MINOR then "minor" else "major");
+                  Printf.sprintf "%.4f" ms;
+                ];
               let b = bucket (int_of_float t) in
               if phase = EV_MINOR then (
                 b.minor_n <- b.minor_n + 1;

@@ -178,11 +178,16 @@ let run c =
   in
   let res_csv = Csv.create (file "resources.csv") Sampler.header in
   let gc_csv = Csv.create (file "gc.csv") Gc_events.header in
+  let gc_events_csv =
+    Csv.create (file "gc-events.csv") Gc_events.events_header
+  in
   let feeder =
     Upstream.feed ~container ~h ~speedup:c.speedup ~t0 ~until feed_csv
   in
   let sampler = Sampler.run ~pid ~t0 ~until ~interval:1. res_csv in
-  let gc = Gc_events.run ~dir:rte ~pid:1 ~t0 ~until gc_csv in
+  let gc =
+    Gc_events.run ~dir:rte ~pid:1 ~t0 ~until ~events:gc_events_csv gc_csv
+  in
   let traffic =
     let* ready = wait_http base ~until in
     let t_ready = if ready then Some (Unix.gettimeofday ()) else None in
@@ -246,7 +251,7 @@ let run c =
   let* () = Lwt.join [ feeder; sampler; gc; traffic ] in
   Lwt.wakeup_later stop_wakener ();
   let* () = logs in
-  List.iter Csv.close [ feed_csv; res_csv; gc_csv; sync_csv ];
+  List.iter Csv.close [ feed_csv; res_csv; gc_csv; gc_events_csv; sync_csv ];
   close_out raw;
   let* () =
     if c.keep then (

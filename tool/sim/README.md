@@ -93,18 +93,47 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | File | Content |
 | ---- | ------- |
 | `meta.json` | Run parameters, image id, start and tip commits |
-| `summary.txt` | Latency during and outside updates, peaks |
+| `summary.txt` | The summary described [below](#reading-the-summary) |
 | `timeline.svg` | Everything on one time axis; update windows shaded |
 | `resources.csv` | Per second: cgroup memory, anon/file, RSS, CPU |
 | `gc.csv` | Per second: minor GCs and major slices (count, total, longest), major heap size |
+| `gc-events.csv` | One row per GC pause (minor collection or major slice): start, kind, duration |
 | `traffic.csv` | One row per request |
-| `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p99/max |
+| `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p95/p99/p99.9/max |
 | `sync.csv` | Update cycle events and phase durations, from the server log |
 | `windows.csv` | Update windows (update → saved) |
+| `cycles.csv` | Per update: duration, CPU-seconds, peak memory, memory floor after it, longest GC pause |
 | `feed.csv` | When upstream moved, and by how many commits |
 | `server.log` | The server's full log |
 
 `sim summary DIR` and `sim plot DIR` regenerate the summary and the plot.
+
+### Reading the Summary
+
+Each kind of data is summarised in the way that suits it.
+
+- **Latency and GC pauses** are many separate events, so they get
+  percentiles (p50, p90, p95, p99, p99.9, max), during updates and outside
+  them. A percentile is only as good as the number of samples above it. It
+  shows as `-` when no sample lies above it, since it would just be the
+  maximum, and is marked `*` when fewer than 10 do. In a 5-minute run with
+  the sample profile, the human p99 rests on about 5 requests: run longer, or
+  with more traffic, for stable tails.
+- **Minimum mutator utilisation** (MMU) is the worst share of any 1 ms,
+  10 ms, 100 ms or 1 s window left to the program rather than the GC. Many
+  short pauses close together hurt a request more than one longer pause.
+  Percentiles of single pauses miss that; MMU does not.
+- **Memory and CPU** are time series with a trend and a sawtooth, not
+  independent samples, so they are summarised per update cycle instead:
+  - CPU-seconds spent;
+  - peak memory during the update;
+  - the floor, meaning the lowest memory between an update and the next.
+
+  A floor that keeps rising points to memory retained across updates; the
+  summary gives its least-squares trend in MB per update. CPU is also split
+  between updates and the baseline outside them.
+- **Update phases** happen a handful of times per run, so they get min,
+  median and max, without the warm-up rebuild.
 
 ## Traffic Profiles
 
