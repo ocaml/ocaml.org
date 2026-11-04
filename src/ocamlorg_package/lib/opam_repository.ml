@@ -41,8 +41,8 @@ end
 let clone_path = Config.opam_repository_path
 let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
-let git_cmd args =
-  ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string clone_path :: args))
+let git_cmd ?(repo = clone_path) args =
+  ("git", Array.of_list ("git" :: "-C" :: Fpath.to_string repo :: args))
 
 let last_commit () =
   let open Lwt.Syntax in
@@ -153,9 +153,80 @@ let new_files_since ~a ~b =
        ])
   |> Lwt.map parse_commits
 
+type ancestry =
+  | First_parent
+  | Not_first_parent
+  | Unknown_commit
+  | Git_failed of string
+
+(* Run [cmd] and return its stdout lines, or its exit status and stderr. These
+   Git calls are expected to fail on an unknown commit, so the caller decides
+   what a failure means. *)
+let pread_result cmd =
+  let open Lwt.Syntax in
+  Lwt_process.with_process_full cmd (fun proc ->
+      let* lines = Lwt_io.read_lines proc#stdout |> Lwt_stream.to_list
+      and* stderr = Lwt_io.read proc#stderr in
+      let+ status = proc#status in
+      match status with
+      | Unix.WEXITED 0 -> Ok lines
+      | status -> Error (cmd, status, String.trim stderr))
+
+let git_failed (cmd, status, stderr) =
+  Git_failed
+    (Fmt.str "%a %a: %s" Process.pp_cmd cmd Process.pp_status status stderr)
+
+let ancestry ?repo a b =
+  let open Lwt.Syntax in
+  let rev_parse rev =
+    pread_result
+      (git_cmd ?repo
+         [
+           "rev-parse";
+           "--verify";
+           "--quiet";
+           "--end-of-options";
+           rev ^ "^{commit}";
+         ])
+  in
+  let* resolved = rev_parse a in
+  match resolved with
+  | Error (_, Unix.WEXITED 1, _) | Ok [] -> Lwt.return Unknown_commit
+  | Error e -> Lwt.return (git_failed e)
+  | Ok (a :: _) -> (
+      (* Walking first parents from [b], the walk leaves [a..b] at the first
+         commit reachable from [a] that it meets, which is [a] itself iff [a] is
+         on that history. Each line is a commit followed by its parents. *)
+      let* walk =
+        pread_result
+          (git_cmd ?repo
+             [
+               "rev-list";
+               "--first-parent";
+               "--parents";
+               "--reverse";
+               "--end-of-options";
+               a ^ ".." ^ b;
+             ])
+      in
+      match walk with
+      | Error e -> Lwt.return (git_failed e)
+      | Ok (oldest :: _) ->
+          Lwt.return
+            (match String.split_on_char ' ' oldest with
+            | _ :: parent :: _ when parent = a -> First_parent
+            | _ -> Not_first_parent)
+      | Ok [] -> (
+          (* [b] is reachable from [a]: they are equal, or [a] is ahead. *)
+          let+ resolved = rev_parse b in
+          match resolved with
+          | Ok (b :: _) when b = a -> First_parent
+          | Ok _ | Error (_, Unix.WEXITED 1, _) -> Not_first_parent
+          | Error e -> git_failed e))
+
 (* Borrowed from
    https://github.com/ocaml-opam/opam2web/blob/ad2ddb01865c891949f3560b653247bdbb2a0f75/src/o2wUniverse.ml#L25 *)
-let parse_git_commit_times =
+let parse_git_commit_times ~init =
   let any_opam_path = "*/opam" in
   let rec read_time found = function
     | [] -> found
@@ -175,13 +246,15 @@ let parse_git_commit_times =
         in
         read_file found time rest
   in
-  read_time OpamPackage.Map.empty
+  read_time init
 
-let create_package_to_timestamp () =
+let create_package_to_timestamp ?repo ?since ?(init = OpamPackage.Map.empty)
+    commit =
   let open Lwt.Syntax in
+  let range = match since with None -> commit | Some a -> a ^ ".." ^ commit in
   let+ output =
     Process.pread_lines
-      (git_cmd
+      (git_cmd ?repo
          [
            "log";
            "--name-only";
@@ -190,8 +263,9 @@ let create_package_to_timestamp () =
            "--pretty=format:%ct";
            "-m";
            "--first-parent";
+           range;
            "--";
            "*/opam";
          ])
   in
-  parse_git_commit_times output
+  parse_git_commit_times ~init output

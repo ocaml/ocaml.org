@@ -3,6 +3,7 @@ open Import
 include Package
 module Info = Info
 module Statistics = Packages_stats
+module Publication_dates = Publication_dates
 open Package
 
 (* When this type changes, [Info.version] needs to be incremented to invalidate
@@ -189,8 +190,15 @@ let update ~commit t =
   Logs.info (fun m -> m "Opam repository is currently at %s" commit);
   Logs.info (fun m -> m "Updating opam package list");
   let* packages = time_it_lwt "Read packages" (fun () -> read_packages ()) in
+  let* timestamps =
+    time_it_lwt "Publication dates" (fun () ->
+        Publication_dates.compute
+          ~previous:(t.opam_repository_commit, t.packages)
+          ~commit packages)
+  in
   let* packages =
-    time_it_lwt "Compute package info" (fun () -> Info.of_opamfiles packages)
+    time_it_lwt "Compute package info" (fun () ->
+        Info.of_opamfiles ~timestamps packages)
   in
   let+ stats =
     time_it_lwt "Compute statistics" (fun () -> Statistics.compute packages)

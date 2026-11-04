@@ -36,6 +36,29 @@ val new_files_since : a:string -> b:string -> (Fpath.t * string) list Lwt.t
     file as been added, in Git's relative format. Returns more recent files
     first. *)
 
-val create_package_to_timestamp : unit -> float OpamPackage.Map.t Lwt.t
-(** Creates a map of package to timestamp, where the timestamp is the first
-    commit of the package's opam file. *)
+type ancestry =
+  | First_parent  (** On the first-parent history (or equal). *)
+  | Not_first_parent
+      (** Not an ancestor, an ancestor reachable only through a merge's other
+          parent, or ahead of the second commit. *)
+  | Unknown_commit  (** The first commit is not in the repository. *)
+  | Git_failed of string  (** Any other Git failure, with Git's message. *)
+
+val ancestry : ?repo:Fpath.t -> string -> string -> ancestry Lwt.t
+(** [ancestry a b] tells whether commit [a] is on the first-parent history of
+    commit [b]. It never raises on a Git failure. [repo] defaults to the
+    opam-repository clone. *)
+
+val create_package_to_timestamp :
+  ?repo:Fpath.t ->
+  ?since:string ->
+  ?init:float OpamPackage.Map.t ->
+  string ->
+  float OpamPackage.Map.t Lwt.t
+(** [create_package_to_timestamp commit] maps each package to the commit time of
+    the last commit, on the first-parent history of [commit], that added, copied
+    or renamed its opam file. With [~since], only the commits in [since..commit]
+    are read and folded onto [init] (default: empty): when [since] is on the
+    first-parent history of [commit] and [init] holds the dates at [since], the
+    result is the same as a full scan. [repo] defaults to the opam-repository
+    clone. *)
