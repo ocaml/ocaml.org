@@ -172,6 +172,18 @@ let run_cmd =
       value & opt int 18081
       & info [ "docs-port" ] ~doc:"Host port of the docs stub.")
   in
+  let state_builder =
+    Arg.(
+      value
+      & opt (some int) None
+      & info [ "state-builder" ] ~docv:"NICE"
+          ~doc:
+            "Experimental: rebuild the package state in a separate builder \
+             process, run at nice level $(docv), and have the server only load \
+             each new state file it writes. Needs a server that supports \
+             OCAMLORG_PKG_STATE_MODE=builder and =reload, which main does not \
+             yet.")
+  in
   let keep =
     Arg.(
       value & flag
@@ -206,7 +218,7 @@ let run_cmd =
   in
   let go image days speedup poll duration port mem cpus profile no_human
       traffic_scale diurnal bot_rps include_docs max_inflight timeout seed keep
-      out compose project script docs docs_port repeat =
+      out compose project script docs docs_port state_builder repeat =
     let out = match out with Some o -> o | None -> default_out () in
     let poll =
       match poll with
@@ -238,6 +250,7 @@ let run_cmd =
         keep;
         docs;
         docs_port;
+        state_builder;
       }
     in
     if repeat <= 1 then (
@@ -262,7 +275,7 @@ let run_cmd =
       const go $ image $ days $ speedup $ poll $ duration_a $ port $ mem $ cpus
       $ profile $ no_traffic $ scale $ diurnal $ bot_rps $ include_docs
       $ max_inflight $ timeout $ seed $ keep $ out $ compose $ project
-      $ plot_script $ docs $ docs_port $ repeat)
+      $ plot_script $ docs $ docs_port $ state_builder $ repeat)
 
 let dir_arg =
   Arg.(

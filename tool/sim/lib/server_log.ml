@@ -25,10 +25,16 @@ let after ~sub s =
   go 0
 
 (* A timing line, ["<phase>: <seconds>s"], as logged by [time_it_lwt] and its
-   siblings. Dream prefixes messages with a date, the log source and the level,
-   so the phase starts after the level. *)
+   siblings. Dream prefixes messages with a date, the log source and the level
+   (" INFO "); before Dream sets up logging, and in a separate builder process,
+   the default reporter writes ["server: [INFO] "]. The phase starts after the
+   level. *)
 let timing msg =
-  let msg = match after ~sub:" INFO " msg with Some m -> m | None -> msg in
+  let msg =
+    match after ~sub:" INFO " msg with
+    | Some m -> m
+    | None -> ( match after ~sub:"[INFO] " msg with Some m -> m | None -> msg)
+  in
   let msg = String.trim msg in
   match Scanf.sscanf_opt msg "%[^:]: %fs%!" (fun p s -> (p, s)) with
   | Some (p, s)

@@ -137,6 +137,10 @@ let test_log_lines () =
          12.34s",
         "phase|12.34|Compute package info" );
       ("Read opam files: 0.50s", "phase|0.50|Read opam files");
+      (* the default reporter: before Dream sets up logging, and in a separate
+         builder process *)
+      ("server: [INFO] Read packages: 1.16s", "phase|1.16|Read packages");
+      ("server: [INFO] Package state saved", "saved||");
       ("03.11.26 12:00:00.000  INFO Opam repo: git pull", "pull||");
       ("INFO Loaded 4321 packages", "loaded||4321");
       ("INFO Package state saved", "saved||");

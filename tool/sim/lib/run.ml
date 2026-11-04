@@ -32,6 +32,10 @@ type config = {
   keep : bool;  (** leave the container running at the end *)
   docs : docs;
   docs_port : int;  (** host port of the docs stub *)
+  state_builder : int option;
+      (** Experimental: rebuild the package state in a separate builder process
+          at this nice level, the server only loading each new version; [None]:
+          the server rebuilds it itself *)
 }
 
 let compose_cmd c args =
@@ -106,6 +110,8 @@ let write_meta c ~h ~image_id ~t0 ~t_ready ~packages =
         ("packages", `Int packages);
         ("seed", `Int c.seed);
         ("docs", `String (match c.docs with Stub -> "stub" | Real -> "real"));
+        ( "state_builder",
+          match c.state_builder with Some n -> `Int n | None -> `Null );
       ]
   in
   Yojson.Safe.to_file (Filename.concat c.out "meta.json") json
@@ -162,6 +168,8 @@ let run_body ~at_failure c =
         ("SIM_MEM", c.mem);
         ("SIM_CPUS", c.cpus);
         ("SIM_RTE_DIR", absolute rte);
+        ( "SIM_STATE_BUILDER",
+          match c.state_builder with Some n -> string_of_int n | None -> "" );
       ]
   in
   let* () =

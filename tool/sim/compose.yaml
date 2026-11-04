@@ -9,6 +9,7 @@ services:
       OCAMLORG_OPAM_POLLING: ${SIM_POLL:-30}
       OCAML_RUNTIME_EVENTS_START: "1"
       OCAML_RUNTIME_EVENTS_DIR: /sim/rte
+      SIM_STATE_BUILDER: ${SIM_STATE_BUILDER:-}
       # The docs server: the stub `sim run` starts by default, or the real one
       # (`--docs real`, production defaults).
       OCAMLORG_DOC_URL: ${SIM_DOC_URL:-https://dill.caelum.ci.dev/profiles/full/docs/}

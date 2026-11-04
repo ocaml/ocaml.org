@@ -21,4 +21,21 @@ git -C "$clone" remote set-url origin "$upstream"
 git -C "$clone" checkout --quiet master
 git -C "$clone" reset --quiet --hard "$SIM_START"
 
+# Experimental (`sim run --state-builder NICE`): a separate builder process
+# pulls, rebuilds and rewrites the package state, and the server only loads each
+# new version (OCAMLORG_PKG_STATE_MODE=builder and =reload, which the server
+# does not support on main yet). The state moves to a directory both can write:
+# the image's /var is root-owned, and replacing the file by renaming needs a
+# writable directory. The builder runs without runtime events, so that the only
+# ring is the server's, 1.events, and logs to the container's output, where the
+# sim reads the update cycle as usual.
+if [ -n "${SIM_STATE_BUILDER:-}" ]; then
+  mkdir -p /tmp/pkgstate
+  cp /var/package.state /tmp/pkgstate/package.state
+  export OCAMLORG_PKG_STATE_PATH=/tmp/pkgstate/package.state
+  env -u OCAML_RUNTIME_EVENTS_START OCAMLORG_PKG_STATE_MODE=builder \
+    nice -n "$SIM_STATE_BUILDER" /bin/server &
+  export OCAMLORG_PKG_STATE_MODE=reload
+fi
+
 exec /bin/server

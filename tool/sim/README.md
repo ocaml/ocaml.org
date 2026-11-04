@@ -110,6 +110,21 @@ The first update cycle rebuilds the package state from scratch: the image's
 state was built at its tip, and the run starts days before that. The summary
 labels it as warm-up.
 
+### Separate Builder Process (Experimental)
+
+`--state-builder NICE` runs the package-state rebuild in a separate process,
+at nice level `NICE`, next to the server in the same container: the builder
+pulls, rebuilds and writes each new state, and the server only loads it. This
+needs a server that supports `OCAMLORG_PKG_STATE_MODE=builder` and `=reload`,
+which `main` does not yet; with any other image, both processes rebuild.
+
+The builder's log lines go to the container's output, so update cycles and
+phases are read as usual, and the server's load of each new state shows as a
+`Reload package state` phase. The builder has no runtime-events ring: GC
+figures are the server's only. Memory and CPU from the cgroup include both
+processes; the server's resident set size is its own. The option is recorded
+in `meta.json`, so `sim compare` reports it as a differing run parameter.
+
 ## Output
 
 Each run writes a directory under `tool/sim/out/` (ignored by git):
