@@ -79,7 +79,8 @@ The options most likely to matter:
 | `--speedup X` | `120` | History replay speed |
 | `--poll S` | `3600 / X` | Server polling interval |
 | `--history-days D` | `7` | How much history to replay; the run runs out of history after `D × 86400 / X` seconds |
-| `--duration T` | `15m` | Run length (`90s`, `15m`, `2h`) |
+| `--duration T` | `15m` | Run length (`90s`, `15m`, `2h`), counted from the moment the server first answers |
+| `--repeat N` | `1` | Repeat the same run N times and measure run-to-run noise; see [below](#run-to-run-noise) |
 | `--profile FILE` | `profiles/sample.json` | Human traffic profile |
 | `--traffic-scale X` | `1` | Multiplier on the profile's rate |
 | `--no-human` | | No human traffic |
@@ -94,8 +95,9 @@ is drawn up front from `--seed`. The upstream replay is planned too. Both
 are counted from the moment the server first answers. So two runs with the
 same seed and options get the same requests and the same upstream states at
 the same offsets, whatever each server does. Requests with the same `id` in
-`traffic.csv` can be compared one to one. The one exception is at the end: a
-server that took longer to start gets fewer seconds of the run.
+`traffic.csv` can be compared one to one. The run itself lasts `--duration`
+from that moment too, so a server that took longer to start gets the same
+traffic window.
 
 What each server *loads* can still differ. Each server polls 5 s after its
 previous update ends, as in production, so a server with longer updates
@@ -179,6 +181,34 @@ better as text with the aggregation already done:
 All three are computed by `sim` from the raw files: the same run directory
 always gives the same output. The raw CSVs stay available for detail, for
 example to query with `awk`.
+
+### Run-to-Run Noise
+
+A difference between two images means something only if it is larger than
+the difference between two runs of the *same* image. To measure that:
+
+```bash
+opam exec -- dune exec tool/sim/bin/main.exe -- run --image IMAGE --repeat 3 --out DIR
+```
+
+This runs the same simulation 3 times into `DIR/run-1` to `DIR/run-3`, with
+the same seed, so with the same requests and the same upstream moves. It then
+writes `DIR/noise.json` and `DIR/noise.txt`:
+
+- a check that the repeats' inputs really were identical;
+- for every summary number, its mean, standard deviation, min, max and spread
+  (max − min) across the repeats;
+- request-by-request latency differences between the first repeat and the
+  others.
+
+`sim noise DIR...` computes the same from existing runs.
+
+Pass `--noise DIR/noise.json` to `sim compare` (once per image, if both
+were repeated). Each A/B difference is then shown next to the largest spread
+seen between repeats, and marked `!` when it exceeds it. The marks also go
+to `report.json`, as `noise_spread` and `beyond_noise`. With few repeats the
+spread underestimates the noise, so treat differences just above it with
+care.
 
 ### Comparing Runs
 

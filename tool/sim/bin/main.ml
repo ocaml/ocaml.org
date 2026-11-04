@@ -163,11 +163,9 @@ let run_cmd =
       & opt (enum [ ("stub", Run.Stub); ("real", Run.Real) ]) Run.Stub
       & info [ "docs" ]
           ~doc:
-            "Documentation server for package pages: 1001 4 24 27 30 44 46 107 \
-             109 120 131 145 150 151 1001 30001b,stub), a local responder that \
-             answers 404 (no documentation) to everything, or 1001 4 24 27 30 \
-             44 46 107 109 120 131 145 150 151 1001 30001b,real), the external \
-             server used in production.")
+            "Documentation server for package pages: $(b,stub), a local \
+             responder that answers 404 (no documentation) to everything, or \
+             $(b,real), the external server used in production.")
   in
   let docs_port =
     Arg.(
@@ -178,6 +176,15 @@ let run_cmd =
     Arg.(
       value & flag
       & info [ "keep" ] ~doc:"Leave the container running at the end.")
+  in
+  let repeat =
+    Arg.(
+      value & opt int 1
+      & info [ "repeat" ] ~docv:"N"
+          ~doc:
+            "Run the same simulation $(docv) times (same seed: same requests \
+             and upstream moves) into OUT/run-1 ... OUT/run-$(docv), then \
+             write the run-to-run noise to OUT/noise.json and OUT/noise.txt.")
   in
   let out =
     Arg.(
@@ -199,7 +206,7 @@ let run_cmd =
   in
   let go image days speedup poll duration port mem cpus profile no_human
       traffic_scale diurnal bot_rps include_docs max_inflight timeout seed keep
-      out compose project script docs docs_port =
+      out compose project script docs docs_port repeat =
     let out = match out with Some o -> o | None -> default_out () in
     let poll =
       match poll with
@@ -233,9 +240,21 @@ let run_cmd =
         docs_port;
       }
     in
-    Lwt_main.run (Run.run c);
-    print_string (Summary.run out);
-    plot ~script out
+    if repeat <= 1 then (
+      Lwt_main.run (Run.run c);
+      print_string (Summary.run out);
+      plot ~script out)
+    else
+      let dirs =
+        List.init repeat (fun k ->
+            let dir = Filename.concat out (Printf.sprintf "run-%d" (k + 1)) in
+            Printf.printf "sim: repeat %d of %d -> %s\n%!" (k + 1) repeat dir;
+            Lwt_main.run (Run.run { c with Run.out = dir });
+            ignore (Summary.run dir);
+            plot ~script dir;
+            dir)
+      in
+      print_string (Noise.run ~out dirs)
   in
   Cmd.v
     (Cmd.info "run" ~doc:"Run one simulation.")
@@ -243,7 +262,7 @@ let run_cmd =
       const go $ image $ days $ speedup $ poll $ duration_a $ port $ mem $ cpus
       $ profile $ no_traffic $ scale $ diurnal $ bot_rps $ include_docs
       $ max_inflight $ timeout $ seed $ keep $ out $ compose $ project
-      $ plot_script $ docs $ docs_port)
+      $ plot_script $ docs $ docs_port $ repeat)
 
 let dir_arg =
   Arg.(
@@ -349,14 +368,23 @@ let compare_cmd =
       & info [ "o"; "output" ] ~docv:"FILE"
           ~doc:"Also write the comparison as JSON.")
   in
+  let noise =
+    Arg.(
+      value & opt_all file []
+      & info [ "noise" ] ~docv:"FILE"
+          ~doc:
+            "A noise.json from $(b,sim run --repeat) (repeatable, e.g. one per \
+             image): mark the differences larger than run-to-run noise.")
+  in
   Cmd.v
     (Cmd.info "compare"
        ~doc:
          "Compare two runs (A, then B): every summary number side by side, and \
           latency paired request by request.")
     Term.(
-      const (fun a b output -> print_string (Compare.run ?output a b))
-      $ dir 0 "A" $ dir 1 "B" $ output)
+      const (fun a b output noise ->
+          print_string (Compare.run ?output ~noise a b))
+      $ dir 0 "A" $ dir 1 "B" $ output $ noise)
 
 let viz_cmd =
   let dir n doc = Arg.(required & pos n (some dir) None & info [] ~docv:doc) in
@@ -375,6 +403,24 @@ let viz_cmd =
       const (fun a b output -> print_string (Viz.run ~output a b))
       $ dir 0 "A" $ dir 1 "B" $ output)
 
+let noise_cmd =
+  let dirs =
+    Arg.(
+      non_empty & pos_all dir []
+      & info [] ~docv:"DIR" ~doc:"Repeats of one simulation.")
+  in
+  let out =
+    Arg.(
+      value & opt dir "."
+      & info [ "o"; "output-dir" ] ~docv:"DIR"
+          ~doc:"Where to write noise.json and noise.txt.")
+  in
+  Cmd.v
+    (Cmd.info "noise"
+       ~doc:"Run-to-run noise across existing repeats of one simulation.")
+    Term.(
+      const (fun out dirs -> print_string (Noise.run ~out dirs)) $ out $ dirs)
+
 let profile_cmd =
   Cmd.group
     (Cmd.info "profile" ~doc:"Build traffic profiles.")
@@ -392,6 +438,7 @@ let () =
             plot_cmd;
             compare_cmd;
             viz_cmd;
+            noise_cmd;
             profile_cmd;
             clock_offset_cmd;
           ]))

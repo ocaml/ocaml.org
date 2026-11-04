@@ -105,7 +105,7 @@ let run ~dir ~pid ~t0 ~until ~events csv =
   let* offset = clock_offset ~dir in
   let ring = Filename.concat dir (string_of_int pid ^ ".events") in
   let* ok =
-    wait_for ring ~until:(Float.min until (Unix.gettimeofday () +. 60.))
+    wait_for ring ~until:(Float.min (until ()) (Unix.gettimeofday () +. 60.))
   in
   if not ok then (
     prerr_endline ("sim: no runtime-events ring at " ^ ring ^ "; no GC data");
@@ -200,7 +200,7 @@ let run ~dir ~pid ~t0 ~until ~events csv =
       (try ignore (Runtime_events.read_poll cursor cb None)
        with Failure _ -> ());
       flush ~upto:(int_of_float (now -. t0));
-      if now >= until || not alive then (
+      if now >= until () || not alive then (
         flush ~upto:max_int;
         Runtime_events.free_cursor cursor;
         Lwt.return_unit)

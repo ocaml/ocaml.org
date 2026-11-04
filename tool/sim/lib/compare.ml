@@ -308,7 +308,56 @@ let inputs a b =
     docs_b = docs b;
   }
 
-let run ?output a b =
+(* For [sim compare]: the largest spread and sd per metric over the given noise
+   files (one per image, typically). *)
+let load_noise files =
+  let tbl = Hashtbl.create 256 in
+  List.iter
+    (fun f ->
+      match Yojson.Safe.from_file f with
+      | `Assoc fields -> (
+          match List.assoc_opt "metrics" fields with
+          | Some (`List ms) ->
+              List.iter
+                (fun m ->
+                  let get k =
+                    match member k m with
+                    | Some (`Float x) -> x
+                    | Some (`Int x) -> float_of_int x
+                    | _ -> nan
+                  in
+                  match member "metric" m with
+                  | Some (`String name) ->
+                      let sp = get "spread" and sd = get "sd" in
+                      let sp0, sd0 =
+                        Option.value ~default:(nan, nan)
+                          (Hashtbl.find_opt tbl name)
+                      in
+                      Hashtbl.replace tbl name
+                        (Summary.nanmax sp0 sp, Summary.nanmax sd0 sd)
+                  | _ -> ())
+                ms
+          | _ -> ())
+      | _ -> ())
+    files;
+  tbl
+
+let run ?output ?(noise = []) a b =
+  let nz = load_noise noise in
+  (* [Some true] when |B - A| exceeds the largest spread seen between repeats of
+     a single image, [None] without noise data for that metric. *)
+  let beyond path x y =
+    match Hashtbl.find_opt nz path with
+    | Some (sp, _) when Float.is_finite sp && Float.is_finite (y -. x) ->
+        (* the numbers come rounded from summary.json and noise.json: allow for
+           that rounding *)
+        let tol = 0.001 +. (1e-4 *. Float.abs sp) in
+        Some (Float.abs (y -. x) > sp +. tol)
+    | _ -> None
+  in
+  let spread_of path =
+    match Hashtbl.find_opt nz path with Some (sp, _) -> sp | None -> nan
+  in
   ignore (Summary.run a);
   ignore (Summary.run b);
   let sa = load a "summary.json" and sb = load b "summary.json" in
@@ -394,17 +443,24 @@ let run ?output a b =
     (List.length la) (List.length lb) (List.length common)
     (match only_in la lb with [] -> "-" | l -> shas l)
     (match only_in lb la with [] -> "-" | l -> shas l);
-  pr "\n%-58s %12s %12s %12s %8s\n" "metric" "A" "B" "B-A" "B/A";
+  pr "\n%-58s %12s %12s %12s %8s%s\n" "metric" "A" "B" "B-A" "B/A"
+    (if noise = [] then "" else Printf.sprintf " %12s" "noise");
   List.iter
     (fun (path, x, y, reliable) ->
-      pr "%-58s %12s %12s %12s %8s%s\n" path (num x) (num y)
+      pr "%-58s %12s %12s %12s %8s%s%s%s\n" path (num x) (num y)
         (num (y -. x))
         (if x <> 0. && Float.is_finite (y /. x) then
            Printf.sprintf "%.2f" (y /. x)
          else "-")
+        (if noise = [] then ""
+         else Printf.sprintf " %12s" (num (spread_of path)))
+        (if beyond path x y = Some true then "  !" else "")
         (if reliable = Some false then "  *" else ""))
     metrics;
   pr "  (* a percentile on at least one side rests on fewer than 10 samples)\n";
+  if noise <> [] then
+    pr "  (! |B-A| exceeds the spread between repeats of one image, from %s)\n"
+      (String.concat ", " noise);
   let group_line label g =
     let q x = if g.n = 0 then "-" else num (Summary.percentile g.diff x) in
     pr "  %-28s n=%-6d B faster=%5.1f%%  p10=%-10s p50=%-10s p90=%-10s%s\n"
@@ -457,6 +513,14 @@ let run ?output a b =
           ("b_over_a", if x <> 0. then jnum (y /. x) else `Null);
           ("reliable", match reliable with Some r -> `Bool r | None -> `Null);
         ]
+        @
+        if noise = [] then []
+        else
+          [
+            ("noise_spread", jnum (spread_of path));
+            ( "beyond_noise",
+              match beyond path x y with Some v -> `Bool v | None -> `Null );
+          ]
       in
       let run_json dir meta : Yojson.Safe.t =
         `Assoc
@@ -493,7 +557,23 @@ let run ?output a b =
         `Assoc
           [
             ("schema", `String "ocamlorg-sim-report/1");
-            ("how_to_read", `List (List.map (fun s -> `String s) how_to_read));
+            ( "how_to_read",
+              `List
+                (List.map
+                   (fun s -> `String s)
+                   (how_to_read
+                   @
+                   if noise = [] then []
+                   else
+                     [
+                       "noise_spread is the largest spread (max - min) of a \
+                        metric between repeats of one image (see noise_files). \
+                        beyond_noise is true when |B - A| exceeds it: only \
+                        those differences are larger than run-to-run noise. \
+                        With few repeats the spread underestimates the noise, \
+                        so treat differences just above it with care.";
+                     ])) );
+            ("noise_files", `List (List.map (fun s -> `String s) noise));
             ("runs", `Assoc [ ("a", run_json a ma); ("b", run_json b mb) ]);
             ("comparable_one_to_one", `Bool one_to_one);
             ( "inputs",

@@ -424,6 +424,16 @@ let test_jnum () =
     | `Float f -> f
     | _ -> nan)
 
+let test_noise_stats () =
+  let m = Noise.stats "x" [ 2.; 4.; 4.; 4.; 5.; 5.; 7.; 9.; nan ] in
+  Alcotest.(check int) "nan ignored" 8 m.n;
+  Alcotest.(check (float 1e-9)) "mean" 5. m.mean;
+  Alcotest.(check (float 1e-6)) "sample sd" 2.138090 m.sd;
+  Alcotest.(check (float 1e-9)) "spread" 7. (Noise.spread m);
+  Alcotest.(check bool)
+    "one value: no spread" true
+    (Float.is_nan (Noise.spread (Noise.stats "y" [ 3. ])))
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -472,5 +482,6 @@ let () =
           Alcotest.test_case "slow overlap" `Quick test_slow_overlap;
           Alcotest.test_case "docs stub kind" `Quick test_docs_stub_kind;
           Alcotest.test_case "json numbers" `Quick test_jnum;
+          Alcotest.test_case "noise stats" `Quick test_noise_stats;
         ] );
     ]

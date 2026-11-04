@@ -73,7 +73,7 @@ let run ~pid ~t0 ~until ~interval csv =
   let status = Printf.sprintf "/proc/%d/status" pid in
   let rec loop prev =
     let now = Unix.gettimeofday () in
-    if now >= until then Lwt.return_unit
+    if now >= until () then Lwt.return_unit
     else
       let usage = kv_file (f "cpu.stat") "usage_usec" in
       let cpu =

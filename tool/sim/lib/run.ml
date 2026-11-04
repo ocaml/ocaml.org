@@ -163,7 +163,13 @@ let run c =
     Proc.run ~extra_env:env (compose_cmd c [ "down"; "--remove-orphans" ])
   in
   let t0 = Unix.gettimeofday () in
-  let until = t0 +. c.duration in
+  (* The run lasts [duration] seconds from the moment the server first answers,
+     so every run gets the same traffic window whatever its start-up time. Until
+     then, the end is provisional; the server gets at most [startup_limit]
+     seconds to answer. *)
+  let startup_limit = 300. in
+  let end_ = ref (t0 +. startup_limit +. c.duration) in
+  let until () = !end_ in
   let* () = Proc.run ~extra_env:env (compose_cmd c [ "up"; "-d" ]) in
   let* container =
     Proc.read ~extra_env:env (compose_cmd c [ "ps"; "-q"; "server" ])
@@ -213,8 +219,9 @@ let run c =
      replay and the traffic, so they stay aligned with each other whatever the
      start-up time. *)
   let ready =
-    let+ ok = wait_http base ~until in
+    let+ ok = wait_http base ~until:(t0 +. startup_limit) in
     let t = Unix.gettimeofday () in
+    end_ := if ok then t +. c.duration else t;
     Printf.printf "sim: server %s after %.0fs\n%!"
       (if ok then "answering" else "NOT answering")
       (t -. t0);
@@ -225,8 +232,8 @@ let run c =
     match r with
     | None -> Lwt.return_unit
     | Some origin ->
-        Upstream.feed ~container ~h ~speedup:c.speedup ~t0 ~origin ~until
-          feed_csv
+        Upstream.feed ~container ~h ~speedup:c.speedup ~t0 ~origin
+          ~until:(origin +. c.duration) feed_csv
   in
   let sampler = Sampler.run ~pid ~t0 ~until ~interval:1. res_csv in
   let gc =
@@ -286,8 +293,8 @@ let run c =
     let+ () =
       if t_ready <> None then
         let plan = Traffic.plan ~seed:c.seed ~duration:c.duration streams in
-        Traffic.run ~base ~t0 ~start ~until ~max_inflight:c.max_inflight
-          ~timeout:c.timeout csv plan
+        Traffic.run ~base ~t0 ~start ~until:(start +. c.duration)
+          ~max_inflight:c.max_inflight ~timeout:c.timeout csv plan
       else Lwt.return_unit
     in
     Csv.close csv
