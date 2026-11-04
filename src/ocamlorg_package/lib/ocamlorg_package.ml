@@ -56,24 +56,21 @@ let mockup_state (pkgs : t list) =
   }
 
 let read_versions package_name versions =
-  let open Lwt.Syntax in
-  Lwt_list.fold_left_s
+  List.fold_left
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
       | Some pkg -> (
-          let+ opam_opt =
-            Opam_repository.opam_file package_name package_version
-          in
-          match opam_opt with
-          | Some opam -> Version.Map.add pkg.version opam acc
-          | None ->
+          match Opam_repository.opam_file package_name package_version with
+          | Ok opam -> Version.Map.add pkg.version opam acc
+          | Error reason ->
               Logs.err (fun m ->
-                  m "Failed to read opam file for %S %s" package_name
-                    package_version);
+                  m "Failed to read opam file for %S %s: %s" package_name
+                    package_version reason);
               acc)
       | None ->
-          Logs.err (fun m -> m "Invalid pacakge version %S" package_name);
-          Lwt.return acc)
+          Logs.err (fun m ->
+              m "Invalid package version %S for %S" package_version package_name);
+          acc)
     Version.Map.empty versions
 
 let read_packages () =
@@ -91,9 +88,17 @@ let read_packages () =
                 m "Invalid package name %S: %s" package_name
                   (Printexc.to_string ex));
             Lwt.return acc
-        | _name ->
-            let+ versions = read_versions package_name versions in
-            Name.Map.add (Name.of_string package_name) versions acc)
+        | name ->
+            (* Reading is synchronous, so yield between packages. *)
+            let+ () = Lwt.pause () in
+            let versions = read_versions package_name versions in
+            (* A name with no readable version would have no entry in the
+               package index, and no latest version for the statistics. *)
+            if Version.Map.is_empty versions then (
+              Logs.err (fun m ->
+                  m "No readable version of %S: skipping it" package_name);
+              acc)
+            else Name.Map.add name versions acc)
       Name.Map.empty packages_and_versions
   in
   let t2 = Unix.gettimeofday () in

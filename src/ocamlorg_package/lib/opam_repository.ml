@@ -116,11 +116,17 @@ let list_packages () =
   ls_dir_in_dir Fpath.(to_string (clone_path / "packages"))
   |> Option.value ~default:[]
 
+(* Opam files are small (1.3 KB median) and are read right after [git pull], so
+   they are usually in the page cache. Reading them synchronously is about 10
+   times faster than [Lwt_io], which hands every open, read and close to its
+   thread pool. *)
 let process_opam_file f =
-  let open Lwt.Syntax in
-  Lwt_io.with_file ~mode:Input (Fpath.to_string f) (fun channel ->
-      let+ content = Lwt_io.read channel in
-      try Some (OpamFile.OPAM.read_from_string content) with _ -> None)
+  match In_channel.with_open_bin (Fpath.to_string f) In_channel.input_all with
+  | exception Sys_error reason -> Error reason
+  | content -> (
+      try Ok (OpamFile.OPAM.read_from_string content) with
+      | (Out_of_memory | Stack_overflow) as exn -> raise exn
+      | exn -> Error (Printexc.to_string exn))
 
 let opam_file package_name package_version =
   let opam_file =
