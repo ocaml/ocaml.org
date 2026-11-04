@@ -1,3 +1,31 @@
+- title: How AI is Changing Programming
+  url: https://www.youtube.com/watch/b9Ssp1B_Pf4?version=3
+  thumbnail: https://i3.ytimg.com/vi/b9Ssp1B_Pf4/hqdefault.jpg
+  description: "John Crepezzi has spent his career building tools for other programmers\u2014at
+    Tumblr, at Square, and then at GitHub, where he worked on the merge queue and
+    the early versions of Codespaces. He came to Jane Street to build a code search
+    engine for OCaml. A week into the job, ChatGPT came out, and he's been working
+    on AI tooling ever since. In this episode, Ron and John talk about how a three-day
+    prototype grew into a firmwide platform for agentic coding, how AI can break the
+    social contract around code review, and how to build tools that support both agent
+    workflows and human understanding. \n\n00:00:00 \u2013 Start\n00:00:28 \u2013
+    QBasic and an infinite loop\n00:04:25 \u2013 Tumblr, Square, and GitHub\n00:06:41
+    \u2013 Building for thousands instead of millions\n00:10:43 \u2013 From Ruby to
+    OCaml\n00:18:05 \u2013 Active Record, Petrol, and metaprogramming\n00:22:14 \u2013
+    Three days to build JaneGPT\n00:29:27 \u2013 Writing evals, and grading models
+    with models\n00:33:48 \u2013 Giving LLMs their own permissions\n00:36:29 \u2013
+    Adversarial models and reward hacking\n00:41:00 \u2013 Deny lists, allow lists,
+    and bwrap\n00:48:09 \u2013 AI users\n00:53:09 \u2013 Tool calling and the birth
+    of the AIDE CLI\n01:04:01 \u2013 Vibe coding and the Bonsai gap\n01:06:32 \u2013
+    Agents as perpetual beginners\n01:09:12 \u2013 Our own tools vs. Claude Code\n01:15:14
+    \u2013 What's left of the craft\n01:20:04 \u2013 Verification is the hard part\n01:25:12
+    \u2013 Narrative code review\n01:36:43 \u2013 Agent teams and what's next\n01:43:33
+    \u2013 Slop and the code review social contract\n\nFor more episodes, visit: https://signalsandthreads.com/"
+  published: 2026-10-16T17:00:30+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: Trustworthy Human-AI Collaboration in a Live Type-Theoretic Computational
     Commons
   url: https://www.youtube.com/watch/fB_lklm7xgU?version=3
@@ -3312,7 +3340,7 @@
 
     Watch live at https://www.twitch.tv/emelletv -- Watch live at https://www.twitch.tv/emelletv'
   published: 2022-05-27T16:02:38+00:00
-  author_name: emelletv
+  author_name: David Sancho
   author_uri: https://www.youtube.com/channel/UCvVVfCa7-nzSuCdMKXnNJNQ
   source_link: https://www.youtube.com/feeds/videos.xml?channel_id=UCvVVfCa7-nzSuCdMKXnNJNQ
   source_title: Emelle TV
