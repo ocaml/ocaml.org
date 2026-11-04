@@ -197,6 +197,11 @@ val save_state_to : Fpath.t -> state -> unit
     field except the runtime [docs] cache) to [path]. Exposed for testing; the
     production path is {!Config.package_state_path}. *)
 
+val save_state_in_background_to : Fpath.t -> state -> unit Lwt.t
+(** Like {!save_state_to}, but serializes and writes in a system thread so that
+    the event loop keeps serving requests. This is what the server uses after
+    each rebuild. Exposed for testing. *)
+
 val load_state_from : Fpath.t -> state
 (** [load_state_from path] reads a state previously written by {!save_state_to},
     rebuilding an empty [docs] cache. A decode failure or a [version] mismatch

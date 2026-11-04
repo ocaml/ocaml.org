@@ -155,16 +155,35 @@ let load_state_from state_path =
 
 let try_load_state () = load_state_from Config.package_state_path
 
-let save_state_to state_path t =
-  Logs.info (fun f -> f "Package state saved");
-  let channel = open_out_bin (Fpath.to_string state_path) in
-  Fun.protect
-    (fun () ->
-      output_string channel
-        (Repr.(unstage (to_bin_string Snapshot.t)) (to_snapshot t)))
-    ~finally:(fun () -> close_out channel)
+(* Write in place, not to a temporary file renamed over [state_path]: in the
+   Docker image, [state_path] is [/var/package.state], owned by the server's
+   user in a directory it can't write to, and [init-cache] waits for the
+   build-time state with [inotifywait -e close_write] on the file itself. An
+   interrupted write leaves a truncated file, which [load_state_from] reads as
+   an empty state. *)
+let write_snapshot state_path (snapshot : Snapshot.t) =
+  let content = Repr.(unstage (to_bin_string Snapshot.t)) snapshot in
+  Out_channel.with_open_bin (Fpath.to_string state_path) (fun channel ->
+      Out_channel.output_string channel content)
 
-let save_state t = save_state_to Config.package_state_path t
+let save_state_to state_path t =
+  write_snapshot state_path (to_snapshot t);
+  Logs.info (fun f -> f "Package state saved")
+
+(* Serializing the state takes about 0.12s, which would stall every request on
+   the event loop. The snapshot is immutable, so it is taken here, then
+   serialized and written in a system thread. Not in a domain: once a domain has
+   been spawned, OCaml 5 refuses [Unix.fork] for the rest of the process, and
+   every Git call goes through [Lwt_process], which forks. *)
+let save_state_in_background_to state_path t =
+  let open Lwt.Syntax in
+  let snapshot = to_snapshot t in
+  let+ () =
+    Lwt_preemptive.detach (fun () -> write_snapshot state_path snapshot) ()
+  in
+  Logs.info (fun f -> f "Package state saved")
+
+let save_state t = save_state_in_background_to Config.package_state_path t
 let has_flag flag (info : Info.t) = List.exists (( = ) flag) info.flags
 
 let is_discouraged info =
@@ -222,7 +241,7 @@ let maybe_update t commit =
   | Some v when v = commit -> Lwt.return ()
   | _ ->
       Logs.info (fun m -> m "Update server state");
-      let+ () = update ~commit t in
+      let* () = update ~commit t in
       save_state t
 
 (* Bring the opam-repository clone up to date (cloning it if it is missing) and
