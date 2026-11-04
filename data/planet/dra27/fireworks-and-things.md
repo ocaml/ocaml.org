@@ -4,13 +4,7 @@ description: "Thanks to some targetted optimisations in the script which manages
   OCaml\u2019s various branches, I\u2019d vastly improved the turn-around time when
   making changes to the patch-set and propagating them through the various tests and
   backports. On Tuesday night, the entire set of branches was green in CI (they\u2019re
-  sat here with green check marks and everything). All that was to be needed on Wednesday
-  was to quickly update the opam packaging to take advantage of Relocatable-awesomeness
-  and plumb it all together. The 2022 version of the packages for Ljubljana I knew
-  contained a hack for searching a previous switch, but I\u2019d already investigated
-  a more principled approach using opam\u2019s build-id variable, so it would just
-  be a matter of plumbing that in and using the cloning mechanism already in that
-  script."
+  sat here with green check marks and everything)."
 url: https://www.dra27.uk/blog/platform/2025/07/17/fireworks.html
 date: 2025-07-17T00:00:00-00:00
 preview_image:

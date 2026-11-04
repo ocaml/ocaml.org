@@ -2,11 +2,8 @@
 title: 'Learning OCaml: Having Fun with the Fun Module'
 description: "When I started to play with OCaml I was kind of surprised that there
   was no id (identity) function that was available out-of-box (in Stdlib module, that\u2019s
-  auto-opened). A quick search lead me to the Fun module, which is part of the standard
-  library and is nested under Stdlib. It was introduced in OCaml 4.08, alongside other
-  modules such as Int, Result and Option.1                 It was part of some broader
-  efforts to slim down Stdlib and move in the direction of a more modular standard
-  library.\_\u21A9"
+  auto-opened). A quick search led me to the Fun module, which is part of the standard
+  library and is nested under Stdlib."
 url: https://batsov.com/articles/2025/07/19/learning-ocaml-having-fun-with-the-fun-module/
 date: 2025-07-19T11:20:00-00:00
 preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg

@@ -1,12 +1,10 @@
 ---
 title: OCaml Infra Map
-description: "Yesterday, we were talking about extending the current infrastructure
+description: Yesterday, we were talking about extending the current infrastructure
   database to incorporate other information to provide prompts to return machines
   to the pool of resources after they have completed their current role/loan, etc.
   There is also a wider requirement to bring these services back to Cambridge from
-  Equinix/Scaleway, which will be the subject of a follow-up post. However, the idea
-  of extending the database made me think that it would be amusing to overlay the
-  machine\u2019s positions onto Google Maps."
+  Equinix/Scaleway, which will be the subject of a follow-up post.
 url: https://www.tunbury.org/2025/04/24/infra-map/
 date: 2025-04-24T10:00:00-00:00
 preview_image: https://www.tunbury.org/images/ocaml-map.png

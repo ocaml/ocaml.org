@@ -2,11 +2,7 @@
 title: "OCaml\u2019s Standard Library (`Stdlib`)"
 description: "Every programming language comes with some \u201Cbatteries\u201D included
   - mostly in the form of its standard library. That\u2019s typically all of the functionality
-  that\u2019s available out-of-the-box, without the need to install additional libraries.
-  (although the definition varies from language to language) Usually standard libraries
-  are pretty similar, but I think that OCaml\u2019s a bit \u201Cweird\u201D and slightly
-  surprising in some regards, so I decided to write down a few thoughts on it and
-  how to make the best of it."
+  that\u2019s available out-of-the-box, without the need to install additional libraries."
 url: https://batsov.com/articles/2025/03/14/ocaml-s-standard-library/
 date: 2025-03-14T09:18:00-00:00
 preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg

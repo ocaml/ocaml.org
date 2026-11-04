@@ -4,10 +4,7 @@ description: "Earlier this year, I returned to the Computer Laboratory at the Un
   of Cambridge, as part of the Energy and Environment Group, combining with my work
   at Tarides. It\u2019s been something of a whirlwind, which doesn\u2019t look like
   it\u2019ll be abating just yet, but there\u2019s still been the odd chance to consider
-  where things are and where we might be headed. I\u2019m minded of a scene from an
-  opera I performed a few years ago in Hannover. In the second act of Henrico Leone
-  (\U0001F981, rather than \U0001F42B, but hey), Henrico\u2019s wife, Metilda, in
-  a vision sees her husband defeated in battle:"
+  where things are and where we might be headed."
 url: https://www.dra27.uk/blog/platform/2025/07/18/through-a-glass-darkly.html
 date: 2025-07-18T00:00:00-00:00
 preview_image:

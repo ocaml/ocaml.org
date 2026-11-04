@@ -4,10 +4,7 @@ description: "While comfort-watching the indomitable Joan Hickson as Agatha Chri
   Miss Marple in The Body in the Library, it occurred to me that Miss Marple would
   have been a formidable debugger. Since returning from holiday one, two, three weeks
   ago, I\u2019ve been mostly straightening out and finalising the final Relocatable
-  OCaml PR. A frustrating task, because I know these things will take weeks and have
-  little to show for at the end, so one spends the entire time feeling it should be
-  finished by now. It\u2019s just about there, when this little testsuite failure
-  popped up:"
+  OCaml PR."
 url: https://www.dra27.uk/blog/platform/2025/06/22/they-do-it-with-mirrors.html
 date: 2025-06-22T00:00:00-00:00
 preview_image:

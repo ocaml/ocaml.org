@@ -2,9 +2,7 @@
 title: OCaml Program Specification for Claude
 description: I have a dataset that I would like to visualise using a static website
   hosted on GitHub Pages. The application that generates the dataset is still under
-  development, which results in frequently changing data formats. Therefore, rather
-  than writing a static website generator and needing to revise it continually, could
-  I write a specification and have Claude create a new one each time there was a change?
+  development, which results in frequently changing data formats.
 url: https://www.tunbury.org/2025/08/01/program-specification/
 date: 2025-08-01T00:00:00-00:00
 preview_image: https://www.tunbury.org/images/ocaml-logo.png

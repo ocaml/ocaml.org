@@ -4,16 +4,7 @@ description: "Some titles make more sense than others. One of my oldest contribu
   to OCaml was a complete overhaul of Unix.stat et al in ocaml/ocaml#462 which formed
   part of OCaml 4.03. As part of the work on msvs-detect in late 2015, I\u2019d ended
   up with a Windows 7 VM which had every single version of Visual Studio back to Visual
-  Studio 6.0. Visual Studio (and Visual C++ before that) has always included the source
-  code for the C Runtime Library (CRT), and as a side-effect of having all these installed
-  Visual Studios, I was able to construct a Git repository showing the evolution of
-  the CRT code over each release (sadly, the licence doesn\u2019t allow this to be
-  pushed publicly). This was particularly useful for studying how the behaviour of
-  the stat implementation had changed over time, particularly with reference to Windows
-  Vista\u2019s symlinks. Anyway, that particular bit of work left me with a habit
-  of often reaching for the CRT whenever something weird\u2019s happening, and that\u2019s
-  led naturally to a fairly detailed bug-fix - and outline for more bug-fixes - in
-  OCaml."
+  Studio 6.0."
 url: https://www.dra27.uk/blog/platform/2025/04/03/cloexec.html
 date: 2025-04-03T00:00:00-00:00
 preview_image:

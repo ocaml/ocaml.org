@@ -4,9 +4,7 @@ description: Equinix has stopped commercial sales of Metal and will sunset the s
   at the end of June 2026. Equinix have long been a supporter of OCaml and has provided
   free credits to use on their Metal platform. These credits are coming to an end
   at the end of this month, meaning that we need to move some of our services away
-  from Equinix. We have two new four-node blade servers, which will become the new
-  home for these services. The blades have dual 10C/20T processors with either 192GB
-  or 256GB of RAM and a combination of SSD and spinning disk.
+  from Equinix.
 url: https://www.tunbury.org/2025/04/23/blade-allocation/
 date: 2025-04-23T00:00:00-00:00
 preview_image: https://www.tunbury.org/images/supermicro.png
