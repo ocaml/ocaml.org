@@ -59,7 +59,15 @@ let sorted_of_list l =
 let ok status =
   match int_of_string_opt status with Some c -> c < 400 | None -> false
 
-type req = { t : float; latency_ms : float; status : string; stream : string }
+type req = {
+  t : float;  (** scheduled send time, seconds since the run started *)
+  latency_ms : float;
+  status : string;
+  stream : string;
+  cls : string;
+  path : string;
+  id : int option;  (** position in its stream; absent in runs before ids *)
+}
 
 let rows dir file =
   let path = Filename.concat dir file in
@@ -68,10 +76,13 @@ let rows dir file =
 let read_traffic dir =
   List.filter_map
     (function
-      | t :: _ :: lat :: status :: _ :: stream :: _ -> (
+      | t :: _ :: lat :: status :: _ :: stream :: cls :: path :: rest -> (
           match (float_of_string_opt t, float_of_string_opt lat) with
           | Some t, Some l ->
-              Some { t; latency_ms = l *. 1000.; status; stream }
+              let id =
+                match rest with i :: _ -> int_of_string_opt i | [] -> None
+              in
+              Some { t; latency_ms = l *. 1000.; status; stream; cls; path; id }
           | _ -> None)
       | _ -> None)
     (rows dir "traffic.csv")
@@ -341,7 +352,207 @@ let write_csv path header rows =
   List.iter (Csv.row csv) rows;
   Csv.close csv
 
-let run ?(bucket = 5.) dir =
+(* {1 Model-oriented outputs}
+
+   [summary.json], [timeline.csv] and [events.csv] hold the same information as
+   the text summary and the plot, for a program or a language model to read:
+   explicit units in field names, the number of samples behind each percentile,
+   a coarse timeline instead of a picture, and the run's notable events as a
+   list. They are computed, like everything else here: rerunning the summary on
+   the same run directory gives the same files. *)
+
+(* Finite floats rounded to 3 decimals: more would be noise, and cost tokens. *)
+let jnum x =
+  if Float.is_finite x then `Float (Float.round (x *. 1000.) /. 1000.)
+  else `Null
+
+let json_key = function "p99.9" -> "p999" | name -> name
+
+let dist_json sorted : Yojson.Safe.t =
+  let n = Array.length sorted in
+  `Assoc
+    ([
+       ("n", `Int n); ("max", jnum (if n = 0 then nan else percentile sorted 1.));
+     ]
+    @ List.map
+        (fun (p, name) ->
+          let k = if n = 0 then 0 else above n p in
+          ( json_key name,
+            `Assoc
+              [
+                ("value", if k < 1 then `Null else jnum (percentile sorted p));
+                ("samples_above", `Int k);
+                ("reliable", `Bool (k >= 10));
+              ] ))
+        quantiles)
+
+type event = {
+  et : float;  (** seconds since the run started *)
+  ekind : string;
+  value : float;
+  unit : string;
+  detail : string;
+}
+
+(* Latency bursts: requests slower than [burst_ms], grouped when each is
+   scheduled within [burst_gap] seconds of the previous one; a group of at least
+   [burst_min] is a burst. *)
+let burst_ms = 2000.
+let burst_gap = 5.
+let burst_min = 3
+
+let bursts ~busy reqs =
+  let slow =
+    List.filter (fun r -> r.status <> "drop" && r.latency_ms > burst_ms) reqs
+    |> List.sort (fun a b -> compare a.t b.t)
+  in
+  let emit group acc =
+    let group = List.rev group in
+    if List.length group < burst_min then acc
+    else
+      let first = List.hd group in
+      let fin =
+        List.fold_left
+          (fun m r -> Float.max m (r.t +. (r.latency_ms /. 1000.)))
+          neg_infinity group
+      in
+      let max_ms =
+        List.fold_left (fun m r -> Float.max m r.latency_ms) 0. group
+      in
+      let classes =
+        List.map (fun r -> r.stream ^ "/" ^ r.cls) group
+        |> List.sort compare
+        |> List.fold_left
+             (fun acc c ->
+               match acc with
+               | (c', n) :: tl when c = c' -> (c, n + 1) :: tl
+               | _ -> (c, 1) :: acc)
+             []
+        |> List.rev_map (fun (c, n) -> Printf.sprintf "%s:%d" c n)
+        |> String.concat " "
+      in
+      {
+        et = first.t;
+        ekind = "latency_burst";
+        value = max_ms;
+        unit = "ms";
+        detail =
+          Printf.sprintf "%d requests over %.1f s >%.0f ms; %s%s"
+            (List.length group) (fin -. first.t) burst_ms classes
+            (if busy first.t then "; during update" else "");
+      }
+      :: acc
+  in
+  let rec go acc group last = function
+    | [] -> List.rev (emit group acc)
+    | r :: tl ->
+        if group <> [] && r.t -. last <= burst_gap then
+          go acc (r :: group) r.t tl
+        else go (emit group acc) [ r ] r.t tl
+  in
+  go [] [] neg_infinity slow
+
+let read_feed dir =
+  List.filter_map
+    (function
+      | t :: _ :: commits :: _ -> (
+          match (float_of_string_opt t, int_of_string_opt commits) with
+          | Some t, Some c -> Some (t, c)
+          | _ -> None)
+      | _ -> None)
+    (rows dir "feed.csv")
+
+let read_heap dir =
+  List.filter_map
+    (function
+      | t :: _ :: _ :: _ :: _ :: _ :: _ :: heap :: _ -> (
+          match (float_of_string_opt t, float_of_string_opt heap) with
+          | Some t, Some h -> Some (t, h)
+          | _ -> None)
+      | _ -> None)
+    (rows dir "gc.csv")
+
+let cell x = if Float.is_finite x then Printf.sprintf "%.1f" x else ""
+
+let timeline ~bin ~run_end ~wins ~samples ~pauses ~reqs ~heap ~feed streams =
+  let nbins = int_of_float (ceil (run_end /. bin)) in
+  List.init nbins (fun k ->
+      let a = float_of_int k *. bin in
+      let b = a +. bin in
+      let within t = t >= a && t < b in
+      let busy =
+        List.fold_left
+          (fun acc (s, e) ->
+            acc +. Float.max 0. (Float.min b e -. Float.max a s))
+          0. wins
+      in
+      let smax f =
+        fold_samples samples (a +. 1e-9) b (fun acc s -> nanmax acc (f s)) nan
+      in
+      let heap_now =
+        List.fold_left (fun acc (t, h) -> if t < b then h else acc) nan heap
+      in
+      let ps = List.filter (fun p -> within p.start) pauses in
+      let count kind = List.length (List.filter (fun p -> p.kind = kind) ps) in
+      let per_stream s =
+        let rs = List.filter (fun r -> r.stream = s && within r.t) reqs in
+        let lat =
+          sorted_of_list
+            (List.filter_map
+               (fun r -> if ok r.status then Some r.latency_ms else None)
+               rs)
+        in
+        let n = Array.length lat in
+        [
+          string_of_int (List.length rs);
+          string_of_int (List.length rs - n);
+          cell (if n = 0 then nan else percentile lat 0.5);
+          cell (if n = 0 then nan else percentile lat 1.);
+        ]
+      in
+      [
+        Printf.sprintf "%.0f" a;
+        Printf.sprintf "%.2f" (busy /. bin);
+        cell (smax (fun s -> s.mem));
+        cell (smax (fun s -> s.rss));
+        cell heap_now;
+        cell (cpu_seconds samples a b /. bin *. 100.);
+        string_of_int (count "minor");
+        string_of_int (count "major");
+        cell (List.fold_left (fun acc p -> acc +. p.ms) 0. ps);
+        cell (List.fold_left (fun acc p -> Float.max acc p.ms) 0. ps);
+      ]
+      @ List.concat_map per_stream streams
+      @ [
+          string_of_int
+            (List.fold_left
+               (fun acc (t, c) -> if within t then acc + c else acc)
+               0 feed);
+        ])
+
+let timeline_header streams =
+  [
+    "t";
+    "update_share";
+    "mem_max_mb";
+    "rss_max_mb";
+    "heap_mb";
+    "cpu_pct";
+    "gc_minor_n";
+    "gc_major_n";
+    "gc_pause_ms";
+    "gc_max_ms";
+  ]
+  @ List.concat_map
+      (fun s -> [ s ^ "_n"; s ^ "_failed"; s ^ "_p50_ms"; s ^ "_max_ms" ])
+      streams
+  @ [ "upstream_commits" ]
+
+(* {1 Everything} *)
+
+let mmu_windows = [ (0.001, "1ms"); (0.01, "10ms"); (0.1, "100ms"); (1., "1s") ]
+
+let run ?(bucket = 5.) ?(bin = 10.) dir =
   let file = Filename.concat dir in
   let reqs = read_traffic dir in
   let pauses = read_pauses dir in
@@ -357,8 +568,149 @@ let run ?(bucket = 5.) dir =
   let in_warmup t =
     match warmup with Some (s, e) -> t >= s && t <= e | None -> false
   in
-  (* files *)
   let streams = List.sort_uniq compare (List.map (fun r -> r.stream) reqs) in
+  (* computations *)
+  let latency s f =
+    sorted_of_list
+      (List.filter_map
+         (fun r ->
+           if r.stream = s && ok r.status && f r.t then Some r.latency_ms
+           else None)
+         reqs)
+  in
+  let counts s =
+    let rs = List.filter (fun r -> r.stream = s) reqs in
+    let n p = List.length (List.filter p rs) in
+    ( List.length rs,
+      n (fun r -> r.status <> "drop" && not (ok r.status)),
+      n (fun r -> r.status = "drop") )
+  in
+  let pause_ms kind f =
+    sorted_of_list
+      (List.filter_map
+         (fun p -> if p.kind = kind && f p.start then Some p.ms else None)
+         pauses)
+  in
+  let mmus =
+    if pauses = [] then []
+    else
+      let ivs =
+        List.map (fun p -> (p.start, p.start +. (p.ms /. 1000.))) pauses
+      in
+      let lo =
+        List.fold_left (fun acc p -> Float.min acc p.start) infinity pauses
+      in
+      let hi =
+        Float.max run_end
+          (List.fold_left (fun acc (_, e) -> Float.max acc e) lo ivs)
+      in
+      List.filter_map
+        (fun (w, label) ->
+          Option.map
+            (fun (u, at) -> (w, label, Float.max 0. u, at))
+            (mmu ivs ~lo ~hi w))
+        mmu_windows
+  in
+  let cs = cycles ~samples ~pauses ~run_end wins in
+  let after_warmup = List.filter (fun c -> c.index > 1) cs in
+  let median l =
+    let a = sorted_of_list l in
+    if Array.length a = 0 then nan else percentile a 0.5
+  in
+  let median_duration =
+    median (List.map (fun c -> c.c_end -. c.c_start) after_warmup)
+  in
+  let median_cpu = median (List.map (fun c -> c.cpu_s) after_warmup) in
+  let rss_trend = slope (List.map (fun c -> c.floor_rss) after_warmup) in
+  let mem_trend = slope (List.map (fun c -> c.floor_mem) after_warmup) in
+  let cpu =
+    if Array.length samples < 2 then None
+    else
+      let total = cpu_seconds samples samples.(0).st run_end in
+      let in_updates =
+        List.fold_left
+          (fun acc (s, e) -> acc +. cpu_seconds samples s e)
+          0. wins
+      in
+      let busy_time =
+        List.fold_left (fun acc (s, e) -> acc +. (e -. s)) 0. wins
+      in
+      let span = run_end -. samples.(0).st in
+      let idle_time = span -. busy_time in
+      Some
+        ( total,
+          span,
+          in_updates,
+          (if total > 0. then in_updates /. total else nan),
+          if idle_time > 0. then (total -. in_updates) /. idle_time *. 100.
+          else nan )
+  in
+  let peak f = Array.fold_left (fun acc s -> nanmax acc (f s)) nan samples in
+  let phases =
+    let ps =
+      List.filter_map
+        (fun (t, ev, secs, name) ->
+          match (ev, float_of_string_opt secs) with
+          | "phase", Some s when not (in_warmup t) -> Some (name, s)
+          | _ -> None)
+        sync
+    in
+    List.map
+      (fun name ->
+        ( name,
+          sorted_of_list
+            (List.filter_map
+               (fun (n, s) -> if n = name then Some s else None)
+               ps) ))
+      (List.sort_uniq compare (List.map fst ps))
+  in
+  let events =
+    let updates =
+      List.map
+        (fun c ->
+          {
+            et = c.c_start;
+            ekind = "update";
+            value = c.c_end -. c.c_start;
+            unit = "s";
+            detail =
+              Printf.sprintf "cycle %d; %.1f CPU-s; peak RSS %.0f MB%s" c.index
+                c.cpu_s c.peak_rss
+                (if c.index = 1 then "; warm-up full rebuild" else "");
+          })
+        cs
+    in
+    let upstream =
+      List.map
+        (fun (t, n) ->
+          {
+            et = t;
+            ekind = "upstream_advanced";
+            value = float_of_int n;
+            unit = "commits";
+            detail = "";
+          })
+        (read_feed dir)
+    in
+    let longest =
+      List.sort (fun a b -> compare b.ms a.ms) pauses
+      |> List.filteri (fun i _ -> i < 10)
+      |> List.map (fun p ->
+             {
+               et = p.start;
+               ekind = "gc_pause";
+               value = p.ms;
+               unit = "ms";
+               detail =
+                 ((if p.kind = "minor" then "minor GC" else "major slice")
+                 ^ if busy p.start then "; during update" else "");
+             })
+    in
+    List.sort
+      (fun a b -> compare a.et b.et)
+      (updates @ upstream @ longest @ bursts ~busy reqs)
+  in
+  (* CSV files *)
   List.iter
     (fun s ->
       write_csv
@@ -378,7 +730,6 @@ let run ?(bucket = 5.) dir =
         (i + 1) s e)
     wins;
   close_out gp;
-  let cs = cycles ~samples ~pauses ~run_end wins in
   write_csv (file "cycles.csv") cycles_header
     (List.map
        (fun c ->
@@ -394,67 +745,212 @@ let run ?(bucket = 5.) dir =
            Csv.float c.max_pause;
          ])
        cs);
-  (* text *)
+  write_csv (file "timeline.csv") (timeline_header streams)
+    (timeline ~bin ~run_end ~wins ~samples ~pauses ~reqs ~heap:(read_heap dir)
+       ~feed:(read_feed dir) streams);
+  write_csv (file "events.csv")
+    [ "t"; "kind"; "value"; "unit"; "detail" ]
+    (List.map
+       (fun e ->
+         [
+           Csv.float e.et;
+           e.ekind;
+           Printf.sprintf "%.3f" e.value;
+           e.unit;
+           (* keep the CSV unambiguous *)
+           String.map (fun c -> if c = ',' then ';' else c) e.detail;
+         ])
+       events);
+  (* summary.json *)
+  let meta =
+    let path = file "meta.json" in
+    if Sys.file_exists path then Yojson.Safe.from_file path else `Null
+  in
+  let opt_num = function Some x -> jnum x | None -> `Null in
+  let json : Yojson.Safe.t =
+    `Assoc
+      [
+        ("schema", `String "ocamlorg-sim-summary/1");
+        ("run", meta);
+        ( "notes",
+          `Assoc
+            [
+              ("time", `String "seconds since the run started");
+              ( "latency",
+                `String
+                  "from the scheduled send time, successful responses only" );
+              ( "percentiles",
+                `String
+                  "nearest rank; value is null when no sample lies above it; \
+                   reliable means at least 10 samples lie above it" );
+              ( "update_window",
+                `String
+                  "from the server's 'Update server state' log line to \
+                   'Package state saved'; the first one is the warm-up full \
+                   rebuild" );
+              ( "floor",
+                `String
+                  "lowest memory between the end of an update and the start of \
+                   the next" );
+              ( "mmu",
+                `String
+                  "minimum mutator utilisation: the worst share of any window \
+                   of that length not spent in a GC pause" );
+              ( "latency_burst",
+                `String
+                  (Printf.sprintf
+                     "at least %d requests slower than %.0f ms, each scheduled \
+                      within %.0f s of the previous one"
+                     burst_min burst_ms burst_gap) );
+            ] );
+        ( "latency_ms",
+          `Assoc
+            (List.map
+               (fun s ->
+                 let sent, errors, dropped = counts s in
+                 ( s,
+                   `Assoc
+                     [
+                       ("sent", `Int sent);
+                       ("errors", `Int errors);
+                       ("dropped", `Int dropped);
+                       ("all", dist_json (latency s (fun _ -> true)));
+                       ("during_update", dist_json (latency s busy));
+                       ( "outside_update",
+                         dist_json (latency s (fun t -> not (busy t))) );
+                     ] ))
+               streams) );
+        ( "gc_pause_ms",
+          `Assoc
+            (List.map
+               (fun (kind, name) ->
+                 ( name,
+                   `Assoc
+                     [
+                       ("all", dist_json (pause_ms kind (fun _ -> true)));
+                       ("during_update", dist_json (pause_ms kind busy));
+                       ( "outside_update",
+                         dist_json (pause_ms kind (fun t -> not (busy t))) );
+                     ] ))
+               [ ("minor", "minor"); ("major", "major_slice") ]) );
+        ( "mmu",
+          `Assoc
+            (List.map
+               (fun (w, label, u, at) ->
+                 ( label,
+                   `Assoc
+                     [
+                       ("window_s", `Float w);
+                       ("utilisation", jnum u);
+                       ("worst_at_s", jnum at);
+                       ("worst_during_update", `Bool (busy at));
+                     ] ))
+               mmus) );
+        ( "cycles",
+          `List
+            (List.map
+               (fun c ->
+                 `Assoc
+                   [
+                     ("cycle", `Int c.index);
+                     ("warmup", `Bool (c.index = 1));
+                     ("start_s", jnum c.c_start);
+                     ("duration_s", jnum (c.c_end -. c.c_start));
+                     ("cpu_s", jnum c.cpu_s);
+                     ("peak_mem_mb", jnum c.peak_mem);
+                     ("peak_rss_mb", jnum c.peak_rss);
+                     ("floor_mem_after_mb", jnum c.floor_mem);
+                     ("floor_rss_after_mb", jnum c.floor_rss);
+                     ("max_gc_pause_ms", jnum c.max_pause);
+                   ])
+               cs) );
+        ( "cycles_excluding_warmup",
+          `Assoc
+            [
+              ("count", `Int (List.length after_warmup));
+              ("median_duration_s", jnum median_duration);
+              ("median_cpu_s", jnum median_cpu);
+              ("rss_floor_trend_mb_per_update", opt_num rss_trend);
+              ("mem_floor_trend_mb_per_update", opt_num mem_trend);
+            ] );
+        ( "cpu",
+          match cpu with
+          | None -> `Null
+          | Some (total, span, in_updates, share, baseline) ->
+              `Assoc
+                [
+                  ("total_cpu_s", jnum total);
+                  ("span_s", jnum span);
+                  ("in_updates_cpu_s", jnum in_updates);
+                  ("in_updates_share", jnum share);
+                  ("baseline_outside_updates_pct_core", jnum baseline);
+                ] );
+        ( "memory_peak_mb",
+          `Assoc
+            [
+              ("cgroup", jnum (peak (fun s -> s.mem)));
+              ("rss", jnum (peak (fun s -> s.rss)));
+            ] );
+        ( "phases_excluding_warmup_s",
+          `Assoc
+            (List.map
+               (fun (name, a) ->
+                 ( name,
+                   `Assoc
+                     [
+                       ("n", `Int (Array.length a));
+                       ("min", jnum a.(0));
+                       ("median", jnum (percentile a 0.5));
+                       ("max", jnum a.(Array.length a - 1));
+                     ] ))
+               phases) );
+        ( "events",
+          `List
+            (List.map
+               (fun e ->
+                 `Assoc
+                   [
+                     ("t", jnum e.et);
+                     ("kind", `String e.ekind);
+                     ("value", jnum e.value);
+                     ("unit", `String e.unit);
+                     ("detail", `String e.detail);
+                   ])
+               events) );
+      ]
+  in
+  Yojson.Safe.to_file (file "summary.json") json;
+  (* summary.txt *)
   let b = Buffer.create 4096 in
   let pr fmt = Printf.bprintf b fmt in
-  let dist label values =
-    let a = sorted_of_list values in
-    pr "  %-24s n=%-7d %s\n" label (Array.length a) (distribution a)
+  let dist label a =
+    pr "  %-26s n=%-7d %s\n" label (Array.length a) (distribution a)
   in
   pr "Latency, ms (from scheduled send time; successful responses only)\n";
   List.iter
     (fun s ->
-      let rs = List.filter (fun r -> r.stream = s) reqs in
-      let failed p = List.length (List.filter p rs) in
-      pr "  %s: %d sent, %d errors, %d dropped\n" s (List.length rs)
-        (failed (fun r -> r.status <> "drop" && not (ok r.status)))
-        (failed (fun r -> r.status = "drop"));
-      let lat f =
-        List.filter_map
-          (fun r -> if ok r.status && f r.t then Some r.latency_ms else None)
-          rs
-      in
-      dist (s ^ " all") (lat (fun _ -> true));
-      dist (s ^ " during update") (lat busy);
-      dist (s ^ " outside update") (lat (fun t -> not (busy t))))
+      let sent, errors, dropped = counts s in
+      pr "  %s: %d sent, %d errors, %d dropped\n" s sent errors dropped;
+      dist (s ^ " all") (latency s (fun _ -> true));
+      dist (s ^ " during update") (latency s busy);
+      dist (s ^ " outside update") (latency s (fun t -> not (busy t))))
     streams;
   if pauses <> [] then (
     pr "\nGC pauses, ms\n";
     List.iter
-      (fun kind ->
-        let ms f =
-          List.filter_map
-            (fun p -> if p.kind = kind && f p.start then Some p.ms else None)
-            pauses
-        in
-        let name = if kind = "minor" then "minor GC" else "major slice" in
-        dist (name ^ " all") (ms (fun _ -> true));
-        dist (name ^ " during update") (ms busy);
-        dist (name ^ " outside update") (ms (fun t -> not (busy t))))
-      [ "minor"; "major" ];
-    let ivs =
-      List.map (fun p -> (p.start, p.start +. (p.ms /. 1000.))) pauses
-    in
-    let lo =
-      List.fold_left (fun acc p -> Float.min acc p.start) infinity pauses
-    in
-    let hi =
-      Float.max run_end
-        (List.fold_left (fun acc (_, e) -> Float.max acc e) lo ivs)
-    in
+      (fun (kind, name) ->
+        dist (name ^ " all") (pause_ms kind (fun _ -> true));
+        dist (name ^ " during update") (pause_ms kind busy);
+        dist (name ^ " outside update") (pause_ms kind (fun t -> not (busy t))))
+      [ ("minor", "minor GC"); ("major", "major slice") ];
     pr
       "\n\
        Minimum mutator utilisation (worst share of a window left to the program)\n";
     List.iter
-      (fun (w, label) ->
-        match mmu ivs ~lo ~hi w with
-        | None -> ()
-        | Some (u, at) ->
-            pr "  %-6s %5.1f%%   worst window at t=%.1fs%s\n" label
-              (Float.max 0. (u *. 100.))
-              at
-              (if busy at then " (during update)" else ""))
-      [ (0.001, "1 ms"); (0.01, "10 ms"); (0.1, "100 ms"); (1., "1 s") ]);
+      (fun (_, label, u, at) ->
+        pr "  %-6s %5.1f%%   worst window at t=%.1fs%s\n" label (u *. 100.) at
+          (if busy at then " (during update)" else ""))
+      mmus);
   if cs <> [] then (
     pr "\nUpdate cycles (update -> saved); #1 is the warm-up full rebuild\n";
     pr "  %-3s %8s %8s %8s %10s %10s %11s %11s %9s\n" "#" "start" "dur s"
@@ -468,65 +964,37 @@ let run ?(bucket = 5.) dir =
     pr
       "  (memory in MB, floors are the lowest value between an update and the \
        next, GC in ms)\n";
-    let after_warmup = List.filter (fun c -> c.index > 1) cs in
-    let median l =
-      let a = sorted_of_list l in
-      if Array.length a = 0 then nan else percentile a 0.5
-    in
     pr "  excluding warm-up: median %.1f s and %.1f CPU-s per update\n"
-      (median (List.map (fun c -> c.c_end -. c.c_start) after_warmup))
-      (median (List.map (fun c -> c.cpu_s) after_warmup));
-    let pr_slope label f =
-      match slope (List.map f after_warmup) with
+      median_duration median_cpu;
+    let pr_slope label = function
       | Some s -> pr "  %s floor trend: %+.1f MB per update\n" label s
       | None -> pr "  %s floor trend: - (needs 3 cycles after warm-up)\n" label
     in
-    pr_slope "RSS" (fun c -> c.floor_rss);
-    pr_slope "cgroup memory" (fun c -> c.floor_mem));
-  if Array.length samples > 1 then (
-    let total = cpu_seconds samples samples.(0).st run_end in
-    let in_updates =
-      List.fold_left (fun acc (s, e) -> acc +. cpu_seconds samples s e) 0. wins
-    in
-    let busy_time =
-      List.fold_left (fun acc (s, e) -> acc +. (e -. s)) 0. wins
-    in
-    let idle_time = run_end -. samples.(0).st -. busy_time in
-    pr "\nCPU\n";
-    pr "  total                  %8.1f CPU-s over %.0f s\n" total
-      (run_end -. samples.(0).st);
-    pr "  in updates             %8.1f CPU-s (%.0f%%)\n" in_updates
-      (if total > 0. then in_updates /. total *. 100. else nan);
-    pr "  baseline outside       %8.1f %% of a core\n"
-      (if idle_time > 0. then (total -. in_updates) /. idle_time *. 100.
-       else nan);
-    let peak f = Array.fold_left (fun acc s -> nanmax acc (f s)) nan samples in
-    pr "\nMemory peaks\n";
-    pr "  cgroup memory          %8.1f MB\n" (peak (fun s -> s.mem));
-    pr "  server RSS             %8.1f MB\n" (peak (fun s -> s.rss)));
-  (* update phases, excluding the warm-up *)
-  let phases =
-    List.filter_map
-      (fun (t, ev, secs, name) ->
-        match (ev, float_of_string_opt secs) with
-        | "phase", Some s when not (in_warmup t) -> Some (name, s)
-        | _ -> None)
-      sync
-  in
+    pr_slope "RSS" rss_trend;
+    pr_slope "cgroup memory" mem_trend);
+  (match cpu with
+  | None -> ()
+  | Some (total, span, in_updates, share, baseline) ->
+      pr "\nCPU\n";
+      pr "  total                  %8.1f CPU-s over %.0f s\n" total span;
+      pr "  in updates             %8.1f CPU-s (%.0f%%)\n" in_updates
+        (share *. 100.);
+      pr "  baseline outside       %8.1f %% of a core\n" baseline;
+      pr "\nMemory peaks\n";
+      pr "  cgroup memory          %8.1f MB\n" (peak (fun s -> s.mem));
+      pr "  server RSS             %8.1f MB\n" (peak (fun s -> s.rss)));
   if phases <> [] then (
     pr "\nUpdate phases excluding warm-up, s\n";
     List.iter
-      (fun name ->
-        let a =
-          sorted_of_list
-            (List.filter_map
-               (fun (n, s) -> if n = name then Some s else None)
-               phases)
-        in
+      (fun (name, a) ->
         pr "  %-24s n=%-3d min=%-7.2f median=%-7.2f max=%.2f\n" name
           (Array.length a) a.(0) (percentile a 0.5)
           a.(Array.length a - 1))
-      (List.sort_uniq compare (List.map fst phases)));
+      phases);
+  let n_bursts =
+    List.length (List.filter (fun e -> e.ekind = "latency_burst") events)
+  in
+  pr "\nEvents: %d latency bursts (see events.csv)\n" n_bursts;
   pr
     "\n\
      Percentiles: '-' when no sample lies above (it would be the max), '*' \

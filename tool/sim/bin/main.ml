@@ -321,6 +321,24 @@ let clock_offset_cmd =
       const (fun () -> Printf.printf "%.9f\n" (Gc_events.measure_offset ()))
       $ const ())
 
+let compare_cmd =
+  let dir n doc = Arg.(required & pos n (some dir) None & info [] ~docv:doc) in
+  let output =
+    Arg.(
+      value
+      & opt (some string) None
+      & info [ "o"; "output" ] ~docv:"FILE"
+          ~doc:"Also write the comparison as JSON.")
+  in
+  Cmd.v
+    (Cmd.info "compare"
+       ~doc:
+         "Compare two runs (A, then B): every summary number side by side, and \
+          latency paired request by request.")
+    Term.(
+      const (fun a b output -> print_string (Compare.run ?output a b))
+      $ dir 0 "A" $ dir 1 "B" $ output)
+
 let profile_cmd =
   Cmd.group
     (Cmd.info "profile" ~doc:"Build traffic profiles.")
@@ -332,4 +350,11 @@ let () =
        (Cmd.group
           (Cmd.info "sim"
              ~doc:"Simulate the ocaml.org server, faster than real time.")
-          [ run_cmd; summary_cmd; plot_cmd; profile_cmd; clock_offset_cmd ]))
+          [
+            run_cmd;
+            summary_cmd;
+            plot_cmd;
+            compare_cmd;
+            profile_cmd;
+            clock_offset_cmd;
+          ]))

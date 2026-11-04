@@ -99,6 +99,9 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | ---- | ------- |
 | `meta.json` | Run parameters, image id, start and tip commits |
 | `summary.txt` | The summary described [below](#reading-the-summary) |
+| `summary.json` | The same summary, structured, for programs and language models ([below](#for-programs-and-language-models)) |
+| `timeline.csv` | Per 10 s, one row: update share, memory, CPU, GC, latency per stream, upstream commits |
+| `events.csv` | Updates, upstream advances, the 10 longest GC pauses, and latency bursts |
 | `timeline.svg` | Everything on one time axis; update windows shaded |
 | `resources.csv` | Per second: cgroup memory, anon/file, RSS, CPU |
 | `gc.csv` | Per second: minor GCs and major slices (count, total, longest), major heap size |
@@ -112,6 +115,7 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `server.log` | The server's full log |
 
 `sim summary DIR` and `sim plot DIR` regenerate the summary and the plot.
+`sim compare A B` compares two runs (see [below](#comparing-runs)).
 
 ### Reading the Summary
 
@@ -139,6 +143,44 @@ Each kind of data is summarised in the way that suits it.
   between updates and the baseline outside them.
 - **Update phases** happen a handful of times per run, so they get min,
   median and max, without the warm-up rebuild.
+
+### For Programs and Language Models
+
+The plot is for people. A program, or a language model, reads the same data
+better as text with the aggregation already done:
+
+- `summary.json` holds everything in `summary.txt`, with units in field
+  names (`p99_ms`, `rss_floor_trend_mb_per_update`). Each percentile carries
+  the number of samples above it and a `reliable` flag. The run parameters
+  and the definitions used (update window, floor, MMU, burst) are included.
+- `timeline.csv` replaces the picture: 10-second rows, one column per
+  metric, about 60 rows for a 10-minute run.
+- `events.csv`, also in `summary.json`, lists what happened and when:
+  - each update and when upstream moved;
+  - the longest GC pauses;
+  - latency bursts, meaning at least 3 requests slower than 2 s, each
+    scheduled within 5 s of the previous one.
+
+All three are computed by `sim` from the raw files: the same run directory
+always gives the same output. The raw CSVs stay available for detail, for
+example to query with `awk`.
+
+### Comparing Runs
+
+```bash
+opam exec -- dune exec tool/sim/bin/main.exe -- compare DIR_A DIR_B -o compare.json
+```
+
+This prints, and with `-o` also writes as JSON:
+
+- the run parameters that differ, apart from the image. If any do, the runs
+  are not comparable one to one.
+- every number of the two `summary.json` files, with B − A and B / A. A
+  percentile resting on fewer than 10 samples on either side is marked.
+- paired latency: each request is matched with the same request (stream and
+  `id`) in the other run, and the differences B − A are summarised per
+  stream. This needs runs made since request ids were added. A path mismatch
+  means the two schedules differ.
 
 ## Traffic Profiles
 

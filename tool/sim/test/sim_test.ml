@@ -282,6 +282,80 @@ let test_plan_rate () =
        (Array.sub p 0 (Array.length p - 1))
        (Array.sub p 1 (Array.length p - 1)))
 
+let req ?(stream = "bot") ?(status = "200") t ms =
+  {
+    Summary.t;
+    latency_ms = ms;
+    status;
+    stream;
+    cls = "pkg-ver";
+    path = "/p/x/1";
+    id = None;
+  }
+
+let test_bursts () =
+  let reqs =
+    [
+      (* a burst of 3, the next one 10 s later is alone *)
+      req 10. 3000.;
+      req 12. 2500.;
+      req 16. 4000.;
+      req 26. 5000.;
+      (* fast, and dropped: never part of a burst *)
+      req 11. 10.;
+      req ~status:"drop" 13. 9000.;
+    ]
+  in
+  match Summary.bursts ~busy:(fun _ -> false) reqs with
+  | [ e ] ->
+      Alcotest.(check (float 1e-9)) "starts at the first slow request" 10. e.et;
+      Alcotest.(check (float 1e-9)) "worst latency" 4000. e.value
+  | l -> Alcotest.failf "expected one burst, got %d" (List.length l)
+
+let test_flatten () =
+  let j =
+    Yojson.Safe.from_string
+      {|{"schema":"x","run":{"seed":42},"cpu":{"total_cpu_s":3.5},
+         "latency_ms":{"bot":{"all":{"n":10,
+           "p99":{"value":null,"samples_above":0,"reliable":false},
+           "p50":{"value":4.0,"samples_above":5,"reliable":false}}}},
+         "mmu":{"1s":{"window_s":1.0,"utilisation":0.5,"worst_at_s":3.0}}}|}
+  in
+  let leaves = List.map (fun (p, _, _) -> p) (Compare.flatten j) in
+  Alcotest.(check (list string))
+    "numeric leaves, percentiles as one leaf, no run parameters or positions"
+    [
+      "cpu.total_cpu_s";
+      "latency_ms.bot.all.n";
+      "latency_ms.bot.all.p99";
+      "latency_ms.bot.all.p50";
+      "mmu.1s.utilisation";
+    ]
+    leaves
+
+let test_timeline_width () =
+  let samples =
+    Array.init 30 (fun i ->
+        { Summary.st = float_of_int i; mem = 100.; rss = 80.; cpu = 50. })
+  in
+  let rows =
+    Summary.timeline ~bin:10. ~run_end:29.
+      ~wins:[ (5., 12.) ]
+      ~samples ~pauses:[]
+      ~reqs:[ req 3. 5. ]
+      ~heap:[]
+      ~feed:[ (4., 2) ]
+      [ "bot" ]
+  in
+  let width = List.length (Summary.timeline_header [ "bot" ]) in
+  Alcotest.(check int) "three bins" 3 (List.length rows);
+  List.iter
+    (fun r -> Alcotest.(check int) "row width" width (List.length r))
+    rows;
+  Alcotest.(check string)
+    "update share of bin 0" "0.50"
+    (List.nth (List.hd rows) 1)
+
 let test_packages_of_find () =
   let p =
     Traffic.packages_of_find
@@ -322,5 +396,8 @@ let () =
           Alcotest.test_case "plan streams independent" `Quick
             test_plan_streams_independent;
           Alcotest.test_case "plan rate" `Quick test_plan_rate;
+          Alcotest.test_case "bursts" `Quick test_bursts;
+          Alcotest.test_case "flatten" `Quick test_flatten;
+          Alcotest.test_case "timeline width" `Quick test_timeline_width;
         ] );
     ]
