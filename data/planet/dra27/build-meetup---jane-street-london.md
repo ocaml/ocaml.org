@@ -3,11 +3,7 @@ title: Build Meetup - Jane Street London
 description: "Stepping into something different today for a Build Meetup hosted by
   Tweak, EngFlow and Jane Street at Jane Street\u2019s London offices. I was quite
   involved with Jbuilder development and early work around Dune 1.0 and some early
-  2.x work, although it\u2019s not a codebase I get to work on much these days. What
-  was interesting for me, spending a lot of time in GNU make for the compiler, was
-  to get some first-hand \u201Cbig picture\u201D experience from the talks and also
-  a chance to catch-up with various OCaml people who can be remarkably hard to pin
-  down."
+  2.x work, although it\u2019s not a codebase I get to work on much these days."
 url: https://www.dra27.uk/blog/misc/2025/05/23/build-event.html
 date: 2025-05-23T00:00:00-00:00
 preview_image:

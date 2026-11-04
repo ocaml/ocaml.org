@@ -1,12 +1,8 @@
 ---
 title: OCaml Workshop 2018
-description: "Videos are available online. \nThe OCaml Users and Developers Workshop
+description: Videos are available online. The OCaml Users and Developers Workshop
   brings together industrial users of OCaml with academics and hackers who are working
-  on extending the language, type system and tools. Previous editions have been colocated
-  with ICFP 2012 in Copenhagen, ICFP 2013 in Boston, ICFP 2014 in Gothenburg, ICFP
-  2015 in Vancouver, ICFP 2016 in Nara, and ICFP 2017 in Oxford, following the OCaml
-  Meetings in Paris in 2010 and 2011. \nOCaml 2018 will be held on September 27th,
-  2018 in St. Louis, Missouri, USA, colocated with ICFP 2018."
+  on extending the language, type system and tools.
 url: https://icfp18.sigplan.org/track/ocaml-2018-papers#program
 date: 2018-09-27T00:00:00-00:00
 preview_image: https://icfp18.sigplan.org/getImage/carousel/skyline.jpg?1488894339000

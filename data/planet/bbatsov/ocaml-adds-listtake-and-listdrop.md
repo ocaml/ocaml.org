@@ -4,8 +4,7 @@ description: "One of my small issues with OCaml is that the standard library is 
   spartan. Sometimes it misses functions that are quite common in other (similar)
   languages. One such example are functions like drop, drop_while, take and take_while
   in the List module.1 What\u2019s weird is that the similar Seq module features all
-  those functions since OCaml 4.14.                 I believe it was Haskell that
-  populirized them.\_\u21A9"
+  those functions since OCaml 4.14. I believe it was Haskell that popularized them."
 url: https://batsov.com/articles/2024/02/23/ocaml-adds-list-take-and-list-drop/
 date: 2024-02-23T07:12:00-00:00
 preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg

@@ -1,12 +1,8 @@
 ---
 title: The week that was - 2025 w27
-description: "Rather varied week this week. A number of our EEG interns have started
+description: Rather varied week this week. A number of our EEG interns have started
   their work with us for the summer, with two nice projects falling under my direct
-  supervision, with Lucas and Jeremy. It\u2019s great to get to watch people start
-  their first forays into the world of hacking on OCaml, once the customary \u201CI
-  was a baby when you started maintaining OCaml\u201D comments et al are out of the
-  way \U0001F602 It\u2019s also great to get to see the excitement, and reassuring
-  to know that it is still an exciting thing to get to do for new people too!"
+  supervision, with Lucas and Jeremy.
 url: https://www.dra27.uk/blog/week-that-was/2025/07/06/wtw-27.html
 date: 2025-07-06T00:00:00-00:00
 preview_image:

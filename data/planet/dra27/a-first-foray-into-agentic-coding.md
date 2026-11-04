@@ -3,10 +3,7 @@ title: A first foray into agentic coding
 description: "I\u2019ve been largely steering clear of the AI bandwagon up to now,
   mainly because the last thing I needed while working on Relocatable OCaml was to
   be trying to learn a new tool at the same time as finishing something which felt
-  desperately late and which, at times, I myself didn\u2019t fully understand! However,
-  as the buzz of the announcement dies down, I had a first go at pointing Claude Code
-  to the OCaml compiler codebase, and thought I\u2019d add to the general noise of
-  AI memoirs\u2026"
+  desperately late and which, at times, I myself didn\u2019t fully understand!"
 url: https://www.dra27.uk/blog/platform/2025/09/17/late-to-the-party.html
 date: 2025-09-17T00:00:00-00:00
 preview_image:

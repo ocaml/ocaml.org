@@ -3,9 +3,7 @@ title: Debugging OBuilder on macOS
 description: The log from an OBuilder job starts with the steps needed to reproduce
   the job locally. This boilerplate output assumes that all OBuilder jobs start from
   a Docker base image, but on some operating systems, such as FreeBSD and macOS, OBuilder
-  uses ZFS base images. On OpenBSD and Windows, it uses QEMU images. The situation
-  is further complicated when the issue only affects a specific architecture that
-  may be unavailable to the user.
+  uses ZFS base images. On OpenBSD and Windows, it uses QEMU images.
 url: https://www.tunbury.org/2025/05/08/debugging-obuilder-macos/
 date: 2025-05-08T12:00:00-00:00
 preview_image: https://www.tunbury.org/images/obuilder.png

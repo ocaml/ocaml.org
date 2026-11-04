@@ -3,11 +3,7 @@ title: Using memtrace on Windows
 description: "It is said that good things come to those who wait. Jacques-Henri Jourdan
   demonstrated Statistically profiling memory in OCaml at the 2016 OCaml Workshop
   and experimental branches of it existed for OCaml 4.03\u20134.07 in opam. Parts
-  of the work were merged in OCaml 4.10 and the final sections landed with 4.11. The
-  compiler provides support in the form of a series of hooks in various parts of the
-  runtime\u2019s allocation and garbage collection routines. A few weeks ago, Jane
-  Street released memtrace and Memtrace viewer and earlier this week blogged about
-  its use. I thought I\u2019d quickly share the experience of using it on native Windows."
+  of the work were merged in OCaml 4.10 and the final sections landed with 4.11."
 url: https://www.dra27.uk/blog/platform/2020/10/08/windows-memtrace.html
 date: 2020-10-08T00:00:00-00:00
 preview_image:

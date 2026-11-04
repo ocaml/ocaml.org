@@ -4,10 +4,7 @@ description: "If someone had told me a few months ago I\u2019d be playing with .
   again after a 15+ years hiatus I probably would have laughed at this.1 Early on
   in my career I played with .NET and Java, and even though .NET had done some things
   better than Java (as it had the opportunity to learn from some early Java mistakes),
-  I quickly settled on Java as it was a truly portable environment.                 I
-  had some C# courses in the university and I wrote my bachelor\u2019s thesis in C#.
-  It was a rewrite of Arch Linux\u2019s pacman, running on Mono. This was way back
-  in 2007.\_\u21A9"
+  I quickly settled on Java as it was a truly portable environment."
 url: https://batsov.com/articles/2025/03/30/why-fsharp/
 date: 2025-03-30T14:54:00-00:00
 preview_image: https://batsov.com/assets/images/bozhidar_avatar.jpg

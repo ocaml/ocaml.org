@@ -3,18 +3,7 @@ title: Elementary, my dear Watson
 description: "Overall, I enjoy bug-hunting. Getting there can be really quite tortuous,
   via the fairly typical \u201Coh my goodness, why do I do this?\u201D, but there\u2019s
   something inordinately satisfying about arriving at a complete and convincing explanation
-  not only for what is going wrong but also for why it was only sometimes wrong. I
-  find the satisfaction is in inverse proportion to the size of the fix then required:
-  the best of these fixes have pages of explanation followed by a miniscule diff.
-  A couple of old personal scalps of mine include the path from a random failure in
-  a debugger test (see ocaml/ocaml#9043) only seen with specific-code-alignment-on-one-CI-worker
-  to a missing GC root registration fixed in ocaml/ocaml#9051 (and which I\u2019d
-  allowed to become masked in the past by automatically allowing re-running \u2018unstable\u2019
-  tests in ocaml/ocaml#401; a technique I\u2019d strongly recommend never using again!)
-  and the relationship between Unix.fork only failing on every other invocation in
-  the OCaml REPL on Cygwin, and an unstable topological sort (see cygwin/cygwin#226f694).
-  My personal favourite is not mine, though, which is the wonderful alignment of compiler
-  planets required in ocaml/ocaml#10071. Obligatory xkcd."
+  not only for what is going wrong but also for why it was only sometimes wrong."
 url: https://www.dra27.uk/blog/platform/2025/04/11/cloexec2.html
 date: 2025-04-11T00:00:00-00:00
 preview_image:

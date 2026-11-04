@@ -3,8 +3,6 @@ title: Box Diff Tool
 description: Over the weekend, I extended mtelvers/ocaml-box-diff to include the ability
   to upload files over 50MB. This is a more complex API which requires a call to https://upload.box.com/api/2.0/files/upload_sessions
   by posting JSON containing the name of the file, the folder ID and the file size.
-  Box replies with various session endpoints which give the URIs to use to upload
-  the parts and to commit the the file. Box also specifies the size of each part.
 url: https://www.tunbury.org/2025/04/12/box-diff/
 date: 2025-04-12T00:00:00-00:00
 preview_image: https://www.tunbury.org/images/box-logo.png

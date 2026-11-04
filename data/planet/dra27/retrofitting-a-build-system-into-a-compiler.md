@@ -4,9 +4,7 @@ description: "Over the summer, Lucas Ma has been investigating ideas surrounding
   effects in the OCaml compiler itself. He\u2019s blogged some of his discoveries
   and adventures. The technical core of this work leads towards being able to use
   the OCaml compiler as a library on-demand to create a longer-lived \u201Ccompiler
-  service\u201D. Of itself, that\u2019s not at all revolutionary, but it is quite
-  hard to do that with a 30 year old codebase that really was designed for single-shot
-  separate compilation."
+  service\u201D."
 url: https://www.dra27.uk/blog/platform/2025/09/25/building-with-effects.html
 date: 2025-09-25T00:00:00-00:00
 preview_image:

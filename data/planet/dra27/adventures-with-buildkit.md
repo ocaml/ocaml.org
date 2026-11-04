@@ -1,11 +1,7 @@
 ---
 title: Adventures with BuildKit
 description: "I\u2019ve been doing battle the last few days with Docker, and in particular
-  trying to persuade BuildKit to do what I wanted. I find Docker leans towards being
-  a deployment tool, rather than a development tool which is to say that it\u2019s
-  exceedingly useful for both, but when I encounter problems trying to persuade it
-  to do what I\u2019m after for development, it tends to feel I\u2019m not using it
-  for the purpose for which it was intended."
+  trying to persuade BuildKit to do what I wanted."
 url: https://www.dra27.uk/blog/platform/2025/07/29/taming-buildkit.html
 date: 2025-07-29T00:00:00-00:00
 preview_image:
