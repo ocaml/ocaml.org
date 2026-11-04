@@ -50,7 +50,15 @@ let config =
       ("title", o [ ("anchor", s "start"); ("subtitleColor", s ink2) ]);
     ]
 
-let title text sub = o [ ("text", s text); ("subtitle", s sub) ]
+(* A subtitle with "\n" in it becomes several lines: Vega-Lite does not wrap. *)
+let title text sub =
+  let lines = String.split_on_char (Char.chr 10) sub in
+  o
+    [
+      ("text", s text);
+      ( "subtitle",
+        match lines with [ one ] -> s one | _ -> l (List.map s lines) );
+    ]
 
 let run_color ~na ~nb =
   o
@@ -893,22 +901,13 @@ let ecdf_rows ?(src = "compared") dir run =
               ("value", n (Float.max 0.001 a.(idx)));
             ])
   in
-  let reqs = Summary.read_traffic dir and ps = Summary.read_pauses dir in
-  let lat st =
-    List.filter_map
-      (fun (r : Summary.req) ->
-        if r.stream = st && Summary.ok r.status then Some r.latency_ms else None)
-      reqs
-  in
+  let ps = Summary.read_pauses dir in
   let gc k =
     List.filter_map
       (fun (p : Summary.pause) -> if p.kind = k then Some p.ms else None)
       ps
   in
-  q "latency, human (ms)" (lat "human")
-  @ q "latency, bot (ms)" (lat "bot")
-  @ q "minor GC pause (ms)" (gc "minor")
-  @ q "major slice (ms)" (gc "major")
+  q "minor GC pause (ms)" (gc "minor") @ q "major slice (ms)" (gc "major")
 
 let ecdf_spec ?(repeats = false) ~na ~nb rows =
   let color = run_color ~na ~nb in
@@ -917,8 +916,9 @@ let ecdf_spec ?(repeats = false) ~na ~nb rows =
     [
       schema;
       ( "title",
-        title "Distributions: ECDF, log x"
-          ("share of samples at or below each value; the right end is the tail"
+        title "GC pause distributions: ECDF, log x"
+          ("share of pauses at or below each duration; the right end is the \
+            tail"
           ^
           if repeats then
             "; thin lines = the noise runs (repeats of each image), thick = \
@@ -931,14 +931,7 @@ let ecdf_spec ?(repeats = false) ~na ~nb rows =
             ("field", s "series");
             ("type", s "nominal");
             ("title", `Null);
-            ( "sort",
-              l
-                [
-                  s "latency, human (ms)";
-                  s "latency, bot (ms)";
-                  s "minor GC pause (ms)";
-                  s "major slice (ms)";
-                ] );
+            ("sort", l [ s "minor GC pause (ms)"; s "major slice (ms)" ]);
           ] );
       ("columns", i 2);
       ("resolve", o [ ("scale", o [ ("x", s "independent") ]) ]);
@@ -1060,6 +1053,218 @@ let ecdf_spec ?(repeats = false) ~na ~nb rows =
       ("config", config);
     ]
 
+(* {2 Latency views: split, overlaid, merged}
+
+   The latency charts share a signal [lv]: "split" (one panel per stream),
+   "overlaid" (both streams in one panel, told apart by dash or shape) or
+   "merged" (one panel, all requests together). A merged distribution is not a
+   mix of the per-stream ones, so the ECDF data carries a third, "all", stream.
+   The page sets [lv] on every chart from one control. *)
+
+let lv_param = o [ ("name", s "lv"); ("value", s "split") ]
+
+(* Which rows a view shows, and in which panel. *)
+let lv_transforms =
+  [
+    o [ ("filter", s "(lv == 'merged') == (datum.stream == 'all')") ];
+    o
+      [
+        ( "calculate",
+          s
+            "lv == 'split' ? (datum.stream == 'human' ? 'human' : 'bot') : (lv \
+             == 'merged' ? 'all requests' : 'human and bot')" );
+        ("as", s "panel");
+      ];
+    o
+      [
+        ("calculate", s "lv == 'overlaid' ? datum.stream : 'one stream'");
+        ("as", s "look");
+      ];
+  ]
+
+let latency_rows ?(src = "compared") dir run =
+  let reqs = Summary.read_traffic dir in
+  let lat f =
+    List.filter_map
+      (fun (r : Summary.req) ->
+        if f r && Summary.ok r.status then Some r.latency_ms else None)
+      reqs
+  in
+  let q stream values =
+    let a = Summary.sorted_of_list values in
+    let len = Array.length a in
+    if len = 0 then []
+    else
+      List.init 200 (fun k ->
+          let p = (float_of_int k +. 0.5) /. 200. in
+          let idx =
+            max 0 (min (len - 1) (int_of_float (p *. float_of_int len) - 1))
+          in
+          o
+            [
+              ("run", s run);
+              ("src", s src);
+              ("stream", s stream);
+              ("q", n p);
+              ("value", n (Float.max 0.01 a.(idx)));
+            ])
+  in
+  q "human" (lat (fun r -> r.stream = "human"))
+  @ q "bot" (lat (fun r -> r.stream = "bot"))
+  @ q "all" (lat (fun _ -> true))
+
+let latency_ecdf_spec ?(repeats = false) ~na ~nb rows =
+  let color = run_color ~na ~nb in
+  let dash =
+    o
+      [
+        ("field", s "look");
+        ("type", s "nominal");
+        ("title", `Null);
+        ( "scale",
+          o
+            [
+              ("domain", l [ s "one stream"; s "human"; s "bot" ]);
+              ("range", l [ l [ i 1; i 0 ]; l [ i 1; i 0 ]; l [ i 5; i 3 ] ]);
+            ] );
+        ("legend", `Null);
+      ]
+  in
+  let x =
+    o
+      [
+        ("field", s "value");
+        ("type", s "quantitative");
+        ("title", s "latency (ms, log)");
+        ("scale", o [ ("type", s "log") ]);
+        ("axis", log_axis [ 0.1; 1.; 10.; 100.; 1000.; 10000. ]);
+      ]
+  in
+  let y =
+    o
+      [
+        ("field", s "q");
+        ("type", s "quantitative");
+        ("title", s "share ≤ value");
+        ("axis", o [ ("format", s "%") ]);
+      ]
+  in
+  let compared = o [ ("filter", s "datum.src == 'compared'") ] in
+  o
+    [
+      schema;
+      ( "title",
+        title "Latency distributions: ECDF, log x"
+          ("share of requests at or below each latency; split = one panel per \
+            stream,\n\
+            overlaid = both streams in one panel (dashed = bot), merged = all \
+            requests together"
+          ^ if repeats then "; thin lines = the noise runs" else "") );
+      ("params", l [ lv_param ]);
+      ("data", o [ ("values", l rows) ]);
+      ("transform", l lv_transforms);
+      ( "facet",
+        o
+          [
+            ("field", s "panel");
+            ("type", s "nominal");
+            ("title", `Null);
+            ( "sort",
+              l [ s "human"; s "bot"; s "human and bot"; s "all requests" ] );
+          ] );
+      ("columns", i 2);
+      ( "spec",
+        o
+          [
+            ("width", i 360);
+            ("height", i 220);
+            ( "layer",
+              l
+                [
+                  o
+                    [
+                      ( "transform",
+                        l [ o [ ("filter", s "datum.src != 'compared'") ] ] );
+                      ( "mark",
+                        o
+                          [
+                            ("type", s "line");
+                            ("strokeWidth", i 1);
+                            ("opacity", n 0.35);
+                            ("interpolate", s "step-after");
+                          ] );
+                      ( "encoding",
+                        o
+                          [
+                            ("x", x);
+                            ("y", y);
+                            ("detail", o [ ("field", s "src") ]);
+                            ("strokeDash", dash);
+                            ("color", color);
+                          ] );
+                    ];
+                  o
+                    [
+                      ("transform", l [ compared ]);
+                      ( "mark",
+                        o
+                          [
+                            ("type", s "line");
+                            ("strokeWidth", i 2);
+                            ("interpolate", s "step-after");
+                          ] );
+                      ( "encoding",
+                        o
+                          [
+                            ("x", x);
+                            ("y", y);
+                            ("detail", o [ ("field", s "stream") ]);
+                            ("strokeDash", dash);
+                            ("color", color);
+                          ] );
+                    ];
+                  o
+                    [
+                      ("transform", l [ compared ]);
+                      ( "mark",
+                        o
+                          [
+                            ("type", s "point");
+                            ("size", i 60);
+                            ("opacity", i 0);
+                            ("filled", jb true);
+                          ] );
+                      ( "encoding",
+                        o
+                          [
+                            ("x", x);
+                            ("y", y);
+                            ("color", color);
+                            ( "tooltip",
+                              l
+                                [
+                                  o [ ("field", s "run") ];
+                                  o [ ("field", s "stream") ];
+                                  o
+                                    [
+                                      ("field", s "q");
+                                      ("title", s "quantile");
+                                      ("format", s ".1%");
+                                    ];
+                                  o
+                                    [
+                                      ("field", s "value");
+                                      ("title", s "ms");
+                                      ("format", s ".2f");
+                                    ];
+                                ] );
+                          ] );
+                    ];
+                ] );
+          ] );
+      ("config", config);
+    ]
+
 (* Summary metrics as B / A, from the comparison's key metrics. *)
 let dumbbell_spec ?noise ~na ~nb metrics =
   let has_noise = noise <> None in
@@ -1136,7 +1341,7 @@ let dumbbell_spec ?noise ~na ~nb metrics =
             better"
           ^
           if has_noise then
-            "; grey band = run-to-run noise around A (largest spread between \
+            ";\ngrey band = run-to-run noise around A (largest spread between \
              repeats of either image); filled dot = beyond noise, hollow = \
              within"
           else "") );
@@ -1546,16 +1751,37 @@ let paired_spec ~na ~nb (m : Compare.matching) =
         title "Same request, both builds"
           (Printf.sprintf
              "each dot is one request (same stream and id): below the diagonal \
-              = faster on %s; log axes"
+              = faster on %s; log axes;\n\
+              split = one panel per stream, overlaid = one panel (square = \
+              bot), merged = one panel"
              nb) );
+      ("params", l [ lv_param ]);
       ("data", o [ ("values", l rows) ]);
+      ( "transform",
+        l
+          [
+            o
+              [
+                ( "calculate",
+                  s
+                    "lv == 'split' ? datum.stream : (lv == 'merged' ? 'all \
+                     requests' : 'human and bot')" );
+                ("as", s "panel");
+              ];
+            o
+              [
+                ("calculate", s "lv == 'overlaid' ? datum.stream : 'one stream'");
+                ("as", s "look");
+              ];
+          ] );
       ( "facet",
         o
           [
-            ("field", s "stream");
+            ("field", s "panel");
             ("type", s "nominal");
             ("title", `Null);
-            ("sort", l [ s "human"; s "bot" ]);
+            ( "sort",
+              l [ s "human"; s "bot"; s "human and bot"; s "all requests" ] );
           ] );
       ( "spec",
         o
@@ -1606,6 +1832,27 @@ let paired_spec ~na ~nb (m : Compare.matching) =
                           [
                             ("x", ax (na ^ " latency (ms, log)") "a");
                             ("y", ax (nb ^ " latency (ms, log)") "b");
+                            ( "shape",
+                              o
+                                [
+                                  ("field", s "look");
+                                  ("type", s "nominal");
+                                  ( "scale",
+                                    o
+                                      [
+                                        ( "domain",
+                                          l
+                                            [
+                                              s "one stream"; s "human"; s "bot";
+                                            ] );
+                                        ( "range",
+                                          l
+                                            [
+                                              s "circle"; s "circle"; s "square";
+                                            ] );
+                                      ] );
+                                  ("legend", `Null);
+                                ] );
                             ( "color",
                               o
                                 [
@@ -1741,11 +1988,28 @@ let run ?(noise = []) ~output a b =
               dirs)
       noise_runs
   in
+  let latency_repeat_rows =
+    List.concat_map
+      (fun (_, image, dirs) ->
+        match label_of image with
+        | None -> []
+        | Some label ->
+            List.concat_map
+              (fun d ->
+                if Sys.file_exists d then latency_rows ~src:d d label else [])
+              dirs)
+      noise_runs
+  in
   let comparison =
     [
       ( "A typical update, lined up",
         epoch_spec ~na ~nb (epoch_rows a na @ epoch_rows b nb) );
-      ( "Distributions (ECDF)",
+      ( "Latency distributions (ECDF)",
+        latency_ecdf_spec
+          ~repeats:(latency_repeat_rows <> [])
+          ~na ~nb
+          (latency_repeat_rows @ latency_rows a na @ latency_rows b nb) );
+      ( "GC pause distributions (ECDF)",
         ecdf_spec ~repeats:(repeat_rows <> []) ~na ~nb
           (repeat_rows @ ecdf_rows a na @ ecdf_rows b nb) );
       ( "Summary metrics as ratios",
@@ -1831,22 +2095,36 @@ let run ?(noise = []) ~output a b =
      solid %s;padding-bottom:4px}\n\
      h3{font-size:14px;margin-top:24px}p{color:%s}code{font-size:13px}.chart{margin:6px \
      0 20px}\n\
-     .err{color:#b00;white-space:pre-wrap}.ok{color:#008300}.ko{color:#e34948}</style></head><body>\n\
+     .err{color:#b00;white-space:pre-wrap}.lvt{margin:4px 0 \
+     0;color:%s;font-size:14px}.ok{color:#008300}.ko{color:#e34948}</style></head><body>\n\
      <h1>sim: %s vs %s</h1>\n\
      <p>A = <code>%s</code>, B = <code>%s</code>. Colours: <b>%s</b> blue, \
      <b>%s</b> orange. Hover any mark for values.</p>\n\
      %s\n"
-    (html_escape na) (html_escape nb) surface grid ink2 (html_escape na)
+    (html_escape na) (html_escape nb) surface grid ink2 ink2 (html_escape na)
     (html_escape nb) (html_escape a) (html_escape b) (html_escape na)
     (html_escape nb) (note ^ noise_note);
+  (* charts that take the human/bot toggle (the [lv] signal) *)
+  let latency_charts =
+    [ "Latency distributions (ECDF)"; "Same request, both builds" ]
+  in
   let k = ref 0 in
   let specs = ref [] in
   List.iter
     (fun (sec, charts) ->
       pr "<h2>%s</h2>\n" sec;
       List.iter
-        (fun (_name, spec) ->
+        (fun (name, spec) ->
           incr k;
+          if List.mem name latency_charts then
+            pr
+              "<div class=\"lvt\">Latency, human and bot: <label><input \
+               type=\"radio\" name=\"lv%d\" value=\"split\" checked> \
+               split</label> <label><input type=\"radio\" name=\"lv%d\" \
+               value=\"overlaid\"> overlaid</label> <label><input \
+               type=\"radio\" name=\"lv%d\" value=\"merged\"> \
+               merged</label></div>\n"
+              !k !k !k;
           pr "<div class=\"chart\" id=\"c%d\"></div>\n" !k;
           specs := (!k, spec) :: !specs)
         charts)
@@ -1857,9 +2135,20 @@ let run ?(noise = []) ~output a b =
     (List.rev !specs);
   pr
     "};\n\
+     // One toggle drives the [lv] signal of every chart that has it; the\n\
+     // radio groups above those charts stay in sync.\n\
+     const views = [];\n\
+     function setLV(v) {\n\
+    \  for (const view of views) { try { view.signal('lv', v).runAsync(); } \
+     catch (e) {} }\n\
+    \  document.querySelectorAll('.lvt input').forEach(i => { i.checked = \
+     (i.value === v); });\n\
+     }\n\
+     document.querySelectorAll('.lvt input').forEach(i => \
+     i.addEventListener('change', e => setLV(e.target.value)));\n\
      for (const [id, spec] of Object.entries(specs)) {\n\
-    \  vegaEmbed('#' + id, spec, {actions: false, renderer: 'canvas'}).catch(e \
-     => {\n\
+    \  vegaEmbed('#' + id, spec, {actions: false, renderer: 'canvas'}).then(r \
+     => views.push(r.view)).catch(e => {\n\
     \    const d = document.getElementById(id); d.className = 'chart err'; \
      d.textContent = 'Error: ' + e.message;\n\
     \  });\n\

@@ -267,10 +267,15 @@ This writes one HTML page with Vega-Lite charts (open it in a browser):
    row per run, A above B, on the same scales, with update windows shaded.
 3. **Comparison:**
    - updates lined up at their start;
-   - distributions (ECDF) of latency and GC pauses;
+   - distributions (ECDF) of latency, and of GC pauses;
    - the key metrics as ratios B / A;
    - a flicker view that switches between the runs on fixed scales;
    - the same request in both runs, one dot per request.
+
+   A toggle above the two latency charts (latency distributions, same
+   request) shows human and bot traffic split (one panel each), overlaid (one
+   panel, bot dashed or as squares), or merged (one panel, all requests
+   pooled).
 
 With `--noise DIR/noise.json` (once per image), the ratio chart draws each
 metric's noise band and leaves B's dot hollow where the difference is
