@@ -75,47 +75,47 @@ let select h t =
   if Array.length h = 0 then invalid_arg "Upstream.select"
   else go 0 (Array.length h - 1)
 
-(* Feed [h] into the running container: every second, move upstream's [master]
-   to the commit that was current [speedup] times further along the history than
-   the time elapsed since [t0]. Stops advancing at the end of the history. *)
-let feed ~container ~h ~speedup ~t0 ~until csv =
-  let start = h.(0).time in
-  let rec loop current =
-    let now = Unix.gettimeofday () in
-    if now >= until then Lwt.return_unit
-    else
-      let target = start +. ((now -. t0) *. speedup) in
-      let i = select h target in
-      let* () =
-        if i > current then (
-          let* () =
-            Proc.run
+(* Feed [h] into the running container: commit [i] becomes upstream's [master]
+   at [origin + (time_i - time_0) / speedup], one commit at a time. The schedule
+   depends only on the history and the speedup, so every run with the same
+   options sees the same upstream states at the same offsets from [origin].
+   Moves go through one long-lived shell in the container, so a move costs a
+   [git update-ref], not a [docker exec]. *)
+let feed_header = [ "t"; "sha"; "commits"; "commit_time"; "planned_t" ]
+
+(* Planned offset of commit [i] from the origin, in seconds. *)
+let offset ~h ~speedup i = (h.(i).time -. h.(0).time) /. speedup
+
+let feed ~container ~h ~speedup ~t0 ~origin ~until csv =
+  let cmd = ("", [| "docker"; "exec"; "-i"; container; "sh" |]) in
+  Lwt_process.with_process_out cmd (fun p ->
+      let rec go i =
+        if i >= Array.length h then Lwt.return_unit
+        else
+          let planned = origin +. offset ~h ~speedup i in
+          if planned >= until then Lwt.return_unit
+          else
+            let wait = planned -. Unix.gettimeofday () in
+            let* () =
+              if wait > 0. then Lwt_unix.sleep wait else Lwt.return_unit
+            in
+            let* () =
+              Lwt_io.write p#stdin
+                (Printf.sprintf "git -C %s update-ref refs/heads/master %s\n"
+                   upstream_path h.(i).sha)
+            in
+            let* () = Lwt_io.flush p#stdin in
+            Csv.row csv
               [
-                "docker";
-                "exec";
-                container;
-                "git";
-                "-C";
-                upstream_path;
-                "update-ref";
-                "refs/heads/master";
+                Csv.float (Unix.gettimeofday () -. t0);
                 h.(i).sha;
-              ]
-          in
-          Csv.row csv
-            [
-              Csv.float (now -. t0);
-              h.(i).sha;
-              string_of_int (i - current);
-              Csv.float h.(i).time;
-            ];
-          Lwt.return_unit)
-        else Lwt.return_unit
+                "1";
+                Csv.float h.(i).time;
+                Csv.float (planned -. t0);
+              ];
+            go (i + 1)
       in
-      let* () = Lwt_unix.sleep 1. in
-      loop (max i current)
-  in
-  loop 0
+      go 1)
 
 (* The replayed (compressed) clock: the history date that corresponds to
    wall-clock time [now]. *)

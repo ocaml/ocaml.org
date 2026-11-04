@@ -368,8 +368,20 @@ let write_csv path header rows =
    the same run directory gives the same files. *)
 
 (* Finite floats rounded to 3 decimals: more would be noise, and cost tokens. *)
-let jnum x =
-  if Float.is_finite x then `Float (Float.round (x *. 1000.) /. 1000.)
+let jnum x : Yojson.Safe.t =
+  if Float.is_finite x then
+    (* [`Float] would print the nearest double in full (71.39400000000001);
+       [`Intlit] is written verbatim, and reads back as a float. *)
+    `Intlit
+      (let s = Printf.sprintf "%.3f" x in
+       (* drop trailing zeros, keeping at least one digit after the point *)
+       let rec trim s =
+         let n = String.length s in
+         if n > 2 && s.[n - 1] = '0' && s.[n - 2] <> '.' then
+           trim (String.sub s 0 (n - 1))
+         else s
+       in
+       trim s)
   else `Null
 
 let json_key = function "p99.9" -> "p999" | name -> name
@@ -670,6 +682,14 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
                ps) ))
       (List.sort_uniq compare (List.map fst ps))
   in
+  (* The commits the server actually loaded, in order: a server that polls at
+     other moments, or whose updates take longer, sees other intermediate states
+     of the same upstream history. *)
+  let loaded_commits =
+    List.filter_map
+      (fun (t, ev, _, sha) -> if ev = "at" then Some (t, sha) else None)
+      sync
+  in
   let events =
     let updates =
       List.map
@@ -698,6 +718,18 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
           })
         (read_feed dir)
     in
+    let loaded =
+      List.map
+        (fun (t, sha) ->
+          {
+            et = t;
+            ekind = "commit_loaded";
+            value = 0.;
+            unit = "";
+            detail = "server now at " ^ sha;
+          })
+        loaded_commits
+    in
     let longest =
       List.sort (fun a b -> compare b.ms a.ms) pauses
       |> List.filteri (fun i _ -> i < 10)
@@ -714,7 +746,7 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
     in
     List.sort
       (fun a b -> compare a.et b.et)
-      (updates @ upstream @ longest @ bursts ~busy reqs)
+      (updates @ upstream @ loaded @ longest @ bursts ~busy reqs)
   in
   (* CSV files *)
   List.iter
@@ -880,6 +912,11 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
               ("rss_floor_trend_mb_per_update", opt_num rss_trend);
               ("mem_floor_trend_mb_per_update", opt_num mem_trend);
             ] );
+        ( "loaded_commits",
+          `List
+            (List.map
+               (fun (t, sha) -> `Assoc [ ("t", jnum t); ("sha", `String sha) ])
+               loaded_commits) );
         ( "cpu",
           match cpu with
           | None -> `Null

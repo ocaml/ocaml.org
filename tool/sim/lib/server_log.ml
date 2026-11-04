@@ -45,20 +45,25 @@ let classify msg =
   match timing msg with
   | Some _ as r -> r
   | None -> (
-      if contains ~sub:"Opam repo: git pull" msg then Some ("pull", "", "")
-      else if contains ~sub:"Opam repo: git clone" msg then
-        Some ("clone", "", "")
-      else if contains ~sub:"Update server state" msg then
-        Some ("update", "", "")
-      else if contains ~sub:"Package state saved" msg then Some ("saved", "", "")
-      else if contains ~sub:"Failed to update" msg then Some ("failed", "", "")
-      else
-        match after ~sub:"Loaded " msg with
-        | Some rest when contains ~sub:" packages" rest -> (
-            match Scanf.sscanf_opt rest "%d packages" Fun.id with
-            | Some n -> Some ("loaded", "", string_of_int n)
-            | None -> None)
-        | _ -> None)
+      match after ~sub:"Opam repository is currently at " msg with
+      | Some sha -> Some ("at", "", String.trim sha)
+      | None -> (
+          if contains ~sub:"Opam repo: git pull" msg then Some ("pull", "", "")
+          else if contains ~sub:"Opam repo: git clone" msg then
+            Some ("clone", "", "")
+          else if contains ~sub:"Update server state" msg then
+            Some ("update", "", "")
+          else if contains ~sub:"Package state saved" msg then
+            Some ("saved", "", "")
+          else if contains ~sub:"Failed to update" msg then
+            Some ("failed", "", "")
+          else
+            match after ~sub:"Loaded " msg with
+            | Some rest when contains ~sub:" packages" rest -> (
+                match Scanf.sscanf_opt rest "%d packages" Fun.id with
+                | Some n -> Some ("loaded", "", string_of_int n)
+                | None -> None)
+            | _ -> None))
 
 let split_timestamp line =
   match String.index_opt line ' ' with

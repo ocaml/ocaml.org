@@ -28,8 +28,9 @@ repository's `Dockerfile`:
   clone's objects. It points the clone's `origin` at that upstream and rewinds
   both to the `master` commit from `--history-days` before the image's tip.
   `sim` then moves the upstream's `master` forward along the real
-  first-parent history, `--speedup` times faster than it happened. The
-  server's own `git pull` picks up each change as it would in production.
+  first-parent history, `--speedup` times faster than it happened, one
+  commit at a time, each at its planned offset. The server's own `git pull`
+  picks up each change as it would in production.
 - **Traffic.** An open-loop generator sends requests at Poisson-distributed
   times. A slow server does not slow it down, and each latency is measured
   from the time the request was scheduled, so time spent waiting behind a
@@ -89,12 +90,17 @@ The options most likely to matter:
 
 See `run --help` for the others. To compare two builds, run the same command
 against each image. The traffic schedule, meaning every send time and path,
-is drawn up front from `--seed`. It is counted from the moment the server
-first answers, so two runs with the same seed and options send the same
-requests at the same offsets, whatever each server does. The one exception
-is at the end: a server that took longer to start gets fewer seconds of
-traffic before the run stops. Requests with the same `id` in `traffic.csv`
-can be compared one to one.
+is drawn up front from `--seed`. The upstream replay is planned too. Both
+are counted from the moment the server first answers. So two runs with the
+same seed and options get the same requests and the same upstream states at
+the same offsets, whatever each server does. Requests with the same `id` in
+`traffic.csv` can be compared one to one. The one exception is at the end: a
+server that took longer to start gets fewer seconds of the run.
+
+What each server *loads* can still differ. Each server polls 5 s after its
+previous update ends, as in production, so a server with longer updates
+loads fewer, larger steps of the same history. `sim compare` lists the
+commits each server loaded, and which ones only one of them saw.
 
 The first update cycle rebuilds the package state from scratch: the image's
 state was built at its tip, and the run starts days before that. The summary
@@ -117,10 +123,10 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `gc-events.csv` | One row per GC pause (minor collection or major slice): start, kind, duration |
 | `traffic.csv` | One row per request; `id` is its position in its stream |
 | `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p95/p99/p99.9/max |
-| `sync.csv` | Update cycle events and phase durations, from the server log |
+| `sync.csv` | Update cycle events, phase durations, and each commit the server loaded, from the server log |
 | `windows.csv` | Update windows: from "Update server state" to "Package state saved", plus 1 s, because the largest GC pauses of an update fall within 0.2 s of that log line |
 | `cycles.csv` | Per update: duration, CPU-seconds, peak memory, memory floor after it, longest GC pause |
-| `feed.csv` | When upstream moved, and by how many commits |
+| `feed.csv` | Each upstream move: actual and planned time, commit |
 | `server.log` | The server's full log |
 
 `sim summary DIR` and `sim plot DIR` regenerate the summary and the plot.

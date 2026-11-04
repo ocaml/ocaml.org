@@ -224,6 +224,11 @@ let how_to_read =
      it; treat it as indicative.";
     "The run-to-run noise of a single image is not measured here: treat small \
      differences as unconfirmed until repeated.";
+    "loaded_commits lists the opam-repository commits each server actually \
+     loaded. Both runs replay the same upstream states at the same offsets, \
+     but each server polls on its own schedule (5 s after its previous update \
+     ends), so a server with longer updates loads fewer, larger steps. Totals \
+     such as total CPU partly reflect that; per-update medians do not.";
     "events lists each run's updates, upstream advances, longest GC pauses and \
      latency bursts; files lists each run's data for detail (timeline.csv \
      first, then the raw CSVs).";
@@ -275,6 +280,18 @@ let run ?output a b =
             (path, x, y, reliable))
       (fa @ only_b)
   in
+  let loaded s =
+    match member "loaded_commits" s with
+    | Some (`List l) ->
+        List.filter_map
+          (fun e ->
+            match member "sha" e with Some (`String x) -> Some x | _ -> None)
+          l
+    | _ -> []
+  in
+  let la = loaded sa and lb = loaded sb in
+  let only_in x y = List.filter (fun s -> not (List.mem s y)) x in
+  let common = List.filter (fun s -> List.mem s lb) la in
   let m = match_requests a b in
   let streams = by (fun p -> p.stream) m.pairs in
   let by_class s =
@@ -293,6 +310,16 @@ let run ?output a b =
     pr
       "WARNING: run parameters differ; the runs are not comparable one to one:\n";
     List.iter (fun (k, va, vb) -> pr "  %s: A=%s B=%s\n" k va vb) params);
+  let short s = if String.length s > 8 then String.sub s 0 8 else s in
+  let shas l = String.concat " " (List.map short l) in
+  pr
+    "\n\
+     Commits each server loaded: A %d, B %d, both %d\n\
+    \  only A: %s\n\
+    \  only B: %s\n"
+    (List.length la) (List.length lb) (List.length common)
+    (match only_in la lb with [] -> "-" | l -> shas l)
+    (match only_in lb la with [] -> "-" | l -> shas l);
   pr "\n%-58s %12s %12s %12s %8s\n" "metric" "A" "B" "B-A" "B/A";
   List.iter
     (fun (path, x, y, reliable) ->
@@ -451,6 +478,16 @@ let run ?output a b =
                                  ("slow_overlap", jnum sl.overlap);
                                ] ))
                          streams) );
+                ] );
+            ( "loaded_commits",
+              let strs l = `List (List.map (fun s -> `String s) l) in
+              `Assoc
+                [
+                  ("a", strs la);
+                  ("b", strs lb);
+                  ("both", `Int (List.length common));
+                  ("only_in_a", strs (only_in la lb));
+                  ("only_in_b", strs (only_in lb la));
                 ] );
             ( "events",
               `Assoc

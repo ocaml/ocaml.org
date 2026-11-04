@@ -12,6 +12,13 @@ let test_select () =
   Alcotest.(check string) "ties take the last" "c" (sel 200.);
   Alcotest.(check string) "past the end" "d" (sel 1e9)
 
+let test_feed_offsets () =
+  let h = commits [ ("a", 1000.); ("b", 1720.); ("c", 1720.); ("d", 8200.) ] in
+  let off i = Upstream.offset ~h ~speedup:720. i in
+  Alcotest.(check (list (float 1e-9)))
+    "one commit at a time, at (time - start) / speedup" [ 0.; 1.; 1.; 10. ]
+    (List.map off [ 0; 1; 2; 3 ])
+
 let test_parse_log () =
   (* git log prints newest first *)
   let h = Upstream.parse_log "ccc 300\nbbb 200\n\naaa 100\n" in
@@ -133,6 +140,7 @@ let test_log_lines () =
       ("03.11.26 12:00:00.000  INFO Opam repo: git pull", "pull||");
       ("INFO Loaded 4321 packages", "loaded||4321");
       ("INFO Package state saved", "saved||");
+      ("INFO Opam repository is currently at 0fae6c68", "at||0fae6c68");
       ("INFO State cache file: /var/package.state", "-");
     ]
 
@@ -404,6 +412,7 @@ let () =
         [
           Alcotest.test_case "select" `Quick test_select;
           Alcotest.test_case "parse_log" `Quick test_parse_log;
+          Alcotest.test_case "feed offsets" `Quick test_feed_offsets;
         ] );
       ( "profile",
         [

@@ -203,27 +203,37 @@ let run c =
   in
   let* () = open_ring 120 in
   let base = Uri.of_string (Printf.sprintf "http://127.0.0.1:%d" c.port) in
-  let feed_csv =
-    Csv.create (file "feed.csv") [ "t"; "sha"; "commits"; "commit_time" ]
-  in
+  let feed_csv = Csv.create (file "feed.csv") Upstream.feed_header in
   let res_csv = Csv.create (file "resources.csv") Sampler.header in
   let gc_csv = Csv.create (file "gc.csv") Gc_events.header in
   let gc_events_csv =
     Csv.create (file "gc-events.csv") Gc_events.events_header
   in
+  (* The moment the server first answers is the origin of both the upstream
+     replay and the traffic, so they stay aligned with each other whatever the
+     start-up time. *)
+  let ready =
+    let+ ok = wait_http base ~until in
+    let t = Unix.gettimeofday () in
+    Printf.printf "sim: server %s after %.0fs\n%!"
+      (if ok then "answering" else "NOT answering")
+      (t -. t0);
+    if ok then Some t else None
+  in
   let feeder =
-    Upstream.feed ~container ~h ~speedup:c.speedup ~t0 ~until feed_csv
+    let* r = ready in
+    match r with
+    | None -> Lwt.return_unit
+    | Some origin ->
+        Upstream.feed ~container ~h ~speedup:c.speedup ~t0 ~origin ~until
+          feed_csv
   in
   let sampler = Sampler.run ~pid ~t0 ~until ~interval:1. res_csv in
   let gc =
     Gc_events.run ~dir:rte ~pid:1 ~t0 ~until ~events:gc_events_csv gc_csv
   in
   let traffic =
-    let* ready = wait_http base ~until in
-    let t_ready = if ready then Some (Unix.gettimeofday ()) else None in
-    Printf.printf "sim: server %s after %.0fs\n%!"
-      (if ready then "answering" else "NOT answering")
-      (Unix.gettimeofday () -. t0);
+    let* t_ready = ready in
     let* found =
       Proc.read
         [
@@ -242,7 +252,7 @@ let run c =
     in
     let packages = Traffic.packages_of_find found in
     write_meta c ~h ~image_id ~t0 ~t_ready ~packages:(Array.length packages);
-    let start = Unix.gettimeofday () in
+    let start = Option.value ~default:t0 t_ready in
     (* The hour of the profile's daily curve, [offset] seconds into the traffic.
        With [Compressed], it follows the replayed history from its start, so it
        is the same in every run with the same options. *)
@@ -274,7 +284,7 @@ let run c =
     in
     let csv = Csv.create (file "traffic.csv") Traffic.header in
     let+ () =
-      if ready then
+      if t_ready <> None then
         let plan = Traffic.plan ~seed:c.seed ~duration:c.duration streams in
         Traffic.run ~base ~t0 ~start ~until ~max_inflight:c.max_inflight
           ~timeout:c.timeout csv plan
