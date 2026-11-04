@@ -263,8 +263,9 @@ This writes one HTML page with Vega-Lite charts (open it in a browser):
    upstream moves and the documentation server are the same in both runs,
    and says so.
 2. **Raw output:** CPU, memory (RSS, OCaml major heap, container), GC pauses
-   (every pause of at least 0.5 ms) and every request's latency. Each is one
-   row per run, A above B, on the same scales, with update windows shaded.
+   (every pause of at least 0.5 ms) and every request's latency, on the same
+   scales, with each build's update windows in its own grey. A toggle above
+   each chart shows the builds split (A above B) or overlaid (one panel).
 3. **Comparison:**
    - updates lined up at their start;
    - distributions (ECDF) of latency, and of GC pauses;

@@ -230,8 +230,28 @@ let inputs ~a ~b ~run_end =
 
 (* {1 Raw output} *)
 
-(* One chart: rows of run A then run B (facet), each with its update windows
-   shaded under [layer]. [rows] carry a "run" field. *)
+(* The raw charts' one colour scale: the two builds, and their update windows in
+   two greys, so that a single legend covers both. *)
+let raw_color ~na ~nb =
+  o
+    [
+      ("field", s "run");
+      ("type", s "nominal");
+      ("title", `Null);
+      ( "scale",
+        o
+          [
+            ( "domain",
+              l [ s na; s nb; s (na ^ " updating"); s (nb ^ " updating") ] );
+            ("range", l [ s color_a; s color_b; s "#e1e0d9"; s "#c3c2b7" ]);
+          ] );
+      ("legend", o [ ("orient", s "top") ]);
+    ]
+
+(* One chart: run A above run B (split), or both in one panel (overlaid), as
+   chosen by the page through the [rv] signal; update windows are shaded under
+   [layer], in one grey per build (translucent, so where they overlap is
+   darker). [rows] carry a "run" field. *)
 let raw_chart ~na ~nb ~wa ~wb ~run_end ~title_ ~sub ~rows ~layer =
   let wins run ws =
     List.map
@@ -243,17 +263,28 @@ let raw_chart ~na ~nb ~wa ~wb ~run_end ~title_ ~sub ~rows ~layer =
     [
       schema;
       ("title", title title_ sub);
+      ("params", l [ o [ ("name", s "rv"); ("value", s "split") ] ]);
       ("data", o [ ("values", l (wins na wa @ wins nb wb @ rows)) ]);
+      ( "transform",
+        l
+          [
+            o
+              [
+                ("calculate", s "rv == 'split' ? datum.run : 'both builds'");
+                ("as", s "panel");
+              ];
+            o [ ("calculate", s "datum.run + ' updating'"); ("as", s "wl") ];
+          ] );
       ( "facet",
         o
           [
             ( "row",
               o
                 [
-                  ("field", s "run");
+                  ("field", s "panel");
                   ("type", s "nominal");
                   ("title", `Null);
-                  ("sort", l [ s na; s nb ]);
+                  ("sort", l [ s na; s nb; s "both builds" ]);
                 ] );
           ] );
       ( "spec",
@@ -268,13 +299,7 @@ let raw_chart ~na ~nb ~wa ~wb ~run_end ~title_ ~sub ~rows ~layer =
                     [
                       ( "transform",
                         l [ o [ ("filter", s "datum.kind == 'win'") ] ] );
-                      ( "mark",
-                        o
-                          [
-                            ("type", s "rect");
-                            ("color", s grid);
-                            ("opacity", n 0.8);
-                          ] );
+                      ("mark", o [ ("type", s "rect"); ("opacity", n 0.6) ]);
                       ( "encoding",
                         o
                           [
@@ -288,6 +313,13 @@ let raw_chart ~na ~nb ~wa ~wb ~run_end ~title_ ~sub ~rows ~layer =
                                     o [ ("domain", l [ i 0; n run_end ]) ] );
                                 ] );
                             ("x2", o [ ("field", s "e") ]);
+                            ( "color",
+                              match raw_color ~na ~nb with
+                              | `Assoc f ->
+                                  `Assoc
+                                    (("field", s "wl")
+                                    :: List.remove_assoc "field" f)
+                              | j -> j );
                           ] );
                     ];
                   layer;
@@ -299,7 +331,7 @@ let raw_chart ~na ~nb ~wa ~wb ~run_end ~title_ ~sub ~rows ~layer =
 
 let raw_charts ~a ~b ~na ~nb ~run_end =
   let wa = Summary.windows a and wb = Summary.windows b in
-  let color = run_color ~na ~nb in
+  let color = raw_color ~na ~nb in
   let x = o [ ("field", s "t"); ("type", s "quantitative") ] in
   let samples dir run =
     Array.to_list (Summary.read_resources dir)
@@ -2185,7 +2217,7 @@ let run ?(noise = []) ~output a b =
      solid %s;padding-bottom:4px}\n\
      h3{font-size:14px;margin-top:24px}p{color:%s}code{font-size:13px}.chart{margin:6px \
      0 20px}\n\
-     .err{color:#b00;white-space:pre-wrap}.lvt{margin:4px 0 \
+     .err{color:#b00;white-space:pre-wrap}.tg{margin:4px 0 \
      0;color:%s;font-size:14px}.ok{color:#008300}.ko{color:#e34948}</style></head><body>\n\
      <h1>sim: %s vs %s</h1>\n\
      <p>A = <code>%s</code>, B = <code>%s</code>. Colours: <b>%s</b> blue, \
@@ -2194,10 +2226,11 @@ let run ?(noise = []) ~output a b =
     (html_escape na) (html_escape nb) surface grid ink2 ink2 (html_escape na)
     (html_escape nb) (html_escape a) (html_escape b) (html_escape na)
     (html_escape nb) (note ^ noise_note);
-  (* charts that take the human/bot toggle (the [lv] signal) *)
+  (* charts that take the human/bot toggle (the [lv] signal), and those that
+     take the split/overlaid toggle (the [rv] signal) *)
   let latency_charts =
     [ "Latency distributions (ECDF)"; "Same request, both builds" ]
-  in
+  and raw_names = List.map fst raw in
   let k = ref 0 in
   let specs = ref [] in
   List.iter
@@ -2206,13 +2239,20 @@ let run ?(noise = []) ~output a b =
       List.iter
         (fun (name, spec) ->
           incr k;
+          if List.mem name raw_names then
+            pr
+              "<div class=\"tg\" data-signal=\"rv\">Builds: <label><input \
+               type=\"radio\" name=\"rv%d\" value=\"split\" checked> split (A \
+               above B)</label> <label><input type=\"radio\" name=\"rv%d\" \
+               value=\"overlaid\"> overlaid</label></div>\n"
+              !k !k;
           if List.mem name latency_charts then
             pr
-              "<div class=\"lvt\">Latency, human and bot: <label><input \
-               type=\"radio\" name=\"lv%d\" value=\"split\" checked> \
-               split</label> <label><input type=\"radio\" name=\"lv%d\" \
-               value=\"overlaid\"> overlaid</label> <label><input \
-               type=\"radio\" name=\"lv%d\" value=\"merged\"> \
+              "<div class=\"tg\" data-signal=\"lv\">Latency, human and bot: \
+               <label><input type=\"radio\" name=\"lv%d\" value=\"split\" \
+               checked> split</label> <label><input type=\"radio\" \
+               name=\"lv%d\" value=\"overlaid\"> overlaid</label> \
+               <label><input type=\"radio\" name=\"lv%d\" value=\"merged\"> \
                merged</label></div>\n"
               !k !k !k;
           pr "<div class=\"chart\" id=\"c%d\"></div>\n" !k;
@@ -2225,17 +2265,18 @@ let run ?(noise = []) ~output a b =
     (List.rev !specs);
   pr
     "};\n\
-     // One toggle drives the [lv] signal of every chart that has it; the\n\
-     // radio groups above those charts stay in sync.\n\
+     // Each toggle drives one signal (data-signal) of every chart that has\n\
+     // it; the radio groups for the same signal stay in sync.\n\
      const views = [];\n\
-     function setLV(v) {\n\
-    \  for (const view of views) { try { view.signal('lv', v).runAsync(); } \
+     function setSignal(sig, v) {\n\
+    \  for (const view of views) { try { view.signal(sig, v).runAsync(); } \
      catch (e) {} }\n\
-    \  document.querySelectorAll('.lvt input').forEach(i => { i.checked = \
-     (i.value === v); });\n\
+    \  document.querySelectorAll('.tg[data-signal=\"' + sig + '\"] \
+     input').forEach(i => { i.checked = (i.value === v); });\n\
      }\n\
-     document.querySelectorAll('.lvt input').forEach(i => \
-     i.addEventListener('change', e => setLV(e.target.value)));\n\
+     document.querySelectorAll('.tg input').forEach(i => \
+     i.addEventListener('change', e => \
+     setSignal(i.closest('.tg').dataset.signal, e.target.value)));\n\
      for (const [id, spec] of Object.entries(specs)) {\n\
     \  vegaEmbed('#' + id, spec, {actions: false, renderer: 'canvas'}).then(r \
      => views.push(r.view)).catch(e => {\n\
