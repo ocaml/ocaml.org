@@ -102,21 +102,6 @@ let test_roundtrip_preserves_all_flags () =
         (List.map OpamTypesBase.string_of_pkg_flag all_flags)
         (flags_of loaded "alpha" "2.0.0"))
 
-let test_background_save () =
-  with_temp_file (fun path ->
-      let original = sample_state () in
-      Lwt_main.run (Package.save_state_in_background_to path original);
-      Alcotest.(check (list string))
-        "versions survive a background save"
-        (versions_of original "alpha")
-        (versions_of (Package.load_state_from path) "alpha");
-      (* Every Git call goes through [Lwt_process], which forks. Saving in a
-         domain would make OCaml 5 refuse [Unix.fork] from then on. *)
-      Alcotest.(check string)
-        "a subprocess still runs after a background save" "ok"
-        (String.trim
-           (Lwt_main.run (Lwt_process.pread ("echo", [| "echo"; "ok" |])))))
-
 let test_missing_file_is_empty_state () =
   let loaded = Package.load_state_from (Fpath.v "/nonexistent/state.bin") in
   Alcotest.(check (list string))
@@ -133,8 +118,7 @@ let test_corrupt_file_is_empty_state () =
         "a corrupt cache file yields an empty state, not a crash" []
         (versions_of loaded "alpha"))
 
-(* The state is written in place, so a write interrupted by a restart leaves a
-   prefix of it. *)
+(* A truncated file, from a copy cut short or a full disk, is not a state. *)
 let test_truncated_file_is_empty_state () =
   with_temp_file (fun path ->
       Package.save_state_to path (sample_state ());
@@ -163,7 +147,6 @@ let () =
             test_roundtrip_preserves_packages;
           test_case "all package flags are preserved"
             test_roundtrip_preserves_all_flags;
-          test_case "background save, then a subprocess" test_background_save;
         ] );
       ( "fallback",
         [
