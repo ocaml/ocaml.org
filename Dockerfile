@@ -5,7 +5,6 @@ RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
     autoconf \
     curl-dev \
     gmp-dev \
-    inotify-tools \
     libev-dev \
     oniguruma-dev \
     openssl-dev
@@ -35,11 +34,11 @@ RUN OPAMSOLVERTIMEOUT=300 opam install . --deps-only
 COPY --chown=opam . .
 RUN opam exec -- dune build @install --profile=release
 
-# Launch project in order to generate the package state cache
+# Build the package state, from the opam-repository clone brought up to date.
+# The builder exits with a non-zero status if it fails, which fails the build.
 RUN cd ~/opam-repository && git checkout master && git pull origin master && opam update
-ENV OCAMLORG_PKG_STATE_PATH=package.state \
-    OCAMLORG_REPO_PATH=opam-repository
-RUN touch package.state && ./init-cache package.state
+RUN OCAMLORG_REPO_PATH=opam-repository \
+    ./_build/default/src/ocamlorg_package/builder/main.exe package.state
 
 FROM alpine:3.24
 
@@ -50,14 +49,18 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
 
 # The server runs as an unprivileged user. It only writes to the package state
 # and to the opam-repository clone it pulls from (see Ocamlorg_package.init), so
-# only those belong to it; everything else stays owned by root.
-RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg
+# only those belong to it; everything else stays owned by root. The state is
+# replaced by renaming a new file over it, so the directory holding it belongs
+# to that user too.
+RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg \
+    && install -d -o ocamlorg -g ocamlorg /var/lib/ocamlorg
 
-COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/package.state
+COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/lib/ocamlorg/package.state
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam-repository
 # Without --chown, COPY --from keeps the build stage's owner (opam, uid 1000),
 # which is also the uid given to ocamlorg above.
 COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
+COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_package/builder/main.exe /bin/ocamlorg-package-builder
 
 COPY playground/asset playground/asset
 
@@ -68,7 +71,7 @@ ENV DREAM_VERBOSITY=info \
     OCAMLORG_HTTP_PORT=8080 \
     OCAMLORG_MANUAL_PATH=/manual \
     OCAMLORG_MCP_ENABLED=true \
-    OCAMLORG_PKG_STATE_PATH=/var/package.state \
+    OCAMLORG_PKG_STATE_PATH=/var/lib/ocamlorg/package.state \
     OCAMLORG_REPO_PATH=/var/opam-repository/ \
     OCAMLORG_V2_PATH=/v2
 

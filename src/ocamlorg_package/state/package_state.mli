@@ -25,4 +25,6 @@ val load : Fpath.t -> t
     or one saved with another {!Info.version}, gives {!empty}. *)
 
 val write : Fpath.t -> t -> unit
-(** [write path state] saves [state] to [path]. *)
+(** [write path state] saves [state] to [path], atomically: it writes [path.tmp]
+    in the same directory and renames it over [path], so that directory must be
+    writable. *)
