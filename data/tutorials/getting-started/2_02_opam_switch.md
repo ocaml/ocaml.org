@@ -6,6 +6,7 @@ description: |
 category: "Tooling"
 recommended_next_tutorials:
   - "managing-dependencies"
+  - "opam-path"
 ---
 
 This tutorial was written with AI assistance and reviewed by the OCaml.org team.
