@@ -72,13 +72,28 @@ let mockup_state (pkgs : t list) =
     search_index = None;
   }
 
-let read_versions package_name versions =
+(* [versions] are directory names, sorted by [String.compare]. Two of them can
+   be the same version for opam ([5.5.0+introcaml] and [5.5.0+introcaml0]: a
+   missing number counts as 0). Then the later one replaces the earlier one, as
+   when opam loads a repository ([OpamRepositoryState.load_opams_from_dir]), so
+   that the site shows what opam installs. *)
+let read_versions ?(opam_file = Opam_repository.opam_file) package_name versions
+    =
   List.fold_left
     (fun acc package_version ->
       match OpamPackage.of_string_opt package_version with
       | Some pkg -> (
-          match Opam_repository.opam_file package_name package_version with
-          | Ok opam -> Version.Map.add pkg.version opam acc
+          match opam_file package_name package_version with
+          | Ok opam ->
+              Option.iter
+                (fun (previous, _) ->
+                  Logs.warn (fun m ->
+                      m
+                        "%S and %S are the same version for opam: keeping %S, \
+                         as opam does"
+                        previous package_version package_version))
+                (Version.Map.find_opt pkg.version acc);
+              Version.Map.add pkg.version (package_version, opam) acc
           | Error reason ->
               Logs.err (fun m ->
                   m "Failed to read opam file for %S %s: %s" package_name
@@ -89,6 +104,7 @@ let read_versions package_name versions =
               m "Invalid package version %S for %S" package_version package_name);
           acc)
     Version.Map.empty versions
+  |> Version.Map.map snd
 
 let read_packages () =
   let open Lwt.Syntax in
