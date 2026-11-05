@@ -1,11 +1,12 @@
 (* Round-trips between opam files and the [Info.t] that [Info.of_opamfiles]
-   builds from them. [Info.t] does not keep every opam field, nor the structure
-   of the dependency formulas, so these tests check what it does keep:
+   builds from them, as chains of hops:
 
-   - opam -> info -> opam: the fields that [Info.t] stores exactly come back. -
-   info -> opam -> info: printing an info as an opam file and reading it back
-   gives the same info. - constraint string -> formula: each stored constraint
-   or filter string parses back to the formula it was printed from. *)
+   opam0 -> info1 -> opam1 -> info2 -> opam2 -> info3
+
+   [Info.t] does not keep every opam field, nor the [|] between packages of a
+   dependency formula, so the first hop loses information. The others must not:
+   from info1 on, every hop is a fixpoint. The same goes for each stored
+   constraint string, which must be what storing its own parsing gives. *)
 
 module Package = Ocamlorg_package
 
@@ -58,6 +59,13 @@ license: []
 depends: [ "a" {= version} "b" {build & != "2"} ]
 url { src: "git+https://github.com/example/c.git#main" }
 |}
+    );
+    (* As in dune.3.6.2: the same name on both sides of a [|]. *)
+    ("d.1", {|depends: [ "a" {>= "2"} | ("a" {< "2"} & "c") ]|});
+    (* As in conf-freeglut.1: a negated conjunction in a filter. *)
+    ( "e.1",
+      {|depends: [ "a" {build & !(os = "linux" & arch = "x86_64")} ]
+depopts: [ "b" {!(os = "macos" | os = "win32")} ]|}
     );
   ]
 
@@ -137,20 +145,24 @@ let to_opam pkg (info : Package.Info.t) =
   |> with_conflicts (formula_of OpamFormula.ors info.conflicts)
   |> write_to_string |> read_from_string
 
-let reprinted =
-  List.map (fun (pkg, _) -> (pkg, to_opam pkg (original_info pkg))) originals
+let reprint info opams =
+  List.map (fun (pkg, _) -> (pkg, to_opam pkg (info pkg))) opams
 
-let reprinted_info = infos reprinted
+let info1 = original_info
+let opam1 = reprint info1 originals
+let info2 = infos opam1
+let opam2 = reprint info2 opam1
+let info3 = infos opam2
 
 let check_each f () =
   List.iter
     (fun (pkg, original) -> f (OpamPackage.to_string pkg) pkg original)
     originals
 
-(* opam -> info -> opam *)
+(* opam0 -> info1 -> opam1 *)
 let test_exact_fields =
   check_each (fun id pkg original ->
-      let again = List.assoc pkg reprinted in
+      let again = List.assoc pkg opam1 in
       let strings label get =
         Alcotest.(check (list string))
           (id ^ ": " ^ label)
@@ -172,16 +184,21 @@ let test_exact_fields =
           | None -> []
           | Some u -> List.map OpamHash.to_string (OpamFile.URL.checksum u)))
 
-(* info -> opam -> info *)
-let test_info_is_stable =
-  let deps l =
-    List.map
-      (fun (n, c) -> Package.Name.to_string n ^ Option.value ~default:"" c)
-      l
-  in
+let deps l =
+  List.map
+    (fun (n, c) -> Package.Name.to_string n ^ " " ^ Option.value ~default:"" c)
+    l
+
+let rev_dep_names (i : Package.Info.t) =
+  List.map (fun (n, _, _) -> Package.Name.to_string n) i.rev_deps
+
+(* info1 -> opam1 -> info2: what the opam file says about the package itself
+   comes back. The reverse dependencies may not: they come from the formulas of
+   other packages, which lose their [|] between packages. *)
+let test_info2 =
   check_each (fun id pkg _ ->
-      let (a : Package.Info.t) = original_info pkg
-      and (b : Package.Info.t) = reprinted_info pkg in
+      let (a : Package.Info.t) = info1 pkg
+      and (b : Package.Info.t) = info2 pkg in
       let field label get =
         Alcotest.(check (list string)) (id ^ ": " ^ label) (get a) (get b)
       in
@@ -196,13 +213,71 @@ let test_info_is_stable =
       field "conflicts" (fun i -> deps i.conflicts);
       (* Every field, including those not listed above. *)
       Alcotest.(check bool)
-        (id ^ ": the reprinted opam file gives the same info")
-        true (a = b))
+        (id ^ ": every field but the reverse dependencies")
+        true
+        ({ a with rev_deps = [] } = { b with rev_deps = [] }))
 
-(* constraint string -> formula *)
-let test_constraints_parse_back =
+(* The loss in the first hop, made explicit: d.1 depends on every version of
+   [a], but once its [|] is read as [&], on none. *)
+let test_disjunction_is_lost () =
+  List.iter
+    (fun v ->
+      let pkg = OpamPackage.of_string v in
+      Alcotest.(check bool)
+        (v ^ ": d.1 is a reverse dependency in info1")
+        true
+        (List.mem "d" (rev_dep_names (info1 pkg)));
+      Alcotest.(check bool)
+        (v ^ ": d.1 is not one in info2")
+        false
+        (List.mem "d" (rev_dep_names (info2 pkg))))
+    [ "a.1"; "a.2" ]
+
+(* info2 -> opam2 -> info3, and opam1 -> info2 -> opam2: fixpoints. *)
+let test_fixpoint =
+  check_each (fun id pkg _ ->
+      Alcotest.(check bool)
+        (id ^ ": info3 is info2, reverse dependencies included")
+        true
+        (info2 pkg = info3 pkg);
+      Alcotest.(check string)
+        (id ^ ": opam2 is opam1, as text")
+        (OpamFile.OPAM.write_to_string (List.assoc pkg opam1))
+        (OpamFile.OPAM.write_to_string (List.assoc pkg opam2)))
+
+(* Parentheses are [Block] nodes, which [Info] may print differently, both in a
+   formula over package names and in the constraint of each atom. *)
+let rec unblock : 'a. 'a OpamFormula.formula -> 'a OpamFormula.formula =
+  function
+  | OpamFormula.Block f -> unblock f
+  | And (a, b) -> And (unblock a, unblock b)
+  | Or (a, b) -> Or (unblock a, unblock b)
+  | (Empty | Atom _) as f -> f
+
+let unblock_all f =
+  OpamFormula.map (fun (n, c) -> OpamFormula.Atom (n, unblock c)) (unblock f)
+
+(* The string that [Info] stores for the single atom [name {cstr}]. *)
+let restore name cstr =
+  let pkg = OpamPackage.of_string "z.1" in
+  let atom = parse_atom name cstr in
+  let opams = [ (pkg, OpamFile.OPAM.(with_depends atom empty)) ] in
+  let timestamps = OpamPackage.Map.singleton pkg 0. in
+  let infos =
+    Lwt_main.run (Package.Info.of_opamfiles ~timestamps (repository opams))
+  in
+  match
+    (Package.Name.Map.find (pkg_name pkg) infos
+    |> Package.Version.Map.find (pkg_version pkg))
+      .dependencies
+  with
+  | [ (n, c) ] when Package.Name.to_string n = Package.Name.to_string name -> c
+  | _ -> Alcotest.fail "one atom in, one atom out"
+
+(* constraint string -> formula -> constraint string *)
+let test_constraints =
   check_each (fun id pkg original ->
-      let info = original_info pkg in
+      let info = info1 pkg in
       List.iter
         (fun (label, formula, stored) ->
           let atoms =
@@ -213,12 +288,19 @@ let test_constraints_parse_back =
             (List.length atoms) (List.length stored);
           List.iter2
             (fun atom (name, cstr) ->
+              let what =
+                Printf.sprintf "%s: %s %s {%s}" id label
+                  (Package.Name.to_string name)
+                  (Option.value ~default:"" cstr)
+              in
               Alcotest.(check bool)
-                (Printf.sprintf "%s: %s %s {%s} parses back" id label
-                   (Package.Name.to_string name)
-                   (Option.value ~default:"" cstr))
+                (what ^ " parses back to the original, up to parentheses")
                 true
-                (OpamFormula.Atom atom = parse_atom name cstr))
+                (unblock_all (OpamFormula.Atom atom)
+                = unblock_all (parse_atom name cstr));
+              Alcotest.(check (option string))
+                (what ^ " is stored as itself")
+                cstr (restore name cstr))
             atoms stored)
         OpamFile.OPAM.
           [
@@ -228,15 +310,16 @@ let test_constraints_parse_back =
           ])
 
 let () =
+  let test name f = Alcotest.test_case name `Quick f in
   Alcotest.run "opam round-trip"
     [
-      ( "opam -> info -> opam",
-        [ Alcotest.test_case "exact fields" `Quick test_exact_fields ] );
-      ( "info -> opam -> info",
-        [ Alcotest.test_case "same info" `Quick test_info_is_stable ] );
-      ( "constraint string -> formula",
+      ("opam0 -> info1 -> opam1", [ test "exact fields" test_exact_fields ]);
+      ( "info1 -> opam1 -> info2",
         [
-          Alcotest.test_case "constraints parse back" `Quick
-            test_constraints_parse_back;
+          test "same info but reverse dependencies" test_info2;
+          test "a disjunction over one name is lost" test_disjunction_is_lost;
         ] );
+      ("from info2 on", [ test "every hop is a fixpoint" test_fixpoint ]);
+      ( "constraint string -> formula -> constraint string",
+        [ test "fixpoint" test_constraints ] );
     ]
