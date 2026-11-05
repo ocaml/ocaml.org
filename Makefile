@@ -9,13 +9,15 @@ all: ## Build the project (default target)
 	opam exec -- dune build --root .
 
 .PHONY: deps
-deps: create_switch ## Install development dependencies
-	opam install -y ocamlformat=0.26.2 ocaml-lsp-server
+deps:
+#create_switch ## Install development dependencies
+	opam pin add -n https://github.com/ocaml-ppx/ppx_import.git#4fffec8af4167e61a2bf934653ef8847ed472283
+	opam install -y ocamlformat=0.29.0 ocaml-lsp-server
 	opam install -y --deps-only --with-test --with-doc .
 
 .PHONY: create_switch
 create_switch: ## Create switch and pinned opam repo
-	opam switch create . 5.2.0 --no-install --repos pin=git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+	opam switch create . --no-install --repos pin=git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0 --packages=ocaml.5.5.1,ocaml-option-fp
 
 .PHONY: switch
 switch: deps ## Create an opam switch and install development dependencies
