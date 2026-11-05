@@ -25,8 +25,10 @@ let default_out () =
   Printf.sprintf "tool/sim/out/%04d%02d%02d-%02d%02d%02d" (t.tm_year + 1900)
     (t.tm_mon + 1) t.tm_mday t.tm_hour t.tm_min t.tm_sec
 
-let plot ~script dir =
-  let _ = Summary.run dir in
+(* [~summarised:true] when [dir] has just been summarised, which wrote the
+   windows.gp the script loads. *)
+let plot ?(summarised = false) ~script dir =
+  if not summarised then ignore (Summary.run dir);
   let status =
     Unix.system
       (Filename.quote_command "gnuplot"
@@ -172,17 +174,25 @@ let run_cmd =
       value & opt int 18081
       & info [ "docs-port" ] ~doc:"Host port of the docs stub.")
   in
-  let state_builder =
+  let builder_nice =
+    (* the server runs as an unprivileged user: it can only lower priority *)
+    let nice =
+      let parse s =
+        match int_of_string_opt s with
+        | Some n when n >= 0 && n <= 19 -> Ok n
+        | _ -> Error (`Msg "expected a nice level from 0 to 19")
+      in
+      Arg.conv (parse, Format.pp_print_int)
+    in
     Arg.(
       value
-      & opt (some int) None
-      & info [ "state-builder" ] ~docv:"NICE"
+      & opt (some nice) None
+      & info [ "builder-nice" ] ~docv:"NICE"
           ~doc:
-            "Experimental: rebuild the package state in a separate builder \
-             process, run at nice level $(docv), and have the server only load \
-             each new state file it writes. Needs a server that supports \
-             OCAMLORG_PKG_STATE_MODE=builder and =reload, which main does not \
-             yet.")
+            "Nice level, from 0 to 19, of the package-state builder process \
+             the server runs (OCAMLORG_PACKAGE_BUILDER_NICE). Only servers \
+             that run ocamlorg-package-builder have one; others ignore it. \
+             Default: the server's own default, 19.")
   in
   let keep =
     Arg.(
@@ -218,7 +228,7 @@ let run_cmd =
   in
   let go image days speedup poll duration port mem cpus profile no_human
       traffic_scale diurnal bot_rps include_docs max_inflight timeout seed keep
-      out compose project script docs docs_port state_builder repeat =
+      out compose project script docs docs_port builder_nice repeat =
     let out = match out with Some o -> o | None -> default_out () in
     let poll =
       match poll with
@@ -250,13 +260,13 @@ let run_cmd =
         keep;
         docs;
         docs_port;
-        state_builder;
+        builder_nice;
       }
     in
     if repeat <= 1 then (
       Lwt_main.run (Run.run c);
       print_string (Summary.run out);
-      plot ~script out)
+      plot ~summarised:true ~script out)
     else
       let dirs =
         List.init repeat (fun k ->
@@ -264,10 +274,10 @@ let run_cmd =
             Printf.printf "sim: repeat %d of %d -> %s\n%!" (k + 1) repeat dir;
             Lwt_main.run (Run.run { c with Run.out = dir });
             ignore (Summary.run dir);
-            plot ~script dir;
+            plot ~summarised:true ~script dir;
             dir)
       in
-      print_string (Noise.run ~out dirs)
+      print_string (Noise.run ~summarised:true ~out dirs)
   in
   Cmd.v
     (Cmd.info "run" ~doc:"Run one simulation.")
@@ -275,7 +285,7 @@ let run_cmd =
       const go $ image $ days $ speedup $ poll $ duration_a $ port $ mem $ cpus
       $ profile $ no_traffic $ scale $ diurnal $ bot_rps $ include_docs
       $ max_inflight $ timeout $ seed $ keep $ out $ compose $ project
-      $ plot_script $ docs $ docs_port $ state_builder $ repeat)
+      $ plot_script $ docs $ docs_port $ builder_nice $ repeat)
 
 let dir_arg =
   Arg.(

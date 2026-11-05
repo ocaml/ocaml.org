@@ -17,17 +17,21 @@
 
 (* {1 Distributions} *)
 
+(* Index of the [p]-th percentile (nearest rank) among [n > 0] sorted
+   samples. *)
+let rank n p =
+  min (n - 1) (int_of_float (ceil (p *. float_of_int n)) - 1 |> max 0)
+
 let percentile sorted p =
   let n = Array.length sorted in
-  if n = 0 then nan
-  else
-    sorted.(min (n - 1) (int_of_float (ceil (p *. float_of_int n)) - 1 |> max 0))
+  if n = 0 then nan else sorted.(rank n p)
 
 let quantiles =
   [ (0.5, "p50"); (0.9, "p90"); (0.95, "p95"); (0.99, "p99"); (0.999, "p99.9") ]
 
-(* Number of samples above the [p]-th percentile. *)
-let above n p = int_of_float (float_of_int n *. (1. -. p))
+(* Number of samples ranked above the [p]-th percentile: counted from its index,
+   since [n *. (1. -. p)] truncates wrongly ([1. -. 0.9 < 0.1]). *)
+let above n p = if n = 0 then 0 else n - 1 - rank n p
 
 (* The [p]-th percentile for display: ["-"] when no sample lies above it (it
    would just be the maximum), and marked with ['*'] when fewer than 10 do (it
@@ -217,25 +221,36 @@ let read_sync dir =
     (rows dir "sync.csv")
 
 (* Busy windows: from ["update"] to the following ["saved"] (or ["loaded"] when
-   nothing is saved after it). *)
+   nothing is saved after it). With a separate builder process, the state the
+   builder saved is then loaded by the server: a ["reloaded"] after ["saved"],
+   before the next ["update"], extends the window to it. *)
 let windows_of_events events =
-  let rec go acc start last = function
+  (* [ext]: the last window ended with ["saved"] and has not been extended *)
+  let rec go acc start last ext = function
     | [] -> (
         match (start, last) with
         | Some s, Some e -> List.rev ((s, e) :: acc)
         | _ -> List.rev acc)
     | (t, "update") :: tl -> (
         match (start, last) with
-        | Some s, Some e -> go ((s, e) :: acc) (Some t) None tl
-        | _ -> go acc (Some t) None tl)
-    | (t, "loaded") :: tl when start <> None -> go acc start (Some t) tl
+        | Some s, Some e -> go ((s, e) :: acc) (Some t) None false tl
+        | _ -> go acc (Some t) None false tl)
+    | (t, "loaded") :: tl when start <> None -> go acc start (Some t) ext tl
     | (t, "saved") :: tl -> (
         match start with
-        | Some s -> go ((s, t) :: acc) None None tl
-        | None -> go acc None None tl)
-    | _ :: tl -> go acc start last tl
+        | Some s -> go ((s, t) :: acc) None None true tl
+        | None -> go acc None None false tl)
+    | (t, "reloaded") :: tl when ext && start = None -> (
+        match acc with
+        | (s, _) :: rest -> go ((s, t) :: rest) None None false tl
+        | [] -> go acc None None false tl)
+    | _ :: tl -> go acc start last ext tl
   in
-  go [] None None events
+  go [] None None false events
+
+(* The server's load of a state written by a separate builder, logged as a
+   timing line once it is done. *)
+let reload_phase = "Reload package state"
 
 (* Seconds added after each window's closing log line. The work around saving
    the state does not end exactly with the line that reports it: the largest
@@ -259,7 +274,12 @@ let unfinished_update events =
    and pauses count as during an update. Per-update statistics ([cycles]) take
    [~unfinished:false]: that update's duration is truncated. *)
 let windows ?(unfinished = true) dir =
-  let events = List.map (fun (t, ev, _, _) -> (t, ev)) (read_sync dir) in
+  let events =
+    List.map
+      (fun (t, ev, _, detail) ->
+        (t, if ev = "phase" && detail = reload_phase then "reloaded" else ev))
+      (read_sync dir)
+  in
   let closed =
     windows_of_events events |> List.map (fun (s, e) -> (s, e +. window_grace))
   in
@@ -622,10 +642,41 @@ let cell x = if Float.is_finite x then Printf.sprintf "%.1f" x else ""
 
 let timeline ~bin ~run_end ~wins ~samples ~pauses ~reqs ~heap ~feed streams =
   let nbins = int_of_float (ceil (run_end /. bin)) in
+  (* Each list is split into bins once: filtering it again for every bin would
+     cost bins x events (720 bins x ~10^6 GC pauses in a 2 h run). *)
+  let bin_of t = if t < 0. then -1 else int_of_float (t /. bin) in
+  let bucket time l =
+    let a = Array.make nbins [] in
+    List.iter
+      (fun x ->
+        let k = bin_of (time x) in
+        if k >= 0 && k < nbins then a.(k) <- x :: a.(k))
+      l;
+    Array.map List.rev a
+  in
+  let pauses_in = bucket (fun p -> p.start) pauses in
+  let reqs_in = bucket (fun r -> r.t) reqs in
+  let feed_in = bucket fst feed in
+  (* the major heap size at the end of each bin: the last sample before it ends
+     (samples come in time order) *)
+  let heap_at =
+    let last = Array.make nbins nan in
+    let before = ref nan in
+    List.iter
+      (fun (t, h) ->
+        let k = bin_of t in
+        if k < 0 then before := h else if k < nbins then last.(k) <- h)
+      heap;
+    let acc = ref !before in
+    Array.map
+      (fun h ->
+        if not (Float.is_nan h) then acc := h;
+        !acc)
+      last
+  in
   List.init nbins (fun k ->
       let a = float_of_int k *. bin in
       let b = a +. bin in
-      let within t = t >= a && t < b in
       let busy =
         List.fold_left
           (fun acc (s, e) ->
@@ -635,13 +686,11 @@ let timeline ~bin ~run_end ~wins ~samples ~pauses ~reqs ~heap ~feed streams =
       let smax f =
         fold_samples samples (a +. 1e-9) b (fun acc s -> nanmax acc (f s)) nan
       in
-      let heap_now =
-        List.fold_left (fun acc (t, h) -> if t < b then h else acc) nan heap
-      in
-      let ps = List.filter (fun p -> within p.start) pauses in
+      let heap_now = heap_at.(k) in
+      let ps = pauses_in.(k) in
       let count kind = List.length (List.filter (fun p -> p.kind = kind) ps) in
       let per_stream s =
-        let rs = List.filter (fun r -> r.stream = s && within r.t) reqs in
+        let rs = List.filter (fun r -> r.stream = s) reqs_in.(k) in
         let lat =
           sorted_of_list
             (List.filter_map
@@ -672,9 +721,7 @@ let timeline ~bin ~run_end ~wins ~samples ~pauses ~reqs ~heap ~feed streams =
       @ List.concat_map per_stream streams
       @ [
           string_of_int
-            (List.fold_left
-               (fun acc (t, c) -> if within t then acc + c else acc)
-               0 feed);
+            (List.fold_left (fun acc (_, c) -> acc + c) 0 feed_in.(k));
         ])
 
 let timeline_header streams =
@@ -834,13 +881,18 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
             ("container_major_faults", Some majflt);
             ("container_mem_stall_s", pct_to_s (integral (fun s -> s.stall)));
             ("host_min_available_mb", some_low (fun s -> s.host_avail));
+            (* the most swap the run added over what was in use at its start
+               (not peak minus lowest: swap freed during the run is no
+               growth) *)
             ( "host_swap_growth_mb",
               Option.bind
                 (some_peak (fun s -> s.host_swap))
                 (fun hi ->
-                  Option.map
-                    (fun lo -> hi -. lo)
-                    (some_low (fun s -> s.host_swap))) );
+                  Array.find_opt
+                    (fun s -> not (Float.is_nan s.host_swap))
+                    samples
+                  |> Option.map (fun s0 -> Float.max 0. (hi -. s0.host_swap)))
+            );
             ("host_major_faults", integral (fun s -> s.host_majflt));
             ("host_mem_stall_s", pct_to_s (integral (fun s -> s.host_stall)));
           ]
@@ -1007,10 +1059,11 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
               ( "update_window",
                 `String
                   "from the server's 'Update server state' log line to \
-                   'Package state saved', plus 1 s for the work that ends \
-                   around that line; an update still running when the run ends \
-                   gets a window up to the end but no cycle; the first one is \
-                   the warm-up full rebuild" );
+                   'Package state saved' (or, with a separate builder, to the \
+                   server's 'Reload package state' that follows), plus 1 s for \
+                   the work that ends around that line; an update still \
+                   running when the run ends gets a window up to the end but \
+                   no cycle; the first one is the warm-up full rebuild" );
               ( "floor",
                 `String
                   "lowest memory between the end of an update and the start of \
@@ -1190,7 +1243,10 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
           (if busy at then " (during update)" else ""))
       mmus);
   if cs <> [] then (
-    pr "\nUpdate cycles (update -> saved); #1 is the warm-up full rebuild\n";
+    pr
+      "\n\
+       Update cycles (update -> saved, or reloaded); #1 is the warm-up full \
+       rebuild\n";
     pr "  %-3s %8s %8s %8s %10s %10s %11s %11s %9s\n" "#" "start" "dur s"
       "CPU s" "peak mem" "peak RSS" "floor mem" "floor RSS" "max GC";
     List.iter

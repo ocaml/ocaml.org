@@ -89,7 +89,7 @@ let feed_rows dir =
       | _ -> None)
     (Summary.rows dir "feed.csv")
 
-let inputs ~a ~b ~run_end =
+let inputs ~(inp : Compare.inputs) ~a ~run_end =
   let reqs = Summary.read_traffic a in
   let bins =
     let tbl = Hashtbl.create 256 in
@@ -117,7 +117,6 @@ let inputs ~a ~b ~run_end =
         o [ ("kind", s "move"); ("t", n t); ("sha", s (String.sub sha 0 8)) ])
       (feed_rows a)
   in
-  let inp = Compare.inputs a b in
   let same_upstream = inp.same_upstream and same_traffic = inp.same_traffic in
   let total_a = List.length reqs in
   let x =
@@ -2055,8 +2054,11 @@ let run ?(noise = []) ~output a b =
     if Array.length r = 0 then 0. else r.(Array.length r - 1).st
   in
   let run_end = Float.max (run_end a) (run_end b) in
+  (* matched once: the inputs and the paired-requests chart both use it *)
+  let m = Compare.match_requests a b in
+  let inp = Compare.inputs ~m a b in
   let inputs_spec, same_traffic, same_upstream, moves, total =
-    inputs ~a ~b ~run_end
+    inputs ~inp ~a ~run_end
   in
   let raw = raw_charts ~a ~b ~na ~nb ~run_end in
   let fa = Compare.flatten (Compare.load a "summary.json")
@@ -2075,7 +2077,6 @@ let run ?(noise = []) ~output a b =
         | None -> (p, x, nan, r))
       fa
   in
-  let m = Compare.match_requests a b in
   (* The noise runs: each noise.json names its image and its repeats; they are
      drawn in the colour of the compared run with the same image. *)
   let noise_runs =
@@ -2144,10 +2145,7 @@ let run ?(noise = []) ~output a b =
       ("Same request, both builds", paired_spec ~na ~nb m);
     ]
   in
-  let docs_a, docs_b =
-    let inp = Compare.inputs a b in
-    (inp.docs_a, inp.docs_b)
-  in
+  let docs_a, docs_b = (inp.docs_a, inp.docs_b) in
   let docs_same = docs_a = docs_b in
   let note =
     let ok = "<span class=ok>✓</span>" and ko = "<span class=ko>✗</span>" in

@@ -43,24 +43,26 @@ let flatten (j : Yojson.Safe.t) =
   in
   List.rev (go "" [] j)
 
+(* The keys of either meta.json whose values differ, A's keys first, then those
+   only B has: a parameter recorded by only one of the runs (one added since the
+   other ran, say) differs too. *)
 let differing_params (a : Yojson.Safe.t) (b : Yojson.Safe.t) =
   let ignore = [ "image"; "image_id"; "started"; "ready_after" ] in
+  let show = function Some v -> Yojson.Safe.to_string v | None -> "absent" in
   match (a, b) with
   | `Assoc fa, `Assoc fb ->
+      let keys =
+        List.map fst fa
+        @ List.filter (fun k -> not (List.mem_assoc k fa)) (List.map fst fb)
+      in
       List.filter_map
-        (fun (k, va) ->
+        (fun k ->
           if List.mem k ignore then None
           else
-            match List.assoc_opt k fb with
-            | Some vb when Yojson.Safe.equal va vb -> None
-            | vb ->
-                Some
-                  ( k,
-                    Yojson.Safe.to_string va,
-                    match vb with
-                    | Some v -> Yojson.Safe.to_string v
-                    | None -> "absent" ))
-        fa
+            match (List.assoc_opt k fa, List.assoc_opt k fb) with
+            | Some va, Some vb when Yojson.Safe.equal va vb -> None
+            | va, vb -> Some (k, show va, show vb))
+        keys
   | _ -> [ ("run", "missing meta.json", "") ]
 
 (* {1 Paired requests} *)
@@ -316,10 +318,12 @@ let feed_shas dir =
     (function _ :: sha :: _ -> Some sha | _ -> None)
     (Summary.rows dir "feed.csv")
 
-let inputs a b =
+(* [m]: the requests of [a] and [b] matched, when the caller has them
+   already. *)
+let inputs ?m a b =
   let ra = Summary.read_traffic a and rb = Summary.read_traffic b in
   let ids l = List.exists (fun (r : Summary.req) -> r.id <> None) l in
-  let m = match_requests a b in
+  let m = match m with Some m -> m | None -> match_requests a b in
   let docs d =
     match member "docs" (load d "meta.json") with
     | Some (`String x) -> x
@@ -427,7 +431,8 @@ let run ?output ?(noise = []) a b =
     match member "image" m with Some (`String s) -> s | _ -> "?"
   in
   let params = differing_params ma mb in
-  let inp = inputs a b in
+  let m = match_requests a b in
+  let inp = inputs ~m a b in
   let same_docs = inp.docs_a = inp.docs_b in
   let one_to_one =
     params = [] && inp.same_traffic && inp.same_upstream && same_docs
@@ -467,7 +472,6 @@ let run ?output ?(noise = []) a b =
   let la = loaded sa and lb = loaded sb in
   let only_in x y = List.filter (fun s -> not (List.mem s y)) x in
   let common = List.filter (fun s -> List.mem s lb) la in
-  let m = match_requests a b in
   let streams = by (fun p -> p.stream) m.pairs in
   let by_class s =
     by (fun p -> p.cls) (List.filter (fun p -> p.stream = s) m.pairs)

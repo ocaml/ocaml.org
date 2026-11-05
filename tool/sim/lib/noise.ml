@@ -78,15 +78,22 @@ let json_of_metric m : Yojson.Safe.t =
         else `Null );
     ]
 
-let run ~out dirs =
-  List.iter (fun d -> ignore (Summary.run d)) dirs;
+(* [~summarised:true] when every run in [dirs] has just been summarised. *)
+let run ?(summarised = false) ~out dirs =
+  if not summarised then List.iter (fun d -> ignore (Summary.run d)) dirs;
   let first = List.hd dirs in
   let image =
     match Compare.member "image" (Compare.load first "meta.json") with
     | Some (`String s) -> s
     | _ -> "?"
   in
-  let inputs = List.map (fun d -> (d, Compare.inputs first d)) (List.tl dirs) in
+  (* the first repeat's requests matched against each other one's, once *)
+  let matched =
+    List.map (fun d -> (d, Compare.match_requests first d)) (List.tl dirs)
+  in
+  let inputs =
+    List.map (fun (d, m) -> (d, Compare.inputs ~m first d)) matched
+  in
   let identical =
     List.for_all
       (fun (_, (i : Compare.inputs)) ->
@@ -96,9 +103,7 @@ let run ~out dirs =
   let ms = metrics dirs in
   (* request-level noise: first repeat against each other one, pooled *)
   let pairs =
-    List.concat_map
-      (fun d -> (Compare.match_requests first d).pairs)
-      (List.tl dirs)
+    List.concat_map (fun (_, (m : Compare.matching)) -> m.pairs) matched
   in
   let streams = Compare.by (fun (p : Compare.pair) -> p.stream) pairs in
   let buf = Buffer.create 4096 in

@@ -213,7 +213,50 @@ let test_windows () =
          (5., "saved");
          (10., "update");
          (12., "loaded");
+       ]);
+  Alcotest.(check (list (pair (float 0.) (float 0.))))
+    "a separate builder: saved, then the server's reload"
+    [ (1., 7.); (10., 15.); (20., 22.) ]
+    (Summary.windows_of_events
+       [
+         (1., "update");
+         (5., "saved");
+         (7., "reloaded");
+         (10., "update");
+         (15., "saved");
+         (20., "update");
+         (22., "saved");
+         (25., "update");
+         (26., "reloaded");
        ])
+
+let test_above () =
+  let check n p expected =
+    Alcotest.(check int)
+      (Printf.sprintf "n=%d p=%g" n p)
+      expected (Summary.above n p)
+  in
+  check 0 0.9 0;
+  check 10 0.9 1;
+  check 100 0.9 10;
+  check 100 0.99 1;
+  check 1000 0.999 1;
+  check 5 0.5 2
+
+let test_differing_params () =
+  let ab a b =
+    Compare.differing_params
+      (`Assoc (List.map (fun (k, v) -> (k, `Int v)) a))
+      (`Assoc (List.map (fun (k, v) -> (k, `Int v)) b))
+  in
+  Alcotest.(check (list (triple string string string)))
+    "a key only in B differs"
+    [ ("builder_nice", "absent", "10") ]
+    (ab [ ("seed", 1) ] [ ("seed", 1); ("builder_nice", 10) ]);
+  Alcotest.(check (list (triple string string string)))
+    "and only in A"
+    [ ("builder_nice", "10", "absent") ]
+    (ab [ ("seed", 1); ("builder_nice", 10) ] [ ("seed", 1) ])
 
 let test_unfinished_update () =
   Alcotest.(check (option (float 0.)))
@@ -532,6 +575,8 @@ let () =
           Alcotest.test_case "cpu seconds" `Quick test_cpu_seconds;
           Alcotest.test_case "slope" `Quick test_slope;
           Alcotest.test_case "windows" `Quick test_windows;
+          Alcotest.test_case "above" `Quick test_above;
+          Alcotest.test_case "differing params" `Quick test_differing_params;
           Alcotest.test_case "unfinished update" `Quick test_unfinished_update;
           Alcotest.test_case "psi" `Quick test_psi;
           Alcotest.test_case "censored latency" `Quick test_censored_latency;

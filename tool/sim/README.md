@@ -110,20 +110,25 @@ The first update cycle rebuilds the package state from scratch: the image's
 state was built at its tip, and the run starts days before that. The summary
 labels it as warm-up.
 
-### Separate Builder Process (Experimental)
+### Separate Builder Process
 
-`--state-builder NICE` runs the package-state rebuild in a separate process,
-at nice level `NICE`, next to the server in the same container: the builder
-pulls, rebuilds and writes each new state, and the server only loads it. This
-needs a server that supports `OCAMLORG_PKG_STATE_MODE=builder` and `=reload`,
-which `main` does not yet; with any other image, both processes rebuild.
+A server that runs `ocamlorg-package-builder` (item 14 of #3901, not on `main`
+yet) does not rebuild the package state itself: it starts the builder in the
+same container, which pulls, rebuilds and writes each new state, and only
+loads the result. The sim needs nothing special for it. `--builder-nice NICE`
+(0 to 19) sets the builder's nice level through
+`OCAMLORG_PACKAGE_BUILDER_NICE`; without it, the server's default, 19, applies.
+Servers without a builder ignore the variable.
 
 The builder's log lines go to the container's output, so update cycles and
-phases are read as usual, and the server's load of each new state shows as a
-`Reload package state` phase. The builder has no runtime-events ring: GC
-figures are the server's only. Memory and CPU from the cgroup include both
-processes; the server's resident set size is its own. The option is recorded
-in `meta.json`, so `sim compare` reports it as a differing run parameter.
+phases are read as usual. The server's load of each new state shows as a
+`Reload package state` phase, which closes the update window (see
+`windows.csv` below). GC figures come from the server's runtime-events ring
+only (`1.events`): the builder inherits `OCAML_RUNTIME_EVENTS_START` and writes
+a ring of its own per run, which the sim ignores. Memory and CPU from the
+cgroup include both processes; the server's resident set size is its own. The
+option is recorded in `meta.json`, so `sim compare` reports it as a differing
+run parameter.
 
 ## Output
 
@@ -143,7 +148,7 @@ Each run writes a directory under `tool/sim/out/` (ignored by git):
 | `traffic.csv` | One row per request; `id` is its position in its stream |
 | `latency-<stream>.csv` | Per 5 s: count, errors, drops, p50/p90/p95/p99/p99.9/max |
 | `sync.csv` | Update cycle events, phase durations, and each commit the server loaded, from the server log |
-| `windows.csv` | Update windows: from "Update server state" to "Package state saved", plus 1 s, because the largest GC pauses of an update fall within 0.2 s of that log line; an update still running when the run ends gets a window up to the end (but no row in `cycles.csv`) |
+| `windows.csv` | Update windows: from "Update server state" to "Package state saved" (or, with a separate builder, to the server's "Reload package state" that follows it), plus 1 s, because the largest GC pauses of an update fall within 0.2 s of that log line; an update still running when the run ends gets a window up to the end (but no row in `cycles.csv`) |
 | `cycles.csv` | Per update: duration, CPU-seconds, peak memory, memory floor after it, longest GC pause |
 | `feed.csv` | Each upstream move: actual and planned time, commit |
 | `server.log` | The server's full log |
