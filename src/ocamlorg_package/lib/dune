@@ -1,8 +1,11 @@
 (library
  (name ocamlorg_package)
+ (flags
+  (:standard -open Ocamlorg_package_state))
  (preprocess
   (pps ppx_deriving_yojson ppx_repr))
  (libraries
+  ocamlorg_package_state
   opam-format
   repr
   bounded_cache

@@ -38,7 +38,7 @@ module Process = struct
     Lwt.return lines
 end
 
-let clone_path = Config.opam_repository_path
+let clone_path = Paths.opam_repository
 let exists () = Result.get_ok (Bos.OS.Path.exists clone_path)
 
 let git_cmd ?(repo = clone_path) args =
