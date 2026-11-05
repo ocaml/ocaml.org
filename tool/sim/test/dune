@@ -1,0 +1,3 @@
+(test
+ (name sim_test)
+ (libraries alcotest sim yojson))

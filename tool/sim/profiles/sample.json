@@ -1,0 +1,31 @@
+{
+  "source": "sample: hand-written placeholder until a Plausible export is available; rates and mix are guesses",
+  "base_rps": 1.5,
+  "hourly": [
+    0.55, 0.5, 0.5, 0.55, 0.6, 0.7, 0.85, 1.0, 1.15, 1.25, 1.3, 1.3,
+    1.3, 1.35, 1.4, 1.4, 1.35, 1.3, 1.2, 1.1, 1.0, 0.9, 0.75, 0.65
+  ],
+  "pages": [
+    { "path": "/", "weight": 120 },
+    { "path": "/install", "weight": 40 },
+    { "path": "/docs", "weight": 30 },
+    { "path": "/packages", "weight": 35 },
+    { "path": "/packages/search?q=json", "weight": 10 },
+    { "path": "/learn", "weight": 15 },
+    { "path": "/docs/tour-of-ocaml", "weight": 20 },
+    { "path": "/docs/values-and-functions", "weight": 8 },
+    { "path": "/docs/basic-data-types", "weight": 8 },
+    { "path": "/manual/5.2/index.html", "weight": 10 },
+    { "path": "/api/index.html", "weight": 8 },
+    { "path": "/api/List.html", "weight": 6 },
+    { "path": "/ocaml-planet", "weight": 6 },
+    { "path": "/changelog", "weight": 4 },
+    { "path": "/exercises", "weight": 5 },
+    { "path": "/p/dune", "weight": 12 },
+    { "path": "/p/lwt", "weight": 6 },
+    { "path": "/p/core", "weight": 6 },
+    { "path": "/p/cmdliner", "weight": 4 },
+    { "path": "/p/{pkg}", "weight": 120 },
+    { "path": "/p/{pkg}/{ver}", "weight": 60 }
+  ]
+}
