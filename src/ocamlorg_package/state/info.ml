@@ -1,7 +1,7 @@
 type url = { uri : string; checksum : string list } [@@deriving repr]
 
 (* This is used to invalidate the package state cache if one of the types
-   [Info.t] or [Ocamlorg_package.state] has changed. *)
+   [Info.t] or [Package_state.t] has changed. *)
 let version = "5"
 
 type t = {

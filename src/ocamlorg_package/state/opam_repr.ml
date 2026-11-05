@@ -1,7 +1,7 @@
 (* [Repr] combinators for the opam leaf types and opam maps that appear in the
    persisted package state. These are not derivable by [ppx_repr] (the opam
    types are abstract / live in another library), so they are written once here
-   and shared by [Info], [Packages_stats], and [Ocamlorg_package]. *)
+   and shared by [Info], [Packages_stats], and [Package_state]. *)
 
 let name : OpamPackage.Name.t Repr.t =
   Repr.map Repr.string OpamPackage.Name.of_string OpamPackage.Name.to_string
