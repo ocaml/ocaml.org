@@ -14,6 +14,17 @@ type t = {
 val empty : t
 (** No packages, built from no commit. *)
 
+val read_versions :
+  ?opam_file:(string -> string -> (OpamFile.OPAM.t, string) result) ->
+  string ->
+  string list ->
+  OpamFile.OPAM.t Version.Map.t
+(** [read_versions name directories] reads the opam file of each version
+    directory of package [name], such as [name.1.0], given in [String.compare]
+    order. When two directories are the same version for opam, the later one is
+    kept, as opam does, and a warning is logged. [opam_file] defaults to reading
+    the opam-repository clone. Exposed for testing. *)
+
 val rebuild : previous:t -> commit:string -> t Lwt.t
 (** [rebuild ~previous ~commit] reads the opam-repository clone, which must be
     at [commit], and computes the state at [commit]. [previous] lets the
