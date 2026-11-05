@@ -2,7 +2,7 @@ type url = { uri : string; checksum : string list } [@@deriving repr]
 
 (* This is used to invalidate the package state cache if one of the types
    [Info.t] or [Ocamlorg_package.state] has changed. *)
-let version = "5"
+let version = "6"
 
 type t = {
   synopsis : string;
@@ -30,6 +30,20 @@ type t = {
 let relop_to_string = OpamPrinter.FullPos.relop_kind
 let filter_to_string = OpamFilter.to_string
 
+(* The parser keeps parentheses as [Block] nodes, and the printer adds its own
+   around some atoms, such as a negation. Printing a parsed formula as is, then
+   parsing it again, would add a pair of parentheses each time. Keep only the
+   [Block]s that group an [And] or an [Or], so that printing the parsed result
+   gives the same string. *)
+let rec tidy_blocks = function
+  | OpamFormula.Block f -> (
+      match tidy_blocks f with
+      | (OpamFormula.Block _ | Atom _ | Empty) as f -> f
+      | f -> Block f)
+  | And (a, b) -> And (tidy_blocks a, tidy_blocks b)
+  | Or (a, b) -> Or (tidy_blocks a, tidy_blocks b)
+  | (Empty | Atom _) as f -> f
+
 let string_of_formula = function
   | OpamFormula.Empty -> None
   | formula ->
@@ -39,7 +53,7 @@ let string_of_formula = function
              | OpamTypes.Filter f -> filter_to_string f
              | Constraint (relop, f) ->
                  relop_to_string relop ^ " " ^ filter_to_string f)
-           formula)
+           (tidy_blocks formula))
 
 let parse_formula =
   OpamFormula.fold_left
