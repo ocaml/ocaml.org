@@ -2,12 +2,12 @@
 
 open Import
 
-type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml, show]
+type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml]
 
 type contribute_link = [%import: Data_intf.Tool_page.contribute_link]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type t = [%import: Data_intf.Tool_page.t] [@@deriving show]
+type t = Data_intf.Tool_page.t
 
 type metadata = {
   id : string;
@@ -44,4 +44,4 @@ let decode (fpath, (head, body_md)) =
 
 let all () =
   Utils.map_md_files decode "tool_pages/*/*.md"
-  |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
+  |> List.sort (fun (t1 : t) (t2 : t) -> String.compare t1.fpath t2.fpath)

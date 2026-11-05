@@ -19,7 +19,6 @@ type t = {
   released_on_github_by : string option;
   github_release_tags : string list;
 }
-[@@deriving show]
 
 type metadata = {
   title : string;
