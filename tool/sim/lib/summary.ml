@@ -55,7 +55,7 @@ let distribution sorted =
 
 let sorted_of_list l =
   let a = Array.of_list l in
-  Array.sort compare a;
+  Array.sort Float.compare a;
   a
 
 (* {1 Input files} *)
@@ -298,7 +298,12 @@ let windows ?(unfinished = true) dir =
 
 (* Merge possibly overlapping [(start, end)] intervals. *)
 let merge ivs =
-  let ivs = List.sort compare ivs in
+  let ivs =
+    List.sort
+      (fun (s, e) (s', e') ->
+        match Float.compare s s' with 0 -> Float.compare e e' | c -> c)
+      ivs
+  in
   let rec go acc = function
     | [] -> List.rev acc
     | (s, e) :: tl -> (
@@ -308,18 +313,29 @@ let merge ivs =
   in
   Array.of_list (go [] ivs)
 
-(* [mmu ivs ~lo ~hi w] is [Some (u, a)] where [u] is the smallest fraction of
-   any window [[a, a + w]] inside [[lo, hi]] not covered by the pause intervals
-   [ivs], or [None] if the span is shorter than [w]. The worst window starts at
-   a pause start or ends at a pause end, so only those positions are tried. *)
-let mmu ivs ~lo ~hi w =
+(* Pause intervals, merged, with their running total: computed once and shared
+   by every window size. *)
+type pauses_index = {
+  m : (float * float) array;  (** merged intervals, in order *)
+  prefix : float array;  (** [prefix.(k)]: pause time in intervals [0 .. k-1] *)
+}
+
+let index_pauses ivs =
+  let m = merge ivs in
+  let n = Array.length m in
+  let prefix = Array.make (n + 1) 0. in
+  Array.iteri (fun k (s, e) -> prefix.(k + 1) <- prefix.(k) +. (e -. s)) m;
+  { m; prefix }
+
+(* [mmu_indexed idx ~lo ~hi w] is [Some (u, a)] where [u] is the smallest
+   fraction of any window [[a, a + w]] inside [[lo, hi]] not covered by the
+   pause intervals of [idx], or [None] if the span is shorter than [w]. The
+   worst window starts at a pause start or ends at a pause end, so only those
+   positions are tried. *)
+let mmu_indexed { m; prefix } ~lo ~hi w =
   if hi -. lo < w then None
   else
-    let m = merge ivs in
     let n = Array.length m in
-    (* prefix.(k): pause time in intervals 0 .. k-1 *)
-    let prefix = Array.make (n + 1) 0. in
-    Array.iteri (fun k (s, e) -> prefix.(k + 1) <- prefix.(k) +. (e -. s)) m;
     (* pause time in [-inf, x] *)
     let upto x =
       (* last interval starting at or before x *)
@@ -336,18 +352,27 @@ let mmu ivs ~lo ~hi w =
         prefix.(k) +. (Float.min x e -. s)
     in
     let clamp a = Float.min (hi -. w) (Float.max lo a) in
-    let candidates =
-      lo :: (hi -. w)
-      :: Array.fold_left
-           (fun acc (s, e) -> clamp s :: clamp (e -. w) :: acc)
-           [] m
+    (* the candidates, without building their list: [lo], [hi - w], then each
+       interval's start and end, last interval first (the order ties are broken
+       in) *)
+    let best = ref 1. and at = ref lo in
+    let try_ a =
+      let u = 1. -. ((upto (a +. w) -. upto a) /. w) in
+      if u < !best then (
+        best := u;
+        at := a)
     in
-    Some
-      (List.fold_left
-         (fun (best, at) a ->
-           let u = 1. -. ((upto (a +. w) -. upto a) /. w) in
-           if u < best then (u, a) else (best, at))
-         (1., lo) candidates)
+    try_ lo;
+    try_ (hi -. w);
+    for k = n - 1 downto 0 do
+      let s, e = m.(k) in
+      try_ (clamp s);
+      try_ (clamp (e -. w))
+    done;
+    Some (!best, !at)
+
+(* The same, for a single window size. *)
+let mmu ivs ~lo ~hi w = mmu_indexed (index_pauses ivs) ~lo ~hi w
 
 (* {1 Update cycles} *)
 
@@ -799,11 +824,13 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
         Float.max run_end
           (List.fold_left (fun acc (_, e) -> Float.max acc e) lo ivs)
       in
+      (* sorted and merged once for all the window sizes *)
+      let idx = index_pauses ivs in
       List.filter_map
         (fun (w, label) ->
           Option.map
             (fun (u, at) -> (w, label, Float.max 0. u, at))
-            (mmu ivs ~lo ~hi w))
+            (mmu_indexed idx ~lo ~hi w))
         mmu_windows
   in
   (* all windows, so that the floor after the last finished update stops where
