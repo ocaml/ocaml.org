@@ -1,0 +1,4 @@
+(library
+ (name ocamlorg_doc_modules)
+ (public_name ocamlorg.doc_modules)
+ (libraries unix))
