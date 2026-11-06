@@ -1,18 +1,22 @@
 name: Scrape doc modules
 
-# Module paths of every package's documentation, from the per-package
-# sidebar.json of the documentation backend, into data/doc_modules.txt, so
-# that package search can answer "which package provides module X".
+# The module paths of every package's documentation, from the per-package
+# sidebar.json of the documentation backend, published as assets of the
+# release `doc-modules-latest` (#3982):
+# - doc-modules.jsonl.gz: the reference form, one JSON object per package;
+# - doc-modules-v1.idx: the same data compiled into the memory-mappable index
+#   that the ocaml.org servers download and map (only uploaded when it
+#   changed, so its ETag stays put otherwise);
+# - stats.jsonl: one record per scrape, used to decide how often to scrape.
 #
-# Daily, and cheap when nothing changed: the scrape state, kept in an Actions
-# cache, turns unchanged files into bodyless 304s over one connection,
-# sequential and capped at 8 requests/s (~3.6k requests, ~8 min, ~20 KB), so
-# the backend sees a steady trickle, not a burst. The data file is generated
-# from that state, so a bot PR left unmerged is carried into the next one. A
-# failed or cancelled run changes neither the state nor the data. If the cache
-# is evicted, or a manual run sets `reset`, the run refetches everything
-# (~5.3k requests, ~9 MB, ~15 min) and produces the same data. A pull request
-# is opened only when the data changed.
+# The documentation backend regenerates docs in batches, much less often than
+# opam-repository changes. The workflow wakes up hourly, and policy.sh decides
+# from stats.jsonl whether a scrape is due (between every hour and every day).
+# A scrape keeps the load limits agreed with the backend's admins: one
+# kept-alive connection, at most 8 requests per second, ETag revalidation
+# (~3.6k requests, ~8 min, a few KB when nothing changed). The scrape state is
+# kept in an Actions cache, saved only after a successful run; a manual run
+# with `reset` starts from an empty state (~5.3k requests, ~9 MB, ~15 min).
 
 on:
   workflow_dispatch:
@@ -22,15 +26,16 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: 17 6 * * *
+    - cron: 17 * * * *
 
-# One scrape at a time: a manual run overlapping the scheduled one would double
-# the load on the backend and race on the bot branch.
+# One scrape at a time: overlapping runs would double the load on the backend
+# and race on the release assets.
 concurrency:
   group: scrape-doc-modules
   cancel-in-progress: false
 
 env:
+  RELEASE_TAG: doc-modules-latest
   # Bump when the layout of the scrape state changes, so that a new version of
   # the script never starts from a state it does not understand.
   STATE_KEY: doc-modules-state-v1
@@ -43,47 +48,100 @@ jobs:
     # A full refetch takes ~15 min. A run cut short by this limit saves
     # nothing (the state is only saved after a successful scrape).
     timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
 
+      - name: Download the published stats and index
+        run: |
+          mkdir -p _published _out
+          gh release download "$RELEASE_TAG" -D _published \
+            -p stats.jsonl -p doc-modules-v1.idx || true
+          touch _published/stats.jsonl
+
+      - name: Is a scrape due?
+        id: policy
+        run: >-
+          FORCE=${{ github.event_name == 'workflow_dispatch' && 1 || 0 }}
+          tool/doc-modules/policy.sh _published/stats.jsonl "$GITHUB_STEP_SUMMARY"
+          >> "$GITHUB_OUTPUT"
+
       - name: Clone opam-repository
+        if: steps.policy.outputs.due == 'true'
         run: git clone --depth 1 https://github.com/ocaml/opam-repository.git _opam-repository
 
       - name: Restore scrape state
-        if: ${{ !inputs.reset }}
+        if: steps.policy.outputs.due == 'true' && !inputs.reset
         uses: actions/cache/restore@v4
         with:
           path: _doc-modules-state
           key: ${{ env.STATE_KEY }}-${{ github.run_id }}
           restore-keys: ${{ env.STATE_KEY }}-
 
-      - name: Run scraper
-        run: tool/doc-modules/scrape.sh _opam-repository _doc-modules-state data/doc_modules.txt
+      # An aborted scrape still records its stats; the job fails at the end.
+      - name: Scrape
+        id: scrape
+        if: steps.policy.outputs.due == 'true'
+        run: |
+          if SCRAPE_STATS=_out/run-stats.jsonl tool/doc-modules/scrape.sh \
+               _opam-repository _doc-modules-state _out/doc-modules.jsonl; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      # Only after a successful scrape: the script leaves the state untouched
-      # when it fails, and saving it would only record the previous one again.
+      - name: Set up OCaml
+        if: steps.scrape.outputs.ok == 'true'
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.0"
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+
+      - name: Compile the index
+        if: steps.scrape.outputs.ok == 'true'
+        run: |
+          opam install -y dune yojson
+          opam exec -- dune build ./tool/doc-modules/compile.exe
+          ./_build/default/tool/doc-modules/compile.exe \
+            _out/doc-modules.jsonl _out/doc-modules-v1.idx
+          gzip -9 -n -k _out/doc-modules.jsonl
+
+      - name: Publish
+        if: steps.policy.outputs.due == 'true'
+        run: |
+          gh release view "$RELEASE_TAG" >/dev/null 2>&1 ||
+            gh release create "$RELEASE_TAG" --prerelease --latest=false \
+              --title "Doc modules" \
+              --notes "Module paths of package documentation, see #3982. Updated by .github/workflows/scrape-doc-modules.yml."
+          if [ "${{ steps.scrape.outputs.ok }}" = true ]; then
+            if cmp -s _out/doc-modules-v1.idx _published/doc-modules-v1.idx; then
+              echo "Index unchanged: not uploaded." >> "$GITHUB_STEP_SUMMARY"
+            else
+              gh release upload "$RELEASE_TAG" --clobber \
+                _out/doc-modules-v1.idx _out/doc-modules.jsonl.gz
+              echo "Index changed: uploaded." >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
+          if [ -s _out/run-stats.jsonl ]; then
+            cat _published/stats.jsonl _out/run-stats.jsonl > _out/stats.jsonl
+            gh release upload "$RELEASE_TAG" --clobber _out/stats.jsonl
+          fi
+
       - name: Save scrape state
+        if: steps.scrape.outputs.ok == 'true'
         uses: actions/cache/save@v4
         with:
           path: _doc-modules-state
           key: ${{ env.STATE_KEY }}-${{ github.run_id }}
 
-      - name: Read commit message
-        id: scrape
-        run: |
-          cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
-          { echo "msg<<EOF"; cat _doc-modules-state/commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
-          echo "title=$(head -1 _doc-modules-state/commit.md)" >> "$GITHUB_OUTPUT"
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
-        with:
-          title: ${{ steps.scrape.outputs.title }}
-          commit-message: ${{ steps.scrape.outputs.msg }}
-          body-path: _doc-modules-state/report.md
-          labels: scrape
-          branch: bot/doc-modules
-          add-paths: |
-            data/doc_modules.txt
+      - name: Fail if the scrape aborted
+        if: steps.scrape.outputs.ok == 'false'
+        run: exit 1
