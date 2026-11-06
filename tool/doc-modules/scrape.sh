@@ -27,8 +27,8 @@
 # Load on the backend. Each round of requests is one curl process, so requests
 # share one kept-alive connection; they are sequential and capped at
 # SCRAPE_RATE (default 8/s; curl ignores --rate with --parallel), so a run is a
-# steady trickle rather than a burst: ~3.5k requests, ~7 min daily; ~5k,
-# ~11 min after a backend rebuild. Unchanged files cost a bodyless 304
+# steady trickle rather than a burst: ~3.6k requests, ~8 min daily; ~5.3k,
+# ~15 min after a backend rebuild. Unchanged files cost a bodyless 304
 # (If-None-Match); responses are gzip-encoded. Packages without docs are asked
 # again when a new version appears, and otherwise once every SCRAPE_RETRY_DAYS
 # (default 7), a different seventh of them each day. A package whose docs come

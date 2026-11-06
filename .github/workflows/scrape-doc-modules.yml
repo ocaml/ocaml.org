@@ -6,12 +6,12 @@ name: Scrape doc modules
 #
 # Daily, and cheap when nothing changed: the scrape state, kept in an Actions
 # cache, turns unchanged files into bodyless 304s over one connection,
-# sequential and capped at 8 requests/s (~3.5k requests, ~7 min, a few KB), so
+# sequential and capped at 8 requests/s (~3.6k requests, ~8 min, ~20 KB), so
 # the backend sees a steady trickle, not a burst. The data file is generated
 # from that state, so a bot PR left unmerged is carried into the next one. A
 # failed or cancelled run changes neither the state nor the data. If the cache
 # is evicted, or a manual run sets `reset`, the run refetches everything
-# (~5k requests, ~9 MB, ~11 min) and produces the same data. A pull request
+# (~5.3k requests, ~9 MB, ~15 min) and produces the same data. A pull request
 # is opened only when the data changed.
 
 on:
@@ -29,7 +29,7 @@ jobs:
     name: scrape
     if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
     runs-on: ubuntu-latest
-    # A full refetch takes ~11 min. A run cut short by this limit saves
+    # A full refetch takes ~15 min. A run cut short by this limit saves
     # nothing (the state is only saved after a successful scrape).
     timeout-minutes: 60
 
