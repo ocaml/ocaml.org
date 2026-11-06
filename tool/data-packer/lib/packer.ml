@@ -59,6 +59,7 @@ let load_all () =
   let tool_pages = Tool_page_parser.all () in
   let attribution = Attribution_parser.all () in
   let opam_health = Opam_health_parser.all () in
+  let doc_modules = Doc_modules_parser.all () in
   {
     All_data.testimonials;
     academic_testimonials;
@@ -100,4 +101,5 @@ let load_all () =
     tool_pages;
     attribution;
     opam_health;
+    doc_modules;
   }

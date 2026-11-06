@@ -288,4 +288,16 @@ module Opam_health : sig
   val summary_to_string : summary -> string
 end
 
+(** Module paths of each package's documentation, see [data/doc_modules.txt]. *)
+module Doc_modules : sig
+  include module type of Data_intf.Doc_modules
+
+  val all : t
+
+  val providers : string -> string list
+  (** [providers path] are the names of the packages whose documentation defines
+      the module [path] (["Lwt_io"], ["Yojson.Safe"]), compared
+      case-insensitively, sorted. *)
+end
+
 module V2 : module type of V2

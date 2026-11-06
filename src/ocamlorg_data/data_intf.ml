@@ -651,6 +651,16 @@ end
    Data_packer.Types.All_data.t, which the packer builds and Marshals — the two
    are bridged structurally by Marshal, exactly as before this type existed. If
    you add/reorder a field here, mirror it in tool/data-packer/lib/types.ml. *)
+(* Module paths defined by each package's documentation, scraped from the
+   documentation backend's per-package sidebar.json into data/doc_modules.txt by
+   tool/doc-modules/scrape.sh. Package search uses them to answer "which package
+   provides module X". [modules] are dotted paths such as ["Lwt_io"] or
+   ["Yojson.Safe"], shallowest first. *)
+module Doc_modules = struct
+  type package = { name : string; version : string; modules : string list }
+  type t = package list
+end
+
 module All_data = struct
   type t = {
     (* Simple YAML data *)
@@ -696,5 +706,6 @@ module All_data = struct
     tool_pages : Tool_page.t list;
     attribution : Attribution.t list;
     opam_health : Opam_health.t;
+    doc_modules : Doc_modules.t;
   }
 end

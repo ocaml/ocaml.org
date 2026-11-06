@@ -262,6 +262,7 @@ val is_latest_version : state -> Name.t -> Version.t -> bool
 val search :
   is_author_match:(string -> string -> bool) ->
   ?sort_by_popularity:bool ->
+  ?module_providers:(string -> string list) ->
   state ->
   string ->
   t list
@@ -277,5 +278,12 @@ val search :
 
     - Function is_author_match is used decide if a search string correspond to a
       package author
+
+    - [module_providers path] lists the packages whose documentation defines the
+      module [path]. When given, and the query is written like a module path
+      (["Lwt_io"], ["Yojson.Safe"], or ["Uri.of_string"] for its module part),
+      those packages come first, most depended upon first, even if their
+      metadata does not match; only a package named exactly like the query stays
+      ahead of them. Lowercase queries are not affected.
 
     A call to this function call Lazy.force on every package info. *)

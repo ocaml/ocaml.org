@@ -271,6 +271,9 @@ end
    one-line-per-release encoding that no deriver produces. *)
 module Opam_health = Data_intf.Opam_health
 
+(* Decoded by hand in Doc_modules_parser: one line per package. *)
+module Doc_modules = Data_intf.Doc_modules
+
 (* The aggregated data structure containing all types.
 
    Keep this structurally identical (same fields, same order) to
@@ -323,6 +326,7 @@ module All_data = struct
     tool_pages : Tool_page.t list;
     attribution : Attribution.t list;
     opam_health : Opam_health.t;
+    doc_modules : Doc_modules.t;
   }
 
   let empty =
@@ -372,5 +376,6 @@ module All_data = struct
             { Opam_health.id = ""; timestamp = 0.; commit = ""; compilers = [] };
           releases = [];
         };
+      doc_modules = [];
     }
 end

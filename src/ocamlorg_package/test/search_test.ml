@@ -91,6 +91,38 @@ let test_index_per_state () =
     "other state" [ "http-other" ] (search b "http");
   Alcotest.(check (list string)) "first state unchanged" first (search a "http")
 
+(* Module lookup: packages whose docs define the module the query names. *)
+let providers = function
+  | "lwt_io" -> [ "lwt" ]
+  | "trie" -> [ "async"; "lwt" ]
+  | "http" -> [ "async" ]
+  | "ghost" -> [ "not-a-package" ]
+  | _ -> []
+
+let module_search state query =
+  Package.search ~is_author_match ~sort_by_popularity:true
+    ~module_providers:(fun p -> providers (String.lowercase_ascii p))
+    state query
+  |> List.map (fun p -> Package.Name.to_string (Package.name p))
+
+let test_modules () =
+  let state = Package.mockup_state (package "trie" :: packages) in
+  let check what expected query =
+    Alcotest.(check (list string)) what expected (module_search state query)
+  in
+  check "a module found only through docs" [ "lwt" ] "Lwt_io";
+  check "Module.value looks up the module part" [ "lwt" ] "Lwt_io.read_line";
+  check "a lowercase query is left to the text search" [] "lwt_io";
+  check "the exact package name stays first, then by popularity"
+    [ "trie"; "lwt"; "async" ] "Trie";
+  check "a lowercase topic word is unchanged" [ "trie" ] "trie";
+  check "providers ahead of the other text matches"
+    [ "http"; "async"; "http-client"; "web-kit" ]
+    "Http";
+  check "unknown provider names are ignored" [] "Ghost";
+  Alcotest.(check (list string))
+    "without providers there is no module lookup" [] (search state "Lwt_io")
+
 let () =
   Alcotest.run "search"
     [
@@ -99,5 +131,6 @@ let () =
           Alcotest.test_case "fields" `Quick test_fields;
           Alcotest.test_case "ranking" `Quick test_ranking;
           Alcotest.test_case "index per state" `Quick test_index_per_state;
+          Alcotest.test_case "modules" `Quick test_modules;
         ] );
     ]

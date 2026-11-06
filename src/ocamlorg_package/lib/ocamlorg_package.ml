@@ -572,7 +572,37 @@ let search_index t =
       t.search_index <- Some (t.packages, index);
       index
 
-let search ~is_author_match ?(sort_by_popularity = false) t query =
+(* The module path a query names, if it is written like one: a leading uppercase
+   letter, then identifier characters and dots ("Lwt_io", "Yojson.Safe"). For
+   "Module.value" ("Uri.of_string") it is the module part. Lowercase queries
+   ("trie", "uuid") are left to the text search: many common words are also
+   module names somewhere, and the module rule would otherwise reorder topic
+   searches. *)
+let module_query query =
+  let q = String.trim query in
+  let is_path_char = function
+    | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '\'' | '.' -> true
+    | _ -> false
+  in
+  match q with
+  | "" -> None
+  | _ when not (match q.[0] with 'A' .. 'Z' -> true | _ -> false) -> None
+  | _ ->
+      let path =
+        match String.rindex_opt q '.' with
+        | Some i
+          when i + 1 < String.length q
+               &&
+               match q.[i + 1] with
+               | 'a' .. 'z' | '_' | '(' -> true
+               | _ -> false ->
+            String.sub q 0 i
+        | _ -> q
+      in
+      if String.for_all is_path_char path then Some path else None
+
+let search ~is_author_match ?(sort_by_popularity = false) ?module_providers t
+    query =
   let request = Search.to_request query in
   let score =
     Search.(if sort_by_popularity then relevance_by_popularity else relevance)
@@ -580,11 +610,44 @@ let search ~is_author_match ?(sort_by_popularity = false) t query =
   in
   (* Score each package once, not on every comparison. The sort is stable, so
      packages with equal scores keep their order. *)
-  search_index t
-  |> List.filter (Search.match_request ~is_author_match request)
-  |> List.map (fun e -> (score e, e))
-  |> List.stable_sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
-  |> List.map (fun (_, e) -> e.package)
+  let results =
+    search_index t
+    |> List.filter (Search.match_request ~is_author_match request)
+    |> List.map (fun e -> (score e, e))
+    |> List.stable_sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
+    |> List.map (fun (_, e) -> e.package)
+  in
+  (* Module lookup: the packages whose documentation defines the module the
+     query names come first, most depended upon first; only a package named
+     exactly like the query stays ahead of them. They are added even when their
+     opam metadata does not mention the module, which is the point: "Lwt_io"
+     finds lwt. *)
+  match (module_providers, module_query query) with
+  | Some providers, Some path -> (
+      let by_popularity =
+        providers path
+        |> List.filter_map (fun n ->
+               Option.bind (Name.of_string_opt n) (get_latest t))
+        |> List.map (fun p -> (List.length p.info.rev_deps, p))
+        |> List.stable_sort (fun (a, _) (b, _) -> Int.compare b a)
+        |> List.map snd
+      in
+      match by_popularity with
+      | [] -> results
+      | hits ->
+          let same a b = Name.compare a.name b.name = 0 in
+          let q = String.lowercase_ascii (String.trim query) in
+          let named, rest =
+            List.partition
+              (fun p -> String.lowercase_ascii (Name.to_string p.name) = q)
+              results
+          in
+          let hits =
+            List.filter (fun h -> not (List.exists (same h) named)) hits
+          in
+          named @ hits
+          @ List.filter (fun p -> not (List.exists (same p) hits)) rest)
+  | _ -> results
 
 module Documentation = struct
   include Documentation

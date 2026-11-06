@@ -613,4 +613,27 @@ module Opam_health = struct
     | Not_available_anywhere -> "not_available"
 end
 
+module Doc_modules = struct
+  include Data_intf.Doc_modules
+
+  let all = data.doc_modules
+
+  (* Lowercased module path -> names of the packages defining it, built on first
+     lookup. *)
+  let index =
+    lazy
+      (let tbl = Hashtbl.create 100_000 in
+       List.iter
+         (fun p ->
+           List.iter
+             (fun m -> Hashtbl.add tbl (String.lowercase_ascii m) p.name)
+             p.modules)
+         all;
+       tbl)
+
+  let providers path =
+    Hashtbl.find_all (Lazy.force index) (String.lowercase_ascii path)
+    |> List.sort_uniq String.compare
+end
+
 module V2 = V2

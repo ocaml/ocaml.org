@@ -1,0 +1,64 @@
+name: Scrape doc modules
+
+# Module paths of every package's documentation, from the per-package
+# sidebar.json of the documentation backend, into data/doc_modules.txt, so
+# that package search can answer "which package provides module X".
+#
+# Daily, and cheap when nothing changed: ETags kept in an Actions cache turn
+# unchanged files into bodyless 304s over one HTTP/2 connection (~4k requests,
+# a few KB). If the cache is evicted, the run refetches everything (~9 MB) and
+# produces the same data. A pull request is opened only when the data changed.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 17 6 * * *
+
+jobs:
+  scrape:
+    name: scrape
+    if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Clone opam-repository
+        run: git clone --depth 1 https://github.com/ocaml/opam-repository.git _opam-repository
+
+      - name: Restore scrape state
+        uses: actions/cache/restore@v4
+        with:
+          path: _doc-modules-state
+          key: doc-modules-state-${{ github.run_id }}
+          restore-keys: doc-modules-state-
+
+      - name: Run scraper
+        run: tool/doc-modules/scrape.sh _opam-repository _doc-modules-state data/doc_modules.txt
+
+      - name: Save scrape state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: _doc-modules-state
+          key: doc-modules-state-${{ github.run_id }}
+
+      - name: Read commit message
+        id: scrape
+        run: |
+          cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
+          { echo "msg<<EOF"; cat _doc-modules-state/commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          echo "title=$(head -1 _doc-modules-state/commit.md)" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: ${{ steps.scrape.outputs.title }}
+          commit-message: ${{ steps.scrape.outputs.msg }}
+          body-path: _doc-modules-state/report.md
+          labels: scrape
+          branch: bot/doc-modules
+          add-paths: |
+            data/doc_modules.txt
