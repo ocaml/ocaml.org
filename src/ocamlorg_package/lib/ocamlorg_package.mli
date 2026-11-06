@@ -280,10 +280,12 @@ val search :
       package author
 
     - [module_providers path] lists the packages whose documentation defines the
-      module [path]. When given, and the query is written like a module path
-      (["Lwt_io"], ["Yojson.Safe"], or ["Uri.of_string"] for its module part),
-      those packages come first, most depended upon first, even if their
-      metadata does not match; only a package named exactly like the query stays
-      ahead of them. Lowercase queries are not affected.
+      module [path]. When given, and the query is unmistakably written like a
+      module path, starting with an uppercase letter and containing a [_], a [.]
+      or another uppercase letter (["Lwt_io"], ["Yojson.Safe"], ["CCList"], or
+      ["Uri.of_string"] for its module part), those packages come first, most
+      depended upon first, even if their metadata does not match; only a package
+      named exactly like the query stays ahead of them. Other queries, including
+      capitalized single words such as ["Json"], are not affected.
 
     A call to this function call Lazy.force on every package info. *)

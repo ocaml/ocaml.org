@@ -572,21 +572,30 @@ let search_index t =
       t.search_index <- Some (t.packages, index);
       index
 
-(* The module path a query names, if it is written like one: a leading uppercase
-   letter, then identifier characters and dots ("Lwt_io", "Yojson.Safe"). For
-   "Module.value" ("Uri.of_string") it is the module part. Lowercase queries
-   ("trie", "uuid") are left to the text search: many common words are also
-   module names somewhere, and the module rule would otherwise reorder topic
-   searches. *)
+(* The module path a query names, if it is unmistakably written like one: a
+   leading uppercase letter, identifier characters and dots, and at least one
+   '_', '.' or uppercase letter after the first ("Lwt_io", "Yojson.Safe",
+   "CCList", "LTerm"). For "Module.value" ("Uri.of_string") it is the module
+   part. Other queries are left to the text search, including capitalized single
+   words ("Trie", "Json", "Unix"): many common words are also module names
+   somewhere, and phone keyboards capitalize the first letter, so the module
+   rule would otherwise reorder topic searches. *)
 let module_query query =
   let q = String.trim query in
   let is_path_char = function
     | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '\'' | '.' -> true
     | _ -> false
   in
+  let looks_like_a_module =
+    String.length q > 1
+    && String.exists
+         (function '_' | '.' | 'A' .. 'Z' -> true | _ -> false)
+         (String.sub q 1 (String.length q - 1))
+  in
   match q with
   | "" -> None
   | _ when not (match q.[0] with 'A' .. 'Z' -> true | _ -> false) -> None
+  | _ when not looks_like_a_module -> None
   | _ ->
       let path =
         match String.rindex_opt q '.' with
