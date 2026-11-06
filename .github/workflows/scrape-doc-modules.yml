@@ -1,0 +1,89 @@
+name: Scrape doc modules
+
+# Module paths of every package's documentation, from the per-package
+# sidebar.json of the documentation backend, into data/doc_modules.txt, so
+# that package search can answer "which package provides module X".
+#
+# Daily, and cheap when nothing changed: the scrape state, kept in an Actions
+# cache, turns unchanged files into bodyless 304s over one connection,
+# sequential and capped at 8 requests/s (~3.6k requests, ~8 min, ~20 KB), so
+# the backend sees a steady trickle, not a burst. The data file is generated
+# from that state, so a bot PR left unmerged is carried into the next one. A
+# failed or cancelled run changes neither the state nor the data. If the cache
+# is evicted, or a manual run sets `reset`, the run refetches everything
+# (~5.3k requests, ~9 MB, ~15 min) and produces the same data. A pull request
+# is opened only when the data changed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset:
+        description: Start from an empty scrape state (refetch everything)
+        type: boolean
+        default: false
+  schedule:
+    - cron: 17 6 * * *
+
+# One scrape at a time: a manual run overlapping the scheduled one would double
+# the load on the backend and race on the bot branch.
+concurrency:
+  group: scrape-doc-modules
+  cancel-in-progress: false
+
+env:
+  # Bump when the layout of the scrape state changes, so that a new version of
+  # the script never starts from a state it does not understand.
+  STATE_KEY: doc-modules-state-v1
+
+jobs:
+  scrape:
+    name: scrape
+    if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
+    runs-on: ubuntu-latest
+    # A full refetch takes ~15 min. A run cut short by this limit saves
+    # nothing (the state is only saved after a successful scrape).
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Clone opam-repository
+        run: git clone --depth 1 https://github.com/ocaml/opam-repository.git _opam-repository
+
+      - name: Restore scrape state
+        if: ${{ !inputs.reset }}
+        uses: actions/cache/restore@v4
+        with:
+          path: _doc-modules-state
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+          restore-keys: ${{ env.STATE_KEY }}-
+
+      - name: Run scraper
+        run: tool/doc-modules/scrape.sh _opam-repository _doc-modules-state data/doc_modules.txt
+
+      # Only after a successful scrape: the script leaves the state untouched
+      # when it fails, and saving it would only record the previous one again.
+      - name: Save scrape state
+        uses: actions/cache/save@v4
+        with:
+          path: _doc-modules-state
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+
+      - name: Read commit message
+        id: scrape
+        run: |
+          cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
+          { echo "msg<<EOF"; cat _doc-modules-state/commit.md; echo "EOF"; } >> "$GITHUB_OUTPUT"
+          echo "title=$(head -1 _doc-modules-state/commit.md)" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: ${{ steps.scrape.outputs.title }}
+          commit-message: ${{ steps.scrape.outputs.msg }}
+          body-path: _doc-modules-state/report.md
+          labels: scrape
+          branch: bot/doc-modules
+          add-paths: |
+            data/doc_modules.txt
