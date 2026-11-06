@@ -1,13 +1,22 @@
 (* ocamlorg-package-builder [--nice N] [--commit SHA] [--oom-score-adj N]
-   STATE_PATH
+   [--require-doc-modules] STATE_PATH
 
    Bring the opam-repository clone at [OCAMLORG_REPO_PATH] up to date (cloning
    it if it is missing), rebuild the package state saved at STATE_PATH if the
    clone has moved, write it, and exit. A missing or unreadable state, or one
    saved by another version, is rebuilt from scratch; otherwise only what
-   changed since the saved commit is re-read where possible. Exits with 0 once
-   STATE_PATH is up to date, whether or not it had to be written, and with 1 on
-   any failure, leaving STATE_PATH as it was.
+   changed since the saved commit is re-read where possible.
+
+   Then, independently, bring the doc-modules index at
+   [OCAMLORG_DOC_MODULES_PATH] up to date from the release asset CI publishes
+   (Doc_modules_fetch, #3982): a failure there keeps the current index and never
+   fails the state, and the other way round.
+
+   Exits with 0 once STATE_PATH is up to date, whether or not it had to be
+   written, and with 1 if the state could not be brought up to date, leaving
+   STATE_PATH as it was. With [--require-doc-modules] (used when building the
+   image, so that a server never starts without module data), also exits with 1
+   if no valid index is in place afterwards.
 
    [--commit SHA] is the opam-repository commit of the state the caller already
    holds. If the clone is still at SHA once pulled, and STATE_PATH exists, the
@@ -25,13 +34,14 @@ type options = {
   nice : int option;
   commit : string option;
   oom_score_adj : int option;
+  require_doc_modules : bool;
   state_path : Fpath.t;
 }
 
 let usage () =
   prerr_endline
     "usage: ocamlorg-package-builder [--nice N] [--commit SHA] \
-     [--oom-score-adj N] STATE_PATH";
+     [--oom-score-adj N] [--require-doc-modules] STATE_PATH";
   exit 2
 
 let int_arg n = match int_of_string_opt n with Some n -> n | None -> usage ()
@@ -42,6 +52,8 @@ let parse_args args =
     | "--commit" :: c :: tl -> go { o with commit = Some c } tl
     | "--oom-score-adj" :: n :: tl ->
         go { o with oom_score_adj = Some (int_arg n) } tl
+    | "--require-doc-modules" :: tl ->
+        go { o with require_doc_modules = true } tl
     | [ path ] when String.length path > 0 && path.[0] <> '-' -> (
         match Fpath.of_string path with
         | Ok state_path -> { o with state_path }
@@ -53,6 +65,7 @@ let parse_args args =
       nice = None;
       commit = None;
       oom_score_adj = None;
+      require_doc_modules = false;
       state_path = Fpath.v ".";
     }
     args
@@ -109,9 +122,18 @@ let () =
   Logs.set_level (Some Info);
   let o = parse_args (List.tl (Array.to_list Sys.argv)) in
   Option.iter (fun n -> ignore (Unix.nice n)) o.nice;
-  match Lwt_main.run (build o) with
-  | () -> exit 0
-  | exception e ->
-      Logs.err (fun m ->
-          m "Failed to update the package state: %s" (Printexc.to_string e));
-      exit 1
+  let state_ok =
+    match Lwt_main.run (build o) with
+    | () -> true
+    | exception e ->
+        Logs.err (fun m ->
+            m "Failed to update the package state: %s" (Printexc.to_string e));
+        false
+  in
+  let index_ok = Lwt_main.run (Doc_modules_fetch.run Paths.doc_modules) in
+  if not state_ok then exit 1
+  else if o.require_doc_modules && not index_ok then (
+    Logs.err (fun m ->
+        m "No valid doc-modules index at %a" Fpath.pp Paths.doc_modules);
+    exit 1)
+  else exit 0
