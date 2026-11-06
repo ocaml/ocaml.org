@@ -5,9 +5,11 @@ name: Scrape doc modules
 # that package search can answer "which package provides module X".
 #
 # Daily, and cheap when nothing changed: ETags kept in an Actions cache turn
-# unchanged files into bodyless 304s over one HTTP/2 connection (~4k requests,
-# a few KB). If the cache is evicted, the run refetches everything (~9 MB) and
-# produces the same data. A pull request is opened only when the data changed.
+# unchanged files into bodyless 304s over one connection, sequential and
+# capped at 8 requests/s (~3.3k requests, ~7 min, a few KB), so the backend
+# sees a steady trickle, not a burst. If the cache is evicted, the run
+# refetches everything (~5k requests, ~9 MB, ~11 min) and produces the same
+# data. A pull request is opened only when the data changed.
 
 on:
   workflow_dispatch:
@@ -19,7 +21,7 @@ jobs:
     name: scrape
     if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 60 # a full refetch takes ~11 min
 
     steps:
       - name: Checkout code

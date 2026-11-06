@@ -13,7 +13,10 @@
 # The documentation backend serves ~4,000 sidebars; this keeps the daily load
 # to one connection and mostly bodyless replies:
 # - each round of requests is one curl process, so requests share one
-#   kept-alive HTTP/2 connection, SCRAPE_PARALLEL (default 8) at a time;
+#   kept-alive connection; they are sequential and capped at SCRAPE_RATE
+#   (default 8/s), so a run is a steady trickle rather than a burst (~3.3k
+#   requests, ~7 min daily; ~5k, ~11 min after a backend rebuild). curl
+#   ignores --rate with --parallel, hence sequential;
 # - files fetched before are revalidated with If-None-Match (ETags kept in
 #   STATE_DIR), so an unchanged file costs a 304;
 # - a package without docs is not asked again until a new version appears;
@@ -33,7 +36,7 @@ REPO=$1
 STATE=$2
 DATA=${3:-data/doc_modules.txt}
 DOC_URL=${OCAMLORG_DOC_URL:-https://dill.caelum.ci.dev/profiles/full/docs/}
-PARALLEL=${SCRAPE_PARALLEL:-8}
+RATE=${SCRAPE_RATE:-8/s}
 LIMIT=${SCRAPE_LIMIT:-0} # 0 = all packages; for testing
 MAX_DEPTH=3
 MAX_PATHS=500
@@ -109,7 +112,8 @@ fetch_round() {
   done <"$W/todo"
   : >"$W/results"
   [ -s "$W/config" ] || return 0
-  curl -sS --parallel --parallel-max "$PARALLEL" --config "$W/config" \
+  curl -sS --rate "$RATE" \
+    --config "$W/config" \
     >"$W/results" 2>>"$W/curl.err" || true
 }
 
