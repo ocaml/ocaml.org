@@ -1,7 +1,7 @@
 #!/bin/sh
 # Refresh data/doc_modules.txt: the module paths of every package's
-# documentation, which package search uses to answer "which package provides
-# module X" (see Ocamlorg_package.search, ~module_providers).
+# documentation, which package search will use to answer "which package
+# provides module X" (#3981).
 #
 #   tool/doc-modules/scrape.sh OPAM_REPOSITORY STATE_DIR [DATA_FILE]
 #
@@ -286,6 +286,13 @@ rm "$W/new/lines.new"
   fi
   LC_ALL=C sort -k1,1 "$W/new/lines.txt"
 } >"$W/data"
+
+# The format the data packer decodes, checked before anything is written, so
+# that a bad scrape fails this run instead of the build that packs the file.
+if ! LC_ALL=C awk -v q="'" -f "$(dirname "$0")/check-data.awk" "$W/data"; then
+  echo "Aborting: the data file would not decode; state and data unchanged." >&2
+  exit 1
+fi
 
 # Packages whose line was added, removed or changed, for the commit title.
 if [ -f "$DATA" ]; then grep -v '^#' "$DATA" | LC_ALL=C sort >"$W/before" || true
