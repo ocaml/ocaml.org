@@ -30,6 +30,10 @@ type state = {
     (Info.t Version.Map.t Name.Map.t * search_entry list) option;
       (** Not persisted: built by [search] from the [packages] it is paired
           with, and rebuilt once [packages] is replaced. *)
+  mutable doc_modules : Ocamlorg_doc_modules.Reader.t option;
+      (** The memory-mapped doc-modules index (#3982), downloaded by the builder
+          next to the state. Replaced in one assignment when a new one appears;
+          the old mapping is unmapped by the GC once no request holds it. *)
 }
 
 let mockup_state (pkgs : t list) =
@@ -50,6 +54,7 @@ let mockup_state (pkgs : t list) =
     stats = None;
     docs = Documentation.doc_cache_create ();
     search_index = None;
+    doc_modules = None;
   }
 
 let to_snapshot t : Package_state.t =
@@ -70,6 +75,7 @@ let of_snapshot (v : Package_state.t) =
     stats = v.stats;
     docs = Documentation.doc_cache_create ();
     search_index = None;
+    doc_modules = None;
   }
 
 let load_state_from state_path = of_snapshot (Package_state.load state_path)
@@ -121,6 +127,27 @@ let reload t path =
             (Option.value ~default:"" v.opam_repository_commit))
   | Error e -> Logs.err (fun m -> m "Package state reload failed: %s" e)
 
+(* Map the doc-modules index the builder put in place and swap it in, in one
+   assignment: requests already running keep the mapping they hold. Mapping only
+   checks the header, in constant time; the builder verified the whole file
+   before renaming it there. A file that can't be mapped is skipped, and the
+   current index kept. *)
+let reload_doc_modules t path =
+  let t0 = Unix.gettimeofday () in
+  match Ocamlorg_doc_modules.Reader.map_file (Fpath.to_string path) with
+  | Ok r ->
+      t.doc_modules <- Some r;
+      Logs.info (fun m ->
+          m "Doc-modules index mapped (%d module paths, %.3fms)"
+            (Ocamlorg_doc_modules.Reader.key_count r)
+            ((Unix.gettimeofday () -. t0) *. 1000.))
+  | Error e -> Logs.err (fun m -> m "Doc-modules index not mapped: %s" e)
+
+let doc_module_providers t path =
+  match t.doc_modules with
+  | Some r -> Ocamlorg_doc_modules.Reader.providers r path
+  | None -> []
+
 (* OCaml numbers signals its own way (negative numbers): name the likely
    ones. *)
 let pp_signal f n =
@@ -153,7 +180,7 @@ let pp_status f = function
 
    [Lwt_process] forks: this relies on the server never spawning a domain, after
    which OCaml 5 refuses [Unix.fork]. *)
-let refresh t ~loaded =
+let refresh t ~loaded ~loaded_doc =
   let open Lwt.Syntax in
   let path = Paths.package_state in
   let builder = Config.package_builder in
@@ -174,7 +201,7 @@ let refresh t ~loaded =
              ~stdin:`Close ~stdout:`Keep ~stderr:`Keep cmd))
       (fun e -> Lwt.return (Error e))
   in
-  match status with
+  (match status with
   | Ok (Unix.WEXITED 0) ->
       let id = file_id path in
       if id <> None && id <> !loaded then (
@@ -187,13 +214,20 @@ let refresh t ~loaded =
   | Error e ->
       Logs.err (fun m ->
           m "Package state builder %s failed to run: %s" builder
-            (Printexc.to_string e))
+            (Printexc.to_string e)));
+  (* The builder brings the doc-modules index up to date independently of the
+     state, and only renames a verified file into place: look for a new one
+     whatever its exit status. *)
+  let id = file_id Paths.doc_modules in
+  if id <> None && id <> !loaded_doc then (
+    loaded_doc := id;
+    reload_doc_modules t Paths.doc_modules)
 
-let rec poll t ~loaded =
+let rec poll t ~loaded ~loaded_doc =
   let open Lwt.Syntax in
   let* () = Lwt_unix.sleep (float_of_int Config.opam_polling) in
-  let* () = refresh t ~loaded in
-  poll t ~loaded
+  let* () = refresh t ~loaded ~loaded_doc in
+  poll t ~loaded ~loaded_doc
 
 (* The first refresh must not raise either: an exception escaping [Lwt.async]
    reaches [Lwt.async_exception_hook], which exits the process until Dream
@@ -202,10 +236,13 @@ let rec poll t ~loaded =
 let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
   let loaded = ref (file_id Paths.package_state) in
+  let loaded_doc = ref (file_id Paths.doc_modules) in
   let state = try_load_state () in
+  if !loaded_doc <> None then reload_doc_modules state Paths.doc_modules;
   Lwt.async (fun () ->
-      let* () = refresh state ~loaded in
-      if disable_polling then Lwt.return_unit else poll state ~loaded);
+      let* () = refresh state ~loaded ~loaded_doc in
+      if disable_polling then Lwt.return_unit
+      else poll state ~loaded ~loaded_doc);
   state
 
 let all_latest t =
@@ -475,7 +512,46 @@ let search_index t =
       t.search_index <- Some (t.packages, index);
       index
 
-let search ~is_author_match ?(sort_by_popularity = false) t query =
+(* The module path a query names, if it is unmistakably written like one: a
+   leading uppercase letter, identifier characters and dots, and at least one
+   '_', '.' or uppercase letter after the first ("Lwt_io", "Yojson.Safe",
+   "CCList", "LTerm"). For "Module.value" ("Uri.of_string") it is the module
+   part. Other queries are left to the text search, including capitalized single
+   words ("Trie", "Json", "Unix"): many common words are also module names
+   somewhere, and phone keyboards capitalize the first letter, so the module
+   rule would otherwise reorder topic searches. *)
+let module_query query =
+  let q = String.trim query in
+  let is_path_char = function
+    | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '\'' | '.' -> true
+    | _ -> false
+  in
+  let looks_like_a_module =
+    String.length q > 1
+    && String.exists
+         (function '_' | '.' | 'A' .. 'Z' -> true | _ -> false)
+         (String.sub q 1 (String.length q - 1))
+  in
+  match q with
+  | "" -> None
+  | _ when not (match q.[0] with 'A' .. 'Z' -> true | _ -> false) -> None
+  | _ when not looks_like_a_module -> None
+  | _ ->
+      let path =
+        match String.rindex_opt q '.' with
+        | Some i
+          when i + 1 < String.length q
+               &&
+               match q.[i + 1] with
+               | 'a' .. 'z' | '_' | '(' -> true
+               | _ -> false ->
+            String.sub q 0 i
+        | _ -> q
+      in
+      if String.for_all is_path_char path then Some path else None
+
+let search ~is_author_match ?(sort_by_popularity = false) ?module_providers t
+    query =
   let request = Search.to_request query in
   let score =
     Search.(if sort_by_popularity then relevance_by_popularity else relevance)
@@ -483,11 +559,44 @@ let search ~is_author_match ?(sort_by_popularity = false) t query =
   in
   (* Score each package once, not on every comparison. The sort is stable, so
      packages with equal scores keep their order. *)
-  search_index t
-  |> List.filter (Search.match_request ~is_author_match request)
-  |> List.map (fun e -> (score e, e))
-  |> List.stable_sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
-  |> List.map (fun (_, e) -> e.package)
+  let results =
+    search_index t
+    |> List.filter (Search.match_request ~is_author_match request)
+    |> List.map (fun e -> (score e, e))
+    |> List.stable_sort (fun (s1, _) (s2, _) -> Float.compare s2 s1)
+    |> List.map (fun (_, e) -> e.package)
+  in
+  (* Module lookup: the packages whose documentation defines the module the
+     query names come first, most depended upon first; only a package named
+     exactly like the query stays ahead of them. They are added even when their
+     opam metadata does not mention the module, which is the point: "Lwt_io"
+     finds lwt. *)
+  match (module_providers, module_query query) with
+  | Some providers, Some path -> (
+      let by_popularity =
+        providers path
+        |> List.filter_map (fun n ->
+               Option.bind (Name.of_string_opt n) (get_latest t))
+        |> List.map (fun p -> (List.length p.info.rev_deps, p))
+        |> List.stable_sort (fun (a, _) (b, _) -> Int.compare b a)
+        |> List.map snd
+      in
+      match by_popularity with
+      | [] -> results
+      | hits ->
+          let same a b = Name.compare a.name b.name = 0 in
+          let q = String.lowercase_ascii (String.trim query) in
+          let named, rest =
+            List.partition
+              (fun p -> String.lowercase_ascii (Name.to_string p.name) = q)
+              results
+          in
+          let hits =
+            List.filter (fun h -> not (List.exists (same h) named)) hits
+          in
+          named @ hits
+          @ List.filter (fun p -> not (List.exists (same p) hits)) rest)
+  | _ -> results
 
 module Documentation = struct
   include Documentation
