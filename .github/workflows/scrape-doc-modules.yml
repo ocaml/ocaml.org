@@ -15,6 +15,9 @@ name: Scrape doc modules
 # is opened only when the data changed.
 
 on:
+  # TEST COPY: runs on pushes to this temporary branch.
+  push:
+    branches: [doc-modules-workflow-test]
   workflow_dispatch:
     inputs:
       reset:
@@ -80,10 +83,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          title: ${{ steps.scrape.outputs.title }}
+          title: "[TEST, do not merge] ${{ steps.scrape.outputs.title }}"
           commit-message: ${{ steps.scrape.outputs.msg }}
           body-path: _doc-modules-state/report.md
-          labels: scrape
-          branch: bot/doc-modules
+          branch: bot/doc-modules-test
+          base: doc-modules-workflow-test
           add-paths: |
             data/doc_modules.txt
