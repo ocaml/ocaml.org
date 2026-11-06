@@ -219,6 +219,7 @@ dune-workspace
 .github/workflows/ci.yml
 .github/workflows/debug-ci.yml
 .github/workflows/release-scraper.yml
+.github/workflows/scrape-doc-modules.yml
 .github/workflows/sync-attribution.yml
 ```
 
@@ -289,7 +290,7 @@ Two workflows gate every pull request:
 * [`ci.yml`](.github/workflows/ci.yml) builds and tests the project on Ubuntu and macOS, and checks `make fmt`.
 * [`markdown-lint.yml`](.github/workflows/markdown-lint.yml) lints the changed Markdown files.
 
-The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`.
+The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`. `scrape-doc-modules.yml` wakes up hourly and, at a rate learned from how often the documentation backend regenerates docs, scrapes the module paths of every package's documentation and publishes them as assets of the `doc-modules-latest` release rather than as a pull request (see [`tool/doc-modules`](tool/doc-modules)).
 
 ## Repository Structure
 
@@ -338,6 +339,10 @@ The following snippet describes the repository structure:
 │   ├── data-scrape
 │   │   Scraper for external content (planet feeds, videos, platform releases,
 │   │   opam build results from check.ci.ocaml.org).
+│   │
+│   ├── doc-modules
+│   │   Scraper of the module paths of package documentation, compiled into a
+│   │   memory-mappable index (see `.github/workflows/scrape-doc-modules.yml`).
 │   │
 │   ├── sim
 │   │   Accelerated, instrumented simulation of the server: replays opam-repository
