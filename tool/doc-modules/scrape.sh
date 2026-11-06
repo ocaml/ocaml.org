@@ -9,20 +9,23 @@
 # documentation backend for the latest version that has docs (the latest, then
 # up to three older ones), and extract its module paths (sidebar-modules.jq).
 #
-# State. STATE_DIR is self-contained: per package, the version its docs come
-# from, the extracted module line and the ETag it was fetched with. DATA_FILE
-# is regenerated from it, never read back, so its content does not depend on
-# whether earlier bot PRs were merged. Nothing is written (neither STATE_DIR
-# nor DATA_FILE) unless the run succeeds; a failed run leaves both as they
-# were. STATE_DIR can be lost (it lives in a CI cache): the next run refetches
-# everything and produces the same data.
+# State. STATE_DIR is self-contained: per package, its candidate versions, the
+# version its docs come from, the extracted module line and the ETag it was
+# fetched with. DATA_FILE is regenerated from it, never read back, so its
+# content does not depend on whether earlier bot PRs were merged. Neither
+# STATE_DIR nor DATA_FILE is touched unless the run succeeds. STATE_DIR can be
+# lost (it lives in a CI cache): the next run refetches everything and
+# produces the same data.
 #
 # Outcomes per package:
-# - 200: new module line; 304: unchanged;
-# - 404 on every candidate version, or docs without modules: no docs;
-# - anything else (5xx, 429, redirects, timeouts, truncated bodies, invalid
-#   JSON): an error, and the package keeps its previous state. If more than
-#   SCRAPE_MAX_ERRORS percent (default 10) of the requests fail, the run aborts.
+# - 200 with a sidebar: new module line; 304: unchanged;
+# - 404 on every candidate version, or a sidebar without modules: no docs;
+# - anything else (5xx, 429, redirects, timeouts, truncated, empty or garbled
+#   bodies): an error, and the package keeps its previous state.
+# The run aborts, changing nothing, if more than SCRAPE_MAX_ERRORS percent
+# (default 10) of the attempted requests fail, or if more than
+# SCRAPE_MAX_LOSSES percent (default 10) of the packages that had docs now
+# have none: both mean the backend, not the packages, changed.
 #
 # Load on the backend. Each round of requests is one curl process, so requests
 # share one kept-alive connection; they are sequential and capped at
@@ -30,9 +33,11 @@
 # steady trickle rather than a burst: ~3.6k requests, ~8 min daily; ~5.3k,
 # ~15 min after a backend rebuild. Unchanged files cost a bodyless 304
 # (If-None-Match); responses are gzip-encoded. Packages without docs are asked
-# again when a new version appears, and otherwise once every SCRAPE_RETRY_DAYS
-# (default 7), a different seventh of them each day. A package whose docs come
-# from an older version tries its latest version first, every run.
+# again when their candidate versions change, and otherwise once every
+# SCRAPE_RETRY_DAYS (default 7), a different seventh of them each day. A
+# package whose docs come from an older version tries its latest version
+# first, every run; one whose known docs version stops answering tries its
+# other candidates.
 #
 # Per package, paths deeper than 3 and beyond the first 500 (shallowest first)
 # are dropped: a few packages define hundreds of thousands of modules (awso,
@@ -46,8 +51,9 @@ STATE=$2
 DATA=${3:-data/doc_modules.txt}
 DOC_URL=${OCAMLORG_DOC_URL:-https://dill.caelum.ci.dev/profiles/full/docs/}
 RATE=${SCRAPE_RATE:-8/s}
-MAX_TIME=${SCRAPE_MAX_TIME:-60}      # seconds per request
-MAX_ERRORS=${SCRAPE_MAX_ERRORS:-10}  # percent of requests
+MAX_TIME=${SCRAPE_MAX_TIME:-20}      # seconds per request
+MAX_ERRORS=${SCRAPE_MAX_ERRORS:-10}  # percent of attempted requests
+MAX_LOSSES=${SCRAPE_MAX_LOSSES:-10}  # percent of packages that had docs
 RETRY_DAYS=${SCRAPE_RETRY_DAYS:-7}
 DAY=${SCRAPE_DAY:-$(($(date +%s) / 86400))} # overridable for tests
 LIMIT=${SCRAPE_LIMIT:-0}             # 0 = all packages; for testing only
@@ -55,13 +61,25 @@ JQ_PROGRAM=$(dirname "$0")/sidebar-modules.jq
 MAX_DEPTH=3
 MAX_PATHS=500
 
+# Header of a new data file; keep it in sync with Doc_modules_parser.header.
+HEADER="# Module paths of each package's documentation, from the per-package
+# sidebar.json of the documentation backend (ocaml-docs-ci). Package search
+# uses them to answer \"which package provides module X\". Machine-managed:
+# written by tool/doc-modules/scrape.sh and refreshed by the
+# scrape-doc-modules.yml workflow. Do not edit by hand.
+#
+# One line per package: <name> <version> <module path>...
+# Paths are capped per package (depth and count), shallowest first."
+
 W=$(mktemp -d)
 trap 'rm -rf "$W"' EXIT
-mkdir -p "$W/fetch" "$W/new/etags"
-# Previous state; absent on a first run or after a cache eviction.
-mkdir -p "$STATE/etags"
-touch "$STATE/manifest.tsv" "$STATE/lines.txt"
-cp -R "$STATE/etags/." "$W/new/etags/"
+trap 'exit 1' INT TERM HUP
+mkdir -p "$W/fetch" "$W/old/etags" "$W/new/etags"
+# A copy of the previous state, empty on a first run or after a cache
+# eviction; STATE_DIR itself is only replaced at the very end.
+if [ -d "$STATE" ]; then cp -R "$STATE/." "$W/old/"; fi
+touch "$W/old/manifest.tsv" "$W/old/lines.txt"
+OLD=$W/old
 
 # Candidate versions per package, newest first: "pkg v1 [v2 v3 v4]".
 n=0
@@ -75,29 +93,41 @@ done >"$W/versions"
 
 # Attempt plan, one line per package: "pkg version:conditional ...", tried in
 # order until one answers 200 or 304. Packages not planned keep their state.
-#   docs known, from the latest version: revalidate it;
-#   docs known, from an older version: the latest first, then revalidate;
-#   no docs, and either a new version or its re-probe day: every candidate;
-#   no docs otherwise: skipped;
+#   docs known: revalidate the docs version, but try the latest first if it
+#     is newer; then the other candidates, in case the docs version stopped
+#     answering;
+#   no docs, and either changed candidates or its re-probe day: every
+#     candidate;
+#   no docs otherwise: not asked;
 #   unknown package: every candidate.
-awk -v m="$STATE/manifest.tsv" -v day="$DAY" -v every="$RETRY_DAYS" '
+# The manifest is "pkg  latest  docs-version|-  ok|missing  candidates".
+awk -v m="$OLD/manifest.tsv" -v day="$DAY" -v every="$RETRY_DAYS" \
+  -v sk="$W/skipped" '
   BEGIN { for (i = 32; i < 127; i++) ord[sprintf("%c", i)] = i }
   function due(p,   h, i) {
     h = 0
     for (i = 1; i <= length(p); i++) h = (h * 31 + ord[substr(p, i, 1)]) % 9973
     return (h + day) % every == 0
   }
-  FILENAME == m { split($0, f, "\t"); latest[f[1]] = f[2]; doc[f[1]] = f[3]
-                  st[f[1]] = f[4]; next }
+  FILENAME == m { split($0, f, "\t"); doc[f[1]] = f[3]; st[f[1]] = f[4]
+                  cands[f[1]] = f[5]; next }
   {
-    p = $1; all = ""
-    for (i = 2; i <= NF; i++) all = all " " $i ":0"
-    if (st[p] == "ok" && doc[p] == $2) print p, $2 ":1"
-    else if (st[p] == "ok") print p, $2 ":0", doc[p] ":1"
-    else if (st[p] == "missing" && latest[p] == $2 && !due(p))
-      print p > "/dev/stderr"
-    else print p all
-  }' "$STATE/manifest.tsv" "$W/versions" >"$W/plan" 2>"$W/skipped"
+    p = $1; c = $2
+    for (i = 3; i <= NF; i++) c = c "," $i
+    if (st[p] == "ok") {
+      line = p
+      if (doc[p] != $2) line = line " " $2 ":0"
+      line = line " " doc[p] ":1"
+      for (i = 2; i <= NF; i++) if ($i != $2 && $i != doc[p]) line = line " " $i ":0"
+      print line
+    } else if (st[p] == "missing" && cands[p] == c && !due(p)) print p > sk
+    else {
+      line = p
+      for (i = 2; i <= NF; i++) line = line " " $i ":0"
+      print line
+    }
+  }' "$OLD/manifest.tsv" "$W/versions" >"$W/plan"
+touch "$W/skipped"
 
 # Round r requests the r-th attempt of every package still pending.
 fetch_round() {
@@ -112,7 +142,7 @@ fetch_round() {
       echo "url = \"${DOC_URL}p/$pkg/$v/doc/sidebar.json\""
       echo "output = \"$W/fetch/$pkg.json\""
       echo "etag-save = \"$W/fetch/$pkg.etag\""
-      if [ "$cond" = 1 ]; then echo "etag-compare = \"$STATE/etags/$pkg\""; fi
+      if [ "$cond" = 1 ]; then echo "etag-compare = \"$OLD/etags/$pkg\""; fi
       # printf, not echo: dash's echo would turn \n into a newline
       printf '%s\n' 'write-out = "%{url_effective} %{http_code} %{size_download} %{exitcode}\n"'
     } >>"$W/config"
@@ -127,6 +157,7 @@ fetch_round() {
 # $W/outcome: "pkg version outcome", outcome in ok200 ok304 missing error.
 : >"$W/outcome"
 : >"$W/log"
+: >"$W/unanswered"
 : >"$W/new/lines.new"
 awk '{ split($2, a, ":"); print $1, a[1], a[2] }' "$W/plan" >"$W/todo"
 round=1
@@ -142,7 +173,7 @@ while [ -s "$W/todo" ]; do
     else
       case $code in
       200)
-        if paths=$(jq -r --argjson max_depth $MAX_DEPTH \
+        if paths=$(jq -e -r --argjson max_depth $MAX_DEPTH \
           --argjson max_paths $MAX_PATHS -f "$JQ_PROGRAM" "$W/fetch/$pkg.json" \
           2>/dev/null); then
           if [ -n "$paths" ]; then
@@ -150,10 +181,10 @@ while [ -s "$W/todo" ]; do
             mv "$W/fetch/$pkg.etag" "$W/new/etags/$pkg"
             echo "$pkg $v ok200" >>"$W/outcome"
           else
-            echo "$pkg $v missing" >>"$W/outcome" # docs without modules
+            echo "$pkg $v missing" >>"$W/outcome" # a sidebar without modules
           fi
         else
-          echo "$pkg $v error" >>"$W/outcome" # invalid JSON
+          echo "$pkg $v error" >>"$W/outcome" # empty, garbled, not a sidebar
         fi
         ;;
       304) echo "$pkg $v ok304" >>"$W/outcome" ;;
@@ -163,9 +194,11 @@ while [ -s "$W/todo" ]; do
     fi
     rm -f "$W/fetch/$pkg.json" "$W/fetch/$pkg.etag"
   done <"$W/round"
-  # Requests that produced no result line at all.
+  # Requests that produced no result line at all (curl failed before or
+  # during them).
   awk -v r="$W/round" 'FILENAME == r { seen[$1] = 1; next }
-    !($1 in seen) { print $1, $2, "error" }' "$W/round" "$W/todo" >>"$W/outcome"
+    !($1 in seen) { print $1, $2, "error" }' "$W/round" "$W/todo" |
+    tee -a "$W/unanswered" >>"$W/outcome"
   # Next attempt of the packages that got a 404; none left: no docs.
   round=$((round + 1))
   awk -v r="$W/retry" -v k="$round" -v o="$W/outcome" '
@@ -175,50 +208,82 @@ while [ -s "$W/todo" ]; do
     "$W/retry" "$W/plan" >"$W/todo"
 done
 
-requests=$(wc -l <"$W/log")
-errors=$(awk '$3 == "error"' "$W/outcome" | wc -l)
-if [ "$requests" -gt 0 ] && [ $((errors * 100)) -gt $((requests * MAX_ERRORS)) ]; then
-  echo "Aborting: $errors of $requests requests failed; state and data unchanged." >&2
-  awk '$3 == "error"' "$W/outcome" | head -20 >&2
-  [ -s "$W/curl.err" ] && sort -u "$W/curl.err" | head -5 >&2
+abort() {
+  echo "Aborting: $1; state and data unchanged." >&2
+  awk -v s="$2" '$3 == s' "$W/outcome" | head -20 >&2
+  if [ -s "$W/curl.err" ]; then sort -u "$W/curl.err" | head -5 >&2; fi
   exit 1
+}
+requests=$(wc -l <"$W/log")
+attempts=$((requests + $(wc -l <"$W/unanswered")))
+errors=$(awk '$3 == "error"' "$W/outcome" | wc -l)
+if [ $((errors * 100)) -gt $((attempts * MAX_ERRORS)) ]; then
+  abort "$errors of $attempts attempted requests failed" error
+fi
+had_docs=$(awk -F'\t' '$4 == "ok"' "$OLD/manifest.tsv" | wc -l)
+lost=$(awk -v m="$OLD/manifest.tsv" 'FILENAME == m { split($0, f, "\t")
+    if (f[4] == "ok") ok[f[1]] = 1; next }
+  $3 == "missing" && ($1 in ok)' "$OLD/manifest.tsv" "$W/outcome" | wc -l)
+if [ $((lost * 100)) -gt $((had_docs * MAX_LOSSES)) ]; then
+  abort "$lost of the $had_docs packages with docs have none any more" missing
 fi
 
 # New state. Per package: this run's outcome; skipped packages and errors keep
-# their previous manifest row, line and ETag.
-awk -v sk="$W/skipped" -v oc="$W/outcome" -v ol="$STATE/lines.txt" \
-  -v nl="$W/new/lines.new" -v om="$STATE/manifest.tsv" \
-  -v mf="$W/new/manifest.tsv" -v lf="$W/new/lines.txt" -v rm="$W/drop" '
+# their previous manifest row, line and ETag. Packages gone from the
+# repository disappear, ETag included.
+awk -v sk="$W/skipped" -v oc="$W/outcome" -v ol="$OLD/lines.txt" \
+  -v nl="$W/new/lines.new" -v om="$OLD/manifest.tsv" \
+  -v mf="$W/new/manifest.tsv" -v lf="$W/new/lines.txt" -v ok="$W/keep-etag" '
   FILENAME == sk { keep[$1] = 1; next }
   FILENAME == oc { v[$1] = $2; o[$1] = $3; next }
   FILENAME == ol { old[$1] = $0; next }
   FILENAME == nl { new[$1] = $0; next }
-  FILENAME == om { row[substr($0, 1, index($0, "\t") - 1)] = $0; next }
+  FILENAME == om { split($0, f, "\t"); row[f[1]] = $0; st[f[1]] = f[4]; next }
   {
-    p = $1; latest = $2
+    p = $1; latest = $2; c = $2
+    for (i = 3; i <= NF; i++) c = c "," $i
     if (p in keep || o[p] == "error" || !(p in o)) {
       if (p in row) print row[p] > mf
       if (p in old) print old[p] > lf
+      if (st[p] == "ok") print p > ok
     } else if (o[p] == "ok200") {
-      printf "%s\t%s\t%s\tok\n", p, latest, v[p] > mf; print new[p] > lf
+      printf "%s\t%s\t%s\tok\t%s\n", p, latest, v[p], c > mf
+      print new[p] > lf; print p > ok
     } else if (o[p] == "ok304" && (p in old)) {
-      printf "%s\t%s\t%s\tok\n", p, latest, v[p] > mf; print old[p] > lf
+      printf "%s\t%s\t%s\tok\t%s\n", p, latest, v[p], c > mf
+      print old[p] > lf; print p > ok
     } else if (o[p] == "ok304") {
       # an ETag without its line (an older or damaged state): forget the
       # package, so that the next run fetches it unconditionally
-      print p > rm
     } else {
-      printf "%s\t%s\t-\tmissing\n", p, latest > mf; print p > rm
+      printf "%s\t%s\t-\tmissing\t%s\n", p, latest, c > mf
     }
-  }' "$W/skipped" "$W/outcome" "$STATE/lines.txt" "$W/new/lines.new" \
-  "$STATE/manifest.tsv" "$W/versions"
-touch "$W/new/manifest.tsv" "$W/new/lines.txt" "$W/drop"
-while read -r pkg; do rm -f "$W/new/etags/$pkg"; done <"$W/drop"
+  }' "$W/skipped" "$W/outcome" "$OLD/lines.txt" "$W/new/lines.new" \
+  "$OLD/manifest.tsv" "$W/versions"
+touch "$W/new/manifest.tsv" "$W/new/lines.txt" "$W/keep-etag"
+# ETags: the ones fetched in this run, then the previous ones of the packages
+# that keep their docs; nothing else.
+for f in "$OLD"/etags/*; do
+  [ -f "$f" ] || continue
+  p=$(basename "$f")
+  if [ ! -f "$W/new/etags/$p" ] && grep -qxF "$p" "$W/keep-etag"; then
+    cp "$f" "$W/new/etags/$p"
+  fi
+done
+for f in "$W"/new/etags/*; do
+  [ -f "$f" ] || continue
+  grep -qxF "$(basename "$f")" "$W/keep-etag" || rm -f "$f"
+done
 rm "$W/new/lines.new"
 
-# Data file: the existing header, then the module lines, sorted.
+# Data file: the existing header (or the standard one), then the module
+# lines, sorted.
 {
-  if [ -f "$DATA" ]; then sed -n '/^#/!q; p' "$DATA"; fi
+  if [ -f "$DATA" ] && head -1 "$DATA" | grep -q '^#'; then
+    sed -n '/^#/!q; p' "$DATA"
+  else
+    printf '%s\n' "$HEADER"
+  fi
   LC_ALL=C sort -k1,1 "$W/new/lines.txt"
 } >"$W/data"
 
@@ -238,7 +303,7 @@ count() { awk -v s="$1" '$3 == s' "$W/outcome" | wc -l; }
   echo "| fetched (200) | $(count ok200) |"
   echo "| unchanged (304) | $(count ok304) |"
   echo "| no docs | $(count missing) |"
-  echo "| not asked (no docs, no new version) | $(wc -l <"$W/skipped") |"
+  echo "| not asked (no docs, same candidates) | $(wc -l <"$W/skipped") |"
   echo "| errors, previous state kept | $errors |"
   echo
   echo "Requests: $requests, $(awk '{ s += $4 } END { print s + 0 }' "$W/log") bytes (gzip)."
@@ -249,10 +314,10 @@ count() { awk -v s="$1" '$3 == s' "$W/outcome" | wc -l; }
   cat "$W/new/report.md"
 } >"$W/new/commit.md"
 
-# Commit: the data file, then the state, each replaced in one rename.
+# Commit: the data file, then the state, each replaced by a rename.
 mv "$W/data" "$DATA.tmp" && mv "$DATA.tmp" "$DATA"
 rm -rf "$STATE.old"
-mv "$STATE" "$STATE.old"
+if [ -d "$STATE" ]; then mv "$STATE" "$STATE.old"; fi
 mv "$W/new" "$STATE"
 rm -rf "$STATE.old"
 cat "$STATE/report.md"

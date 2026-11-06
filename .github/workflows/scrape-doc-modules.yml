@@ -24,6 +24,17 @@ on:
   schedule:
     - cron: 17 6 * * *
 
+# One scrape at a time: a manual run overlapping the scheduled one would double
+# the load on the backend and race on the bot branch.
+concurrency:
+  group: scrape-doc-modules
+  cancel-in-progress: false
+
+env:
+  # Bump when the layout of the scrape state changes, so that a new version of
+  # the script never starts from a state it does not understand.
+  STATE_KEY: doc-modules-state-v1
+
 jobs:
   scrape:
     name: scrape
@@ -45,8 +56,8 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: _doc-modules-state
-          key: doc-modules-state-${{ github.run_id }}
-          restore-keys: doc-modules-state-
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+          restore-keys: ${{ env.STATE_KEY }}-
 
       - name: Run scraper
         run: tool/doc-modules/scrape.sh _opam-repository _doc-modules-state data/doc_modules.txt
@@ -57,7 +68,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: _doc-modules-state
-          key: doc-modules-state-${{ github.run_id }}
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
 
       - name: Read commit message
         id: scrape

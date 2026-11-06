@@ -5,7 +5,10 @@
 # skipped. Only paths of valid OCaml module names are kept (the rule of the
 # decoder in tool/data-packer/lib/doc_modules_parser.ml), at most $max_depth
 # deep and $max_paths per package, shallowest first, then alphabetically.
-# Prints them on one line, separated by spaces; nothing if there are none.
+# Prints them on one line, separated by spaces; an empty line if there are
+# none. Anything that is not a non-empty JSON array is not a sidebar (an empty
+# or garbled response) and is an error; run with `jq -e` so that an empty
+# input, which produces no output at all, is an error too.
 
 def paths($p):
   .[]
@@ -14,7 +17,8 @@ def paths($p):
   | (if $q != $p then $q else empty end),
     (if .node.kind != "source" then (.children | paths($q)) else empty end);
 
-[paths([])]
+(if type == "array" and length > 0 then . else error("not a sidebar") end)
+| [paths([])]
 | map(select(length <= $max_depth
              and all(.[]; test("^[A-Z][A-Za-z0-9_']*$"))))
 | map(join("."))
