@@ -258,9 +258,16 @@ val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)
 
+val doc_module_providers : state -> string -> string list
+(** [doc_module_providers state path] are the names of the packages whose
+    documentation defines the module [path], from the memory-mapped doc-modules
+    index (#3982); [[]] when no index is loaded. Meant for [search]'s
+    [module_providers]. *)
+
 val search :
   is_author_match:(string -> string -> bool) ->
   ?sort_by_popularity:bool ->
+  ?module_providers:(string -> string list) ->
   state ->
   string ->
   t list
@@ -276,5 +283,14 @@ val search :
 
     - Function is_author_match is used decide if a search string correspond to a
       package author
+
+    - [module_providers path] lists the packages whose documentation defines the
+      module [path]. When given, and the query is unmistakably written like a
+      module path, starting with an uppercase letter and containing a [_], a [.]
+      or another uppercase letter (["Lwt_io"], ["Yojson.Safe"], ["CCList"], or
+      ["Uri.of_string"] for its module part), those packages come first, most
+      depended upon first, even if their metadata does not match; only a package
+      named exactly like the query stays ahead of them. Other queries, including
+      capitalized single words such as ["Json"], are not affected.
 
     A call to this function call Lazy.force on every package info. *)

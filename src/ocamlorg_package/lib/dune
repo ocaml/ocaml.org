@@ -6,6 +6,7 @@
   (pps ppx_deriving_yojson ppx_repr))
  (libraries
   ocamlorg_package_state
+  ocamlorg.doc_modules
   opam-format
   repr
   bounded_cache
