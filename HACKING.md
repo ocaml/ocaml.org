@@ -313,7 +313,7 @@ Pages are written as `.eml` files in `src/ocamlorg_frontend/pages/`, preprocesse
 The data packer enforces the structure of `data/` through the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. After editing, `make build` repacks `data.bin`. In addition:
 
 * **Files in `data/` must be UTF-8 without a byte-order mark.** The packer fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
-* **Don't hand-edit scraped content.** `data/planet/` (except `data/planet/-individual_external_links/`), `data/video-watch.yml`, `data/video-youtube.yml`, `data/platform_releases/`, and `data/opam_health.yml` are machine-managed: the scrape workflows open pull requests against them, and manual edits get overwritten.
+* **Don't hand-edit scraped content.** `data/planet/` (except `data/planet/-individual_external_links/`), `data/video-watch.yml`, `data/video-youtube.yml`, `data/platform_releases/`, `data/opam_health.yml`, and `data/doc_modules.txt` are machine-managed: the scrape workflows open pull requests against them, and manual edits get overwritten.
 * **Don't touch `data/attribution.jsonl` in pull requests.** It is updated after merging, see [`tool/attribution`](tool/attribution/README.md).
 * **When you rename or remove content, update [`asset/llms.txt`](asset/llms.txt) too.** It hardcodes `ocaml.org` links whose slugs derive from each page's `title:` or `id:` (not its filename), and CI doesn't check them.
 
