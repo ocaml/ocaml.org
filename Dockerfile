@@ -1,11 +1,13 @@
-FROM ocaml/opam:alpine-3.24-ocaml-5.5 AS build
+FROM ocaml/opam:debian-13-ocaml-5.5 AS build
 
 # Install system dependencies
-RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
-    gmp-dev \
+RUN sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y --no-install-recommends \
     libev-dev \
-    oniguruma-dev \
-    openssl-dev
+    libgmp-dev \
+    libonig-dev \
+    libssl-dev \
+    pkg-config \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 # Use Opam 2.2 and enable the backup mirror if primary sources of packages are unavailable
 RUN sudo mv /usr/bin/opam-2.2 /usr/bin/opam && opam update
@@ -49,19 +51,26 @@ RUN cd ~/opam-repository && git checkout master && git pull origin master && opa
 RUN OCAMLORG_REPO_PATH=opam-repository \
     ./_build/default/src/ocamlorg_package/builder/main.exe package.state
 
-FROM alpine:3.24
+FROM debian:trixie-slim
 
-RUN apk -U upgrade --no-cache && apk add --no-cache \
+# ca-certificates is only recommended by git on Debian, but the server pulls
+# opam-repository over HTTPS. netbase provides /etc/services: the HTTP client
+# (conduit) maps the https scheme to its port with getservbyname, and fails
+# with "resolution failed: unknown scheme" without it.
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
+    ca-certificates \
     git \
-    gmp \
-    libev
+    libev4t64 \
+    libgmp10 \
+    netbase \
+    && rm -rf /var/lib/apt/lists/*
 
 # The server runs as an unprivileged user. The package-state builder it runs at
 # every poll (see Ocamlorg_package.init) only writes to the package state and to
 # the opam-repository clone it pulls from, so only those belong to that user;
 # everything else stays owned by root. The state is replaced by renaming a new
 # file over it, so the directory holding it belongs to that user too.
-RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg \
+RUN useradd -u 1000 -m -d /home/ocamlorg -s /usr/sbin/nologin ocamlorg \
     && install -d -o ocamlorg -g ocamlorg /var/lib/ocamlorg
 
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/lib/ocamlorg/package.state
