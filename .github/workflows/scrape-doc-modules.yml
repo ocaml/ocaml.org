@@ -45,8 +45,9 @@ jobs:
     name: scrape
     if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
     runs-on: ubuntu-latest
-    # A full refetch takes ~15 min. A run cut short by this limit saves
-    # nothing (the state is only saved after a successful scrape).
+    # A full refetch takes ~15 min. The scrape itself is limited to 40 min
+    # (see the Scrape step), so that its stats are still published. A run cut
+    # short saves no state (it is only saved after a successful compile).
     timeout-minutes: 60
     permissions:
       contents: write
@@ -57,11 +58,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
+      # Only a missing release (the very first run) or missing assets are
+      # tolerated: any other failure fails the job, since scraping without the
+      # published stats would scrape too early and overwrite their history.
       - name: Download the published stats and index
         run: |
           mkdir -p _published _out
-          gh release download "$RELEASE_TAG" -D _published \
-            -p stats.jsonl -p doc-modules-v1.idx || true
+          if gh release view "$RELEASE_TAG" --json assets -q '.assets[].name' \
+               >_published/assets 2>_published/error; then
+            for asset in stats.jsonl doc-modules-v1.idx; do
+              if grep -qxF "$asset" _published/assets; then
+                gh release download "$RELEASE_TAG" -D _published -p "$asset"
+              fi
+            done
+          elif grep -q 'release not found' _published/error; then
+            echo "No release $RELEASE_TAG yet: first run."
+          else
+            cat _published/error >&2
+            exit 1
+          fi
+          rm -f _published/assets _published/error
           touch _published/stats.jsonl
 
       - name: Is a scrape due?
@@ -83,17 +99,46 @@ jobs:
           key: ${{ env.STATE_KEY }}-${{ github.run_id }}
           restore-keys: ${{ env.STATE_KEY }}-
 
-      # An aborted scrape still records its stats; the job fails at the end.
+      # Every attempt records its stats, so that policy.sh counts it: an
+      # aborted scrape writes its own record; a scrape killed by the time limit
+      # below or crashing gets a minimal one. The limit leaves the rest of the
+      # job time to publish the stats. The job fails at the end.
       - name: Scrape
         id: scrape
         if: steps.policy.outputs.due == 'true'
         run: |
-          if SCRAPE_STATS=_out/run-stats.jsonl tool/doc-modules/scrape.sh \
+          started=$(date -u +%s)
+          if SCRAPE_STATS=_out/run-stats.jsonl timeout 40m \
+               tool/doc-modules/scrape.sh \
                _opam-repository _doc-modules-state _out/doc-modules.jsonl; then
             echo "ok=true" >> "$GITHUB_OUTPUT"
             cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
           else
+            status=$?
             echo "ok=false" >> "$GITHUB_OUTPUT"
+            if [ ! -s _out/run-stats.jsonl ]; then
+              jq -n -c --argjson started "$started" --argjson status "$status" '
+                { started: $started, finished: (now | floor),
+                  status: "aborted",
+                  reason: "scrape.sh exited with \($status) without a record"
+                    + (if $status == 124 then " (time limit)" else "" end) }' \
+                > _out/run-stats.jsonl
+            fi
+          fi
+
+      # Also after a failed step (but not after a skipped policy step, nor a
+      # cancelled run): the stats of an attempt must be published whatever
+      # happens after it, or every hourly wake-up would be due.
+      - name: Publish the stats
+        if: ${{ !cancelled() && steps.policy.outputs.due == 'true' }}
+        run: |
+          gh release view "$RELEASE_TAG" >/dev/null 2>&1 ||
+            gh release create "$RELEASE_TAG" --prerelease --latest=false \
+              --title "Doc modules" \
+              --notes "Module paths of package documentation, see #3982. Updated by .github/workflows/scrape-doc-modules.yml."
+          if [ -s _out/run-stats.jsonl ]; then
+            cat _published/stats.jsonl _out/run-stats.jsonl > _out/stats.jsonl
+            gh release upload "$RELEASE_TAG" --clobber _out/stats.jsonl
           fi
 
       - name: Set up OCaml
@@ -106,6 +151,7 @@ jobs:
             pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
 
       - name: Compile the index
+        id: compile
         if: steps.scrape.outputs.ok == 'true'
         run: |
           opam install -y dune yojson
@@ -114,29 +160,21 @@ jobs:
             _out/doc-modules.jsonl _out/doc-modules-v1.idx
           gzip -9 -n -k _out/doc-modules.jsonl
 
-      - name: Publish
-        if: steps.policy.outputs.due == 'true'
+      - name: Publish the index
+        if: steps.compile.outcome == 'success'
         run: |
-          gh release view "$RELEASE_TAG" >/dev/null 2>&1 ||
-            gh release create "$RELEASE_TAG" --prerelease --latest=false \
-              --title "Doc modules" \
-              --notes "Module paths of package documentation, see #3982. Updated by .github/workflows/scrape-doc-modules.yml."
-          if [ "${{ steps.scrape.outputs.ok }}" = true ]; then
-            if cmp -s _out/doc-modules-v1.idx _published/doc-modules-v1.idx; then
-              echo "Index unchanged: not uploaded." >> "$GITHUB_STEP_SUMMARY"
-            else
-              gh release upload "$RELEASE_TAG" --clobber \
-                _out/doc-modules-v1.idx _out/doc-modules.jsonl.gz
-              echo "Index changed: uploaded." >> "$GITHUB_STEP_SUMMARY"
-            fi
-          fi
-          if [ -s _out/run-stats.jsonl ]; then
-            cat _published/stats.jsonl _out/run-stats.jsonl > _out/stats.jsonl
-            gh release upload "$RELEASE_TAG" --clobber _out/stats.jsonl
+          if cmp -s _out/doc-modules-v1.idx _published/doc-modules-v1.idx; then
+            echo "Index unchanged: not uploaded." >> "$GITHUB_STEP_SUMMARY"
+          else
+            gh release upload "$RELEASE_TAG" --clobber \
+              _out/doc-modules-v1.idx _out/doc-modules.jsonl.gz
+            echo "Index changed: uploaded." >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      # Only once the index is published: otherwise the next run must produce
+      # it again, so it starts from the state the published index came from.
       - name: Save scrape state
-        if: steps.scrape.outputs.ok == 'true'
+        if: steps.compile.outcome == 'success'
         uses: actions/cache/save@v4
         with:
           path: _doc-modules-state

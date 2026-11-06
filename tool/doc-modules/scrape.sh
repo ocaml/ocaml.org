@@ -279,7 +279,8 @@ awk -v sk="$W/skipped" -v oc="$W/outcome" -v ol="$OLD/lines.txt" \
   {
     p = $1; latest = $2; c = $2
     for (i = 3; i <= NF; i++) c = c "," $i
-    if (p in keep || o[p] == "error" || !(p in o)) {
+    # !(p in o) first: reading o[p] would create the element
+    if (!(p in o) || p in keep || o[p] == "error") {
       if (p in row) print row[p] > mf
       if (p in old) print old[p] > lf
       if (st[p] == "ok") print p > ok
