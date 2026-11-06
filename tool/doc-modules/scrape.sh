@@ -1,20 +1,28 @@
 #!/bin/sh
-# Refresh data/doc_modules.txt: the module paths of every package's
-# documentation, which package search will use to answer "which package
-# provides module X" (#3981).
+# Scrape the module paths of every package's documentation into
+# doc-modules.jsonl, the reference form that compile.exe turns into the index
+# the server memory-maps (see #3982), to answer "which package provides module
+# X".
 #
-#   tool/doc-modules/scrape.sh OPAM_REPOSITORY STATE_DIR [DATA_FILE]
+#   tool/doc-modules/scrape.sh OPAM_REPOSITORY STATE_DIR OUTPUT.jsonl
 #
 # For each package in OPAM_REPOSITORY/packages, fetch doc/sidebar.json from the
 # documentation backend for the latest version that has docs (the latest, then
 # up to three older ones), and extract its module paths (sidebar-modules.jq).
 #
+# Output: OUTPUT.jsonl, a header line naming the format, then one object per
+# package, sorted by name: {"name", "version", "modules"} (format checked by
+# Doc_modules_jsonl, which compile.exe applies strictly). If SCRAPE_STATS names
+# a file, one JSON record describing this run is written there, aborted runs
+# included: counts, packages changed, and the backend's Last-Modified time of
+# every sidebar fetched, which shows when the backend regenerated docs
+# (policy.sh uses these records to decide how often to scrape).
+#
 # State. STATE_DIR is self-contained: per package, its candidate versions, the
 # version its docs come from, the extracted module line and the ETag it was
-# fetched with. DATA_FILE is regenerated from it, never read back, so its
-# content does not depend on whether earlier bot PRs were merged. Neither
-# STATE_DIR nor DATA_FILE is touched unless the run succeeds. STATE_DIR can be
-# lost (it lives in a CI cache): the next run refetches everything and
+# fetched with. The output is regenerated from it, never read back. Neither
+# STATE_DIR nor OUTPUT.jsonl is touched unless the run succeeds. STATE_DIR can
+# be lost (it lives in a CI cache): the next run refetches everything and
 # produces the same data.
 #
 # Outcomes per package:
@@ -43,12 +51,13 @@
 # are dropped: a few packages define hundreds of thousands of modules (awso,
 # the AWS SDK, one per service and operation), and lookups are for the top.
 #
-# Writes DATA_FILE (default data/doc_modules.txt), STATE_DIR/report.md and
-# STATE_DIR/commit.md (a commit message whose first line is the PR title).
+# Also writes STATE_DIR/report.md, a summary of the run in Markdown.
 set -eu
 REPO=$1
 STATE=$2
-DATA=${3:-data/doc_modules.txt}
+DATA=$3
+STATS=${SCRAPE_STATS:-}
+STARTED=$(date -u +%s)
 DOC_URL=${OCAMLORG_DOC_URL:-https://dill.caelum.ci.dev/profiles/full/docs/}
 RATE=${SCRAPE_RATE:-8/s}
 MAX_TIME=${SCRAPE_MAX_TIME:-20}      # seconds per request
@@ -61,15 +70,6 @@ JQ_PROGRAM=$(dirname "$0")/sidebar-modules.jq
 MAX_DEPTH=3
 MAX_PATHS=500
 
-# Header of a new data file; keep it in sync with Doc_modules_parser.header.
-HEADER="# Module paths of each package's documentation, from the per-package
-# sidebar.json of the documentation backend (ocaml-docs-ci). Package search
-# uses them to answer \"which package provides module X\". Machine-managed:
-# written by tool/doc-modules/scrape.sh and refreshed by the
-# scrape-doc-modules.yml workflow. Do not edit by hand.
-#
-# One line per package: <name> <version> <module path>...
-# Paths are capped per package (depth and count), shallowest first."
 
 W=$(mktemp -d)
 trap 'rm -rf "$W"' EXIT
@@ -144,7 +144,8 @@ fetch_round() {
       echo "etag-save = \"$W/fetch/$pkg.etag\""
       if [ "$cond" = 1 ]; then echo "etag-compare = \"$OLD/etags/$pkg\""; fi
       # printf, not echo: dash's echo would turn \n into a newline
-      printf '%s\n' 'write-out = "%{url_effective} %{http_code} %{size_download} %{exitcode}\n"'
+      # Last-Modified last: it contains spaces
+      printf '%s\n' 'write-out = "%{url_effective} %{http_code} %{size_download} %{exitcode} %header{last-modified}\n"'
     } >>"$W/config"
     first=0
   done <"$W/todo"
@@ -167,7 +168,7 @@ while [ -s "$W/todo" ]; do
     "$W/results" >"$W/round"
   cat "$W/round" >>"$W/log"
   : >"$W/retry"
-  while read -r pkg v code _ exitcode; do
+  while read -r pkg v code _ exitcode lastmod; do
     if [ "$exitcode" != 0 ]; then
       echo "$pkg $v error" >>"$W/outcome"
     else
@@ -180,6 +181,7 @@ while [ -s "$W/todo" ]; do
             echo "$pkg $v $paths" >>"$W/new/lines.new"
             mv "$W/fetch/$pkg.etag" "$W/new/etags/$pkg"
             echo "$pkg $v ok200" >>"$W/outcome"
+            if [ -n "$lastmod" ]; then echo "$pkg $lastmod" >>"$W/lastmod"; fi
           else
             echo "$pkg $v missing" >>"$W/outcome" # a sidebar without modules
           fi
@@ -208,10 +210,45 @@ while [ -s "$W/todo" ]; do
     "$W/retry" "$W/plan" >"$W/todo"
 done
 
+touch "$W/lastmod" "$W/changed"
+count() { awk -v s="$1" '$3 == s' "$W/outcome" | wc -l; }
+
+# One JSON record for this run, appended to $STATS if set. $1: "scraped" or
+# "aborted"; $2: the reason of an abort. Last-Modified times become Unix
+# times; packages changed are listed (at most 500).
+write_stats() {
+  [ -n "$STATS" ] || return 0
+  # LC_ALL=C: strptime reads day and month names in the current locale
+  LC_ALL=C jq -n -c -R \
+    --argjson started "$STARTED" --argjson finished "$(date -u +%s)" \
+    --arg status "$1" --arg reason "$2" \
+    --argjson requests "$requests" \
+    --argjson bytes "$(awk '{ s += $4 } END { print s + 0 }' "$W/log")" \
+    --argjson fetched "$(count ok200)" --argjson unchanged "$(count ok304)" \
+    --argjson missing "$(count missing)" --argjson errors "$errors" \
+    --argjson skipped "$(wc -l <"$W/skipped")" \
+    --rawfile changed "$W/changed" --rawfile lastmod "$W/lastmod" '
+    def lines($s): $s | split("\n") | map(select(. != ""));
+    {
+      started: $started, finished: $finished, status: $status,
+      reason: (if $reason == "" then null else $reason end),
+      requests: $requests, bytes: $bytes, fetched: $fetched,
+      unchanged: $unchanged, missing: $missing, skipped: $skipped,
+      errors: $errors,
+      changed: (lines($changed) | length),
+      changed_packages: (lines($changed) | .[:500]),
+      last_modified: (lines($lastmod)
+        | map(sub("^[^ ]+ "; "") | try (strptime("%a, %d %b %Y %H:%M:%S GMT")
+              | mktime) catch empty)
+        | sort)
+    }' </dev/null >>"$STATS"
+}
+
 abort() {
   echo "Aborting: $1; state and data unchanged." >&2
   awk -v s="$2" '$3 == s' "$W/outcome" | head -20 >&2
   if [ -s "$W/curl.err" ]; then sort -u "$W/curl.err" | head -5 >&2; fi
+  write_stats aborted "$1"
   exit 1
 }
 requests=$(wc -l <"$W/log")
@@ -276,32 +313,26 @@ for f in "$W"/new/etags/*; do
 done
 rm "$W/new/lines.new"
 
-# Data file: the existing header (or the standard one), then the module
-# lines, sorted.
+# Output: the header line, then one object per package, sorted by name (C
+# order, as the decoder requires). Names and versions use opam characters and
+# module paths OCaml identifier characters, so no JSON escaping is needed.
 {
-  if [ -f "$DATA" ] && head -1 "$DATA" | grep -q '^#'; then
-    sed -n '/^#/!q; p' "$DATA"
-  else
-    printf '%s\n' "$HEADER"
-  fi
-  LC_ALL=C sort -k1,1 "$W/new/lines.txt"
+  printf '{"format":"ocamlorg-doc-modules","version":1,"generated_at":"%s"}\n' \
+    "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  LC_ALL=C sort -k1,1 "$W/new/lines.txt" | awk '{
+    printf "{\"name\":\"%s\",\"version\":\"%s\",\"modules\":[", $1, $2
+    for (i = 3; i <= NF; i++) printf "%s\"%s\"", (i > 3 ? "," : ""), $i
+    print "]}"
+  }'
 } >"$W/data"
 
-# The format the data packer decodes, checked before anything is written, so
-# that a bad scrape fails this run instead of the build that packs the file.
-if ! LC_ALL=C awk -v q="'" -f "$(dirname "$0")/check-data.awk" "$W/data"; then
-  echo "Aborting: the data file would not decode; state and data unchanged." >&2
-  exit 1
-fi
+# Packages whose line was added, removed or changed in the state, this run.
+LC_ALL=C sort "$OLD/lines.txt" >"$W/before"
+LC_ALL=C sort "$W/new/lines.txt" >"$W/after"
+LC_ALL=C comm -3 "$W/before" "$W/after" | sed 's/^\t//' | cut -d' ' -f1 |
+  LC_ALL=C sort -u >"$W/changed"
+changed=$(wc -l <"$W/changed")
 
-# Packages whose line was added, removed or changed, for the commit title.
-if [ -f "$DATA" ]; then grep -v '^#' "$DATA" | LC_ALL=C sort >"$W/before" || true
-else : >"$W/before"; fi
-grep -v '^#' "$W/data" | LC_ALL=C sort >"$W/after" || true
-changed=$(LC_ALL=C comm -3 "$W/before" "$W/after" | sed 's/^\t//' |
-  cut -d' ' -f1 | sort -u | grep -c . || true)
-
-count() { awk -v s="$1" '$3 == s' "$W/outcome" | wc -l; }
 {
   echo "Packages: $(wc -l <"$W/versions"), $(wc -l <"$W/new/lines.txt") with module paths."
   echo
@@ -313,18 +344,16 @@ count() { awk -v s="$1" '$3 == s' "$W/outcome" | wc -l; }
   echo "| not asked (no docs, same candidates) | $(wc -l <"$W/skipped") |"
   echo "| errors, previous state kept | $errors |"
   echo
+  echo "Packages changed: $changed."
   echo "Requests: $requests, $(awk '{ s += $4 } END { print s + 0 }' "$W/log") bytes (gzip)."
 } >"$W/new/report.md"
-{
-  echo "doc-modules: $changed packages changed"
-  echo
-  cat "$W/new/report.md"
-} >"$W/new/commit.md"
 
-# Commit: the data file, then the state, each replaced by a rename.
+# Commit: the output, then the state, each replaced by a rename, then the
+# stats record.
 mv "$W/data" "$DATA.tmp" && mv "$DATA.tmp" "$DATA"
 rm -rf "$STATE.old"
 if [ -d "$STATE" ]; then mv "$STATE" "$STATE.old"; fi
 mv "$W/new" "$STATE"
 rm -rf "$STATE.old"
+write_stats scraped ""
 cat "$STATE/report.md"
