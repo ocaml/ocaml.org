@@ -1,14 +1,16 @@
-FROM ocaml/opam:alpine-3.24-ocaml-5.2 AS build
+FROM ocaml/opam:debian-13-ocaml-5.2 AS build
 
 # Install system dependencies
-RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
+RUN sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y --no-install-recommends \
     autoconf \
-    curl-dev \
-    gmp-dev \
     inotify-tools \
+    libcurl4-openssl-dev \
     libev-dev \
-    oniguruma-dev \
-    openssl-dev
+    libgmp-dev \
+    libonig-dev \
+    libssl-dev \
+    pkg-config \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 # Use Opam 2.2 and enable the backup mirror if primary sources of packages are unavailable
 RUN sudo mv /usr/bin/opam-2.2 /usr/bin/opam && opam update
@@ -41,17 +43,21 @@ ENV OCAMLORG_PKG_STATE_PATH=package.state \
     OCAMLORG_REPO_PATH=opam-repository
 RUN touch package.state && ./init-cache package.state
 
-FROM alpine:3.24
+FROM debian:trixie-slim
 
-RUN apk -U upgrade --no-cache && apk add --no-cache \
+# ca-certificates is only recommended by git on Debian, but the server pulls
+# opam-repository over HTTPS.
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
+    ca-certificates \
     git \
-    gmp \
-    libev
+    libev4t64 \
+    libgmp10 \
+    && rm -rf /var/lib/apt/lists/*
 
 # The server runs as an unprivileged user. It only writes to the package state
 # and to the opam-repository clone it pulls from (see Ocamlorg_package.init), so
 # only those belong to it; everything else stays owned by root.
-RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg
+RUN useradd -u 1000 -m -d /home/ocamlorg -s /usr/sbin/nologin ocamlorg
 
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/package.state
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam-repository
