@@ -1,0 +1,3 @@
+(test
+ (name doc_modules_index_test)
+ (libraries alcotest ocamlorg.doc_modules))

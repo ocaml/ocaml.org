@@ -1,0 +1,9 @@
+(library
+ (name doc_modules_jsonl)
+ (modules doc_modules_jsonl)
+ (libraries yojson ocamlorg.doc_modules))
+
+(executable
+ (name compile)
+ (modules compile)
+ (libraries doc_modules_jsonl ocamlorg.doc_modules))

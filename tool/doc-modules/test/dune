@@ -1,0 +1,3 @@
+(test
+ (name doc_modules_jsonl_test)
+ (libraries alcotest doc_modules_jsonl ocamlorg.doc_modules))
