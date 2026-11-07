@@ -151,20 +151,35 @@ let pp_status f = function
    timed-out builder leaves the current state in place, and the next poll tries
    again. Never raises.
 
+   The builder is told the commit of the state the server holds, so that a poll
+   that finds nothing new exits without reading the state. Each failure in a row
+   is counted in the log, with the commit still served, so that a builder that
+   keeps failing (for instance, killed for memory at every poll, see
+   [OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ]) shows as a stale state.
+
    [Lwt_process] forks: this relies on the server never spawning a domain, after
    which OCaml 5 refuses [Unix.fork]. *)
-let refresh t ~loaded =
+let refresh t ~loaded ~failures =
   let open Lwt.Syntax in
   let path = Paths.package_state in
   let builder = Config.package_builder in
+  let commit =
+    match t.opam_repository_commit with
+    | Some c -> [ "--commit"; c ]
+    | None -> []
+  in
   let cmd =
     ( "",
-      [|
-        builder;
-        "--nice";
-        string_of_int Config.package_builder_nice;
-        Fpath.to_string path;
-      |] )
+      Array.of_list
+        ([
+           builder;
+           "--nice";
+           string_of_int Config.package_builder_nice;
+           "--oom-score-adj";
+           string_of_int Config.package_builder_oom_score_adj;
+         ]
+        @ commit
+        @ [ Fpath.to_string path ]) )
   in
   let+ status =
     Lwt.catch
@@ -174,26 +189,31 @@ let refresh t ~loaded =
              ~stdin:`Close ~stdout:`Keep ~stderr:`Keep cmd))
       (fun e -> Lwt.return (Error e))
   in
+  let failed pp =
+    incr failures;
+    Logs.err (fun m ->
+        m
+          "Package state builder %s %a (%d in a row): keeping the current \
+           state, opam commit %s"
+          builder pp () !failures
+          (Option.value ~default:"none" t.opam_repository_commit))
+  in
   match status with
   | Ok (Unix.WEXITED 0) ->
+      failures := 0;
       let id = file_id path in
       if id <> None && id <> !loaded then (
         loaded := id;
         reload t path)
-  | Ok status ->
-      Logs.err (fun m ->
-          m "Package state builder %s %a: keeping the current state" builder
-            pp_status status)
+  | Ok status -> failed (fun f () -> pp_status f status)
   | Error e ->
-      Logs.err (fun m ->
-          m "Package state builder %s failed to run: %s" builder
-            (Printexc.to_string e))
+      failed (fun f () -> Fmt.pf f "failed to run: %s" (Printexc.to_string e))
 
-let rec poll t ~loaded =
+let rec poll t ~loaded ~failures =
   let open Lwt.Syntax in
   let* () = Lwt_unix.sleep (float_of_int Config.opam_polling) in
-  let* () = refresh t ~loaded in
-  poll t ~loaded
+  let* () = refresh t ~loaded ~failures in
+  poll t ~loaded ~failures
 
 (* The first refresh must not raise either: an exception escaping [Lwt.async]
    reaches [Lwt.async_exception_hook], which exits the process until Dream
@@ -202,10 +222,11 @@ let rec poll t ~loaded =
 let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
   let loaded = ref (file_id Paths.package_state) in
+  let failures = ref 0 in
   let state = try_load_state () in
   Lwt.async (fun () ->
-      let* () = refresh state ~loaded in
-      if disable_polling then Lwt.return_unit else poll state ~loaded);
+      let* () = refresh state ~loaded ~failures in
+      if disable_polling then Lwt.return_unit else poll state ~loaded ~failures);
   state
 
 let all_latest t =
