@@ -1,0 +1,9 @@
+; The package-state builder: brings the opam-repository clone up to date,
+; rebuilds the package state, writes it, and exits. It links only
+; ocamlorg_package_state, not the web server.
+
+(executable
+ (name main)
+ (public_name ocamlorg-package-builder)
+ (package ocamlorg)
+ (libraries ocamlorg_package_state fpath logs lwt lwt.unix unix))
