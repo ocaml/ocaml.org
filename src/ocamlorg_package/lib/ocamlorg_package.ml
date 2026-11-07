@@ -97,15 +97,19 @@ let get_latest' packages name =
       |> Option.map (fun (version, info) -> { version; info; name }))
 
 (* The state file's identity: the builder renames each new version over it, so a
-   new inode means a new version. *)
+   new inode means a new version. The inode alone is not enough: once the file
+   the server loaded is gone (replaced by one it failed to read, for instance),
+   its inode can be reused by the next version. The modification time and size
+   tell them apart. *)
 let file_id path =
   match Unix.stat (Fpath.to_string path) with
-  | st -> Some (st.Unix.st_dev, st.Unix.st_ino)
+  | st ->
+      Some (st.Unix.st_dev, st.Unix.st_ino, st.Unix.st_mtime, st.Unix.st_size)
   | exception Unix.Unix_error _ -> None
 
-(* Swap in the version of the state the builder wrote. A version that can't be
-   read is skipped, and the current state kept. Reading takes about 0.17s on the
-   event loop. *)
+(* Swap in the version of the state the builder wrote, or say why it can't be
+   read, in which case the current state is kept. Reading takes about 0.17s on
+   the event loop. *)
 let reload t path =
   let t0 = Unix.gettimeofday () in
   match Package_state.read path with
@@ -118,8 +122,9 @@ let reload t path =
       Logs.info (fun m ->
           m "Package state reloaded (%d packages, opam commit %s)"
             (Name.Map.cardinal v.packages)
-            (Option.value ~default:"" v.opam_repository_commit))
-  | Error e -> Logs.err (fun m -> m "Package state reload failed: %s" e)
+            (Option.value ~default:"" v.opam_repository_commit));
+      Ok ()
+  | Error _ as e -> e
 
 (* OCaml numbers signals its own way (negative numbers): name the likely
    ones. *)
@@ -152,9 +157,12 @@ let pp_status f = function
    again. Never raises.
 
    The builder is told the commit of the state the server holds, so that a poll
-   that finds nothing new exits without reading the state. Each failure in a row
-   is counted in the log, with the commit still served, so that a builder that
-   keeps failing (for instance, killed for memory at every poll, see
+   that finds nothing new exits without reading the state. It is not told when
+   the file on disk is not the one the server loaded, typically because a reload
+   failed: the builder then reads the file and rebuilds it if it is unreadable,
+   and the server retries the reload. Each failure in a row is counted in the
+   log, with the commit still served, so that a builder that keeps failing (for
+   instance, killed for memory at every poll, see
    [OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ]) shows as a stale state.
 
    [Lwt_process] forks: this relies on the server never spawning a domain, after
@@ -165,8 +173,8 @@ let refresh t ~loaded ~failures =
   let builder = Config.package_builder in
   let commit =
     match t.opam_repository_commit with
-    | Some c -> [ "--commit"; c ]
-    | None -> []
+    | Some c when file_id path = !loaded -> [ "--commit"; c ]
+    | Some _ | None -> []
   in
   let cmd =
     ( "",
@@ -199,12 +207,17 @@ let refresh t ~loaded ~failures =
           (Option.value ~default:"none" t.opam_repository_commit))
   in
   match status with
-  | Ok (Unix.WEXITED 0) ->
-      failures := 0;
+  | Ok (Unix.WEXITED 0) -> (
       let id = file_id path in
-      if id <> None && id <> !loaded then (
-        loaded := id;
-        reload t path)
+      if id = None || id = !loaded then failures := 0
+      else
+        match reload t path with
+        | Ok () ->
+            loaded := id;
+            failures := 0
+        | Error e ->
+            failed (fun f () ->
+                Fmt.pf f "wrote a state that can't be read (%s)" e))
   | Ok status -> failed (fun f () -> pp_status f status)
   | Error e ->
       failed (fun f () -> Fmt.pf f "failed to run: %s" (Printexc.to_string e))

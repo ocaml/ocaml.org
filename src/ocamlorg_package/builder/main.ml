@@ -57,11 +57,16 @@ let parse_args args =
     }
     args
 
-(* Not fatal: the builder still works, it is only not the first one killed. *)
+(* Not fatal: the builder still works, it is only not the first one killed. The
+   flush makes the write happen here, where its error is caught:
+   [with_open_text] would close the channel with [close_out_noerr], which
+   discards it, so that an out-of-range value, or a lowering the process has no
+   right to, would go unnoticed. *)
 let set_oom_score_adj n =
   match
     Out_channel.with_open_text "/proc/self/oom_score_adj" (fun oc ->
-        Out_channel.output_string oc (string_of_int n))
+        Out_channel.output_string oc (string_of_int n);
+        Out_channel.flush oc)
   with
   | () -> ()
   | exception Sys_error e ->

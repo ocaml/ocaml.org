@@ -83,5 +83,12 @@ let package_builder_timeout =
    builder costs nothing: the server keeps its state and tries again at the next
    poll. *)
 let package_builder_oom_score_adj =
-  env_with_default "OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ" "1000"
-  |> int_of_string
+  let n =
+    env_with_default "OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ" "1000"
+    |> int_of_string
+  in
+  if n < -1000 || n > 1000 then
+    invalid_arg
+      "OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ: expected a value from -1000 to \
+       1000";
+  n
