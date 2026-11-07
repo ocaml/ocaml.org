@@ -58,6 +58,12 @@ jobs:
       - name: Run tests
         run: make test
 
+      # Needs curl, jq and python3, which Ubuntu runners have; GNU date and
+      # touch, hence Linux only. Requests go to a local mock backend only.
+      - name: Test the doc-modules scraper
+        run: tool/doc-modules/test/scrape_test.sh _build/default/tool/doc-modules/compile.exe
+        if: runner.os == 'Linux'
+
       - name: Format code
         run: make fmt
         if: runner.os == 'Linux'
