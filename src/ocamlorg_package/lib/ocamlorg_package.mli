@@ -195,7 +195,7 @@ val mockup_state : t list -> state
 val save_state_to : Fpath.t -> state -> unit
 (** [save_state_to path state] serializes the durable part of [state] (every
     field except the runtime [docs] cache) to [path]. Exposed for testing; the
-    production path is {!Config.package_state_path}. *)
+    production path is {!Ocamlorg_package_state.Paths.package_state}. *)
 
 val save_state_in_background_to : Fpath.t -> state -> unit Lwt.t
 (** Like {!save_state_to}, but serializes and writes in a system thread so that
