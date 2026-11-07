@@ -62,3 +62,18 @@ let max_doc_fetch_bytes =
    30s. *)
 let doc_fetch_timeout =
   env_with_default "OCAMLORG_DOC_FETCH_TIMEOUT" "30" |> float_of_string
+
+(* The package-state builder the server runs at every poll, found on [PATH]
+   unless given as a path: [/bin] in the image, and [dune exec] puts the
+   project's executables on [PATH]. *)
+let package_builder =
+  env_with_default "OCAMLORG_PACKAGE_BUILDER" "ocamlorg-package-builder"
+
+(* Niceness of the builder, so that a rebuild leaves the CPU to the server. *)
+let package_builder_nice =
+  env_with_default "OCAMLORG_PACKAGE_BUILDER_NICE" "19" |> int_of_string
+
+(* Seconds after which a builder still running is killed. A rebuild takes
+   seconds, a full one under a minute; cloning opam-repository takes longer. *)
+let package_builder_timeout =
+  env_with_default "OCAMLORG_PACKAGE_BUILDER_TIMEOUT" "1800" |> float_of_string

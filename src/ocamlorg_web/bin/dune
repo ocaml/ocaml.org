@@ -7,7 +7,10 @@
 
 (rule
  (alias run)
- (deps main.exe %{project_root}/asset/css/main.css)
+ (deps
+  main.exe
+  %{bin:ocamlorg-package-builder}
+  %{project_root}/asset/css/main.css)
  (action
   (chdir
    %{project_root}
