@@ -13,5 +13,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Before pushing**, run `make fmt` (commit what it changes) and `npx markdownlint-cli2 '**/*.md'`. These are the most common CI failures. OCamlFormat is pinned to 0.26.2; with any other version, `make fmt` aborts with `version mismatch` instead of formatting. See [Before Submitting a PR](HACKING.md#before-submitting-a-pr).
 - **Lwt only**: Dream is Lwt-based, so don't introduce Eio dependencies.
 - **`data/` rules** (UTF-8 without BOM, no hand-editing of scraped files, never touch `data/attribution.jsonl` in a PR, update `asset/llms.txt` on renames/removals): see [Working With `data/`](HACKING.md#working-with-data).
+- **Tutorial and exercise code blocks are tests** run by mdx (`make test_code_examples`; `make mdx-coverage` shows coverage). See [Working With `data/`](HACKING.md#working-with-data) and [Tutorials and Exercises](CONTRIBUTING.md#content-tutorial).
 - **Bumping the opam-repository pin**: all pin sites change together, and the commit must be at or below the base images' bundled opam-repository tip. See [Managing Dependencies](HACKING.md#managing-dependencies).
 - **Package docs** under `/p/<package>/<version>/doc/` come from an external server, not from this code base. See [External Services](HACKING.md#external-services).
