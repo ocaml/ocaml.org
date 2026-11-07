@@ -131,6 +131,34 @@ let test_version_summaries_include_statuses_and_dates () =
 
 let test_case name fn = Alcotest.test_case name `Quick fn
 
+(* opam's comparison makes [5.5.0+introcaml] and [5.5.0+introcaml0] the same
+   version, as in opam-repository at 93e728b0af. The later directory wins, as in
+   opam. *)
+let test_same_version_for_opam_keeps_the_later () =
+  let opam_file _name dir =
+    Ok
+      (OpamFile.OPAM.read_from_string
+         (Printf.sprintf "opam-version: \"2.0\"\nsynopsis: %S\n" dir))
+  in
+  let versions =
+    Package.read_versions ~opam_file "ocaml-variants"
+      [
+        "ocaml-variants.5.5.0+introcaml";
+        "ocaml-variants.5.5.0+introcaml0";
+        "ocaml-variants.5.5.0+introcaml1";
+      ]
+  in
+  Alcotest.(check (list (pair string string)))
+    "one version per opam version, from the later directory"
+    [
+      ("5.5.0+introcaml0", "ocaml-variants.5.5.0+introcaml0");
+      ("5.5.0+introcaml1", "ocaml-variants.5.5.0+introcaml1");
+    ]
+    (Package.Version.Map.bindings versions
+    |> List.map (fun (v, opam) ->
+           ( Package.Version.to_string v,
+             Option.value ~default:"" (OpamFile.OPAM.synopsis opam) )))
+
 let () =
   Alcotest.run "package versions"
     [
@@ -149,5 +177,10 @@ let () =
         [
           test_case "statuses and repository dates are exposed"
             test_version_summaries_include_statuses_and_dates;
+        ] );
+      ( "reading",
+        [
+          test_case "two directories with the same opam version"
+            test_same_version_for_opam_keeps_the_later;
         ] );
     ]

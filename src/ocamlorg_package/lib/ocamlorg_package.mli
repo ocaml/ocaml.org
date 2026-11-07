@@ -189,6 +189,17 @@ module Publication_dates : sig
       [repo] defaults to the opam-repository clone. *)
 end
 
+val read_versions :
+  ?opam_file:(string -> string -> (OpamFile.OPAM.t, string) result) ->
+  string ->
+  string list ->
+  OpamFile.OPAM.t Version.Map.t
+(** [read_versions name directories] reads the opam file of each version
+    directory of package [name], such as [name.1.0], given in [String.compare]
+    order. When two directories are the same version for opam, the later one is
+    kept, as opam does, and a warning is logged. [opam_file] defaults to reading
+    the opam-repository clone. Exposed for testing. *)
+
 val mockup_state : t list -> state
 (** [mockup_state ts] produces the opam-repository state from a list of packages *)
 
