@@ -102,6 +102,7 @@ jobs:
           load: true
           tags: ${{ env.IMAGE }}:${{ steps.plan.outputs.tag }}
           cache-from: type=registry,ref=${{ env.IMAGE }}:main
+          provenance: false
 
       # Build and test OCaml.org inside the image the way cloud sessions do
       # (.devcontainer/run: root, checkout mounted at the same path), so that an
@@ -118,6 +119,8 @@ jobs:
       # and the inline cache metadata would no longer match the pushed blobs.
       # That metadata lets later builds, and devcontainer.json's cacheFrom,
       # reuse the published layers.
+      # No provenance attestation: registries list it as an extra
+      # `unknown/unknown` platform beside linux/amd64, and nothing consumes it.
       - name: Push the image
         if: steps.exists.outputs.found != 'true' && steps.plan.outputs.publish == 'true'
         uses: docker/build-push-action@v7
@@ -130,6 +133,7 @@ jobs:
             ${{ steps.plan.outputs.main == 'true' && format('{0}:main', env.IMAGE) || '' }}
           cache-from: type=registry,ref=${{ env.IMAGE }}:main
           cache-to: type=inline
+          provenance: false
 
       - name: Point :main at an image that already exists
         if: steps.exists.outputs.found == 'true' && steps.plan.outputs.main == 'true'
