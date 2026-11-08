@@ -1,0 +1,104 @@
+name: Devcontainer image
+
+# Builds .devcontainer/Dockerfile and publishes it as
+# ghcr.io/ocaml/ocaml.org-dev:<tag>, where <tag> is computed by
+# .devcontainer/tag.sh from the files that determine the image's contents. An
+# image that already exists under its tag is not rebuilt. Pushes to main also
+# move the :main tag. Pull requests from branches of this repository publish
+# their own <tag>, so that cloud sessions on a branch that changes dependencies
+# get a matching image; pull requests from forks only check that the image
+# builds.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.devcontainer/**'
+      - 'ocamlorg.opam'
+      - '.github/workflows/devcontainer.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.devcontainer/**'
+      - 'ocamlorg.opam'
+      - '.github/workflows/devcontainer.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: devcontainer-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE: ghcr.io/ocaml/ocaml.org-dev
+
+jobs:
+  image:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Compute the image tag and the publishing policy
+        id: plan
+        env:
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          echo "tag=$(.devcontainer/tag.sh)" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_EVENT_NAME" != pull_request ] && [ "$GITHUB_REF" = refs/heads/main ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "main=true" >> "$GITHUB_OUTPUT"
+          elif [ "$GITHUB_EVENT_NAME" = pull_request ] \
+            && [ "$HEAD_REPO" = "$GITHUB_REPOSITORY" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "main=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "main=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Log in to the GitHub Container Registry
+        if: steps.plan.outputs.publish == 'true'
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check whether the image already exists
+        id: exists
+        if: steps.plan.outputs.publish == 'true'
+        run: |
+          if docker manifest inspect "$IMAGE:${{ steps.plan.outputs.tag }}" >/dev/null 2>&1; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Docker Buildx
+        if: steps.exists.outputs.found != 'true'
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build (and push) the image
+        if: steps.exists.outputs.found != 'true'
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: .devcontainer/Dockerfile
+          push: ${{ steps.plan.outputs.publish == 'true' }}
+          tags: |
+            ${{ env.IMAGE }}:${{ steps.plan.outputs.tag }}
+            ${{ steps.plan.outputs.main == 'true' && format('{0}:main', env.IMAGE) || '' }}
+          # Inline cache metadata lets later builds, and devcontainer.json's
+          # cacheFrom, reuse the published layers.
+          cache-from: type=registry,ref=${{ env.IMAGE }}:main
+          cache-to: type=inline
+
+      - name: Point :main at an image that already exists
+        if: steps.exists.outputs.found == 'true' && steps.plan.outputs.main == 'true'
+        run: docker buildx imagetools create -t "$IMAGE:main" "$IMAGE:${{ steps.plan.outputs.tag }}"
