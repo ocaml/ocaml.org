@@ -11,7 +11,7 @@
 # .devcontainer/tag.sh describe different images over time). Dependabot
 # proposes digest updates; check the pin rule in HACKING.md, "Choosing the Pin
 # Commit", when accepting one.
-FROM ocaml/opam:debian-13-ocaml-5.2@sha256:6a16bf7c4f403c35927a1ae6248029ab88390a72f8ca57484adebc29bdb30f93
+FROM ocaml/opam:debian-13-ocaml-5.3@sha256:cafa9d27c295a906f8352bda7f585dbc78b2f762914fdaa3f8584030c6a8004d
 
 LABEL org.opencontainers.image.source="https://github.com/ocaml/ocaml.org"
 LABEL org.opencontainers.image.description="OCaml.org development environment"
