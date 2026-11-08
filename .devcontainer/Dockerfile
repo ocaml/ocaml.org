@@ -3,6 +3,8 @@
 # published as ghcr.io/ocaml/ocaml.org-dev, by Claude Code cloud sessions (see
 # HACKING.md, "Devcontainer and Cloud Sessions"). Build it from the repository
 # root: docker build -f .devcontainer/Dockerfile .
+# Any change to this file, comments included, changes the image's tag (see
+# .devcontainer/tag.sh), so CI builds and publishes a new image.
 #
 # The base image is pinned by digest: the tag is rebuilt weekly, and a moving
 # base would invalidate the published layers that builds reuse (and make
