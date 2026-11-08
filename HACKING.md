@@ -66,7 +66,9 @@ The hook does nothing outside cloud sessions. Markdown lint (`npx markdownlint-c
 
 The hook also gives the server a clone of the image's opam-repository, at its default `OCAMLORG_REPO_PATH`, because cloud sessions can't clone it from GitHub. Package pages therefore show opam-repository as of the pin.
 
-A branch that changes `ocamlorg.opam` or `.devcontainer/Dockerfile` has a new tag. Branches of `ocaml/ocaml.org` get their own image as soon as their pull request is open. Until then, the hook falls back to the `main` image and says so. Note that cloud sessions can't fetch source archives from GitHub repositories other than `ocaml/ocaml.org`, and the GitHub CLI's `gh pr` and `gh issue` commands don't work there (open pull requests from the web interface, or use `gh api`).
+`.devcontainer/run` gives commands no terminal and no standard input, and doesn't pass the host's environment variables: set them with `env`, e.g. `.devcontainer/run env OCAMLORG_MCP_ENABLED=true make watch`.
+
+A branch that changes `ocamlorg.opam` or `.devcontainer/Dockerfile` has a new tag. Branches of `ocaml/ocaml.org` get their own image, built from the branch head, as soon as their pull request is open (Dependabot's excepted). Until then, the hook falls back to the `main` image and says so. When a resumed session's tag has changed, for instance after editing `ocamlorg.opam` or merging `main`, the hook replaces the container, which stops anything running in it, such as a server. Note that cloud sessions can't fetch source archives from GitHub repositories other than `ocaml/ocaml.org`, and the GitHub CLI's `gh pr` and `gh issue` commands don't work there (open pull requests from the web interface, or use `gh api`).
 
 ### Running the Server
 

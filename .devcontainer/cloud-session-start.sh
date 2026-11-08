@@ -43,6 +43,8 @@ else
 fi
 
 # Keep a running container that already uses the right image (resumed session).
+# Otherwise (first start, or the tag changed since), replace it: whatever ran
+# in the old container, such as a server, is stopped.
 want=$(docker image inspect -f '{{.Id}}' "$ref")
 have=$(docker inspect -f '{{if .State.Running}}{{.Image}}{{end}}' "$container" 2>/dev/null)
 if [ "$have" != "$want" ]; then
@@ -61,11 +63,15 @@ fi
 # sessions can't. Clone the image's bundled copy instead (hard links, so it's
 # quick). Its origin is that local copy, so the server's periodic `git pull`
 # succeeds without network, and never moves the repository opam itself uses.
-# Package data is as of the opam-repository pin.
+# Package data is as of the opam-repository pin. Cloning to a temporary name
+# then renaming means an interrupted clone is redone at the next session.
 # HOME is /home/opam in the container, for root too.
 docker exec -u opam "$container" sh -c '
   dest=$HOME/.cache/ocamlorg/opam-repository
-  [ -d "$dest" ] || { mkdir -p "${dest%/*}" && git clone -q --local "$HOME/opam-repository" "$dest"; }' \
+  [ -d "$dest/.git" ] || {
+    rm -rf "$dest" "$dest.tmp" && mkdir -p "${dest%/*}" &&
+    git clone -q --local "$HOME/opam-repository" "$dest.tmp" && mv "$dest.tmp" "$dest"
+  }' \
   || say "Could not clone opam-repository for the server; package pages won't work."
 
 say "Container $container ($ref) is running with $repo mounted."

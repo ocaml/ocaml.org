@@ -7,8 +7,9 @@ name: Devcontainer image
 # OCaml.org is built and tested inside the image. Pushes to main also
 # move the :main tag. Pull requests from branches of this repository publish
 # their own <tag>, so that cloud sessions on a branch that changes dependencies
-# get a matching image; pull requests from forks are built and tested but not
-# published.
+# get a matching image; pull requests from forks, and Dependabot's, are built
+# and tested but not published. Pull requests build the branch head, not the
+# merge commit, so that <tag> matches what tag.sh computes on the branch.
 
 on:
   push:
@@ -44,18 +45,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+        with:
+          # On pull requests, the branch head rather than the merge commit.
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Compute the image tag and the publishing policy
         id: plan
         env:
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
           echo "tag=$(.devcontainer/tag.sh)" >> "$GITHUB_OUTPUT"
           if [ "$GITHUB_EVENT_NAME" != pull_request ] && [ "$GITHUB_REF" = refs/heads/main ]; then
             echo "publish=true" >> "$GITHUB_OUTPUT"
             echo "main=true" >> "$GITHUB_OUTPUT"
           elif [ "$GITHUB_EVENT_NAME" = pull_request ] \
-            && [ "$HEAD_REPO" = "$GITHUB_REPOSITORY" ]; then
+            && [ "$HEAD_REPO" = "$GITHUB_REPOSITORY" ] \
+            && [ "$PR_AUTHOR" != 'dependabot[bot]' ]; then
+            # Dependabot's runs get a read-only token; its digest updates are
+            # published by the push to main once merged.
             echo "publish=true" >> "$GITHUB_OUTPUT"
             echo "main=false" >> "$GITHUB_OUTPUT"
           else
@@ -92,13 +100,8 @@ jobs:
           context: .
           file: .devcontainer/Dockerfile
           load: true
-          tags: |
-            ${{ env.IMAGE }}:${{ steps.plan.outputs.tag }}
-            ${{ steps.plan.outputs.main == 'true' && format('{0}:main', env.IMAGE) || '' }}
-          # Inline cache metadata lets later builds, and devcontainer.json's
-          # cacheFrom, reuse the published layers.
+          tags: ${{ env.IMAGE }}:${{ steps.plan.outputs.tag }}
           cache-from: type=registry,ref=${{ env.IMAGE }}:main
-          cache-to: type=inline
 
       # Build and test OCaml.org inside the image the way cloud sessions do
       # (.devcontainer/run: root, checkout mounted at the same path), so that an
@@ -110,13 +113,23 @@ jobs:
             -v "$PWD:$PWD" -w "$PWD" "$IMAGE:${{ steps.plan.outputs.tag }}" \
             sh -c 'make build && make test'
 
+      # Same build again, served from the builder's cache, pushed by BuildKit
+      # itself: `docker push` of the loaded image would re-compress the layers,
+      # and the inline cache metadata would no longer match the pushed blobs.
+      # That metadata lets later builds, and devcontainer.json's cacheFrom,
+      # reuse the published layers.
       - name: Push the image
         if: steps.exists.outputs.found != 'true' && steps.plan.outputs.publish == 'true'
-        run: |
-          docker push "$IMAGE:${{ steps.plan.outputs.tag }}"
-          if [ "${{ steps.plan.outputs.main }}" = true ]; then
-            docker push "$IMAGE:main"
-          fi
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: .devcontainer/Dockerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ steps.plan.outputs.tag }}
+            ${{ steps.plan.outputs.main == 'true' && format('{0}:main', env.IMAGE) || '' }}
+          cache-from: type=registry,ref=${{ env.IMAGE }}:main
+          cache-to: type=inline
 
       - name: Point :main at an image that already exists
         if: steps.exists.outputs.found == 'true' && steps.plan.outputs.main == 'true'
