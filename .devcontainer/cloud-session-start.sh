@@ -62,9 +62,10 @@ fi
 # quick). Its origin is that local copy, so the server's periodic `git pull`
 # succeeds without network, and never moves the repository opam itself uses.
 # Package data is as of the opam-repository pin.
-docker exec -u root "$container" sh -c '
-  dest=/root/.cache/ocamlorg/opam-repository
-  [ -d "$dest" ] || { mkdir -p "${dest%/*}" && git clone -q --local /home/opam/opam-repository "$dest"; }' \
+# HOME is /home/opam in the container, for root too.
+docker exec -u opam "$container" sh -c '
+  dest=$HOME/.cache/ocamlorg/opam-repository
+  [ -d "$dest" ] || { mkdir -p "${dest%/*}" && git clone -q --local "$HOME/opam-repository" "$dest"; }' \
   || say "Could not clone opam-repository for the server; package pages won't work."
 
 say "Container $container ($ref) is running with $repo mounted."
