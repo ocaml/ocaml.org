@@ -1,0 +1,21 @@
+#!/bin/sh
+# Run a command inside the ocamlorg-dev container started by
+# .devcontainer/cloud-session-start.sh, in the current directory, e.g.:
+#   .devcontainer/run make build
+#   .devcontainer/run make test
+#   .devcontainer/run opam exec -- dune build @fmt --auto-promote
+# The repository is mounted at the same path inside the container, so paths in
+# compiler errors match the host's.
+# Commands get no terminal and no standard input, and the host's environment
+# isn't passed: set variables with env, e.g.
+#   .devcontainer/run env OCAMLORG_MCP_ENABLED=true make watch
+set -eu
+if [ "$#" -eq 0 ]; then
+  echo "usage: $0 <command> [args...]" >&2
+  exit 2
+fi
+if [ "$(docker inspect -f '{{.State.Running}}' ocamlorg-dev 2>/dev/null)" != true ]; then
+  echo "$0: container ocamlorg-dev is not running; run .devcontainer/cloud-session-start.sh" >&2
+  exit 1
+fi
+exec docker exec -u root -w "$PWD" ocamlorg-dev "$@"

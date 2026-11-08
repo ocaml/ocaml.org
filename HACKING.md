@@ -44,6 +44,32 @@ Opam will likely ask questions about installing system dependencies. For the pro
 
 Run `make help` to list the other common `make` targets.
 
+### Devcontainer and Cloud Sessions
+
+[`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) describes a ready-to-use development environment: Debian 13 with OCaml 5.2, the pinned opam-repository, the system libraries, every dependency of `ocamlorg.opam`, and the dev tools (OCamlFormat 0.26.2, `ocaml-lsp-server`, Merlin, `utop`). The [`devcontainer.yml`](.github/workflows/devcontainer.yml) workflow publishes it as `ghcr.io/ocaml/ocaml.org-dev`. Each image is tagged by [`.devcontainer/tag.sh`](.devcontainer/tag.sh), a hash of `.devcontainer/Dockerfile` and `ocamlorg.opam`, and the latest build from `main` is also tagged `main`.
+
+Tools that support devcontainers (VS Code, GitHub Codespaces, DevPod, and others) build it from `.devcontainer/devcontainer.json`, reusing the published layers, and add Node.js and the GitHub CLI. It asks for 4 CPUs, 16 GB of memory, and 32 GB of storage. The base image is pinned by digest, so the published layers stay reusable; Dependabot proposes digest updates monthly.
+
+[Claude Code cloud sessions](https://code.claude.com/docs/en/claude-code-on-the-web) (claude.ai/code) use the same image. The cloud VM runs Ubuntu without OCaml, so a `SessionStart` hook in [`.claude/settings.json`](.claude/settings.json) starts the image as a container named `ocamlorg-dev`, with the repository mounted at the same path. Build, test, and format commands run inside it through [`.devcontainer/run`](.devcontainer/run):
+
+```bash
+.devcontainer/run make build
+.devcontainer/run make test
+.devcontainer/run make fmt
+```
+
+The hook does nothing outside cloud sessions. Markdown lint (`npx markdownlint-cli2`) runs directly on the VM, which has Node.js. To work on OCaml.org from claude.ai/code, each person sets up the following once:
+
+1. Connect GitHub to claude.ai/code, so that sessions can clone `ocaml/ocaml.org` and push branches.
+2. Create a cloud environment with the default **Trusted** network access, which already allows `ghcr.io`.
+3. Paste [`.devcontainer/cloud-setup.sh`](.devcontainer/cloud-setup.sh) as the environment's setup script. It pulls the image once, and the environment cache keeps it for later sessions.
+
+The hook also gives the server a clone of the image's opam-repository, at its default `OCAMLORG_REPO_PATH`, because cloud sessions can't clone it from GitHub. Package pages therefore show opam-repository as of the pin.
+
+`.devcontainer/run` gives commands no terminal and no standard input, and doesn't pass the host's environment variables: set them with `env`, e.g. `.devcontainer/run env OCAMLORG_MCP_ENABLED=true make watch`.
+
+A branch that changes `ocamlorg.opam` or `.devcontainer/Dockerfile` has a new tag. Branches of `ocaml/ocaml.org` get their own image, built from the branch head, as soon as their pull request is open (Dependabot's excepted). Until then, the hook falls back to the `main` image and says so. When a resumed session's tag has changed, for instance after editing `ocamlorg.opam` or merging `main`, the hook replaces the container, which stops anything running in it, such as a server. Note that cloud sessions can't fetch source archives from GitHub repositories other than `ocaml/ocaml.org`, and the GitHub CLI's `gh pr` and `gh issue` commands don't work there (open pull requests from the web interface, or use `gh api`).
+
 ### Running the Server
 
 After building the project, you can run the server with:
@@ -226,16 +252,16 @@ When bringing up OCaml.org to a newer pin, the commit hash found in those files 
 
 #### Choosing the Pin Commit
 
-`Dockerfile` and `.devcontainer/Dockerfile` both derive from an `ocaml/opam` base image (see their `FROM` lines), which bundles a full clone of opam-repository frozen at some tip. They select the pin with `git reset --hard <sha>` or `git checkout <sha>` **without** a `git fetch`, so the commit must already be present in that bundled clone:
+`Dockerfile` and `.devcontainer/Dockerfile` both derive from an `ocaml/opam` base image (see their `FROM` lines), which bundles a full clone of opam-repository frozen at some tip. They select the pin with `git reset --hard <sha>` **without** a `git fetch`, so the commit must already be present in that bundled clone:
 
-* **At or below the base image's tip**, the commit is in local history, and the checkout works without any network fetch. This is the fast path, and it matters because these images are rebuilt frequently.
-* **Beyond the base image's tip**, the checkout fails with `Could not parse object`. This only surfaces in the `deployability` check, not in GitHub Actions, where `setup-ocaml` fetches the commit directly. Recovering requires prepending `git fetch origin <sha> &&` to the reset or checkout, which costs a full opam-repository download on every build.
+* **At or below the base image's tip**, the commit is in local history, and the reset works without any network fetch. This is the fast path, and it matters because these images are rebuilt frequently.
+* **Beyond the base image's tip**, the reset fails with `Could not parse object`. This only surfaces in the `deployability` check, not in GitHub Actions, where `setup-ocaml` fetches the commit directly. Recovering requires prepending `git fetch origin <sha> &&` to the reset, which costs a full opam-repository download on every build.
 
-So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines:
+So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines (`.devcontainer/Dockerfile` pins its base image by digest, so a digest update must also keep the pin at or below the new image's tip):
 
 ```bash
 docker run --rm ocaml/opam:alpine-3.24-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'  # Dockerfile
-docker run --rm ocaml/opam:debian-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'       # .devcontainer/Dockerfile
+docker run --rm ocaml/opam:debian-13-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'    # .devcontainer/Dockerfile
 ```
 
 The two base images can sit at different tips: pick a commit at or below the **older** of the two. Only pin beyond the tip (and add the `git fetch`) if you need a package version newer than the base image snapshot.
@@ -289,7 +315,7 @@ Two workflows gate every pull request:
 * [`ci.yml`](.github/workflows/ci.yml) builds and tests the project on Ubuntu and macOS, and checks `make fmt`.
 * [`markdown-lint.yml`](.github/workflows/markdown-lint.yml) lints the changed Markdown files.
 
-The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`.
+The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`. `devcontainer.yml` publishes the [development image](#devcontainer-and-cloud-sessions) when `.devcontainer/` or `ocamlorg.opam` change.
 
 ## Repository Structure
 

@@ -4,3 +4,9 @@ updates:
     directory: /
     schedule:
       interval: weekly
+  # Digest of the devcontainer's base image. Each update rebuilds the published
+  # image from scratch, hence the monthly schedule.
+  - package-ecosystem: docker
+    directory: /.devcontainer
+    schedule:
+      interval: monthly
