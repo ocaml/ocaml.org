@@ -1,5 +1,9 @@
 module Package = Ocamlorg_package
 
+let name = Package.Name.of_string
+
+(* Every field is non-empty, so that comparing whole states shows each one
+   survives the round-trip. *)
 let info ?(publication = 0.) ?(flags = []) ?(dependencies = []) () =
   {
     Package.Info.synopsis = "a synopsis";
@@ -10,10 +14,23 @@ let info ?(publication = 0.) ?(flags = []) ?(dependencies = []) () =
     homepage = [ "https://example.org" ];
     tags = [ "test" ];
     dependencies;
-    rev_deps = [];
-    depopts = [];
-    conflicts = [];
-    url = Some { Package.Info.uri = "https://example.org/x.tbz"; checksum = [] };
+    rev_deps =
+      [
+        (name "gamma", Some {|>= "1.0"|}, Package.Version.of_string "1.2");
+        (name "delta", None, Package.Version.of_string "0.1");
+      ];
+    depopts = [ (name "lwt", None); (name "async", Some {|< "1.0"|}) ];
+    conflicts = [ (name "base-no-ppx", None) ];
+    url =
+      Some
+        {
+          Package.Info.uri = "https://example.org/x.tbz";
+          checksum =
+            [
+              "md5=d41d8cd98f00b204e9800998ecf8427e";
+              "sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+            ];
+        };
     publication;
     flags;
   }
@@ -45,7 +62,7 @@ let sample_state () =
   Package.mockup_state
     [
       package ~publication:1.
-        ~dependencies:[ dep "dune"; dep "fmt" ]
+        ~dependencies:[ dep "dune"; dep "fmt"; (name "ocamlfind", None) ]
         "alpha" "1.0.0";
       package ~publication:2. ~flags:all_flags "alpha" "2.0.0";
       package ~publication:3. "beta" "0.1.0";
@@ -152,6 +169,46 @@ let test_truncated_file_is_empty_state () =
             (versions_of (Package.load_state_from path) "alpha"))
         (List.sort_uniq compare [ 0; 1; n / 4; n / 2; n - 1 ]))
 
+(* Every version of every package, with its whole info. [Info.t] is plain data,
+   so polymorphic equality compares every field, including fields added
+   later. *)
+let all_infos state =
+  Package.all_latest state
+  |> List.concat_map (fun latest ->
+         Package.get_by_name state (Package.name latest)
+         |> Option.value ~default:[])
+  |> List.map (fun p ->
+         ( Package.Name.to_string (Package.name p),
+           Package.Version.to_string (Package.version p),
+           Package.info p ))
+  |> List.sort compare
+
+let test_roundtrip_preserves_every_field () =
+  with_temp_file (fun path ->
+      let original = sample_state () in
+      Package.save_state_to path original;
+      let loaded = Package.load_state_from path in
+      Alcotest.(check int)
+        "number of versions" 3
+        (List.length (all_infos original));
+      Alcotest.(check bool)
+        "every field of every version survives the round-trip" true
+        (all_infos original = all_infos loaded))
+
+let read_file path =
+  In_channel.with_open_bin (Fpath.to_string path) In_channel.input_all
+
+(* Binary -> state -> binary: the encoding is deterministic, so saving a loaded
+   state writes the same bytes. *)
+let test_resave_is_byte_identical () =
+  with_temp_file (fun first ->
+      with_temp_file (fun second ->
+          Package.save_state_to first (sample_state ());
+          Package.save_state_to second (Package.load_state_from first);
+          Alcotest.(check bool)
+            "saving a loaded state writes the same bytes" true
+            (String.equal (read_file first) (read_file second))))
+
 let test_case name fn = Alcotest.test_case name `Quick fn
 
 let () =
@@ -163,6 +220,10 @@ let () =
             test_roundtrip_preserves_packages;
           test_case "all package flags are preserved"
             test_roundtrip_preserves_all_flags;
+          test_case "every field is preserved"
+            test_roundtrip_preserves_every_field;
+          test_case "saving a loaded state is byte-identical"
+            test_resave_is_byte_identical;
           test_case "background save, then a subprocess" test_background_save;
         ] );
       ( "fallback",
