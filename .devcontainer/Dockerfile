@@ -58,7 +58,9 @@ RUN cd ~/opam-repository && git reset --hard 8cdfa3296d9bc7d93273f46eb2438757e4f
 RUN opam pin add -yn ocamlformat 0.26.2 && opam pin add -yn ocamlformat-lib 0.26.2 \
  && opam install -y merlin ocamlformat ocaml-lsp-server utop
 
-# Project dependencies
+# Project dependencies. OPAMSOLVERTIMEOUT is raised from the 60s default, as
+# in the production Dockerfile: this image's solver needs about 55s on
+# OCaml.org's dependency graph, and timed out once in CI.
 COPY --chown=opam ocamlorg.opam /home/opam/deps/
-RUN opam install -y --deps-only --with-test --with-doc /home/opam/deps/ \
+RUN OPAMSOLVERTIMEOUT=300 opam install -y --deps-only --with-test --with-doc /home/opam/deps/ \
  && opam clean -a -c -s --logs
