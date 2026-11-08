@@ -3,7 +3,13 @@
 # published as ghcr.io/ocaml/ocaml.org-dev, by Claude Code cloud sessions (see
 # HACKING.md, "Devcontainer and Cloud Sessions"). Build it from the repository
 # root: docker build -f .devcontainer/Dockerfile .
-FROM ocaml/opam:debian-13-ocaml-5.2
+#
+# The base image is pinned by digest: the tag is rebuilt weekly, and a moving
+# base would invalidate the published layers that builds reuse (and make
+# .devcontainer/tag.sh describe different images over time). Dependabot
+# proposes digest updates; check the pin rule in HACKING.md, "Choosing the Pin
+# Commit", when accepting one.
+FROM ocaml/opam:debian-13-ocaml-5.2@sha256:6a16bf7c4f403c35927a1ae6248029ab88390a72f8ca57484adebc29bdb30f93
 
 LABEL org.opencontainers.image.source="https://github.com/ocaml/ocaml.org"
 LABEL org.opencontainers.image.description="OCaml.org development environment"
@@ -29,6 +35,10 @@ RUN sudo curl -fsSL --retry 5 --retry-all-errors -o /usr/local/bin/tailwindcss \
       https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.6/tailwindcss-linux-x64 \
  && echo "8b47e368541bcd72f60c837943ffb51918564d1a1a6b8b469c30afe829780612  /usr/local/bin/tailwindcss" | sha256sum -c - \
  && sudo chmod +x /usr/local/bin/tailwindcss
+
+# Root (cloud sessions, CI) works on checkouts owned by other users: the
+# bind-mounted repository and the opam user's ~/opam-repository.
+RUN sudo git config --system --add safe.directory '*'
 
 # Use a recent opam and enable the backup mirror if primary sources of
 # packages are unavailable

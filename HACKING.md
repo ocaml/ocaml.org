@@ -48,7 +48,7 @@ Run `make help` to list the other common `make` targets.
 
 [`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) describes a ready-to-use development environment: Debian 13 with OCaml 5.2, the pinned opam-repository, the system libraries, every dependency of `ocamlorg.opam`, and the dev tools (OCamlFormat 0.26.2, `ocaml-lsp-server`, Merlin, `utop`). The [`devcontainer.yml`](.github/workflows/devcontainer.yml) workflow publishes it as `ghcr.io/ocaml/ocaml.org-dev`. Each image is tagged by [`.devcontainer/tag.sh`](.devcontainer/tag.sh), a hash of `.devcontainer/Dockerfile` and `ocamlorg.opam`, and the latest build from `main` is also tagged `main`.
 
-Editors that support devcontainers (VS Code, GitHub Codespaces) build it from `.devcontainer/devcontainer.json`, reusing the published layers.
+Tools that support devcontainers (VS Code, GitHub Codespaces, DevPod, and others) build it from `.devcontainer/devcontainer.json`, reusing the published layers, and add Node.js and the GitHub CLI. It asks for 4 CPUs, 16 GB of memory, and 32 GB of storage. The base image is pinned by digest, so the published layers stay reusable; Dependabot proposes digest updates monthly.
 
 [Claude Code cloud sessions](https://code.claude.com/docs/en/claude-code-on-the-web) (claude.ai/code) use the same image. The cloud VM runs Ubuntu without OCaml, so a `SessionStart` hook in [`.claude/settings.json`](.claude/settings.json) starts the image as a container named `ocamlorg-dev`, with the repository mounted at the same path. Build, test, and format commands run inside it through [`.devcontainer/run`](.devcontainer/run):
 
@@ -63,6 +63,8 @@ The hook does nothing outside cloud sessions. Markdown lint (`npx markdownlint-c
 1. Connect GitHub to claude.ai/code, so that sessions can clone `ocaml/ocaml.org` and push branches.
 2. Create a cloud environment with the default **Trusted** network access, which already allows `ghcr.io`.
 3. Paste [`.devcontainer/cloud-setup.sh`](.devcontainer/cloud-setup.sh) as the environment's setup script. It pulls the image once, and the environment cache keeps it for later sessions.
+
+The hook also gives the server a clone of the image's opam-repository, at its default `OCAMLORG_REPO_PATH`, because cloud sessions can't clone it from GitHub. Package pages therefore show opam-repository as of the pin.
 
 A branch that changes `ocamlorg.opam` or `.devcontainer/Dockerfile` has a new tag. Branches of `ocaml/ocaml.org` get their own image as soon as their pull request is open. Until then, the hook falls back to the `main` image and says so. Note that cloud sessions can't fetch source archives from GitHub repositories other than `ocaml/ocaml.org`, and the GitHub CLI's `gh pr` and `gh issue` commands don't work there (open pull requests from the web interface, or use `gh api`).
 
@@ -253,7 +255,7 @@ When bringing up OCaml.org to a newer pin, the commit hash found in those files 
 * **At or below the base image's tip**, the commit is in local history, and the reset works without any network fetch. This is the fast path, and it matters because these images are rebuilt frequently.
 * **Beyond the base image's tip**, the reset fails with `Could not parse object`. This only surfaces in the `deployability` check, not in GitHub Actions, where `setup-ocaml` fetches the commit directly. Recovering requires prepending `git fetch origin <sha> &&` to the reset, which costs a full opam-repository download on every build.
 
-So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines:
+So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines (`.devcontainer/Dockerfile` pins its base image by digest, so a digest update must also keep the pin at or below the new image's tip):
 
 ```bash
 docker run --rm ocaml/opam:alpine-3.24-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'  # Dockerfile

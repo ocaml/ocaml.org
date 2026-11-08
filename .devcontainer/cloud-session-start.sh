@@ -56,6 +56,17 @@ if [ "$have" != "$want" ]; then
   fi
 fi
 
+# The server reads packages from a clone of opam-repository, by default
+# ~/.cache/ocamlorg/opam-repository, which it would clone from GitHub; cloud
+# sessions can't. Clone the image's bundled copy instead (hard links, so it's
+# quick). Its origin is that local copy, so the server's periodic `git pull`
+# succeeds without network, and never moves the repository opam itself uses.
+# Package data is as of the opam-repository pin.
+docker exec -u root "$container" sh -c '
+  dest=/root/.cache/ocamlorg/opam-repository
+  [ -d "$dest" ] || { mkdir -p "${dest%/*}" && git clone -q --local /home/opam/opam-repository "$dest"; }' \
+  || say "Could not clone opam-repository for the server; package pages won't work."
+
 say "Container $container ($ref) is running with $repo mounted."
 say "Run OCaml, opam, dune, and make commands through .devcontainer/run, e.g. '.devcontainer/run make build'."
 exit 0

@@ -5,6 +5,17 @@
         "context": "..",
         "cacheFrom": "ghcr.io/ocaml/ocaml.org-dev:main"
     },
+    "hostRequirements": {
+        "cpus": 4,
+        "memory": "16gb",
+        "storage": "32gb"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "22"
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
     "customizations": {
         "vscode": {
             "extensions": ["ocamllabs.ocaml-platform"]
