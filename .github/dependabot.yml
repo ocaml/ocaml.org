@@ -10,3 +10,12 @@ updates:
     directory: /.devcontainer
     schedule:
       interval: monthly
+    ignore:
+      # The OCaml version follows the production Dockerfile, and older tags
+      # stop being rebuilt (their bundled opam-repository falls behind the pin):
+      # only the digest moves.
+      - dependency-name: ocaml/opam
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
+          - version-update:semver-patch
