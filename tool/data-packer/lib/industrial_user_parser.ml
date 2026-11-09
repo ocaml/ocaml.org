@@ -13,9 +13,23 @@ type metadata = {
   consortium : bool;
   featured : bool;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.name)
+let of_metadata ~body_md ~body_html
+    ({ name; description; logo; url; locations; consortium; featured } :
+      metadata) : t =
+  {
+    name;
+    slug = Utils.slugify name;
+    description;
+    logo;
+    url;
+    locations;
+    consortium;
+    featured;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in

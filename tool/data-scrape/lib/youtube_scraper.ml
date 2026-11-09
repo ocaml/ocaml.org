@@ -29,22 +29,13 @@ let kind_of_yaml = function
   | `String s -> kind_of_string s
   | _ -> Error (`Msg "Expected a string for kind")
 
-type source_metadata = {
+type source = {
   name : string;
   kind : kind;
   id : string;
-  publish_all : bool option;
+  publish_all : bool; [@default true]
 }
 [@@deriving of_yaml]
-
-type source = { name : string; kind : kind; id : string; publish_all : bool }
-[@@deriving stable_record ~version:source_metadata ~modify:[ publish_all ]]
-
-let source_of_yaml x =
-  x |> source_metadata_of_yaml
-  |> Result.map
-       (source_of_source_metadata
-          ~modify_publish_all:(Option.value ~default:true))
 
 type source_list = source list [@@deriving of_yaml]
 

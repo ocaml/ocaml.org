@@ -10,9 +10,11 @@ type metadata = {
   meta_title : string;
   meta_description : string;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m
+let of_metadata ~slug ~body_md ~body_html
+    ({ title; description; meta_title; meta_description } : metadata) : t =
+  { slug; title; description; meta_title; meta_description; body_md; body_html }
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in

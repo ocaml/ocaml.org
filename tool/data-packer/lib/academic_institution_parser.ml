@@ -70,15 +70,39 @@ type metadata = {
   image : string option;
   alternate_logo : string option;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:Data_intf.Academic_institution.t
-      ~add:[ body_md; body_html; slug ]]
+[@@deriving of_yaml]
 
 type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
 
-let of_metadata m =
-  metadata_to_Data_intf_Academic_institution_t m ~slug:(Utils.slugify m.name)
+let of_metadata ~body_md ~body_html
+    ({
+       name;
+       description;
+       url;
+       logo;
+       continent;
+       courses;
+       location;
+       featured;
+       image;
+       alternate_logo;
+     } :
+      metadata) : t =
+  {
+    name;
+    slug = Utils.slugify name;
+    description;
+    url;
+    logo;
+    continent;
+    courses;
+    location;
+    featured;
+    image;
+    alternate_logo;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body_md)) =
   let metadata =

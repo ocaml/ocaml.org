@@ -16,15 +16,21 @@ type metadata = {
   description : string;
   category : string;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t ~remove:[ id ] ~modify:[ short_title ]
-      ~add:[ slug; fpath; toc; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m =
-  metadata_to_t m ~slug:m.id ~modify_short_title:(function
-    | None -> m.title
-    | Some u -> u)
+let of_metadata ~fpath ~toc ~body_md ~body_html
+    ({ id; title; short_title; description; category } : metadata) : t =
+  {
+    title;
+    short_title = Option.value ~default:title short_title;
+    fpath;
+    slug = id;
+    description;
+    category;
+    body_md;
+    toc;
+    body_html;
+  }
 
 let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
 

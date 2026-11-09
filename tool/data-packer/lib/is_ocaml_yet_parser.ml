@@ -17,10 +17,7 @@ type category_meta = {
   description : string;
   packages : package list;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:category ~add:[ slug ] ~modify:[ description ],
-    show]
+[@@deriving of_yaml, show]
 
 type metadata = {
   id : string;
@@ -28,10 +25,29 @@ type metadata = {
   answer : string;
   categories : category_meta list;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t ~add:[ body_html ] ~modify:[ categories ],
-    show]
+[@@deriving of_yaml, show]
+
+let category_of_meta ({ name; status; description; packages } : category_meta) :
+    category =
+  {
+    name;
+    status;
+    description =
+      Cmarkit.Doc.of_string ~strict:true (String.trim description)
+      |> Markdown.Content.render ~syntax_highlighting:true;
+    packages;
+    slug = Utils.slugify name;
+  }
+
+let of_metadata ~body_html ({ id; question; answer; categories } : metadata) : t
+    =
+  {
+    id;
+    question;
+    answer;
+    categories = List.map category_of_meta categories;
+    body_html;
+  }
 
 let decode (fpath, (head, body_md)) =
   let metadata =
@@ -40,17 +56,6 @@ let decode (fpath, (head, body_md)) =
   let body_html =
     Cmarkit.Doc.of_string ~strict:true body_md |> Cmarkit_html.of_doc ~safe:true
   in
-  let modify_categories u =
-    let modify_description description =
-      Cmarkit.Doc.of_string ~strict:true (String.trim description)
-      |> Markdown.Content.render ~syntax_highlighting:true
-    in
-    List.map
-      (fun cat ->
-        category_meta_to_category ~slug:(Utils.slugify cat.name)
-          ~modify_description cat)
-      u
-  in
-  Result.map (metadata_to_t ~body_html ~modify_categories) metadata
+  Result.map (of_metadata ~body_html) metadata
 
 let all () = Utils.map_md_files decode "is_ocaml_yet/*.md"

@@ -18,35 +18,31 @@ type metadata = {
   kind : kind;
   version : string;
   date : string;
-  is_latest : bool option;
-  is_lts : bool option;
+  is_latest : bool; [@default false]
+  is_lts : bool; [@default false]
   intro : string;
   highlights : string;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t ~remove:[ intro; highlights ]
-      ~modify:[ is_latest; is_lts ]
-      ~add:
-        [
-          intro_md;
-          intro_html;
-          highlights_md;
-          highlights_html;
-          body_md;
-          body_html;
-        ]]
+[@@deriving of_yaml]
 
-let of_metadata m =
-  metadata_to_t m ~intro_md:m.intro
-    ~intro_html:
-      (m.intro |> Markdown.Content.of_string |> Markdown.Content.render)
-    ~highlights_md:m.highlights
-    ~highlights_html:
-      (m.highlights |> Markdown.Content.of_string
-      |> Markdown.Content.render ~syntax_highlighting:true)
-    ~modify_is_latest:(Option.value ~default:false)
-    ~modify_is_lts:(Option.value ~default:false)
+let of_metadata ~body_md ~body_html
+    ({ kind; version; date; is_latest; is_lts; intro; highlights } : metadata) :
+    t =
+  {
+    kind;
+    version;
+    date;
+    is_latest;
+    is_lts;
+    intro_md = intro;
+    intro_html = intro |> Markdown.Content.of_string |> Markdown.Content.render;
+    highlights_md = highlights;
+    highlights_html =
+      highlights |> Markdown.Content.of_string
+      |> Markdown.Content.render ~syntax_highlighting:true;
+    body_md;
+    body_html;
+  }
 
 let sort_by_decreasing_version (x : t) (y : t) =
   let to_list s =

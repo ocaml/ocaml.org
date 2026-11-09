@@ -42,14 +42,39 @@ type metadata = {
   recurring_event_slug : string option;
   event_type : event_type option;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t
-      ~add:[ slug; body_md; body_html; recurring_event ]
-      ~remove:[ recurring_event_slug ] ~set:[ event_type ],
-    show { with_path = false }]
+[@@deriving of_yaml, show { with_path = false }]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
+let of_metadata ~body_md ~body_html ~recurring_event ~event_type
+    ({
+       title;
+       url;
+       country;
+       city;
+       location;
+       submission_deadline;
+       author_notification_date;
+       starts;
+       ends;
+       recurring_event_slug = _;
+       event_type = _;
+     } :
+      metadata) : t =
+  {
+    title;
+    url;
+    slug = Utils.slugify title;
+    country;
+    city;
+    location;
+    starts;
+    submission_deadline;
+    author_notification_date;
+    ends;
+    body_md;
+    body_html;
+    recurring_event;
+    event_type;
+  }
 
 let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
   let metadata =

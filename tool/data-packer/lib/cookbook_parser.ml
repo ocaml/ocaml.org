@@ -26,14 +26,8 @@ type category_metadata = {
 }
 [@@deriving of_yaml]
 
-type metadata = { packages : package list; discussion : string option }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t
-      ~add:
-        [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
-      ~remove:[ discussion ],
-    show]
+type metadata = { packages : package list; discussion : string [@default ""] }
+[@@deriving of_yaml, show]
 
 let render_markdown str =
   str |> String.trim
@@ -82,12 +76,16 @@ let decode (tasks : task list) (fpath, (head, body)) =
            { explanation; code })
   in
   Result.map
-    (fun (metadata : metadata) ->
-      let discussion_html =
-        metadata.discussion |> Option.value ~default:"" |> render_markdown
-      in
-      metadata_to_t ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
-        ~code_plaintext:body metadata)
+    (fun ({ packages; discussion } : metadata) : t ->
+      {
+        slug;
+        filepath = fpath;
+        task;
+        packages;
+        code_blocks;
+        code_plaintext = body;
+        discussion_html = render_markdown discussion;
+      })
     metadata
   |> Result.map_error (Utils.where fpath)
 

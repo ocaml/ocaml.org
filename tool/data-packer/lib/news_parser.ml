@@ -9,12 +9,13 @@ type metadata = {
   description : string;
   date : string;
   tags : string list;
-  authors : string list option;
+  authors : string list; [@default []]
 }
-[@@deriving
-  of_yaml, stable_record ~version:t ~add:[ slug; body_html ] ~modify:[ authors ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~modify_authors:(Option.value ~default:[])
+let of_metadata ~slug ~body_html
+    ({ title; description; date; tags; authors } : metadata) : t =
+  { title; description; date; slug; tags; body_html; authors }
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in

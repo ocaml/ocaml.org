@@ -61,9 +61,31 @@ type metadata = {
   program_committee : committee_member list;
   organising_committee : committee_member list;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
+let of_metadata ~body_md ~body_html
+    ({
+       title;
+       location;
+       date;
+       important_dates;
+       presentations;
+       program_committee;
+       organising_committee;
+     } :
+      metadata) : t =
+  {
+    title;
+    slug = Utils.slugify title;
+    location;
+    date;
+    important_dates;
+    presentations;
+    program_committee;
+    organising_committee;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in
