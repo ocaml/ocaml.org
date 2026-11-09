@@ -149,6 +149,13 @@ Commits added on some branches are automatically deployed:
 
 The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer>, which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the project's root. You can monitor the state of each deployment on [`deploy.ci.OCaml.org`](https://deploy.ci.OCaml.org/?repo=ocaml/OCaml.org).
 
+In that repository, the OCaml.org deployments are declared in the `Ocaml_org` module of [`src/pipeline.ml`](https://github.com/ocurrent/ocurrent-deployer/blob/master/src/pipeline.ml):
+
+* `main` is built into the `ocurrent/v3.ocaml.org-server:live` image and deployed as the `infra_www1` and `infra_www2` services on the `v3b.ocaml.org` host, which serves <https://OCaml.org/>.
+* `staging` is built into the `ocurrent/v3.ocaml.org-server:staging` image and deployed as the `infra_www` service on the `v3c.ocaml.org` host, which serves <https://staging.OCaml.org/>.
+
+The deployer behind `deploy.ci.OCaml.org` runs from the `live-ocaml-org` branch of `ocurrent-deployer`, not from its default branch, so a change to the pipeline only takes effect once it reaches `live-ocaml-org`.
+
 To test the deployment locally, run the following commands:
 
 ```bash
