@@ -1,0 +1,185 @@
+name: Scrape doc modules
+
+# The module paths of every package's documentation, from the per-package
+# sidebar.json of the documentation backend, published as assets of the
+# release `doc-modules-latest` (#3982):
+# - doc-modules.jsonl.gz: the reference form, one JSON object per package;
+# - doc-modules-v1.idx: the same data compiled into the memory-mappable index
+#   that the ocaml.org servers download and map (only uploaded when it
+#   changed, so its ETag stays put otherwise);
+# - stats.jsonl: one record per scrape, used to decide how often to scrape.
+#
+# The documentation backend regenerates docs in batches, much less often than
+# opam-repository changes. The workflow wakes up hourly, and policy.sh decides
+# from stats.jsonl whether a scrape is due (between every hour and every day).
+# A scrape keeps the load limits agreed with the backend's admins: one
+# kept-alive connection, at most 8 requests per second, ETag revalidation
+# (~3.6k requests, ~8 min, a few KB when nothing changed). The scrape state is
+# kept in an Actions cache, saved only after a successful run; a manual run
+# with `reset` starts from an empty state (~5.3k requests, ~9 MB, ~15 min).
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset:
+        description: Start from an empty scrape state (refetch everything)
+        type: boolean
+        default: false
+  schedule:
+    - cron: 17 * * * *
+
+# One scrape at a time: overlapping runs would double the load on the backend
+# and race on the release assets.
+concurrency:
+  group: scrape-doc-modules
+  cancel-in-progress: false
+
+env:
+  RELEASE_TAG: doc-modules-latest
+  # Bump when the layout of the scrape state changes, so that a new version of
+  # the script never starts from a state it does not understand.
+  STATE_KEY: doc-modules-state-v1
+
+jobs:
+  scrape:
+    name: scrape
+    if: github.event_name != 'schedule' || github.repository == 'ocaml/ocaml.org'
+    runs-on: ubuntu-latest
+    # A full refetch takes ~15 min. The scrape itself is limited to 40 min
+    # (see the Scrape step), so that its stats are still published. A run cut
+    # short saves no state (it is only saved after a successful compile).
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      # Only a missing release (the very first run) or missing assets are
+      # tolerated: any other failure fails the job, since scraping without the
+      # published stats would scrape too early and overwrite their history.
+      - name: Download the published stats and index
+        run: |
+          mkdir -p _published _out
+          if gh release view "$RELEASE_TAG" --json assets -q '.assets[].name' \
+               >_published/assets 2>_published/error; then
+            for asset in stats.jsonl doc-modules-v1.idx; do
+              if grep -qxF "$asset" _published/assets; then
+                gh release download "$RELEASE_TAG" -D _published -p "$asset"
+              fi
+            done
+          elif grep -q 'release not found' _published/error; then
+            echo "No release $RELEASE_TAG yet: first run."
+          else
+            cat _published/error >&2
+            exit 1
+          fi
+          rm -f _published/assets _published/error
+          touch _published/stats.jsonl
+
+      - name: Is a scrape due?
+        id: policy
+        run: >-
+          FORCE=${{ github.event_name == 'workflow_dispatch' && 1 || 0 }}
+          tool/doc-modules/policy.sh _published/stats.jsonl "$GITHUB_STEP_SUMMARY"
+          >> "$GITHUB_OUTPUT"
+
+      - name: Clone opam-repository
+        if: steps.policy.outputs.due == 'true'
+        run: git clone --depth 1 https://github.com/ocaml/opam-repository.git _opam-repository
+
+      - name: Restore scrape state
+        if: steps.policy.outputs.due == 'true' && !inputs.reset
+        uses: actions/cache/restore@v4
+        with:
+          path: _doc-modules-state
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+          restore-keys: ${{ env.STATE_KEY }}-
+
+      # Every attempt records its stats, so that policy.sh counts it: an
+      # aborted scrape writes its own record; a scrape killed by the time limit
+      # below or crashing gets a minimal one. The limit leaves the rest of the
+      # job time to publish the stats. The job fails at the end.
+      - name: Scrape
+        id: scrape
+        if: steps.policy.outputs.due == 'true'
+        run: |
+          started=$(date -u +%s)
+          if SCRAPE_STATS=_out/run-stats.jsonl timeout 40m \
+               tool/doc-modules/scrape.sh \
+               _opam-repository _doc-modules-state _out/doc-modules.jsonl; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            status=$?
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            if [ ! -s _out/run-stats.jsonl ]; then
+              jq -n -c --argjson started "$started" --argjson status "$status" '
+                { started: $started, finished: (now | floor),
+                  status: "aborted",
+                  reason: "scrape.sh exited with \($status) without a record"
+                    + (if $status == 124 then " (time limit)" else "" end) }' \
+                > _out/run-stats.jsonl
+            fi
+          fi
+
+      # Also after a failed step (but not after a skipped policy step, nor a
+      # cancelled run): the stats of an attempt must be published whatever
+      # happens after it, or every hourly wake-up would be due.
+      - name: Publish the stats
+        if: ${{ !cancelled() && steps.policy.outputs.due == 'true' }}
+        run: |
+          gh release view "$RELEASE_TAG" >/dev/null 2>&1 ||
+            gh release create "$RELEASE_TAG" --prerelease --latest=false \
+              --title "Doc modules" \
+              --notes "Module paths of package documentation, see #3982. Updated by .github/workflows/scrape-doc-modules.yml."
+          if [ -s _out/run-stats.jsonl ]; then
+            cat _published/stats.jsonl _out/run-stats.jsonl > _out/stats.jsonl
+            gh release upload "$RELEASE_TAG" --clobber _out/stats.jsonl
+          fi
+
+      - name: Set up OCaml
+        if: steps.scrape.outputs.ok == 'true'
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: "5.2.0"
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+
+      - name: Compile the index
+        id: compile
+        if: steps.scrape.outputs.ok == 'true'
+        run: |
+          opam install -y dune yojson
+          opam exec -- dune build ./tool/doc-modules/compile.exe
+          ./_build/default/tool/doc-modules/compile.exe \
+            _out/doc-modules.jsonl _out/doc-modules-v1.idx
+          gzip -9 -n -k _out/doc-modules.jsonl
+
+      - name: Publish the index
+        if: steps.compile.outcome == 'success'
+        run: |
+          if cmp -s _out/doc-modules-v1.idx _published/doc-modules-v1.idx; then
+            echo "Index unchanged: not uploaded." >> "$GITHUB_STEP_SUMMARY"
+          else
+            gh release upload "$RELEASE_TAG" --clobber \
+              _out/doc-modules-v1.idx _out/doc-modules.jsonl.gz
+            echo "Index changed: uploaded." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Only once the index is published: otherwise the next run must produce
+      # it again, so it starts from the state the published index came from.
+      - name: Save scrape state
+        if: steps.compile.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: _doc-modules-state
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+
+      - name: Fail if the scrape aborted
+        if: steps.scrape.outputs.ok == 'false'
+        run: exit 1
