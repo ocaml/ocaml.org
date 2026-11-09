@@ -156,7 +156,12 @@ In that repository, the OCaml.org deployments are declared in the `Ocaml_org` mo
 
 The deployer behind `deploy.ci.OCaml.org` runs from the `live-ocaml-org` branch of `ocurrent-deployer`, not from its default branch, so a change to the pipeline only takes effect once it reaches `live-ocaml-org`.
 
-The server side of the deployment is documented in the [OCaml infrastructure wiki](https://infra.ocaml.org/) ([`ocaml/infrastructure`](https://github.com/ocaml/infrastructure)). [OCaml.org Deployment](https://infra.ocaml.org/www-ocaml-org.html) describes how the hosts run the site: Docker in swarm mode, so that the deployer can update the services with `docker service update`, Caddy as an HTTPS reverse proxy, and an Ansible playbook that creates the `infra` stack, which is where the `infra_` prefix of the service names comes from. The deployer itself runs on the `ci5.ocamllabs.io` host.
+The server side of the deployment is documented in the [OCaml infrastructure wiki](https://infra.ocaml.org/) ([`ocaml/infrastructure`](https://github.com/ocaml/infrastructure)), and the stacks that actually run on each host are defined in [`mtelvers/ansible`](https://github.com/mtelvers/ansible). Both hosts run Docker in swarm mode, so that the deployer can update the services with `docker service update`, and an Ansible playbook creates the `infra` stack, which is where the `infra_` prefix of the service names comes from. The front ends differ:
+
+* Production (`v3b.ocaml.org`, [`www.ocaml.org.yml`](https://github.com/mtelvers/ansible/blob/master/www.ocaml.org.yml)): Hitch terminates TLS and forwards over the PROXY protocol to Varnish, which caches responses and balances requests between `www1` and `www2`. The Varnish configuration and the services' environment variables live in that file, so changing them takes a playbook run, not a merge here.
+* Staging (`v3c.ocaml.org`, [`staging.ocaml.org.yml`](https://github.com/mtelvers/ansible/blob/master/staging.ocaml.org.yml)): Caddy terminates TLS, caches responses, and proxies to a single `www` service. Edge-caching behaviour therefore can't be checked on staging.
+
+The wiki's [OCaml.org Deployment](https://infra.ocaml.org/www-ocaml-org.html) page predates this setup and still describes Caddy in production. The deployer itself runs on the `ci5.ocamllabs.io` host.
 
 To test the deployment locally, run the following commands:
 
