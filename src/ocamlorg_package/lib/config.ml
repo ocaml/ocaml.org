@@ -77,3 +77,18 @@ let package_builder_nice =
    seconds, a full one under a minute; cloning opam-repository takes longer. *)
 let package_builder_timeout =
   env_with_default "OCAMLORG_PACKAGE_BUILDER_TIMEOUT" "1800" |> float_of_string
+
+(* The builder's [oom_score_adj], raised once the clone is pulled, so that the
+   kernel kills the builder rather than the server if memory runs out. A killed
+   builder costs nothing: the server keeps its state and tries again at the next
+   poll. *)
+let package_builder_oom_score_adj =
+  let n =
+    env_with_default "OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ" "1000"
+    |> int_of_string
+  in
+  if n < -1000 || n > 1000 then
+    invalid_arg
+      "OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ: expected a value from -1000 to \
+       1000";
+  n

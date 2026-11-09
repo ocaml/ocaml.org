@@ -46,3 +46,9 @@ val package_builder_nice : int
 val package_builder_timeout : float
 (** Seconds after which a running builder is killed:
     [OCAMLORG_PACKAGE_BUILDER_TIMEOUT], by default 1800. *)
+
+val package_builder_oom_score_adj : int
+(** [oom_score_adj] the builder raises itself to once the clone is pulled:
+    [OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ], by default 1000, so that the
+    kernel kills it before the server if memory runs out. A value outside -1000
+    to 1000 stops the server at startup. *)

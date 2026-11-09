@@ -97,15 +97,19 @@ let get_latest' packages name =
       |> Option.map (fun (version, info) -> { version; info; name }))
 
 (* The state file's identity: the builder renames each new version over it, so a
-   new inode means a new version. *)
+   new inode means a new version. The inode alone is not enough: once the file
+   the server loaded is gone (replaced by one it failed to read, for instance),
+   its inode can be reused by the next version. The modification time and size
+   tell them apart. *)
 let file_id path =
   match Unix.stat (Fpath.to_string path) with
-  | st -> Some (st.Unix.st_dev, st.Unix.st_ino)
+  | st ->
+      Some (st.Unix.st_dev, st.Unix.st_ino, st.Unix.st_mtime, st.Unix.st_size)
   | exception Unix.Unix_error _ -> None
 
-(* Swap in the version of the state the builder wrote. A version that can't be
-   read is skipped, and the current state kept. Reading takes about 0.17s on the
-   event loop. *)
+(* Swap in the version of the state the builder wrote, or say why it can't be
+   read, in which case the current state is kept. Reading takes about 0.17s on
+   the event loop. *)
 let reload t path =
   let t0 = Unix.gettimeofday () in
   match Package_state.read path with
@@ -118,8 +122,9 @@ let reload t path =
       Logs.info (fun m ->
           m "Package state reloaded (%d packages, opam commit %s)"
             (Name.Map.cardinal v.packages)
-            (Option.value ~default:"" v.opam_repository_commit))
-  | Error e -> Logs.err (fun m -> m "Package state reload failed: %s" e)
+            (Option.value ~default:"" v.opam_repository_commit));
+      Ok ()
+  | Error _ as e -> e
 
 (* OCaml numbers signals its own way (negative numbers): name the likely
    ones. *)
@@ -151,20 +156,38 @@ let pp_status f = function
    timed-out builder leaves the current state in place, and the next poll tries
    again. Never raises.
 
+   The builder is told the commit of the state the server holds, so that a poll
+   that finds nothing new exits without reading the state. It is not told when
+   the file on disk is not the one the server loaded, typically because a reload
+   failed: the builder then reads the file and rebuilds it if it is unreadable,
+   and the server retries the reload. Each failure in a row is counted in the
+   log, with the commit still served, so that a builder that keeps failing (for
+   instance, killed for memory at every poll, see
+   [OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ]) shows as a stale state.
+
    [Lwt_process] forks: this relies on the server never spawning a domain, after
    which OCaml 5 refuses [Unix.fork]. *)
-let refresh t ~loaded =
+let refresh t ~loaded ~failures =
   let open Lwt.Syntax in
   let path = Paths.package_state in
   let builder = Config.package_builder in
+  let commit =
+    match t.opam_repository_commit with
+    | Some c when file_id path = !loaded -> [ "--commit"; c ]
+    | Some _ | None -> []
+  in
   let cmd =
     ( "",
-      [|
-        builder;
-        "--nice";
-        string_of_int Config.package_builder_nice;
-        Fpath.to_string path;
-      |] )
+      Array.of_list
+        ([
+           builder;
+           "--nice";
+           string_of_int Config.package_builder_nice;
+           "--oom-score-adj";
+           string_of_int Config.package_builder_oom_score_adj;
+         ]
+        @ commit
+        @ [ Fpath.to_string path ]) )
   in
   let+ status =
     Lwt.catch
@@ -174,26 +197,36 @@ let refresh t ~loaded =
              ~stdin:`Close ~stdout:`Keep ~stderr:`Keep cmd))
       (fun e -> Lwt.return (Error e))
   in
+  let failed pp =
+    incr failures;
+    Logs.err (fun m ->
+        m
+          "Package state builder %s %a (%d in a row): keeping the current \
+           state, opam commit %s"
+          builder pp () !failures
+          (Option.value ~default:"none" t.opam_repository_commit))
+  in
   match status with
-  | Ok (Unix.WEXITED 0) ->
+  | Ok (Unix.WEXITED 0) -> (
       let id = file_id path in
-      if id <> None && id <> !loaded then (
-        loaded := id;
-        reload t path)
-  | Ok status ->
-      Logs.err (fun m ->
-          m "Package state builder %s %a: keeping the current state" builder
-            pp_status status)
+      if id = None || id = !loaded then failures := 0
+      else
+        match reload t path with
+        | Ok () ->
+            loaded := id;
+            failures := 0
+        | Error e ->
+            failed (fun f () ->
+                Fmt.pf f "wrote a state that can't be read (%s)" e))
+  | Ok status -> failed (fun f () -> pp_status f status)
   | Error e ->
-      Logs.err (fun m ->
-          m "Package state builder %s failed to run: %s" builder
-            (Printexc.to_string e))
+      failed (fun f () -> Fmt.pf f "failed to run: %s" (Printexc.to_string e))
 
-let rec poll t ~loaded =
+let rec poll t ~loaded ~failures =
   let open Lwt.Syntax in
   let* () = Lwt_unix.sleep (float_of_int Config.opam_polling) in
-  let* () = refresh t ~loaded in
-  poll t ~loaded
+  let* () = refresh t ~loaded ~failures in
+  poll t ~loaded ~failures
 
 (* The first refresh must not raise either: an exception escaping [Lwt.async]
    reaches [Lwt.async_exception_hook], which exits the process until Dream
@@ -202,10 +235,11 @@ let rec poll t ~loaded =
 let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
   let loaded = ref (file_id Paths.package_state) in
+  let failures = ref 0 in
   let state = try_load_state () in
   Lwt.async (fun () ->
-      let* () = refresh state ~loaded in
-      if disable_polling then Lwt.return_unit else poll state ~loaded);
+      let* () = refresh state ~loaded ~failures in
+      if disable_polling then Lwt.return_unit else poll state ~loaded ~failures);
   state
 
 let all_latest t =

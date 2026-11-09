@@ -189,6 +189,7 @@ Tuning knobs, rarely changed in development:
 | `OCAMLORG_PACKAGE_BUILDER` | `ocamlorg-package-builder` | Package-state builder the server runs, looked up on `PATH` |
 | `OCAMLORG_PACKAGE_BUILDER_NICE` | `19` | Niceness the builder runs at |
 | `OCAMLORG_PACKAGE_BUILDER_TIMEOUT` | `1800` | Seconds after which a running builder is killed |
+| `OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ` | `1000` | `oom_score_adj` the builder raises itself to, so that the kernel kills it before the server if memory runs out |
 | `OCAMLORG_PACKAGE_CACHES_TTL` | `3600` | Package cache time-to-live in seconds |
 | `OCAMLORG_DOC_CACHE_MAX` | `1000` | Maximum entries in each documentation cache |
 | `OCAMLORG_DOC_CACHE_MAX_BYTES` | `134217728` (128 MB) | Byte budget for each documentation cache |
@@ -214,7 +215,8 @@ The result is serialised to the state file at `OCAMLORG_PKG_STATE_PATH` (`packag
 
 `ocamlorg-package-builder STATE_PATH` (in `src/ocamlorg_package/builder/`) is one-shot: it brings the clone at `OCAMLORG_REPO_PATH` up to date, cloning it if it is missing, rebuilds the state saved at `STATE_PATH` if the clone has moved (re-reading only what changed where it can), writes it by renaming a new file over it, and exits with a non-zero status on failure. It links only the `ocamlorg_package_state` library, not the web server. The `Dockerfile` uses it to build the state shipped in the image.
 
-The server never pulls opam-repository nor computes the state. At startup it loads the state file, then runs the builder (`OCAMLORG_PACKAGE_BUILDER`, at niceness `OCAMLORG_PACKAGE_BUILDER_NICE`) at once and every `OCAMLORG_OPAM_POLLING` seconds, one run at a time, and loads each new version of the file. If the builder fails, crashes or exceeds `OCAMLORG_PACKAGE_BUILDER_TIMEOUT`, the server keeps the state it has and tries again at the next poll.
+The server never pulls opam-repository nor computes the state. At startup it loads the state file, then runs the builder (`OCAMLORG_PACKAGE_BUILDER`, at niceness `OCAMLORG_PACKAGE_BUILDER_NICE`) at once and every `OCAMLORG_OPAM_POLLING` seconds, one run at a time, and loads each new version of the file. The server passes the builder the opam-repository commit of the state it holds (`--commit`): when a poll finds the clone still at that commit, the builder exits without reading the state, which is most of what such a poll would otherwise cost. Once the clone is pulled, the builder raises its `oom_score_adj` (`OCAMLORG_PACKAGE_BUILDER_OOM_SCORE_ADJ`), so that if memory runs out the kernel kills the builder, not the server. If the builder fails, crashes or exceeds `OCAMLORG_PACKAGE_BUILDER_TIMEOUT`, the server keeps the state it has and tries again at the next poll.
+So it does when a new version of the file can't be read; it then runs the builder without `--commit`, so that the builder reads the file and rebuilds it if needed, and loads the result. The log counts failures in a row and names the commit still served.
 
 The only package artefacts that come from elsewhere are the rendered documentation pages, which are fetched from an external server — see [External Services](#external-services) below.
 
