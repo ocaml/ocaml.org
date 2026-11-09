@@ -156,6 +156,8 @@ In that repository, the OCaml.org deployments are declared in the `Ocaml_org` mo
 
 The deployer behind `deploy.ci.OCaml.org` runs from the `live-ocaml-org` branch of `ocurrent-deployer`, not from its default branch, so a change to the pipeline only takes effect once it reaches `live-ocaml-org`.
 
+The server side of the deployment is documented in the [OCaml infrastructure wiki](https://infra.ocaml.org/) ([`ocaml/infrastructure`](https://github.com/ocaml/infrastructure)). [OCaml.org Deployment](https://infra.ocaml.org/www-ocaml-org.html) describes how the hosts run the site: Docker in swarm mode, so that the deployer can update the services with `docker service update`, Caddy as an HTTPS reverse proxy, and an Ansible playbook that creates the `infra` stack, which is where the `infra_` prefix of the service names comes from. The deployer itself runs on the `ci5.ocamllabs.io` host.
+
 To test the deployment locally, run the following commands:
 
 ```bash
