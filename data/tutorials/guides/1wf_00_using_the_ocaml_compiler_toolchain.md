@@ -47,14 +47,21 @@ cd hello
 
 Next, create a file named `hello.ml` and add the following code with your favorite text editor:
 
-```shell
+<!-- $MDX file=examples/hello.ml -->
+```ocaml
 let () = print_endline "Hello OCaml!"
 ```
 
 Now, we are ready to run the code. Save the file and return to the command line. Let's compile the code:
 
-```dune
-ocamlc -o hello hello.ml
+<!-- $MDX dir=examples -->
+```sh
+$ ocamlc -o hello hello.ml
+$ ls hello*
+hello
+hello.cmi
+hello.cmo
+hello.ml
 ```
 
 The `-o hello` option tells the compiler to name the output executable as `hello`. The executable `hello` contains compiled OCaml bytecode. In addition, two other files are produced, `hello.cmi` and `hello.cmo`.
@@ -67,7 +74,8 @@ The `-o hello` option tells the compiler to name the output executable as `hello
 
 Now let's run the executable and see what happens:
 
-```shell
+<!-- $MDX dir=examples -->
+```sh
 $ ./hello
 Hello OCaml!
 ```
@@ -221,7 +229,7 @@ Dune is a build system for OCaml projects, and it allows you to configure differ
 
 Let's create an example project named `myproject`.
 
-```dune
+```shell
 mkdir myproject
 cd myproject
 ```
