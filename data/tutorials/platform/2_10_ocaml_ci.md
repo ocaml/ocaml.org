@@ -60,7 +60,7 @@ OCaml-CI will automatically determine which OCaml versions and platforms to test
 
 You can test how OCaml-CI would build your project locally:
 
-```bash
+```shell
 git clone --recursive https://github.com/ocurrent/ocaml-ci.git
 cd ocaml-ci
 opam install . --deps-only --with-test --yes
@@ -88,7 +88,7 @@ You need a **capability file** (`ocaml-ci.cap`) which grants access to the API. 
 ### Installation & Usage
 
 You can run it via dune:
-```bash
+```shell
 dune exec -- ocaml-ci --ci-cap=ocaml-ci.cap ...
 ```
 
@@ -97,7 +97,7 @@ Or install it as `ocaml-ci`.
 ### Example Commands
 
 **List branches and PRs for a repository:**
-```bash
+```shell
 $ ocaml-ci mirage/irmin
 615364620f4233cb82a96144824eb6ad5d1104f0 refs/heads/1.4 (passed)
 e0fcf0d336544650ca5237b356cfce4a48378245 refs/heads/main (passed)
@@ -108,7 +108,7 @@ b2d4b06f94d13384ae08eb06439ce9c6066419cd refs/pull/815/head (failed)
 ```
 
 **List build variants for a specific ref:**
-```bash
+```shell
 $ ocaml-ci mirage/irmin refs/heads/main
 debian-12-ocaml-5.2
 debian-12-ocaml-5.1
@@ -117,7 +117,7 @@ macos-homebrew-ocaml-5.2
 ```
 
 **View the build log (follows if still running):**
-```bash
+```shell
 $ ocaml-ci mirage/irmin refs/heads/main debian-12-ocaml-5.2 log
 [...]
 - Test Successful in 17.643s. 99 tests run.
@@ -140,7 +140,7 @@ For convenience:
 - For commits, provide at least 6 characters
 
 Example:
-```bash
+```shell
 ocaml-ci mirage/irmin pull/867 debian-12-ocaml-5.2 cancel
 ```
 
