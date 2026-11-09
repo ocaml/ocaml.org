@@ -10,7 +10,7 @@ all that generated code. This is slow.
 
 Replace code generation with binary serialization:
 
-```
+```text
 Current:  data/*.yaml,md  →  [ood-gen]  →  *.ml (119 MiB)  →  [ocamlc]  →  binary
 Proposed: data/*.yaml,md  →  [packer]   →  data.bin       →  [as]      →  binary
 ```
@@ -24,7 +24,7 @@ The blob is embedded via `.incbin` assembly directive and deserialized at runtim
 
 ## Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │  tool/data-packer/                                                  │
 │                                                                     │
@@ -57,7 +57,7 @@ The blob is embedded via `.incbin` assembly directive and deserialized at runtim
 
 Single blob containing all data types, with a header for fast lookup:
 
-```
+```text
 ┌────────────────────────────────────────┐
 │ Header                                 │
 │   magic: "OODP" (4 bytes)              │
@@ -188,7 +188,7 @@ end
 
 With the complete data set (all types from ood-gen):
 
-```
+```text
 === Data Sizes ===
 Source data (YAML/Markdown):  67 MB
 Generated OCaml (ood-gen):   119 MB

@@ -4,7 +4,7 @@ The data-packer replaces ood-gen for processing site content. It serializes YAML
 
 ## Build Flow
 
-```
+```text
 data/*.yaml,md  →  [pack.exe]  →  data.bin (17 MB)
                                       ↓
                               [assembler + .incbin]
@@ -31,7 +31,7 @@ The assembly wrapper (`stubs/data_blob.S`) supports:
 
 ## Directory Structure
 
-```
+```text
 tool/data-packer/
 ├── lib/           # Parsers and types with bin_prot serialization
 ├── bin/           # pack.exe, verify.exe, benchmark.exe
