@@ -1,0 +1,10 @@
+; The package state: reading opam-repository, computing the package graph, and
+; saving and loading it. Kept apart from [ocamlorg_package], which depends on
+; the frontend (and so on Dream and the site data), so that the package-state
+; builder links only this.
+
+(library
+ (name ocamlorg_package_state)
+ (preprocess
+  (pps ppx_repr))
+ (libraries opam-format repr ocamlorg.global bos fpath logs fmt lwt lwt.unix))

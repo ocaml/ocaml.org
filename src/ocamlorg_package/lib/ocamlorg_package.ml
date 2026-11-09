@@ -18,8 +18,8 @@ type search_entry = {
   rev_deps_count : int;
 }
 
-(* When this type changes, [Info.version] needs to be incremented to invalidate
-   the cache *)
+(* The durable fields are those of [Package_state.t]; [docs] and [search_index]
+   are runtime caches, never persisted. *)
 type state = {
   version : string;
   mutable opam_repository_commit : string option;
@@ -31,26 +31,6 @@ type state = {
       (** Not persisted: built by [search] from the [packages] it is paired
           with, and rebuilt once [packages] is replaced. *)
 }
-
-(* Persisted projection of [state]: the [docs] runtime cache is excluded (it
-   holds a function, a [Hashtbl] and a [Queue], and is rebuilt empty on load),
-   so only the four durable fields are serialized, via [repr]. Kept in a
-   submodule so its record labels don't shadow [state]'s. *)
-module Snapshot = struct
-  let packages_repr =
-    Opam_repr.map ~empty:Name.Map.empty ~add:Name.Map.add
-      ~bindings:Name.Map.bindings Opam_repr.name
-      (Opam_repr.map ~empty:Version.Map.empty ~add:Version.Map.add
-         ~bindings:Version.Map.bindings Opam_repr.version Info.t)
-
-  type t = {
-    version : string;
-    opam_repository_commit : string option;
-    packages : (Info.t Version.Map.t Name.Map.t[@repr packages_repr]);
-    stats : Statistics.t option;
-  }
-  [@@deriving repr]
-end
 
 let mockup_state (pkgs : t list) =
   let map = Name.Map.empty in
@@ -72,57 +52,7 @@ let mockup_state (pkgs : t list) =
     search_index = None;
   }
 
-let read_versions package_name versions =
-  List.fold_left
-    (fun acc package_version ->
-      match OpamPackage.of_string_opt package_version with
-      | Some pkg -> (
-          match Opam_repository.opam_file package_name package_version with
-          | Ok opam -> Version.Map.add pkg.version opam acc
-          | Error reason ->
-              Logs.err (fun m ->
-                  m "Failed to read opam file for %S %s: %s" package_name
-                    package_version reason);
-              acc)
-      | None ->
-          Logs.err (fun m ->
-              m "Invalid package version %S for %S" package_version package_name);
-          acc)
-    Version.Map.empty versions
-
-let read_packages () =
-  let open Lwt.Syntax in
-  let t0 = Unix.gettimeofday () in
-  let packages_and_versions = Opam_repository.list_packages_and_versions () in
-  let t1 = Unix.gettimeofday () in
-  Logs.info (fun log -> log "List packages: %.2fs" (t1 -. t0));
-  let+ result =
-    Lwt_list.fold_left_s
-      (fun acc (package_name, versions) ->
-        match Name.of_string package_name with
-        | exception ex ->
-            Logs.err (fun m ->
-                m "Invalid package name %S: %s" package_name
-                  (Printexc.to_string ex));
-            Lwt.return acc
-        | name ->
-            (* Reading is synchronous, so yield between packages. *)
-            let+ () = Lwt.pause () in
-            let versions = read_versions package_name versions in
-            (* A name with no readable version would have no entry in the
-               package index, and no latest version for the statistics. *)
-            if Version.Map.is_empty versions then (
-              Logs.err (fun m ->
-                  m "No readable version of %S: skipping it" package_name);
-              acc)
-            else Name.Map.add name versions acc)
-      Name.Map.empty packages_and_versions
-  in
-  let t2 = Unix.gettimeofday () in
-  Logs.info (fun log -> log "Read opam files: %.2fs" (t2 -. t1));
-  result
-
-let to_snapshot t : Snapshot.t =
+let to_snapshot t : Package_state.t =
   {
     version = t.version;
     opam_repository_commit = t.opam_repository_commit;
@@ -132,7 +62,7 @@ let to_snapshot t : Snapshot.t =
 
 (* [docs] and [search_index] are not persisted; they are runtime caches, rebuilt
    empty here. *)
-let of_snapshot (v : Snapshot.t) =
+let of_snapshot (v : Package_state.t) =
   {
     version = v.version;
     opam_repository_commit = v.opam_repository_commit;
@@ -142,52 +72,11 @@ let of_snapshot (v : Snapshot.t) =
     search_index = None;
   }
 
-let load_state_from state_path =
-  let exception Invalid_version in
-  Logs.info (fun m -> m "State cache file: %s" (Fpath.to_string state_path));
-  try
-    let channel = open_in_bin (Fpath.to_string state_path) in
-    Fun.protect
-      (fun () ->
-        let s = really_input_string channel (in_channel_length channel) in
-        let v =
-          match Repr.(unstage (of_bin_string Snapshot.t)) s with
-          | Ok v -> v
-          | Error (`Msg _) -> raise Invalid_version
-        in
-        if Info.version <> v.Snapshot.version then raise Invalid_version;
-        Logs.info (fun f ->
-            f "Package state loaded (%d packages, opam commit %s)"
-              (Name.Map.cardinal v.Snapshot.packages)
-              (Option.value ~default:"" v.Snapshot.opam_repository_commit));
-        of_snapshot v)
-      ~finally:(fun () -> close_in channel)
-  with Failure _ | Sys_error _ | Invalid_version | End_of_file ->
-    Logs.info (fun f -> f "Package state starting from scratch");
-    {
-      opam_repository_commit = None;
-      version = Info.version;
-      packages = Name.Map.empty;
-      stats = None;
-      docs = Documentation.doc_cache_create ();
-      search_index = None;
-    }
-
-let try_load_state () = load_state_from Config.package_state_path
-
-(* Write in place, not to a temporary file renamed over [state_path]: in the
-   Docker image, [state_path] is [/var/package.state], owned by the server's
-   user in a directory it can't write to, and [init-cache] waits for the
-   build-time state with [inotifywait -e close_write] on the file itself. An
-   interrupted write leaves a truncated file, which [load_state_from] reads as
-   an empty state. *)
-let write_snapshot state_path (snapshot : Snapshot.t) =
-  let content = Repr.(unstage (to_bin_string Snapshot.t)) snapshot in
-  Out_channel.with_open_bin (Fpath.to_string state_path) (fun channel ->
-      Out_channel.output_string channel content)
+let load_state_from state_path = of_snapshot (Package_state.load state_path)
+let try_load_state () = load_state_from Paths.package_state
 
 let save_state_to state_path t =
-  write_snapshot state_path (to_snapshot t);
+  Package_state.write state_path (to_snapshot t);
   Logs.info (fun f -> f "Package state saved")
 
 (* Serializing the state takes about 0.12s, which would stall every request on
@@ -199,11 +88,11 @@ let save_state_in_background_to state_path t =
   let open Lwt.Syntax in
   let snapshot = to_snapshot t in
   let+ () =
-    Lwt_preemptive.detach (fun () -> write_snapshot state_path snapshot) ()
+    Lwt_preemptive.detach (fun () -> Package_state.write state_path snapshot) ()
   in
   Logs.info (fun f -> f "Package state saved")
 
-let save_state t = save_state_in_background_to Config.package_state_path t
+let save_state t = save_state_in_background_to Paths.package_state t
 let has_flag flag (info : Info.t) = List.exists (( = ) flag) info.flags
 
 let is_discouraged info =
@@ -221,39 +110,15 @@ let get_latest' packages name =
       select_latest versions
       |> Option.map (fun (version, info) -> { version; info; name }))
 
-let time_it_lwt name f =
-  let open Lwt.Syntax in
-  let t0 = Unix.gettimeofday () in
-  let+ result = f () in
-  let t1 = Unix.gettimeofday () in
-  Logs.info (fun log -> log "%s: %.2fs" name (t1 -. t0));
-  result
-
 let update ~commit t =
   let open Lwt.Syntax in
-  Logs.info (fun m -> m "Opam repository is currently at %s" commit);
-  Logs.info (fun m -> m "Updating opam package list");
-  let* packages = time_it_lwt "Read packages" (fun () -> read_packages ()) in
-  let* timestamps =
-    time_it_lwt "Publication dates" (fun () ->
-        Publication_dates.compute
-          ~previous:(t.opam_repository_commit, t.packages)
-          ~commit packages)
-  in
-  let* packages =
-    time_it_lwt "Compute package info" (fun () ->
-        Info.of_opamfiles ~timestamps packages)
-  in
-  let+ stats =
-    time_it_lwt "Compute statistics" (fun () -> Statistics.compute packages)
-  in
+  let+ v = Package_state.rebuild ~previous:(to_snapshot t) ~commit in
   (* Record [commit] only once its data is in place: [maybe_update] skips the
      rebuild when the commit is unchanged, so setting it before a rebuild that
      then raises would leave stale packages that are never retried. *)
-  t.packages <- packages;
-  t.stats <- Some stats;
-  t.opam_repository_commit <- Some commit;
-  Logs.info (fun m -> m "Loaded %d packages" (Name.Map.cardinal packages))
+  t.packages <- v.packages;
+  t.stats <- v.stats;
+  t.opam_repository_commit <- v.opam_repository_commit
 
 let maybe_update t commit =
   let open Lwt.Syntax in
