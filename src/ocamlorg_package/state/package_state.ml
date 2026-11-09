@@ -135,13 +135,20 @@ let load state_path =
     Logs.info (fun f -> f "Package state starting from scratch");
     empty
 
-(* Write in place, not to a temporary file renamed over [state_path]: in the
-   Docker image, [state_path] is [/var/package.state], owned by the server's
-   user in a directory it can't write to, and [init-cache] waits for the
-   build-time state with [inotifywait -e close_write] on the file itself. An
-   interrupted write leaves a truncated file, which [load] reads as an empty
-   state. *)
+(* Write to a temporary file in the same directory, then rename it over
+   [state_path], so a reader never sees a half-written state: an interrupted
+   write leaves only the temporary file behind. The directory must be writable
+   by whoever writes the state. *)
 let write state_path v =
   let content = Repr.(unstage (to_bin_string t)) v in
-  Out_channel.with_open_bin (Fpath.to_string state_path) (fun channel ->
-      Out_channel.output_string channel content)
+  let path = Fpath.to_string state_path in
+  let tmp = path ^ ".tmp" in
+  match
+    Out_channel.with_open_bin tmp (fun channel ->
+        Out_channel.output_string channel content);
+    Sys.rename tmp path
+  with
+  | () -> ()
+  | exception e ->
+      (try Sys.remove tmp with Sys_error _ -> ());
+      raise e

@@ -209,6 +209,8 @@ At startup the server parses the opam files in that clone and computes the deriv
 
 Parsing and computing this for the whole repository is expensive, so the result is serialised to the cache file at `OCAMLORG_PKG_STATE_PATH` (`package.state`). On the next start the server loads that cache instead of re-parsing. The cache is stamped with an internal version number and is rebuilt automatically whenever the opam-repository clone advances past the commit it was built from, or when that version number changes.
 
+The same rebuild is available as a one-shot command, `ocamlorg-package-builder STATE_PATH` (in `src/ocamlorg_package/builder/`): it brings the clone at `OCAMLORG_REPO_PATH` up to date, cloning it if it is missing, rebuilds the state saved at `STATE_PATH` if the clone has moved, writes it, and exits with a non-zero status on failure. The `Dockerfile` uses it to build the state shipped in the image. It links only the `ocamlorg_package_state` library, not the web server.
+
 The only package artefacts that come from elsewhere are the rendered documentation pages, which are fetched from an external server — see [External Services](#external-services) below.
 
 ### External Services
@@ -343,7 +345,7 @@ The following snippet describes the repository structure:
 │   │   All of the front-end code primarily using .eml files (OCaml + HTML).
 │   │
 │   ├── ocamlorg_package
-│   │   Reads the local opam-repository clone and computes package metadata (stats, dependencies, rev deps), cached to `package.state`. No packages are built or installed.
+│   │   Package data for the web layer: the package state (`state/`, which reads the local opam-repository clone and computes package metadata such as stats, dependencies and rev deps, cached to `package.state`), the `ocamlorg-package-builder` command that rebuilds it (`builder/`), and documentation lookups (`lib/`). No packages are built or installed.
 │   │
 │   ├── ocamlorg_static
 │   │   Static file serving.
