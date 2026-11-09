@@ -53,12 +53,17 @@ You're now ready to hack with UTop! If you hit any issue with the toplevel, don'
 
 If you want to use a library from a package installed in the current opam switch in UTop, enter
 
+<!-- Placeholder, not a real library name. -->
+<!-- $MDX skip -->
 ```ocaml
 # #require "<LIBRARY_NAME>";;
 ```
 
 into the toplevel to make all definitions from the library available. For example, try
 
+<!-- Depends on the libraries installed in the switch, and since OCaml 5.0 the
+     toplevel finds Str on its own (with an alert) before any #require. -->
+<!-- $MDX skip -->
 ```ocaml
 # Str.quote {|"hello"|};;
 Error: Unbound module Str
