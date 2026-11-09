@@ -111,29 +111,34 @@ let rebuild ~previous ~commit =
     stats = Some stats;
   }
 
+let read state_path =
+  match
+    In_channel.with_open_bin (Fpath.to_string state_path) In_channel.input_all
+  with
+  | exception Sys_error e -> Error e
+  | s -> (
+      match Repr.(unstage (of_bin_string t)) s with
+      | exception (Failure _ | End_of_file | Invalid_argument _) ->
+          Error "unreadable state"
+      | Error (`Msg e) -> Error e
+      | Ok v when v.version <> Info.version ->
+          Error
+            (Printf.sprintf "state version %S, expected %S" v.version
+               Info.version)
+      | Ok v -> Ok v)
+
 let load state_path =
-  let exception Invalid_version in
   Logs.info (fun m -> m "State cache file: %s" (Fpath.to_string state_path));
-  try
-    let channel = open_in_bin (Fpath.to_string state_path) in
-    Fun.protect
-      (fun () ->
-        let s = really_input_string channel (in_channel_length channel) in
-        let v =
-          match Repr.(unstage (of_bin_string t)) s with
-          | Ok v -> v
-          | Error (`Msg _) -> raise Invalid_version
-        in
-        if Info.version <> v.version then raise Invalid_version;
-        Logs.info (fun f ->
-            f "Package state loaded (%d packages, opam commit %s)"
-              (Name.Map.cardinal v.packages)
-              (Option.value ~default:"" v.opam_repository_commit));
-        v)
-      ~finally:(fun () -> close_in channel)
-  with Failure _ | Sys_error _ | Invalid_version | End_of_file ->
-    Logs.info (fun f -> f "Package state starting from scratch");
-    empty
+  match read state_path with
+  | Ok v ->
+      Logs.info (fun f ->
+          f "Package state loaded (%d packages, opam commit %s)"
+            (Name.Map.cardinal v.packages)
+            (Option.value ~default:"" v.opam_repository_commit));
+      v
+  | Error e ->
+      Logs.info (fun f -> f "Package state starting from scratch (%s)" e);
+      empty
 
 (* Write to a temporary file in the same directory, then rename it over
    [state_path], so a reader never sees a half-written state: an interrupted

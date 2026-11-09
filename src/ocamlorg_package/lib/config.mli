@@ -33,3 +33,16 @@ val doc_fetch_timeout : float
 (** Wall-clock budget (seconds) for a single fetch from the documentation
     backend, so a stalled backend can't hang a request indefinitely. Overridable
     via [OCAMLORG_DOC_FETCH_TIMEOUT]. *)
+
+val package_builder : string
+(** The package-state builder the server runs at every poll:
+    [OCAMLORG_PACKAGE_BUILDER], by default [ocamlorg-package-builder], looked up
+    on [PATH]. *)
+
+val package_builder_nice : int
+(** Niceness the builder runs at: [OCAMLORG_PACKAGE_BUILDER_NICE], by default
+    19. *)
+
+val package_builder_timeout : float
+(** Seconds after which a running builder is killed:
+    [OCAMLORG_PACKAGE_BUILDER_TIMEOUT], by default 1800. *)

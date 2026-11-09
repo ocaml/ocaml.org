@@ -47,11 +47,11 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     gmp \
     libev
 
-# The server runs as an unprivileged user. It only writes to the package state
-# and to the opam-repository clone it pulls from (see Ocamlorg_package.init), so
-# only those belong to it; everything else stays owned by root. The state is
-# replaced by renaming a new file over it, so the directory holding it belongs
-# to that user too.
+# The server runs as an unprivileged user. The package-state builder it runs at
+# every poll (see Ocamlorg_package.init) only writes to the package state and to
+# the opam-repository clone it pulls from, so only those belong to that user;
+# everything else stays owned by root. The state is replaced by renaming a new
+# file over it, so the directory holding it belongs to that user too.
 RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg \
     && install -d -o ocamlorg -g ocamlorg /var/lib/ocamlorg
 

@@ -79,20 +79,6 @@ let save_state_to state_path t =
   Package_state.write state_path (to_snapshot t);
   Logs.info (fun f -> f "Package state saved")
 
-(* Serializing the state takes about 0.12s, which would stall every request on
-   the event loop. The snapshot is immutable, so it is taken here, then
-   serialized and written in a system thread. Not in a domain: once a domain has
-   been spawned, OCaml 5 refuses [Unix.fork] for the rest of the process, and
-   every Git call goes through [Lwt_process], which forks. *)
-let save_state_in_background_to state_path t =
-  let open Lwt.Syntax in
-  let snapshot = to_snapshot t in
-  let+ () =
-    Lwt_preemptive.detach (fun () -> Package_state.write state_path snapshot) ()
-  in
-  Logs.info (fun f -> f "Package state saved")
-
-let save_state t = save_state_in_background_to Paths.package_state t
 let has_flag flag (info : Info.t) = List.exists (( = ) flag) info.flags
 
 let is_discouraged info =
@@ -110,64 +96,116 @@ let get_latest' packages name =
       select_latest versions
       |> Option.map (fun (version, info) -> { version; info; name }))
 
-let update ~commit t =
-  let open Lwt.Syntax in
-  let+ v = Package_state.rebuild ~previous:(to_snapshot t) ~commit in
-  (* Record [commit] only once its data is in place: [maybe_update] skips the
-     rebuild when the commit is unchanged, so setting it before a rebuild that
-     then raises would leave stale packages that are never retried. *)
-  t.packages <- v.packages;
-  t.stats <- v.stats;
-  t.opam_repository_commit <- v.opam_repository_commit
+(* The state file's identity: the builder renames each new version over it, so a
+   new inode means a new version. *)
+let file_id path =
+  match Unix.stat (Fpath.to_string path) with
+  | st -> Some (st.Unix.st_dev, st.Unix.st_ino)
+  | exception Unix.Unix_error _ -> None
 
-let maybe_update t commit =
-  let open Lwt.Syntax in
-  match t.opam_repository_commit with
-  | Some v when v = commit -> Lwt.return ()
-  | _ ->
-      Logs.info (fun m -> m "Update server state");
-      let* () = update ~commit t in
-      save_state t
+(* Swap in the version of the state the builder wrote. A version that can't be
+   read is skipped, and the current state kept. Reading takes about 0.17s on the
+   event loop. *)
+let reload t path =
+  let t0 = Unix.gettimeofday () in
+  match Package_state.read path with
+  | Ok v ->
+      t.packages <- v.packages;
+      t.stats <- v.stats;
+      t.opam_repository_commit <- v.opam_repository_commit;
+      Logs.info (fun m ->
+          m "Reload package state: %.2fs" (Unix.gettimeofday () -. t0));
+      Logs.info (fun m ->
+          m "Package state reloaded (%d packages, opam commit %s)"
+            (Name.Map.cardinal v.packages)
+            (Option.value ~default:"" v.opam_repository_commit))
+  | Error e -> Logs.err (fun m -> m "Package state reload failed: %s" e)
 
-(* Bring the opam-repository clone up to date (cloning it if it is missing) and
-   rebuild the package state if needed. Never raises: a failure is logged and
-   the next poll retries, cloning again if the first clone failed. *)
-let sync v =
+(* OCaml numbers signals its own way (negative numbers): name the likely
+   ones. *)
+let pp_signal f n =
+  let names =
+    [
+      (Sys.sigkill, "SIGKILL");
+      (Sys.sigterm, "SIGTERM");
+      (Sys.sigsegv, "SIGSEGV");
+      (Sys.sigabrt, "SIGABRT");
+      (Sys.sigint, "SIGINT");
+    ]
+  in
+  match List.assoc_opt n names with
+  | Some name -> Fmt.string f name
+  | None -> Fmt.pf f "signal %d" n
+
+let pp_status f = function
+  | Unix.WEXITED n -> Fmt.pf f "exited with status %d" n
+  | Unix.WSIGNALED n when n = Sys.sigkill ->
+      Fmt.pf f "was killed by SIGKILL (after %.0fs, or out of memory)"
+        Config.package_builder_timeout
+  | Unix.WSIGNALED n -> Fmt.pf f "was killed by %a" pp_signal n
+  | Unix.WSTOPPED n -> Fmt.pf f "was stopped by %a" pp_signal n
+
+(* Run the package-state builder, which pulls opam-repository, rebuilds the
+   state and writes it, then load the new version if there is one. The server
+   itself never touches the clone nor computes the state. A failed, crashed or
+   timed-out builder leaves the current state in place, and the next poll tries
+   again. Never raises.
+
+   [Lwt_process] forks: this relies on the server never spawning a domain, after
+   which OCaml 5 refuses [Unix.fork]. *)
+let refresh t ~loaded =
   let open Lwt.Syntax in
-  Lwt.catch
-    (fun () ->
-      let* commit =
-        if Opam_repository.exists () then (
-          Logs.info (fun m -> m "Opam repo: git pull");
-          Opam_repository.pull ())
-        else (
-          Logs.info (fun m -> m "Opam repo: git clone");
-          Opam_repository.clone ())
-      in
-      maybe_update v commit)
-    (fun exn ->
+  let path = Paths.package_state in
+  let builder = Config.package_builder in
+  let cmd =
+    ( "",
+      [|
+        builder;
+        "--nice";
+        string_of_int Config.package_builder_nice;
+        Fpath.to_string path;
+      |] )
+  in
+  let+ status =
+    Lwt.catch
+      (fun () ->
+        Lwt.map Result.ok
+          (Lwt_process.exec ~timeout:Config.package_builder_timeout
+             ~stdin:`Close ~stdout:`Keep ~stderr:`Keep cmd))
+      (fun e -> Lwt.return (Error e))
+  in
+  match status with
+  | Ok (Unix.WEXITED 0) ->
+      let id = file_id path in
+      if id <> None && id <> !loaded then (
+        loaded := id;
+        reload t path)
+  | Ok status ->
       Logs.err (fun m ->
-          m "Failed to update the opam package list: %s"
-            (Printexc.to_string exn));
-      Lwt.return ())
+          m "Package state builder %s %a: keeping the current state" builder
+            pp_status status)
+  | Error e ->
+      Logs.err (fun m ->
+          m "Package state builder %s failed to run: %s" builder
+            (Printexc.to_string e))
 
-let rec poll_for_opam_packages ~polling v =
+let rec poll t ~loaded =
   let open Lwt.Syntax in
-  let* () = Lwt_unix.sleep (float_of_int polling) in
-  let* () = sync v in
-  poll_for_opam_packages ~polling v
+  let* () = Lwt_unix.sleep (float_of_int Config.opam_polling) in
+  let* () = refresh t ~loaded in
+  poll t ~loaded
 
-(* The first sync must not raise either: an exception escaping [Lwt.async]
+(* The first refresh must not raise either: an exception escaping [Lwt.async]
    reaches [Lwt.async_exception_hook], which exits the process until Dream
    replaces it on the first request, and would in any case kill this task before
    polling starts. *)
 let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
+  let loaded = ref (file_id Paths.package_state) in
   let state = try_load_state () in
   Lwt.async (fun () ->
-      let* () = sync state in
-      if disable_polling then Lwt.return_unit
-      else poll_for_opam_packages ~polling:Config.opam_polling state);
+      let* () = refresh state ~loaded in
+      if disable_polling then Lwt.return_unit else poll state ~loaded);
   state
 
 let all_latest t =

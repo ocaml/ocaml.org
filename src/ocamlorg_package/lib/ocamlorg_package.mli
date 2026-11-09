@@ -197,11 +197,6 @@ val save_state_to : Fpath.t -> state -> unit
     field except the runtime [docs] cache) to [path]. Exposed for testing; the
     production path is {!Ocamlorg_package_state.Paths.package_state}. *)
 
-val save_state_in_background_to : Fpath.t -> state -> unit Lwt.t
-(** Like {!save_state_to}, but serializes and writes in a system thread so that
-    the event loop keeps serving requests. This is what the server uses after
-    each rebuild. Exposed for testing. *)
-
 val load_state_from : Fpath.t -> state
 (** [load_state_from path] reads a state previously written by {!save_state_to},
     rebuilding an empty [docs] cache. A decode failure or a [version] mismatch
@@ -220,8 +215,12 @@ val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** This is added to enable demo test package to use Package.t with abstraction *)
 
 val init : ?disable_polling:bool -> unit -> state
-(** [init ()] initialises the opam-repository state. By default
-    [disable_polling] is set to [false], but can be disabled for tests. *)
+(** [init ()] loads the package state saved at
+    {!Ocamlorg_package_state.Paths.package_state}, then runs the package-state
+    builder ([OCAMLORG_PACKAGE_BUILDER]) at once and every
+    [OCAMLORG_OPAM_POLLING] seconds, and loads each new version of the state it
+    writes. The server never pulls opam-repository nor rebuilds the state
+    itself. With [~disable_polling:true], the builder runs only once. *)
 
 val all_latest : state -> t list
 (** Get the list of the latest version of every opam packages. The name and

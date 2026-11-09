@@ -20,6 +20,10 @@ val rebuild : previous:t -> commit:string -> t Lwt.t
     publication dates be read incrementally (see {!Publication_dates.compute}).
     It yields regularly, but each step still runs on the event loop. *)
 
+val read : Fpath.t -> (t, string) result
+(** [read path] reads the state saved at [path], or says why it could not: the
+    file is missing or unreadable, or was saved with another {!Info.version}. *)
+
 val load : Fpath.t -> t
 (** [load path] reads the state saved at [path]. A missing or unreadable file,
     or one saved with another {!Info.version}, gives {!empty}. *)

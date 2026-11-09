@@ -185,7 +185,10 @@ Tuning knobs, rarely changed in development:
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
 | `OCAMLORG_V2_PATH` | `data/v2` | Path to v2 data files |
-| `OCAMLORG_OPAM_POLLING` | `3600` | Opam repository polling interval in seconds |
+| `OCAMLORG_OPAM_POLLING` | `3600` | Interval in seconds between runs of the package-state builder |
+| `OCAMLORG_PACKAGE_BUILDER` | `ocamlorg-package-builder` | Package-state builder the server runs, looked up on `PATH` |
+| `OCAMLORG_PACKAGE_BUILDER_NICE` | `19` | Niceness the builder runs at |
+| `OCAMLORG_PACKAGE_BUILDER_TIMEOUT` | `1800` | Seconds after which a running builder is killed |
 | `OCAMLORG_PACKAGE_CACHES_TTL` | `3600` | Package cache time-to-live in seconds |
 | `OCAMLORG_DOC_CACHE_MAX` | `1000` | Maximum entries in each documentation cache |
 | `OCAMLORG_DOC_CACHE_MAX_BYTES` | `134217728` (128 MB) | Byte budget for each documentation cache |
@@ -205,11 +208,13 @@ Tuning knobs, rarely changed in development:
 
 The server does not build an opam switch for the packages it displays, and it never runs `opam install` or compiles any package. All package information comes from a local git clone of [opam-repository](https://github.com/ocaml/opam-repository) at `OCAMLORG_REPO_PATH`, kept current by a periodic `git pull` (interval `OCAMLORG_OPAM_POLLING`).
 
-At startup the server parses the opam files in that clone and computes the derived metadata — synopsis, authors, licence, dependencies, reverse dependencies, publication dates — entirely in memory. Reverse dependencies, for instance, come from inverting the parsed dependency graph, not from querying opam.
+A separate command, `ocamlorg-package-builder`, parses the opam files in that clone and computes the derived metadata — synopsis, authors, licence, dependencies, reverse dependencies, publication dates — entirely in memory. Reverse dependencies, for instance, come from inverting the parsed dependency graph, not from querying opam.
 
-Parsing and computing this for the whole repository is expensive, so the result is serialised to the cache file at `OCAMLORG_PKG_STATE_PATH` (`package.state`). On the next start the server loads that cache instead of re-parsing. The cache is stamped with an internal version number and is rebuilt automatically whenever the opam-repository clone advances past the commit it was built from, or when that version number changes.
+The result is serialised to the state file at `OCAMLORG_PKG_STATE_PATH` (`package.state`). The file is stamped with an internal version number; a file with another version is rebuilt from scratch.
 
-The same rebuild is available as a one-shot command, `ocamlorg-package-builder STATE_PATH` (in `src/ocamlorg_package/builder/`): it brings the clone at `OCAMLORG_REPO_PATH` up to date, cloning it if it is missing, rebuilds the state saved at `STATE_PATH` if the clone has moved, writes it, and exits with a non-zero status on failure. The `Dockerfile` uses it to build the state shipped in the image. It links only the `ocamlorg_package_state` library, not the web server.
+`ocamlorg-package-builder STATE_PATH` (in `src/ocamlorg_package/builder/`) is one-shot: it brings the clone at `OCAMLORG_REPO_PATH` up to date, cloning it if it is missing, rebuilds the state saved at `STATE_PATH` if the clone has moved (re-reading only what changed where it can), writes it by renaming a new file over it, and exits with a non-zero status on failure. It links only the `ocamlorg_package_state` library, not the web server. The `Dockerfile` uses it to build the state shipped in the image.
+
+The server never pulls opam-repository nor computes the state. At startup it loads the state file, then runs the builder (`OCAMLORG_PACKAGE_BUILDER`, at niceness `OCAMLORG_PACKAGE_BUILDER_NICE`) at once and every `OCAMLORG_OPAM_POLLING` seconds, one run at a time, and loads each new version of the file. If the builder fails, crashes or exceeds `OCAMLORG_PACKAGE_BUILDER_TIMEOUT`, the server keeps the state it has and tries again at the next poll.
 
 The only package artefacts that come from elsewhere are the rendered documentation pages, which are fetched from an external server — see [External Services](#external-services) below.
 
