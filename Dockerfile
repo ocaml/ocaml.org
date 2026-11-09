@@ -34,11 +34,14 @@ RUN OPAMSOLVERTIMEOUT=300 opam install . --deps-only
 COPY --chown=opam . .
 RUN opam exec -- dune build @install --profile=release
 
-# Build the package state, from the opam-repository clone brought up to date.
-# The builder exits with a non-zero status if it fails, which fails the build.
+# Build the package state, from the opam-repository clone brought up to date,
+# and download the doc-modules index next to it (#3982), so that the server
+# never starts without module data. The builder exits with a non-zero status
+# if either fails, which fails the build.
 RUN cd ~/opam-repository && git checkout master && git pull origin master && opam update
 RUN OCAMLORG_REPO_PATH=opam-repository \
-    ./_build/default/src/ocamlorg_package/builder/main.exe package.state
+    ./_build/default/src/ocamlorg_package/builder/main.exe \
+      --require-doc-modules package.state
 
 FROM alpine:3.24
 
@@ -48,14 +51,17 @@ RUN apk -U upgrade --no-cache && apk add --no-cache \
     libev
 
 # The server runs as an unprivileged user. The package-state builder it runs at
-# every poll (see Ocamlorg_package.init) only writes to the package state and to
-# the opam-repository clone it pulls from, so only those belong to that user;
-# everything else stays owned by root. The state is replaced by renaming a new
-# file over it, so the directory holding it belongs to that user too.
+# every poll (see Ocamlorg_package.init) only writes to the package state, the
+# doc-modules index next to it, and the opam-repository clone it pulls from,
+# so only those belong to that user; everything else stays owned by root. The
+# state and the index are replaced by renaming new files over them, so the
+# directory holding them belongs to that user too.
 RUN adduser -D -u 1000 -h /home/ocamlorg -s /sbin/nologin ocamlorg \
     && install -d -o ocamlorg -g ocamlorg /var/lib/ocamlorg
 
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/lib/ocamlorg/package.state
+# The index and, if the server sent one, its ETag file.
+COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/doc-modules.idx* /var/lib/ocamlorg/
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam-repository
 # Without --chown, COPY --from keeps the build stage's owner (opam, uid 1000),
 # which is also the uid given to ocamlorg above.
@@ -72,6 +78,7 @@ ENV DREAM_VERBOSITY=info \
     OCAMLORG_MANUAL_PATH=/manual \
     OCAMLORG_MCP_ENABLED=true \
     OCAMLORG_PKG_STATE_PATH=/var/lib/ocamlorg/package.state \
+    OCAMLORG_DOC_MODULES_PATH=/var/lib/ocamlorg/doc-modules.idx \
     OCAMLORG_REPO_PATH=/var/opam-repository/ \
     OCAMLORG_V2_PATH=/v2
 

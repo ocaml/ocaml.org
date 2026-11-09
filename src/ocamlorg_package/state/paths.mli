@@ -7,3 +7,8 @@ val opam_repository : Fpath.t
 val package_state : Fpath.t
 (** The package state file: [OCAMLORG_PKG_STATE_PATH], by default
     [~/.cache/ocamlorg/package.state]. *)
+
+val doc_modules : Fpath.t
+(** The doc-modules index (#3982), downloaded by the builder and mapped by the
+    server: [OCAMLORG_DOC_MODULES_PATH], by default [doc-modules.idx] next to
+    {!package_state}. *)
