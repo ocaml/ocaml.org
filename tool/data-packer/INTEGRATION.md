@@ -52,6 +52,7 @@ tool/data-packer/
 ## Type Safety
 
 - Types are defined in `Data_intf` (shared with the rest of the codebase)
-- Packer uses `ppx_import` to ensure type compatibility
+- Packer types are aliases of the `Data_intf` ones (`ppx_import` copies a
+  definition only where a decoder deriver needs it; see `DESIGN.md`)
 - bin_prot provides deterministic serialization
 - Type mismatches are caught at deserialize time

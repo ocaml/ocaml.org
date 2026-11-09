@@ -6,15 +6,9 @@ type entry = Data_intf.Planet.entry =
   | BlogPost of Data_intf.Blog.post
   | Video of Data_intf.Video.t
 
-let pp_entry fmt = function
-  | BlogPost p -> Format.fprintf fmt "BlogPost (%s)" p.title
-  | Video v -> Format.fprintf fmt "Video (%s)" v.title
-
-let show_entry e = Format.asprintf "%a" pp_entry e
-
 let date_of_entry = function
-  | BlogPost { date; _ } -> date
-  | Video { published; _ } -> published
+  | BlogPost { Data_intf.Blog.date; _ } -> date
+  | Video { Data_intf.Video.published; _ } -> published
 
 let all () : entry list =
   let external_posts =

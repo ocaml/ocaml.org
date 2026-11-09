@@ -1,11 +1,11 @@
 (* Tutorial parser - adapted from ood-gen/lib/tutorial.ml *)
 
 open Import
+open Data_intf.Tutorial
 
 type section = Data_intf.Tutorial.section
 
-let section_of_string : string -> (section, [> `Msg of string ]) result =
-  function
+let section_of_string = function
   | "getting-started" -> Ok GetStarted
   | "language" -> Ok Language
   | "platform" -> Ok Platform
@@ -80,9 +80,9 @@ let of_metadata ~fpath ~section ~toc ~body_md ~body_html
 exception Missing_Tutorial of string
 
 let check_tutorial_references all =
-  let all_slugs = List.map (fun (t : t) -> t.slug) all in
+  let all_slugs = List.map (fun t -> t.slug) all in
   let tut_is_missing slug = not @@ List.mem slug all_slugs in
-  let missing_tut_msg (t : t) missing =
+  let missing_tut_msg t missing =
     "The following recommended next tutorial(s) in " ^ t.fpath
     ^ " were not found: [" ^ String.concat "; " missing ^ "]"
   in
@@ -98,7 +98,7 @@ let check_tutorial_references all =
 
 let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
 
-and toc_f { Markdown.Toc.title; href; children } : toc =
+and toc_f { Markdown.Toc.title; href; children } =
   { title; href; children = toc_toc children }
 
 let decode (fpath, (head, body_md)) =
@@ -121,8 +121,7 @@ let decode (fpath, (head, body_md)) =
 let all () =
   let all =
     Utils.map_md_files decode "tutorials/*/*.md"
-    |> Stdlib.List.sort (fun (t1 : t) (t2 : t) ->
-           String.compare t1.fpath t2.fpath)
+    |> Stdlib.List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)
   in
   check_tutorial_references all;
   all
@@ -137,7 +136,7 @@ module TutorialSearch = struct
       section =
         section
         |> Option.map (fun (s : Search.section) ->
-               { title = s.title; id = s.id });
+               { title = s.Search.title; id = s.Search.id });
       content = content |> List.map Search.block_to_string |> String.concat "\n";
       slug = metadata.id;
     }

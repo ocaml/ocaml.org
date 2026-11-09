@@ -1,6 +1,7 @@
 (* Is_ocaml_yet parser - adapted from ood-gen/lib/is_ocaml_yet.ml *)
 
 open Import
+open Data_intf.Is_ocaml_yet
 
 type external_package = [%import: Data_intf.Is_ocaml_yet.external_package]
 [@@deriving of_yaml]

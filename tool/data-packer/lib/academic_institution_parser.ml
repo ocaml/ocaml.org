@@ -2,6 +2,7 @@
    ood-gen/lib/academic_institution.ml *)
 
 open Import
+open Data_intf.Academic_institution
 
 (* Intermediate type for YAML parsing - last_check is string *)
 type course_metadata = {

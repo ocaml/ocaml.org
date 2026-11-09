@@ -1,6 +1,7 @@
 (* Blog parser - adapted from ood-gen/lib/blog.ml *)
 
 open Import
+open Data_intf.Blog
 
 type source = Data_intf.Blog.source
 type post = Data_intf.Blog.post

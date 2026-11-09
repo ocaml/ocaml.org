@@ -2,6 +2,7 @@
 
 open Cmdliner
 open Data_packer
+open Types.All_data
 
 let load_data () =
   (* Load data directly from source files *)

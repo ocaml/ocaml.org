@@ -1,6 +1,7 @@
 (* Success story parser - adapted from ood-gen/lib/success_story.ml *)
 
 open Import
+open Data_intf.Success_story
 
 type t = Data_intf.Success_story.t
 

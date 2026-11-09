@@ -1,11 +1,11 @@
 (* Exercise parser - adapted from ood-gen/lib/exercise.ml *)
 
 open Import
+open Data_intf.Exercise
 
 type difficulty = Data_intf.Exercise.difficulty
 
-let difficulty_of_string : string -> (difficulty, [> `Msg of string ]) result =
-  function
+let difficulty_of_string = function
   | "beginner" -> Ok Beginner
   | "intermediate" -> Ok Intermediate
   | "advanced" -> Ok Advanced

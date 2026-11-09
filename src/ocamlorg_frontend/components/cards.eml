@@ -27,13 +27,6 @@ let community_resource ~title ~desc ~online_url ~source_url ?(img="") () =
     </a>
   </div>
 
-let string_from_event_type = function
-  | Data.Event.Meetup -> "Meetup"
-  | Conference -> "Conference"
-  | Seminar -> "Seminar"
-  | Hackathon -> "Hackathon"
-  | Retreat -> "Retreat"
-
 let color_for_event_type = function
   | Data.Event.Meetup -> "bg-avatar-6"
   | Conference -> "bg-avatar-0"
@@ -128,7 +121,7 @@ module Event = struct
         </div>
       <div class="p-5">
         <div class="px-3 mb-2 inline-block <%s color_for_event_type event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
-          <%s string_from_event_type event.event_type %>
+          <%s Data.Event.string_of_event_type event.event_type %>
         </div>
         <p class="text-xl text-title dark:text-dark-title mb-4 truncate-2-lines">
           <%s event.title %></p>
@@ -164,7 +157,7 @@ module Event = struct
       </div>
     <div class="p-5">
       <div class="px-3 mb-2 inline-block <%s color_for_event_type recurring_event.event_type %> rounded-3xl font-mono text-sm text-center text-white">
-        <%s string_from_event_type recurring_event.event_type %>
+        <%s Data.Event.string_of_event_type recurring_event.event_type %>
       </div>
       <p class="font-bold text-lg text-title dark:text-dark-title mb-8">
         <%s recurring_event.title %>

@@ -1,12 +1,12 @@
 (* Governance parser - adapted from ood-gen/lib/governance.ml *)
 
 open Import
+open Data_intf.Governance
 
 type member = [%import: Data_intf.Governance.member] [@@deriving of_yaml]
 type contact_kind = Data_intf.Governance.contact_kind
 
-let contact_kind_of_yaml : _ -> (contact_kind, [> `Msg of string ]) result =
-  function
+let contact_kind_of_yaml = function
   | `String "github" -> Ok GitHub
   | `String "email" -> Ok Email
   | `String "discord" -> Ok Discord

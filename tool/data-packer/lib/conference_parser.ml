@@ -1,6 +1,7 @@
 (* Conference parser - adapted from ood-gen/lib/conference.ml *)
 
 open Import
+open Data_intf.Conference
 
 type role = Data_intf.Conference.role
 

@@ -1,11 +1,11 @@
 (* Event parser - adapted from ood-gen/lib/event.ml *)
 
 open Import
+open Data_intf.Event
 
 type event_type = Data_intf.Event.event_type
 
-let event_type_of_string : string -> (event_type, [> `Msg of string ]) result =
-  function
+let event_type_of_string = function
   | "meetup" -> Ok Meetup
   | "conference" -> Ok Conference
   | "seminar" -> Ok Seminar
@@ -16,13 +16,6 @@ let event_type_of_string : string -> (event_type, [> `Msg of string ]) result =
 let event_type_of_yaml = function
   | `String s -> event_type_of_string s
   | _ -> Error (`Msg "Expected a string for event type")
-
-let string_of_event_type : event_type -> string = function
-  | Meetup -> "Meetup"
-  | Conference -> "Conference"
-  | Seminar -> "Seminar"
-  | Hackathon -> "Hackathon"
-  | Retreat -> "Retreat"
 
 type location = [%import: Data_intf.Event.location] [@@deriving of_yaml]
 

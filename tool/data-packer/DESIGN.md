@@ -76,21 +76,26 @@ Single blob containing all data types, with a header for fast lookup:
 │ ...                                    │
 ```
 
-## Type Modifications
+## Types and Decoders
 
-Add `[@@deriving bin_io]` to types in `data_intf.ml`:
+The types themselves live in `src/ocamlorg_data/data_intf.ml`, with no
+derivers attached. The packer refers to them in two ways:
 
-```ocaml
-(* Before *)
-type t = { name : string; ... } [@@deriving show]
+- **Plain alias** (`type t = Data_intf.News.t`) by default, including
+  everywhere in `lib/types.ml`.
+- **`[%import]`** (`type link = [%import: Data_intf.Book.link]
+  [@@deriving of_yaml]`) only where a deriver (`of_yaml`, `of_yojson`) is
+  attached, because the deriver needs the type's structure at the definition
+  site. These live in the `*_parser.ml` that decodes the type.
 
-(* After *)
-type t = { name : string; ... } [@@deriving show, bin_io]
-```
+An alias does not bring constructors or record fields into scope, so a parser
+that builds or matches values of these types opens the matching module
+(`open Data_intf.Event`). Warning 40 (name-out-of-scope) is an error in
+`tool/data-packer` (see its `dune` file), so relying on type-directed
+disambiguation alone fails to build.
 
-Special handling needed for:
-- `Ptime.t` → custom bin_io (serialize as RFC3339 string or float)
-- Polymorphic variants → bin_io handles these
+The packed blob is a Marshal of `Types.All_data.t`, so no type needs a
+serialisation deriver.
 
 ## Assembly Wrapper
 

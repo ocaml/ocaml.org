@@ -1,6 +1,7 @@
 (* Release parser - adapted from ood-gen/lib/release.ml *)
 
 open Import
+open Data_intf.Release
 
 type kind = Data_intf.Release.kind
 

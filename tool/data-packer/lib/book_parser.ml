@@ -1,10 +1,13 @@
 (* Book parser - adapted from ood-gen/lib/book.ml *)
 
 open Import
-open Types.Book
+open Data_intf.Book
 
-let difficulty_of_string : string -> (difficulty, [> `Msg of string ]) result =
-  function
+type difficulty = Data_intf.Book.difficulty
+type link = [%import: Data_intf.Book.link] [@@deriving of_yaml]
+type t = Data_intf.Book.t
+
+let difficulty_of_string = function
   | "beginner" -> Ok Beginner
   | "intermediate" -> Ok Intermediate
   | "advanced" -> Ok Advanced

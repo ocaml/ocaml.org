@@ -1,6 +1,7 @@
 (* Tool page parser - adapted from ood-gen/lib/tool_page.ml *)
 
 open Import
+open Data_intf.Tool_page
 
 type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml]
 
@@ -34,7 +35,7 @@ let of_metadata ~fpath ~toc ~body_md ~body_html
 
 let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
 
-and toc_f { title; href; children } =
+and toc_f { Markdown.Toc.title; href; children } =
   { title; href; children = toc_toc children }
 
 let decode (fpath, (head, body_md)) =
@@ -50,4 +51,4 @@ let decode (fpath, (head, body_md)) =
 
 let all () =
   Utils.map_md_files decode "tool_pages/*/*.md"
-  |> List.sort (fun (t1 : t) (t2 : t) -> String.compare t1.fpath t2.fpath)
+  |> List.sort (fun t1 t2 -> String.compare t1.fpath t2.fpath)

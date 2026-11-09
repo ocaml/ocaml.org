@@ -1,6 +1,7 @@
 (* Industrial user parser - adapted from ood-gen/lib/industrial_user.ml *)
 
 open Import
+open Data_intf.Industrial_user
 
 type t = Data_intf.Industrial_user.t
 

@@ -1,6 +1,7 @@
 (* Tool parser - adapted from ood-gen/lib/tool.ml *)
 
 open Import
+open Data_intf.Tool
 
 type lifecycle = Data_intf.Tool.lifecycle
 

@@ -1,6 +1,7 @@
 (* News parser - adapted from ood-gen/lib/news.ml *)
 
 open Import
+open Data_intf.News
 
 type t = Data_intf.News.t
 
