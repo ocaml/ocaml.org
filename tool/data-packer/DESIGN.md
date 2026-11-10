@@ -17,7 +17,7 @@ Proposed: data/*.yaml,md  →  [packer]   →  data.bin       →  [as]      →
 
 The packer:
 1. Parses YAML/Markdown (same as ood-gen)
-2. Serializes to bin_prot format (fast)
+2. Serializes with `Marshal` (fast)
 3. Outputs a single binary blob
 
 The blob is embedded via `.incbin` assembly directive and deserialized at runtime.
@@ -29,7 +29,7 @@ The blob is embedded via `.incbin` assembly directive and deserialized at runtim
 │  tool/data-packer/                                                  │
 │                                                                     │
 │  ┌──────────────┐   ┌──────────────┐   ┌──────────────────────────┐ │
-│  │ data/*.yaml  │ → │ parse        │ → │ Bin_prot.Writer          │ │
+│  │ data/*.yaml  │ → │ parse        │ → │ Marshal.to_bytes         │ │
 │  │ data/*.md    │   │ (reuse ood-  │   │ → _build/data.bin        │ │
 │  │              │   │  gen logic)  │   │                          │ │
 │  └──────────────┘   └──────────────┘   └──────────────────────────┘ │
@@ -55,26 +55,14 @@ The blob is embedded via `.incbin` assembly directive and deserialized at runtim
 
 ## Binary Format
 
-Single blob containing all data types, with a header for fast lookup:
+`data.bin` is the output of `Marshal.to_bytes` on a single
+`Types.All_data.t` value (`lib/packer.ml`). It has no header and no
+per-section index: `src/ocamlorg_data/data.ml` unmarshals the whole value
+once, when the module loads, as a `Data_intf.All_data.t`.
 
-```text
-┌────────────────────────────────────────┐
-│ Header                                 │
-│   magic: "OODP" (4 bytes)              │
-│   version: uint32                      │
-│   num_sections: uint32                 │
-│   section_offsets: (name, offset, len) │
-└────────────────────────────────────────┘
-┌────────────────────────────────────────┐
-│ Section: testimonials                  │
-│   bin_prot encoded list                │
-└────────────────────────────────────────┘
-┌────────────────────────────────────────┐
-│ Section: books                         │
-│   bin_prot encoded list                │
-└────────────────────────────────────────┘
-│ ...                                    │
-```
+Marshal output is untyped and tied to the compiler that wrote it. That is
+acceptable here because the packer and the server are built by the same
+compiler in the same build, and `data.bin` is regenerated on every build.
 
 ## Types and Decoders
 
@@ -186,7 +174,8 @@ end
 
 ## Benchmark Results (Full Implementation)
 
-With the complete data set (all types from ood-gen):
+With the complete data set (all types from ood-gen), measured with the
+original bin_prot encoding; the current Marshal blob is about 18 MB:
 
 ```text
 === Data Sizes ===
@@ -243,7 +232,8 @@ Compare this to compiling 119 MiB of OCaml code, which takes minutes.
 ## Migration Path
 
 1. **Phase 1**: Prototype with one type (Testimonial)
-2. **Phase 2**: Add bin_io to all types in data_intf.ml
+2. **Phase 2**: Serialize all types (planned as bin_io on every type in
+   data_intf.ml; replaced by a single Marshal of `All_data.t`)
 3. **Phase 3**: Create full packer (reusing ood-gen parsing)
 4. **Phase 4**: Replace ood-gen rules in dune
 5. **Phase 5**: Remove ood-gen (optional, can keep for debugging)
