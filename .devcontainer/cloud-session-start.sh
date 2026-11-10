@@ -35,7 +35,7 @@ elif docker pull -q "$image:main" >/dev/null 2>&1 \
   ref=$image:main
   say "No image for this checkout's .devcontainer/Dockerfile and ocamlorg.opam (tag $tag); using $ref."
   say "Its dependencies may lag this branch: install the missing ones with"
-  say "  .devcontainer/run opam install --deps-only --with-test --with-doc ."
+  say "  .devcontainer/run opam install --deps-only --with-test ."
   say "(git pin-depends from other GitHub repositories can't be fetched in cloud sessions)."
 else
   say "Could not pull $image; OCaml builds won't work."
