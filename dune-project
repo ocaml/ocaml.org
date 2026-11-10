@@ -36,6 +36,7 @@
   (ocaml
    (>= 5.2.0))
   cohttp
+  cohttp-lwt
   cohttp-lwt-unix
   bos
   crunch
@@ -69,6 +70,7 @@
     (>= 1.10.0)))
   ; tools/data-packer
   ppx_deriving_yaml
+  yaml
   ppx_import
   ezjsonm
   markup

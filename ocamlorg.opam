@@ -21,6 +21,7 @@ depends: [
   "dune" {>= "3.15"}
   "ocaml" {>= "5.2.0"}
   "cohttp"
+  "cohttp-lwt"
   "cohttp-lwt-unix"
   "bos"
   "crunch"
@@ -43,6 +44,7 @@ depends: [
   "alcotest" {with-test}
   "mdx" {with-test & >= "1.10.0"}
   "ppx_deriving_yaml"
+  "yaml"
   "ppx_import"
   "ezjsonm"
   "markup"
