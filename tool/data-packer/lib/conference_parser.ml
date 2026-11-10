@@ -30,8 +30,8 @@ type presentation_metadata = {
   watch_ocamlorg_video : string option;
   youtube_video : string option;
   slides : string option;
-  poster : bool option;
-  additional_links : string list option;
+  poster : bool; [@default false]
+  additional_links : string list; [@default []]
 }
 [@@deriving of_yaml]
 
@@ -46,8 +46,8 @@ let presentation_of_yaml yaml =
       watch_ocamlorg_video = m.watch_ocamlorg_video;
       youtube_video = m.youtube_video;
       slides = m.slides;
-      poster = Option.value ~default:false m.poster;
-      additional_links = Option.value ~default:[] m.additional_links;
+      poster = m.poster;
+      additional_links = m.additional_links;
     }
 
 type t = [%import: Data_intf.Conference.t] [@@deriving show]

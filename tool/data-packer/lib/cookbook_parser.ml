@@ -21,8 +21,8 @@ type task_metadata = {
 
 type category_metadata = {
   title : string;
-  subcategories : category_metadata list option;
-  tasks : task_metadata list option;
+  subcategories : category_metadata list; [@default []]
+  tasks : task_metadata list; [@default []]
 }
 [@@deriving of_yaml]
 
@@ -98,7 +98,7 @@ let all_categories_and_tasks () =
       (meta_cat : category_metadata) : task list * category list =
     let cat_slug = Utils.slugify meta_cat.title in
     let cat_tasks =
-      meta_cat.tasks |> Option.value ~default:[]
+      meta_cat.tasks
       |> List.map (fun (t : task_metadata) : task ->
              {
                title = t.title;
@@ -110,8 +110,7 @@ let all_categories_and_tasks () =
     let subcategories_tasks, subcategories =
       List.fold_left
         (extract_tasks_from_category (cat_slug :: path))
-        ([], [])
-        (Option.value ~default:[] meta_cat.subcategories)
+        ([], []) meta_cat.subcategories
     in
     let category = { title = meta_cat.title; slug = cat_slug; subcategories } in
     (cat_tasks @ subcategories_tasks @ tasks, category :: categories)

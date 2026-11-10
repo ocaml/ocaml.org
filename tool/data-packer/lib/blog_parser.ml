@@ -10,8 +10,8 @@ module Source = struct
     id : string;
     name : string;
     url : string;
-    publish_all : bool option;
-    disabled : bool option;
+    publish_all : bool; [@default true]
+    disabled : bool; [@default false]
     repair : bool option; (* scrape-only; ignored when building site data *)
   }
   [@@deriving of_yaml]
@@ -34,8 +34,8 @@ module Source = struct
                  name;
                  url;
                  description = "";
-                 publish_all = Option.value ~default:true publish_all;
-                 disabled = Option.value ~default:false disabled;
+                 publish_all;
+                 disabled;
                }))
     in
     result
