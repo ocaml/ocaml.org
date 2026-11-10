@@ -62,5 +62,5 @@ RUN opam pin add -yn ocamlformat 0.26.2 && opam pin add -yn ocamlformat-lib 0.26
 # in the production Dockerfile: this image's solver needs about 55s on
 # OCaml.org's dependency graph, and timed out once in CI.
 COPY --chown=opam ocamlorg.opam /home/opam/deps/
-RUN OPAMSOLVERTIMEOUT=300 opam install -y --deps-only --with-test --with-doc /home/opam/deps/ \
+RUN OPAMSOLVERTIMEOUT=300 opam install -y --deps-only --with-test /home/opam/deps/ \
  && opam clean -a -c -s --logs

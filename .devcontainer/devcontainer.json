@@ -25,5 +25,5 @@
     },
     "containerUser": "opam",
     "forwardPorts": [8080],
-    "onCreateCommand": "opam install --deps-only --with-doc --with-test --yes ."
+    "onCreateCommand": "opam install --deps-only --with-test --yes ."
 }
