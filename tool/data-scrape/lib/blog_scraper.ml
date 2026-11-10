@@ -188,8 +188,11 @@ let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
 (* A feed that was downloaded but cannot be parsed fails the same way on every
    attempt, so retrying it only slows the scrape down. River lets such failures
    escape as [Not_found] (raised by Syndic on an empty text construct, see
-   #4000) or as this [Failure]. Anything else, network errors in particular, is
-   retried. *)
+   #4000) or as this [Failure] (also raised when a host serves a non-feed page,
+   such as a maintenance page, with status 200). These are the two seen so far:
+   Syndic can also fail with [Invalid_argument] on an unparsable date, or with
+   [Failure "int_of_string"], and those are still retried. Anything else,
+   network errors in particular, is retried. *)
 let is_parse_error = function
   | Not_found -> true
   | Failure msg -> msg = "Neither Atom nor RSS2 feed"
@@ -227,6 +230,7 @@ let scrape_source ~df ~ndocs ~dict ({ source; repair } : Source.resolved) :
     let message = Printexc.to_string e in
     print_endline (Printf.sprintf "failed to scrape %s: %s" source.id message);
     print_string backtrace;
+    flush stdout;
     [ Scrape_report.Error { source_id = source.id; message } ]
 
 let scrape () : Scrape_report.entry list =
