@@ -71,7 +71,6 @@
   ; tools/data-packer
   ppx_deriving_yaml
   ppx_import
-  ppx_stable
   ezjsonm
   markup
   ptime

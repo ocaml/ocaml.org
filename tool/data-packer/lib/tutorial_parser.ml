@@ -45,21 +45,38 @@ type metadata = {
   description : string;
   category : string;
   external_tutorial : external_tutorial option;
-  recommended_next_tutorials : recommended_next_tutorials option;
-  prerequisite_tutorials : prerequisite_tutorials option;
+  recommended_next_tutorials : recommended_next_tutorials; [@default []]
+  prerequisite_tutorials : prerequisite_tutorials; [@default []]
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t ~remove:[ id ]
-      ~modify:
-        [ recommended_next_tutorials; prerequisite_tutorials; short_title ]
-      ~add:[ slug; fpath; section; toc; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m =
-  metadata_to_t m ~slug:m.id
-    ~modify_recommended_next_tutorials:(function None -> [] | Some u -> u)
-    ~modify_prerequisite_tutorials:(function None -> [] | Some u -> u)
-    ~modify_short_title:(function None -> m.title | Some u -> u)
+let of_metadata ~fpath ~section ~toc ~body_md ~body_html
+    ({
+       id;
+       title;
+       short_title;
+       description;
+       category;
+       external_tutorial;
+       recommended_next_tutorials;
+       prerequisite_tutorials;
+     } :
+      metadata) : t =
+  {
+    title;
+    short_title = Option.value ~default:title short_title;
+    fpath;
+    slug = id;
+    description;
+    section;
+    category;
+    external_tutorial;
+    body_md;
+    toc;
+    body_html;
+    recommended_next_tutorials;
+    prerequisite_tutorials;
+  }
 
 exception Missing_Tutorial of string
 

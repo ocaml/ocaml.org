@@ -10,15 +10,13 @@ module Posts = struct
   type post_metadata = {
     title : string;
     tags : string list;
-    authors : string list option;
+    authors : string list; [@default []]
   }
-  [@@deriving
-    of_yaml,
-      stable_record ~version:post ~modify:[ authors ]
-        ~add:[ slug; body_html; excerpt; date ]]
+  [@@deriving of_yaml]
 
-  let of_post_metadata m =
-    post_metadata_to_post m ~modify_authors:(Option.value ~default:[])
+  let of_post_metadata ~slug ~body_html ~date ~excerpt
+      ({ title; tags; authors } : post_metadata) : post =
+    { title; slug; date; tags; body_html; excerpt; authors }
 
   let decode (fname, (head, body)) =
     let slug = Filename.basename (Filename.remove_extension fname) in

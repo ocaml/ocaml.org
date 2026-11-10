@@ -27,9 +27,40 @@ type metadata = {
   difficulty : difficulty;
   pricing : string;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m
+let of_metadata ~body_md ~body_html
+    ({
+       title;
+       slug;
+       description;
+       recommendation;
+       authors;
+       language;
+       published;
+       cover;
+       isbn;
+       links;
+       difficulty;
+       pricing;
+     } :
+      metadata) : t =
+  {
+    title;
+    slug;
+    description;
+    recommendation;
+    authors;
+    language;
+    published;
+    cover;
+    isbn;
+    links;
+    difficulty;
+    pricing;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body)) =
   let metadata =

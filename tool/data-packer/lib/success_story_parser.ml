@@ -15,9 +15,35 @@ type metadata = {
   why_ocaml_reasons : string list option;
   priority : int;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
+let of_metadata ~body_md ~body_html
+    ({
+       title;
+       logo;
+       card_logo;
+       background;
+       theme;
+       synopsis;
+       url;
+       why_ocaml_reasons;
+       priority;
+     } :
+      metadata) : t =
+  {
+    title;
+    slug = Utils.slugify title;
+    logo;
+    card_logo;
+    background;
+    theme;
+    synopsis;
+    url;
+    why_ocaml_reasons;
+    priority;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in

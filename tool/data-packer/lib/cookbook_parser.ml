@@ -21,19 +21,13 @@ type task_metadata = {
 
 type category_metadata = {
   title : string;
-  subcategories : category_metadata list option;
-  tasks : task_metadata list option;
+  subcategories : category_metadata list; [@default []]
+  tasks : task_metadata list; [@default []]
 }
 [@@deriving of_yaml]
 
-type metadata = { packages : package list; discussion : string option }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t
-      ~add:
-        [ slug; filepath; task; discussion_html; code_blocks; code_plaintext ]
-      ~remove:[ discussion ],
-    show]
+type metadata = { packages : package list; discussion : string [@default ""] }
+[@@deriving of_yaml, show]
 
 let render_markdown str =
   str |> String.trim
@@ -82,12 +76,16 @@ let decode (tasks : task list) (fpath, (head, body)) =
            { explanation; code })
   in
   Result.map
-    (fun (metadata : metadata) ->
-      let discussion_html =
-        metadata.discussion |> Option.value ~default:"" |> render_markdown
-      in
-      metadata_to_t ~slug ~filepath:fpath ~task ~discussion_html ~code_blocks
-        ~code_plaintext:body metadata)
+    (fun ({ packages; discussion } : metadata) : t ->
+      {
+        slug;
+        filepath = fpath;
+        task;
+        packages;
+        code_blocks;
+        code_plaintext = body;
+        discussion_html = render_markdown discussion;
+      })
     metadata
   |> Result.map_error (Utils.where fpath)
 
@@ -100,7 +98,7 @@ let all_categories_and_tasks () =
       (meta_cat : category_metadata) : task list * category list =
     let cat_slug = Utils.slugify meta_cat.title in
     let cat_tasks =
-      meta_cat.tasks |> Option.value ~default:[]
+      meta_cat.tasks
       |> List.map (fun (t : task_metadata) : task ->
              {
                title = t.title;
@@ -112,8 +110,7 @@ let all_categories_and_tasks () =
     let subcategories_tasks, subcategories =
       List.fold_left
         (extract_tasks_from_category (cat_slug :: path))
-        ([], [])
-        (Option.value ~default:[] meta_cat.subcategories)
+        ([], []) meta_cat.subcategories
     in
     let category = { title = meta_cat.title; slug = cat_slug; subcategories } in
     (cat_tasks @ subcategories_tasks @ tasks, category :: categories)

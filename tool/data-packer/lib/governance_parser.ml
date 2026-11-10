@@ -40,13 +40,25 @@ type team_metadata = {
   members : member list; [@default []]
   subteams : team_metadata list; [@default []]
 }
-[@@deriving of_yaml, stable_record ~version:Data_intf.Governance.team]
-
-let team_of_yaml yml =
-  yml |> team_metadata_of_yaml
-  |> Result.map team_metadata_to_Data_intf_Governance_team
+[@@deriving of_yaml]
 
 type team = [%import: Data_intf.Governance.team] [@@deriving show]
+
+let rec team_of_metadata
+    ({ id; name; description; contacts; dev_meeting; members; subteams } :
+      team_metadata) : team =
+  {
+    id;
+    name;
+    description;
+    contacts;
+    dev_meeting;
+    members;
+    subteams = List.map team_of_metadata subteams;
+  }
+
+let team_of_yaml yml =
+  yml |> team_metadata_of_yaml |> Result.map team_of_metadata
 
 type metadata = {
   teams : team list;

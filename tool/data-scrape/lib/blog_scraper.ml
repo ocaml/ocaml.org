@@ -22,9 +22,9 @@ module Source = struct
     id : string;
     name : string;
     url : string;
-    publish_all : bool option;
-    disabled : bool option;
-    repair : bool option;
+    publish_all : bool; [@default true]
+    disabled : bool; [@default false]
+    repair : bool; [@default false]
   }
   [@@deriving yaml]
 
@@ -52,10 +52,10 @@ module Source = struct
                      name;
                      url;
                      description = "";
-                     publish_all = Option.value ~default:true publish_all;
-                     disabled = Option.value ~default:false disabled;
+                     publish_all;
+                     disabled;
                    };
-                 repair = Option.value ~default:false repair;
+                 repair;
                }))
     in
     result

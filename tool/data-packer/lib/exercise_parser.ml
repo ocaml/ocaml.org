@@ -22,13 +22,13 @@ type metadata = {
   difficulty : difficulty;
   tags : string list;
   description : string;
-  tutorials : string list option;
+  tutorials : string list; [@default []]
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:t ~add:[ statement; solution ] ~modify:[ tutorials ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~modify_tutorials:(Option.value ~default:[])
+let of_metadata ~statement ~solution
+    ({ title; slug; difficulty; tags; description; tutorials } : metadata) : t =
+  { title; slug; difficulty; tags; description; statement; solution; tutorials }
 
 let split_body body =
   (* Split body on "# Statement" and "# Solution" headers *)

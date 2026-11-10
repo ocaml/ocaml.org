@@ -12,10 +12,10 @@ type course_metadata = {
   enrollment : string option;
   last_check : string option;
   year : int;
-  description : string option;
-  lecture_notes : bool option;
-  exercises : bool option;
-  video_recordings : bool option;
+  description : string; [@default ""]
+  lecture_notes : bool; [@default false]
+  exercises : bool; [@default false]
+  video_recordings : bool; [@default false]
 }
 [@@deriving of_yaml]
 
@@ -33,10 +33,10 @@ let course_metadata_to_course ~modify_last_check (c : course_metadata) : course
       enrollment = c.enrollment;
       last_check = modify_last_check c.last_check;
       year = c.year;
-      description = c.description |> Option.value ~default:"";
-      lecture_notes = c.lecture_notes |> Option.value ~default:false;
-      exercises = c.exercises |> Option.value ~default:false;
-      video_recordings = c.video_recordings |> Option.value ~default:false;
+      description = c.description;
+      lecture_notes = c.lecture_notes;
+      exercises = c.exercises;
+      video_recordings = c.video_recordings;
     }
 
 let ( let* ) = Result.bind
@@ -70,15 +70,39 @@ type metadata = {
   image : string option;
   alternate_logo : string option;
 }
-[@@deriving
-  of_yaml,
-    stable_record ~version:Data_intf.Academic_institution.t
-      ~add:[ body_md; body_html; slug ]]
+[@@deriving of_yaml]
 
 type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
 
-let of_metadata m =
-  metadata_to_Data_intf_Academic_institution_t m ~slug:(Utils.slugify m.name)
+let of_metadata ~body_md ~body_html
+    ({
+       name;
+       description;
+       url;
+       logo;
+       continent;
+       courses;
+       location;
+       featured;
+       image;
+       alternate_logo;
+     } :
+      metadata) : t =
+  {
+    name;
+    slug = Utils.slugify name;
+    description;
+    url;
+    logo;
+    continent;
+    courses;
+    location;
+    featured;
+    image;
+    alternate_logo;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body_md)) =
   let metadata =

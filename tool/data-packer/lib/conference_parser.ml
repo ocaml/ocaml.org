@@ -30,8 +30,8 @@ type presentation_metadata = {
   watch_ocamlorg_video : string option;
   youtube_video : string option;
   slides : string option;
-  poster : bool option;
-  additional_links : string list option;
+  poster : bool; [@default false]
+  additional_links : string list; [@default []]
 }
 [@@deriving of_yaml]
 
@@ -46,8 +46,8 @@ let presentation_of_yaml yaml =
       watch_ocamlorg_video = m.watch_ocamlorg_video;
       youtube_video = m.youtube_video;
       slides = m.slides;
-      poster = Option.value ~default:false m.poster;
-      additional_links = Option.value ~default:[] m.additional_links;
+      poster = m.poster;
+      additional_links = m.additional_links;
     }
 
 type t = [%import: Data_intf.Conference.t] [@@deriving show]
@@ -61,9 +61,31 @@ type metadata = {
   program_committee : committee_member list;
   organising_committee : committee_member list;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug; body_md; body_html ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
+let of_metadata ~body_md ~body_html
+    ({
+       title;
+       location;
+       date;
+       important_dates;
+       presentations;
+       program_committee;
+       organising_committee;
+     } :
+      metadata) : t =
+  {
+    title;
+    slug = Utils.slugify title;
+    location;
+    date;
+    important_dates;
+    presentations;
+    program_committee;
+    organising_committee;
+    body_md;
+    body_html;
+  }
 
 let decode (fpath, (head, body)) =
   let ( let* ) = Result.bind in

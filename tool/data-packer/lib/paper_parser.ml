@@ -15,9 +15,22 @@ type metadata = {
   links : link list;
   featured : bool;
 }
-[@@deriving of_yaml, stable_record ~version:t ~add:[ slug ]]
+[@@deriving of_yaml]
 
-let of_metadata m = metadata_to_t m ~slug:(Utils.slugify m.title)
+let of_metadata
+    ({ title; publication; authors; abstract; tags; year; links; featured } :
+      metadata) : t =
+  {
+    title;
+    slug = Utils.slugify title;
+    publication;
+    authors;
+    abstract;
+    tags;
+    year;
+    links;
+    featured;
+  }
 
 let all () =
   Utils.yaml_sequence_file

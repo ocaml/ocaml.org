@@ -77,5 +77,4 @@
    ppx_import
    ppx_deriving_yaml
    ppx_deriving_yojson
-   ppx_stable
    ppx_deriving.show)))
