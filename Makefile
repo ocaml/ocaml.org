@@ -11,7 +11,7 @@ all: ## Build the project (default target)
 .PHONY: deps
 deps: create_switch ## Install development dependencies
 	opam install -y ocamlformat=0.26.2 ocaml-lsp-server
-	opam install -y --deps-only --with-test --with-doc .
+	opam install -y --deps-only --with-test .
 
 .PHONY: create_switch
 create_switch: ## Create switch and pinned opam repo
@@ -51,10 +51,6 @@ test_code_examples: ## Checks exercices and tutorials code blocks
 .PHONY: clean
 clean: ## Clean build artifacts and other generated files
 	opam exec -- dune clean --root .
-
-.PHONY: doc
-doc: ## Generate odoc documentation
-	opam exec -- dune build --root . @doc
 
 .PHONY: fmt
 fmt: ## Format the codebase with ocamlformat
