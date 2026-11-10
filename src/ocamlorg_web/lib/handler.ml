@@ -90,12 +90,7 @@ let community _req =
   let event_types =
     Data.Event.all
     |> List.map (fun (event : Data.Event.t) ->
-           match event.event_type with
-           | Meetup -> "Meetup"
-           | Conference -> "Conference"
-           | Seminar -> "Seminar"
-           | Hackathon -> "Hackathon"
-           | Retreat -> "Retreat")
+           Data.Event.string_of_event_type event.event_type)
     |> List.sort_uniq String.compare
   in
   let events = (upcoming_events, event_types) in
@@ -154,17 +149,11 @@ let events _req =
               |> Option.get >= current_date)
       Data.Event.all
   in
-  let string_of_event_type = function
-    | Data.Event.Meetup -> "Meetup"
-    | Data.Event.Conference -> "Conference"
-    | Data.Event.Seminar -> "Seminar"
-    | Data.Event.Hackathon -> "Hackathon"
-    | Data.Event.Retreat -> "Retreat"
-  in
   let extract_event_types (type a) (events : a list)
       (get_event_type : a -> Data.Event.event_type) =
     events
-    |> List.map (fun event -> string_of_event_type (get_event_type event))
+    |> List.map (fun event ->
+           Data.Event.string_of_event_type (get_event_type event))
     |> List.sort_uniq String.compare
   in
   let upcoming_event_types =

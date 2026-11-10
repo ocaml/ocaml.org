@@ -1,8 +1,9 @@
 (* Tool parser - adapted from ood-gen/lib/tool.ml *)
 
 open Import
+open Data_intf.Tool
 
-type lifecycle = [%import: Data_intf.Tool.lifecycle] [@@deriving show]
+type lifecycle = Data_intf.Tool.lifecycle
 
 let lifecycle_of_string = function
   | "incubate" -> Ok `Incubate
@@ -15,7 +16,7 @@ let lifecycle_of_yaml = function
   | `String s -> lifecycle_of_string s
   | _ -> Error (`Msg "Expected string for lifecycle")
 
-type t = [%import: Data_intf.Tool.t] [@@deriving show]
+type t = Data_intf.Tool.t
 
 type metadata = {
   name : string;

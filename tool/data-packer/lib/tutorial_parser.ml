@@ -1,8 +1,9 @@
 (* Tutorial parser - adapted from ood-gen/lib/tutorial.ml *)
 
 open Import
+open Data_intf.Tutorial
 
-type section = [%import: Data_intf.Tutorial.section] [@@deriving show]
+type section = Data_intf.Tutorial.section
 
 let section_of_string = function
   | "getting-started" -> Ok GetStarted
@@ -11,32 +12,30 @@ let section_of_string = function
   | "guides" -> Ok Guides
   | s -> Error (`Msg ("Unknown section: " ^ s))
 
-type toc = [%import: Data_intf.Tutorial.toc] [@@deriving show]
+type toc = Data_intf.Tutorial.toc
 
 type contribute_link = [%import: Data_intf.Tutorial.contribute_link]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type banner = [%import: Data_intf.Tutorial.banner] [@@deriving of_yaml, show]
+type banner = [%import: Data_intf.Tutorial.banner] [@@deriving of_yaml]
 
 type external_tutorial = [%import: Data_intf.Tutorial.external_tutorial]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type recommended_next_tutorials =
   [%import: Data_intf.Tutorial.recommended_next_tutorials]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type prerequisite_tutorials =
   [%import: Data_intf.Tutorial.prerequisite_tutorials]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type search_document_section =
   [%import: Data_intf.Tutorial.search_document_section]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type search_document = [%import: Data_intf.Tutorial.search_document]
-[@@deriving show]
-
-type t = [%import: Data_intf.Tutorial.t] [@@deriving show]
+type search_document = Data_intf.Tutorial.search_document
+type t = Data_intf.Tutorial.t
 
 type metadata = {
   id : string;
@@ -137,7 +136,7 @@ module TutorialSearch = struct
       section =
         section
         |> Option.map (fun (s : Search.section) ->
-               { title = s.title; id = s.id });
+               { title = s.Search.title; id = s.Search.id });
       content = content |> List.map Search.block_to_string |> String.concat "\n";
       slug = metadata.id;
     }

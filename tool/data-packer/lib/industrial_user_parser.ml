@@ -1,8 +1,9 @@
 (* Industrial user parser - adapted from ood-gen/lib/industrial_user.ml *)
 
 open Import
+open Data_intf.Industrial_user
 
-type t = [%import: Data_intf.Industrial_user.t] [@@deriving show]
+type t = Data_intf.Industrial_user.t
 
 type metadata = {
   name : string;

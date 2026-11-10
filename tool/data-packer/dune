@@ -1,0 +1,10 @@
+; Warning 40 (name-out-of-scope) as an error: constructors and record fields
+; must be in scope (via a type definition, an open, or a qualified name), not
+; just reachable through type-directed disambiguation. Most types here are
+; plain aliases of Data_intf ones, so a parser that matches on them opens the
+; matching Data_intf module.
+
+(env
+ (_
+  (flags
+   (:standard -w @40))))

@@ -17,6 +17,8 @@ let feed_authors authors =
 
 (* News feed *)
 module News = struct
+  open Data_intf.News
+
   let create_entry (post : News.t) =
     let content = Syndic.Atom.Html (None, post.body_html) in
     let id = Uri.of_string ("https://ocaml.org/news/" ^ post.slug) in
@@ -35,6 +37,8 @@ end
 
 (* Changelog feed *)
 module Changelog = struct
+  open Data_intf.Changelog
+
   let create_entry (entry : Changelog.t) =
     match entry with
     | Release release ->
@@ -66,6 +70,8 @@ end
 
 (* Backstage feed *)
 module Backstage = struct
+  open Data_intf.Backstage
+
   let create_entry (entry : Backstage.t) =
     match entry with
     | Release release ->
@@ -97,6 +103,8 @@ end
 
 (* Events feed *)
 module Events = struct
+  open Data_intf.Event
+
   let create_entry (event : Event.t) =
     let textual_location = event.city ^ ", " ^ event.country in
     let start_date_str =
@@ -132,6 +140,8 @@ end
 
 (* Job feed *)
 module Job = struct
+  open Data_intf.Job
+
   let create_entry (job : Job.t) =
     let locations = String.concat ", " job.locations in
     let content =
@@ -164,6 +174,10 @@ end
 
 (* Planet feed - aggregates blog posts and videos *)
 module Planet = struct
+  open Data_intf.Planet
+  open Data_intf.Blog
+  open Data_intf.Video
+
   let create_entry (entry : Planet.entry) =
     match entry with
     | BlogPost post ->

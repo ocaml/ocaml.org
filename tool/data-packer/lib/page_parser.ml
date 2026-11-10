@@ -1,8 +1,9 @@
 (* Page parser - adapted from ood-gen/lib/page.ml *)
 
 open Import
+open Data_intf.Page
 
-type t = [%import: Data_intf.Page.t] [@@deriving show]
+type t = Data_intf.Page.t
 
 type metadata = {
   title : string;

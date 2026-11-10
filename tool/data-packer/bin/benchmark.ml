@@ -45,7 +45,7 @@ let () =
     let elapsed = Unix.gettimeofday () -. start in
     total_unpack_time := !total_unpack_time +. elapsed;
     (* Force evaluation *)
-    ignore (List.length unpacked.testimonials)
+    ignore (List.length unpacked.Types.All_data.testimonials)
   done;
 
   let avg_unpack_time = !total_unpack_time /. float_of_int iterations in

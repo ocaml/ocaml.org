@@ -1,270 +1,131 @@
-(* Data types imported from Data_intf. Uses ppx_import to avoid duplicating type
-   definitions. The aggregate is serialised to the embedded blob with Marshal
-   (see Packer/Unpacker), so no per-type bin_prot deriver is needed. *)
-
-(* Simple types *)
+(* Names for the Data_intf types that make up the packed blob. Every entry is a
+   plain alias: decoders (and the [%import]s their derivers need) live in the
+   matching *_parser.ml. The aggregate is serialised to the embedded blob with
+   Marshal (see Packer/Unpacker), so no per-type bin_prot deriver is needed. *)
 
 module Testimonial = struct
-  type t = [%import: Data_intf.Testimonial.t] [@@deriving of_yaml, show]
+  type t = Data_intf.Testimonial.t
 end
 
 module Job = struct
-  type t = [%import: Data_intf.Job.t] [@@deriving of_yaml, show]
+  type t = Data_intf.Job.t
 end
 
 module Code_example = struct
-  type t = Data_intf.Code_examples.t = { title : string; body : string }
-  [@@deriving of_yaml, show]
+  type t = Data_intf.Code_examples.t
 end
 
 module Opam_user = struct
-  type t = [%import: Data_intf.Opam_user.t] [@@deriving of_yaml, show]
+  type t = Data_intf.Opam_user.t
 end
 
 module Resource = struct
-  type t = [%import: Data_intf.Resource.t] [@@deriving of_yaml, show]
+  type t = Data_intf.Resource.t
 end
 
 module Video = struct
-  type t = [%import: Data_intf.Video.t] [@@deriving show]
+  type t = Data_intf.Video.t
 end
 
 module Academic_testimonial = struct
-  type t = [%import: Data_intf.Academic_testimonial.t]
-  [@@deriving of_yaml, show]
+  type t = Data_intf.Academic_testimonial.t
 end
 
-(* Types with nested definitions *)
-
 module Book = struct
-  type difficulty = [%import: Data_intf.Book.difficulty] [@@deriving show]
-
-  let difficulty_of_yaml = function
-    | `String "beginner" -> Ok Beginner
-    | `String "intermediate" -> Ok Intermediate
-    | `String "advanced" -> Ok Advanced
-    | _ -> Error (`Msg "Invalid difficulty")
-
-  type link = [%import: Data_intf.Book.link] [@@deriving of_yaml, show]
-  type t = [%import: Data_intf.Book.t] [@@deriving show]
+  type t = Data_intf.Book.t
 end
 
 module Academic_institution = struct
-  type location = [%import: Data_intf.Academic_institution.location]
-  [@@deriving of_yaml, show]
-
-  type course = [%import: Data_intf.Academic_institution.course]
-  [@@deriving show]
-
-  type t = [%import: Data_intf.Academic_institution.t] [@@deriving show]
+  type t = Data_intf.Academic_institution.t
 end
 
 module Event = struct
-  type event_type = [%import: Data_intf.Event.event_type] [@@deriving show]
-
-  let event_type_of_yaml = function
-    | `String "meetup" -> Ok Meetup
-    | `String "conference" -> Ok Conference
-    | `String "seminar" -> Ok Seminar
-    | `String "hackathon" -> Ok Hackathon
-    | `String "retreat" -> Ok Retreat
-    | _ -> Error (`Msg "Invalid event_type")
-
-  type location = [%import: Data_intf.Event.location] [@@deriving of_yaml, show]
-
-  type recurring_event = [%import: Data_intf.Event.recurring_event]
-  [@@deriving show]
-
-  type utc_datetime = [%import: Data_intf.Event.utc_datetime]
-  [@@deriving of_yaml, show]
-
-  type t = [%import: Data_intf.Event.t] [@@deriving show]
+  type recurring_event = Data_intf.Event.recurring_event
+  type t = Data_intf.Event.t
 end
 
 module Exercise = struct
-  type difficulty = [%import: Data_intf.Exercise.difficulty] [@@deriving show]
-
-  let difficulty_of_yaml = function
-    | `String "beginner" -> Ok Beginner
-    | `String "intermediate" -> Ok Intermediate
-    | `String "advanced" -> Ok Advanced
-    | _ -> Error (`Msg "Invalid difficulty")
-
-  type t = [%import: Data_intf.Exercise.t] [@@deriving show]
+  type t = Data_intf.Exercise.t
 end
 
 module Paper = struct
-  type link = [%import: Data_intf.Paper.link] [@@deriving of_yaml, show]
-  type t = [%import: Data_intf.Paper.t] [@@deriving show]
+  type t = Data_intf.Paper.t
 end
 
 module Tool = struct
-  type lifecycle = [%import: Data_intf.Tool.lifecycle] [@@deriving show]
-
-  let lifecycle_of_yaml = function
-    | `String "incubate" -> Ok `Incubate
-    | `String "active" -> Ok `Active
-    | `String "sustain" -> Ok `Sustain
-    | `String "deprecate" -> Ok `Deprecate
-    | _ -> Error (`Msg "Invalid lifecycle")
-
-  type t = [%import: Data_intf.Tool.t] [@@deriving show]
+  type t = Data_intf.Tool.t
 end
 
 module Release = struct
-  type kind = [%import: Data_intf.Release.kind] [@@deriving show]
-  type t = [%import: Data_intf.Release.t] [@@deriving show]
+  type t = Data_intf.Release.t
 end
 
 module Success_story = struct
-  type t = [%import: Data_intf.Success_story.t] [@@deriving show]
+  type t = Data_intf.Success_story.t
 end
 
 module Industrial_user = struct
-  type t = [%import: Data_intf.Industrial_user.t] [@@deriving show]
+  type t = Data_intf.Industrial_user.t
 end
 
 module News = struct
-  type t = [%import: Data_intf.News.t] [@@deriving show]
+  type t = Data_intf.News.t
 end
 
 module Page = struct
-  type t = [%import: Data_intf.Page.t] [@@deriving show]
+  type t = Data_intf.Page.t
 end
 
 module Outreachy = struct
-  type project = [%import: Data_intf.Outreachy.project]
-  [@@deriving of_yaml, show]
-
-  type t = [%import: Data_intf.Outreachy.t] [@@deriving of_yaml, show]
+  type t = Data_intf.Outreachy.t
 end
 
 module Governance = struct
-  type member = [%import: Data_intf.Governance.member]
-  [@@deriving of_yaml, show]
-
-  type contact_kind = [%import: Data_intf.Governance.contact_kind]
-  [@@deriving show]
-
-  type contact = [%import: Data_intf.Governance.contact] [@@deriving show]
-
-  type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
-  [@@deriving show]
-
-  type team = [%import: Data_intf.Governance.team] [@@deriving show]
+  type team = Data_intf.Governance.team
 end
 
 module Conference = struct
-  type role = [%import: Data_intf.Conference.role] [@@deriving show]
-
-  type important_date = [%import: Data_intf.Conference.important_date]
-  [@@deriving show]
-
-  type committee_member = [%import: Data_intf.Conference.committee_member]
-  [@@deriving show]
-
-  type presentation = [%import: Data_intf.Conference.presentation]
-  [@@deriving show]
-
-  type t = [%import: Data_intf.Conference.t] [@@deriving show]
+  type t = Data_intf.Conference.t
 end
 
 module Blog = struct
-  type source = [%import: Data_intf.Blog.source] [@@deriving show]
-  type post = [%import: Data_intf.Blog.post] [@@deriving show]
+  type source = Data_intf.Blog.source
+  type post = Data_intf.Blog.post
 end
 
 module Changelog = struct
-  type release = [%import: Data_intf.Changelog.release] [@@deriving show]
-  type post = [%import: Data_intf.Changelog.post] [@@deriving show]
-  type t = [%import: Data_intf.Changelog.t] [@@deriving show]
+  type t = Data_intf.Changelog.t
 end
 
 module Backstage = struct
-  type release = [%import: Data_intf.Backstage.release] [@@deriving show]
-  type post = [%import: Data_intf.Backstage.post] [@@deriving show]
-  type t = [%import: Data_intf.Backstage.t] [@@deriving show]
+  type t = Data_intf.Backstage.t
 end
 
 module Cookbook = struct
-  type category = [%import: Data_intf.Cookbook.category] [@@deriving show]
-  type task = [%import: Data_intf.Cookbook.task] [@@deriving show]
-
-  type code_block_with_explanation =
-    [%import: Data_intf.Cookbook.code_block_with_explanation]
-  [@@deriving show]
-
-  type package = [%import: Data_intf.Cookbook.package]
-  [@@deriving of_yaml, show]
-
-  type t = [%import: Data_intf.Cookbook.t] [@@deriving show]
+  type category = Data_intf.Cookbook.category
+  type task = Data_intf.Cookbook.task
+  type t = Data_intf.Cookbook.t
 end
 
 module Is_ocaml_yet = struct
-  type external_package = [%import: Data_intf.Is_ocaml_yet.external_package]
-  [@@deriving show]
-
-  type package = [%import: Data_intf.Is_ocaml_yet.package] [@@deriving show]
-  type category = [%import: Data_intf.Is_ocaml_yet.category] [@@deriving show]
-  type t = [%import: Data_intf.Is_ocaml_yet.t] [@@deriving show]
+  type t = Data_intf.Is_ocaml_yet.t
 end
 
 module Tutorial = struct
-  type section = [%import: Data_intf.Tutorial.section] [@@deriving show]
-  type toc = [%import: Data_intf.Tutorial.toc] [@@deriving show]
-
-  type contribute_link = [%import: Data_intf.Tutorial.contribute_link]
-  [@@deriving show]
-
-  type banner = [%import: Data_intf.Tutorial.banner] [@@deriving of_yaml, show]
-
-  type external_tutorial = [%import: Data_intf.Tutorial.external_tutorial]
-  [@@deriving show]
-
-  type recommended_next_tutorials =
-    [%import: Data_intf.Tutorial.recommended_next_tutorials]
-  [@@deriving show]
-
-  type prerequisite_tutorials =
-    [%import: Data_intf.Tutorial.prerequisite_tutorials]
-  [@@deriving show]
-
-  type search_document_section =
-    [%import: Data_intf.Tutorial.search_document_section]
-  [@@deriving show]
-
-  type search_document = [%import: Data_intf.Tutorial.search_document]
-  [@@deriving show]
-
-  type t = [%import: Data_intf.Tutorial.t] [@@deriving show]
+  type search_document = Data_intf.Tutorial.search_document
+  type t = Data_intf.Tutorial.t
 end
 
 module Tool_page = struct
-  type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml, show]
-
-  type contribute_link = [%import: Data_intf.Tool_page.contribute_link]
-  [@@deriving show]
-
-  type t = [%import: Data_intf.Tool_page.t] [@@deriving show]
+  type t = Data_intf.Tool_page.t
 end
 
 module Planet = struct
-  (* Entry type - BlogPost or Video. We define it directly with type equality
-     since ppx_import has trouble with types referencing other modules. *)
-  type entry = Data_intf.Planet.entry =
-    | BlogPost of Blog.post
-    | Video of Video.t
-  [@@deriving show]
+  type entry = Data_intf.Planet.entry
 end
 
 module Attribution = struct
-  type contributor = [%import: Data_intf.Attribution.contributor]
-  [@@deriving of_yojson, show]
-
-  type ai_section = [%import: Data_intf.Attribution.ai_section]
-  [@@deriving of_yojson, show]
-
-  type t = [%import: Data_intf.Attribution.t] [@@deriving of_yojson, show]
+  type t = Data_intf.Attribution.t
 end
 
 (* Decoded by hand in Opam_health_parser: the file format is a compact

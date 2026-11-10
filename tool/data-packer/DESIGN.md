@@ -10,26 +10,26 @@ all that generated code. This is slow.
 
 Replace code generation with binary serialization:
 
-```
+```text
 Current:  data/*.yaml,md  →  [ood-gen]  →  *.ml (119 MiB)  →  [ocamlc]  →  binary
 Proposed: data/*.yaml,md  →  [packer]   →  data.bin       →  [as]      →  binary
 ```
 
 The packer:
 1. Parses YAML/Markdown (same as ood-gen)
-2. Serializes to bin_prot format (fast)
+2. Serializes with `Marshal` (fast)
 3. Outputs a single binary blob
 
 The blob is embedded via `.incbin` assembly directive and deserialized at runtime.
 
 ## Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │  tool/data-packer/                                                  │
 │                                                                     │
 │  ┌──────────────┐   ┌──────────────┐   ┌──────────────────────────┐ │
-│  │ data/*.yaml  │ → │ parse        │ → │ Bin_prot.Writer          │ │
+│  │ data/*.yaml  │ → │ parse        │ → │ Marshal.to_bytes         │ │
 │  │ data/*.md    │   │ (reuse ood-  │   │ → _build/data.bin        │ │
 │  │              │   │  gen logic)  │   │                          │ │
 │  └──────────────┘   └──────────────┘   └──────────────────────────┘ │
@@ -55,42 +55,35 @@ The blob is embedded via `.incbin` assembly directive and deserialized at runtim
 
 ## Binary Format
 
-Single blob containing all data types, with a header for fast lookup:
+`data.bin` is the output of `Marshal.to_bytes` on a single
+`Types.All_data.t` value (`lib/packer.ml`). It has no header and no
+per-section index: `src/ocamlorg_data/data.ml` unmarshals the whole value
+once, when the module loads, as a `Data_intf.All_data.t`.
 
-```
-┌────────────────────────────────────────┐
-│ Header                                 │
-│   magic: "OODP" (4 bytes)              │
-│   version: uint32                      │
-│   num_sections: uint32                 │
-│   section_offsets: (name, offset, len) │
-└────────────────────────────────────────┘
-┌────────────────────────────────────────┐
-│ Section: testimonials                  │
-│   bin_prot encoded list                │
-└────────────────────────────────────────┘
-┌────────────────────────────────────────┐
-│ Section: books                         │
-│   bin_prot encoded list                │
-└────────────────────────────────────────┘
-│ ...                                    │
-```
+Marshal output is untyped and tied to the compiler that wrote it. That is
+acceptable here because the packer and the server are built by the same
+compiler in the same build, and `data.bin` is regenerated on every build.
 
-## Type Modifications
+## Types and Decoders
 
-Add `[@@deriving bin_io]` to types in `data_intf.ml`:
+The types themselves live in `src/ocamlorg_data/data_intf.ml`, with no
+derivers attached. The packer refers to them in two ways:
 
-```ocaml
-(* Before *)
-type t = { name : string; ... } [@@deriving show]
+- **Plain alias** (`type t = Data_intf.News.t`) by default, including
+  everywhere in `lib/types.ml`.
+- **`[%import]`** (`type link = [%import: Data_intf.Book.link]
+  [@@deriving of_yaml]`) only where a deriver (`of_yaml`, `of_yojson`) is
+  attached, because the deriver needs the type's structure at the definition
+  site. These live in the `*_parser.ml` that decodes the type.
 
-(* After *)
-type t = { name : string; ... } [@@deriving show, bin_io]
-```
+An alias does not bring constructors or record fields into scope, so a parser
+that builds or matches values of these types opens the matching module
+(`open Data_intf.Event`). Warning 40 (name-out-of-scope) is an error in
+`tool/data-packer` (see its `dune` file), so relying on type-directed
+disambiguation alone fails to build.
 
-Special handling needed for:
-- `Ptime.t` → custom bin_io (serialize as RFC3339 string or float)
-- Polymorphic variants → bin_io handles these
+The packed blob is a Marshal of `Types.All_data.t`, so no type needs a
+serialisation deriver.
 
 ## Assembly Wrapper
 
@@ -181,9 +174,10 @@ end
 
 ## Benchmark Results (Full Implementation)
 
-With the complete data set (all types from ood-gen):
+With the complete data set (all types from ood-gen), measured with the
+original bin_prot encoding; the current Marshal blob is about 18 MB:
 
-```
+```text
 === Data Sizes ===
 Source data (YAML/Markdown):  67 MB
 Generated OCaml (ood-gen):   119 MB
@@ -238,7 +232,8 @@ Compare this to compiling 119 MiB of OCaml code, which takes minutes.
 ## Migration Path
 
 1. **Phase 1**: Prototype with one type (Testimonial)
-2. **Phase 2**: Add bin_io to all types in data_intf.ml
+2. **Phase 2**: Serialize all types (planned as bin_io on every type in
+   data_intf.ml; replaced by a single Marshal of `All_data.t`)
 3. **Phase 3**: Create full packer (reusing ood-gen parsing)
 4. **Phase 4**: Replace ood-gen rules in dune
 5. **Phase 5**: Remove ood-gen (optional, can keep for debugging)

@@ -1,8 +1,9 @@
 (* Exercise parser - adapted from ood-gen/lib/exercise.ml *)
 
 open Import
+open Data_intf.Exercise
 
-type difficulty = [%import: Data_intf.Exercise.difficulty] [@@deriving show]
+type difficulty = Data_intf.Exercise.difficulty
 
 let difficulty_of_string = function
   | "beginner" -> Ok Beginner
@@ -14,7 +15,7 @@ let difficulty_of_yaml = function
   | `String s -> difficulty_of_string s
   | _ -> Error (`Msg "Expected string for difficulty")
 
-type t = [%import: Data_intf.Exercise.t] [@@deriving show]
+type t = Data_intf.Exercise.t
 
 type metadata = {
   title : string;

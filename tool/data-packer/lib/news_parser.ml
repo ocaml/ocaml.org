@@ -1,8 +1,9 @@
 (* News parser - adapted from ood-gen/lib/news.ml *)
 
 open Import
+open Data_intf.News
 
-type t = [%import: Data_intf.News.t] [@@deriving show]
+type t = Data_intf.News.t
 
 type metadata = {
   title : string;

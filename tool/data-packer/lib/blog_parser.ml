@@ -1,9 +1,10 @@
 (* Blog parser - adapted from ood-gen/lib/blog.ml *)
 
 open Import
+open Data_intf.Blog
 
-type source = [%import: Data_intf.Blog.source] [@@deriving show]
-type post = [%import: Data_intf.Blog.post] [@@deriving show]
+type source = Data_intf.Blog.source
+type post = Data_intf.Blog.post
 
 module Source = struct
   type t = {

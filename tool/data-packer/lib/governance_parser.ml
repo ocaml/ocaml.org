@@ -1,11 +1,10 @@
 (* Governance parser - adapted from ood-gen/lib/governance.ml *)
 
 open Import
+open Data_intf.Governance
 
-type member = [%import: Data_intf.Governance.member] [@@deriving of_yaml, show]
-
-type contact_kind = [%import: Data_intf.Governance.contact_kind]
-[@@deriving show]
+type member = [%import: Data_intf.Governance.member] [@@deriving of_yaml]
+type contact_kind = Data_intf.Governance.contact_kind
 
 let contact_kind_of_yaml = function
   | `String "github" -> Ok GitHub
@@ -25,11 +24,10 @@ let contact_kind_of_yaml = function
                 email, discord, chat, forum"))
       | Error _ -> Error (`Msg "Invalid Yaml value"))
 
-type contact = [%import: Data_intf.Governance.contact]
-[@@deriving of_yaml, show]
+type contact = [%import: Data_intf.Governance.contact] [@@deriving of_yaml]
 
 type dev_meeting = [%import: Data_intf.Governance.dev_meeting]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type team_metadata = {
   id : string;
@@ -42,7 +40,7 @@ type team_metadata = {
 }
 [@@deriving of_yaml]
 
-type team = [%import: Data_intf.Governance.team] [@@deriving show]
+type team = Data_intf.Governance.team
 
 let rec team_of_metadata
     ({ id; name; description; contacts; dev_meeting; members; subteams } :

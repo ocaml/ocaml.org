@@ -1,8 +1,9 @@
 (* Success story parser - adapted from ood-gen/lib/success_story.ml *)
 
 open Import
+open Data_intf.Success_story
 
-type t = [%import: Data_intf.Success_story.t] [@@deriving show]
+type t = Data_intf.Success_story.t
 
 type metadata = {
   title : string;

@@ -1,10 +1,11 @@
 (* Changelog parser - adapted from ood-gen/lib/changelog.ml *)
 
 open Import
+open Data_intf.Changelog
 
-type release = [%import: Data_intf.Changelog.release] [@@deriving show]
-type post = [%import: Data_intf.Changelog.post] [@@deriving show]
-type t = [%import: Data_intf.Changelog.t] [@@deriving show]
+type release = Data_intf.Changelog.release
+type post = Data_intf.Changelog.post
+type t = Data_intf.Changelog.t
 
 module Posts = struct
   type post_metadata = {
@@ -45,21 +46,36 @@ module Posts = struct
     |> List.sort (fun (a : post) b -> String.compare b.slug a.slug)
 end
 
-let platform_tools_release_to_release (r : Platform_release_parser.t) : release
-    =
+let platform_tools_release_to_release
+    ({
+       Platform_release_parser.title;
+       slug;
+       date;
+       tags;
+       contributors;
+       project_name;
+       versions;
+       github_release_tags;
+       changelog_html;
+       body_html;
+       excerpt;
+       authors;
+       _;
+     } :
+      Platform_release_parser.t) : release =
   {
-    title = r.title;
-    slug = r.slug;
-    date = r.date;
-    tags = r.tags;
-    contributors = r.contributors;
-    project_name = r.project_name;
-    versions = r.versions;
-    github_release_tags = r.github_release_tags;
-    changelog_html = r.changelog_html;
-    body_html = r.body_html;
-    excerpt = r.excerpt;
-    authors = r.authors;
+    title;
+    slug;
+    date;
+    tags;
+    contributors;
+    project_name;
+    versions;
+    github_release_tags;
+    changelog_html;
+    body_html;
+    excerpt;
+    authors;
   }
 
 let all () =
@@ -67,7 +83,7 @@ let all () =
   let releases =
     Platform_release_parser.all ()
     |> List.filter (fun (a : Platform_release_parser.t) ->
-           a.experimental = false)
+           a.Platform_release_parser.experimental = false)
     |> List.map platform_tools_release_to_release
   in
   let posts = Posts.all () in

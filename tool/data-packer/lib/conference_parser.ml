@@ -1,8 +1,9 @@
 (* Conference parser - adapted from ood-gen/lib/conference.ml *)
 
 open Import
+open Data_intf.Conference
 
-type role = [%import: Data_intf.Conference.role] [@@deriving show]
+type role = Data_intf.Conference.role
 
 let role_of_string = function
   | "chair" -> Ok `Chair
@@ -14,13 +15,12 @@ let role_of_yaml = function
   | _ -> Error (`Msg "Expected string for role")
 
 type important_date = [%import: Data_intf.Conference.important_date]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 type committee_member = [%import: Data_intf.Conference.committee_member]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type presentation = [%import: Data_intf.Conference.presentation]
-[@@deriving show]
+type presentation = Data_intf.Conference.presentation
 
 (* Intermediate type for parsing presentations *)
 type presentation_metadata = {
@@ -50,7 +50,7 @@ let presentation_of_yaml yaml =
       additional_links = m.additional_links;
     }
 
-type t = [%import: Data_intf.Conference.t] [@@deriving show]
+type t = Data_intf.Conference.t
 
 type metadata = {
   title : string;

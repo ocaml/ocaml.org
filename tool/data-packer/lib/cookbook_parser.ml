@@ -1,16 +1,16 @@
 (* Cookbook parser - adapted from ood-gen/lib/cookbook.ml *)
 
 open Import
+open Data_intf.Cookbook
 
-type category = [%import: Data_intf.Cookbook.category] [@@deriving show]
-type task = [%import: Data_intf.Cookbook.task] [@@deriving show]
+type category = Data_intf.Cookbook.category
+type task = Data_intf.Cookbook.task
 
 type code_block_with_explanation =
-  [%import: Data_intf.Cookbook.code_block_with_explanation]
-[@@deriving show]
+  Data_intf.Cookbook.code_block_with_explanation
 
-type package = [%import: Data_intf.Cookbook.package] [@@deriving of_yaml, show]
-type t = [%import: Data_intf.Cookbook.t] [@@deriving show]
+type package = [%import: Data_intf.Cookbook.package] [@@deriving of_yaml]
+type t = Data_intf.Cookbook.t
 
 type task_metadata = {
   title : string;
@@ -27,7 +27,7 @@ type category_metadata = {
 [@@deriving of_yaml]
 
 type metadata = { packages : package list; discussion : string [@default ""] }
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
 let render_markdown str =
   str |> String.trim

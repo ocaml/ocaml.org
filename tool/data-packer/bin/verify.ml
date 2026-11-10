@@ -1,7 +1,7 @@
 (* Verify round-trip: load YAML → pack → unpack → verify *)
 
 open Data_packer
-open Types
+open Types.All_data
 
 let () =
   let bin_file = Sys.argv.(1) in
@@ -15,7 +15,7 @@ let () =
   Printf.printf "  %d opam_users\n" (List.length original.opam_users);
   Printf.printf "  %d resources\n" (List.length original.resources);
   Printf.printf "  %d opam_health releases\n"
-    (List.length original.opam_health.releases);
+    (List.length original.opam_health.Types.Opam_health.releases);
 
   Printf.printf "\nPacking to %s...\n" bin_file;
   Packer.pack_to_file ~output:bin_file original;
@@ -29,7 +29,7 @@ let () =
   Printf.printf "  %d opam_users\n" (List.length unpacked.opam_users);
   Printf.printf "  %d resources\n" (List.length unpacked.resources);
   Printf.printf "  %d opam_health releases\n"
-    (List.length unpacked.opam_health.releases);
+    (List.length unpacked.opam_health.Types.Opam_health.releases);
 
   Printf.printf "\nVerifying data integrity...\n";
 
@@ -46,7 +46,8 @@ let () =
   (* Verify first testimonial if any *)
   (match (original.testimonials, unpacked.testimonials) with
   | t1 :: _, t2 :: _ ->
-      assert (t1.Testimonial.person = t2.Testimonial.person);
+      let open Data_intf.Testimonial in
+      assert (t1.person = t2.person);
       assert (t1.testimony = t2.testimony);
       assert (t1.href = t2.href);
       assert (t1.role = t2.role);
@@ -57,7 +58,8 @@ let () =
   (* Verify first job if any *)
   (match (original.jobs, unpacked.jobs) with
   | j1 :: _, j2 :: _ ->
-      assert (j1.Job.title = j2.Job.title);
+      let open Data_intf.Job in
+      assert (j1.title = j2.title);
       assert (j1.link = j2.link);
       assert (j1.company = j2.company)
   | [], [] -> ()

@@ -184,6 +184,14 @@ end
 
 module Event = struct
   type event_type = Meetup | Conference | Seminar | Hackathon | Retreat
+
+  let string_of_event_type = function
+    | Meetup -> "Meetup"
+    | Conference -> "Conference"
+    | Seminar -> "Seminar"
+    | Hackathon -> "Hackathon"
+    | Retreat -> "Retreat"
+
   type location = { lat : float; long : float }
 
   type recurring_event = {

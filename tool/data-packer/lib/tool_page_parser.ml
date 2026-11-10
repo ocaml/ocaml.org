@@ -1,13 +1,14 @@
 (* Tool page parser - adapted from ood-gen/lib/tool_page.ml *)
 
 open Import
+open Data_intf.Tool_page
 
-type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml, show]
+type toc = [%import: Data_intf.Tool_page.toc] [@@deriving of_yaml]
 
 type contribute_link = [%import: Data_intf.Tool_page.contribute_link]
-[@@deriving of_yaml, show]
+[@@deriving of_yaml]
 
-type t = [%import: Data_intf.Tool_page.t] [@@deriving show]
+type t = Data_intf.Tool_page.t
 
 type metadata = {
   id : string;
@@ -34,7 +35,7 @@ let of_metadata ~fpath ~toc ~body_md ~body_html
 
 let rec toc_toc (toc : Markdown.Toc.t list) = List.map toc_f toc
 
-and toc_f { title; href; children } =
+and toc_f { Markdown.Toc.title; href; children } =
   { title; href; children = toc_toc children }
 
 let decode (fpath, (head, body_md)) =
