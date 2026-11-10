@@ -34,6 +34,11 @@ RUN OPAMSOLVERTIMEOUT=300 opam install . --deps-only
 COPY --chown=opam . .
 RUN opam exec -- dune build @install --profile=release
 
+# Strip the server binary: this drops the DWARF debug info and the symbol
+# tables (about 11 MiB of its 80 MiB). OCaml exception backtraces do not use
+# them, they rely on the OCaml frame tables, which strip keeps.
+RUN strip -o server _build/default/src/ocamlorg_web/bin/main.exe
+
 # Build the package state, from the opam-repository clone brought up to date.
 # The builder exits with a non-zero status if it fails, which fails the build.
 RUN cd ~/opam-repository && git checkout master && git pull origin master && opam update
@@ -59,7 +64,7 @@ COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/package.state /var/lib/oc
 COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam-repository
 # Without --chown, COPY --from keeps the build stage's owner (opam, uid 1000),
 # which is also the uid given to ocamlorg above.
-COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
+COPY --from=build --chown=root:root /home/opam/server /bin/server
 COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_package/builder/main.exe /bin/ocamlorg-package-builder
 
 COPY playground/asset playground/asset
