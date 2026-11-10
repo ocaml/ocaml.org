@@ -185,15 +185,28 @@ let scrape_post ~df ~ndocs ~dict ~source (post : River.post) :
           None))
   else None
 
-(* Fetch a feed, retrying with exponential backoff on failure. The final attempt
-   lets the exception propagate to [scrape_source]'s handler, which records the
-   source as an error for this run. *)
+(* A feed that was downloaded but cannot be parsed fails the same way on every
+   attempt, so retrying it only slows the scrape down. River lets such failures
+   escape as [Not_found] (raised by Syndic on an empty text construct, see
+   #4000) or as this [Failure] (also raised when a host serves a non-feed page,
+   such as a maintenance page, with status 200). These are the two seen so far:
+   Syndic can also fail with [Invalid_argument] on an unparsable date, or with
+   [Failure "int_of_string"], and those are still retried. Anything else,
+   network errors in particular, is retried. *)
+let is_parse_error = function
+  | Not_found -> true
+  | Failure msg -> msg = "Neither Atom nor RSS2 feed"
+  | _ -> false
+
+(* Fetch a feed, retrying with exponential backoff on failure. The final
+   attempt, or a parse error, lets the exception propagate to [scrape_source]'s
+   handler, which records the source as an error for this run. *)
 let rec fetch_with_retry ?(attempt = 1) ~repair (source : Data_intf.Blog.source)
     =
   try
     River.fetch ~timeout ~user_agent ~repair
       { name = source.name; url = source.url }
-  with e when attempt < max_attempts ->
+  with e when attempt < max_attempts && not (is_parse_error e) ->
     let delay = 2. ** float_of_int attempt in
     print_endline
       (Printf.sprintf "retry %d/%d for %s in %.0fs: %s" attempt
@@ -208,8 +221,16 @@ let scrape_source ~df ~ndocs ~dict ({ source; repair } : Source.resolved) :
     |> River.posts
     |> List.filter_map (scrape_post ~df ~ndocs ~dict ~source)
   with e ->
+    (* Read the backtrace first, before anything else can raise. A bare
+       exception such as [Not_found] says nothing about where it came from; the
+       backtrace (recorded since [bin/scrape.ml] enables it) does. It goes to
+       the log only: the report, hence the bot PR body, keeps the one-line
+       message. *)
+    let backtrace = Printexc.get_backtrace () in
     let message = Printexc.to_string e in
     print_endline (Printf.sprintf "failed to scrape %s: %s" source.id message);
+    print_string backtrace;
+    flush stdout;
     [ Scrape_report.Error { source_id = source.id; message } ]
 
 let scrape () : Scrape_report.entry list =
