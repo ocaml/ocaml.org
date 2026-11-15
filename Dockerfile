@@ -17,7 +17,7 @@ RUN opam option --global 'archive-mirrors+="https://opam.ocaml.org/cache"'
 # ocaml/opam base image, so `git reset --hard` finds it locally and needs no
 # network fetch. Keep the pin at or below the base image's opam-repo tip; a
 # newer commit would require adding `git fetch origin <sha>` before the reset.
-RUN cd ~/opam-repository && git reset --hard 8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0 && opam update
+RUN cd ~/opam-repository && git reset --hard ca403de684b07caee6f246b36a2f3a1787d780ac && opam update
 
 WORKDIR /home/opam
 
