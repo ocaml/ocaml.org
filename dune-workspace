@@ -1,6 +1,6 @@
 (lang dune 3.19)
 
-(repository (name pinned_opam_repository) (url git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0))
+(repository (name pinned_opam_repository) (url git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac))
 
 (repository (name pinned_overlay_repository) (url git+https://github.com/ocaml-dune/opam-overlays#2a9543286ff0e0656058fee5c0da7abc16b8717d))
 

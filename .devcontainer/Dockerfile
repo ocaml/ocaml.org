@@ -11,7 +11,7 @@
 # .devcontainer/tag.sh describe different images over time). Dependabot
 # proposes digest updates; check the pin rule in HACKING.md, "Choosing the Pin
 # Commit", when accepting one.
-FROM ocaml/opam:debian-13-ocaml-5.2@sha256:6a16bf7c4f403c35927a1ae6248029ab88390a72f8ca57484adebc29bdb30f93
+FROM ocaml/opam:debian-13-ocaml-5.2@sha256:e459c8241b5986e653f801a5f6282dd3f0b08f1deaa3a8411d7c1b263c99c956
 
 LABEL org.opencontainers.image.source="https://github.com/ocaml/ocaml.org"
 LABEL org.opencontainers.image.description="OCaml.org development environment"
@@ -51,7 +51,7 @@ RUN sudo ln -sf /usr/bin/opam-2.5 /usr/bin/opam && opam init --reinit -ni \
 # the ocaml/opam base image, so `git reset --hard` finds it locally with no
 # network fetch. A commit newer than the base image tip would need `git fetch
 # origin <sha>` before the reset.
-RUN cd ~/opam-repository && git reset --hard 8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0 && opam update
+RUN cd ~/opam-repository && git reset --hard ca403de684b07caee6f246b36a2f3a1787d780ac && opam update
 
 # Dev tools. OCamlFormat is pinned (see .ocamlformat) so that installing the
 # project dependencies can't upgrade it along with cmdliner.
