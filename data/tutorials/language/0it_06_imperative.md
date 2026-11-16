@@ -804,7 +804,7 @@ Consider this code:
       if Array.length a > 1000000 then Analytics.collect "Array.copy" a;
       copy a
     end;;
-Line 4, characters 40-57:
+Line 4, characters 40-49:
 Error: Unbound module Analytics
 ```
 

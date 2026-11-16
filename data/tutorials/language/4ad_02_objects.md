@@ -68,9 +68,9 @@ make it more specific. So you can't write, for example, `( 1 : float )`:
 ```ocaml
 # (1 : float);;
 Line 1, characters 2-3:
-Error: This expression has type int but an expression was expected of type
+Error: The constant 1 has type int but an expression was expected of type
          float
-  Hint: Did you mean 1.?
+Hint: Did you mean 1.?
 ```
 
 Type safety is preserved. Back to the example ...
@@ -194,7 +194,7 @@ of our new `float stack`:
 - : float = 1.
 # s#push "a string";;
 Line 1, characters 8-18:
-Error: This expression has type string but an expression was expected of type
+Error: This constant has type string but an expression was expected of type
          float
 ```
 
@@ -553,7 +553,7 @@ val b : button = <obj>
 val l : label = <obj>
 # [b; l];;
 Line 1, characters 5-6:
-Error: This expression has type label but an expression was expected of type
+Error: The value l has type label but an expression was expected of type
          button
        The first object type has no method add
 ```
@@ -568,7 +568,7 @@ that we want a `widget list`. Let's try telling it:
 val wl : widget list = []
 # let wl = b :: wl;;
 Line 1, characters 15-17:
-Error: This expression has type widget list
+Error: The value wl has type widget list
        but an expression was expected of type button list
        Type widget = < get_name : string; repaint : unit >
        is not compatible with type
@@ -734,7 +734,7 @@ val x : < get : int > = <obj>
 val y : < get : int; special : string > = <obj>
 # let l = [x; y];;
 Line 1, characters 13-14:
-Error: This expression has type < get : int; special : string >
+Error: The value y has type < get : int; special : string >
        but an expression was expected of type < get : int >
        The second object type has no method special
 # let l = [x; (y :> t)];;

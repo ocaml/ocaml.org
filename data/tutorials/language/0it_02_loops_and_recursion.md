@@ -954,7 +954,7 @@ a reference:
 
 ```ocaml
 # let r = ref 100;;
-val r : int Stdlib.ref = {Stdlib.contents = 100}
+val r : int Stdlib.ref = {contents = 100}
 ```
 
 Arrays are another sort of mutable structure provided by OCaml. In

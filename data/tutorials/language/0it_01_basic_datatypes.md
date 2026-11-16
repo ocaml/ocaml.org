@@ -60,14 +60,13 @@ val tau : float = 6.28318
 
 # let tau = 2 *. pi;;
 Line 1, characters 11-12:
-Error: This expression has type int but an expression was expected of type
+Error: The constant 2 has type int but an expression was expected of type
          float
-  Hint: Did you mean 2.?
+Hint: Did you mean 2.?
 
 # let tau = 2 * pi;;
 Line 1, characters 15-17:
-Error: This expression has type float but an expression was expected of type
-         int
+Error: The value pi has type float but an expression was expected of type int
 ```
 
 Operations on `float` are provided by the [`Stdlib`](/manual/api/Stdlib.html) and the [`Float`](/manual/api/Float.html) modules.

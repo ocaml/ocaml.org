@@ -38,7 +38,7 @@ Labelled arguments are passed using a tilde `~` and can be placed at any positio
 
 ```ocaml
 # ~default:42 |> Option.value None;;
-Line 1, characters 1-10:
+Line 1, characters 13-15:
 Error: Syntax error
 ```
 

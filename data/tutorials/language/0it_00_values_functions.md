@@ -363,7 +363,7 @@ Here, the global environment is unchanged:
 # ten;;
 Line 1, characters 1-4:
 Error: Unbound value ten
-Hint: Did you mean tan?
+Hint:   Did you mean tan?
 ```
 
 Evaluating `ten` results in an error because it hasn't been added to the global environment. However, in the expression `2 * ten`, the local environment contains the definition of `ten`.
@@ -727,7 +727,7 @@ Putting the parentheses the other way does not work:
 ```ocaml
 # let bogus_cat : (string -> string) -> string = sweet_cat;;
 Line 1, characters 48-57:
-Error: This expression has type string -> string -> string
+Error: The value sweet_cat has type string -> string -> string
        but an expression was expected of type (string -> string) -> string
        Type string is not compatible with type string -> string
 ```
