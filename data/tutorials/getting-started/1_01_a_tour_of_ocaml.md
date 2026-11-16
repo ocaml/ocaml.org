@@ -358,14 +358,14 @@ OCaml never implicitly converts values from one type to another. It is not possi
 ```ocaml
 # 1 + 2.5;;
 Line 1, characters 5-8:
-Error: This expression has type float but an expression was expected of type
+Error: The constant 2.5 has type float but an expression was expected of type
          int
 
 # 1 +. 2.5;;
 Line 1, characters 1-2:
-Error: This expression has type int but an expression was expected of type
+Error: The constant 1 has type int but an expression was expected of type
          float
-  Hint: Did you mean 1.?
+Hint: Did you mean 1.?
 ```
 
 In the first example, `+` is intended to be used with integers, so it can't be used with the `2.5` float. In the second example, `+.` is intended to be used with floats, so it can't be used with the `1` integer.
@@ -513,8 +513,7 @@ Note that OCaml throws a warning when pattern matching does not catch all cases:
 # fun i -> match i with 0 -> 1;;
 Line 1, characters 10-29:
 Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-1
+  Here is an example of a case that is not matched: 1
 
 - : int -> int = <fun>
 ```
@@ -806,8 +805,12 @@ module Option :
     val bind : 'a t -> ('a -> 'b t) -> 'b t
     val join : 'a t t -> 'a t
     val map : ('a -> 'b) -> 'a t -> 'b t
+    val product : 'a t -> 'b t -> ('a * 'b) t
     val fold : none:'a -> some:('b -> 'a) -> 'b t -> 'a
     val iter : ('a -> unit) -> 'a t -> unit
+    val blend : ('a -> 'a -> 'a) -> 'a t -> 'a t -> 'a t
+    val for_all : ('a -> bool) -> 'a t -> bool
+    val exists : ('a -> bool) -> 'a t -> bool
     val is_none : 'a t -> bool
     val is_some : 'a t -> bool
     val equal : ('a -> 'a -> bool) -> 'a t -> 'a t -> bool
@@ -815,6 +818,7 @@ module Option :
     val to_result : none:'e -> 'a t -> ('a, 'e) result
     val to_list : 'a t -> 'a list
     val to_seq : 'a t -> 'a Seq.t
+    module Syntax : sig ... end
   end
 ```
 
