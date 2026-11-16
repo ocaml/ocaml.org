@@ -1,3 +1,19 @@
+; The smoke test is a Node project, not OCaml.
+
+(data_only_dirs test)
+
+; What `dune build` builds: the files served under /play.
+
+(rule
+ (alias default)
+ (deps
+  asset/playground.min.js
+  asset/worker.min.js
+  asset/merlin.min.js
+  asset/stdlib.cmis.js
+  asset/stdlib)
+ (action (progn)))
+
 (subdir
  asset/
  (rule
@@ -19,27 +35,43 @@
     --bundle
     --outfile=playground.min.js
     %{js})))
+ ; Already optimised by js_of_ocaml --opt 3; jsoo_minify gains nothing on it.
  (rule
   (targets worker.min.js)
   (mode
    (promote (until-clean)))
+  (action
+   (copy %{project_root}/src/worker.js %{targets})))
+ (rule
+  (targets stdlib.cmis.js)
+  (mode
+   (promote (until-clean)))
+  (action
+   (copy %{project_root}/src/stdlib.cmis.js %{targets})))
+ ; merlin-lib embeds the build machine's standard library path as a default,
+ ; which merlin-js always overrides with /static/cmis. Replace it with that
+ ; value, so the asset does not depend on (or reveal) where it was built.
+ (rule
+  (targets merlin.unrelocated.js)
   (deps
-   (:js %{project_root}/src/worker.js)
-   stdlib)
+   (:js %{project_root}/src/merlin_worker.bc.js))
   (action
    (run jsoo_minify %{js} -o %{targets})))
  (rule
   (targets merlin.min.js)
   (mode
    (promote (until-clean)))
-  (deps
-   (:js %{project_root}/src/merlin_worker.bc.js))
   (action
-   (run jsoo_minify %{js} -o %{targets})))
+   (with-stdout-to
+    %{targets}
+    (run sed "s|%{ocaml_where}|/static/cmis|g" %{dep:merlin.unrelocated.js}))))
  (rule
   (targets
    (dir stdlib))
   (mode
    (promote (until-clean)))
+  (deps
+   (:script ../gen_stdlib.sh)
+   %{ocaml_where}/stdlib.cmi)
   (action
-   (run ../gen_stdlib.sh))))
+   (run %{script} %{ocaml_where}))))

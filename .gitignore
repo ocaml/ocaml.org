@@ -36,3 +36,6 @@ a.out
 
 # Simulation runs (tool/sim)
 tool/sim/out/
+
+# Playground smoke test (Node)
+playground/test/node_modules/

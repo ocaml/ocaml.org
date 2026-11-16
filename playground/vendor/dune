@@ -1,0 +1,25 @@
+; merlin-js is built from source, as a git submodule, rather than installed with
+; opam: the merlin-js package is compiled against a copy of code-mirror that it
+; vendors and does not install, so it cannot be linked with the code-mirror
+; package. The playground uses that vendored copy too.
+;
+; To return to opam packages once this is fixed upstream: delete this
+; directory and the submodule, and restore the merlin-js and code-mirror
+; dependencies (see "UPSTREAM" in ../dune-project).
+
+(vendored_dirs merlin-js)
+
+; Only the libraries the playground uses: the LSP worker and the examples need
+; packages (linol, wasm_of_ocaml-compiler) that the playground does not.
+
+(subdir
+ merlin-js
+ (dirs :standard \ example))
+
+(subdir
+ merlin-js/src
+ (dirs :standard \ lsp))
+
+(subdir
+ merlin-js/vendor/jsoo-code-mirror
+ (dirs :standard \ examples))
