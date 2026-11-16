@@ -62,10 +62,14 @@ COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam
 COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_web/bin/main.exe /bin/server
 COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_package/builder/main.exe /bin/ocamlorg-package-builder
 
-COPY playground/asset playground/asset
+# Files from the build context keep their modes, and are owned by root. A
+# checkout made under a restrictive umask (077) has 0600 files and 0700
+# directories, which the ocamlorg user could not read, so make them readable
+# by everyone.
+COPY --chmod=a+rX playground/asset playground/asset
 
 RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
-ADD data/v2 /v2
+ADD --chmod=a+rX data/v2 /v2
 
 ENV DREAM_VERBOSITY=info \
     OCAMLORG_HTTP_PORT=8080 \
