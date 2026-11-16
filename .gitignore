@@ -31,8 +31,11 @@ _scrape_report.md
 *.a
 *.so
 a.out
-# ...except the in-browser playground, which ships prebuilt stdlib .cmi files.
-!playground/asset/stdlib/*.cmi
+# Playground assets: built by `make playground`, or downloaded by
+# `make playground-fetch` (see playground/release)
+playground/asset/
+playground/.asset-release
+playground/.fetch.*
 
 # Simulation runs (tool/sim)
 tool/sim/out/

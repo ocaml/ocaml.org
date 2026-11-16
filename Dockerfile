@@ -30,6 +30,12 @@ WORKDIR /home/opam
 COPY --chown=opam ocamlorg.opam .
 RUN OPAMSOLVERTIMEOUT=300 opam install . --deps-only
 
+# Download the prebuilt playground assets pinned in playground/release. The
+# server build below reads them (it serves only the files it has digests for).
+# In a layer of its own, rebuilt only when the pin changes.
+COPY --chown=opam playground/fetch.sh playground/release playground/
+RUN playground/fetch.sh
+
 # Build project
 COPY --chown=opam . .
 RUN opam exec -- dune build @install --profile=release
@@ -66,14 +72,16 @@ COPY --from=build --chown=ocamlorg:ocamlorg /home/opam/opam-repository /var/opam
 # which is also the uid given to ocamlorg above.
 COPY --from=build --chown=root:root /home/opam/server /bin/server
 COPY --from=build --chown=root:root /home/opam/_build/default/src/ocamlorg_package/builder/main.exe /bin/ocamlorg-package-builder
+# The playground assets, exactly as the server binary was built with them: it
+# serves only the files whose digests it holds.
+COPY --from=build --chown=root:root --chmod=a+rX /home/opam/playground/asset playground/asset
+
+RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
 
 # Files from the build context keep their modes, and are owned by root. A
 # checkout made under a restrictive umask (077) has 0600 files and 0700
 # directories, which the ocamlorg user could not read, so make them readable
 # by everyone.
-COPY --chmod=a+rX playground/asset playground/asset
-
-RUN git clone https://github.com/ocaml-web/html-compiler-manuals /manual
 ADD --chmod=a+rX data/v2 /v2
 
 ENV DREAM_VERBOSITY=info \

@@ -2,7 +2,8 @@
 !asset/
 !data/
 !src/
-!playground/asset/
+!playground/fetch.sh
+!playground/release
 !tool/
 !dune
 !dune-project

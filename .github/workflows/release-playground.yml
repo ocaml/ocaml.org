@@ -1,0 +1,165 @@
+name: Release playground
+
+# Build the playground from source, smoke-test it, publish its assets as a
+# release with a tag of its own (never reused), and open a pull request that
+# pins the server to it (playground/release).
+#
+# A change to playground/release alone does not trigger this workflow, so
+# merging the pull request it opens does not start another release.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'playground/**'
+      - '!playground/release'
+      - '.github/workflows/release-playground.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: release-playground
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and release
+    if: github.repository == 'ocaml/ocaml.org'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+      sha256: ${{ steps.release.outputs.sha256 }}
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v7
+        with:
+          submodules: true
+
+      - name: Read the playground compiler version
+        id: compiler
+        run: echo "version=$(sed -n 's/^COMPILER=//p' playground/Makefile)" >> "$GITHUB_OUTPUT"
+
+      - name: Use OCaml ${{ steps.compiler.outputs.version }}
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ steps.compiler.outputs.version }}
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac
+          opam-disable-sandboxing: true
+
+      - name: Install opam dependencies
+        run: |
+          opam install --deps-only ./playground
+          make -C playground toplevel-client SWITCH=
+
+      - name: Build the playground
+        run: |
+          rm -rf playground/asset
+          opam exec -- dune build --root playground --profile=release
+
+      - name: Smoke test
+        run: make -C playground smoke
+
+      # The tag names the compiler and the source commit. A rerun finds the
+      # release already there and reuses it.
+      - name: Publish the release
+        id: release
+        run: |
+          tag="playground-${{ steps.compiler.outputs.version }}-${GITHUB_SHA::7}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release download "$tag" --pattern playground-asset.tar.gz
+          else
+            playground/pack.sh playground-asset.tar.gz
+            gh release create "$tag" playground-asset.tar.gz \
+              --target "$GITHUB_SHA" \
+              --title "Playground, OCaml ${{ steps.compiler.outputs.version }} @ ${GITHUB_SHA::7}" \
+              --notes "Prebuilt assets of the playground served at https://ocaml.org/play, built from $GITHUB_SHA. The server is pinned to a release in playground/release." \
+              --latest=false
+          fi
+          sha256=$(sha256sum playground-asset.tar.gz | cut -d' ' -f1)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Keep the five newest playground releases, and the one main is pinned to.
+      - name: Prune old releases
+        run: |
+          . playground/release
+          gh release list --limit 200 --json tagName --jq '.[].tagName' |
+            grep '^playground-' | tail -n +6 |
+            while read -r tag; do
+              if [ "$tag" != "$PLAYGROUND_RELEASE" ]; then
+                gh release delete "$tag" --cleanup-tag --yes
+              fi
+            done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Pull requests opened with GITHUB_TOKEN do not run CI, so the server is built
+  # and tested against the new release here, before the pull request is opened.
+  pin:
+    name: Pin the server to the release
+    needs: release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v7
+
+      - name: Point playground/release to the new release
+        run: |
+          sed -i \
+            -e 's/^PLAYGROUND_RELEASE=.*/PLAYGROUND_RELEASE=${{ needs.release.outputs.tag }}/' \
+            -e 's/^PLAYGROUND_SHA256=.*/PLAYGROUND_SHA256=${{ needs.release.outputs.sha256 }}/' \
+            playground/release
+          git diff
+
+      - name: Read the server compiler version
+        id: compiler
+        run: echo "version=$(sed -n 's/.*opam switch create \. \([^ ]*\) .*/\1/p' Makefile)" >> "$GITHUB_OUTPUT"
+
+      - name: Use OCaml ${{ steps.compiler.outputs.version }}
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ steps.compiler.outputs.version }}
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac
+          opam-disable-sandboxing: true
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libev-dev libonig-dev libcurl4-openssl-dev
+
+      - name: Install opam dependencies
+        run: opam install --deps-only --with-test .
+
+      # make downloads the release, as the Docker build does.
+      - name: Build and test the server
+        run: |
+          make
+          make test
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: "playground: assets ${{ needs.release.outputs.tag }}"
+          commit-message: |
+            playground: assets ${{ needs.release.outputs.tag }}
+
+            Pin the server to the playground assets built from ${{ github.sha }}.
+          body: |
+            Pin the server to the playground assets of release [`${{ needs.release.outputs.tag }}`](https://github.com/${{ github.repository }}/releases/tag/${{ needs.release.outputs.tag }}), built from ${{ github.sha }}.
+
+            Before opening this pull request, the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) smoke-tested the playground in headless Chrome, then built and tested the server with these assets. CI does not run on pull requests opened by this workflow.
+          branch: bot/playground
+          add-paths: playground/release
