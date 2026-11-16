@@ -372,7 +372,7 @@ let libraries_and_modules ?(max_nodes = default_max_doc_nodes) ~name ~version
     let modules =
       List.filter is_module n.children
       |> List.filter_map (fun m ->
-             if take () then Some (node_json ~name ~version m) else None)
+          if take () then Some (node_json ~name ~version m) else None)
     in
     `Assoc
       [

@@ -92,8 +92,8 @@ let run ~dry_run ~source_filter () =
   let sources =
     Sys.readdir planet_dir |> Array.to_list |> List.sort String.compare
     |> List.filter (fun s ->
-           Sys.is_directory (Filename.concat planet_dir s)
-           && match source_filter with Some f -> f = s | None -> true)
+        Sys.is_directory (Filename.concat planet_dir s)
+        && match source_filter with Some f -> f = s | None -> true)
   in
   let count = ref 0 and failed = ref 0 in
   List.iter
@@ -101,16 +101,16 @@ let run ~dry_run ~source_filter () =
       let dir = Filename.concat planet_dir source in
       Sys.readdir dir |> Array.to_list |> List.sort String.compare
       |> List.iter (fun fname ->
-             if Filename.check_suffix fname ".md" then
-               let path = Filename.concat dir fname in
-               match process ~dry_run path with
-               | Unchanged -> ()
-               | Failed why ->
-                   incr failed;
-                   Printf.printf "%s\n  SKIPPED: %s\n\n%!" path why
-               | Shortened d ->
-                   incr count;
-                   Printf.printf "%s\n  %s\n\n%!" path d))
+          if Filename.check_suffix fname ".md" then
+            let path = Filename.concat dir fname in
+            match process ~dry_run path with
+            | Unchanged -> ()
+            | Failed why ->
+                incr failed;
+                Printf.printf "%s\n  SKIPPED: %s\n\n%!" path why
+            | Shortened d ->
+                incr count;
+                Printf.printf "%s\n  %s\n\n%!" path d))
     sources;
   Printf.printf "%d description(s) %s\n" !count
     (if dry_run then "would be shortened" else "shortened");

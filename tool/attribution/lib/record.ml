@@ -91,9 +91,9 @@ let content_of_line line =
   | `Assoc fields ->
       Yojson.Safe.to_string
         (`Assoc
-          (List.filter
-             (fun (k, _) -> k <> "generated_at_commit" && k <> "generator")
-             fields))
+           (List.filter
+              (fun (k, _) -> k <> "generated_at_commit" && k <> "generator")
+              fields))
   | _ -> line
 
 (* --- deserialization (inverse of [to_json]) ------------------------------- *)

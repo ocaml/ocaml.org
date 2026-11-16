@@ -5,8 +5,8 @@ type t = Data_intf.Code_examples.t = { title : string; body : string }
 let all () : t list =
   Utils.read_from_dir "code_examples/*.ml"
   |> List.map (fun (path, body) ->
-         let title = Filename.basename path in
-         { title; body })
+      let title = Filename.basename path in
+      { title; body })
   |> fun examples ->
   if
     List.exists

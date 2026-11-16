@@ -140,27 +140,27 @@ let lead_of_html html =
   (try
      Markup.string html |> Markup.parse_html |> Markup.signals
      |> Markup.iter (function
-          | `Start_element ((_, name), _) ->
-              let name = String.lowercase_ascii name in
-              (* Element boundaries separate words unless the element is inline:
-                 "<li>a</li><li>b</li>" is "a b", not "ab". *)
-              if not (List.mem name inline_tags) then (
-                if List.mem "p" !stack || name = "p" then
-                  if not (full ()) then Buffer.add_char paras ' ';
-                Buffer.add_char all ' ');
-              stack := name :: !stack
-          | `End_element -> (
-              match !stack with _ :: tl -> stack := tl | [] -> ())
-          | `Text ss ->
-              if not (in_any skip_tags) then
-                let p = List.mem "p" !stack && not (full ()) in
-                List.iter
-                  (fun s ->
-                    if p then Buffer.add_string paras s;
-                    if Buffer.length all <= max_length * 4 then
-                      Buffer.add_string all s)
-                  ss
-          | _ -> ())
+       | `Start_element ((_, name), _) ->
+           let name = String.lowercase_ascii name in
+           (* Element boundaries separate words unless the element is inline:
+              "<li>a</li><li>b</li>" is "a b", not "ab". *)
+           if not (List.mem name inline_tags) then (
+             if List.mem "p" !stack || name = "p" then
+               if not (full ()) then Buffer.add_char paras ' ';
+             Buffer.add_char all ' ');
+           stack := name :: !stack
+       | `End_element -> (
+           match !stack with _ :: tl -> stack := tl | [] -> ())
+       | `Text ss ->
+           if not (in_any skip_tags) then
+             let p = List.mem "p" !stack && not (full ()) in
+             List.iter
+               (fun s ->
+                 if p then Buffer.add_string paras s;
+                 if Buffer.length all <= max_length * 4 then
+                   Buffer.add_string all s)
+               ss
+       | _ -> ())
    with _ -> ());
   let paras = normalize (Buffer.contents paras) in
   non_empty (shorten (if paras <> "" then paras else Buffer.contents all))
@@ -172,23 +172,23 @@ let meta_of_html html =
   (try
      Markup.string html |> Markup.parse_html |> Markup.signals
      |> Markup.iter (function
-          | `Start_element ((_, "meta"), attrs) -> (
-              let attr k =
-                List.find_map
-                  (fun ((_, n), v) ->
-                    if String.lowercase_ascii n = k then Some v else None)
-                  attrs
-              in
-              let key =
-                match (attr "property", attr "name") with
-                | Some k, _ | None, Some k -> Some (String.lowercase_ascii k)
-                | None, None -> None
-              in
-              match (key, attr "content") with
-              | Some "og:description", Some c when !og = None -> og := Some c
-              | Some "description", Some c when !plain = None -> plain := Some c
-              | _ -> ())
-          | _ -> ())
+       | `Start_element ((_, "meta"), attrs) -> (
+           let attr k =
+             List.find_map
+               (fun ((_, n), v) ->
+                 if String.lowercase_ascii n = k then Some v else None)
+               attrs
+           in
+           let key =
+             match (attr "property", attr "name") with
+             | Some k, _ | None, Some k -> Some (String.lowercase_ascii k)
+             | None, None -> None
+           in
+           match (key, attr "content") with
+           | Some "og:description", Some c when !og = None -> og := Some c
+           | Some "description", Some c when !plain = None -> plain := Some c
+           | _ -> ())
+       | _ -> ())
    with _ -> ());
   match !og with
   | Some c when normalize c <> "" -> Some c

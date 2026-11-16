@@ -43,7 +43,8 @@ type library = {
   dependencies : string list;
   modules : Module.t String.Map.t;
 }
-(** The type for a library. It contains its name, dependencies and root modules *)
+(** The type for a library. It contains its name, dependencies and root modules
+*)
 
 type t = { libraries : library String.Map.t }
 (** The type for a package map. *)

@@ -474,21 +474,20 @@ let latency_buckets ~bucket reqs =
   Hashtbl.fold (fun b rs acc -> (b, rs) :: acc) tbl []
   |> List.sort compare
   |> List.map (fun (b, rs) ->
-         let lat =
-           sorted_of_list
-             (List.filter_map
-                (fun r ->
-                  if has_latency r.status then Some r.latency_ms else None)
-                rs)
-         in
-         let count p = string_of_int (List.length (List.filter p rs)) in
-         Csv.float (float_of_int b *. bucket)
-         :: string_of_int (List.length rs)
-         :: count (fun r -> r.status <> "drop" && not (ok r.status))
-         :: count (fun r -> r.status = "drop")
-         :: List.map
-              (fun p -> Csv.float (percentile lat p))
-              [ 0.5; 0.9; 0.95; 0.99; 0.999; 1.0 ])
+      let lat =
+        sorted_of_list
+          (List.filter_map
+             (fun r -> if has_latency r.status then Some r.latency_ms else None)
+             rs)
+      in
+      let count p = string_of_int (List.length (List.filter p rs)) in
+      Csv.float (float_of_int b *. bucket)
+      :: string_of_int (List.length rs)
+      :: count (fun r -> r.status <> "drop" && not (ok r.status))
+      :: count (fun r -> r.status = "drop")
+      :: List.map
+           (fun p -> Csv.float (percentile lat p))
+           [ 0.5; 0.9; 0.95; 0.99; 0.999; 1.0 ])
 
 let latency_header =
   [
@@ -994,15 +993,15 @@ let run ?(bucket = 5.) ?(bin = 10.) dir =
       List.sort (fun a b -> compare b.ms a.ms) pauses
       |> List.filteri (fun i _ -> i < 10)
       |> List.map (fun p ->
-             {
-               et = p.start;
-               ekind = "gc_pause";
-               value = p.ms;
-               unit = "ms";
-               detail =
-                 ((if p.kind = "minor" then "minor GC" else "major slice")
-                 ^ if busy p.start then "; during update" else "");
-             })
+          {
+            et = p.start;
+            ekind = "gc_pause";
+            value = p.ms;
+            unit = "ms";
+            detail =
+              ((if p.kind = "minor" then "minor GC" else "major slice")
+              ^ if busy p.start then "; during update" else "");
+          })
     in
     List.sort
       (fun a b -> compare a.et b.et)

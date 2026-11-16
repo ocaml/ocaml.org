@@ -83,7 +83,7 @@ let all () =
   let releases =
     Platform_release_parser.all ()
     |> List.filter (fun (a : Platform_release_parser.t) ->
-           a.Platform_release_parser.experimental = false)
+        a.Platform_release_parser.experimental = false)
     |> List.map platform_tools_release_to_release
   in
   let posts = Posts.all () in

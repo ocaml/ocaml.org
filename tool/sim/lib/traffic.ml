@@ -106,13 +106,13 @@ let crawler ~seed ~packages ~rps ~include_docs =
   let urls =
     Array.to_list packages
     |> List.concat_map (fun (name, vers) ->
-           ("/p/" ^ name)
-           :: List.concat_map
-                (fun v ->
-                  let base = "/p/" ^ name ^ "/" ^ v in
-                  if include_docs then [ base; base ^ "/doc/index.html" ]
-                  else [ base ])
-                (Array.to_list vers))
+        ("/p/" ^ name)
+        :: List.concat_map
+             (fun v ->
+               let base = "/p/" ^ name ^ "/" ^ v in
+               if include_docs then [ base; base ^ "/doc/index.html" ]
+               else [ base ])
+             (Array.to_list vers))
     |> Array.of_list
   in
   let n = Array.length urls in
@@ -166,7 +166,7 @@ let plan ~seed ~duration streams =
         ~rng:(rng ~seed (s.name ^ " times"))
         ~rate:s.rate ~peak:s.peak ~duration
       |> List.mapi (fun id offset ->
-             { offset; stream = s.name; id; path = s.next () }))
+          { offset; stream = s.name; id; path = s.next () }))
     streams
   |> List.stable_sort (fun a b -> compare a.offset b.offset)
   |> Array.of_list

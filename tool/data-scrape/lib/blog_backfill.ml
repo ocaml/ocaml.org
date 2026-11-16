@@ -59,7 +59,10 @@ let split_front_matter contents =
     match find_sub ~sub:"\n---\n" rest with
     | None -> None
     | Some i ->
-        let fm = String.sub rest 0 (i + 1) (* include trailing newline *) in
+        let fm =
+          String.sub rest 0 (i + 1)
+          (* include trailing newline *)
+        in
         let body = String.sub rest (i + 5) (String.length rest - (i + 5)) in
         Some (fm, body)
 
@@ -91,33 +94,33 @@ let collect_posts ~source_filter ~only_missing =
   let sources =
     Sys.readdir planet_dir |> Array.to_list |> List.sort String.compare
     |> List.filter (fun s ->
-           Sys.is_directory (Filename.concat planet_dir s)
-           && match source_filter with Some f -> f = s | None -> true)
+        Sys.is_directory (Filename.concat planet_dir s)
+        && match source_filter with Some f -> f = s | None -> true)
   in
   List.concat_map
     (fun source ->
       let dir = Filename.concat planet_dir source in
       Sys.readdir dir |> Array.to_list |> List.sort String.compare
       |> List.filter_map (fun fname ->
-             if not (Filename.check_suffix fname ".md") then None
-             else
-               let path = Filename.concat dir fname in
-               match split_front_matter (read_file path) with
-               | None -> None
-               | Some (fm, _) -> (
-                   match parse_meta fm with
-                   | Some (url, title, has_keywords)
-                     when url <> "" && not (only_missing && has_keywords) ->
-                       Some
-                         {
-                           path;
-                           source;
-                           slug = Filename.remove_extension fname;
-                           title;
-                           url;
-                           has_keywords;
-                         }
-                   | _ -> None)))
+          if not (Filename.check_suffix fname ".md") then None
+          else
+            let path = Filename.concat dir fname in
+            match split_front_matter (read_file path) with
+            | None -> None
+            | Some (fm, _) -> (
+                match parse_meta fm with
+                | Some (url, title, has_keywords)
+                  when url <> "" && not (only_missing && has_keywords) ->
+                    Some
+                      {
+                        path;
+                        source;
+                        slug = Filename.remove_extension fname;
+                        title;
+                        url;
+                        has_keywords;
+                      }
+                | _ -> None)))
     sources
 
 (* ------------------------------------------------------------------ *)
@@ -151,19 +154,19 @@ let html_to_text html =
   (try
      Markup.string html |> Markup.parse_html |> Markup.signals
      |> Markup.iter (function
-          | `Start_element ((_, name), _) ->
-              stack := String.lowercase_ascii name :: !stack
-          | `End_element -> (
-              match !stack with _ :: tl -> stack := tl | [] -> ())
-          | `Text ss ->
-              if not (in_any skip_tags) then
-                let buf = if in_any code_tags then code else prose in
-                List.iter
-                  (fun s ->
-                    Buffer.add_string buf s;
-                    Buffer.add_char buf ' ')
-                  ss
-          | _ -> ())
+       | `Start_element ((_, name), _) ->
+           stack := String.lowercase_ascii name :: !stack
+       | `End_element -> (
+           match !stack with _ :: tl -> stack := tl | [] -> ())
+       | `Text ss ->
+           if not (in_any skip_tags) then
+             let buf = if in_any code_tags then code else prose in
+             List.iter
+               (fun s ->
+                 Buffer.add_string buf s;
+                 Buffer.add_char buf ' ')
+               ss
+       | _ -> ())
    with _ -> ());
   (Buffer.contents prose, Buffer.contents code)
 
@@ -392,18 +395,18 @@ let load_vocab () =
   else
     read_file vocab_file |> String.split_on_char '\n'
     |> List.filter_map (fun line ->
-           let line = String.trim line in
-           if line = "" || String.starts_with ~prefix:"#" line then None
-           else
-             match find_sub ~sub:"=>" line with
-             | Some i ->
-                 let variant = String.trim (String.sub line 0 i) in
-                 let canon =
-                   String.trim
-                     (String.sub line (i + 2) (String.length line - (i + 2)))
-                 in
-                 Some (String.lowercase_ascii variant, canon)
-             | None -> Some (String.lowercase_ascii line, line))
+        let line = String.trim line in
+        if line = "" || String.starts_with ~prefix:"#" line then None
+        else
+          match find_sub ~sub:"=>" line with
+          | Some i ->
+              let variant = String.trim (String.sub line 0 i) in
+              let canon =
+                String.trim
+                  (String.sub line (i + 2) (String.length line - (i + 2)))
+              in
+              Some (String.lowercase_ascii variant, canon)
+          | None -> Some (String.lowercase_ascii line, line))
 
 (* [canon]: normalised term -> canonical display form (opam names ∪ vocab).
    [vocab]: the subset coming from the curated vocabulary, which is boosted
@@ -463,16 +466,16 @@ let corpus_df ~cache_dir =
   let df = Hashtbl.create 65536 and ndocs = ref 0 in
   Sys.readdir cache_dir
   |> Array.iter (fun f ->
-         if Filename.check_suffix f ".txt" then
-           match read_cached_text (Filename.concat cache_dir f) with
-           | None -> ()
-           | Some text ->
-               incr ndocs;
-               SSet.iter
-                 (fun g ->
-                   Hashtbl.replace df g
-                     (1 + Option.value ~default:0 (Hashtbl.find_opt df g)))
-                 (analyse text).grams);
+      if Filename.check_suffix f ".txt" then
+        match read_cached_text (Filename.concat cache_dir f) with
+        | None -> ()
+        | Some text ->
+            incr ndocs;
+            SSet.iter
+              (fun g ->
+                Hashtbl.replace df g
+                  (1 + Option.value ~default:0 (Hashtbl.find_opt df g)))
+              (analyse text).grams);
   (df, !ndocs)
 
 (* Document frequencies over every post's STORED body on disk (no cache, no
@@ -484,24 +487,22 @@ let corpus_df_from_disk () =
   if Sys.file_exists planet_dir then
     Sys.readdir planet_dir
     |> Array.iter (fun src ->
-           let dir = Filename.concat planet_dir src in
-           if Sys.is_directory dir then
-             Sys.readdir dir
-             |> Array.iter (fun f ->
-                    if Filename.check_suffix f ".md" then
-                      match
-                        split_front_matter (read_file (Filename.concat dir f))
-                      with
-                      | Some (_, body) when String.trim body <> "" ->
-                          incr ndocs;
-                          SSet.iter
-                            (fun g ->
-                              Hashtbl.replace df g
-                                (1
-                                + Option.value ~default:0
-                                    (Hashtbl.find_opt df g)))
-                            (analyse (html_to_text body)).grams
-                      | _ -> ()));
+        let dir = Filename.concat planet_dir src in
+        if Sys.is_directory dir then
+          Sys.readdir dir
+          |> Array.iter (fun f ->
+              if Filename.check_suffix f ".md" then
+                match
+                  split_front_matter (read_file (Filename.concat dir f))
+                with
+                | Some (_, body) when String.trim body <> "" ->
+                    incr ndocs;
+                    SSet.iter
+                      (fun g ->
+                        Hashtbl.replace df g
+                          (1 + Option.value ~default:0 (Hashtbl.find_opt df g)))
+                      (analyse (html_to_text body)).grams
+                | _ -> ()));
   (df, !ndocs)
 
 let max_keywords = 10

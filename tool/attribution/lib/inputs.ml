@@ -30,9 +30,9 @@ let load_ignore_revs ?(path = ".git-blame-ignore-revs") () : ignore_revs =
   | Some s ->
       String.split_on_char '\n' s
       |> List.iter (fun line ->
-             let line = String.trim line in
-             if line <> "" && not (String.length line > 0 && line.[0] = '#')
-             then Hashtbl.replace tbl line ()));
+          let line = String.trim line in
+          if line <> "" && not (String.length line > 0 && line.[0] = '#') then
+            Hashtbl.replace tbl line ()));
   tbl
 
 let is_ignored (tbl : ignore_revs) hash = Hashtbl.mem tbl hash

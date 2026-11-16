@@ -28,18 +28,18 @@ let kv_file path key =
   Option.bind (read_file path) (fun s ->
       Proc.lines s
       |> List.find_map (fun l ->
-             match String.split_on_char ' ' l with
-             | [ k; v ] when k = key -> int_of_string_opt v
-             | _ -> None))
+          match String.split_on_char ' ' l with
+          | [ k; v ] when k = key -> int_of_string_opt v
+          | _ -> None))
 
 (* [VmRSS: 123456 kB] lines of [/proc/<pid>/status]; in bytes. *)
 let status_kb path key =
   Option.bind (read_file path) (fun s ->
       Proc.lines s
       |> List.find_map (fun l ->
-             if String.starts_with ~prefix:(key ^ ":") l then
-               Scanf.sscanf_opt l "%_s %d kB" (fun kb -> kb * 1024)
-             else None))
+          if String.starts_with ~prefix:(key ^ ":") l then
+            Scanf.sscanf_opt l "%_s %d kB" (fun kb -> kb * 1024)
+          else None))
 
 (* The cgroup directory of a host process, from [/proc/<pid>/cgroup]'s v2 line
    [0::/system.slice/docker-<id>.scope]. *)
@@ -49,9 +49,9 @@ let cgroup_dir pid =
   | Some s ->
       Proc.lines s
       |> List.find_map (fun l ->
-             if String.starts_with ~prefix:"0::" l then
-               Some ("/sys/fs/cgroup" ^ String.sub l 3 (String.length l - 3))
-             else None)
+          if String.starts_with ~prefix:"0::" l then
+            Some ("/sys/fs/cgroup" ^ String.sub l 3 (String.length l - 3))
+          else None)
 
 (* The [total=] field (microseconds) of the [some] line of a PSI file
    ([memory.pressure], [/proc/pressure/memory]): the time at least one task was
@@ -60,14 +60,14 @@ let psi_some_total path =
   Option.bind (read_file path) (fun s ->
       Proc.lines s
       |> List.find_map (fun l ->
-             if String.starts_with ~prefix:"some " l then
-               List.find_map
-                 (fun w ->
-                   if String.starts_with ~prefix:"total=" w then
-                     int_of_string_opt (String.sub w 6 (String.length w - 6))
-                   else None)
-                 (String.split_on_char ' ' l)
-             else None))
+          if String.starts_with ~prefix:"some " l then
+            List.find_map
+              (fun w ->
+                if String.starts_with ~prefix:"total=" w then
+                  int_of_string_opt (String.sub w 6 (String.length w - 6))
+                else None)
+              (String.split_on_char ' ' l)
+          else None))
 
 (* [Key: 123 kB] lines of [/proc/meminfo]; in bytes. *)
 let meminfo key = status_kb "/proc/meminfo" key

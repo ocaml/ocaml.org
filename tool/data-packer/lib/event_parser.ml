@@ -123,12 +123,12 @@ let decode (recurring_events : recurring_event list) (fpath, (head, body_md)) =
 let all () =
   Utils.map_md_files (decode (recurring_event_all ())) "events/*.md"
   |> Stdlib.List.sort (fun (e1 : t) (e2 : t) ->
-         let t1 =
-           e1.starts.yyyy_mm_dd ^ " "
-           ^ Option.value ~default:"00:00" e1.starts.utc_hh_mm
-         in
-         let t2 =
-           e2.starts.yyyy_mm_dd ^ " "
-           ^ Option.value ~default:"00:00" e2.starts.utc_hh_mm
-         in
-         String.compare t1 t2)
+      let t1 =
+        e1.starts.yyyy_mm_dd ^ " "
+        ^ Option.value ~default:"00:00" e1.starts.utc_hh_mm
+      in
+      let t2 =
+        e2.starts.yyyy_mm_dd ^ " "
+        ^ Option.value ~default:"00:00" e2.starts.utc_hh_mm
+      in
+      String.compare t1 t2)

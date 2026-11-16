@@ -57,7 +57,7 @@ let sample_state () =
 let versions_of state name =
   Package.get_versions state (Package.Name.of_string name)
   |> List.map (fun (s : Package.version_summary) ->
-         Package.Version.to_string s.version)
+      Package.Version.to_string s.version)
 
 let flags_of state name version =
   match

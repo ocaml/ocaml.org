@@ -363,13 +363,13 @@ let access_log_cmd =
     let lines =
       List.to_seq files
       |> Seq.concat_map (fun f ->
-             let ic = open_in f in
-             Seq.of_dispenser (fun () ->
-                 match input_line ic with
-                 | l -> Some l
-                 | exception End_of_file ->
-                     close_in ic;
-                     None))
+          let ic = open_in f in
+          Seq.of_dispenser (fun () ->
+              match input_line ic with
+              | l -> Some l
+              | exception End_of_file ->
+                  close_in ic;
+                  None))
     in
     let p =
       Access_log.profile ~source:("access-log:" ^ String.concat "+" files) lines

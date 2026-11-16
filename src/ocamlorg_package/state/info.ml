@@ -77,7 +77,8 @@ let get_depopts (opam : OpamFile.OPAM.t) =
 type index = {
   packages : OpamPackage.t array;
   ranges : (int * int) OpamPackage.Name.Map.t;
-      (** For each name, the id of its first version and its number of versions. *)
+      (** For each name, the id of its first version and its number of versions.
+      *)
 }
 
 (* [packages] must be sorted by [OpamPackage.compare]. *)
@@ -183,7 +184,7 @@ let rev_dep_entry versions_of_name name versions =
       (OpamPackage.Name.Map.find name versions_of_name)
       versions
     |> OpamFormula.map (fun (op, v) ->
-           Atom (Constraint (op, FString (OpamPackage.Version.to_string v))))
+        Atom (Constraint (op, FString (OpamPackage.Version.to_string v))))
   in
   (name, string_of_formula formula, OpamPackage.Version.Set.max_elt versions)
 
@@ -229,11 +230,10 @@ let make ~package ~rev_deps ~timestamps opam =
     url =
       url opam
       |> Option.map (fun url ->
-             {
-               uri = OpamUrl.to_string (OpamFile.URL.url url);
-               checksum =
-                 OpamFile.URL.checksum url |> List.map OpamHash.to_string;
-             });
+          {
+            uri = OpamUrl.to_string (OpamFile.URL.url url);
+            checksum = OpamFile.URL.checksum url |> List.map OpamHash.to_string;
+          });
     publication;
     flags = flags opam;
   }

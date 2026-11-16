@@ -65,15 +65,15 @@ let decode (tasks : task list) (fpath, (head, body)) =
     body
     |> Re.split_full Re.(compile (alt [ seq [ bol; str "(*" ]; str "*)\n" ]))
     |> List.map (function
-         | `Text s -> `Text s
-         | `Delim g -> `Delim (Re.Group.get g 0))
+      | `Text s -> `Text s
+      | `Delim g -> `Delim (Re.Group.get g 0))
     |> extract_explanation_code_pairs
     |> List.map (fun (c : code_block_with_explanation) ->
-           let code =
-             Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
-           in
-           let explanation = c.explanation |> render_markdown in
-           { explanation; code })
+        let code =
+          Printf.sprintf "```ocaml\n%s\n```" c.code |> render_markdown
+        in
+        let explanation = c.explanation |> render_markdown in
+        { explanation; code })
   in
   Result.map
     (fun ({ packages; discussion } : metadata) : t ->
@@ -100,12 +100,12 @@ let all_categories_and_tasks () =
     let cat_tasks =
       meta_cat.tasks
       |> List.map (fun (t : task_metadata) : task ->
-             {
-               title = t.title;
-               slug = t.slug;
-               category_path = List.rev (cat_slug :: path);
-               description = t.description |> Option.map render_markdown;
-             })
+          {
+            title = t.title;
+            slug = t.slug;
+            category_path = List.rev (cat_slug :: path);
+            description = t.description |> Option.map render_markdown;
+          })
     in
     let subcategories_tasks, subcategories =
       List.fold_left

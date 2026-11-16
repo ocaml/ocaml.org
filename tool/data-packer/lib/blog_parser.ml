@@ -30,18 +30,18 @@ module Source = struct
       Ok
         (sources
         |> List.map (fun { id; name; url; publish_all; disabled; repair = _ } ->
-               {
-                 Data_intf.Blog.id;
-                 name;
-                 url;
-                 description = "";
-                 publish_all;
-                 disabled;
-               }))
+            {
+              Data_intf.Blog.id;
+              name;
+              url;
+              description = "";
+              publish_all;
+              disabled;
+            }))
     in
     result
     |> Result.get_ok ~error:(fun (`Msg msg) ->
-           Exn.Decode_error (file ^ ": " ^ msg))
+        Exn.Decode_error (file ^ ": " ^ msg))
 end
 
 module Post = struct

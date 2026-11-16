@@ -141,9 +141,9 @@ let present commit =
   git h.repo [ "ls-tree"; "-r"; "--name-only"; commit; "packages" ]
   |> String.split_on_char '\n'
   |> List.filter_map (fun path ->
-         match String.split_on_char '/' path with
-         | [ "packages"; _; pkg; "opam" ] -> Some pkg
-         | _ -> None)
+      match String.split_on_char '/' path with
+      | [ "packages"; _; pkg; "opam" ] -> Some pkg
+      | _ -> None)
 
 let state dates = packages_map info dates
 
@@ -224,14 +224,14 @@ let test_every_commit () =
   git h.repo [ "rev-list"; "--first-parent"; h.new_ ]
   |> String.split_on_char '\n'
   |> List.iter (fun old ->
-         let at_old = to_list (compute ~commit:old (None, state [])) in
-         let old_state =
-           List.map (fun p -> (p, List.assoc p at_old)) (present old)
-         in
-         check
-           ("incremental from " ^ old)
-           expected
-           (compute (Some old, state old_state)))
+      let at_old = to_list (compute ~commit:old (None, state [])) in
+      let old_state =
+        List.map (fun p -> (p, List.assoc p at_old)) (present old)
+      in
+      check
+        ("incremental from " ^ old)
+        expected
+        (compute (Some old, state old_state)))
 
 let () =
   Alcotest.run "Publication_dates"

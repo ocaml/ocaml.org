@@ -82,8 +82,8 @@ let manual =
   in
   Fpath.of_string Config.manual_path
   |> Fun.flip Result.bind (fun manual ->
-         Bos.OS.Path.fold ~elements:`Files (add_url manual) []
-           (List.map (Fpath.add_seg manual) releases))
+      Bos.OS.Path.fold ~elements:`Files (add_url manual) []
+        (List.map (Fpath.add_seg manual) releases))
   |> Result.value ~default:[] |> List.to_seq
 
 let urlset (Urlable (all, show)) = Seq.map show (List.to_seq all)

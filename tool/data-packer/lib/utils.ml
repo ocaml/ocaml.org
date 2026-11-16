@@ -61,8 +61,8 @@ let read_file filepath =
   in
   Bos.OS.File.read filepath
   |> Result.map (fun r ->
-         check_utf_8 filepath_str r;
-         Some r)
+      check_utf_8 filepath_str r;
+      Some r)
   |> Result.map_error (fun (`Msg msg) -> failwith msg)
   |> Result.value ~default:None
 
@@ -74,11 +74,9 @@ let read_from_dir glob =
     Bos.OS.Path.matches Fpath.(root_dir // file_pattern)
     |> Result.get_ok ~error:(fun (`Msg msg) -> failwith msg)
     |> Stdlib.List.filter_map (fun x ->
-           read_file x
-           |> Option.map (fun y ->
-                  ( x |> Fpath.rem_prefix root_dir |> Option.get
-                    |> Fpath.to_string,
-                    y )))
+        read_file x
+        |> Option.map (fun y ->
+            (x |> Fpath.rem_prefix root_dir |> Option.get |> Fpath.to_string, y)))
   in
   if Stdlib.List.length results = 0 then
     failwith
@@ -134,16 +132,15 @@ let jsonl_file of_yojson filepath_str =
   |> Stdlib.String.split_on_char '\n'
   |> Stdlib.List.filter (fun line -> Stdlib.String.trim line <> "")
   |> Stdlib.List.map (fun line ->
-         match of_yojson (Yojson.Safe.from_string line) with
-         | Ok v -> v
-         | Error msg ->
-             raise
-               (Exn.Decode_error
-                  (Printf.sprintf "data/%s : %s" filepath_str msg))
-         | exception Yojson.Json_error msg ->
-             raise
-               (Exn.Decode_error
-                  (Printf.sprintf "data/%s : invalid JSON: %s" filepath_str msg)))
+      match of_yojson (Yojson.Safe.from_string line) with
+      | Ok v -> v
+      | Error msg ->
+          raise
+            (Exn.Decode_error (Printf.sprintf "data/%s : %s" filepath_str msg))
+      | exception Yojson.Json_error msg ->
+          raise
+            (Exn.Decode_error
+               (Printf.sprintf "data/%s : invalid JSON: %s" filepath_str msg)))
 
 let yaml_sequence_file ?key of_yaml filepath_str =
   let filepath =

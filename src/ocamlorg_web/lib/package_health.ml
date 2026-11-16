@@ -201,9 +201,7 @@ let query ?(releases = H.releases) q =
         if keep builds then Some (r, builds) else None)
       releases
     |> List.sort (fun ((a : H.release), _) ((b : H.release), _) ->
-           match String.compare a.name b.name with
-           | 0 -> newest_first a b
-           | c -> c)
+        match String.compare a.name b.name with 0 -> newest_first a b | c -> c)
   in
   let page =
     List.filteri (fun i _ -> i >= q.offset && i < q.offset + q.limit) matching

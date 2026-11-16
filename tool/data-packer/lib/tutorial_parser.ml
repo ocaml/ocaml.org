@@ -109,7 +109,7 @@ let decode (fpath, (head, body_md)) =
     List.nth (Stdlib.String.split_on_char '/' fpath) 1
     |> section_of_string
     |> Result.get_ok ~error:(fun (`Msg msg) ->
-           Exn.Decode_error (fpath ^ ":" ^ msg))
+        Exn.Decode_error (fpath ^ ":" ^ msg))
   in
   let doc = Markdown.Content.of_string body_md in
   let toc = Markdown.Toc.generate ~start_level:2 ~max_level:4 doc in
@@ -136,7 +136,7 @@ module TutorialSearch = struct
       section =
         section
         |> Option.map (fun (s : Search.section) ->
-               { title = s.Search.title; id = s.Search.id });
+            { title = s.Search.title; id = s.Search.id });
       content = content |> List.map Search.block_to_string |> String.concat "\n";
       slug = metadata.id;
     }

@@ -33,13 +33,13 @@ let rows (j : Yojson.Safe.t) =
   let open Yojson.Safe.Util in
   j |> member "results" |> to_list
   |> List.map (fun r ->
-         let dims = r |> member "dimensions" |> to_list |> List.map to_string in
-         let v =
-           match r |> member "metrics" |> to_list with
-           | v :: _ -> Profile.number v
-           | [] -> 0.
-         in
-         (dims, v))
+      let dims = r |> member "dimensions" |> to_list |> List.map to_string in
+      let v =
+        match r |> member "metrics" |> to_list with
+        | v :: _ -> Profile.number v
+        | [] -> 0.
+      in
+      (dims, v))
 
 (* Plausible v2 renders [time:hour] as ["YYYY-MM-DD HH:MM:SS"] (older releases
    used a ['T'] separator); either way the hour is at offset 11. *)

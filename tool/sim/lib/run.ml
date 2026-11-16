@@ -308,16 +308,16 @@ let run_body ~at_failure c =
     in
     let streams =
       (match c.profile with
-      | None -> []
-      | Some profile ->
-          let profile =
-            if c.diurnal = Off then { profile with hourly = Array.make 24 1. }
-            else profile
-          in
-          [
-            Traffic.human ~seed:c.seed ~profile ~packages ~scale:c.traffic_scale
-              ~hour_of;
-          ])
+        | None -> []
+        | Some profile ->
+            let profile =
+              if c.diurnal = Off then { profile with hourly = Array.make 24 1. }
+              else profile
+            in
+            [
+              Traffic.human ~seed:c.seed ~profile ~packages
+                ~scale:c.traffic_scale ~hour_of;
+            ])
       @
       if c.bot_rps > 0. then
         [
