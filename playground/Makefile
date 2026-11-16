@@ -37,9 +37,12 @@ switch: deps ## Create an opam switch and install development dependencies
 build:
 	opam exec $(SWITCH) -- dune build --root . --profile=release
 
+# npm ci runs only when the lockfile changed: it deletes node_modules, which
+# restarts a server running under `make watch`.
 .PHONY: smoke
 smoke: ## Run the headless-browser smoke test against asset/
-	cd test && npm ci --no-audit --no-fund && node smoke.mjs
+	cd test && { test node_modules/.package-lock.json -nt package-lock.json \
+	  || npm ci --no-audit --no-fund; } && node smoke.mjs
 
 .PHONY: fmt
 fmt: ## Format the codebase with ocamlformat
