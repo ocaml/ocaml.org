@@ -164,7 +164,8 @@ val int_comparable : (module Comparable with type t = int) = <module>
 
 # let sort (type a) (module C : Comparable with type t = a) list =
     List.sort C.compare list;;
-val sort : (module Comparable with type t = 'a) -> 'a list -> 'a list = <fun>
+val sort : (module C : Comparable with type t = 'a) -> C.t list -> C.t list =
+  <fun>
 
 # sort int_comparable [3; 1; 4; 1; 5];;
 - : int list = [1; 1; 3; 4; 5]
