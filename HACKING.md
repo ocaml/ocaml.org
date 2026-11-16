@@ -121,31 +121,30 @@ or [locust](./test/load-test/locust/README.md).
 
 ### Building the Playground
 
-The OCaml Playground is compiled separately from the rest of the server. The generated assets can be found in
-[`playground/asset/`](./playground/asset/).
+The OCaml Playground at `/play` runs in the browser. Its toplevel is the worker from [`js_of_ocaml-toplevel`](https://github.com/ocsigen/js_of_ocaml/tree/master/toplevel), and its editor uses [`merlin-js`](https://github.com/voodoos/merlin-js) for types, errors, and completion. It is compiled separately from the rest of the server, with its own opam switch in `playground/_opam`, into JavaScript and `.cmi` files in `playground/asset/`.
 
-You can build the playground from the root of the project. There is no need to move to the `./playground/` directory for the following commands.
+The server build reads `playground/asset/`, which is not in Git. `make` (and `make build`, `make test`, `make watch`) downloads the prebuilt assets pinned in [`playground/release`](./playground/release), a release of this repository, unless `playground/asset/` already holds them or a local build. The Docker image and CI get them the same way. To download them explicitly, or to replace a local build:
 
-To regenerate the playground, you need to install the playground's dependencies first. The playground builds [`merlin-js`](https://github.com/voodoos/merlin-js) from source, in a git submodule:
+```bash
+make playground-fetch          # FORCE=1 to replace a local build
+```
+
+#### Changing the Playground
+
+You only need to build the playground to change it. Install its dependencies first. It builds `merlin-js` from source, in a Git submodule:
 
 ```bash
 git submodule update --init playground/vendor/merlin-js
 make deps -C playground
 ```
 
-After the dependencies have been installed, simply build the project to regenerate the JavaScript assets:
+Then build the assets into `playground/asset/`, where the server picks them up:
 
 ```bash
 make playground
 ```
 
-Once the compilation is complete and successful, commit the newly-generated assets in OCaml.org's Git repo and merge the pull request.
-
-The playground has its own opam switch, in `playground/_opam`, separate from the server's.
-Its toplevel is the worker from [`js_of_ocaml-toplevel`](https://github.com/ocsigen/js_of_ocaml/tree/master/toplevel),
-and its editor uses `merlin-js` for types, errors, and completion.
-
-To check the built assets in headless Chrome (needs Node and Google Chrome; set `CHROME` to use another binary):
+To check them in headless Chrome (needs Node and Google Chrome; set `CHROME` to use another binary, or `SMOKE_URL=http://localhost:8080/play` to test a running server):
 
 ```bash
 make smoke -C playground
@@ -153,14 +152,16 @@ make smoke -C playground
 
 The [Playground workflow](.github/workflows/playground.yml) builds the playground from source and runs this smoke test on pull requests that change it.
 
+Open a pull request with the source changes only. Once it is merged, the [Release playground workflow](.github/workflows/release-playground.yml) builds the assets, publishes them as a release tagged `playground-<compiler>-<commit>`, builds and tests the server with them, and opens a pull request titled `playground: assets <tag>` that updates `playground/release`. Merging it deploys the new playground.
+
 #### Bumping the Playground Compiler
 
 The playground's OCaml version is set in one place, `COMPILER` in [`playground/Makefile`](./playground/Makefile). To move to a new compiler release:
 
 1. Change `COMPILER`. If the new version is outside the `ocaml` constraint in `playground/dune-project`, widen it and regenerate `ocamlorg-playground.opam`.
 2. Recreate the switch: `rm -rf playground/_opam && make deps -C playground`. If the opam solver finds no solution, a dependency does not support the new compiler yet. This is usually `merlin-lib`, whose releases each support a single compiler minor version, or `js_of_ocaml-toplevel`. The opam-repository pin may also need bumping to include them (see [Managing Dependencies](#managing-dependencies)).
-3. Rebuild with `make playground`, run `make smoke -C playground`, and check Merlin hover and completion by hand at `/play`.
-4. Commit the regenerated `playground/asset/`.
+3. Rebuild with `make playground` and run `make smoke -C playground`.
+4. Open a pull request with the change. The release and the pin follow as above.
 
 ### Deploying
 
@@ -375,7 +376,7 @@ The following snippet describes the repository structure:
 |   Data used by OCaml.org in Yaml and Markdown format.
 │
 ├── playground/
-│   The source and generated assets for the OCaml Playground
+│   The source of the OCaml Playground (its built assets are downloaded, see playground/release)
 │
 ├── src
 │   ├── global

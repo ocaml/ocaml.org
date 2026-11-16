@@ -1,0 +1,7 @@
+# The prebuilt playground assets the server is built with: the
+# playground-asset.tar.gz of this release of ocaml/ocaml.org, published by
+# .github/workflows/release-playground.yml, which also opens the pull request
+# that updates this file. Read by playground/fetch.sh (make playground-fetch,
+# the Dockerfile, CI).
+PLAYGROUND_RELEASE=playground-5.5.2-f85ff90
+PLAYGROUND_SHA256=bec2c7226143bdf5afaa2bbc8de188c862b295db6657aae1512965048bef0bf1

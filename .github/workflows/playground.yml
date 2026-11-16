@@ -1,20 +1,22 @@
 name: Playground
 
 # Build the playground from source with the compiler set in playground/Makefile,
-# and smoke-test the result in headless Chrome. The committed playground/asset/
-# is not compared byte for byte: the build is not guaranteed to be reproducible.
+# and smoke-test the result in headless Chrome. Publishing the assets is done
+# after merging, by release-playground.yml.
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'playground/**'
+      - '!playground/release'
       - 'src/ocamlorg_frontend/pages/playground.eml'
       - '.github/workflows/playground.yml'
   pull_request:
     branches: [ main ]
     paths:
       - 'playground/**'
+      - '!playground/release'
       - 'src/ocamlorg_frontend/pages/playground.eml'
       - '.github/workflows/playground.yml'
   workflow_dispatch:
@@ -48,7 +50,7 @@ jobs:
           opam install --deps-only ./playground
           make -C playground toplevel-client SWITCH=
 
-      # The committed assets are removed first, so the smoke test can only
+      # Any assets already there are removed first, so the smoke test can only
       # pass on what this build produced.
       - name: Build the playground
         run: |

@@ -5,7 +5,7 @@ help: ## Show this help message (list common targets)
 	@awk 'BEGIN {FS = ":.*## "; printf "Run a target with: make <target>\n\nCommon targets:\n"} /^[a-zA-Z_-]+:.*## / {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 .PHONY: all
-all: ## Build the project (default target)
+all: playground-fetch ## Build the project (default target)
 	opam exec -- dune build --root .
 
 .PHONY: deps
@@ -25,12 +25,20 @@ lock: ## Generate a lock file
 	opam lock -y .
 
 .PHONY: build
-build: ## Build the project, including non installable libraries and executables
+build: playground-fetch ## Build the project, including non installable libraries and executables
 	opam exec -- dune build --root .
 
 .PHONY: playground
 playground: ## Build the OCaml Playground
+	rm -f playground/.asset-release
 	make build -C playground
+
+# The server build reads playground/asset/. It is not in git: this downloads the
+# release pinned in playground/release, unless playground/asset/ already holds
+# it or a local build. FORCE=1 replaces a local build.
+.PHONY: playground-fetch
+playground-fetch: ## Download the prebuilt playground assets
+	playground/fetch.sh $(if $(FORCE),--force)
 
 .PHONY: install
 install: all ## Install the packages on the system
@@ -41,7 +49,7 @@ start: all ## Run the produced executable
 	opam exec -- dune exec src/ocamlorg_web/bin/main.exe
 
 .PHONY: test
-test: ## Run the unit tests
+test: playground-fetch ## Run the unit tests
 	opam exec -- dune build --root . @runtest
 
 .PHONY: test_code_examples
@@ -57,7 +65,7 @@ fmt: ## Format the codebase with ocamlformat
 	opam exec -- dune build --root . --auto-promote @fmt
 
 .PHONY: watch
-watch: ## Watch for the filesystem and rebuild on every change
+watch: playground-fetch ## Watch for the filesystem and rebuild on every change
 	opam exec -- dune build @run -w --force --no-buffer
 
 .PHONY: utop
