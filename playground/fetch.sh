@@ -4,8 +4,8 @@
 #
 #   playground/fetch.sh [--force]
 #
-# Does nothing when playground/asset/ already holds that release, or holds a
-# local build (`make playground`), unless --force is given.
+# Does nothing when playground/asset/ already holds all of that release, or
+# holds a local build (`make playground`), unless --force is given.
 # PLAYGROUND_URL overrides the download URL (e.g. file:///... for tests).
 
 set -eu
@@ -18,12 +18,23 @@ asset=$here/asset
 stamp=$here/.asset-release
 url=${PLAYGROUND_URL:-https://github.com/ocaml/ocaml.org/releases/download/$PLAYGROUND_RELEASE/playground-asset.tar.gz}
 
+# The stamp holds the release installed in playground/asset/, then the files it
+# installed. They are current if the release matches and every file is still
+# there: switching Git branches, for instance, can delete some.
+complete() {
+  [ $(($(wc -l <"$stamp"))) -gt 1 ] || return 1
+  # The loop runs in a subshell of its own: exit leaves it with a failure.
+  tail -n +2 "$stamp" | while IFS= read -r file; do
+    [ -f "$asset/$file" ] || exit 1
+  done
+}
+
 if [ -d "$asset" ] && [ "${1:-}" != --force ]; then
   if [ ! -f "$stamp" ]; then
     echo "playground/asset: keeping a local build (playground/fetch.sh --force to replace it)"
     exit 0
   fi
-  if [ "$(cat "$stamp")" = "$PLAYGROUND_RELEASE" ]; then
+  if [ "$(head -n 1 "$stamp")" = "$PLAYGROUND_RELEASE" ] && complete; then
     exit 0
   fi
 fi
@@ -51,5 +62,8 @@ mkdir "$tmp/asset"
 tar -xzf "$tmp/asset.tar.gz" -C "$tmp/asset"
 rm -rf "$asset"
 mv "$tmp/asset" "$asset"
-echo "$PLAYGROUND_RELEASE" >"$stamp"
+{
+  echo "$PLAYGROUND_RELEASE"
+  (cd "$asset" && find . -type f | sort)
+} >"$stamp"
 echo "playground/asset: $PLAYGROUND_RELEASE"
