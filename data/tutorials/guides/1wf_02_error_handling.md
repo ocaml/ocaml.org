@@ -427,8 +427,7 @@ versa.
 ```ocaml
 # 21 + Some 21;;
 Line 1, characters 6-13:
-Error: This expression has type 'a option
-       but an expression was expected of type int
+Error: This expression should not be a constructor, the expected type is int
 ```
 
 In order to combine option values with other values, conversion functions are

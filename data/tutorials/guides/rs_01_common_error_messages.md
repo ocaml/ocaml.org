@@ -20,7 +20,7 @@ it is used, it is frequent to obtain this kind of message:
 ```ocaml
 # 1 + 2.5;;
 Line 1, characters 5-8:
-Error: This expression has type float but an expression was expected of type
+Error: The constant 2.5 has type float but an expression was expected of type
          int
 ```
 
@@ -52,8 +52,8 @@ type my_type = A | B
 val b : my_type = B
 # a = b;;
 Line 1, characters 5-6:
-Error: This expression has type my_type
-       but an expression was expected of type my_type/2
+Error: The value b has type my_type but an expression was expected of type
+         my_type/2
        Hint: The type my_type has been defined multiple times in this
          toplevel session. Some toplevel values still refer to old versions
          of this type. Did you try to redefine them?
@@ -169,10 +169,11 @@ Line 3, characters 14-20:
 Warning 12 [redundant-subpat]: this sub-pattern is unused.
 
 Line 3, characters 5-20:
-Warning 57 [ambiguous-var-in-pattern-guard]: Ambiguous or-pattern variables under guard;
-variable y appears in different places in different or-pattern alternatives.
-Only the first match will be used to evaluate the guard expression.
-(see manual section 13.5.4)
+Warning 57 [ambiguous-var-in-pattern-guard]: Ambiguous or-pattern variables under
+  guard; variable y appears in different places in different or-pattern
+  alternatives.
+  Only the first match will be used to evaluate the guard expression.
+  (see manual section 13.5.4)
 
 val test_member : 'a -> 'a * 'a -> bool = <fun>
 ```
@@ -212,8 +213,7 @@ would return:
     | 1 | -1 -> false;;
 Lines 2-4, characters 5-22:
 Warning 8 [partial-match]: this pattern-matching is not exhaustive.
-Here is an example of a case that is not matched:
-2
+  Here is an example of a case that is not matched: 2
 
 val is_even : int -> bool = <fun>
 ```
@@ -265,9 +265,9 @@ option.
 # "\e\n" (* bad practice *);;
 File "_none_", line 1, characters 1-3:
 Warning 14 [illegal-backslash]: illegal backslash escape in string.
-Hint: Single backslashes \ are reserved for escape sequences
-(\n, \r, ...). Did you check the list of OCaml escape sequences?
-To get a backslash character, escape it with a second backslash: \\.
+  Hint: Single backslashes \ are reserved for escape sequences (\n, \r, ...).
+  Did you check the list of OCaml escape sequences?
+  To get a backslash character, escape it with a second backslash: \\.
 
 - : string = "\\e\n"
 # "\\e\n" (* good practice *);;
