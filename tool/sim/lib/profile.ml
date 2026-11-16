@@ -34,9 +34,8 @@ let to_json t : Yojson.Safe.t =
         `List
           (Array.to_list t.pages
           |> List.map (fun p ->
-                 `Assoc
-                   [ ("path", `String p.path); ("weight", `Float p.weight) ]))
-      );
+              `Assoc [ ("path", `String p.path); ("weight", `Float p.weight) ])
+          ) );
     ]
 
 let number = function
@@ -56,10 +55,10 @@ let of_json (j : Yojson.Safe.t) =
     pages =
       j |> member "pages" |> to_list
       |> List.map (fun p ->
-             {
-               path = p |> member "path" |> to_string;
-               weight = p |> member "weight" |> number;
-             })
+          {
+            path = p |> member "path" |> to_string;
+            weight = p |> member "weight" |> number;
+          })
       |> List.filter (fun p -> p.weight > 0.)
       |> Array.of_list;
   }

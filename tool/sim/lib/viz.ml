@@ -335,16 +335,13 @@ let raw_charts ~a ~b ~na ~nb ~run_end =
   let samples dir run =
     Array.to_list (Summary.read_resources dir)
     |> List.filter_map (fun (x : Summary.sample) ->
-           if Float.is_nan x.cpu then None
-           else
-             Some
-               (o
-                  [
-                    ("run", s run);
-                    ("kind", s "cpu");
-                    ("t", n x.st);
-                    ("v", n x.cpu);
-                  ]))
+        if Float.is_nan x.cpu then None
+        else
+          Some
+            (o
+               [
+                 ("run", s run); ("kind", s "cpu"); ("t", n x.st); ("v", n x.cpu);
+               ]))
   in
   let cpu =
     raw_chart ~na ~nb ~wa ~wb ~run_end ~title_:"CPU"
@@ -669,21 +666,21 @@ let epoch_rows dir run =
            let rs =
              Array.to_list res
              |> List.filter_map (fun (x : Summary.sample) ->
-                    let d = x.st -. st in
-                    if
-                      d >= -10. && d <= 45.
-                      && not (Float.is_nan x.cpu || Float.is_nan x.rss)
-                    then
-                      Some
-                        (o
-                           [
-                             ("run", s run);
-                             ("cycle", i k);
-                             ("t", n d);
-                             ("cpu", n x.cpu);
-                             ("drss", n (x.rss -. base));
-                           ])
-                    else None)
+                 let d = x.st -. st in
+                 if
+                   d >= -10. && d <= 45.
+                   && not (Float.is_nan x.cpu || Float.is_nan x.rss)
+                 then
+                   Some
+                     (o
+                        [
+                          ("run", s run);
+                          ("cycle", i k);
+                          ("t", n d);
+                          ("cpu", n x.cpu);
+                          ("drss", n (x.rss -. base));
+                        ])
+                 else None)
            in
            let ls =
              List.filter_map

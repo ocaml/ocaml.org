@@ -45,22 +45,22 @@ module Source = struct
       Ok
         (sources
         |> List.map (fun { id; name; url; publish_all; disabled; repair } ->
-               {
-                 source =
-                   {
-                     Data_intf.Blog.id;
-                     name;
-                     url;
-                     description = "";
-                     publish_all;
-                     disabled;
-                   };
-                 repair;
-               }))
+            {
+              source =
+                {
+                  Data_intf.Blog.id;
+                  name;
+                  url;
+                  description = "";
+                  publish_all;
+                  disabled;
+                };
+              repair;
+            }))
     in
     result
     |> Result.get_ok ~error:(fun (`Msg msg) ->
-           Data_packer.Exn.Decode_error (file ^ ": " ^ msg))
+        Data_packer.Exn.Decode_error (file ^ ": " ^ msg))
 end
 
 module Post = struct

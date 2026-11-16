@@ -19,12 +19,12 @@ let upstream_path = "/tmp/upstream.git"
 let parse_log out =
   Proc.lines out
   |> List.filter_map (fun line ->
-         match String.split_on_char ' ' line with
-         | [ sha; time ] -> (
-             match float_of_string_opt time with
-             | Some time -> Some { sha; time }
-             | None -> None)
-         | _ -> None)
+      match String.split_on_char ' ' line with
+      | [ sha; time ] -> (
+          match float_of_string_opt time with
+          | Some time -> Some { sha; time }
+          | None -> None)
+      | _ -> None)
   |> List.rev |> Array.of_list
 
 (* First-parent history of [master] in [image]'s clone, oldest first, restricted

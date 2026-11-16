@@ -51,7 +51,7 @@ module Academic_institution = struct
   let featured =
     all
     |> List.filter (fun institution ->
-           match institution.featured with Some true -> true | _ -> false)
+        match institution.featured with Some true -> true | _ -> false)
 
   let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
@@ -127,7 +127,7 @@ module Cookbook = struct
   let get_tasks_by_category ~category_slug =
     tasks
     |> List.filter (fun (x : task) ->
-           List.(x.category_path |> rev |> hd) = category_slug)
+        List.(x.category_path |> rev |> hd) = category_slug)
 
   let get_by_task ~task_slug =
     all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
@@ -238,7 +238,7 @@ module Opam_user = struct
     let contains = Ocamlorg.Import.String.contains_s in
     Lazy.force folded_names
     |> List.find_map (fun (name, user) ->
-           if contains pattern name then Some user else None)
+        if contains pattern name then Some user else None)
 end
 
 module Outreachy = struct
@@ -318,12 +318,12 @@ module Planet = struct
          discards the empty fragments left by adjacent separators. *)
       String.lowercase_ascii q
       |> String.map (fun c ->
-             if
-               (c >= 'a' && c <= 'z')
-               || (c >= '0' && c <= '9')
-               || c = '_' || c = '-'
-             then c
-             else ' ')
+          if
+            (c >= 'a' && c <= 'z')
+            || (c >= '0' && c <= '9')
+            || c = '_' || c = '-'
+          then c
+          else ' ')
       |> String.split_on_char ' '
       |> List.filter (fun t -> String.length t >= 2)
     in
@@ -372,8 +372,8 @@ module Planet = struct
         in
         docs
         |> List.filter_map (fun (e, fields) ->
-               let s = score fields in
-               if s > 0.0 then Some (e, s) else None)
+            let s = score fields in
+            if s > 0.0 then Some (e, s) else None)
         |> List.stable_sort (fun (_, s1) (_, s2) -> Float.compare s2 s1)
         |> List.map fst
 end

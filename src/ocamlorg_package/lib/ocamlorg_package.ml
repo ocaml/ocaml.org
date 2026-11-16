@@ -245,8 +245,8 @@ let init ?(disable_polling = false) () =
 let all_latest t =
   t.packages |> Name.Map.bindings
   |> List.filter_map (fun (name, versions) ->
-         select_latest versions
-         |> Option.map (fun (version, info) -> { name; version; info }))
+      select_latest versions
+      |> Option.map (fun (version, info) -> { name; version; info }))
 
 let stats t = t.stats
 
@@ -274,13 +274,13 @@ let version_statuses info =
 let get_versions t name =
   t.packages |> Name.Map.find_opt name
   |> Option.map (fun p ->
-         p |> Version.Map.bindings
-         |> List.map (fun (version, info) ->
-                {
-                  version;
-                  opam_repository_date = info.Info.publication;
-                  statuses = version_statuses info;
-                }))
+      p |> Version.Map.bindings
+      |> List.map (fun (version, info) ->
+          {
+            version;
+            opam_repository_date = info.Info.publication;
+            statuses = version_statuses info;
+          }))
   |> Option.value ~default:[]
   |> List.sort (fun v1 v2 -> Version.compare v2.version v1.version)
 
@@ -496,15 +496,15 @@ let search_index t =
       let index =
         all_latest t
         |> List.map (fun (package : t) ->
-               {
-                 package;
-                 folded_name = fold (Name.to_string package.name);
-                 folded_synopsis = fold package.info.synopsis;
-                 folded_description = fold package.info.description;
-                 folded_tags = List.map fold package.info.tags;
-                 folded_authors = List.map fold package.info.authors;
-                 rev_deps_count = List.length package.info.rev_deps;
-               })
+            {
+              package;
+              folded_name = fold (Name.to_string package.name);
+              folded_synopsis = fold package.info.synopsis;
+              folded_description = fold package.info.description;
+              folded_tags = List.map fold package.info.tags;
+              folded_authors = List.map fold package.info.authors;
+              rev_deps_count = List.length package.info.rev_deps;
+            })
       in
       t.search_index <- Some (t.packages, index);
       index

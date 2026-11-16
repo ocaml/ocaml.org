@@ -61,9 +61,8 @@ module Info : sig
   val packages_matching :
     OpamPackage.Set.t -> OpamTypes.formula -> OpamPackage.Set.t
   (** [packages_matching packages formula] is
-      [OpamFormula.packages packages
-      formula], computed the way the
-      reverse dependencies are. Exposed for testing that the two agree. *)
+      [OpamFormula.packages packages formula], computed the way the reverse
+      dependencies are. Exposed for testing that the two agree. *)
 end
 
 module Statistics : sig
@@ -190,7 +189,8 @@ module Publication_dates : sig
 end
 
 val mockup_state : t list -> state
-(** [mockup_state ts] produces the opam-repository state from a list of packages *)
+(** [mockup_state ts] produces the opam-repository state from a list of packages
+*)
 
 val save_state_to : Fpath.t -> state -> unit
 (** [save_state_to path state] serializes the durable part of [state] (every
@@ -212,7 +212,8 @@ val info : t -> Info.t
 (** Get the info of a package. *)
 
 val create : name:Name.t -> version:Version.t -> Info.t -> t
-(** This is added to enable demo test package to use Package.t with abstraction *)
+(** This is added to enable demo test package to use Package.t with abstraction
+*)
 
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] loads the package state saved at

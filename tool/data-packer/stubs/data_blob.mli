@@ -9,12 +9,12 @@
 
     Typical usage:
     {[
-      let () = Data_blob.verify () (* fail fast if not initialized *)
+    let () = Data_blob.verify () (* fail fast if not initialized *)
 
-      let data =
-        let buf = Data_blob.to_bigstring () in
-        let pos_ref = ref 0 in
-        Types.All_data.bin_read_t buf ~pos_ref
+    let data =
+      let buf = Data_blob.to_bigstring () in
+      let pos_ref = ref 0 in
+      Types.All_data.bin_read_t buf ~pos_ref
     ]} *)
 
 type t = (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t

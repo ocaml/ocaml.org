@@ -53,7 +53,7 @@ let aggregate_keywords ?(n = 6) entries =
     entries;
   Hashtbl.fold (fun k c acc -> (k, c) :: acc) tbl []
   |> List.sort (fun (k1, c1) (k2, c2) ->
-         if c1 <> c2 then compare c2 c1 else compare k1 k2)
+      if c1 <> c2 then compare c2 c1 else compare k1 k2)
   |> List.filteri (fun i _ -> i < n)
   |> List.map fst
 

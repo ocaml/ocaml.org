@@ -18,9 +18,9 @@ let v2_assets =
     let year = String.sub conf.Data.Conference.date 0 4 in
     [ ""; "/index.html" ]
     |> List.concat_map (fun s ->
-           redirects ("/conferences/" :: confs)
-             ("/conferences/" ^ conf.slug)
-             ("ocaml/" ^ year ^ s))
+        redirects ("/conferences/" :: confs)
+          ("/conferences/" ^ conf.slug)
+          ("ocaml/" ^ year ^ s))
   in
   List.concat_map f Data.V2.assets @ List.concat_map g Data.Conference.all
 

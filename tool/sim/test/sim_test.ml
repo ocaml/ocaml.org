@@ -298,7 +298,7 @@ let test_censored_latency () =
   let lat =
     Summary.read_traffic dir
     |> List.filter_map (fun (r : Summary.req) ->
-           if Summary.has_latency r.status then Some r.latency_ms else None)
+        if Summary.has_latency r.status then Some r.latency_ms else None)
   in
   Alcotest.(check (list (float 1e-6)))
     "ok, timeout at its latency, drop at the timeout; no error"

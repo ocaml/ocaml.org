@@ -81,7 +81,7 @@ let parse_commit chunk =
 let parse_log raw =
   String.split_on_char '\x1e' raw
   |> List.filter_map (fun chunk ->
-         if String.trim chunk = "" then None else parse_commit chunk)
+      if String.trim chunk = "" then None else parse_commit chunk)
 
 (* --- helpers -------------------------------------------------------------- *)
 
@@ -137,7 +137,7 @@ let aggregate_contributors events =
       :: acc)
     tbl []
   |> List.sort (fun (a : Record.contributor) b ->
-         compare (a.first_date, a.name) (b.first_date, b.name))
+      compare (a.first_date, a.name) (b.first_date, b.name))
 
 (* --- shared commit processing --------------------------------------------- *)
 
@@ -247,7 +247,7 @@ let blank_override_adds =
 let ai_sorted entries =
   entries
   |> List.sort (fun (ta, a) (tb, b) ->
-         compare (ta, a.Record.commit) (tb, b.Record.commit))
+      compare (ta, a.Record.commit) (tb, b.Record.commit))
   |> List.map snd
 
 (* --- the per-document record ---------------------------------------------- *)
@@ -302,7 +302,9 @@ let compute_record ~cfg ~head ~generator ~ignore_revs ~sources ~imports path =
         | Some (src, _) when imported_commits <> [] -> [ "import:" ^ src ]
         | _ -> [])
       @
-      match override.Inputs.notes with Some n -> [ "note:" ^ n ] | None -> [])
+      match override.Inputs.notes with
+      | Some n -> [ "note:" ^ n ]
+      | None -> [])
   in
   {
     Record.path;
@@ -402,7 +404,9 @@ let append_record ~cfg ~head ~generator ~ignore_revs ~sources ~base path =
       @ List.map (fun n -> "add:" ^ n) override.Inputs.add
       @ List.map (fun d -> "derived:" ^ d) override.Inputs.derived_from
       @
-      match override.Inputs.notes with Some n -> [ "note:" ^ n ] | None -> [])
+      match override.Inputs.notes with
+      | Some n -> [ "note:" ^ n ]
+      | None -> [])
   in
   {
     Record.path;
@@ -545,11 +549,11 @@ let sync cfg =
   List.sort_uniq compare
     (List.map (fun (r : Record.t) -> r.generated_at_commit) store)
   |> List.iter (fun wm ->
-         if not (Git.is_ancestor ~root:cfg.root wm) then
-           Fmt.failwith
-             "watermark %s is not an ancestor of HEAD in the local history \
-              (unreachable, or the clone is too shallow); cannot fold from it"
-             wm);
+      if not (Git.is_ancestor ~root:cfg.root wm) then
+        Fmt.failwith
+          "watermark %s is not an ancestor of HEAD in the local history \
+           (unreachable, or the clone is too shallow); cannot fold from it"
+          wm);
   let recorded p = List.exists (fun (r : Record.t) -> r.path = p) store in
   let missing =
     List.filter (fun (r : Record.t) -> not (List.mem r.path on_disk)) store
@@ -560,9 +564,9 @@ let sync cfg =
         let targets =
           Git.renames ~root:cfg.root ~since:r.generated_at_commit ()
           |> List.filter_map (fun (o, n) ->
-                 if o = r.path && List.mem n on_disk && not (recorded n) then
-                   Some n
-                 else None)
+              if o = r.path && List.mem n on_disk && not (recorded n) then
+                Some n
+              else None)
         in
         match targets with
         | n :: _ -> Left (n, { r with path = n })

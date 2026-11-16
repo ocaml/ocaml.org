@@ -748,10 +748,10 @@ let run ?output ?(noise = []) a b =
                    (fun (label, metric, better) ->
                      List.find_opt (fun (p, _, _, _) -> p = metric) metrics
                      |> Option.map (fun mt ->
-                            `Assoc
-                              (("label", `String label)
-                              :: ("better", `String better)
-                              :: metric_json mt)))
+                         `Assoc
+                           (("label", `String label)
+                           :: ("better", `String better)
+                           :: metric_json mt)))
                    key_metrics) );
             ( "environment",
               `List
@@ -759,7 +759,7 @@ let run ?output ?(noise = []) a b =
                    (fun (label, metric) ->
                      List.find_opt (fun (p, _, _, _) -> p = metric) metrics
                      |> Option.map (fun mt ->
-                            `Assoc (("label", `String label) :: metric_json mt)))
+                         `Assoc (("label", `String label) :: metric_json mt)))
                    environment_metrics) );
             ( "metrics",
               `List (List.map (fun mt -> `Assoc (metric_json mt)) metrics) );

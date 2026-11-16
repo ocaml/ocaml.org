@@ -87,9 +87,9 @@ let renames ?root ~since () =
   run_out ?root [ "diff"; "--name-status"; "-M90%"; since; "HEAD" ]
   |> String.split_on_char '\n'
   |> List.filter_map (fun l ->
-         match String.split_on_char '\t' l with
-         | [ s; o; n ] when String.length s > 0 && s.[0] = 'R' -> Some (o, n)
-         | _ -> None)
+      match String.split_on_char '\t' l with
+      | [ s; o; n ] when String.length s > 0 && s.[0] = 'R' -> Some (o, n)
+      | _ -> None)
 
 (* Whether [ancestor] is reachable from HEAD in the local history. In a shallow
    clone that was not deepened far enough this is false, which is what [sync]

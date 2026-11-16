@@ -94,7 +94,7 @@ module Excerpt = struct
     | Block.List (l, _) ->
         Block.List'.items l
         |> List.concat_map (fun (item, _) ->
-               sources (Block.List_item.block item))
+            sources (Block.List_item.block item))
     | _ -> []
 
   (* Decode the character references that occur in scraped release notes. Others
