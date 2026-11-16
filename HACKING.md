@@ -20,15 +20,15 @@ act -s GITHUB_TOKEN=ghghgh .github/workflows/ci.yml -j build
 The Makefile contains many commands that can get you up and running. A typical workflow is to clone the repository after forking it.
 
 ```bash
-git clone https://github.com/<username>/OCaml.org.git
-cd OCaml.org
+git clone https://github.com/<username>/ocaml.org.git
+cd ocaml.org
 ```
 
-Ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2), so you should [run the opam install script](https://opam.OCaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later, which provides a cleaner, friendlier experience when installing system dependencies.
+Ensure you have `opam` installed. Opam will manage the OCaml compiler along with all of the OCaml packages needed to build and run the project. By this point, we should all be using some Unix-like system (Linux, macOS, WSL2), so you should [run the opam install script](https://opam.ocaml.org/doc/Install.html#Binary-distribution). There are also manual instructions for people that don't want to run a script from the internet. We assume you are using `opam.2.1.0` or later, which provides a cleaner, friendlier experience when installing system dependencies.
 
 With opam installed, you can now initialise opam with `opam init`. Note that in containers or WSL2, you will have to run `opam init --disable-sandboxing`. Opam might complain about some missing system dependencies like `unzip`, `cc` (a C compiler like `gcc`), etc. Make sure to install these before `opam init`.
 
-Finally from the root of your project, you can setup a [local opam switch](https://opam.OCaml.org/doc/Manual.html#Switches) and install the dependencies. There is a single `make` target to do just that.
+Finally from the root of your project, you can setup a [local opam switch](https://opam.ocaml.org/doc/Manual.html#Switches) and install the dependencies. There is a single `make` target to do just that.
 
 ```bash
 make switch
@@ -144,17 +144,17 @@ Once the compilation is complete and successful, commit the newly-generated asse
 
 Commits added on some branches are automatically deployed:
 
-* `main` on <https://OCaml.org/>
-* `staging` on <https://staging.OCaml.org/>
+* `main` on <https://ocaml.org/>
+* `staging` on <https://staging.ocaml.org/>
 
-The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer>, which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the project's root. You can monitor the state of each deployment on [`deploy.ci.OCaml.org`](https://deploy.ci.OCaml.org/?repo=ocaml/OCaml.org).
+The deployment pipeline is managed in <https://github.com/ocurrent/ocurrent-deployer>, which listens to the `main` and `staging` branches and builds the site using the `Dockerfile` at the project's root. You can monitor the state of each deployment on [`deploy.ci.ocaml.org`](https://deploy.ci.ocaml.org/?repo=ocaml/ocaml.org).
 
 In that repository, the OCaml.org deployments are declared in the `Ocaml_org` module of [`src/pipeline.ml`](https://github.com/ocurrent/ocurrent-deployer/blob/master/src/pipeline.ml):
 
-* `main` is built into the `ocurrent/v3.ocaml.org-server:live` image and deployed as the `infra_www1` and `infra_www2` services on the `v3b.ocaml.org` host, which serves <https://OCaml.org/>.
-* `staging` is built into the `ocurrent/v3.ocaml.org-server:staging` image and deployed as the `infra_www` service on the `v3c.ocaml.org` host, which serves <https://staging.OCaml.org/>.
+* `main` is built into the `ocurrent/v3.ocaml.org-server:live` image and deployed as the `infra_www1` and `infra_www2` services on the `v3b.ocaml.org` host, which serves <https://ocaml.org/>.
+* `staging` is built into the `ocurrent/v3.ocaml.org-server:staging` image and deployed as the `infra_www` service on the `v3c.ocaml.org` host, which serves <https://staging.ocaml.org/>.
 
-The deployer behind `deploy.ci.OCaml.org` runs from the `live-ocaml-org` branch of `ocurrent-deployer`, not from its default branch, so a change to the pipeline only takes effect once it reaches `live-ocaml-org`.
+The deployer behind `deploy.ci.ocaml.org` runs from the `live-ocaml-org` branch of `ocurrent-deployer`, not from its default branch, so a change to the pipeline only takes effect once it reaches `live-ocaml-org`.
 
 The server side of the deployment is documented in the [OCaml infrastructure wiki](https://infra.ocaml.org/) ([`ocaml/infrastructure`](https://github.com/ocaml/infrastructure)), and the stacks that actually run on each host are defined in [`mtelvers/ansible`](https://github.com/mtelvers/ansible). Both hosts run Docker in swarm mode, so that the deployer can update the services with `docker service update`, and an Ansible playbook creates the `infra` stack, which is where the `infra_` prefix of the service names comes from. The front ends differ:
 
@@ -176,7 +176,7 @@ With the Docker container running, visit the site at <http://localhost:8080/>.
 
 To watch how a build behaves over many opam-repository updates, with realistic traffic and memory, CPU, GC, and latency recorded, see the server simulation in [`tool/sim/`](tool/sim/README.md).
 
-The Docker images automatically build from the `live` and `staging` branches. They are then pushed to Docker Hub: <https://hub.docker.com/r/ocurrent/v3.OCaml.org-server>.
+The Docker images automatically build from the `main` and `staging` branches. They are then pushed to Docker Hub: <https://hub.docker.com/r/ocurrent/v3.ocaml.org-server>.
 
 ### Environment Variables
 
