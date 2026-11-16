@@ -5,7 +5,8 @@ name: Release playground
 # pins the server to it (playground/release).
 #
 # A change to playground/release alone does not trigger this workflow, so
-# merging the pull request it opens does not start another release.
+# merging the pull request it opens does not start another release. Nor does
+# one to playground/fetch.sh, which does not affect the assets.
 
 on:
   push:
@@ -13,6 +14,7 @@ on:
     paths:
       - 'playground/**'
       - '!playground/release'
+      - '!playground/fetch.sh'
       - '.github/workflows/release-playground.yml'
   workflow_dispatch:
 

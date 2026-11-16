@@ -10,6 +10,7 @@ on:
     paths:
       - 'playground/**'
       - '!playground/release'
+      - '!playground/fetch.sh'
       - 'src/ocamlorg_frontend/pages/playground.eml'
       - '.github/workflows/playground.yml'
   pull_request:
@@ -17,6 +18,7 @@ on:
     paths:
       - 'playground/**'
       - '!playground/release'
+      - '!playground/fetch.sh'
       - 'src/ocamlorg_frontend/pages/playground.eml'
       - '.github/workflows/playground.yml'
   workflow_dispatch:
