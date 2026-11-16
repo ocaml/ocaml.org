@@ -1,19 +1,23 @@
 (executable
  (name pack)
+ (modules pack)
  (package ocamlorg)
  (public_name data-pack)
  (libraries data_packer cmdliner))
 
 (executable
  (name verify)
+ (modules verify)
  (libraries data_packer))
 
 (executable
  (name benchmark)
+ (modules benchmark)
  (libraries data_packer unix))
 
 (executable
  (name gen_feed)
+ (modules gen_feed)
  (package ocamlorg)
  (public_name data-feed)
  (libraries data_packer cmdliner))
