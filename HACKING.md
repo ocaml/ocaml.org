@@ -46,7 +46,7 @@ Run `make help` to list the other common `make` targets.
 
 ### Devcontainer and Cloud Sessions
 
-[`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) describes a ready-to-use development environment: Debian 13 with OCaml 5.2, the pinned opam-repository, the system libraries, every dependency of `ocamlorg.opam`, and the dev tools (OCamlFormat 0.26.2, `ocaml-lsp-server`, Merlin, `utop`). The [`devcontainer.yml`](.github/workflows/devcontainer.yml) workflow publishes it as `ghcr.io/ocaml/ocaml.org-dev`. Each image is tagged by [`.devcontainer/tag.sh`](.devcontainer/tag.sh), a hash of `.devcontainer/Dockerfile` and `ocamlorg.opam`, and the latest build from `main` is also tagged `main`.
+[`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) describes a ready-to-use development environment: Debian 13 with OCaml 5.2, the pinned opam-repository, the system libraries, every dependency of `ocamlorg.opam`, and the dev tools (OCamlFormat 0.29.0, `ocaml-lsp-server`, Merlin, `utop`). The [`devcontainer.yml`](.github/workflows/devcontainer.yml) workflow publishes it as `ghcr.io/ocaml/ocaml.org-dev`. Each image is tagged by [`.devcontainer/tag.sh`](.devcontainer/tag.sh), a hash of `.devcontainer/Dockerfile` and `ocamlorg.opam`, and the latest build from `main` is also tagged `main`.
 
 Tools that support devcontainers (VS Code, GitHub Codespaces, DevPod, and others) build it from `.devcontainer/devcontainer.json`, reusing the published layers, and add Node.js and the GitHub CLI. It asks for 4 CPUs, 16 GB of memory, and 32 GB of storage. The base image is pinned by digest, so the published layers stay reusable; Dependabot proposes digest updates monthly.
 
@@ -94,7 +94,7 @@ Formatting and linting failures are the most common cause of CI failures. Before
 make fmt
 ```
 
-This formats OCaml code with ocamlformat and auto-promotes the changes. Commit any files it modifies. OCamlFormat is pinned to 0.26.2 (in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`); with any other version installed, `make fmt` aborts with a version-mismatch error instead of reformatting, so run `make deps` to install the pinned version.
+This formats OCaml code with ocamlformat and auto-promotes the changes. Commit any files it modifies. OCamlFormat is pinned to 0.29.0 (in `.ocamlformat`, `Makefile`, `.devcontainer/Dockerfile`, `.github/workflows/ci.yml`, and `.github/workflows/debug-ci.yml`); with any other version installed, `make fmt` aborts with a version-mismatch error instead of reformatting, so run `make deps` to install the pinned version.
 
 If your PR touches Markdown files, also lint them:
 
@@ -299,7 +299,7 @@ opam repo set-url pin git+https://github.com/ocaml/opam-repository#<commit-hash>
 
 Where `<commit-hash>` is the pinned hash specified in the files mentioned above.
 
-Once this is done, you can run `opam update` and `opam upgrade`. OCamlFormat is pinned independently: if you upgrade it, update its version together in `.ocamlformat`, `Makefile`, and `.github/workflows/ci.yml`.
+Once this is done, you can run `opam update` and `opam upgrade`. OCamlFormat is pinned independently: if you upgrade it, update its version together in `.ocamlformat`, `Makefile`, `.devcontainer/Dockerfile`, `.github/workflows/ci.yml`, and `.github/workflows/debug-ci.yml`.
 
 ### Handling the Tailwind CSS
 

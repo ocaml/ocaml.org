@@ -55,7 +55,7 @@ RUN cd ~/opam-repository && git reset --hard ca403de684b07caee6f246b36a2f3a1787d
 
 # Dev tools. OCamlFormat is pinned (see .ocamlformat) so that installing the
 # project dependencies can't upgrade it along with cmdliner.
-RUN opam pin add -yn ocamlformat 0.26.2 && opam pin add -yn ocamlformat-lib 0.26.2 \
+RUN opam pin add -yn ocamlformat 0.29.0 && opam pin add -yn ocamlformat-lib 0.29.0 \
  && opam install -y merlin ocamlformat ocaml-lsp-server utop
 
 # Project dependencies. OPAMSOLVERTIMEOUT is raised from the 60s default, as
