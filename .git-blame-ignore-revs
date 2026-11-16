@@ -19,3 +19,21 @@ ebff37da9ce48a90770d71c770530c41bf7cfc2e
 8a5c1570355cfa8c45a22f5c669870e6a43eafc6
 # Shorten API reference links (#2453)
 35ab9a9eaeb987b7d7fc4b1ce173911ff543d295
+# ocamlformat: reformat tree with 0.29.0 (#3821)
+875e7cc3bae488077c6546eacf765758607c4bd6
+# spelling: OCamlFormat (#2777)
+0165fbbb0319904b6d3f81363913ce574898ec41
+# Remove trailing whitespace (#1029)
+ad9c3cb373bf12c9dad003e155b14609be4a8e84
+# Capitalize Exercices Titles (#889)
+09a4b16dcb128d0fd04dbdc91c0a45eaafe7c878
+# Remove trailing whitespace (#882)
+c786a2a5ea63a2ec102882fbfa199537e4d45f43
+# Remove useless slash in logo urls (#573)
+2ce116385d6bcabf44b9253fe31da7c05361c03f
+# Turn HTTP links into https links (#574)
+747683cdcd7f60a5eebc4e12ec8ec9a8991ff7a0
+# Update ocamlformat (#263)
+70a7a1fcf1cad1491325ccc98ad0118388e895f2
+# Reformat code with ocamlformat
+191e5d2809509dbc8e39c56ec913f7ebea1b3f19
