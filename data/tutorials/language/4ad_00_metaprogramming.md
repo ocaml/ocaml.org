@@ -214,11 +214,15 @@ Ptop_def
               <arg>
               Nolabel
                 expression (//toplevel//[1,0+8]..[1,0+9])
-                  Pexp_constant PConst_int (1,None)
+                  Pexp_constant
+                  constant (//toplevel//[1,0+8]..[1,0+9])
+                    PConst_int (1,None)
               <arg>
               Nolabel
                 expression (//toplevel//[1,0+12]..[1,0+13])
-                  Pexp_constant PConst_int (2,None)
+                  Pexp_constant
+                  constant (//toplevel//[1,0+12]..[1,0+13])
+                    PConst_int (2,None)
             ]
       ]
   ]

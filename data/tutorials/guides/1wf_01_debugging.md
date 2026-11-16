@@ -389,7 +389,7 @@ By running with the environment variable `OCAMLRUNPARAM` set to `b`
 ```sh
 $ OCAMLRUNPARAM=b ./a.out
 Fatal error: exception Not_found
-Raised at Stdlib__List.assoc in file "list.ml", line 199, characters 10-25
+Raised at Stdlib__List.assoc in file "list.ml", line 201, characters 10-25
 Called from Uncaught.find_address in file "uncaught.ml" (inlined), line 3, characters 24-42
 Called from Uncaught in file "uncaught.ml", line 8, characters 15-37
 [2]
