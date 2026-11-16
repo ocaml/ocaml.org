@@ -126,9 +126,10 @@ The OCaml Playground is compiled separately from the rest of the server. The gen
 
 You can build the playground from the root of the project. There is no need to move to the `./playground/` directory for the following commands.
 
-To regenerate the playground, you need to install the playground's dependencies first:
+To regenerate the playground, you need to install the playground's dependencies first. The playground builds [`merlin-js`](https://github.com/voodoos/merlin-js) from source, in a git submodule:
 
 ```bash
+git submodule update --init playground/vendor/merlin-js
 make deps -C playground
 ```
 
@@ -139,6 +140,27 @@ make playground
 ```
 
 Once the compilation is complete and successful, commit the newly-generated assets in OCaml.org's Git repo and merge the pull request.
+
+The playground has its own opam switch, in `playground/_opam`, separate from the server's.
+Its toplevel is the worker from [`js_of_ocaml-toplevel`](https://github.com/ocsigen/js_of_ocaml/tree/master/toplevel),
+and its editor uses `merlin-js` for types, errors, and completion.
+
+To check the built assets in headless Chrome (needs Node and Google Chrome; set `CHROME` to use another binary):
+
+```bash
+make smoke -C playground
+```
+
+The [Playground workflow](.github/workflows/playground.yml) builds the playground from source and runs this smoke test on pull requests that change it.
+
+#### Bumping the Playground Compiler
+
+The playground's OCaml version is set in one place, `COMPILER` in [`playground/Makefile`](./playground/Makefile). To move to a new compiler release:
+
+1. Change `COMPILER`. If the new version is outside the `ocaml` constraint in `playground/dune-project`, widen it and regenerate `ocamlorg-playground.opam`.
+2. Recreate the switch: `rm -rf playground/_opam && make deps -C playground`. If the opam solver finds no solution, a dependency does not support the new compiler yet. This is usually `merlin-lib`, whose releases each support a single compiler minor version, or `js_of_ocaml-toplevel`. The opam-repository pin may also need bumping to include them (see [Managing Dependencies](#managing-dependencies)).
+3. Rebuild with `make playground`, run `make smoke -C playground`, and check Merlin hover and completion by hand at `/play`.
+4. Commit the regenerated `playground/asset/`.
 
 ### Deploying
 

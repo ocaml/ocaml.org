@@ -1,0 +1,59 @@
+name: Playground
+
+# Build the playground from source with the compiler set in playground/Makefile,
+# and smoke-test the result in headless Chrome. The committed playground/asset/
+# is not compared byte for byte: the build is not guaranteed to be reproducible.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'playground/**'
+      - 'src/ocamlorg_frontend/pages/playground.eml'
+      - '.github/workflows/playground.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'playground/**'
+      - 'src/ocamlorg_frontend/pages/playground.eml'
+      - '.github/workflows/playground.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and smoke-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v7
+        with:
+          submodules: true
+
+      - name: Read the playground compiler version
+        id: compiler
+        run: echo "version=$(sed -n 's/^COMPILER=//p' playground/Makefile)" >> "$GITHUB_OUTPUT"
+
+      - name: Use OCaml ${{ steps.compiler.outputs.version }}
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: ${{ steps.compiler.outputs.version }}
+          dune-cache: true
+          opam-repositories: |
+            pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac
+          opam-disable-sandboxing: true
+
+      - name: Install opam dependencies
+        run: |
+          opam install --deps-only ./playground
+          make -C playground toplevel-client SWITCH=
+
+      # The committed assets are removed first, so the smoke test can only
+      # pass on what this build produced.
+      - name: Build the playground
+        run: |
+          rm -rf playground/asset
+          opam exec -- dune build --root playground --profile=release
+
+      - name: Smoke test
+        run: make -C playground smoke

@@ -1,0 +1,3 @@
+[submodule "playground/vendor/merlin-js"]
+	path = playground/vendor/merlin-js
+	url = https://github.com/voodoos/merlin-js

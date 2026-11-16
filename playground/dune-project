@@ -34,14 +34,21 @@
  (allow_empty)
  (depends
   (ocaml
-   (>= 5.0.0))
+   (and
+    (>= 5.5)
+    (< 5.6)))
   (brr
    (>= 0.0.6))
   esbuild
   (js_of_ocaml
-   (>= 5.0))
-  js-top-worker
-  code-mirror
-  merlin-js
-  rpclib
-  rpclib-lwt))
+   (>= 6.5.0))
+  (js_of_ocaml-lwt
+   (>= 6.5.0))
+  (js_of_ocaml-toplevel
+   (>= 6.5.0))
+  lwt
+  ; UPSTREAM: built from the vendor/merlin-js submodule (see vendor/dune).
+  ; Once merlin-js and code-mirror can be installed together, replace these
+  ; with code-mirror and merlin-js, and their pins in the opam template.
+  merlin-lib
+  js_of_ocaml-ppx))

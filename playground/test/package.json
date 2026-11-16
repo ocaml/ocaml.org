@@ -1,0 +1,12 @@
+{
+  "name": "ocamlorg-playground-smoke",
+  "private": true,
+  "description": "Headless-browser smoke test of the built playground assets",
+  "type": "module",
+  "scripts": {
+    "smoke": "node smoke.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "25.16.0"
+  }
+}

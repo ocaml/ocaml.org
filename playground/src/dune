@@ -1,30 +1,13 @@
-; Stdlib worker
+; Toplevel worker: the js_of_ocaml-toplevel worker, with the compiler but
+; without the stdlib .cmi files, which it fetches from stdlib.cmis.js.
 
 (executable
  (name worker)
  (modes byte)
  (modules worker)
- (libraries js-top-worker))
-
-(executable
- (name merlin_worker)
- (modes js)
- (modules merlin_worker)
- (libraries merlin-js.worker))
-
-(rule
- (target cmis.ml)
- (deps gen_cmis_ml.sh ../asset/stdlib)
- (action
-  (with-stdout-to
-   %{target}
-   (run ./gen_cmis_ml.sh))))
-
-(rule
- (targets export.txt)
- (deps worker.bc)
- (action
-  (run jsoo_listunits -o %{targets} stdlib)))
+ (link_flags
+  (:standard -linkall))
+ (libraries js_of_ocaml-toplevel.worker compiler-libs.toplevel))
 
 (rule
  (targets worker.js)
@@ -32,17 +15,26 @@
   (run
    %{bin:js_of_ocaml}
    --toplevel
-   --export
-   %{dep:export.txt}
    --no-cmis
-   --pretty
-   --enable=effects
-   --linkall
-   +toplevel.js
-   +dynlink.js
+   --effects=cps
+   --opt
+   3
    %{dep:worker.bc}
    -o
    %{targets})))
+
+(rule
+ (targets stdlib.cmis.js)
+ (action
+  (run jsoo_mkcmis -o %{targets} stdlib)))
+
+; Merlin worker
+
+(executable
+ (name merlin_worker)
+ (modes js)
+ (modules merlin_worker)
+ (libraries merlin-js.worker))
 
 ; Playground
 
@@ -55,5 +47,6 @@
   brr
   code-mirror
   merlin-js.code-mirror
-  js-top-worker.client
-  rpclib-lwt))
+  lwt
+  js_of_ocaml-toplevel.protocol
+  js_of_ocaml-toplevel.worker_lwt_client))

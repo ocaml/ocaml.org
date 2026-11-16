@@ -26,6 +26,7 @@ let render ~default_code =
     <script id="playground-script"
       data-merlin-url="<%s Ocamlorg_static.Playground.url "merlin.min.js" %>"
       data-worker-url="<%s Ocamlorg_static.Playground.url "worker.min.js" %>"
+      data-cmis-url="<%s Ocamlorg_static.Playground.url "stdlib.cmis.js" %>"
       data-default-code="<%s default_code %>"
       src="<%s Ocamlorg_static.Playground.url "playground.min.js" %>" defer></script>
     <style>
@@ -69,8 +70,9 @@ let render ~default_code =
                 <%s! Icons.share "h-4 w-4 stroke-current" %>
               </button>
               <button id="run" class="btn btn-sm space-x-2 mr-4">
-                <span class="text-lighter">RUN</span>
-                <%s! Icons.play_triangle "h-4 w-4" %>
+                <span id="run-label" class="text-lighter">RUN</span>
+                <span id="run-icon"><%s! Icons.play_triangle "h-4 w-4" %></span>
+                <span id="stop-icon" class="hidden"><%s! Icons.stop_square "h-4 w-4" %></span>
               </button>
             </div>
           </div>

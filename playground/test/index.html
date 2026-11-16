@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- Smoke-test page for the built playground assets. It mirrors the elements
+     that playground/src/main.ml looks up in
+     src/ocamlorg_frontend/pages/playground.eml; keep the two in sync. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Playground smoke test</title>
+    <script id="playground-script"
+      data-merlin-url="merlin.min.js"
+      data-worker-url="worker.min.js"
+      data-cmis-url="stdlib.cmis.js"
+      data-default-code="Sys.ocaml_version"
+      src="playground.min.js" defer></script>
+  </head>
+  <body>
+    <div id="editor1"></div>
+    <button id="share">Share</button>
+    <button id="run">
+      <span id="run-label">RUN</span>
+      <span id="run-icon"></span>
+      <span id="stop-icon" class="hidden"></span>
+    </button>
+    <div id="output"></div>
+  </body>
+</html>

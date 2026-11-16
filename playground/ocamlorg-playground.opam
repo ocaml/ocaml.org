@@ -19,15 +19,15 @@ doc: "https://ocaml.github.io/ocaml.org/"
 bug-reports: "https://github.com/ocaml/ocaml.org/issues"
 depends: [
   "dune" {>= "3.0"}
-  "ocaml" {>= "5.0.0"}
+  "ocaml" {>= "5.5" & < "5.6"}
   "brr" {>= "0.0.6"}
   "esbuild"
-  "js_of_ocaml" {>= "5.0"}
-  "js-top-worker"
-  "code-mirror"
-  "merlin-js"
-  "rpclib"
-  "rpclib-lwt"
+  "js_of_ocaml" {>= "6.5.0"}
+  "js_of_ocaml-lwt" {>= "6.5.0"}
+  "js_of_ocaml-toplevel" {>= "6.5.0"}
+  "lwt"
+  "merlin-lib"
+  "js_of_ocaml-ppx"
   "odoc" {with-doc}
 ]
 build: [
@@ -47,7 +47,4 @@ build: [
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
 pin-depends: [
   ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb"]
-  ["code-mirror.dev" "git+https://github.com/patricoferris/jsoo-code-mirror#8fe48910e265ff87f9fc94ceb7b3d19fac102a96"]
-  ["merlin-js.dev" "git+https://github.com/voodoos/merlin-js#3a8c83e03d629228b8a8394ecafc04523b0ab93f"]
-  ["js-top-worker.dev" "git+https://github.com/tmattio/js_top_worker#6110d50db0ce8577e6d662fa06d5ae9cc0c95ea1"]
 ]
