@@ -73,7 +73,7 @@ jobs:
       - name: Set up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2.0"
+          ocaml-compiler: "5.5.2"
           dune-cache: true
           opam-repositories: |
             pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac

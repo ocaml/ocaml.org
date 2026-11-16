@@ -23,7 +23,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         ocaml-compiler:
-          - "5.2.0"
+          - "5.5.2"
 
     steps:
       - name: Checkout Repo

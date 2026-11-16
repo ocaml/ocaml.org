@@ -46,7 +46,7 @@ Run `make help` to list the other common `make` targets.
 
 ### Devcontainer and Cloud Sessions
 
-[`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) describes a ready-to-use development environment: Debian 13 with OCaml 5.2, the pinned opam-repository, the system libraries, every dependency of `ocamlorg.opam`, and the dev tools (OCamlFormat 0.29.0, `ocaml-lsp-server`, Merlin, `utop`). The [`devcontainer.yml`](.github/workflows/devcontainer.yml) workflow publishes it as `ghcr.io/ocaml/ocaml.org-dev`. Each image is tagged by [`.devcontainer/tag.sh`](.devcontainer/tag.sh), a hash of `.devcontainer/Dockerfile` and `ocamlorg.opam`, and the latest build from `main` is also tagged `main`.
+[`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) describes a ready-to-use development environment: Debian 13 with OCaml 5.5, the pinned opam-repository, the system libraries, every dependency of `ocamlorg.opam`, and the dev tools (OCamlFormat 0.29.0, `ocaml-lsp-server`, Merlin, `utop`). The [`devcontainer.yml`](.github/workflows/devcontainer.yml) workflow publishes it as `ghcr.io/ocaml/ocaml.org-dev`. Each image is tagged by [`.devcontainer/tag.sh`](.devcontainer/tag.sh), a hash of `.devcontainer/Dockerfile` and `ocamlorg.opam`, and the latest build from `main` is also tagged `main`.
 
 Tools that support devcontainers (VS Code, GitHub Codespaces, DevPod, and others) build it from `.devcontainer/devcontainer.json`, reusing the published layers, and add Node.js and the GitHub CLI. It asks for 4 CPUs, 16 GB of memory, and 32 GB of storage. The base image is pinned by digest, so the published layers stay reusable; Dependabot proposes digest updates monthly.
 
@@ -283,8 +283,8 @@ When bringing up OCaml.org to a newer pin, the commit hash found in those files 
 So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines (`.devcontainer/Dockerfile` pins its base image by digest, so a digest update must also keep the pin at or below the new image's tip):
 
 ```bash
-docker run --rm ocaml/opam:alpine-3.24-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'  # Dockerfile
-docker run --rm ocaml/opam:debian-13-ocaml-5.2 sh -c 'cd ~/opam-repository && git rev-parse HEAD'    # .devcontainer/Dockerfile
+docker run --rm ocaml/opam:alpine-3.24-ocaml-5.5 sh -c 'cd ~/opam-repository && git rev-parse HEAD'  # Dockerfile
+docker run --rm ocaml/opam:debian-13-ocaml-5.5 sh -c 'cd ~/opam-repository && git rev-parse HEAD'    # .devcontainer/Dockerfile
 ```
 
 The two base images can sit at different tips: pick a commit at or below the **older** of the two. Only pin beyond the tip (and add the `git fetch`) if you need a package version newer than the base image snapshot.
