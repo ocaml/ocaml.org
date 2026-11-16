@@ -167,6 +167,13 @@ profile). This setting can be overridden via the `s=<words>` argument to
 `OCAMLRUNPARAM`. You can change it after the program has started by calling
 the `Gc.set` function:
 
+> **Note**
+>
+> The examples below use Jane Street's Core library, which provides
+> convenience functions such as `Gc.tune`. If you are using only the
+> OCaml standard library, similar functionality can be achieved using
+> `Gc.get` and `Gc.set`.
+
 ```ocaml env=tune
 # open Core;;
 # let c = Gc.get ();;
