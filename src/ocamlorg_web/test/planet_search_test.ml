@@ -96,27 +96,45 @@ let fixed_queries =
     "zzzzzz-no-such-word";
   ]
 
-(* Words taken from the data itself: the first word of every 80th title and
-   every 160th author, plus a two-word title prefix. *)
+(* Words taken from the data itself: the first word of every 80th title, plus a
+   two-word title prefix, every 160th author, and the keywords of every 500th
+   entry (keywords and authors are the fields counted one item at a time). *)
 let data_queries =
-  List.filteri (fun i _ -> i mod 80 = 0) P.all
-  |> List.concat_map (fun e ->
-      match String.split_on_char ' ' (P.entry_title e) with
-      | w1 :: w2 :: _ -> [ w1; w1 ^ " " ^ w2 ]
-      | [ w ] -> [ w ]
-      | [] -> [])
-  |> ( @ )
-       (List.filteri (fun i _ -> i mod 160 = 0) P.all
-       |> List.concat_map P.entry_authors)
+  let every n = List.filteri (fun i _ -> i mod n = 0) P.all in
+  let titles =
+    every 80
+    |> List.concat_map (fun e ->
+        match String.split_on_char ' ' (P.entry_title e) with
+        | w1 :: w2 :: _ -> [ w1; w1 ^ " " ^ w2 ]
+        | [ w ] -> [ w ]
+        | [] -> [])
+  in
+  titles
+  @ List.concat_map P.entry_authors (every 160)
+  @ List.concat_map P.entry_keywords (every 500)
 
-let same_results q =
-  let expected = reference_search q and got = P.search q in
-  if
-    List.length expected <> List.length got
-    || not (List.for_all2 ( == ) expected got)
-  then
-    Alcotest.failf "query %S: %d results, reference has %d (or order differs)" q
-      (List.length got) (List.length expected)
+(* Index of the first position where the two lists differ, if any. *)
+let rec first_difference i expected got =
+  match (expected, got) with
+  | [], [] -> None
+  | e :: es, g :: gs when e == g -> first_difference (i + 1) es gs
+  | _ -> Some i
+
+let same_results ?(reference = reference_search) q =
+  let expected = reference q and got = P.search q in
+  match first_difference 0 expected got with
+  | None -> ()
+  | Some i ->
+      let title l =
+        match List.nth_opt l i with
+        | Some e -> P.entry_title e
+        | None -> "(end of list)"
+      in
+      Alcotest.failf
+        "query %S: results differ at position %d: got %S, reference has %S (%d \
+         results, reference has %d)"
+        q i (title got) (title expected) (List.length got)
+        (List.length expected)
 
 let test_fixed () =
   Alcotest.(check bool) "non-trivial" true (P.search "effects" <> []);
@@ -124,7 +142,48 @@ let test_fixed () =
 
 let test_data () =
   Alcotest.(check bool) "enough queries" true (List.length data_queries > 40);
+  Alcotest.(check bool)
+    "a keyword with a space" true
+    (List.exists (fun q -> String.contains q ' ') data_queries);
   List.iter same_results data_queries
+
+(* Only the first [max_query_terms] terms count: a longer query ranks like its
+   prefix, and a huge one stays cheap. *)
+let test_term_cap () =
+  Alcotest.(check int) "cap" 16 P.max_query_terms;
+  let words =
+    [
+      "ocaml";
+      "effects";
+      "dune";
+      "opam";
+      "mirage";
+      "lwt";
+      "eio";
+      "domains";
+      "multicore";
+      "compiler";
+      "types";
+      "modules";
+      "functors";
+      "records";
+      "variants";
+      "arrays";
+      "lists";
+      "maps";
+      "sets";
+      "hashtables";
+    ]
+  in
+  let first_16 = String.concat " " (List.filteri (fun i _ -> i < 16) words) in
+  same_results
+    ~reference:(fun _ -> reference_search first_16)
+    (String.concat " " words);
+  let huge = String.concat "." (List.init 3000 (fun _ -> "ab")) in
+  same_results
+    ~reference:(fun _ ->
+      reference_search (String.concat " " (List.init 16 (fun _ -> "ab"))))
+    huge
 
 let () =
   Alcotest.run "planet_search"
@@ -133,5 +192,7 @@ let () =
         [
           Alcotest.test_case "fixed queries" `Quick test_fixed;
           Alcotest.test_case "queries from the data" `Quick test_data;
+          Alcotest.test_case "at most max_query_terms terms" `Quick
+            test_term_cap;
         ] );
     ]

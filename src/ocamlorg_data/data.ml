@@ -326,6 +326,8 @@ module Planet = struct
     | 3 -> count (entry_source e)
     | _ -> sum (entry_authors e)
 
+  let max_query_terms = 16
+
   (* Relevance ranking. Each query term is scored INDEPENDENTLY and weighted by
      its corpus IDF, so common words ("of", or "code" matching inside
      "bytecode") get ~zero weight and a rare distinctive term dominates a
@@ -346,6 +348,9 @@ module Planet = struct
           else ' ')
       |> String.split_on_char ' '
       |> List.filter (fun t -> String.length t >= 2)
+      (* Searching keeps [terms * fields] counts per entry, and the time grows
+         with the number of terms too: bound both. *)
+      |> List.filteri (fun i _ -> i < max_query_terms)
     in
     match terms with
     | [] -> []
