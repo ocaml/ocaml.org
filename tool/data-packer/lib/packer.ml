@@ -43,6 +43,10 @@ let load_all () =
   let pages = Page_parser.all () in
   let conferences = Conference_parser.all () in
   let tutorials = Tutorial_parser.all () in
+  Exercise_parser.check_tutorial_references
+    ~tutorial_slugs:
+      (List.map (fun (t : Tutorial.t) -> t.Data_intf.Tutorial.slug) tutorials)
+    exercises;
   let tutorial_search_documents = Tutorial_parser.all_search_documents () in
   let changelog = Changelog_parser.all () in
   let backstage = Backstage_parser.all () in
