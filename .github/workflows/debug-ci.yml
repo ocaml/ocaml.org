@@ -35,10 +35,6 @@ jobs:
         run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
         if: runner.os == 'Linux'
 
-      - name: Install system dependencies (macOS)
-        run: brew update && brew reinstall libev openssl@3 # Openssl is a workaround for https://github.com/ocaml/opam-repository/issues/19676
-        if: runner.os == 'macOS'
-
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
