@@ -9,7 +9,8 @@
   package_health_test
   v2_asset_test
   planet_search_test
-  data_index_test)
+  data_index_test
+  planet_facets_test)
  (libraries
   alcotest
   yojson
