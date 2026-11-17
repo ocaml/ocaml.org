@@ -90,3 +90,20 @@ let compare_slugs s1 s2 =
 let all () =
   Utils.map_md_files decode "exercises/*.md"
   |> List.sort (fun (e1 : t) (e2 : t) -> compare_slugs e1.slug e2.slug)
+
+exception Missing_Tutorial of string
+
+(* Every slug in an exercise's [tutorials] must name an existing tutorial. *)
+let check_tutorial_references ~tutorial_slugs all =
+  let is_missing slug = not (List.mem slug tutorial_slugs) in
+  let check (e : t) =
+    match List.filter is_missing e.tutorials with
+    | [] -> ()
+    | missing ->
+        raise
+          (Missing_Tutorial
+             ("The following tutorial(s) referenced by exercise slug \""
+            ^ e.slug ^ "\" were not found: [" ^ String.concat "; " missing ^ "]"
+             ))
+  in
+  List.iter check all
