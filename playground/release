@@ -3,5 +3,5 @@
 # .github/workflows/release-playground.yml, which also opens the pull request
 # that updates this file. Read by playground/fetch.sh (make playground-fetch,
 # the Dockerfile, CI).
-PLAYGROUND_RELEASE=playground-5.5.2-d98f389
+PLAYGROUND_RELEASE=playground-5.5.2-5d12360
 PLAYGROUND_SHA256=c00d61097f16a59b29e88e7453e0da50338a187cbc10a69bbec6005790c23477
