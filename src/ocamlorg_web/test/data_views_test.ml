@@ -16,6 +16,20 @@ let sections : (string * Tutorial.section) list =
     ("Guides", Guides);
   ]
 
+(* The grouping helpers, on a list with repeated keys, an element listing a key
+   twice, an element with no key, and an absent key. *)
+let test_group () =
+  let xs =
+    [ ("p", [ "a"; "b" ]); ("q", [ "b"; "b" ]); ("r", []); ("s", [ "a" ]) ]
+  in
+  let by_key = Lookup.group_many snd xs in
+  List.iter
+    (fun k -> same k (List.filter (fun x -> List.mem k (snd x)) xs) (by_key k))
+    [ "a"; "b"; "c" ];
+  let by_first = Lookup.group (fun (name, _) -> name.[0] < 'r') xs in
+  same "group true" (List.filteri (fun i _ -> i < 2) xs) (by_first true);
+  same "group false" (List.filteri (fun i _ -> i >= 2) xs) (by_first false)
+
 let test_tutorial_sections () =
   List.iter
     (fun (name, s) ->
@@ -23,9 +37,12 @@ let test_tutorial_sections () =
         List.filter (fun (t : Tutorial.t) -> t.section = s) Tutorial.all
       in
       same name expected (Tutorial.by_section s);
-      Alcotest.(check bool)
-        (name ^ " first") true
-        (List.hd expected == Tutorial.first_in_section s))
+      match expected with
+      | first :: _ ->
+          Alcotest.(check bool)
+            (name ^ " first") true
+            (first == Tutorial.first_in_section s)
+      | [] -> Alcotest.failf "section %s is empty" name)
     sections
 
 let test_tutorial_links () =
@@ -73,6 +90,7 @@ let test_cookbook () =
            Cookbook.all)
         (Cookbook.get_by_task ~task_slug:task.slug))
     Cookbook.tasks;
+  same "no-such-task" [] (Cookbook.get_by_task ~task_slug:"no-such-task");
   let rec category_slugs (cats : Cookbook.category list) =
     List.concat_map
       (fun (c : Cookbook.category) -> c.slug :: category_slugs c.subcategories)
@@ -161,6 +179,7 @@ let () =
     [
       ( "same as the handlers' computations",
         [
+          Alcotest.test_case "grouping helpers" `Quick test_group;
           Alcotest.test_case "tutorial sections" `Quick test_tutorial_sections;
           Alcotest.test_case "tutorial links" `Quick test_tutorial_links;
           Alcotest.test_case "exercises per tutorial" `Quick

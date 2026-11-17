@@ -6,6 +6,15 @@ module Lookup : sig
   val index : ('a -> 'k) -> 'a list -> ('k, 'a) Hashtbl.t
   (** [index key xs] maps [key x] to [x]. When several elements share a key, the
       first one in [xs] wins, as with [List.find_opt]. *)
+
+  val group_many : ('a -> 'k list) -> 'a list -> 'k -> 'a list
+  (** [group_many keys xs] maps a key [k] to the elements [x] of [xs] such that
+      [keys x] contains [k], in [xs]'s order and each once, as
+      [List.filter (fun x -> List.mem k (keys x)) xs] does. An absent key gives
+      [[]]. *)
+
+  val group : ('a -> 'k) -> 'a list -> 'k -> 'a list
+  (** [group key xs] is [group_many (fun x -> [ key x ]) xs]. *)
 end
 
 module Academic_institution : sig
@@ -247,10 +256,10 @@ module Tutorial : sig
   (** Checked when [Data] is loaded: no section is empty. *)
 
   val recommended_next : t -> t list
+  (** The tutorials named by [recommended_next_tutorials], in [all]'s order. *)
 
   val prerequisites : t -> t list
-  (** The tutorials named by [recommended_next_tutorials] and
-      [prerequisite_tutorials], in [all]'s order. *)
+  (** The tutorials named by [prerequisite_tutorials], in [all]'s order. *)
 
   val search_terms : string -> string list
   (** The whitespace-separated terms of a search query. Documents match a term

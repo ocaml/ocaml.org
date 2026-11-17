@@ -1,6 +1,7 @@
 (tests
  (names
   graphql_test
+  data_views_test
   mcp_doc_html_test
   mcp_transport_test
   mcp_tools_test
@@ -9,8 +10,7 @@
   package_health_test
   v2_asset_test
   planet_search_test
-  data_index_test
-  data_views_test)
+  data_index_test)
  (libraries
   alcotest
   yojson

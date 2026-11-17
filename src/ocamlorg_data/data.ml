@@ -47,27 +47,27 @@ module Lookup = struct
     let tbl = Hashtbl.create (List.length xs) in
     List.iter (fun x -> Hashtbl.replace tbl (key x) x) (List.rev xs);
     tbl
+
+  (* [group_many keys xs] builds, once, a lookup from a key to the elements [x]
+     of [xs] such that [keys x] contains it, in [xs]'s order and each at most
+     once, as with [List.filter]. Absent keys give []. *)
+  let group_many keys xs =
+    let tbl = Hashtbl.create 64 in
+    List.iter
+      (fun x ->
+        List.iter
+          (fun k ->
+            Hashtbl.replace tbl k
+              (x :: Option.value ~default:[] (Hashtbl.find_opt tbl k)))
+          (List.sort_uniq compare (keys x)))
+      (List.rev xs);
+    fun k -> Option.value ~default:[] (Hashtbl.find_opt tbl k)
+
+  (* [group key xs]: the same, for one key per element. *)
+  let group key xs = group_many (fun x -> [ key x ]) xs
 end
 
 include Lookup
-
-(* [group_many keys xs] builds, once, a lookup from a key to the elements [x] of
-   [xs] such that [keys x] contains it, in [xs]'s order and each at most once,
-   as with [List.filter]. Absent keys give []. *)
-let group_many keys xs =
-  let tbl = Hashtbl.create 64 in
-  List.iter
-    (fun x ->
-      List.iter
-        (fun k ->
-          Hashtbl.replace tbl k
-            (x :: Option.value ~default:[] (Hashtbl.find_opt tbl k)))
-        (List.sort_uniq compare (keys x)))
-    (List.rev xs);
-  fun k -> Option.value ~default:[] (Hashtbl.find_opt tbl k)
-
-(* [group key xs]: the same, for one key per element. *)
-let group key xs = group_many (fun x -> [ key x ]) xs
 
 (* ============================================================
  * Individual Module Implementations
@@ -530,27 +530,11 @@ module Tutorial = struct
     | Platform -> platform
     | Guides -> guides
 
-  (* The tutorials whose slugs are in [slugs], in [all]'s order. *)
+  (* The tutorials whose slugs are in [slugs], in [all]'s order. A tutorial
+     names one to a few others, so this is cheap enough to do per call. *)
   let resolve slugs = List.filter (fun x -> List.mem x.slug slugs) all
-
-  let links =
-    index fst
-      (List.map
-         (fun x ->
-           ( x.slug,
-             ( resolve x.recommended_next_tutorials,
-               resolve x.prerequisite_tutorials ) ))
-         all)
-
-  let recommended_next t =
-    match Hashtbl.find_opt links t.slug with
-    | Some (_, (next, _)) -> next
-    | None -> resolve t.recommended_next_tutorials
-
-  let prerequisites t =
-    match Hashtbl.find_opt links t.slug with
-    | Some (_, (_, prerequisites)) -> prerequisites
-    | None -> resolve t.prerequisite_tutorials
+  let recommended_next t = resolve t.recommended_next_tutorials
+  let prerequisites t = resolve t.prerequisite_tutorials
 
   let search_terms q =
     String.split_on_char ' ' q

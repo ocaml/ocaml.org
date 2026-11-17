@@ -349,7 +349,7 @@ Pages are written as `.eml` files in `src/ocamlorg_frontend/pages/`, preprocesse
 
 ### Working With `data/`
 
-The data packer enforces the structure of `data/` through the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. After editing, `make build` repacks `data.bin`. In addition:
+The data packer enforces the structure of `data/` through the types in `src/ocamlorg_data/data_intf.ml`, so a malformed file fails the build. A few checks run when the server loads the data instead: every tutorial section has a tutorial, a latest and an LTS release are marked, and the books and exercises featured on `/docs` exist (`Data.Learn` in `src/ocamlorg_data/data.ml`). A mistake there passes `make build` but stops the server at startup and fails `make test`. After editing, `make build` repacks `data.bin`. In addition:
 
 * **Files in `data/` must be UTF-8 without a byte-order mark.** The packer fails the build otherwise, and the scrapers replace invalid UTF-8 in remote text with U+FFFD before writing.
 * **Don't hand-edit scraped content.** `data/planet/` (except `data/planet/-individual_external_links/`), `data/video-watch.yml`, `data/video-youtube.yml`, `data/platform_releases/`, and `data/opam_health.yml` are machine-managed: the scrape workflows open pull requests against them, and manual edits get overwritten.
