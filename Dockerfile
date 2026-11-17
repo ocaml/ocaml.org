@@ -2,8 +2,6 @@ FROM ocaml/opam:alpine-3.24-ocaml-5.5 AS build
 
 # Install system dependencies
 RUN sudo apk -U upgrade --no-cache && sudo apk add --no-cache \
-    autoconf \
-    curl-dev \
     gmp-dev \
     libev-dev \
     oniguruma-dev \
