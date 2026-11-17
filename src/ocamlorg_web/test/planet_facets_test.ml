@@ -50,16 +50,36 @@ let check_facets name expected (got : P.facets) =
 
 let kinds = [ ("all", `All); ("articles", `Article); ("videos", `Video) ]
 
+(* [sub] is [all] with some elements left out, in the same order (by [==]). *)
+let rec is_subsequence sub all =
+  match (sub, all) with
+  | [], _ -> true
+  | _, [] -> false
+  | s :: ss, a :: aa ->
+      if s == a then is_subsequence ss aa else is_subsequence sub aa
+
+(* Checked by properties rather than against a copy of the implementation. *)
 let test_of_kind () =
-  List.iter
-    (fun (name, k) ->
-      let expected = reference_of_kind k and got = P.of_kind k in
-      Alcotest.(check bool)
-        (name ^ " same entries, same order")
-        true
-        (List.length expected = List.length got
-        && List.for_all2 ( == ) expected got))
-    kinds
+  let is_article = function P.BlogPost _ -> true | Video _ -> false in
+  let articles = P.of_kind `Article and videos = P.of_kind `Video in
+  Alcotest.(check bool) "all is Planet.all" true (P.of_kind `All == P.all);
+  Alcotest.(check bool) "articles non-empty" true (articles <> []);
+  Alcotest.(check bool) "videos non-empty" true (videos <> []);
+  Alcotest.(check bool)
+    "articles are blog posts" true
+    (List.for_all is_article articles);
+  Alcotest.(check bool)
+    "videos are videos" true
+    (List.for_all (fun e -> not (is_article e)) videos);
+  Alcotest.(check bool)
+    "articles keep all's order" true
+    (is_subsequence articles P.all);
+  Alcotest.(check bool)
+    "videos keep all's order" true
+    (is_subsequence videos P.all);
+  Alcotest.(check int)
+    "every entry is an article or a video" (List.length P.all)
+    (List.length articles + List.length videos)
 
 let test_facets_of_kind () =
   List.iter
@@ -68,9 +88,13 @@ let test_facets_of_kind () =
         (reference_facets (reference_of_kind k))
         (P.facets_of_kind k))
     kinds;
-  Alcotest.(check bool)
-    "non-trivial" true
-    ((P.facets_of_kind `All).authors <> [])
+  List.iter
+    (fun (name, k) ->
+      let f = P.facets_of_kind k in
+      Alcotest.(check bool)
+        (name ^ " non-trivial") true
+        (f.sources <> [] && f.years <> [] && f.authors <> []))
+    kinds
 
 let test_facets_of_search () =
   List.iter
