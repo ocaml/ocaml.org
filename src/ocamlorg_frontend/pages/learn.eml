@@ -86,10 +86,10 @@ Learn_layout.single_column_layout
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
-        (Data.Book.get_by_slug "ocaml-programming-cs3110" |> Option.get)
+        (fst Data.Learn.beginner_books)
         ~link:{href = Url.books; title = "See More Books"} %>
       <%s! Learn_components.book_recommendation
-        (Data.Book.get_by_slug "ocaml-from-the-very-beginning" |> Option.get)
+        (snd Data.Learn.beginner_books)
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
@@ -99,11 +99,7 @@ Learn_layout.single_column_layout
       <%s! Learn_components.exercises_block
         ~icon:Learn_components.beginner_section_icon
         ~heading:"Exercises for Beginners"
-        [ Data.Exercise.get_by_slug "1" |> Option.get
-        ; Data.Exercise.get_by_slug "5" |> Option.get
-        ; Data.Exercise.get_by_slug "6" |> Option.get
-        ; Data.Exercise.get_by_slug "8" |> Option.get
-        ] %>
+        Data.Learn.beginner_exercises %>
     </div>
   </div>
 
@@ -155,10 +151,10 @@ Learn_layout.single_column_layout
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
-        (Data.Book.get_by_slug "real-world-ocaml" |> Option.get)
+        (fst Data.Learn.intermediate_books)
         ~link:{href = Url.books; title = "See More Books"} %>
       <%s! Learn_components.book_recommendation
-        (Data.Book.get_by_slug "more-ocaml-algorithms-methods-diversions" |> Option.get)
+        (snd Data.Learn.intermediate_books)
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 
@@ -168,11 +164,7 @@ Learn_layout.single_column_layout
       <%s! Learn_components.exercises_block
         ~icon:Learn_components.intermediate_section_icon
         ~heading:"Practice with Exercises"
-        [ Data.Exercise.get_by_slug "55" |> Option.get
-        ; Data.Exercise.get_by_slug "64" |> Option.get
-        ; Data.Exercise.get_by_slug "68" |> Option.get
-        ; Data.Exercise.get_by_slug "81" |> Option.get
-        ] %>
+        Data.Learn.intermediate_exercises %>
     </div>
 
     <%s! Learn_components.lang_manual_banner %>
@@ -184,7 +176,7 @@ Learn_layout.single_column_layout
 
     <div class="grid gap-6 mt-6 lg:grid-cols-2">
       <%s! Learn_components.book_recommendation
-        (Data.Book.get_by_slug "ocaml-scientific-computing" |> Option.get)
+        Data.Learn.advanced_book
         ~link:{href = Url.books; title = "See More Books"} %>
     </div>
 

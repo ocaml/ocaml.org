@@ -47,6 +47,24 @@ module Lookup = struct
     let tbl = Hashtbl.create (List.length xs) in
     List.iter (fun x -> Hashtbl.replace tbl (key x) x) (List.rev xs);
     tbl
+
+  (* [group_many keys xs] builds, once, a lookup from a key to the elements [x]
+     of [xs] such that [keys x] contains it, in [xs]'s order and each at most
+     once, as with [List.filter]. Absent keys give []. *)
+  let group_many keys xs =
+    let tbl = Hashtbl.create 64 in
+    List.iter
+      (fun x ->
+        List.iter
+          (fun k ->
+            Hashtbl.replace tbl k
+              (x :: Option.value ~default:[] (Hashtbl.find_opt tbl k)))
+          (List.sort_uniq compare (keys x)))
+      (List.rev xs);
+    fun k -> Option.value ~default:[] (Hashtbl.find_opt tbl k)
+
+  (* [group key xs]: the same, for one key per element. *)
+  let group key xs = group_many (fun x -> [ key x ]) xs
 end
 
 include Lookup
@@ -127,13 +145,13 @@ module Cookbook = struct
         in
         cat.title :: get_task_path_titles cat.subcategories path
 
-  let get_tasks_by_category ~category_slug =
-    tasks
-    |> List.filter (fun (x : task) ->
-        List.(x.category_path |> rev |> hd) = category_slug)
+  (* A task's category is the last element of its path. *)
+  let tasks_by_category =
+    group (fun (x : task) -> List.(x.category_path |> rev |> hd)) tasks
 
-  let get_by_task ~task_slug =
-    all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
+  let get_tasks_by_category ~category_slug = tasks_by_category category_slug
+  let recipes_by_task = group (fun (x : t) -> x.task.slug) all
+  let get_by_task ~task_slug = recipes_by_task task_slug
 
   let get_task_by_slug =
     Hashtbl.find_opt (index (fun (x : task) -> x.slug) tasks)
@@ -157,6 +175,19 @@ module Event = struct
 
   let all = data.events
 
+  (* Dates are "YYYY-MM-DD" strings, so they compare as strings. *)
+  let is_upcoming ~today (e : t) =
+    e.starts.yyyy_mm_dd >= today
+    || match e.ends with Some ends -> ends.yyyy_mm_dd >= today | None -> false
+
+  let types =
+    all
+    |> List.map (fun (e : t) -> string_of_event_type e.event_type)
+    |> List.sort_uniq String.compare
+
+  let cities =
+    all |> List.map (fun (e : t) -> e.city) |> List.sort_uniq String.compare
+
   module RecurringEvent = struct
     type t = recurring_event
 
@@ -176,6 +207,7 @@ module Exercise = struct
     List.filter f
 
   let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
+  let for_tutorial = group_many (fun x -> x.tutorials) all
 end
 
 module Governance = struct
@@ -454,6 +486,9 @@ module Success_story = struct
 
   let all = data.success_stories
   let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
+
+  let by_priority =
+    List.sort (fun (a : t) (b : t) -> compare a.priority b.priority) all
 end
 
 module Tool = struct
@@ -475,6 +510,31 @@ module Tutorial = struct
   let all = data.tutorials
   let all_search_documents = data.tutorial_search_documents
   let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
+  let by_section = group (fun x -> x.section) all
+
+  (* Computed when this module is loaded, so an empty section stops the server
+     at startup rather than failing on every request. *)
+  let first_in_section =
+    let first s =
+      match by_section s with
+      | t :: _ -> t
+      | [] -> failwith "Data.Tutorial: a tutorial section is empty"
+    in
+    let get_started = first GetStarted
+    and language = first Language
+    and platform = first Platform
+    and guides = first Guides in
+    function
+    | GetStarted -> get_started
+    | Language -> language
+    | Platform -> platform
+    | Guides -> guides
+
+  (* The tutorials whose slugs are in [slugs], in [all]'s order. A tutorial
+     names one to a few others, so this is cheap enough to do per call. *)
+  let resolve slugs = List.filter (fun x -> List.mem x.slug slugs) all
+  let recommended_next t = resolve t.recommended_next_tutorials
+  let prerequisites t = resolve t.prerequisite_tutorials
 
   let search_terms q =
     String.split_on_char ' ' q
@@ -518,6 +578,32 @@ module Tutorial = struct
     match search_terms q with
     | [] -> all_search_documents
     | terms -> search_documents_matching terms
+end
+
+(* What the /docs page features. Resolved when this module is loaded, so a slug
+   that names no book or exercise stops the server at startup rather than
+   failing on every request. *)
+module Learn = struct
+  let book slug =
+    match Book.get_by_slug slug with
+    | Some b -> b
+    | None -> failwith ("Data.Learn: no book " ^ slug)
+
+  let exercise slug =
+    match Exercise.get_by_slug slug with
+    | Some e -> e
+    | None -> failwith ("Data.Learn: no exercise " ^ slug)
+
+  let beginner_books =
+    (book "ocaml-programming-cs3110", book "ocaml-from-the-very-beginning")
+
+  let beginner_exercises = List.map exercise [ "1"; "5"; "6"; "8" ]
+
+  let intermediate_books =
+    (book "real-world-ocaml", book "more-ocaml-algorithms-methods-diversions")
+
+  let intermediate_exercises = List.map exercise [ "55"; "64"; "68"; "81" ]
+  let advanced_book = book "ocaml-scientific-computing"
 end
 
 module Video = struct

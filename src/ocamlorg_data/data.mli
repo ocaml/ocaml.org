@@ -6,6 +6,15 @@ module Lookup : sig
   val index : ('a -> 'k) -> 'a list -> ('k, 'a) Hashtbl.t
   (** [index key xs] maps [key x] to [x]. When several elements share a key, the
       first one in [xs] wins, as with [List.find_opt]. *)
+
+  val group_many : ('a -> 'k list) -> 'a list -> 'k -> 'a list
+  (** [group_many keys xs] maps a key [k] to the elements [x] of [xs] such that
+      [keys x] contains [k], in [xs]'s order and each once, as
+      [List.filter (fun x -> List.mem k (keys x)) xs] does. An absent key gives
+      [[]]. *)
+
+  val group : ('a -> 'k) -> 'a list -> 'k -> 'a list
+  (** [group key xs] is [group_many (fun x -> [ key x ]) xs]. *)
 end
 
 module Academic_institution : sig
@@ -75,6 +84,16 @@ module Event : sig
   end
 
   val all : t list
+
+  val is_upcoming : today:string -> t -> bool
+  (** [is_upcoming ~today e]: [e] starts or ends on or after [today], a
+      ["YYYY-MM-DD"] date. *)
+
+  val types : string list
+  (** The event types in use, as strings, sorted. *)
+
+  val cities : string list
+  (** The cities where events take place, sorted. *)
 end
 
 module Exercise : sig
@@ -83,6 +102,9 @@ module Exercise : sig
   val all : t list
   val filter_tag : ?tag:string -> t list -> t list
   val get_by_slug : string -> t option
+
+  val for_tutorial : string -> t list
+  (** The exercises that list the tutorial with this slug, in [all]'s order. *)
 end
 
 module Governance : sig
@@ -204,6 +226,7 @@ module Success_story : sig
 
   val all : t list
   val get_by_slug : string -> t option
+  val by_priority : t list
 end
 
 module Tool : sig
@@ -226,12 +249,33 @@ module Tutorial : sig
   val all_search_documents : search_document list
   val get_by_slug : string -> t option
 
+  val by_section : section -> t list
+  (** The tutorials of a section, in [all]'s order. *)
+
+  val first_in_section : section -> t
+  (** Checked when [Data] is loaded: no section is empty. *)
+
+  val recommended_next : t -> t list
+  (** The tutorials named by [recommended_next_tutorials], in [all]'s order. *)
+
+  val prerequisites : t -> t list
+  (** The tutorials named by [prerequisite_tutorials], in [all]'s order. *)
+
   val search_terms : string -> string list
   (** The whitespace-separated terms of a search query. Documents match a term
       literally, ignoring case (Unicode case folding), and
       [Ocamlorg.Import.String.fold_split] finds the matches in a text. *)
 
   val search_documents : string -> search_document list
+end
+
+(** What the /docs page features, checked when [Data] is loaded. *)
+module Learn : sig
+  val beginner_books : Book.t * Book.t
+  val beginner_exercises : Exercise.t list
+  val intermediate_books : Book.t * Book.t
+  val intermediate_exercises : Exercise.t list
+  val advanced_book : Book.t
 end
 
 module Video : sig
