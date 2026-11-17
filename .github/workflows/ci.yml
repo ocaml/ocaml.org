@@ -38,10 +38,6 @@ jobs:
             pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac
           opam-disable-sandboxing: true
 
-      - name: Install system dependencies (Linux)
-        run: sudo apt update && sudo apt-get install libev-dev libonig-dev libcurl4-openssl-dev
-        if: runner.os == 'Linux'
-
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
