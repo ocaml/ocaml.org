@@ -39,13 +39,17 @@ let all_data : Data_intf.All_data.t Lazy.t =
 (* Force deserialization once at module load time *)
 let data = Lazy.force all_data
 
-(* [index key xs] builds a table from [key x] to [x], once, when this module is
-   loaded. When two elements share a key, the first one in [xs] wins, as with
-   [List.find_opt]. The tables are never modified afterwards. *)
-let index key xs =
-  let tbl = Hashtbl.create (List.length xs) in
-  List.iter (fun x -> Hashtbl.replace tbl (key x) x) (List.rev xs);
-  tbl
+module Lookup = struct
+  (* [index key xs] builds a table from [key x] to [x]. When two elements share
+     a key, the first one in [xs] wins, as with [List.find_opt]. Every table is
+     built once, when this module is loaded, and never modified afterwards. *)
+  let index key xs =
+    let tbl = Hashtbl.create (List.length xs) in
+    List.iter (fun x -> Hashtbl.replace tbl (key x) x) (List.rev xs);
+    tbl
+end
+
+include Lookup
 
 (* ============================================================
  * Individual Module Implementations

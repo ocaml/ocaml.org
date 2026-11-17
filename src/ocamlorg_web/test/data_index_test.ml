@@ -70,6 +70,39 @@ let test_other_indexes () =
     ~key:(fun (x : Cookbook.t) -> (x.task.slug, x.slug))
     ~absent:(absent, absent) Cookbook.all
 
+(* No collection in data/ has duplicate keys, so check the first-wins rule on a
+   list of our own. *)
+let test_first_wins () =
+  let xs = [ ("a", 1); ("b", 2); ("a", 3); ("c", 4); ("b", 5) ] in
+  let tbl = Data.Lookup.index fst xs in
+  let find k = Option.map snd (Hashtbl.find_opt tbl k) in
+  Alcotest.(check (list (option int)))
+    "first match per key, as List.find_opt"
+    (List.map
+       (fun k -> Option.map snd (List.find_opt (fun (k', _) -> k' = k) xs))
+       [ "a"; "b"; "c"; "d" ])
+    (List.map find [ "a"; "b"; "c"; "d" ]);
+  Alcotest.(check int) "one binding per key" 3 (Hashtbl.length tbl)
+
+(* The two accessors that raise [Not_found] rather than return an option. *)
+let test_raising_accessors () =
+  let open Data in
+  Alcotest.(check string)
+    "Code_example.get" "default.ml" (Code_example.get "default.ml").title;
+  Alcotest.(check bool)
+    "Code_example.get, absent" true
+    (match Code_example.get absent with
+    | _ -> false
+    | exception Not_found -> true);
+  Alcotest.(check string)
+    "Page.get by slug" "governance" (Page.get "governance").slug;
+  Alcotest.(check string)
+    "Page.get by path" "carbon-footprint"
+    (Page.get "/policies/carbon-footprint").slug;
+  Alcotest.(check bool)
+    "Page.get, absent" true
+    (match Page.get absent with _ -> false | exception Not_found -> true)
+
 let test_counts () =
   let open Data in
   Alcotest.(check int) "Book" (List.length Book.all) Book.count;
@@ -86,6 +119,8 @@ let () =
         [
           Alcotest.test_case "slug indexes" `Quick test_slug_indexes;
           Alcotest.test_case "other indexes" `Quick test_other_indexes;
+          Alcotest.test_case "first match wins" `Quick test_first_wins;
+          Alcotest.test_case "raising accessors" `Quick test_raising_accessors;
           Alcotest.test_case "counts" `Quick test_counts;
         ] );
     ]

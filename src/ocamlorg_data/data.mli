@@ -1,5 +1,13 @@
 open Data_intf
 
+(** The helpers that build [Data]'s lookup tables, exposed so that tests can
+    exercise them on lists of their own. *)
+module Lookup : sig
+  val index : ('a -> 'k) -> 'a list -> ('k, 'a) Hashtbl.t
+  (** [index key xs] maps [key x] to [x]. When several elements share a key, the
+      first one in [xs] wins, as with [List.find_opt]. *)
+end
+
 module Academic_institution : sig
   include module type of Academic_institution
 
