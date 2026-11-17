@@ -9,13 +9,14 @@
    [Ocamlorg_package.state] — and inject them into the routes via [~tools] (see
    {!Router.mcp_route}).
 
-   Block A dependency data is all precomputed in [Ocamlorg_package.Info] at
-   startup (direct/optional/conflicts, and reverse deps), so those tools are an
-   O(1) field read and just [Lwt.return] their result. Block B reuses the
-   [Documentation] proxy to docs-ci ([dill.caelum.ci.dev]), so those tools fetch
-   asynchronously — hence the [Lwt]-returning handler. We reuse the same
-   accessors the GraphQL API and the package pages use (see [Graphql.get_info]
-   and the [Handler] package overview / documentation handlers).
+   Block A dependency data is all precomputed in the package state (read through
+   the [Ocamlorg_package] accessors) (direct/optional/conflicts, and reverse
+   deps), so those tools are an O(1) field read and just [Lwt.return] their
+   result. Block B reuses the [Documentation] proxy to docs-ci
+   ([dill.caelum.ci.dev]), so those tools fetch asynchronously — hence the
+   [Lwt]-returning handler. We reuse the same accessors the GraphQL API and the
+   package pages use (see [Graphql.get_info] and the [Handler] package overview
+   / documentation handlers).
 
    Build results from check.ci.ocaml.org (issue #3847) come from the packed
    [Data.Opam_health] snapshot through {!Package_health}: per package as the
@@ -23,7 +24,6 @@
    ocaml_package_build_information. Both are pure lookups. *)
 
 module Package = Ocamlorg_package
-module Info = Ocamlorg_package.Info
 module Documentation = Ocamlorg_package.Documentation
 module Navmap = Ocamlorg_frontend.Navmap
 module Tool = Ocamlorg_mcp.Tool
@@ -120,9 +120,9 @@ let deps_json (deps : (Package.Name.t * string option) list) : Yojson.Safe.t =
            ])
        deps)
 
-(* Run a handler that maps a resolved package's [Info.t] to a JSON object,
-   wrapping the result in the single text-content block MCP clients expect. *)
-let with_package state args (f : Info.t -> (string * Yojson.Safe.t) list) =
+(* Run a handler that maps a resolved package to a JSON object, wrapping the
+   result in the single text-content block MCP clients expect. *)
+let with_package state args (f : Package.t -> (string * Yojson.Safe.t) list) =
   let open Stdlib.Result in
   bind (parse_args args) (fun (package, version) ->
       bind (resolve state package version) (fun pkg ->
@@ -133,7 +133,7 @@ let with_package state args (f : Info.t -> (string * Yojson.Safe.t) list) =
                 `String (Package.Version.to_string (Package.version pkg)) );
             ]
           in
-          let body = f (Package.info pkg) in
+          let body = f pkg in
           Ok
             [
               Tool.text_content (Yojson.Safe.to_string (`Assoc (common @ body)));
@@ -150,11 +150,11 @@ let dependencies state : Tool.t =
     handler =
       (fun args ->
         Lwt.return
-          (with_package state args (fun info ->
+          (with_package state args (fun pkg ->
                [
-                 ("dependencies", deps_json info.dependencies);
-                 ("optional", deps_json info.depopts);
-                 ("conflicts", deps_json info.conflicts);
+                 ("dependencies", deps_json (Package.dependencies pkg));
+                 ("optional", deps_json (Package.depopts pkg));
+                 ("conflicts", deps_json (Package.conflicts pkg));
                ])));
     cacheable = true;
     annotations = Some Tool.read_only_annotations;
@@ -171,7 +171,7 @@ let reverse_dependencies state : Tool.t =
     handler =
       (fun args ->
         Lwt.return
-          (with_package state args (fun info ->
+          (with_package state args (fun pkg ->
                let used_by =
                  List.map
                    (fun (name, cstr, version) ->
@@ -182,10 +182,10 @@ let reverse_dependencies state : Tool.t =
                          ( "latest_version",
                            `String (Package.Version.to_string version) );
                        ])
-                   info.rev_deps
+                   (Package.rev_deps pkg)
                in
                [
-                 ("count", `Int (List.length info.rev_deps));
+                 ("count", `Int (Package.rev_deps_count pkg));
                  ("used_by", `List used_by);
                ])));
     cacheable = true;
@@ -493,7 +493,6 @@ let package_documentation state : Tool.t =
             let open Lwt.Syntax in
             let name = Package.Name.to_string (Package.name pkg) in
             let version = Package.Version.to_string (Package.version pkg) in
-            let info = Package.info pkg in
             let* status = Documentation.status ~kind:`Package state pkg in
             let+ sidebar = Documentation.sidebar ~kind:`Package pkg in
             let libraries, modules, libraries_truncated =
@@ -501,12 +500,14 @@ let package_documentation state : Tool.t =
             in
             ok_json
               (json_common pkg
-              @ sanitized_overview_fields ~synopsis:info.synopsis
-                  ~description:info.description ~tags:info.tags
+              @ sanitized_overview_fields ~synopsis:(Package.synopsis pkg)
+                  ~description:(Package.description pkg)
+                  ~tags:(Package.tags pkg)
               @ [
-                  ("license", `String info.license);
+                  ("license", `String (Package.license pkg));
                   ( "homepage",
-                    `List (List.map (fun h -> `String h) info.homepage) );
+                    `List (List.map (fun h -> `String h) (Package.homepage pkg))
+                  );
                   ( "documentation_status",
                     `String (documentation_status_string status) );
                   ("build_status", build_status_json ~name ~version);

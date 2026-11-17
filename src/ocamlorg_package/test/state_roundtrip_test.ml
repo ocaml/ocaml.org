@@ -66,9 +66,7 @@ let flags_of state name version =
       (Package.Version.of_string version)
   with
   | None -> []
-  | Some p ->
-      (Package.info p).Package.Info.flags
-      |> List.map OpamTypesBase.string_of_pkg_flag
+  | Some p -> Package.flags p |> List.map OpamTypesBase.string_of_pkg_flag
 
 let with_temp_file f =
   let path = Filename.temp_file "ocamlorg_state" ".bin" in

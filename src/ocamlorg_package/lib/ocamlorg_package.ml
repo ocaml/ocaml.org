@@ -2,9 +2,52 @@ module Import = Import
 open Import
 include Package
 module Info = Info
-module Statistics = Packages_stats
 module Publication_dates = Publication_dates
 open Package
+
+(* Fields of a package, read one at a time: the only way code outside this
+   library reads a package, so that the state can later be stored outside the
+   heap and decoded field by field. *)
+let synopsis t = t.info.Info.synopsis
+let description t = t.info.Info.description
+let authors t = t.info.Info.authors
+let maintainers t = t.info.Info.maintainers
+let license t = t.info.Info.license
+let homepage t = t.info.Info.homepage
+let tags t = t.info.Info.tags
+let dependencies t = t.info.Info.dependencies
+let rev_deps t = t.info.Info.rev_deps
+let rev_deps_count t = List.length t.info.Info.rev_deps
+let depopts t = t.info.Info.depopts
+let conflicts t = t.info.Info.conflicts
+let url t = t.info.Info.url
+let publication t = t.info.Info.publication
+let flags t = t.info.Info.flags
+
+module Statistics = struct
+  type t = {
+    nb_packages : int;
+    nb_update_week : int;
+    nb_packages_month : int;
+    newest_packages : (Package.t * string) list;
+    recently_updated : Package.t list;
+    most_revdeps : (Package.t * int) list;
+  }
+
+  let package ({ name; version; info } : Packages_stats.package_stat) =
+    { name; version; info }
+
+  let of_persisted (s : Packages_stats.t) =
+    {
+      nb_packages = s.nb_packages;
+      nb_update_week = s.nb_update_week;
+      nb_packages_month = s.nb_packages_month;
+      newest_packages =
+        List.map (fun (p, date) -> (package p, date)) s.newest_packages;
+      recently_updated = List.map package s.recently_updated;
+      most_revdeps = List.map (fun (p, n) -> (package p, n)) s.most_revdeps;
+    }
+end
 
 (* The latest version of a package, with the fields search matches on
    case-folded once, instead of on every query. *)
@@ -24,7 +67,7 @@ type state = {
   version : string;
   mutable opam_repository_commit : string option;
   mutable packages : Info.t Version.Map.t Name.Map.t;
-  mutable stats : Statistics.t option;
+  mutable stats : Packages_stats.t option;
   docs : Documentation.doc_cache;
   mutable search_index :
     (Info.t Version.Map.t Name.Map.t * search_entry list) option;
@@ -248,7 +291,8 @@ let all_latest t =
       select_latest versions
       |> Option.map (fun (version, info) -> { name; version; info }))
 
-let stats t = t.stats
+let stats t = Option.map Statistics.of_persisted t.stats
+let count_latest t = Name.Map.cardinal t.packages
 
 let get_by_name t name =
   t.packages |> Name.Map.find_opt name
