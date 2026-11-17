@@ -40,14 +40,14 @@ The blob is embedded via `.incbin` assembly directive and deserialized at runtim
 │  src/ocamlorg_data/                                                 │
 │                                                                     │
 │  ┌──────────────┐   ┌──────────────┐   ┌──────────────────────────┐ │
-│  │ data_blob.s  │ → │ data_blob.o  │ → │ linked into ocamlorg     │ │
+│  │ data_blob.S  │ → │ data_blob.o  │ → │ linked into ocamlorg     │ │
 │  │ (.incbin)    │   │              │   │ binary                   │ │
 │  └──────────────┘   └──────────────┘   └──────────────────────────┘ │
 │                                                                     │
 │  ┌──────────────────────────────────────────────────────────────┐   │
 │  │ data.ml                                                      │   │
-│  │   external get_blob : unit -> Bigstringaf.t                  │   │
-│  │   let all_testimonials = lazy (deserialize blob)             │   │
+│  │   get_blob_raw () : Bigarray (zero-copy view of the blob)    │   │
+│  │   let data = Marshal.from_bytes … : All_data.t (at load)     │   │
 │  │   ...                                                        │   │
 │  └──────────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────────┘
@@ -85,82 +85,64 @@ disambiguation alone fails to build.
 The packed blob is a Marshal of `Types.All_data.t`, so no type needs a
 serialisation deriver.
 
-## Assembly Wrapper
+## Assembly Wrapper and C Stubs
 
-```asm
-    .section .rodata
-    .global ocamlorg_data_blob
-    .global ocamlorg_data_blob_size
+`stubs/data_blob.S` embeds `data.bin` in a read-only section with
+`.incbin`, between the symbols `ocamlorg_data_blob` and
+`ocamlorg_data_blob_end`, and stores the difference in
+`ocamlorg_data_blob_size`. It supports Linux and macOS on amd64 and arm64.
 
-ocamlorg_data_blob:
-    .incbin "data.bin"
-ocamlorg_data_blob_end:
-
-ocamlorg_data_blob_size:
-    .quad ocamlorg_data_blob_end - ocamlorg_data_blob
-```
-
-## C Stubs
-
-```c
-#include <caml/mlvalues.h>
-#include <caml/bigarray.h>
-
-extern char ocamlorg_data_blob[];
-extern size_t ocamlorg_data_blob_size;
-
-CAMLprim value caml_ocamlorg_data_blob(value unit) {
-    return caml_ba_alloc_dims(
-        CAML_BA_UINT8 | CAML_BA_C_LAYOUT | CAML_BA_EXTERNAL,
-        1, ocamlorg_data_blob, (long)ocamlorg_data_blob_size
-    );
-}
-```
+`stubs/data_blob_stubs.c` exposes the blob to OCaml.
+`caml_ocamlorg_data_blob` returns a zero-copy `CAML_BA_EXTERNAL` bigarray
+over it, and `caml_ocamlorg_data_blob_check` rejects an implausible size.
 
 ## OCaml Interface
 
+`src/ocamlorg_data/data.ml` copies the blob into bytes, unmarshals it once
+when the module is loaded, and builds the accessor modules on top:
+
 ```ocaml
-(* In src/ocamlorg_data/data.ml *)
+external get_blob_raw :
+  unit ->
+  (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
+  = "caml_ocamlorg_data_blob"
 
-external get_blob : unit -> Bigstringaf.t = "caml_ocamlorg_data_blob"
-
-let blob = lazy (get_blob ())
+let data : Data_intf.All_data.t =
+  let ba = get_blob_raw () in
+  let b = Bytes.create (Bigarray.Array1.dim ba) in
+  (* copy ba into b *)
+  Marshal.from_bytes b 0
 
 module Testimonial = struct
   include Data_intf.Testimonial
 
-  let all = lazy (
-    let buf = Lazy.force blob in
-    let pos_ref = ref (Header.find_section "testimonials") in
-    bin_read_t_list buf ~pos_ref
-  )
-
-  let all () = Lazy.force all
+  let all = data.testimonials
 end
 ```
 
 ## Build Integration (dune)
 
+`src/ocamlorg_data/dune` runs `pack.exe` to produce `data.bin`, copies
+`data_blob.S` and `data_blob_stubs.c` from `stubs/`, assembles
+`data_blob.o`, and links it into the `data` library through
+`extra_objects`:
+
 ```lisp
-; Generate data.bin from sources
 (rule
  (target data.bin)
- (deps (source_tree %{workspace_root}/data)
-       (:packer %{workspace_root}/tool/data-packer/bin/pack.exe))
- (action (run %{packer} -o %{target})))
+ (deps
+  (source_tree %{workspace_root}/data)
+  (:packer %{workspace_root}/_build/default/tool/data-packer/bin/pack.exe))
+ (action
+  (chdir
+   %{workspace_root}
+   (run %{packer} -o %{target}))))
 
-; Generate assembly wrapper
-(rule
- (target data_blob.s)
- (deps data.bin)
- (action (write-file %{target}
-   "    .section .rodata\n    .global ocamlorg_data_blob\nocamlorg_data_blob:\n    .incbin \"data.bin\"\n...")))
-
-; Compile assembly
 (rule
  (target data_blob.o)
- (deps data_blob.s data.bin)
- (action (run %{cc} -c %{deps} -o %{target})))
+ (deps data_blob.S data.bin)
+ (action
+  (run %{cc} -c %{dep:data_blob.S} -o %{target})))
 ```
 
 ## Expected Benefits

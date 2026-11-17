@@ -608,11 +608,7 @@ let conferences _req =
 
 let conference req =
   let slug = Dream.param req "id" in
-  let</>? conference =
-    List.find_opt
-      (fun (x : Data.Conference.t) -> x.slug = slug)
-      Data.Conference.all
-  in
+  let</>? conference = Data.Conference.get_by_slug slug in
   Dream.html (Ocamlorg_frontend.conference conference)
 
 let ocaml_planet req =

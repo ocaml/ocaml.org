@@ -338,7 +338,7 @@ OCaml.org is a [Dream](https://github.com/camlworks/dream) web application. It s
 
 1. **Content** lives in `data/` as YAML and Markdown files (tutorials, books, jobs, events, etc.).
 2. **The data packer** (`tool/data-packer/`) packs the YAML and Markdown into a binary blob, `data.bin`, at build time. Its design is described in [`tool/data-packer/DESIGN.md`](tool/data-packer/DESIGN.md).
-3. The blob is embedded in the server executable with an `.incbin` assembly directive. [`src/ocamlorg_data/data.ml`](src/ocamlorg_data/data.ml) deserialises it lazily (with `bin_prot`) and exposes hand-written accessor modules (`Book`, `Changelog`, …). The types are defined in [`src/ocamlorg_data/data_intf.ml`](src/ocamlorg_data/data_intf.ml).
+3. The blob is embedded in the server executable with an `.incbin` assembly directive. [`src/ocamlorg_data/data.ml`](src/ocamlorg_data/data.ml) deserialises it with `Marshal`, once, when the module is loaded, and exposes hand-written accessor modules (`Book`, `Changelog`, …). The types are defined in [`src/ocamlorg_data/data_intf.ml`](src/ocamlorg_data/data_intf.ml).
 4. **The frontend** (`src/ocamlorg_frontend/`) renders pages from `.eml` templates.
 5. **The web server** (`src/ocamlorg_web/`) handles routing and serves the site.
 6. **The data scraper** (`tool/data-scrape/`) fetches external content: OCaml Planet feeds, videos, platform releases, and opam build results.

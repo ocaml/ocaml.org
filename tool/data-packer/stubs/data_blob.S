@@ -47,7 +47,7 @@
 
 /*
  * Alignment: 8 bytes for 64-bit systems
- * This ensures proper alignment for bin_prot deserialization
+ * This keeps the blob 8-byte aligned
  */
 #if ARCH_ARM64
     /* ARM64 may benefit from 16-byte alignment for SIMD */

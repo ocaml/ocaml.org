@@ -4,7 +4,7 @@
 ;   1. data-packer parses YAML/MD and creates data.bin
 ;   2. Assembler embeds data.bin via .incbin
 ;   3. C stubs provide access to the blob
-;   4. data.ml deserializes lazily on first access
+;   4. data.ml unmarshals it once, when the module is loaded
 
 ; ============================================================
 ; Library: data_intf (type definitions)

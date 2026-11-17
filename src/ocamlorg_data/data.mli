@@ -5,7 +5,6 @@ module Academic_institution : sig
 
   val all : t list
   val featured : t list
-  val get_by_slug : string -> t option
   val full_course_name : course -> string
 end
 
@@ -63,11 +62,9 @@ module Event : sig
     type t = recurring_event
 
     val all : t list
-    val get_by_slug : string -> t option
   end
 
   val all : t list
-  val get_by_slug : string -> t option
 end
 
 module Exercise : sig
@@ -91,7 +88,6 @@ module Industrial_user : sig
 
   val all : t list
   val featured : t list
-  val get_by_slug : string -> t option
 end
 
 module Is_ocaml_yet : sig
@@ -152,7 +148,6 @@ module Paper : sig
 
   val all : t list
   val featured : t list
-  val get_by_slug : string -> t option
 end
 
 module Planet : sig
@@ -199,14 +194,12 @@ module Tool : sig
   include module type of Tool
 
   val all : t list
-  val get_by_slug : string -> t option
 end
 
 module Tool_page : sig
   include module type of Tool_page
 
   val all : t list
-  val get_by_slug : string -> t option
 end
 
 module Tutorial : sig
