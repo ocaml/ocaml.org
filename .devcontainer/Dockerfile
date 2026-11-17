@@ -20,10 +20,10 @@ LABEL org.opencontainers.image.description="OCaml.org development environment"
 # accept that without complaint.
 ENV OPAMROOTISOK=1
 
-# System dependencies (keep in sync with the "Install system dependencies"
-# step of .github/workflows/ci.yml)
+# System libraries required by the conf-* packages in the dependency tree.
+# opam would install them itself as depexts; installing them here keeps the
+# image ready to build without that step.
 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-    libcurl4-openssl-dev \
     libev-dev \
     libgmp-dev \
     libonig-dev \
