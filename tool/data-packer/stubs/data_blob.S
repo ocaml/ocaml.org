@@ -46,8 +46,10 @@
 #endif
 
 /*
- * Alignment: 8 bytes for 64-bit systems
- * This keeps the blob 8-byte aligned
+ * Alignment: 8 bytes for 64-bit systems.
+ * Nothing requires it: the blob is viewed as a bigarray of bytes, and
+ * data.ml copies it into an OCaml string before unmarshalling. It is just
+ * the usual word alignment for the start of a data object.
  */
 #if ARCH_ARM64
     /* ARM64 may benefit from 16-byte alignment for SIMD */
