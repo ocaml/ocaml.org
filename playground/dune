@@ -23,18 +23,7 @@
   (deps
    (:js %{project_root}/src/main.bc.js))
   (action
-   (run
-    esbuild
-    --platform=browser
-    --external:fs
-    --external:tty
-    --external:child_process
-    --external:constants
-    --external:node:*
-    --minify
-    --bundle
-    --outfile=playground.min.js
-    %{js})))
+   (run jsoo_minify %{js} -o %{targets})))
  ; Already optimised by js_of_ocaml --opt 3; jsoo_minify gains nothing on it.
  (rule
   (targets worker.min.js)
