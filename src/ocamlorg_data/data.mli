@@ -164,7 +164,10 @@ module Planet : sig
 
   val search : string -> entry list
   (** [search q] ranks entries by relevance to the non-empty query [q] (title >
-      keywords > description > author/source); non-matches are dropped. *)
+      keywords > description > author/source); non-matches are dropped. Only the
+      first {!max_query_terms} terms of [q] count. *)
+
+  val max_query_terms : int
 end
 
 module Release : sig

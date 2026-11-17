@@ -285,17 +285,39 @@ module Planet = struct
     let d = entry_date e in
     if String.length d >= 4 then String.sub d 0 4 else d
 
-  (* Count non-overlapping occurrences of [sub] in [s] (both lower-cased). *)
+  (* Count non-overlapping occurrences of [sub] (lower-case) in [s], ignoring
+     ASCII case in [s]. Allocates nothing: search runs this for every term,
+     field and entry, so neither [s] is lower-cased nor substrings are cut. *)
   let count_sub ~sub s =
     let ls = String.length s and lsub = String.length sub in
-    if lsub = 0 then 0
-    else
-      let rec loop i acc =
-        if i + lsub > ls then acc
-        else if String.sub s i lsub = sub then loop (i + lsub) (acc + 1)
-        else loop (i + 1) acc
-      in
-      loop 0 0
+    let rec matches i j =
+      j = lsub || (Char.lowercase_ascii s.[i + j] = sub.[j] && matches i (j + 1))
+    in
+    let rec loop i acc =
+      if i + lsub > ls then acc
+      else if matches i 0 then loop (i + lsub) (acc + 1)
+      else loop (i + 1) acc
+    in
+    if lsub = 0 then 0 else loop 0 0
+
+  (* The weighted fields of an entry, as indexes into [field_weights]: title >
+     keywords > description > source = authors. *)
+  let field_weights = [| 3.0; 2.5; 1.2; 0.6; 0.6 |]
+
+  (* Matches of [term] in field [k] of [e]. A term never contains a space, so
+     summing over the keywords (or authors) one by one counts the same as
+     searching them joined with spaces. *)
+  let field_count term e k =
+    let count = count_sub ~sub:term in
+    let sum l = List.fold_left (fun acc s -> acc + count s) 0 l in
+    match k with
+    | 0 -> count (entry_title e)
+    | 1 -> sum (entry_keywords e)
+    | 2 -> count (entry_description e)
+    | 3 -> count (entry_source e)
+    | _ -> sum (entry_authors e)
+
+  let max_query_terms = 16
 
   (* Relevance ranking. Each query term is scored INDEPENDENTLY and weighted by
      its corpus IDF, so common words ("of", or "code" matching inside
@@ -317,53 +339,61 @@ module Planet = struct
           else ' ')
       |> String.split_on_char ' '
       |> List.filter (fun t -> String.length t >= 2)
+      (* Searching keeps [terms * fields] counts per entry, and the time grows
+         with the number of terms too: bound both. *)
+      |> List.filteri (fun i _ -> i < max_query_terms)
     in
     match terms with
     | [] -> []
     | terms ->
-        (* Lower-cased weighted fields per entry. *)
+        let terms = Array.of_list terms in
+        let nt = Array.length terms and nf = Array.length field_weights in
+        (* Scan once: match counts per entry, indexed by [term * nf + field],
+           shared by the document frequencies and the scores. *)
         let docs =
           List.map
             (fun e ->
               ( e,
-                [
-                  (String.lowercase_ascii (entry_title e), 3.0);
-                  ( String.lowercase_ascii (String.concat " " (entry_keywords e)),
-                    2.5 );
-                  (String.lowercase_ascii (entry_description e), 1.2);
-                  (String.lowercase_ascii (entry_source e), 0.6);
-                  ( String.lowercase_ascii (String.concat " " (entry_authors e)),
-                    0.6 );
-                ] ))
+                Array.init (nt * nf) (fun i ->
+                    field_count terms.(i / nf) e (i mod nf)) ))
             all
         in
         let n = List.length docs in
-        let idf term =
-          let df =
-            List.fold_left
-              (fun acc (_, fields) ->
-                if List.exists (fun (f, _) -> count_sub ~sub:term f > 0) fields
-                then acc + 1
-                else acc)
-              0 docs
-          in
-          Float.log (float_of_int (1 + n) /. float_of_int (1 + df))
+        let df = Array.make nt 0 in
+        List.iter
+          (fun (_, counts) ->
+            for t = 0 to nt - 1 do
+              let rec matched f =
+                f < nf && (counts.((t * nf) + f) > 0 || matched (f + 1))
+              in
+              if matched 0 then df.(t) <- df.(t) + 1
+            done)
+          docs;
+        let idf =
+          Array.map
+            (fun df ->
+              Float.log (float_of_int (1 + n) /. float_of_int (1 + df)))
+            df
         in
-        let weighted_terms = List.map (fun t -> (t, idf t)) terms in
-        let score fields =
-          List.fold_left
-            (fun acc (term, idf) ->
-              List.fold_left
-                (fun a (f, w) ->
-                  let c = count_sub ~sub:term f in
-                  if c = 0 then a
-                  else a +. (Float.log (1. +. float_of_int c) *. w *. idf))
-                acc fields)
-            0.0 weighted_terms
+        (* Same summation order as before (terms, then fields), so scores and
+           the resulting order are unchanged. *)
+        let score counts =
+          let acc = ref 0.0 in
+          for t = 0 to nt - 1 do
+            for f = 0 to nf - 1 do
+              let c = counts.((t * nf) + f) in
+              if c > 0 then
+                acc :=
+                  !acc
+                  +. Float.log (1. +. float_of_int c)
+                     *. field_weights.(f) *. idf.(t)
+            done
+          done;
+          !acc
         in
         docs
-        |> List.filter_map (fun (e, fields) ->
-            let s = score fields in
+        |> List.filter_map (fun (e, counts) ->
+            let s = score counts in
             if s > 0.0 then Some (e, s) else None)
         |> List.stable_sort (fun (_, s1) (_, s2) -> Float.compare s2 s1)
         |> List.map fst
