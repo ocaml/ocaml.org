@@ -7,6 +7,11 @@ let http_or_404 ?(not_found = Ocamlorg_frontend.not_found) opt f =
 (* short-circuiting 404 error operator *)
 let ( let</>? ) opt = http_or_404 opt
 
+(* Today's date in local time, as "YYYY-MM-DD" like the dates in [Data]. *)
+let today () =
+  let tm = Unix.localtime (Unix.gettimeofday ()) in
+  Printf.sprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1) tm.tm_mday
+
 let index _req =
   Dream.html
     (Ocamlorg_frontend.home ~latest_release:Data.Release.latest
@@ -22,32 +27,19 @@ let learn _req =
   Dream.html (Ocamlorg_frontend.learn ~papers ~latest_version)
 
 let learn_get_started req =
-  let tutorials =
-    Data.Tutorial.all
-    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = GetStarted)
-  in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req
+    (Url.tutorial (Data.Tutorial.first_in_section GetStarted).slug)
 
 let learn_language req =
-  let tutorials =
-    Data.Tutorial.all
-    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Language)
-  in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req
+    (Url.tutorial (Data.Tutorial.first_in_section Language).slug)
 
 let learn_guides req =
-  let tutorials =
-    Data.Tutorial.all
-    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Guides)
-  in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req (Url.tutorial (Data.Tutorial.first_in_section Guides).slug)
 
 let learn_platform req =
-  let tutorials =
-    Data.Tutorial.all
-    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Platform)
-  in
-  Dream.redirect req (Url.tutorial (List.hd tutorials).slug)
+  Dream.redirect req
+    (Url.tutorial (Data.Tutorial.first_in_section Platform).slug)
 
 let community _req =
   let query = Dream.query _req "e" in
@@ -63,21 +55,9 @@ let community _req =
   let selected_event =
     match query with Some s -> string_to_event_type s | _ -> None
   in
-  let current_date =
-    let open Unix in
-    let tm = localtime (Unix.gettimeofday ()) in
-    Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
-      tm.tm_mday
-  in
+  let current_date = today () in
   let upcoming_events =
-    List.filter
-      (fun (e : Data.Event.t) ->
-        e.starts.yyyy_mm_dd >= current_date
-        || Option.is_some e.ends
-           && e.ends
-              |> Option.map (fun (e : Data.Event.utc_datetime) -> e.yyyy_mm_dd)
-              |> Option.get >= current_date)
-      Data.Event.all
+    List.filter (Data.Event.is_upcoming ~today:current_date) Data.Event.all
     |> (match query with
       | None | Some "All" -> fun e -> e
       | _ ->
@@ -87,13 +67,7 @@ let community _req =
               | Some eventType -> event.event_type = eventType))
     |> Ocamlorg.Import.List.take 6
   in
-  let event_types =
-    Data.Event.all
-    |> List.map (fun (event : Data.Event.t) ->
-        Data.Event.string_of_event_type event.event_type)
-    |> List.sort_uniq String.compare
-  in
-  let events = (upcoming_events, event_types) in
+  let events = (upcoming_events, Data.Event.types) in
   let old_conferences =
     match
       List.filter
@@ -133,21 +107,9 @@ let events _req =
   let recurring_event_location = Dream.query _req "recurring_event_location" in
   let recurring_events = Data.Event.RecurringEvent.all in
 
-  let current_date =
-    let open Unix in
-    let tm = localtime (Unix.gettimeofday ()) in
-    Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
-      tm.tm_mday
-  in
+  let current_date = today () in
   let upcoming_events =
-    List.filter
-      (fun (e : Data.Event.t) ->
-        e.starts.yyyy_mm_dd >= current_date
-        || Option.is_some e.ends
-           && e.ends
-              |> Option.map (fun (e : Data.Event.utc_datetime) -> e.yyyy_mm_dd)
-              |> Option.get >= current_date)
-      Data.Event.all
+    List.filter (Data.Event.is_upcoming ~today:current_date) Data.Event.all
   in
   let extract_event_types (type a) (events : a list)
       (get_event_type : a -> Data.Event.event_type) =
@@ -162,11 +124,7 @@ let events _req =
   let recurring_event_types =
     extract_event_types recurring_events (fun event -> event.event_type)
   in
-  let recurring_event_locations =
-    Data.Event.all
-    |> List.map (fun (event : Data.Event.t) -> event.city)
-    |> List.sort_uniq String.compare
-  in
+  let recurring_event_locations = Data.Event.cities in
   let upcoming_event_locations =
     upcoming_events
     |> List.map (fun (event : Data.Event.t) -> event.city)
@@ -358,19 +316,11 @@ let success_story req =
   Dream.html (Ocamlorg_frontend.success_story success_story)
 
 let industrial_users _req =
-  let sort_by_priority_desc lst =
-    List.sort
-      (fun (a : Data.Success_story.t) (b : Data.Success_story.t) ->
-        compare a.priority b.priority)
-      lst
-  in
-  let top_story = List.hd (sort_by_priority_desc Data.Success_story.all) in
+  let top_story = List.hd Data.Success_story.by_priority in
   let users = Data.Industrial_user.featured |> Ocamlorg.Import.List.take 6 in
   let number_of_users = Data.Industrial_user.count in
   let success_stories =
-    match sort_by_priority_desc Data.Success_story.all with
-    | [] -> []
-    | _ :: rest -> rest
+    match Data.Success_story.by_priority with [] -> [] | _ :: rest -> rest
   in
   let testimonials = Data.Testimonial.all in
   let jobs =
@@ -584,22 +534,12 @@ let release req =
 
 let conferences _req =
   let past_conferences = Data.Conference.all in
-  let current_date =
-    let open Unix in
-    let tm = localtime (Unix.gettimeofday ()) in
-    Format.asprintf "%04d-%02d-%02d" (tm.tm_year + 1900) (tm.tm_mon + 1)
-      tm.tm_mday
-  in
+  let current_date = today () in
   let upcoming_conferences =
     List.filter
       (fun (e : Data.Event.t) ->
         e.event_type = Data.Event.Conference
-        && (e.starts.yyyy_mm_dd >= current_date
-           || Option.is_some e.ends
-              && e.ends
-                 |> Option.map (fun (e : Data.Event.utc_datetime) ->
-                     e.yyyy_mm_dd)
-                 |> Option.get >= current_date))
+        && Data.Event.is_upcoming ~today:current_date e)
       Data.Event.all
     |> Ocamlorg.Import.List.take 6
   in
@@ -925,32 +865,10 @@ let tool_page req =
 let tutorial req =
   let slug = Dream.param req "id" in
   let</>? tutorial = Data.Tutorial.get_by_slug slug in
-  let all_tutorials = Data.Tutorial.all in
-
-  let tutorials =
-    all_tutorials
-    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = tutorial.section)
-  in
-  let all_exercises = Data.Exercise.all in
-  let related_exercises =
-    List.filter
-      (fun (e : Data.Exercise.t) -> List.mem slug e.tutorials)
-      all_exercises
-  in
-
-  let is_in_recommended_next (tested : Data.Tutorial.t) =
-    List.exists (fun r -> r = tested.slug) tutorial.recommended_next_tutorials
-  in
-
-  let recommended_next_tutorials =
-    all_tutorials |> List.filter is_in_recommended_next
-  in
-
-  let is_prerequisite (tested : Data.Tutorial.t) =
-    List.exists (fun r -> r = tested.slug) tutorial.prerequisite_tutorials
-  in
-
-  let prerequisite_tutorials = all_tutorials |> List.filter is_prerequisite in
+  let tutorials = Data.Tutorial.by_section tutorial.section in
+  let related_exercises = Data.Exercise.for_tutorial slug in
+  let recommended_next_tutorials = Data.Tutorial.recommended_next tutorial in
+  let prerequisite_tutorials = Data.Tutorial.prerequisites tutorial in
 
   Dream.html
     (Ocamlorg_frontend.tutorial ~tutorials
@@ -1011,9 +929,8 @@ let cookbook_recipe req =
   let slug = Dream.param req "slug" in
   let</>? recipe = Data.Cookbook.get_by_slug ~task_slug slug in
   let other_recipes_for_this_task =
-    Data.Cookbook.all
-    |> List.filter (fun (c : Data.Cookbook.t) ->
-        c.task.slug = recipe.task.slug && c.slug <> recipe.slug)
+    Data.Cookbook.get_by_task ~task_slug:recipe.task.slug
+    |> List.filter (fun (c : Data.Cookbook.t) -> c.slug <> recipe.slug)
   in
   Dream.html
     (Ocamlorg_frontend.cookbook_recipe recipe other_recipes_for_this_task)
@@ -1172,10 +1089,7 @@ end
 
 let is_ocaml_yet t id req =
   let</>? meta = Data.Is_ocaml_yet.get_by_id id in
-  let tutorials =
-    Data.Tutorial.all
-    |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Guides)
-  in
+  let tutorials = Data.Tutorial.by_section Guides in
   let packages =
     meta.categories
     |> List.concat_map (fun (category : Data.Is_ocaml_yet.category) ->
