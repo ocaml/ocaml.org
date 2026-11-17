@@ -1,7 +1,7 @@
 (* Data module using binary blob embedding
  *
  * The blob is embedded in the binary via .incbin assembly directive and
- * deserialized lazily on first access using Marshal (PROTOTYPE).
+ * deserialized with Marshal once, when this module is loaded.
  *)
 
 (* ============================================================
@@ -17,7 +17,7 @@ external get_blob_raw :
   (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
   = "caml_ocamlorg_data_blob"
 
-(* Lazy deserialization - happens once on first access *)
+(* Deserialization, forced below when the module is loaded *)
 let all_data : Data_intf.All_data.t Lazy.t =
   lazy
     ((* Verify blob is valid *)
@@ -52,8 +52,6 @@ module Academic_institution = struct
     all
     |> List.filter (fun institution ->
         match institution.featured with Some true -> true | _ -> false)
-
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 
   let full_course_name course =
     match course.acronym with
@@ -155,12 +153,7 @@ module Event = struct
     type t = recurring_event
 
     let all = data.recurring_events
-
-    let get_by_slug slug =
-      List.find_opt (fun (x : t) -> String.equal slug x.slug) all
   end
-
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Exercise = struct
@@ -192,7 +185,6 @@ module Industrial_user = struct
 
   let all = data.industrial_users
   let featured = all |> List.filter (fun user -> user.featured)
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Is_ocaml_yet = struct
@@ -262,7 +254,6 @@ module Paper = struct
 
   let all = data.papers
   let featured = all |> List.filter (fun paper -> paper.featured)
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Planet = struct
@@ -430,14 +421,12 @@ module Tool = struct
   include Data_intf.Tool
 
   let all = data.tools
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tool_page = struct
   include Data_intf.Tool_page
 
   let all = data.tool_pages
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
 end
 
 module Tutorial = struct

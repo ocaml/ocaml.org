@@ -37,9 +37,7 @@ tool/data-packer/
 ├── bin/           # pack.exe, verify.exe, benchmark.exe
 └── stubs/         # Assembly and C source files (copied to src/ocamlorg_data/)
     ├── data_blob.S         # Assembly with .incbin directive
-    ├── data_blob_stubs.c   # C functions for OCaml access
-    ├── data_blob.ml        # OCaml interface (reference only)
-    └── data_blob.mli       # Type signatures (reference only)
+    └── data_blob_stubs.c   # C functions for OCaml access
 ```
 
 ## How It Works
@@ -47,7 +45,7 @@ tool/data-packer/
 1. `pack.exe` parses all YAML/Markdown in `data/` and serializes to `data.bin` using `Marshal`
 2. The assembly file embeds `data.bin` via `.incbin` directive
 3. C stubs provide OCaml access to the embedded blob as a Bigarray
-4. `src/ocamlorg_data/data.ml` deserializes lazily on first access
+4. `src/ocamlorg_data/data.ml` unmarshals it once, when the module is loaded
 
 ## Type Safety
 
