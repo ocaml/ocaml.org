@@ -18,6 +18,7 @@ module Book : sig
   include module type of Book
 
   val all : t list
+  val count : int
   val get_by_slug : string -> t option
 end
 
@@ -51,6 +52,7 @@ module Cookbook : sig
   val get_tasks_by_category : category_slug:string -> task list
   val get_by_task : task_slug:string -> t list
   val get_by_slug : task_slug:string -> string -> t option
+  val get_task_by_slug : string -> task option
   val full_title_of_recipe : t -> string
   val main_package_of_recipe : t -> string
 end
@@ -87,6 +89,7 @@ module Industrial_user : sig
   include module type of Industrial_user
 
   val all : t list
+  val count : int
   val featured : t list
 end
 
@@ -94,12 +97,14 @@ module Is_ocaml_yet : sig
   include module type of Is_ocaml_yet
 
   val all : t list
+  val get_by_id : string -> t option
 end
 
 module Job : sig
   include module type of Job
 
   val all : t list
+  val count : int
 end
 
 module Testimonial : sig
@@ -203,6 +208,7 @@ module Tool_page : sig
   include module type of Tool_page
 
   val all : t list
+  val get_by_slug : string -> t option
 end
 
 module Tutorial : sig

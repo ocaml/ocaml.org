@@ -110,7 +110,7 @@ let community _req =
     | [ a; b ] -> [ a; b ]
     | a :: b :: c :: _ -> [ a; b; c ]
   in
-  let jobs_with_count = (jobs, List.length Data.Job.all) in
+  let jobs_with_count = (jobs, Data.Job.count) in
   let outreachy_latest_project =
     match Data.Outreachy.all with
     | [] -> []
@@ -366,7 +366,7 @@ let industrial_users _req =
   in
   let top_story = List.hd (sort_by_priority_desc Data.Success_story.all) in
   let users = Data.Industrial_user.featured |> Ocamlorg.Import.List.take 6 in
-  let number_of_users = List.length Data.Industrial_user.all in
+  let number_of_users = Data.Industrial_user.count in
   let success_stories =
     match sort_by_priority_desc Data.Success_story.all with
     | [] -> []
@@ -376,7 +376,7 @@ let industrial_users _req =
   let jobs =
     match Data.Job.all with a :: b :: c :: d :: _ -> [ a; b; c; d ] | _ -> []
   in
-  let jobs_with_count = (jobs, List.length Data.Job.all) in
+  let jobs_with_count = (jobs, Data.Job.count) in
 
   Dream.html
     (Ocamlorg_frontend.industrial_users ~number_of_users ~users ~success_stories
@@ -392,7 +392,7 @@ let academic_users _req =
   let papers = Data.Paper.featured |> Ocamlorg.Import.List.take 3 in
   let books = Data.Book.all |> Ocamlorg.Import.List.take 2 in
   let testimonials = Data.Academic_testimonial.all in
-  let books_with_count = (books, List.length Data.Book.all) in
+  let books_with_count = (books, Data.Book.count) in
   let extract_courses_with_university
       (institutions : Data.Academic_institution.t list) =
     List.fold_left
@@ -899,12 +899,15 @@ let tools req = Dream.redirect req ~code:307 Url.platform
    by [Config.mcp_enabled] in the router. Keep the page in lock-step with the
    endpoint: when the MCP server is disabled, neither the page nor its sidebar
    link should appear. *)
-let visible_tool_pages () =
-  if Config.mcp_enabled then Data.Tool_page.all
-  else
-    List.filter
-      (fun (p : Data.Tool_page.t) -> p.slug <> "docs-mcp")
-      Data.Tool_page.all
+let tool_page_visible (p : Data.Tool_page.t) =
+  Config.mcp_enabled || p.slug <> "docs-mcp"
+
+let visible_tool_pages () = List.filter tool_page_visible Data.Tool_page.all
+
+let find_visible_tool_page slug =
+  match Data.Tool_page.get_by_slug slug with
+  | Some p when tool_page_visible p -> Some p
+  | _ -> None
 
 let tools_platform _req =
   let tools = Data.Tool.all in
@@ -913,10 +916,8 @@ let tools_platform _req =
 
 let tool_page req =
   let slug = Dream.param req "id" in
+  let</>? page = find_visible_tool_page slug in
   let pages = visible_tool_pages () in
-  let</>? page =
-    List.find_opt (fun (p : Data.Tool_page.t) -> p.slug = slug) pages
-  in
   Dream.html
     (Ocamlorg_frontend.tool_page ~pages ~canonical:(Url.tool_page page.slug)
        page)
@@ -969,10 +970,7 @@ let tutorial_authors req =
 
 let tool_page_authors req =
   let slug = Dream.param req "id" in
-  let pages = visible_tool_pages () in
-  let</>? page =
-    List.find_opt (fun (p : Data.Tool_page.t) -> p.slug = slug) pages
-  in
+  let</>? page = find_visible_tool_page slug in
   let</>? attribution = Data.Attribution.get_by_fpath page.fpath in
   Dream.html
     (Ocamlorg_frontend.authors ~title:page.title
@@ -1004,11 +1002,7 @@ let cookbook _req =
 
 let cookbook_task req =
   let task_slug = Dream.param req "task_slug" in
-  let</>? task =
-    List.find_opt
-      (fun (t : Data.Cookbook.task) -> t.slug = task_slug)
-      Data.Cookbook.tasks
-  in
+  let</>? task = Data.Cookbook.get_task_by_slug task_slug in
   let recipe_list = Data.Cookbook.get_by_task ~task_slug in
   Dream.html (Ocamlorg_frontend.cookbook_task task recipe_list)
 
@@ -1177,11 +1171,7 @@ module Package_helper = struct
 end
 
 let is_ocaml_yet t id req =
-  let</>? meta =
-    List.find_opt
-      (fun (x : Data.Is_ocaml_yet.t) -> x.id = id)
-      Data.Is_ocaml_yet.all
-  in
+  let</>? meta = Data.Is_ocaml_yet.get_by_id id in
   let tutorials =
     Data.Tutorial.all
     |> List.filter (fun (t : Data.Tutorial.t) -> t.section = Guides)
