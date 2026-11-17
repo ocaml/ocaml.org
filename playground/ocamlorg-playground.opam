@@ -21,7 +21,6 @@ depends: [
   "dune" {>= "3.0"}
   "ocaml" {>= "5.5" & < "5.6"}
   "brr" {>= "0.0.6"}
-  "esbuild"
   "js_of_ocaml" {>= "6.5.0"}
   "js_of_ocaml-lwt" {>= "6.5.0"}
   "js_of_ocaml-toplevel" {>= "6.5.0"}
@@ -45,6 +44,3 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/ocaml/ocaml.org.git"
-pin-depends: [
-  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb"]
-]

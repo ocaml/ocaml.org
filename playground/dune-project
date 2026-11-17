@@ -39,7 +39,6 @@
     (< 5.6)))
   (brr
    (>= 0.0.6))
-  esbuild
   (js_of_ocaml
    (>= 6.5.0))
   (js_of_ocaml-lwt

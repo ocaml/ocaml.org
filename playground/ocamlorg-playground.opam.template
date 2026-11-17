@@ -1,3 +1,0 @@
-pin-depends: [
-  ["esbuild.dev" "git+https://github.com/tmattio/opam-esbuild#7738af5912cc9f554d31da81d2334e88052102fb"]
-]
