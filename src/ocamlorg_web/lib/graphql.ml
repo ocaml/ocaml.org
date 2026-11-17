@@ -76,8 +76,7 @@ let package_result name version t =
       | Some package -> Ok package)
 
 let package_versions_result name from upto t =
-  let all_packages = Package.all_latest t in
-  let total_packages = List.length all_packages in
+  let total_packages = Package.count_latest t in
   let packages = Package.get_by_name t (Package.Name.of_string name) in
   match packages with
   | None -> Error ("No package matching " ^ name ^ " was found")
@@ -249,86 +248,61 @@ let package =
           field "synopsis" ~doc:"The synopsis of the package"
             ~args:Arg.[]
             ~typ:(non_null string)
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.synopsis);
+            ~resolve:(fun _ p -> Package.synopsis p);
           field "description" ~doc:"The description of the package"
             ~args:Arg.[]
             ~typ:(non_null string)
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.description);
+            ~resolve:(fun _ p -> Package.description p);
           field "license" ~doc:"The license of the package"
             ~args:Arg.[]
             ~typ:(non_null string)
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.license);
+            ~resolve:(fun _ p -> Package.license p);
           field "homepage" ~doc:"The homepage of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null string)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.homepage);
+            ~resolve:(fun _ p -> Package.homepage p);
           field "tags" ~doc:"The tags of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null string)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.tags);
+            ~resolve:(fun _ p -> Package.tags p);
           field "authors" ~doc:"The authors of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null string)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.authors);
+            ~resolve:(fun _ p -> Package.authors p);
           field "maintainers" ~doc:"The maintainers of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null string)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.maintainers);
+            ~resolve:(fun _ p -> Package.maintainers p);
           field "dependencies" ~doc:"The dependencies of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              get_info info.Package.Info.dependencies);
+            ~resolve:(fun _ p -> get_info (Package.dependencies p));
           field "reverseDependencies"
             ~doc:"The reverse dependencies of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
             ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.rev_deps
+              Package.rev_deps p
               |> List.map (fun (name, cstr, _version) -> (name, cstr))
               |> get_info);
           field "optionalDependencies"
             ~doc:"The optional dependencies of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              get_info info.Package.Info.depopts);
+            ~resolve:(fun _ p -> get_info (Package.depopts p));
           field "conflicts" ~doc:"The conflicts of the package"
             ~args:Arg.[]
             ~typ:(non_null (list (non_null info)))
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              get_info info.Package.Info.conflicts);
+            ~resolve:(fun _ p -> get_info (Package.conflicts p));
           field "url" ~doc:"The url of the package"
             ~args:Arg.[]
             ~typ:url
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.url);
+            ~resolve:(fun _ p -> Package.url p);
           field "publication"
             ~doc:"The timestamp of the publication date of the package"
             ~args:Arg.[]
             ~typ:(non_null float)
-            ~resolve:(fun _ p ->
-              let info = Package.info p in
-              info.Package.Info.publication);
+            ~resolve:(fun _ p -> Package.publication p);
           field "buildStatus"
             ~doc:
               "Build results from check.ci.ocaml.org; null if no version of \

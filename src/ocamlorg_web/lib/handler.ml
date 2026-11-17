@@ -923,12 +923,14 @@ let outreachy _req = Dream.html (Ocamlorg_frontend.outreachy Data.Outreachy.all)
 type package_kind = Package | Universe
 
 module Package_helper = struct
-  let package_info_to_frontend_package ~name ~version ?(on_latest_url = false)
-      ?documentation_status ~latest_version ~versions info =
+  let package_to_frontend_package ?(on_latest_url = false) ?documentation_status
+      ~latest_version ~versions package =
+    let name = Ocamlorg_package.name package
+    and version = Ocamlorg_package.version package in
     let rev_deps =
       List.map
         (fun (name, _, _versions) -> Ocamlorg_package.Name.to_string name)
-        info.Ocamlorg_package.Info.rev_deps
+        (Ocamlorg_package.rev_deps package)
     in
     let owner name =
       Option.value
@@ -945,23 +947,23 @@ module Package_helper = struct
         latest_version =
           Option.value ~default:"???"
             (Option.map Ocamlorg_package.Version.to_string latest_version);
-        synopsis = info.Ocamlorg_package.Info.synopsis;
+        synopsis = Ocamlorg_package.synopsis package;
         description =
-          info.Ocamlorg_package.Info.description
+          Ocamlorg_package.description package
           |> Cmarkit.Doc.of_string ~strict:true
           |> Cmarkit_html.of_doc ~safe:true;
-        tags = info.tags;
+        tags = Ocamlorg_package.tags package;
         rev_deps;
-        authors = List.map owner info.authors;
-        maintainers = List.map owner info.maintainers;
-        license = info.license;
-        opam_repository_date = info.publication;
-        homepages = info.Ocamlorg_package.Info.homepage;
+        authors = List.map owner (Ocamlorg_package.authors package);
+        maintainers = List.map owner (Ocamlorg_package.maintainers package);
+        license = Ocamlorg_package.license package;
+        opam_repository_date = Ocamlorg_package.publication package;
+        homepages = Ocamlorg_package.homepage package;
         source =
           Option.map
             (fun url ->
               (url.Ocamlorg_package.Info.uri, url.Ocamlorg_package.Info.checksum))
-            info.Ocamlorg_package.Info.url;
+            (Ocamlorg_package.url package);
         documentation_status =
           Option.value ~default:Unknown documentation_status;
         documentation_status_url =
@@ -998,17 +1000,15 @@ module Package_helper = struct
 
   let frontend_package ?on_latest_url ?documentation_status state
       (package : Ocamlorg_package.t) : Ocamlorg_frontend.Package.package =
-    let name = Ocamlorg_package.name package
-    and version = Ocamlorg_package.version package
-    and info = Ocamlorg_package.info package in
+    let name = Ocamlorg_package.name package in
     let versions = versions state name in
     let latest_version =
       Option.map
         (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
         (Ocamlorg_package.get_latest state name)
     in
-    package_info_to_frontend_package ~name ~version ?on_latest_url
-      ?documentation_status ~latest_version ~versions info
+    package_to_frontend_package ?on_latest_url ?documentation_status
+      ~latest_version ~versions package
 
   let of_name_version t name version =
     let package =
@@ -1047,7 +1047,7 @@ module Package_helper = struct
         ~version:
           (Ocamlorg_package.Version.to_string
              (Ocamlorg_package.version package))
-        ~published:(Ocamlorg_package.info package).publication
+        ~published:(Ocamlorg_package.publication package)
     in
     Lwt.return
       Ocamlorg_frontend.Package_overview.
@@ -1095,16 +1095,7 @@ let is_ocaml_yet t id req =
   Dream.html (Ocamlorg_frontend.is_ocaml_yet ~tutorials ~packages meta)
 
 let packages state _req =
-  let package { Ocamlorg_package.Statistics.name; version; info } =
-    let versions = Package_helper.versions state name in
-    let latest_version =
-      Option.map
-        (fun (p : Ocamlorg_package.t) -> Ocamlorg_package.version p)
-        (Ocamlorg_package.get_latest state name)
-    in
-    Package_helper.package_info_to_frontend_package ~name ~version
-      ~latest_version ~versions info
-  in
+  let package = Package_helper.frontend_package state in
   let package_pair (pkg, snd) = (package pkg, snd) in
   let stats =
     Ocamlorg_package.stats state
@@ -1227,9 +1218,8 @@ let package_overview t kind req =
     Package_helper.search_index_digest ~kind t package
   in
 
-  let package_info = Ocamlorg_package.info package in
   let rev_dependencies =
-    package_info.Ocamlorg_package.Info.rev_deps
+    Ocamlorg_package.rev_deps package
     |> List.map (fun (name, x, version) ->
         Ocamlorg_frontend.Package_overview.
           {
@@ -1249,12 +1239,8 @@ let package_overview t kind req =
             version = None;
           })
   in
-  let dependencies =
-    of_formula package_info.Ocamlorg_package.Info.dependencies
-  in
-  let optional_dependencies =
-    of_formula package_info.Ocamlorg_package.Info.depopts
-  in
+  let dependencies = of_formula (Ocamlorg_package.dependencies package) in
+  let optional_dependencies = of_formula (Ocamlorg_package.depopts package) in
   let dev_dependencies, dependencies =
     dependencies
     |> List.partition
@@ -1263,7 +1249,7 @@ let package_overview t kind req =
            let s = Option.value ~default:"" item.cstr in
            String.contains_s s "with-" || String.contains_s s "dev")
   in
-  let conflicts = of_formula package_info.Ocamlorg_package.Info.conflicts in
+  let conflicts = of_formula (Ocamlorg_package.conflicts package) in
   let title_with_number title number =
     title ^ if number > 0 then " (" ^ string_of_int number ^ ")" else ""
   in

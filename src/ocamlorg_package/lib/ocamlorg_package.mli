@@ -65,25 +65,31 @@ module Info : sig
       dependencies are. Exposed for testing that the two agree. *)
 end
 
+type state
+
+type t
+(** A version of a package. Its fields are read with the accessors below
+    ({!synopsis}, {!rev_deps}, …), one at a time: code outside this library
+    never sees a package's whole {!Info.t}, so that the state can be stored
+    outside the OCaml heap and decoded field by field (#3901). Getting a [t]
+    reads none of its fields. *)
+
 module Statistics : sig
-  type package_stat = { name : Name.t; version : Version.t; info : Info.t }
+  type package := t
 
   type t = {
     nb_packages : int;  (** Total number of packages. *)
     nb_update_week : int;
         (** Number of packages updated during the last 7 days. *)
     nb_packages_month : int;  (** Number of packages added the last 30 days. *)
-    newest_packages : (package_stat * string) list;
+    newest_packages : (package * string) list;
         (** The 5 newest packages and date, in Git's relative format. *)
-    recently_updated : package_stat list;
+    recently_updated : package list;
         (** The 5 most recently updated packages. *)
-    most_revdeps : (package_stat * int) list;
+    most_revdeps : (package * int) list;
         (** The 5 packages with the most number of revdeps. *)
   }
 end
-
-type state
-type t
 
 module Documentation : sig
   module Status = Documentation.Status
@@ -208,12 +214,33 @@ val name : t -> Name.t
 val version : t -> Version.t
 (** Get the version of a package. *)
 
-val info : t -> Info.t
-(** Get the info of a package. *)
+val synopsis : t -> string
+val description : t -> string
+val authors : t -> string list
+val maintainers : t -> string list
+val license : t -> string
+val homepage : t -> string list
+val tags : t -> string list
+val dependencies : t -> (Name.t * string option) list
+
+val rev_deps : t -> (Name.t * string option * Version.t) list
+(** The packages that depend on this one: name, constraint, latest version. *)
+
+val rev_deps_count : t -> int
+(** The length of [rev_deps t]. *)
+
+val depopts : t -> (Name.t * string option) list
+val conflicts : t -> (Name.t * string option) list
+val url : t -> Info.url option
+
+val publication : t -> float
+(** When the version was added to opam-repository (Unix time). *)
+
+val flags : t -> OpamTypes.package_flag list
 
 val create : name:Name.t -> version:Version.t -> Info.t -> t
-(** This is added to enable demo test package to use Package.t with abstraction
-*)
+(** [create ~name ~version info] is a package version, for tests (with
+    {!mockup_state}). *)
 
 val init : ?disable_polling:bool -> unit -> state
 (** [init ()] loads the package state saved at
@@ -224,9 +251,12 @@ val init : ?disable_polling:bool -> unit -> state
     itself. With [~disable_polling:true], the builder runs only once. *)
 
 val all_latest : state -> t list
-(** Get the list of the latest version of every opam packages. The name and
-    versions of the packages are read from the file system, the metadata are
-    loaded lazily to improve performance. *)
+(** The latest version of every package, by name. No field of any package is
+    read: callers that show a page of them should read the fields of that page
+    only. *)
+
+val count_latest : state -> int
+(** [List.length (all_latest t)], without building the list. *)
 
 val stats : state -> Statistics.t option
 (** Return the statistics computed from the opam-repository. These statistics
