@@ -203,6 +203,25 @@ module Planet : sig
       first {!max_query_terms} terms of [q] count. *)
 
   val max_query_terms : int
+
+  type kind = [ `All | `Article | `Video ]
+
+  val of_kind : kind -> entry list
+  (** [all], or only the blog posts, or only the videos, in [all]'s order. *)
+
+  type facets = {
+    sources : (string * int) list;
+    keywords : (string * int) list;
+    years : (string * int) list;
+    authors : (string * int) list;
+  }
+  (** Value counts over a list of entries. Sources, keywords and authors are
+      sorted by decreasing count, then by value; years by decreasing year. *)
+
+  val facets : entry list -> facets
+
+  val facets_of_kind : kind -> facets
+  (** [facets (of_kind k)], computed once. *)
 end
 
 module Release : sig

@@ -564,51 +564,45 @@ let ocaml_planet req =
   let eq a b =
     String.equal (String.lowercase_ascii a) (String.lowercase_ascii b)
   in
-  let matches_category (item : Data.Planet.entry) =
+  let kind : Data.Planet.kind =
     match category with
-    | Some "Article" -> (
-        match item with BlogPost _ -> true | Video _ -> false)
-    | Some "Video" -> ( match item with BlogPost _ -> false | Video _ -> true)
-    | _ -> true
+    | Some "Article" -> `Article
+    | Some "Video" -> `Video
+    | _ -> `All
   in
-  (* Rank by relevance when there is a query (ranking preserves order through
-     the filters), otherwise keep the packed chronological order. *)
-  let base =
-    if has_query then Data.Planet.search (Option.get q) else Data.Planet.all
+  let matches_kind (item : Data.Planet.entry) =
+    match (kind, item) with
+    | `All, _ | `Article, BlogPost _ | `Video, Video _ -> true
+    | _ -> false
   in
   (* [type_filtered] = query + type applied; it is the basis for facet counts,
-     so each facet shows what is still reachable given the search and type. *)
-  let type_filtered = List.filter matches_category base in
+     so each facet shows what is still reachable given the search and type. With
+     a query, rank by relevance (ranking preserves order through the filters);
+     otherwise keep the packed chronological order, and use the facet counts
+     computed once per type. *)
+  let type_filtered, facet_counts =
+    if has_query then
+      let l = List.filter matches_kind (Data.Planet.search (Option.get q)) in
+      (l, Data.Planet.facets l)
+    else (Data.Planet.of_kind kind, Data.Planet.facets_of_kind kind)
+  in
   let one sel v = sel = [] || List.exists (eq v) sel in
   let any sel vs =
     sel = [] || List.exists (fun v -> List.exists (eq v) sel) vs
   in
   let filtered =
-    List.filter
-      (fun e ->
-        one sel_sources (Data.Planet.entry_source e)
-        && one sel_years (Data.Planet.entry_year e)
-        && any sel_authors (Data.Planet.entry_authors e)
-        && any sel_keywords (Data.Planet.entry_keywords e))
-      type_filtered
-  in
-  (* Facet value counts over [type_filtered]. *)
-  let tally key_fn =
-    let tbl = Hashtbl.create 256 in
-    List.iter
-      (fun e ->
-        List.iter
-          (fun v ->
-            if v <> "" then
-              Hashtbl.replace tbl v
-                (1 + Option.value ~default:0 (Hashtbl.find_opt tbl v)))
-          (key_fn e))
-      type_filtered;
-    Hashtbl.fold (fun v c acc -> (v, c) :: acc) tbl []
-  in
-  let by_count =
-    List.sort (fun (v1, c1) (v2, c2) ->
-        if c1 <> c2 then compare c2 c1 else compare v1 v2)
+    if
+      sel_sources = [] && sel_years = [] && sel_authors = []
+      && sel_keywords = []
+    then type_filtered
+    else
+      List.filter
+        (fun e ->
+          one sel_sources (Data.Planet.entry_source e)
+          && one sel_years (Data.Planet.entry_year e)
+          && any sel_authors (Data.Planet.entry_authors e)
+          && any sel_keywords (Data.Planet.entry_keywords e))
+        type_filtered
   in
   let top n l = List.filteri (fun i _ -> i < n) l in
   (* Active params (raw values) drive both the toggle links and pagination. *)
@@ -664,21 +658,10 @@ let ocaml_planet req =
   in
   let facets =
     [
-      ( "Source",
-        options "source"
-          (top 15 (by_count (tally (fun e -> [ Data.Planet.entry_source e ]))))
-      );
-      ( "Keyword",
-        options "keyword" (top 20 (by_count (tally Data.Planet.entry_keywords)))
-      );
-      ( "Year",
-        options "year"
-          (List.sort
-             (fun (a, _) (b, _) -> compare b a)
-             (tally (fun e -> [ Data.Planet.entry_year e ]))) );
-      ( "Author",
-        options "author" (top 15 (by_count (tally Data.Planet.entry_authors)))
-      );
+      ("Source", options "source" (top 15 facet_counts.sources));
+      ("Keyword", options "keyword" (top 20 facet_counts.keywords));
+      ("Year", options "year" facet_counts.years);
+      ("Author", options "author" (top 15 facet_counts.authors));
     ]
   in
   (* Active filters as (label, value, remove-href) for the summary bar; each

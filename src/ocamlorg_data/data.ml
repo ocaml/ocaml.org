@@ -438,6 +438,67 @@ module Planet = struct
             if s > 0.0 then Some (e, s) else None)
         |> List.stable_sort (fun (_, s1) (_, s2) -> Float.compare s2 s1)
         |> List.map fst
+
+  type kind = [ `All | `Article | `Video ]
+
+  let articles =
+    List.filter (function BlogPost _ -> true | Video _ -> false) all
+
+  let videos =
+    List.filter (function Video _ -> true | BlogPost _ -> false) all
+
+  let of_kind = function `All -> all | `Article -> articles | `Video -> videos
+
+  type facets = {
+    sources : (string * int) list;
+    keywords : (string * int) list;
+    years : (string * int) list;
+    authors : (string * int) list;
+  }
+
+  module String_tbl = Hashtbl.Make (String)
+
+  (* Occurrences of each non-empty value of [key_fn] over [entries]. *)
+  let tally key_fn entries =
+    let tbl = String_tbl.create 256 in
+    List.iter
+      (fun e ->
+        List.iter
+          (fun v ->
+            if v <> "" then
+              String_tbl.replace tbl v
+                (1 + Option.value ~default:0 (String_tbl.find_opt tbl v)))
+          (key_fn e))
+      entries;
+    String_tbl.fold (fun v c acc -> (v, c) :: acc) tbl []
+
+  (* Most frequent first, ties by value. Values are distinct, so the order is
+     total and doesn't depend on the table's iteration order. *)
+  let by_count =
+    List.sort (fun (v1, c1) (v2, c2) ->
+        match Int.compare c2 c1 with 0 -> String.compare v1 v2 | c -> c)
+
+  let facets entries =
+    {
+      sources = by_count (tally (fun e -> [ entry_source e ]) entries);
+      keywords = by_count (tally entry_keywords entries);
+      years =
+        List.sort
+          (fun (a, _) (b, _) -> String.compare b a)
+          (tally (fun e -> [ entry_year e ]) entries);
+      authors = by_count (tally entry_authors entries);
+    }
+
+  (* The facets of each unfiltered collection, which is what every Planet page
+     without a search query shows: computed on first use, then shared. *)
+  let facets_all = lazy (facets all)
+  let facets_articles = lazy (facets articles)
+  let facets_videos = lazy (facets videos)
+
+  let facets_of_kind = function
+    | `All -> Lazy.force facets_all
+    | `Article -> Lazy.force facets_articles
+    | `Video -> Lazy.force facets_videos
 end
 
 module Release = struct
