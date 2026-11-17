@@ -39,6 +39,18 @@ let all_data : Data_intf.All_data.t Lazy.t =
 (* Force deserialization once at module load time *)
 let data = Lazy.force all_data
 
+module Lookup = struct
+  (* [index key xs] builds a table from [key x] to [x]. When two elements share
+     a key, the first one in [xs] wins, as with [List.find_opt]. Every table is
+     built once, when this module is loaded, and never modified afterwards. *)
+  let index key xs =
+    let tbl = Hashtbl.create (List.length xs) in
+    List.iter (fun x -> Hashtbl.replace tbl (key x) x) (List.rev xs);
+    tbl
+end
+
+include Lookup
+
 (* ============================================================
  * Individual Module Implementations
  * ============================================================ *)
@@ -69,7 +81,8 @@ module Book = struct
   include Data_intf.Book
 
   let all = data.books
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let count = List.length all
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 end
 
 module Backstage = struct
@@ -77,13 +90,9 @@ module Backstage = struct
 
   let all = data.backstage
 
-  let get_by_slug slug =
-    List.find_opt
-      (fun x ->
-        match x with
-        | Release x -> String.equal slug x.slug
-        | Post x -> String.equal slug x.slug)
-      all
+  let get_by_slug =
+    Hashtbl.find_opt
+      (index (function Release x -> x.slug | Post x -> x.slug) all)
 end
 
 module Changelog = struct
@@ -91,20 +100,16 @@ module Changelog = struct
 
   let all = data.changelog
 
-  let get_by_slug slug =
-    List.find_opt
-      (fun x ->
-        match x with
-        | Release x -> String.equal slug x.slug
-        | Post x -> String.equal slug x.slug)
-      all
+  let get_by_slug =
+    Hashtbl.find_opt
+      (index (function Release x -> x.slug | Post x -> x.slug) all)
 end
 
 module Code_example = struct
   type t = Data_intf.Code_examples.t = { title : string; body : string }
 
   let all = data.code_examples
-  let get title = List.find (fun x -> String.equal x.title title) all
+  let get = Hashtbl.find (index (fun x -> x.title) all)
 end
 
 module Cookbook = struct
@@ -130,10 +135,13 @@ module Cookbook = struct
   let get_by_task ~task_slug =
     all |> List.filter (fun (x : t) -> String.equal task_slug x.task.slug)
 
+  let get_task_by_slug =
+    Hashtbl.find_opt (index (fun (x : task) -> x.slug) tasks)
+
+  let by_task_and_slug = index (fun (x : t) -> (x.task.slug, x.slug)) all
+
   let get_by_slug ~task_slug slug =
-    List.find_opt
-      (fun x -> String.equal slug x.slug && String.equal task_slug x.task.slug)
-      all
+    Hashtbl.find_opt by_task_and_slug (task_slug, slug)
 
   let main_package_of_recipe (recipe : t) =
     recipe.packages |> Fun.flip List.nth_opt 0
@@ -167,7 +175,7 @@ module Exercise = struct
     in
     List.filter f
 
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 end
 
 module Governance = struct
@@ -176,14 +184,15 @@ module Governance = struct
   let teams = data.governance_teams
   let working_groups = data.governance_working_groups
 
-  let get_by_id id =
-    List.find_opt (fun x -> String.equal id x.id) (teams @ working_groups)
+  let get_by_id =
+    Hashtbl.find_opt (index (fun x -> x.id) (teams @ working_groups))
 end
 
 module Industrial_user = struct
   include Data_intf.Industrial_user
 
   let all = data.industrial_users
+  let count = List.length all
   let featured = all |> List.filter (fun user -> user.featured)
 end
 
@@ -191,12 +200,14 @@ module Is_ocaml_yet = struct
   include Data_intf.Is_ocaml_yet
 
   let all = data.is_ocaml_yet
+  let get_by_id = Hashtbl.find_opt (index (fun x -> x.id) all)
 end
 
 module Job = struct
   include Data_intf.Job
 
   let all = data.jobs
+  let count = List.length all
 end
 
 module Testimonial = struct
@@ -209,7 +220,7 @@ module News = struct
   include Data_intf.News
 
   let all = data.news
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 end
 
 module Opam_user = struct
@@ -243,10 +254,8 @@ module Page = struct
   include Data_intf.Page
 
   let all = data.pages
-
-  let get path =
-    let slug = Filename.basename path in
-    List.find (fun x -> String.equal slug x.slug) all
+  let by_slug = index (fun x -> x.slug) all
+  let get path = Hashtbl.find by_slug (Filename.basename path)
 end
 
 module Paper = struct
@@ -444,7 +453,7 @@ module Success_story = struct
   include Data_intf.Success_story
 
   let all = data.success_stories
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 end
 
 module Tool = struct
@@ -457,6 +466,7 @@ module Tool_page = struct
   include Data_intf.Tool_page
 
   let all = data.tool_pages
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 end
 
 module Tutorial = struct
@@ -464,7 +474,7 @@ module Tutorial = struct
 
   let all = data.tutorials
   let all_search_documents = data.tutorial_search_documents
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 
   let search_terms q =
     String.split_on_char ' ' q
@@ -520,14 +530,14 @@ module Conference = struct
   include Data_intf.Conference
 
   let all = data.conferences
-  let get_by_slug slug = List.find_opt (fun x -> String.equal slug x.slug) all
+  let get_by_slug = Hashtbl.find_opt (index (fun x -> x.slug) all)
 end
 
 module Attribution = struct
   include Data_intf.Attribution
 
   let all = data.attribution
-  let get_by_path path = List.find_opt (fun x -> String.equal path x.path) all
+  let get_by_path = Hashtbl.find_opt (index (fun x -> x.path) all)
 
   (* Records are keyed by repo-root path ("data/..."), whereas [Tutorial.t] and
      [Tool_page.t] carry a [fpath] relative to [data/]. Bridge the two. *)
