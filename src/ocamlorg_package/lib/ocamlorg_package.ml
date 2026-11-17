@@ -52,6 +52,8 @@ let mockup_state (pkgs : t list) =
     search_index = None;
   }
 
+let read_versions = Package_state.read_versions
+
 let to_snapshot t : Package_state.t =
   {
     version = t.version;
