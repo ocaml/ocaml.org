@@ -11,7 +11,8 @@
   v2_asset_test
   planet_search_test
   data_index_test
-  planet_facets_test)
+  planet_facets_test
+  mcp_opam_metadata_test)
  (libraries
   alcotest
   yojson

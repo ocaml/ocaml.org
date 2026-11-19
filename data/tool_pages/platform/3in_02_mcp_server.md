@@ -32,7 +32,11 @@ These reuse ocaml.org's existing documentation backend, which serves the same
 odoc content shown on package pages.
 
 - `ocaml_package_documentation`: a documentation overview of a package,
-  covering its synopsis, description, licence, homepage, tags, documentation
+  covering its synopsis, description, licence, homepage, tags, flags, its opam
+  file's dev-repo, bug-reports and `x-` fields (such as `x-maintenance-intent`
+  or `x-ci-accept-failures`; their values are in opam syntax, but escaped like
+  the documentation text, so a `&` or `<` in them arrives as `&amp;` or
+  `&lt;`), documentation
   build status, opam build results (`build_status`, see below), and the
   libraries and top-level modules it exposes. Each
   library and module comes with a `path` you can hand to
@@ -54,12 +58,29 @@ odoc content shown on package pages.
 ocaml.org can answer dependency queries because it already computes
 dependency information in memory for every package in the opam repository.
 
-- `ocaml_package_dependencies`: the direct dependencies (with their version
-  constraints), optional dependencies, and conflicts of a package. Takes a
-  `package` name and an optional `version` (defaulting to the latest release).
+- `ocaml_package_dependencies`: what a package needs to install: the direct
+  dependencies (with their version constraints), optional dependencies, and
+  conflicts, plus, from its opam file, the same three fields as written there
+  (`formulas`, in opam syntax, with their filters such as `{with-test}` and
+  their alternatives; a formula spans several lines when it does not fit on
+  one, as opam prints it), its `available` filter, its depexts (system packages,
+  with the filter selecting each distribution), and its conflict classes.
+  Takes a `package` name and an optional `version` (defaulting to the latest
+  release).
 - `ocaml_package_reverse_dependencies`: the packages that depend on a given
   package ("used by"), each with its version constraint and latest release, plus
   a total count. Takes the same arguments.
+
+The fields taken from the opam file (in `ocaml_package_dependencies` and
+`ocaml_package_documentation`) are read from ocaml.org's opam-repository clone
+at each call; the other fields come from the package data ocaml.org computes
+after each repository update. When the opam file cannot be read or does not
+parse (for example, a version removed from the repository just before ocaml.org
+catches up), its fields are missing and `opam_file_error` says why. Just after a
+repository update, the two can briefly disagree: `formulas` and `available` may
+already come from the new opam file while `dependencies`, `optional` and
+`conflicts` still come from the previous data. Results are cached for a few
+minutes, so either situation can outlast the update by that much.
 
 ### Build Results
 
@@ -296,6 +317,10 @@ reduces the attack surface where it can:
 
 - Documentation is returned as plain text, with active markup removed (no
   images, scripts or fetchable links).
+- Values from opam files (filters, formulas, depexts, URLs, licence, flags)
+  are kept in opam syntax, with invisible characters removed, Markdown links
+  broken up, and any `<` that could open HTML or an autolink written `&lt;`
+  (the `<` and `<=` operators are left as they are).
 - Links are handed back as inert structured data.
 - Responses are size-bounded.
 - The tools are annotated read-only (`readOnlyHint`) over a fixed backend

@@ -34,7 +34,7 @@ let read_versions package_name versions =
       | Some pkg -> (
           match Opam_repository.opam_file package_name package_version with
           | Ok opam -> Version.Map.add pkg.version opam acc
-          | Error reason ->
+          | Error (`Unreadable reason | `Unparsable reason) ->
               Logs.err (fun m ->
                   m "Failed to read opam file for %S %s: %s" package_name
                     package_version reason);

@@ -122,15 +122,15 @@ let list_packages () =
    thread pool. *)
 let process_opam_file f =
   match In_channel.with_open_bin (Fpath.to_string f) In_channel.input_all with
-  | exception Sys_error reason -> Error reason
+  | exception Sys_error reason -> Error (`Unreadable reason)
   | content -> (
       try Ok (OpamFile.OPAM.read_from_string content) with
       | (Out_of_memory | Stack_overflow) as exn -> raise exn
-      | exn -> Error (Printexc.to_string exn))
+      | exn -> Error (`Unparsable (Printexc.to_string exn)))
 
-let opam_file package_name package_version =
+let opam_file ?(repo = clone_path) package_name package_version =
   let opam_file =
-    Fpath.(clone_path / "packages" / package_name / package_version / "opam")
+    Fpath.(repo / "packages" / package_name / package_version / "opam")
   in
   process_opam_file opam_file
 

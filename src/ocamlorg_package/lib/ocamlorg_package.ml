@@ -24,6 +24,74 @@ let url t = t.info.Info.url
 let publication t = t.info.Info.publication
 let flags t = t.info.Info.flags
 
+module Opam_metadata = struct
+  type depext = { packages : string list; filter : string }
+
+  type t = {
+    dev_repo : string option;
+    bug_reports : string list;
+    available : string;
+    depends : string;
+    depopts : string;
+    conflicts : string;
+    conflict_class : string list;
+    depexts : depext list;
+    extensions : (string * string) list;
+  }
+
+  (* A dependency formula printed as the value of its field in an opam file
+     ([`Conj] for depends, [`Disj] for depopts and conflicts), with the printer
+     opam itself uses for these fields: [[ "ocaml" {>= "4.14"} ]], and [[]] when
+     empty. *)
+  let formula kind f =
+    OpamPrinter.FullPos.value
+      (OpamPp.print
+         OpamFormat.V.(package_formula kind (filtered_constraints ext_version))
+         f)
+
+  let of_opam (opam : OpamFile.OPAM.t) =
+    {
+      dev_repo = Option.map OpamUrl.to_string (OpamFile.OPAM.dev_repo opam);
+      bug_reports = OpamFile.OPAM.bug_reports opam;
+      available = OpamFilter.to_string (OpamFile.OPAM.available opam);
+      depends = formula `Conj (OpamFile.OPAM.depends opam);
+      depopts = formula `Disj (OpamFile.OPAM.depopts opam);
+      conflicts = formula `Disj (OpamFile.OPAM.conflicts opam);
+      conflict_class =
+        List.map OpamPackage.Name.to_string (OpamFile.OPAM.conflict_class opam);
+      depexts =
+        List.map
+          (fun (pkgs, filter) ->
+            {
+              packages =
+                List.map OpamSysPkg.to_string (OpamSysPkg.Set.elements pkgs);
+              filter = OpamFilter.to_string filter;
+            })
+          (OpamFile.OPAM.depexts opam);
+      extensions =
+        OpamStd.String.Map.bindings (OpamFile.OPAM.extensions opam)
+        |> List.map (fun (k, v) -> (k, OpamPrinter.FullPos.value v));
+    }
+end
+
+(* The reason names the file, a path on the server: it is logged here, and
+   callers only learn which kind of failure it was. *)
+let opam_metadata ?repo t =
+  let name = Name.to_string t.name in
+  let version = Version.to_string t.version in
+  let failed reason =
+    Logs.warn (fun m ->
+        m "Cannot read the opam file of %s.%s: %s" name version reason)
+  in
+  match Opam_repository.opam_file ?repo name (name ^ "." ^ version) with
+  | Ok opam -> Ok (Opam_metadata.of_opam opam)
+  | Error (`Unreadable reason) ->
+      failed reason;
+      Error `Unreadable
+  | Error (`Unparsable reason) ->
+      failed reason;
+      Error `Unparsable
+
 module Statistics = struct
   type t = {
     nb_packages : int;
