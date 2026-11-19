@@ -105,17 +105,20 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
 
 ### Versions and Changes
 
-- `ocaml_package_versions`: every version of a package, newest first, with the
-  date it was published in opam-repository, its statuses (`avoided`,
-  `deprecated`), and its source archive (URL and checksums). Takes a `package`
-  name.
+- `ocaml_package_versions`: the versions of a package, newest first, with the
+  date each was published in opam-repository and its statuses (`avoided`,
+  `deprecated`). Takes a `package` name, `include_source` to also get the
+  source archive of each version (URL and checksums), and `limit` and `offset`
+  for paging.
 - `ocaml_package_changelog`: the changelog shipped with a version of a package
   (its `CHANGES` or `CHANGELOG` file) as plain text. Takes a `package`, an
   optional `version` (defaulting to the latest documented version), and
   optional `since` and `until` versions, to keep only the sections of the
-  versions in that range, found from the version numbers in the section
-  headings (with or without a leading `v`, whatever the order of the
-  changelog).
+  versions in that range. A section starts at a heading that begins with a
+  version, after words such as "Release", the package name or a date, with or
+  without a leading `v`, whatever the order of the changelog. Only changelogs
+  that docs-ci renders are available, which may not include one that is not in
+  Markdown.
 
 Each tool returns a JSON document. For example, asking
 `ocaml_package_documentation` about `lwt` returns its synopsis and the list of

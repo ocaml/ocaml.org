@@ -455,6 +455,7 @@ let find_latest_documented_version ?get:fetch ?now t name =
         (vlist |> List.map (fun v -> v.version))
 
 let latest_documented_version t name = find_latest_documented_version t name
+let latest_documented_version_depth = Config.latest_documented_version_depth
 
 let is_latest_version t name version =
   match get_latest t name with
@@ -668,6 +669,7 @@ module Documentation = struct
     let latest_documented_version ~get ~now state name =
       find_latest_documented_version ~get ~now state name
 
+    let http_get = Documentation.http_get
     let package_caches_ttl = Config.package_caches_ttl
     let doc_negative_ttl = Config.doc_negative_ttl
   end

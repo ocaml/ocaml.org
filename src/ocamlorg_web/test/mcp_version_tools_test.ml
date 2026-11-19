@@ -15,8 +15,8 @@ let payload = function
 let known l s = List.mem s l
 
 let reads_heading_versions () =
-  let hv ?(known_versions = []) s =
-    match M.heading_version ~is_known:(known known_versions) s with
+  let hv ?(known_versions = []) ?package s =
+    match M.heading_version ~is_known:(known known_versions) ?package s with
     | Some (M.Known v) -> "known " ^ v
     | Some (M.Like v) -> "like " ^ v
     | None -> "none"
@@ -28,10 +28,21 @@ let reads_heading_versions () =
     "a version of the package, without its v" "known v0.17.0"
     (hv ~known_versions:[ "v0.17.0" ] "0.17.0 (2024-05-01)");
   Alcotest.(check string) "punctuation" "like 1.2.0" (hv "1.2.0:");
-  Alcotest.(check string) "parenthesised" "like 0.4.0" (hv "cmarkit (0.4.0)");
+  Alcotest.(check string)
+    "after the package name" "like 0.4.0"
+    (hv ~package:"cmarkit" "cmarkit (0.4.0)");
+  Alcotest.(check string) "after a lead word" "like 1.2" (hv "Version 1.2");
+  Alcotest.(check string) "after a date" "like 1.2.0" (hv "2024-05-23 - 1.2.0");
   Alcotest.(check string) "no version" "none" (hv "Changes");
   Alcotest.(check string) "a date" "none" (hv "2024.01.15 release");
-  Alcotest.(check string) "a year" "none" (hv "2025")
+  Alcotest.(check string) "a year" "none" (hv "2025");
+  (* A version only counts when it leads the heading. *)
+  Alcotest.(check string)
+    "not after another word" "none"
+    (hv ~known_versions:[ "1.1"; "1.2" ] "OCaml 4.14 support");
+  Alcotest.(check string)
+    "even a version of the package" "none"
+    (hv ~known_versions:[ "5.2.0" ] "Support for OCaml 5.2.0")
 
 let range ?(known_versions = []) ?since ?until text =
   M.changelog_range ~is_known:(known known_versions) ?since ?until text
@@ -146,6 +157,22 @@ let x = 1
   Alcotest.(check strings)
     "the headings after the block" [ "1.2.0"; "1.1.0" ]
     (kept ~since:"1.0.0" changelog)
+
+(* A heading at the level of the version headings, with a version-like token
+   that is not its first: it names no version, so its entries are not filed
+   under a version that does not exist. *)
+let version_in_a_title () =
+  let changelog = "## 1.2\n\n- x\n\n## OCaml 4.14 support\n\n- y\n\n## 1.1\n" in
+  let known_versions = [ "1.1"; "1.2" ] in
+  Alcotest.(check strings)
+    "sections" [ "1.2" ]
+    (kept ~known_versions ~since:"1.1" changelog);
+  Alcotest.(check strings)
+    "a version of the package in a title" [ "5.3.0" ]
+    (kept
+       ~known_versions:[ "5.1.0"; "5.2.0"; "5.3.0" ]
+       ~since:"5.1.0"
+       "## 5.3.0\n\n- z\n\n## Support for OCaml 5.2.0\n\n- y\n\n## 5.1.0\n")
 
 let dated_headings () =
   Alcotest.(check strings)
@@ -290,13 +317,64 @@ let changelog_errors () =
   Alcotest.(check string)
     "no changelog"
     "the documentation of base.v0.17.0 has no changelog file (CHANGES, \
-     CHANGELOG, ...)"
+     CHANGELOG, ...): the package has none, or one that docs-ci does not \
+     render (not in Markdown)"
     (err [ ("base.v0.17.0", `Built ([], [], [])) ]);
+  Alcotest.(check string)
+    "too large"
+    "the CHANGES file of base.v0.17.0 is too large to read here (over 2000000 \
+     bytes)"
+    (err
+       ~args:[ ("since", `String "v0.16.0") ]
+       [
+         ( "base.v0.17.0",
+           `Built
+             ( [],
+               [],
+               [
+                 ( "doc/CHANGES.html",
+                   "<h2>v0.17.0</h2>" ^ String.make 2_000_000 'x' );
+               ] ) );
+       ]);
   Alcotest.(check string)
     "unknown version" "unknown version \"v0.12.0\" of package \"base\""
     (match changelog_call [ ("version", `String "v0.12.0") ] with
     | Error e -> e
     | Ok _ -> "ok")
+
+(* A range that ends after the version whose changelog is read gets a note: the
+   changes of the versions after it are not in that changelog. *)
+let older_than_range () =
+  let versions = base_versions @ [ "v0.18.0" ] in
+  let note args =
+    to_string (member "note" (payload (changelog_call ~versions args)))
+  in
+  Alcotest.(check string)
+    "until"
+    "this is the changelog of v0.17.0, the latest documented version, older \
+     than v0.18.0: the changes of the versions after v0.17.0 are not in it"
+    (note [ ("since", `String "v0.17.0"); ("until", `String "v0.18.0") ]);
+  Alcotest.(check string)
+    "since only, with a newer version"
+    "this is the changelog of v0.17.0, the latest documented version, older \
+     than v0.18.0: the changes of the versions after v0.17.0 are not in it"
+    (note [ ("since", `String "v0.16.0") ]);
+  Alcotest.(check string)
+    "a version given"
+    "this is the changelog of v0.17.0, older than 0.18.0: the changes of the \
+     versions after v0.17.0 are not in it"
+    (note [ ("version", `String "v0.17.0"); ("until", `String "0.18.0") ]);
+  Alcotest.(check string)
+    "a range within the changelog" "null"
+    (note [ ("since", `String "v0.16.0"); ("until", `String "v0.17.0") ]);
+  Alcotest.(check string) "no range" "null" (note [])
+
+(* "version" is found with or without its leading "v", as since and until. *)
+let version_without_v () =
+  let json = payload (changelog_call [ ("version", `String "0.17.0") ]) in
+  Alcotest.(check string)
+    "the version" "v0.17.0"
+    (to_string (member "version" json))
 
 (* --- ocaml_package_versions --- *)
 
@@ -310,19 +388,20 @@ let versions_state =
         (info
            ~url:
              {
-               Package.Info.uri = "https://example.org/pkg-2.0.tbz";
+               Package.Info.uri = "https://example.org/<pkg>-2.0.tbz";
                checksum = [ "sha256=abc" ];
              }
            1_730_000_000.);
     ]
 
+let versions_call args =
+  payload
+    (call
+       (M.package_versions versions_state)
+       (`Assoc (("package", `String "pkg") :: args)))
+
 let lists_versions () =
-  let json =
-    payload
-      (call
-         (M.package_versions versions_state)
-         (`Assoc [ ("package", `String "pkg") ]))
-  in
+  let json = versions_call [ ("include_source", `Bool true) ] in
   let versions = to_list (member "versions" json) in
   Alcotest.(check strings)
     "newest first" [ "2.0"; "1.1"; "1.0" ]
@@ -337,12 +416,44 @@ let lists_versions () =
   match versions with
   | [ latest; deprecated; _ ] ->
       Alcotest.(check string)
-        "source url" "https://example.org/pkg-2.0.tbz"
+        "source url, sanitised" "https://example.org/&lt;pkg>-2.0.tbz"
         (to_string (member "url" (member "source" latest)));
       Alcotest.(check bool)
         "deprecated" true
         (member "statuses" deprecated = `List [ `String "deprecated" ])
   | _ -> Alcotest.fail "expected three versions"
+
+let pages_versions () =
+  let versions json =
+    List.map
+      (fun x -> to_string (member "version" x))
+      (to_list (member "versions" json))
+  in
+  let json = versions_call [] in
+  Alcotest.(check bool)
+    "no source by default" true
+    (List.for_all
+       (fun x -> member "source" x = `Null)
+       (to_list (member "versions" json)));
+  Alcotest.(check bool)
+    "not truncated" true
+    (member "truncated" json = `Bool false);
+  let json = versions_call [ ("limit", `Int 2) ] in
+  Alcotest.(check strings) "first page" [ "2.0"; "1.1" ] (versions json);
+  Alcotest.(check bool) "truncated" true (member "truncated" json = `Bool true);
+  Alcotest.(check bool) "count" true (member "count" json = `Int 3);
+  let json = versions_call [ ("limit", `Int 2); ("offset", `Int 2) ] in
+  Alcotest.(check strings) "second page" [ "1.0" ] (versions json);
+  Alcotest.(check bool) "last page" true (member "truncated" json = `Bool false);
+  match
+    call
+      (M.package_versions versions_state)
+      (`Assoc [ ("package", `String "pkg"); ("limit", `Int 0) ])
+  with
+  | Error e ->
+      Alcotest.(check string)
+        "bad limit" "argument \"limit\" must be an integer from 1 to 500" e
+  | Ok _ -> Alcotest.fail "expected an error"
 
 let unknown_package () =
   match
@@ -363,14 +474,18 @@ let () =
           Alcotest.test_case "oldest first" `Quick oldest_first;
           Alcotest.test_case "heading level" `Quick level_with_most_versions;
           Alcotest.test_case "fences" `Quick fences;
+          Alcotest.test_case "version in a title" `Quick version_in_a_title;
           Alcotest.test_case "dated headings" `Quick dated_headings;
           Alcotest.test_case "v-prefixed versions" `Quick v_prefixed_changelog;
           Alcotest.test_case "long changelog" `Quick long_changelog;
           Alcotest.test_case "errors" `Quick changelog_errors;
+          Alcotest.test_case "older than the range" `Quick older_than_range;
+          Alcotest.test_case "version without v" `Quick version_without_v;
         ] );
       ( "versions",
         [
           Alcotest.test_case "list" `Quick lists_versions;
+          Alcotest.test_case "paging" `Quick pages_versions;
           Alcotest.test_case "unknown package" `Quick unknown_package;
         ] );
     ]

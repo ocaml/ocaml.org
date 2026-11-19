@@ -79,7 +79,7 @@ let latest_documented ~depth backend state name =
 let call_deadline = 15.
 
 (* [Some v] when [f ()] resolves to [v] within [seconds], else [None]: [f ()] is
-   then cancelled, and so are its docs-ci fetches. *)
+   then cancelled, and so are its docs-ci fetches, which cache nothing. *)
 let within seconds (f : unit -> 'a Lwt.t) : 'a option Lwt.t =
   let p = f () in
   match Lwt.state p with
