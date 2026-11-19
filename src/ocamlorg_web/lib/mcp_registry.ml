@@ -5,6 +5,8 @@ let tools state : Ocamlorg_mcp.Tool.t list =
   List.concat
     [
       Mcp_tools.tools state;
+      (* ocaml_module_find *)
+      Mcp_find_module.tools state;
       (* ocaml_package_versions, ocaml_package_changelog *)
       Mcp_version_tools.tools state;
       (* ocaml_module_changes *)
