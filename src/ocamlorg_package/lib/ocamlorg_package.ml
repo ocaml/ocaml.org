@@ -641,5 +641,5 @@ module Documentation = struct
   let search_index_digest ~kind state pkg =
     search_index_digest ~kind state.docs pkg
 
-  let status ~kind state pkg = status ~kind state.docs pkg
+  let status ?get ?now ~kind state pkg = status ?get ?now ~kind state.docs pkg
 end

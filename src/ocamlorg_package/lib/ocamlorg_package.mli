@@ -123,11 +123,17 @@ module Documentation : sig
   }
 
   val status :
+    ?get:(string -> (string, [ `Not_found | `Msg of string ]) result Lwt.t) ->
+    ?now:(unit -> float) ->
     kind:[< `Package | `Universe of string ] ->
     state ->
     pkg ->
     Documentation.Status.t option Lwt.t
-  (** Get the build status of the documentation of a package *)
+  (** Get the build status of the documentation of a package: [None] when
+      docs-ci has none (its status.json is missing), or when it could not be
+      read. The first is cached for [OCAMLORG_PACKAGE_CACHES_TTL], the second
+      only for [OCAMLORG_DOC_NEGATIVE_TTL]. [get] (the fetch) and [now] (the
+      clock) are for tests. *)
 
   val sidebar :
     kind:[ `Package | `Universe of string ] ->
