@@ -368,6 +368,146 @@ let test_cache_key_canonical () =
   let _ = call_count ~cache calls b in
   Alcotest.(check int) "reordered keys share a cache entry" 1 !calls
 
+(* --- Partial results (a docs-ci fetch failed or the deadline was reached):
+   served, marked in the result's [_meta], never cached. --- *)
+
+(* A cacheable tool whose result is partial the first time and complete
+   afterwards. *)
+let partial_tool calls : Ocamlorg_mcp.Tool.t =
+  {
+    name = "partial";
+    description = "partial once, then complete";
+    input_schema =
+      `Assoc [ ("type", `String "object"); ("properties", `Assoc []) ];
+    handler =
+      (fun _ ->
+        incr calls;
+        let block = Ocamlorg_mcp.Tool.text_content "data" in
+        Lwt.return
+          (Ok
+             [ (if !calls = 1 then Ocamlorg_mcp.Tool.partial block else block) ]));
+    cacheable = true;
+    annotations = None;
+  }
+
+let call_partial ?cache calls =
+  let params =
+    `Assoc [ ("name", `String "partial"); ("arguments", `Assoc []) ]
+  in
+  handle_tools ?cache
+    [ partial_tool calls ]
+    (req ~id:22 "tools/call" (Some params))
+  |> member_exn "result"
+
+let partial_meta result =
+  match member "_meta" result with
+  | Some meta -> member Ocamlorg_mcp.Tool.partial_key meta
+  | None -> None
+
+let test_partial_not_cached () =
+  let cache = C.create ~max_entries:8 ~max_bytes:max_int ~ttl:1000. in
+  let calls = ref 0 in
+  let first = call_partial ~cache calls in
+  Alcotest.(check bool) "partial is not an error" false (is_error first);
+  Alcotest.(check bool)
+    "marked on the result" true
+    (partial_meta first = Some (`Bool true));
+  (match member_exn "content" first with
+  | `List [ block ] ->
+      Alcotest.(check bool)
+        "mark removed from the content block" true
+        (member "_meta" block = None);
+      Alcotest.(check bool)
+        "text kept" true
+        (member "text" block = Some (`String "data"))
+  | _ -> Alcotest.fail "expected one content block");
+  let second = call_partial ~cache calls in
+  Alcotest.(check int) "partial result recomputed" 2 !calls;
+  Alcotest.(check bool) "complete now" true (partial_meta second = None);
+  let _ = call_partial ~cache calls in
+  Alcotest.(check int) "complete result cached" 2 !calls
+
+(* --- Fanout: bounded concurrency, errors per item, deadline. --- *)
+
+module F = Ocamlorg_mcp.Fanout
+
+let outcome_string = function
+  | F.Done v -> string_of_int v
+  | F.Failed e -> "failed: " ^ Printexc.to_string e
+  | F.Skipped -> "skipped"
+
+let test_fanout_order_and_errors () =
+  let f x =
+    let open Lwt.Syntax in
+    let* () = Lwt.pause () in
+    if x = 3 then failwith "boom"
+    else if x = 4 then raise Not_found
+    else Lwt.return (x * 10)
+  in
+  let outcomes = Lwt_main.run (F.map ~concurrency:2 f [ 1; 2; 3; 4; 5 ]) in
+  Alcotest.(check (list string))
+    "results in input order, failures per item"
+    [ "10"; "20"; "failed: Failure(\"boom\")"; "failed: Not_found"; "50" ]
+    (List.map outcome_string outcomes);
+  Alcotest.(check bool) "incomplete" true (F.incomplete outcomes);
+  Alcotest.(check bool) "no deadline" false (F.deadline_reached outcomes)
+
+let test_fanout_concurrency () =
+  let running = ref 0 and peak = ref 0 in
+  let f x =
+    let open Lwt.Syntax in
+    incr running;
+    peak := max !peak !running;
+    let* () = Lwt.pause () in
+    let* () = Lwt.pause () in
+    decr running;
+    Lwt.return x
+  in
+  let outcomes = Lwt_main.run (F.map ~concurrency:3 f (List.init 10 Fun.id)) in
+  Alcotest.(check int) "at most 3 at once" 3 !peak;
+  Alcotest.(check bool) "complete" false (F.incomplete outcomes)
+
+let test_fanout_deadline () =
+  (* A fake clock: each item takes 4 "seconds"; the deadline is 10. Items 0, 1
+     and 2 start at 0, 4 and 8; the rest would start at 12 or later. *)
+  let clock = ref 0. in
+  let f x =
+    clock := !clock +. 4.;
+    Lwt.return x
+  in
+  let outcomes =
+    Lwt_main.run
+      (F.map ~concurrency:1 ~deadline:10.
+         ~now:(fun () -> !clock)
+         f [ 0; 1; 2; 3; 4 ])
+  in
+  Alcotest.(check (list string))
+    "items not started by the deadline are skipped"
+    [ "0"; "1"; "2"; "skipped"; "skipped" ]
+    (List.map outcome_string outcomes);
+  Alcotest.(check bool) "deadline reached" true (F.deadline_reached outcomes)
+
+(* An item that stalls (docs-ci accepts the connection, then says nothing) is
+   cancelled at the deadline, and reported like an item not started: the call
+   does not wait for it. *)
+let test_fanout_stalled_item () =
+  let stalled, _ = Lwt.task () in
+  let f x = if x = 1 then stalled else Lwt.return x in
+  let started = Unix.gettimeofday () in
+  let outcomes =
+    Lwt_main.run (F.map ~concurrency:2 ~deadline:0.05 f [ 0; 1; 2 ])
+  in
+  Alcotest.(check (list string))
+    "the stalled item is skipped, the others done" [ "0"; "skipped"; "2" ]
+    (List.map outcome_string outcomes);
+  Alcotest.(check bool)
+    "at the deadline" true
+    (Unix.gettimeofday () -. started < 1.);
+  Alcotest.(check bool)
+    "and cancelled" true
+    (Lwt.state stalled = Lwt.Fail Lwt.Canceled);
+  Alcotest.(check bool) "deadline reached" true (F.deadline_reached outcomes)
+
 let () =
   Alcotest.run "ocamlorg_mcp"
     [
@@ -414,5 +554,16 @@ let () =
             test_async_success_cached;
           Alcotest.test_case "cache key is canonical" `Quick
             test_cache_key_canonical;
+          Alcotest.test_case "partial result is not cached" `Quick
+            test_partial_not_cached;
+        ] );
+      ( "fanout",
+        [
+          Alcotest.test_case "order and errors" `Quick
+            test_fanout_order_and_errors;
+          Alcotest.test_case "bounded concurrency" `Quick
+            test_fanout_concurrency;
+          Alcotest.test_case "deadline" `Quick test_fanout_deadline;
+          Alcotest.test_case "stalled item" `Quick test_fanout_stalled_item;
         ] );
     ]

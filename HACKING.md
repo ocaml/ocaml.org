@@ -243,6 +243,7 @@ Tuning knobs, rarely changed in development:
 | `OCAMLORG_MCP_CACHE_MAX` | `1024` | Maximum entries in the `/mcp` response cache |
 | `OCAMLORG_MCP_CACHE_MAX_BYTES` | `33554432` (32 MB) | Byte budget of the `/mcp` response cache |
 | `OCAMLORG_MCP_MAX_BODY` | `1048576` (1 MB) | Maximum `/mcp` request body size in bytes |
+| `OCAMLORG_MCP_DOCS_CONCURRENCY` | `12` | Maximum docs-ci fetches at once for `/mcp`, over all calls |
 
 ### Package Metadata and State
 

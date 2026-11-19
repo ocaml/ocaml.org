@@ -79,8 +79,9 @@ parse (for example, a version removed from the repository just before ocaml.org
 catches up), its fields are missing and `opam_file_error` says why. Just after a
 repository update, the two can briefly disagree: `formulas` and `available` may
 already come from the new opam file while `dependencies`, `optional` and
-`conflicts` still come from the previous data. Results are cached for a few
-minutes, so either situation can outlast the update by that much.
+`conflicts` still come from the previous data. A result with `opam_file_error`
+is not cached; other results are cached for a few minutes, so a disagreement
+can outlast the update by that much.
 
 ### Build Results
 

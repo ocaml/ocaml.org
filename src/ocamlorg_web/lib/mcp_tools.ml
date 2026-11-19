@@ -123,6 +123,13 @@ let deps_json (deps : (Package.Name.t * string option) list) : Yojson.Safe.t =
            ])
        deps)
 
+(* The single text-content block MCP clients expect, holding a JSON object. A
+   result with [opam_file_error] (see {!opam_file_json}) is marked partial, so
+   that it is not cached: the next call may read the file. *)
+let json_block fields =
+  let block = Tool.text_content (Yojson.Safe.to_string (`Assoc fields)) in
+  if List.mem_assoc "opam_file_error" fields then Tool.partial block else block
+
 (* Run a handler that maps a resolved package to a JSON object, wrapping the
    result in the single text-content block MCP clients expect. *)
 let with_package state args (f : Package.t -> (string * Yojson.Safe.t) list) =
@@ -137,10 +144,7 @@ let with_package state args (f : Package.t -> (string * Yojson.Safe.t) list) =
             ]
           in
           let body = f pkg in
-          Ok
-            [
-              Tool.text_content (Yojson.Safe.to_string (`Assoc (common @ body)));
-            ]))
+          Ok [ json_block (common @ body) ]))
 
 (* Fields of the opam file the package state does not keep, read from the
    opam-repository clone (see {!Package.opam_metadata}): one small file per
@@ -366,8 +370,7 @@ let json_common pkg =
     ("version", `String (Package.Version.to_string (Package.version pkg)));
   ]
 
-let ok_json fields =
-  Ok [ Tool.text_content (Yojson.Safe.to_string (`Assoc fields)) ]
+let ok_json fields = Ok [ json_block fields ]
 
 (* --- Sanitised projections of untrusted, community-authored content. ---
 

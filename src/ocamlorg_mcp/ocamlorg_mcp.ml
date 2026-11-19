@@ -26,3 +26,7 @@ module Rate_limiter = Rate_limiter
 
 module Cache = Cache
 (** Bounded TTL response cache for deterministic tool calls. See {!Cache}. *)
+
+module Fanout = Fanout
+(** Bounded-concurrency map with a per-call deadline, for tools that fetch from
+    docs-ci for many items in one call. See {!Fanout}. *)
