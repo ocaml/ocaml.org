@@ -19,6 +19,14 @@ module Status = struct
      status.json (e.g. adding [search_index_digest]) without breaking parsing on
      older/newer deployments. *)
 
+  (* A status.json body. One that is not JSON at all (an error page served with
+     a 200, a truncated response) is an [Error] like a malformed one, rather
+     than the [Yojson.Json_error] exception [Yojson.Safe.from_string] raises. *)
+  let of_string s =
+    match Yojson.Safe.from_string s with
+    | json -> of_yojson json
+    | exception Yojson.Json_error e -> Error e
+
   let has_file (v : t) (options : string list) : string option =
     let children = v.files in
     try
@@ -110,7 +118,16 @@ module Sidebar = struct
         }
     in
     navmap_of_sidebar s
+
+  (* A sidebar.json body, with the same treatment of a non-JSON body as
+     [Status.of_string]. *)
+  let navmap_of_string s =
+    match Yojson.Safe.from_string s with
+    | json -> Result.map (List.map to_navmap) (of_yojson json)
+    | exception Yojson.Json_error e -> Error e
 end
+
+let sidebar_of_string = Sidebar.navmap_of_string
 
 let http_get url =
   let open Lwt.Syntax in
@@ -370,6 +387,14 @@ let doc_from_string s =
       { uses_katex = false; breadcrumbs; toc = []; content }
   | _ -> raise (Invalid_argument "malformed .html.json file")
 
+(* A rendered page body: [None] for a malformed one. Besides the
+   [Invalid_argument] of an unexpected shape, [doc_from_string] raises
+   [Yojson.Json_error] on a body that is not JSON and [Failure] on a malformed
+   functor-argument breadcrumb; all three are misses, not exceptions. *)
+let page_of_string s =
+  try Ok (doc_from_string s)
+  with Invalid_argument e | Yojson.Json_error e | Failure e -> Error e
+
 (* The docs-ci response caches (sidebars, rendered pages, per-version build
    status and search-index tokens) all use the shared {!Bounded_cache}: the docs
    backend is proxied uncached, so these bound memory and expire entries so
@@ -489,10 +514,8 @@ let sidebar ~kind (t : Package.t) =
       let+ content = http_get url in
       match content with
       | Ok v -> (
-          let json = Yojson.Safe.from_string v in
-          match Sidebar.of_yojson json with
+          match Sidebar.navmap_of_string v with
           | Ok x ->
-              let x = List.map Sidebar.to_navmap x in
               (* A non-empty sidebar is cached for the full TTL; an empty one is
                  a miss and gets the short negative TTL. *)
               if x <> [] then
@@ -531,10 +554,11 @@ let odoc_page ~url =
       match content with
       | Ok content ->
           let maybe_doc =
-            try Some (doc_from_string content)
-            with Invalid_argument err ->
-              Logs.err (fun m -> m "Invalid documentation page: %s" err);
-              None
+            match page_of_string content with
+            | Ok doc -> Some doc
+            | Error err ->
+                Logs.err (fun m -> m "Invalid documentation page: %s" err);
+                None
           in
           (* A successful parse is cached for the full TTL; a fetch/parse
              failure ([None]) is a miss and gets the short negative TTL. *)
@@ -636,7 +660,7 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
       let status =
         match content with
         | Ok s -> (
-            match s |> Yojson.Safe.from_string |> Status.of_yojson with
+            match Status.of_string s with
             | Ok status -> Some (Status.slim status)
             | Error e ->
                 Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
