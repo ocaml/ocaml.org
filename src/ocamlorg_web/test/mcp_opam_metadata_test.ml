@@ -311,7 +311,24 @@ let hostile_filters () =
         (to_string (member "filter" d'))
   | _ -> Alcotest.fail "expected two depexts"
 
+(* Whether the result of ocaml_package_dependencies is marked partial (not
+   cached, see {!Ocamlorg_mcp.Tool.partial}). *)
+let dependencies_partial opam_metadata =
+  match
+    Lwt_main.run
+      ((M.dependencies ~opam_metadata state).handler
+         (`Assoc [ ("package", `String "pkg") ]))
+  with
+  | Ok [ block ] -> Ocamlorg_mcp.Tool.take_partial block <> None
+  | _ -> Alcotest.fail "expected one block"
+
 let unreadable_file () =
+  Alcotest.(check bool)
+    "a readable file is cached" false
+    (dependencies_partial (fun _ -> Ok (parse opam)));
+  Alcotest.(check bool)
+    "an unreadable one is not" true
+    (dependencies_partial (fun _ -> Error `Unreadable));
   let json = dependencies (fun _ -> Error `Unreadable) in
   Alcotest.(check bool)
     "said" true

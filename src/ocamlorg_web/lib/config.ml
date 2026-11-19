@@ -50,6 +50,12 @@ let mcp_cache_max =
 let mcp_cache_max_bytes =
   env_with_default "OCAMLORG_MCP_CACHE_MAX_BYTES" "33554432" |> int_of_string
 
+(* At most this many docs-ci fetches at once for /mcp, over all calls: the tools
+   that read many versions or packages in one call each run up to 6 fetches at
+   once, and calls run in parallel (issue #3775). *)
+let mcp_docs_concurrency =
+  env_with_default "OCAMLORG_MCP_DOCS_CONCURRENCY" "12" |> int_of_string
+
 (* Max accepted /mcp request-body size in bytes; larger bodies get 413 (issue
    #3884). A JSON-RPC request is small, so 1 MB is generous. *)
 let mcp_max_body =

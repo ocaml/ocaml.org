@@ -1,10 +1,44 @@
-(* Fixtures shared by the tests of the MCP tools that read docs-ci: a package
-   state, a docs-ci stand-in, and a way to call a tool's handler. Linked into
-   every test of this directory. *)
+(* Fixtures shared by the tests of the MCP tools that read docs-ci: a real
+   sidebar, a package state, a docs-ci stand-in, and a way to call a tool's
+   handler. Linked into every test of this directory. *)
 
 module Package = Ocamlorg_package
 module Documentation = Ocamlorg_package.Documentation
 module Mcp_docs = Ocamlorg_web.Mcp_docs
+
+(* The sidebar.json of lwt 5.9.0 as docs-ci serves it, cut down to a few
+   modules: libraries are untitled nodes ("Library <code>lwt</code>"), each
+   module lists its submodules and module types, at every depth, and the titles
+   are simple names. *)
+let lwt_sidebar_json =
+  {|[
+  {"node": {"url": "p/lwt/5.9.0/doc/index.html", "kind": "leaf-page", "content": "Lwt"},
+   "children": [
+    {"node": {"url": "p/lwt/5.9.0/doc/LICENSE.html", "kind": "leaf-page", "content": "LICENSE"}, "children": []},
+    {"node": {"url": null, "kind": null, "content": "Library <code>lwt</code>"},
+     "children": [
+      {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt/index.html", "kind": "module", "content": "Lwt"},
+       "children": [
+        {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt/Infix/index.html", "kind": "module", "content": "Infix"}, "children": []},
+        {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt/Let_syntax/index.html", "kind": "module", "content": "Let_syntax"}, "children": []}]},
+      {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt_pqueue/index.html", "kind": "module", "content": "Lwt_pqueue"},
+       "children": [
+        {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt_pqueue/module-type-S/index.html", "kind": "module-type", "content": "S"}, "children": []}]},
+      {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt_result/index.html", "kind": "module", "content": "Lwt_result"},
+       "children": [
+        {"node": {"url": "p/lwt/5.9.0/doc/lwt/Lwt_result/Infix/index.html", "kind": "module", "content": "Infix"}, "children": []}]}]},
+    {"node": {"url": null, "kind": null, "content": "Library <code>lwt.unix</code>"},
+     "children": [
+      {"node": {"url": "p/lwt/5.9.0/doc/lwt.unix/Lwt_main/index.html", "kind": "module", "content": "Lwt_main"}, "children": []},
+      {"node": {"url": "p/lwt/5.9.0/doc/lwt.unix/Lwt_unix/index.html", "kind": "module", "content": "Lwt_unix"},
+       "children": [
+        {"node": {"url": "p/lwt/5.9.0/doc/lwt.unix/Lwt_unix/IO_vectors/index.html", "kind": "module", "content": "IO_vectors"}, "children": []},
+        {"node": {"url": "p/lwt/5.9.0/doc/lwt.unix/Lwt_unix/LargeFile/index.html", "kind": "module", "content": "LargeFile"}, "children": []}]}]}]}]|}
+
+let lwt_sidebar =
+  match Documentation.sidebar_of_string lwt_sidebar_json with
+  | Ok s -> s
+  | Error e -> failwith e
 
 let v = Package.Version.of_string
 let n = Package.Name.of_string
@@ -97,16 +131,28 @@ let backend ?(raising = []) ?(stalling = []) ?(fetches = ref 0)
           | _ -> None));
   }
 
-(* Call a tool's handler: [Ok payload] with the decoded JSON payload, or the
-   in-band error. *)
-let call (tool : Ocamlorg_mcp.Tool.t) args =
+(* Call a tool's handler: [Ok (payload, partial)] with the decoded JSON payload
+   and whether the result is marked partial (see {!Ocamlorg_mcp.Tool.partial}),
+   or the in-band error. *)
+let call_partial (tool : Ocamlorg_mcp.Tool.t) args =
   match Lwt_main.run (tool.handler args) with
-  | Ok [ `Assoc fields ] -> (
-      match List.assoc_opt "text" fields with
-      | Some (`String text) -> Ok (Yojson.Safe.from_string text)
-      | _ -> Error "no text content")
-  | Ok _ -> Error "expected one text block"
+  | Ok [ block ] -> (
+      let partial, block =
+        match Ocamlorg_mcp.Tool.take_partial block with
+        | Some b -> (true, b)
+        | None -> (false, block)
+      in
+      match block with
+      | `Assoc fields -> (
+          match List.assoc_opt "text" fields with
+          | Some (`String text) -> Ok (Yojson.Safe.from_string text, partial)
+          | _ -> Error "no text content")
+      | _ -> Error "unexpected content")
+  | Ok _ -> Error "expected one content block"
   | Error e -> Error e
+
+(* The same, for a result that is never partial: [Ok payload]. *)
+let call tool args = Result.map fst (call_partial tool args)
 
 let member k = function
   | `Assoc l -> List.assoc_opt k l |> Option.value ~default:`Null
