@@ -232,7 +232,7 @@ Tuning knobs, rarely changed in development:
 | `OCAMLORG_PACKAGE_CACHES_TTL` | `3600` | Package cache time-to-live in seconds |
 | `OCAMLORG_DOC_CACHE_MAX` | `1000` | Maximum entries in each documentation cache |
 | `OCAMLORG_DOC_CACHE_MAX_BYTES` | `134217728` (128 MB) | Byte budget for each documentation cache |
-| `OCAMLORG_DOC_NEGATIVE_TTL` | `60` | Time-to-live in seconds of cached "documentation missing" outcomes |
+| `OCAMLORG_DOC_NEGATIVE_TTL` | `60` | Time-to-live in seconds of cached "documentation missing" outcomes (a missing or unparseable sidebar or page) and of a `status.json` that could not be fetched or parsed; a missing `status.json` (404) is cached for `OCAMLORG_PACKAGE_CACHES_TTL` |
 | `OCAMLORG_LATEST_DOC_VERSION_DEPTH` | `25` | How many versions to probe, newest first, when looking for the latest documented one |
 | `OCAMLORG_MAX_DOC_FETCH_BYTES` | `52428800` (50 MB) | Maximum size of a single response from the documentation server |
 | `OCAMLORG_DOC_FETCH_TIMEOUT` | `30` | Timeout in seconds of a single fetch from the documentation server |

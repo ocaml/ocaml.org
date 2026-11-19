@@ -129,6 +129,9 @@ end
 
 let sidebar_of_string = Sidebar.navmap_of_string
 
+(* GET [url]: its body, [Error `Not_found] when the backend answers 404, and
+   [Error (`Msg _)] for every other failure (another error status, a network
+   error, the timeout, a body over the size limit). *)
 let http_get url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "GET %s" url);
@@ -179,6 +182,12 @@ let http_get url =
       Cohttp_lwt_unix.Connection.call conn ~headers `GET uri
     in
     match Cohttp.Code.(code_of_status response.status |> is_success) with
+    | false when response.status = `Not_found ->
+        (* The one failure that tells something about the resource rather than
+           about the backend: it does not exist. [status] caches it longer than
+           the others. *)
+        close ();
+        Lwt.return (Error `Not_found)
     | false ->
         close ();
         Lwt.return (Error (`Msg ("Failed to fetch " ^ url)))
@@ -453,9 +462,9 @@ let page_opt_bytes : t option -> int = function
   | None -> node_overhead
   | Some p -> page_bytes p
 
-let status_bytes : Status.t option -> int = function
-  | None -> node_overhead
-  | Some (s : Status.t) -> (
+let status_bytes : (Status.t option, unit) result -> int = function
+  | Ok None | Error () -> node_overhead
+  | Ok (Some (s : Status.t)) -> (
       node_overhead + String.length s.name + String.length s.version
       + List.fold_left
           (fun acc f -> acc + node_overhead + String.length f)
@@ -620,11 +629,11 @@ let search_index ~kind (t : Package.t) =
 (* Per package version caches of the docs-ci build status and of the search
    index token. Both hold at most [doc_cache_max] entries and
    [doc_cache_max_bytes] bytes (FIFO) and expire after [package_caches_ttl],
-   like the page and sidebar caches. A cached [None] records a failed fetch or
-   parse so it is not retried on every request; a status.json that does not
-   parse is kept only for [doc_negative_ttl] (see [status]). *)
+   like the page and sidebar caches. A cached [None] (the token) or [Error]
+   (the status) records a failed fetch or parse so it is not retried on every
+   request; see [status_result] for how long. *)
 type doc_cache = {
-  doc_status_cache : Status.t option Bounded_cache.t;
+  doc_status_cache : (Status.t option, unit) result Bounded_cache.t;
   search_index_cache : string option Bounded_cache.t;
 }
 
@@ -643,7 +652,21 @@ let doc_cache_create () =
 let version_key (t : Package.t) =
   Name.to_string t.name ^ "|" ^ Version.to_string t.version
 
-let status ~kind state (t : Package.t) : Status.t option Lwt.t =
+(* What docs-ci says about the documentation of a version: [Ok (Some status)],
+   [Ok None] when it has none (status.json is missing: 404), or [Error ()] when
+   status.json could not be fetched (another error status, a network error, the
+   timeout) or parsed. The reason is logged, not kept.
+
+   A status and a missing status.json are cached for the full
+   [package_caches_ttl], an [Error] for [doc_negative_ttl] only, like a missing
+   sidebar or page: a transient docs-ci failure must not make a documented
+   package look undocumented for an hour, while a package without documentation
+   must not cost its status.json fetches (one for its package page, up to 25 for
+   [latest_documented_version]) every minute.
+
+   [get] and [now] are the fetch and the clock, for tests. *)
+let status_result ?(get = http_get) ?(now = now) ~kind state (t : Package.t) :
+    (Status.t option, unit) result Lwt.t =
   let open Lwt.Syntax in
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
@@ -653,27 +676,33 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   match Bounded_cache.find state.doc_status_cache ~now:(now ()) ~key with
   | Some status -> Lwt.return status
   | None ->
-      let+ content = http_get (package_url ^ "status.json") in
-      (* A status.json that does not parse (an error page served with a 200, a
-         truncated body) is cached for the short negative TTL only, like an
-         unparseable sidebar or page, so a transient docs-ci problem does not
-         make a documented version look undocumented for the full TTL. A failed
-         fetch keeps the full TTL: [http_get] does not tell a 404 (no
-         documentation) from a transient error. *)
-      let status, ttl =
+      let+ content = get (package_url ^ "status.json") in
+      let status =
         match content with
         | Ok s -> (
             match Status.of_string s with
-            | Ok status -> (Some (Status.slim status), None)
+            | Ok status -> Ok (Some (Status.slim status))
             | Error e ->
                 Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
-                (None, Some Config.doc_negative_ttl))
+                Error ())
+        | Error `Not_found -> Ok None
         | Error (`Msg e) ->
             Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
-            (None, None)
+            Error ()
       in
-      Bounded_cache.store ?ttl state.doc_status_cache ~now:(now ()) ~key status;
+      (match status with
+      | Ok _ ->
+          Bounded_cache.store state.doc_status_cache ~now:(now ()) ~key status
+      | Error _ ->
+          Bounded_cache.store ~ttl:Config.doc_negative_ttl
+            state.doc_status_cache ~now:(now ()) ~key status);
       status
+
+(* The status, [None] when there is none or it could not be read. *)
+let status ?get ?now ~kind state t : Status.t option Lwt.t =
+  Lwt.map
+    (function Ok status -> status | Error _ -> None)
+    (status_result ?get ?now ~kind state t)
 
 let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =
   let open Lwt.Syntax in

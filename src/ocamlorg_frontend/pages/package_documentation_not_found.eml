@@ -1,4 +1,5 @@
 let render
+?(unavailable = false)
 ?page
 ~path
 (package : Package.package)
@@ -15,6 +16,14 @@ Package_layout.render
 ~right_sidebar_html:"" @@
   let version = Package.url_version package in
   <div class="sm:flex max-w-max mx-auto">
+    <% if unavailable then ( %>
+    <p class="text-4xl font-extrabold text-primary sm:text-5xl">503</p>
+    <div class="sm:ml-6">
+      <div class="sm:border-l sm:border-gray-200 sm:pl-6">
+        <h1 class="text-4xl font-extrabold text-title dark:text-dark-title tracking-tight sm:text-5xl">Documentation temporarily unavailable</h1>
+        <p class="mt-1 text-base text-content dark:text-dark-content">The documentation server did not answer. Please try again in a minute.</p>
+      </div>
+    <% ) else ( %>
     <p class="text-4xl font-extrabold text-primary sm:text-5xl">404</p>
     <div class="sm:ml-6">
       <div class="sm:border-l sm:border-gray-200 sm:pl-6">
@@ -26,6 +35,7 @@ Package_layout.render
           If it is missing or failed to build, the documentation build status page linked below has the details.
         </p>
       </div>
+    <% ); %>
       <div class="mt-10 flex flex-wrap gap-3 sm:border-l sm:border-transparent sm:pl-6">
         <a href="<%s Url.Package.overview package.name ?version %>"
           class="btn">

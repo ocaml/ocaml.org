@@ -307,7 +307,9 @@ let reverse_dependencies state : Tool.t =
 (* Resolve for the docs tools. With no version we prefer the latest *documented*
    version (a package's newest release may have no built docs yet), falling back
    to the latest release; an explicit version is taken as-is. Async, since
-   [latest_documented_version] consults the docs backend. *)
+   [latest_documented_version] consults the docs backend. When it cannot tell
+   (docs-ci failed to answer), the tool fails rather than answer from a version
+   that may have no documentation. *)
 let resolve_documented state package version : (Package.t, string) result Lwt.t
     =
   match Package.Name.of_string_opt package with
@@ -329,14 +331,22 @@ let resolve_documented state package version : (Package.t, string) result Lwt.t
       | None -> (
           let open Lwt.Syntax in
           let+ documented = Package.latest_documented_version state name in
-          let chosen =
-            match documented with
-            | Some ver -> Package.get state name ver
-            | None -> Package.get_latest state name
-          in
-          match chosen with
-          | Some pkg -> Ok pkg
-          | None -> Error (Printf.sprintf "unknown package: %S" package)))
+          match documented with
+          | Error () ->
+              Error
+                (Printf.sprintf
+                   "the documentation status of %S could not be read from \
+                    docs-ci: call again later, or pass a version"
+                   package)
+          | Ok documented -> (
+              let chosen =
+                match documented with
+                | Some ver -> Package.get state name ver
+                | None -> Package.get_latest state name
+              in
+              match chosen with
+              | Some pkg -> Ok pkg
+              | None -> Error (Printf.sprintf "unknown package: %S" package))))
 
 (* Parse and resolve the package, then hand a resolved [Package.t] to [f]. Arg
    and resolution errors short-circuit as in-band tool errors. *)

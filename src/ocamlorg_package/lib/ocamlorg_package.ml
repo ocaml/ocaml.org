@@ -405,39 +405,56 @@ let get t name version =
 
 module Package_info = Package_info
 
-let doc_exists t name version =
+(* Whether the documentation of [version] was built: [Ok (Some version)] when it
+   was, [Ok None] when it was not (no status, or a failed build), [Error ()]
+   when its status could not be read. *)
+let doc_exists ?get:fetch ?now t name version =
   let package = get t name version in
   let open Lwt.Syntax in
   match package with
-  | None -> Lwt.return None
+  | None -> Lwt.return (Ok None)
   | Some package -> (
-      let* doc_stat = Documentation.status ~kind:`Package t.docs package in
+      let+ doc_stat =
+        Documentation.status_result ?get:fetch ?now ~kind:`Package t.docs
+          package
+      in
       match doc_stat with
-      | Some { failed = false; _ } -> Lwt.return (Some version)
-      | _ -> Lwt.return None)
+      | Ok (Some { failed = false; _ }) -> Ok (Some version)
+      | Ok _ -> Ok None
+      | Error () -> Error ())
 
-let latest_documented_version t name =
+(* [get] and [now] are the fetch and the clock, for tests. *)
+let find_latest_documented_version ?get:fetch ?now t name =
   let rec aux fuel vlist =
     let open Lwt.Syntax in
     match vlist with
-    | [] -> Lwt.return None
+    | [] -> Lwt.return (Ok None)
     | _ when fuel <= 0 ->
         (* Give up rather than probe every version: on a cold cache each step is
            one sequential status.json fetch against the docs backend. See
            ocaml/ocaml.org#3888. *)
-        Lwt.return None
+        Lwt.return (Ok None)
     | _ -> (
         let version = List.hd vlist in
-        let* doc = doc_exists t name version in
+        let* doc = doc_exists ?get:fetch ?now t name version in
         match doc with
-        | Some version -> Lwt.return (Some version)
-        | None -> aux (fuel - 1) (List.tl vlist))
+        | Ok (Some version) -> Lwt.return (Ok (Some version))
+        | Ok None -> aux (fuel - 1) (List.tl vlist)
+        | Error () ->
+            (* docs-ci failed to answer for this version (an error status, the
+               timeout, a body that does not parse). Stop: an older version is
+               not the latest documented one, and when docs-ci hangs, each
+               further probe would wait the full fetch timeout, which the short
+               TTL of a failure would not save the next call from. *)
+            Lwt.return (Error ()))
   in
   match get_versions t name with
-  | [] -> Lwt.return None
+  | [] -> Lwt.return (Ok None)
   | vlist ->
       aux Config.latest_documented_version_depth
         (vlist |> List.map (fun v -> v.version))
+
+let latest_documented_version t name = find_latest_documented_version t name
 
 let is_latest_version t name version =
   match get_latest t name with
@@ -642,4 +659,15 @@ module Documentation = struct
     search_index_digest ~kind state.docs pkg
 
   let status ~kind state pkg = status ~kind state.docs pkg
+
+  module For_testing = struct
+    let status ~get ~now ~kind state pkg =
+      Documentation.status ~get ~now ~kind state.docs pkg
+
+    let latest_documented_version ~get ~now state name =
+      find_latest_documented_version ~get ~now state name
+
+    let package_caches_ttl = Config.package_caches_ttl
+    let doc_negative_ttl = Config.doc_negative_ttl
+  end
 end

@@ -8,9 +8,11 @@ val doc_cache_max : int
 
 val doc_negative_ttl : float
 (** Short TTL (seconds) for negatively cached docs-ci outcomes (missing/empty
-    sidebars and missing/unparseable doc pages), long enough to absorb a retry
-    storm but short enough not to mask a documentation rebuild. Overridable via
-    [OCAMLORG_DOC_NEGATIVE_TTL]. See ocaml/ocaml.org#3888. *)
+    sidebars, missing/unparseable doc pages, and status.json fetches or parses
+    that failed; a missing status.json, a 404, keeps [package_caches_ttl]), long
+    enough to absorb a retry storm but short enough not to mask a documentation
+    rebuild or a transient failure. Overridable via [OCAMLORG_DOC_NEGATIVE_TTL].
+    See ocaml/ocaml.org#3888. *)
 
 val latest_documented_version_depth : int
 (** Upper bound on how many versions [latest_documented_version] probes (newest
