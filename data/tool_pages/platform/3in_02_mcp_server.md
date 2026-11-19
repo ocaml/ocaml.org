@@ -32,8 +32,8 @@ These reuse ocaml.org's existing documentation backend, which serves the same
 odoc content shown on package pages.
 
 - `ocaml_package_documentation`: a documentation overview of a package,
-  covering its synopsis, description, licence, homepage, tags, its opam file's
-  dev-repo, bug-reports, flags and `x-` fields (such as `x-maintenance-intent`
+  covering its synopsis, description, licence, homepage, tags, flags, its opam
+  file's dev-repo, bug-reports and `x-` fields (such as `x-maintenance-intent`
   or `x-ci-accept-failures`; their values are in opam syntax, but escaped like
   the documentation text, so a `&` or `<` in them arrives as `&amp;` or
   `&lt;`), documentation
