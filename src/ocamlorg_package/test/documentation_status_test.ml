@@ -156,12 +156,17 @@ let parses_sidebar () =
    status.json requests and a fake clock moves time. A status and a missing
    status.json (404) are kept for the full TTL (OCAMLORG_PACKAGE_CACHES_TTL,
    3600 s by default), a failure to read it only for the negative TTL
-   (OCAMLORG_DOC_NEGATIVE_TTL, 60 s by default). --- *)
+   (OCAMLORG_DOC_NEGATIVE_TTL, 60 s by default). The times are computed from
+   both, so that the tests hold whatever they are set to, provided the negative
+   TTL is the shorter by more than 2 s. --- *)
 
-let package =
+let ttl = Documentation.For_testing.package_caches_ttl
+let negative_ttl = Documentation.For_testing.doc_negative_ttl
+
+let package ?(name = "foo") ?(version = "1.0.0") () =
   Ocamlorg_package.create
-    ~name:(Ocamlorg_package.Name.of_string "foo")
-    ~version:(Ocamlorg_package.Version.of_string "1.0.0")
+    ~name:(Ocamlorg_package.Name.of_string name)
+    ~version:(Ocamlorg_package.Version.of_string version)
     {
       Ocamlorg_package.Info.synopsis = "";
       description = "";
@@ -183,6 +188,7 @@ let package =
    fresh cache, with a backend that always answers [response], and the number of
    status.json requests made. *)
 let statuses_at response times =
+  let package = package () in
   let state = Ocamlorg_package.mockup_state [ package ] in
   let clock = ref 0. and requests = ref [] in
   let get url =
@@ -194,7 +200,7 @@ let statuses_at response times =
       (fun t ->
         clock := t;
         Lwt_main.run
-          (Documentation.status ~get
+          (Documentation.For_testing.status ~get
              ~now:(fun () -> !clock)
              ~kind:`Package state package)
         |> Option.map (fun (s : Status.t) -> s.name))
@@ -207,7 +213,9 @@ let requested ~expected (response, times) =
   Alcotest.(check int) "status.json requests" expected (List.length requests)
 
 let status_is_cached () =
-  let answers, requests = statuses_at (Ok without_digest) [ 0.; 61.; 3500. ] in
+  let answers, requests =
+    statuses_at (Ok without_digest) [ 0.; negative_ttl +. 1.; ttl -. 1. ]
+  in
   Alcotest.(check (list (option string)))
     "the status"
     [ Some "foo"; Some "foo"; Some "foo" ]
@@ -218,27 +226,61 @@ let status_is_cached () =
         "the version's status.json" true
         (String.ends_with ~suffix:"p/foo/1.0.0/status.json" url)
   | _ -> Alcotest.fail "expected one request");
-  requested ~expected:2 (Ok without_digest, [ 0.; 3601. ])
+  requested ~expected:2 (Ok without_digest, [ 0.; ttl +. 1. ])
 
 let missing_status_is_cached () =
   let answers, _ = statuses_at (Error `Not_found) [ 0. ] in
   Alcotest.(check (list (option string))) "no status" [ None ] answers;
-  requested ~expected:1 (Error `Not_found, [ 0.; 61.; 3500. ]);
-  requested ~expected:2 (Error `Not_found, [ 0.; 3601. ])
+  requested ~expected:1 (Error `Not_found, [ 0.; negative_ttl +. 1.; ttl -. 1. ]);
+  requested ~expected:2 (Error `Not_found, [ 0.; ttl +. 1. ])
 
 let failures_are_cached_briefly () =
   List.iter
     (fun response ->
       let answers, _ = statuses_at response [ 0. ] in
       Alcotest.(check (list (option string))) "no status" [ None ] answers;
-      requested ~expected:1 (response, [ 0.; 30. ]);
-      requested ~expected:2 (response, [ 0.; 61. ]))
+      requested ~expected:1 (response, [ 0.; negative_ttl /. 2. ]);
+      requested ~expected:2 (response, [ 0.; negative_ttl +. 1. ]))
     [
       Error (`Msg "timed out after 30s fetching status.json");
       Error (`Msg "Failed to fetch status.json");
       Ok "<html><body>Bad gateway</body></html>";
       Ok {|{"name": "foo"}|};
     ]
+
+(* [latest_documented_version] over versions 3.0, 2.0 and 1.0 of foo, whose
+   statuses ([Error `Not_found] for none) are first put in the cache, through
+   the fake fetch, so that it fetches nothing itself. *)
+let latest_documented statuses =
+  let versions = [ "1.0"; "2.0"; "3.0" ] in
+  let packages = List.map (fun version -> package ~version ()) versions in
+  let state = Ocamlorg_package.mockup_state packages in
+  List.iter2
+    (fun pkg response ->
+      Lwt_main.run
+        (Documentation.For_testing.status
+           ~get:(fun _ -> Lwt.return response)
+           ~now:Unix.gettimeofday ~kind:`Package state pkg)
+      |> ignore)
+    packages statuses;
+  Lwt_main.run
+    (Ocamlorg_package.latest_documented_version state
+       (Ocamlorg_package.Name.of_string "foo"))
+  |> Option.map Ocamlorg_package.Version.to_string
+
+let latest_documented_version () =
+  let unreadable = Error (`Msg "timed out after 30s fetching status.json") in
+  (* Statuses of 1.0, 2.0 and 3.0. *)
+  Alcotest.(check (option string))
+    "skips a version without documentation" (Some "1.0")
+    (latest_documented
+       [ Ok without_digest; Error `Not_found; Error `Not_found ]);
+  Alcotest.(check (option string))
+    "stops at a status that could not be read" None
+    (latest_documented [ Ok without_digest; unreadable; Error `Not_found ]);
+  Alcotest.(check (option string))
+    "after a documented version" (Some "3.0")
+    (latest_documented [ Ok without_digest; unreadable; Ok without_digest ])
 
 let () =
   Alcotest.run "documentation_status"
@@ -293,5 +335,6 @@ let () =
           test_case "so is a missing status.json (404)" missing_status_is_cached;
           test_case "a failure only for the negative TTL"
             failures_are_cached_briefly;
+          test_case "the latest documented version" latest_documented_version;
         ] );
     ]

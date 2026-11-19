@@ -405,16 +405,22 @@ let get t name version =
 
 module Package_info = Package_info
 
+(* Whether the documentation of [version] was built: [Ok (Some version)] when it
+   was, [Ok None] when it was not (no status, or a failed build), [Error ()]
+   when its status could not be read. *)
 let doc_exists t name version =
   let package = get t name version in
   let open Lwt.Syntax in
   match package with
-  | None -> Lwt.return None
+  | None -> Lwt.return (Ok None)
   | Some package -> (
-      let* doc_stat = Documentation.status ~kind:`Package t.docs package in
+      let+ doc_stat =
+        Documentation.status_result ~kind:`Package t.docs package
+      in
       match doc_stat with
-      | Some { failed = false; _ } -> Lwt.return (Some version)
-      | _ -> Lwt.return None)
+      | Ok (Some { failed = false; _ }) -> Ok (Some version)
+      | Ok _ -> Ok None
+      | Error () -> Error ())
 
 let latest_documented_version t name =
   let rec aux fuel vlist =
@@ -430,8 +436,15 @@ let latest_documented_version t name =
         let version = List.hd vlist in
         let* doc = doc_exists t name version in
         match doc with
-        | Some version -> Lwt.return (Some version)
-        | None -> aux (fuel - 1) (List.tl vlist))
+        | Ok (Some version) -> Lwt.return (Some version)
+        | Ok None -> aux (fuel - 1) (List.tl vlist)
+        | Error () ->
+            (* docs-ci failed to answer for this version (an error status, the
+               timeout, a body that does not parse). Stop: an older version is
+               not the latest documented one, and when docs-ci hangs, each
+               further probe would wait the full fetch timeout, which the short
+               TTL of a failure would not save the next call from. *)
+            Lwt.return None)
   in
   match get_versions t name with
   | [] -> Lwt.return None
@@ -641,5 +654,13 @@ module Documentation = struct
   let search_index_digest ~kind state pkg =
     search_index_digest ~kind state.docs pkg
 
-  let status ?get ?now ~kind state pkg = status ?get ?now ~kind state.docs pkg
+  let status ~kind state pkg = status ~kind state.docs pkg
+
+  module For_testing = struct
+    let status ~get ~now ~kind state pkg =
+      Documentation.status ~get ~now ~kind state.docs pkg
+
+    let package_caches_ttl = Config.package_caches_ttl
+    let doc_negative_ttl = Config.doc_negative_ttl
+  end
 end

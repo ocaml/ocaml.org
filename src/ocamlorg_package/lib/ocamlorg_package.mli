@@ -123,8 +123,6 @@ module Documentation : sig
   }
 
   val status :
-    ?get:(string -> (string, [ `Not_found | `Msg of string ]) result Lwt.t) ->
-    ?now:(unit -> float) ->
     kind:[< `Package | `Universe of string ] ->
     state ->
     pkg ->
@@ -132,8 +130,7 @@ module Documentation : sig
   (** Get the build status of the documentation of a package: [None] when
       docs-ci has none (its status.json is missing), or when it could not be
       read. The first is cached for [OCAMLORG_PACKAGE_CACHES_TTL], the second
-      only for [OCAMLORG_DOC_NEGATIVE_TTL]. [get] (the fetch) and [now] (the
-      clock) are for tests. *)
+      only for [OCAMLORG_DOC_NEGATIVE_TTL]. *)
 
   val sidebar :
     kind:[ `Package | `Universe of string ] ->
@@ -182,6 +179,27 @@ module Documentation : sig
   (** [doc_status_url name version] is the URL of the page on the documentation
       build server reporting the documentation build status of the given package
       version. *)
+
+  (** Exposed for testing. *)
+  module For_testing : sig
+    val status :
+      get:(string -> (string, [ `Not_found | `Msg of string ]) result Lwt.t) ->
+      now:(unit -> float) ->
+      kind:[< `Package | `Universe of string ] ->
+      state ->
+      pkg ->
+      Documentation.Status.t option Lwt.t
+    (** {!status}, with [get] for the fetch of a URL, answering
+        [Error `Not_found] for a 404, and [now] for the clock. It shares the
+        cache of {!status}. *)
+
+    val package_caches_ttl : float
+    (** How long {!status} caches a status or a missing one, in seconds:
+        [OCAMLORG_PACKAGE_CACHES_TTL]. *)
+
+    val doc_negative_ttl : float
+    (** How long it caches a read failure: [OCAMLORG_DOC_NEGATIVE_TTL]. *)
+  end
 end
 
 module Package_info = Package_info
@@ -337,7 +355,9 @@ val get : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
 val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
-(** Find the latest documented version of a package. **)
+(** Find the latest documented version of a package. [None] also when the status
+    of a version could not be read before a documented one was found: the search
+    stops there. **)
 
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)

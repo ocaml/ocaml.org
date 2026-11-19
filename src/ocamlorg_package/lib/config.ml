@@ -21,9 +21,12 @@ let doc_cache_max =
   env_with_default "OCAMLORG_DOC_CACHE_MAX" "1000" |> int_of_string
 
 (* Short time-to-live (in seconds) for negatively cached docs-ci outcomes:
-   missing/empty sidebars and missing/unparseable doc pages. Long enough to
+   missing/empty sidebars, missing/unparseable doc pages, and status.json
+   fetches or parses that failed (a missing status.json, a 404, means the
+   version has no documentation and keeps [package_caches_ttl]). Long enough to
    absorb a retry storm from retry-happy agents hitting /mcp, short enough not
-   to mask a documentation rebuild. See ocaml/ocaml.org#3888. Default: 60 s. *)
+   to mask a documentation rebuild or a transient docs-ci failure. See
+   ocaml/ocaml.org#3888. Default: 60 s. *)
 let doc_negative_ttl =
   env_with_default "OCAMLORG_DOC_NEGATIVE_TTL" "60" |> float_of_string
 

@@ -462,9 +462,8 @@ let page_opt_bytes : t option -> int = function
   | None -> node_overhead
   | Some p -> page_bytes p
 
-let status_bytes : (Status.t option, string) result -> int = function
-  | Ok None -> node_overhead
-  | Error e -> node_overhead + String.length e
+let status_bytes : (Status.t option, unit) result -> int = function
+  | Ok None | Error () -> node_overhead
   | Ok (Some (s : Status.t)) -> (
       node_overhead + String.length s.name + String.length s.version
       + List.fold_left
@@ -634,7 +633,7 @@ let search_index ~kind (t : Package.t) =
    (the status) records a failed fetch or parse so it is not retried on every
    request; see [status_result] for how long. *)
 type doc_cache = {
-  doc_status_cache : (Status.t option, string) result Bounded_cache.t;
+  doc_status_cache : (Status.t option, unit) result Bounded_cache.t;
   search_index_cache : string option Bounded_cache.t;
 }
 
@@ -654,20 +653,20 @@ let version_key (t : Package.t) =
   Name.to_string t.name ^ "|" ^ Version.to_string t.version
 
 (* What docs-ci says about the documentation of a version: [Ok (Some status)],
-   [Ok None] when it has none (status.json is missing: 404), or [Error] when
+   [Ok None] when it has none (status.json is missing: 404), or [Error ()] when
    status.json could not be fetched (another error status, a network error, the
-   timeout) or parsed.
+   timeout) or parsed. The reason is logged, not kept.
 
    A status and a missing status.json are cached for the full
    [package_caches_ttl], an [Error] for [doc_negative_ttl] only, like a missing
    sidebar or page: a transient docs-ci failure must not make a documented
    package look undocumented for an hour, while a package without documentation
-   must not cost a status.json fetch (up to 25 for [latest_documented_version])
-   on every view of its page.
+   must not cost its status.json fetches (one for its package page, up to 25 for
+   [latest_documented_version]) every minute.
 
    [get] and [now] are the fetch and the clock, for tests. *)
 let status_result ?(get = http_get) ?(now = now) ~kind state (t : Package.t) :
-    (Status.t option, string) result Lwt.t =
+    (Status.t option, unit) result Lwt.t =
   let open Lwt.Syntax in
   let package_url =
     package_url ~kind (Name.to_string t.name) (Version.to_string t.version)
@@ -685,11 +684,11 @@ let status_result ?(get = http_get) ?(now = now) ~kind state (t : Package.t) :
             | Ok status -> Ok (Some (Status.slim status))
             | Error e ->
                 Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
-                Error ("unparseable status.json: " ^ e))
+                Error ())
         | Error `Not_found -> Ok None
         | Error (`Msg e) ->
             Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
-            Error e
+            Error ()
       in
       (match status with
       | Ok _ ->
