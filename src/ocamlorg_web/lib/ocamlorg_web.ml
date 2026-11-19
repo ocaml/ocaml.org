@@ -20,6 +20,9 @@ module Mcp_docs = Mcp_docs
 (* Exposed for tests: ocaml_package_versions and ocaml_package_changelog. *)
 module Mcp_version_tools = Mcp_version_tools
 
+(* Exposed for tests: ocaml_module_changes. *)
+module Mcp_api_changes = Mcp_api_changes
+
 (* Exposed for tests: build results from check.ci.ocaml.org (#3847). *)
 module Package_health = Package_health
 

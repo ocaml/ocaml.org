@@ -7,4 +7,6 @@ let tools state : Ocamlorg_mcp.Tool.t list =
       Mcp_tools.tools state;
       (* ocaml_package_versions, ocaml_package_changelog *)
       Mcp_version_tools.tools state;
+      (* ocaml_module_changes *)
+      Mcp_api_changes.tools state;
     ]
