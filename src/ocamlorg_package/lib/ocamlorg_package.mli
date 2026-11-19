@@ -137,11 +137,11 @@ module Documentation : sig
 
   val sidebar_of_string : string -> (Ocamlorg_frontend.Navmap.t, string) result
   (** Parse a [sidebar.json] body. A body that is not JSON is an [Error], as a
-      malformed one is, not an exception. *)
+      malformed one is, not an exception. Exposed for testing. *)
 
   val page_of_string : string -> (t, string) result
   (** Parse a rendered page ([.html.json]) body, with the same treatment of a
-      body that is not JSON. *)
+      body that is not JSON. Exposed for testing. *)
 
   val documentation_page :
     kind:[< `Package | `Universe of string ] -> pkg -> string -> t option Lwt.t

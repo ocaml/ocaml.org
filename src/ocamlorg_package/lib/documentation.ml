@@ -387,7 +387,7 @@ let doc_from_string s =
       { uses_katex = false; breadcrumbs; toc = []; content }
   | _ -> raise (Invalid_argument "malformed .html.json file")
 
-(* A rendered page body: [None] for a malformed one. Besides the
+(* A rendered page body: an [Error] for a malformed one. Besides the
    [Invalid_argument] of an unexpected shape, [doc_from_string] raises
    [Yojson.Json_error] on a body that is not JSON and [Failure] on a malformed
    functor-argument breadcrumb; all three are misses, not exceptions. *)
@@ -552,22 +552,18 @@ let odoc_page ~url =
   | None -> (
       let* content = http_get url in
       match content with
-      | Ok content ->
-          let maybe_doc =
-            match page_of_string content with
-            | Ok doc -> Some doc
-            | Error err ->
-                Logs.err (fun m -> m "Invalid documentation page: %s" err);
-                None
-          in
+      | Ok content -> (
           (* A successful parse is cached for the full TTL; a fetch/parse
              failure ([None]) is a miss and gets the short negative TTL. *)
-          (match maybe_doc with
-          | Some doc ->
-              Bounded_cache.store page_cache ~now:(now ()) ~key:url (Some doc)
-          | None -> cache_miss ());
-          Logs.info (fun m -> m "Found documentation page for %s" url);
-          Lwt.return maybe_doc
+          match page_of_string content with
+          | Ok doc ->
+              Logs.info (fun m -> m "Found documentation page for %s" url);
+              Bounded_cache.store page_cache ~now:(now ()) ~key:url (Some doc);
+              Lwt.return (Some doc)
+          | Error err ->
+              Logs.warn (fun m -> m "Invalid documentation page: %s" err);
+              cache_miss ();
+              Lwt.return None)
       | Error _ ->
           Logs.info (fun m -> m "Failed to fetch documentation page for %s" url);
           cache_miss ();
@@ -624,8 +620,9 @@ let search_index ~kind (t : Package.t) =
 (* Per package version caches of the docs-ci build status and of the search
    index token. Both hold at most [doc_cache_max] entries and
    [doc_cache_max_bytes] bytes (FIFO) and expire after [package_caches_ttl],
-   like the page and sidebar caches. A cached [None] records a failed fetch so
-   it is not retried on every request. *)
+   like the page and sidebar caches. A cached [None] records a failed fetch or
+   parse so it is not retried on every request; a status.json that does not
+   parse is kept only for [doc_negative_ttl] (see [status]). *)
 type doc_cache = {
   doc_status_cache : Status.t option Bounded_cache.t;
   search_index_cache : string option Bounded_cache.t;
@@ -657,19 +654,25 @@ let status ~kind state (t : Package.t) : Status.t option Lwt.t =
   | Some status -> Lwt.return status
   | None ->
       let+ content = http_get (package_url ^ "status.json") in
-      let status =
+      (* A status.json that does not parse (an error page served with a 200, a
+         truncated body) is cached for the short negative TTL only, like an
+         unparseable sidebar or page, so a transient docs-ci problem does not
+         make a documented version look undocumented for the full TTL. A failed
+         fetch keeps the full TTL: [http_get] does not tell a 404 (no
+         documentation) from a transient error. *)
+      let status, ttl =
         match content with
         | Ok s -> (
             match Status.of_string s with
-            | Ok status -> Some (Status.slim status)
+            | Ok status -> (Some (Status.slim status), None)
             | Error e ->
                 Logs.warn (fun m -> m "Error while parsing status.json: %s" e);
-                None)
+                (None, Some Config.doc_negative_ttl))
         | Error (`Msg e) ->
             Logs.warn (fun m -> m "Error while fetching status.json: %s" e);
-            None
+            (None, None)
       in
-      Bounded_cache.store state.doc_status_cache ~now:(now ()) ~key status;
+      Bounded_cache.store ?ttl state.doc_status_cache ~now:(now ()) ~key status;
       status
 
 let search_index_digest ~kind state (t : Package.t) : string option Lwt.t =

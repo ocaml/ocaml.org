@@ -45,15 +45,15 @@ let with_many_files =
     "redirections": [{"old_path": "a", "new_path": "b"}]
   }|}
 
-let parse s = Yojson.Safe.from_string s |> Status.of_yojson |> Result.get_ok
+let parse s = Status.of_string s |> Result.get_ok
 let test_case n = Alcotest.test_case n `Quick
 
 module Documentation = Ocamlorg_package.Documentation
 
 (* What docs-ci, or a proxy in front of it, may serve with a 200 instead of
-   JSON: an error page, or a body cut short. *)
-let not_json = [ "<html><body>Bad gateway</body></html>"; "{\"name\": \"fo" ]
-let is_error = function Ok _ -> false | Error _ -> true
+   JSON: an error page, a body cut short, or no body at all. *)
+let not_json =
+  [ "<html><body>Bad gateway</body></html>"; "{\"name\": \"fo"; "" ]
 
 let sidebar =
   {|[{"node": {"url": "p/foo/1.0.0/doc/index.html", "kind": "leaf-page",
@@ -67,14 +67,71 @@ let sidebar =
 let non_json_bodies () =
   List.iter
     (fun body ->
-      Alcotest.(check bool) "status" true (is_error (Status.of_string body));
+      Alcotest.(check bool)
+        "status" true
+        (Result.is_error (Status.of_string body));
       Alcotest.(check bool)
         "sidebar" true
-        (is_error (Documentation.sidebar_of_string body));
+        (Result.is_error (Documentation.sidebar_of_string body));
       Alcotest.(check bool)
         "page" true
-        (is_error (Documentation.page_of_string body)))
+        (Result.is_error (Documentation.page_of_string body)))
     not_json
+
+(* JSON, but not of the expected shape. *)
+let malformed_bodies () =
+  Alcotest.(check bool)
+    "status" true
+    (Result.is_error (Status.of_string {|{"name": "foo"}|}));
+  Alcotest.(check bool)
+    "sidebar" true
+    (Result.is_error (Documentation.sidebar_of_string {|{}|}));
+  Alcotest.(check bool)
+    "page" true
+    (Result.is_error (Documentation.page_of_string {|{}|}))
+
+(* A rendered page ([.html.json]) with the given breadcrumbs. *)
+let page breadcrumbs =
+  Printf.sprintf
+    {|{"header": "<h1>Make</h1>", "type": "module", "uses_katex": false,
+       "breadcrumbs": [%s],
+       "toc": [{"title": "Values", "href": "#values", "children": []}],
+       "source_anchor": null, "preamble": "<p>pre</p>",
+       "content": "<p>body</p>"}|}
+    (String.concat ", " breadcrumbs)
+
+let breadcrumb kind =
+  Printf.sprintf {|{"name": "Make", "href": null, "kind": "%s"}|} kind
+
+let foo = {|{"name": "foo", "href": "../index.html", "kind": "module"}|}
+
+let parses_page () =
+  match
+    Documentation.page_of_string (page [ foo; breadcrumb "argument-1" ])
+  with
+  | Error e -> Alcotest.fail e
+  | Ok doc ->
+      Alcotest.(check string)
+        "content" "<h1>Make</h1><p>pre</p><p>body</p>" doc.content;
+      Alcotest.(check (list string))
+        "toc" [ "Values" ]
+        (List.map (fun (t : Documentation.toc) -> t.title) doc.toc);
+      Alcotest.(check bool)
+        "breadcrumbs" true
+        (List.map (fun (b : Documentation.breadcrumb) -> b.kind) doc.breadcrumbs
+        = [ Module; Parameter 1 ])
+
+(* A breadcrumb kind that does not parse: a functor argument without a number
+   (which [int_of_string] rejects with [Failure]), or a kind odoc does not
+   produce (which raises [Invalid_argument]). *)
+let bad_breadcrumbs () =
+  List.iter
+    (fun kind ->
+      Alcotest.(check bool)
+        kind true
+        (Result.is_error
+           (Documentation.page_of_string (page [ foo; breadcrumb kind ]))))
+    [ "argument-x"; "argument-"; "widget" ]
 
 let parses_sidebar () =
   match Documentation.sidebar_of_string sidebar with
@@ -115,7 +172,10 @@ let () =
       ( "bodies that are not JSON",
         [
           test_case "are errors, not exceptions" non_json_bodies;
+          test_case "nor is malformed JSON" malformed_bodies;
           test_case "a sidebar still parses" parses_sidebar;
+          test_case "a page still parses" parses_page;
+          test_case "a bad breadcrumb kind is an error" bad_breadcrumbs;
         ] );
       ( "slim",
         [
