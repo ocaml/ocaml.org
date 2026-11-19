@@ -879,8 +879,8 @@ let build_information : Tool.t =
     annotations = Some Tool.read_only_annotations;
   }
 
-(* All MCP tools, closing over the in-memory package state. Injected into the
-   MCP routes by {!Router.mcp_route}. *)
+(* The tools defined here, closing over the in-memory package state.
+   {!Mcp_registry.tools} adds those defined in other modules. *)
 let tools state : Tool.t list =
   [
     dependencies state;

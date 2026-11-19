@@ -12,6 +12,7 @@
  (libraries
   alcotest
   ocamlorg_package
+  ocamlorg_frontend
   ocamlorg.global
   opam-format
   yojson

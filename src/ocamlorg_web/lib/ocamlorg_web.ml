@@ -13,6 +13,14 @@ module Mcp_doc_html = Mcp_doc_html
    JSON-RPC transport. *)
 module Mcp_tools = Mcp_tools
 
+(* Exposed for tests: the pieces shared by the MCP tools that read many
+   documentation pages in one call (module resolution, the docs-ci accessors
+   they can be tested with). *)
+module Mcp_docs = Mcp_docs
+
+(* Exposed for tests: every MCP tool, as the routes get them. *)
+module Mcp_registry = Mcp_registry
+
 (* Exposed for tests: build results from check.ci.ocaml.org (#3847). *)
 module Package_health = Package_health
 

@@ -152,7 +152,7 @@ let graphql_route t =
 let mcp_route t =
   Dream.scope "" []
     (if Config.mcp_enabled then
-       Ocamlorg_mcp.routes ~tools:(Mcp_tools.tools t)
+       Ocamlorg_mcp.routes ~tools:(Mcp_registry.tools t)
          ~trust_xff:Config.mcp_trust_xff ~rate_limit:Config.mcp_rate_limit
          ~rate_window:Config.mcp_rate_window ~cache_max:Config.mcp_cache_max
          ~cache_max_bytes:Config.mcp_cache_max_bytes

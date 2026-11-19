@@ -27,6 +27,42 @@ type t = {
 let text_content (text : string) : Yojson.Safe.t =
   `Assoc [ ("type", `String "text"); ("text", `String text) ]
 
+(* A successful result can still be incomplete: a docs-ci fetch failed, timed
+   out, or was skipped at the call's deadline (see {!Fanout}), and the handler
+   reports what it has. Such a result must not be served from the response cache
+   for the whole TTL, since the next call may well get everything; the handler
+   marks it with [partial]. The mark is a [_meta] entry on a content block,
+   which the server moves to the result's [_meta] (the place every protocol
+   version we speak allows it, see {!Server.call_result}) and checks before
+   caching. *)
+let partial_key = "org.ocaml/partial"
+
+let partial (block : Yojson.Safe.t) : Yojson.Safe.t =
+  match block with
+  | `Assoc fields ->
+      let meta =
+        match List.assoc_opt "_meta" fields with
+        | Some (`Assoc m) -> `Assoc ((partial_key, `Bool true) :: m)
+        | _ -> `Assoc [ (partial_key, `Bool true) ]
+      in
+      `Assoc (List.remove_assoc "_meta" fields @ [ ("_meta", meta) ])
+  | other -> other
+
+(* [Some block'] iff [block] carries the mark, with [block'] the block without
+   it. *)
+let take_partial (block : Yojson.Safe.t) : Yojson.Safe.t option =
+  match block with
+  | `Assoc fields -> (
+      match List.assoc_opt "_meta" fields with
+      | Some (`Assoc m) when List.assoc_opt partial_key m = Some (`Bool true) ->
+          let fields = List.remove_assoc "_meta" fields in
+          Some
+            (match List.remove_assoc partial_key m with
+            | [] -> `Assoc fields
+            | m -> `Assoc (fields @ [ ("_meta", `Assoc m) ]))
+      | _ -> None)
+  | _ -> None
+
 (* Annotations shared by every ocaml.org tool: all are read-only queries over a
    fixed backend (docs-ci) and in-memory package state — nothing is mutated, and
    there is no open-world/arbitrary-URL access ([openWorldHint = false]). *)

@@ -135,6 +135,14 @@ module Documentation : sig
     Ocamlorg_frontend.Navmap.t Lwt.t
   (** Get the sidebar of a package *)
 
+  val sidebar_of_string : string -> (Ocamlorg_frontend.Navmap.t, string) result
+  (** Parse a [sidebar.json] body. A body that is not JSON is an [Error], as a
+      malformed one is, not an exception. *)
+
+  val page_of_string : string -> (t, string) result
+  (** Parse a rendered page ([.html.json]) body, with the same treatment of a
+      body that is not JSON. *)
+
   val documentation_page :
     kind:[< `Package | `Universe of string ] -> pkg -> string -> t option Lwt.t
   (** Get the rendered content of an HTML page for a package given its URL

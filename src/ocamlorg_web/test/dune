@@ -5,6 +5,7 @@
   mcp_doc_html_test
   mcp_transport_test
   mcp_tools_test
+  mcp_docs_test
   utf_8_snippet_test
   case_fold_test
   package_health_test

@@ -15,7 +15,26 @@ let call_result (tool : Tool.t) arguments : Yojson.Safe.t Lwt.t =
   let+ result = tool.handler arguments in
   match result with
   | Ok content ->
-      `Assoc [ ("content", `List content); ("isError", `Bool false) ]
+      (* A block marked [Tool.partial] makes the whole result partial: the mark
+         moves to the result's [_meta], which a client may read and
+         {!is_cacheable_result} checks. *)
+      let partial = ref false in
+      let content =
+        List.map
+          (fun block ->
+            match Tool.take_partial block with
+            | Some block ->
+                partial := true;
+                block
+            | None -> block)
+          content
+      in
+      `Assoc
+        ([ ("content", `List content); ("isError", `Bool false) ]
+        @
+        if !partial then
+          [ ("_meta", `Assoc [ (Tool.partial_key, `Bool true) ]) ]
+        else [])
   | Error msg ->
       (* Tool errors are reported in-band, not as JSON-RPC errors. *)
       `Assoc
@@ -31,6 +50,19 @@ let is_error_result = function
       | Some (`Bool b) -> b
       | _ -> false)
   | _ -> false
+
+(* [true] iff a tools/call result is marked partial (see {!Tool.partial}). *)
+let is_partial_result = function
+  | `Assoc fields -> (
+      match List.assoc_opt "_meta" fields with
+      | Some (`Assoc meta) ->
+          List.assoc_opt Tool.partial_key meta = Some (`Bool true)
+      | _ -> false)
+  | _ -> false
+
+(* Neither errors nor partial results are cached: both may come from a transient
+   docs-ci failure. *)
+let is_cacheable_result v = not (is_error_result v || is_partial_result v)
 
 (* Canonicalise a JSON value for the cache key: recursively sort object keys so
    arguments that differ only in key order hit the same entry. Array order is
@@ -101,9 +133,10 @@ let dispatch ?cache ?(tools = []) (req : Protocol.request) (id : Protocol.id) :
                     | Some value -> Lwt.return value
                     | None ->
                         let+ value = call_result tool arguments in
-                        (* Cache only successful results; a transient docs-ci
-                           failure must not be pinned for the whole TTL. *)
-                        if not (is_error_result value) then
+                        (* Cache only complete, successful results; a transient
+                           docs-ci failure must not be pinned for the whole
+                           TTL. *)
+                        if is_cacheable_result value then
                           Cache.store cache ~now ~key value;
                         value)
                 | _ -> call_result tool arguments
