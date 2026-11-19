@@ -18,6 +18,10 @@ module Mcp_tools = Mcp_tools
    they can be tested with). *)
 module Mcp_docs = Mcp_docs
 
+(* Exposed for tests: ocaml_package_versions, ocaml_api_changes and
+   ocaml_package_changelog. *)
+module Mcp_version_tools = Mcp_version_tools
+
 (* Exposed for tests: every MCP tool, as the routes get them. *)
 module Mcp_registry = Mcp_registry
 

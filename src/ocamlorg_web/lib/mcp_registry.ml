@@ -3,4 +3,4 @@
    defined in modules of their own because they build on {!Mcp_tools} and
    {!Mcp_docs}. *)
 let tools state : Ocamlorg_mcp.Tool.t list =
-  List.concat [ Mcp_tools.tools state ]
+  List.concat [ Mcp_tools.tools state; Mcp_version_tools.tools state ]
