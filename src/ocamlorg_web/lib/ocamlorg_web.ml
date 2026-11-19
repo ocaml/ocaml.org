@@ -13,6 +13,13 @@ module Mcp_doc_html = Mcp_doc_html
    JSON-RPC transport. *)
 module Mcp_tools = Mcp_tools
 
+(* Exposed for tests: the docs-ci accessors of the MCP tools that read docs-ci
+   beyond one page, which tests replace with a stand-in. *)
+module Mcp_docs = Mcp_docs
+
+(* Exposed for tests: ocaml_package_versions and ocaml_package_changelog. *)
+module Mcp_version_tools = Mcp_version_tools
+
 (* Exposed for tests: build results from check.ci.ocaml.org (#3847). *)
 module Package_health = Package_health
 

@@ -103,6 +103,20 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
   must have one of those statuses), `latest_only` (the newest checked version
   of each package, the default), and `limit` and `offset` for paging.
 
+### Versions and Changes
+
+- `ocaml_package_versions`: every version of a package, newest first, with the
+  date it was published in opam-repository, its statuses (`avoided`,
+  `deprecated`), and its source archive (URL and checksums). Takes a `package`
+  name.
+- `ocaml_package_changelog`: the changelog shipped with a version of a package
+  (its `CHANGES` or `CHANGELOG` file) as plain text. Takes a `package`, an
+  optional `version` (defaulting to the latest documented version), and
+  optional `since` and `until` versions, to keep only the sections of the
+  versions in that range, found from the version numbers in the section
+  headings (with or without a leading `v`, whatever the order of the
+  changelog).
+
 Each tool returns a JSON document. For example, asking
 `ocaml_package_documentation` about `lwt` returns its synopsis and the list of
 modules to drill into with `ocaml_module_documentation`; asking

@@ -132,6 +132,15 @@ module Documentation : sig
       read. The first is cached for [OCAMLORG_PACKAGE_CACHES_TTL], the second
       only for [OCAMLORG_DOC_NEGATIVE_TTL]. *)
 
+  val status_result :
+    kind:[< `Package | `Universe of string ] ->
+    state ->
+    pkg ->
+    (Documentation.Status.t option, unit) result Lwt.t
+  (** {!status}, telling a version that docs-ci has no documentation for
+      ([Ok None]) from a status that could not be read ([Error]): a backend
+      failure, which the MCP tools report as such. *)
+
   val sidebar :
     kind:[ `Package | `Universe of string ] ->
     pkg ->

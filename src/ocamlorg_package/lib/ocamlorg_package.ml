@@ -659,6 +659,7 @@ module Documentation = struct
     search_index_digest ~kind state.docs pkg
 
   let status ~kind state pkg = status ~kind state.docs pkg
+  let status_result ~kind state pkg = status_result ~kind state.docs pkg
 
   module For_testing = struct
     let status ~get ~now ~kind state pkg =
