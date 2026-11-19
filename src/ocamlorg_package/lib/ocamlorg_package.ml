@@ -24,6 +24,66 @@ let url t = t.info.Info.url
 let publication t = t.info.Info.publication
 let flags t = t.info.Info.flags
 
+module Opam_metadata = struct
+  type depext = { packages : string list; filter : string }
+
+  type t = {
+    dev_repo : string option;
+    bug_reports : string list;
+    available : string;
+    flags : string list;
+    depends : string;
+    depopts : string;
+    conflicts : string;
+    conflict_class : string list;
+    depexts : depext list;
+    extensions : (string * string) list;
+  }
+
+  (* A dependency formula printed as the value of its field in an opam file
+     ([`Conj] for depends, [`Disj] for depopts and conflicts), with the printer
+     opam itself uses for these fields: [[ "ocaml" {>= "4.14"} ]], and [[]] when
+     empty. *)
+  let formula kind f =
+    OpamPrinter.FullPos.value
+      (OpamPp.print
+         OpamFormat.V.(package_formula kind (filtered_constraints ext_version))
+         f)
+
+  let of_opam (opam : OpamFile.OPAM.t) =
+    {
+      dev_repo = Option.map OpamUrl.to_string (OpamFile.OPAM.dev_repo opam);
+      bug_reports = OpamFile.OPAM.bug_reports opam;
+      available = OpamFilter.to_string (OpamFile.OPAM.available opam);
+      flags =
+        List.map OpamTypesBase.string_of_pkg_flag (OpamFile.OPAM.flags opam);
+      depends = formula `Conj (OpamFile.OPAM.depends opam);
+      depopts = formula `Disj (OpamFile.OPAM.depopts opam);
+      conflicts = formula `Disj (OpamFile.OPAM.conflicts opam);
+      conflict_class =
+        List.map OpamPackage.Name.to_string (OpamFile.OPAM.conflict_class opam);
+      depexts =
+        List.map
+          (fun (pkgs, filter) ->
+            {
+              packages =
+                List.map OpamSysPkg.to_string (OpamSysPkg.Set.elements pkgs);
+              filter = OpamFilter.to_string filter;
+            })
+          (OpamFile.OPAM.depexts opam);
+      extensions =
+        OpamStd.String.Map.bindings (OpamFile.OPAM.extensions opam)
+        |> List.map (fun (k, v) -> (k, OpamPrinter.FullPos.value v));
+    }
+
+  let read path = Opam_repository.read_opam_file path |> Result.map of_opam
+end
+
+let opam_metadata ?repo t =
+  let name = Name.to_string t.name in
+  Opam_repository.opam_file ?repo name (name ^ "." ^ Version.to_string t.version)
+  |> Result.map Opam_metadata.of_opam
+
 module Statistics = struct
   type t = {
     nb_packages : int;

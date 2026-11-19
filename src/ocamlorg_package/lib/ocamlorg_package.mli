@@ -238,6 +238,46 @@ val publication : t -> float
 
 val flags : t -> OpamTypes.package_flag list
 
+(** The fields of a version's opam file that the package state does not keep:
+    what explains why a package does not install or build somewhere (its
+    [available] filter, depexts, [x-] fields such as [x-ci-accept-failures] or
+    [x-maintenance-intent]), as strings in opam syntax. *)
+module Opam_metadata : sig
+  type depext = { packages : string list; filter : string }
+
+  type t = {
+    dev_repo : string option;
+    bug_reports : string list;
+    available : string;  (** The [available] filter; ["true"] when absent. *)
+    flags : string list;
+    depends : string;
+        (** The [depends] field, as its value is written in an opam file:
+            [[ "ocaml" {>= "4.14"} "cmdliner" {with-test & < "2.0.0"} ]], and
+            [[]] when empty. So are [depopts] and [conflicts]. *)
+    depopts : string;
+    conflicts : string;
+    conflict_class : string list;
+    depexts : depext list;
+        (** Each with its filter, as [available] is written. *)
+    extensions : (string * string) list;
+        (** The [x-] fields, with their values in opam syntax. *)
+  }
+
+  val of_opam : OpamFile.OPAM.t -> t
+
+  val read : Fpath.t -> (t, string) result
+  (** [read path] reads an opam file, or says why it could not: the message
+      names the file. *)
+end
+
+val opam_metadata : ?repo:Fpath.t -> t -> (Opam_metadata.t, string) result
+(** [opam_metadata t] reads [t]'s opam file,
+    [packages/<name>/<name>.<version>/opam], from [repo], by default the
+    opam-repository clone the package state was built from. It reads the file,
+    unlike the accessors above, so it is meant for occasional lookups (an MCP
+    tool call), not for listing pages. The error message names the file, a path
+    on the server. *)
+
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** [create ~name ~version info] is a package version, for tests (with
     {!mockup_state}). *)

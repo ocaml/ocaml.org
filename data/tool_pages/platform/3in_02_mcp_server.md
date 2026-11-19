@@ -32,7 +32,9 @@ These reuse ocaml.org's existing documentation backend, which serves the same
 odoc content shown on package pages.
 
 - `ocaml_package_documentation`: a documentation overview of a package,
-  covering its synopsis, description, licence, homepage, tags, documentation
+  covering its synopsis, description, licence, homepage, tags, its opam file's
+  dev-repo, bug-reports, flags and `x-` fields (such as `x-maintenance-intent`
+  or `x-ci-accept-failures`), documentation
   build status, opam build results (`build_status`, see below), and the
   libraries and top-level modules it exposes. Each
   library and module comes with a `path` you can hand to
@@ -54,9 +56,14 @@ odoc content shown on package pages.
 ocaml.org can answer dependency queries because it already computes
 dependency information in memory for every package in the opam repository.
 
-- `ocaml_package_dependencies`: the direct dependencies (with their version
-  constraints), optional dependencies, and conflicts of a package. Takes a
-  `package` name and an optional `version` (defaulting to the latest release).
+- `ocaml_package_dependencies`: what a package needs to install: the direct
+  dependencies (with their version constraints), optional dependencies, and
+  conflicts, plus, from its opam file, the same three fields as written there
+  (`formulas`, in opam syntax, with their filters such as `{with-test}` and
+  their alternatives), its `available` filter, its depexts (system packages,
+  with the filter selecting each distribution), and its conflict classes.
+  Takes a `package` name and an optional `version` (defaulting to the latest
+  release).
 - `ocaml_package_reverse_dependencies`: the packages that depend on a given
   package ("used by"), each with its version constraint and latest release, plus
   a total count. Takes the same arguments.

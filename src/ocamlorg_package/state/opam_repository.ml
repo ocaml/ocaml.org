@@ -128,9 +128,11 @@ let process_opam_file f =
       | (Out_of_memory | Stack_overflow) as exn -> raise exn
       | exn -> Error (Printexc.to_string exn))
 
-let opam_file package_name package_version =
+let read_opam_file = process_opam_file
+
+let opam_file ?(repo = clone_path) package_name package_version =
   let opam_file =
-    Fpath.(clone_path / "packages" / package_name / package_version / "opam")
+    Fpath.(repo / "packages" / package_name / package_version / "opam")
   in
   process_opam_file opam_file
 
