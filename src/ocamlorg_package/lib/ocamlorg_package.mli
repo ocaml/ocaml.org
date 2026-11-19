@@ -249,11 +249,12 @@ module Opam_metadata : sig
     dev_repo : string option;
     bug_reports : string list;
     available : string;  (** The [available] filter; ["true"] when absent. *)
-    flags : string list;
     depends : string;
         (** The [depends] field, as its value is written in an opam file:
             [[ "ocaml" {>= "4.14"} "cmdliner" {with-test & < "2.0.0"} ]], and
-            [[]] when empty. So are [depopts] and [conflicts]. *)
+            [[]] when empty. So are [depopts] and [conflicts]. The value may
+            span several lines: opam's printer breaks a list that does not fit
+            on one line, one item per line, as most [depends] fields are. *)
     depopts : string;
     conflicts : string;
     conflict_class : string list;
@@ -264,19 +265,17 @@ module Opam_metadata : sig
   }
 
   val of_opam : OpamFile.OPAM.t -> t
-
-  val read : Fpath.t -> (t, string) result
-  (** [read path] reads an opam file, or says why it could not: the message
-      names the file. *)
 end
 
-val opam_metadata : ?repo:Fpath.t -> t -> (Opam_metadata.t, string) result
+val opam_metadata :
+  ?repo:Fpath.t -> t -> (Opam_metadata.t, [ `Unreadable | `Unparsable ]) result
 (** [opam_metadata t] reads [t]'s opam file,
     [packages/<name>/<name>.<version>/opam], from [repo], by default the
     opam-repository clone the package state was built from. It reads the file,
     unlike the accessors above, so it is meant for occasional lookups (an MCP
-    tool call), not for listing pages. The error message names the file, a path
-    on the server. *)
+    tool call), not for listing pages. The error says whether the file could not
+    be read (for example, missing) or does not parse; the details, which name a
+    path on the server, are logged. *)
 
 val create : name:Name.t -> version:Version.t -> Info.t -> t
 (** [create ~name ~version info] is a package version, for tests (with

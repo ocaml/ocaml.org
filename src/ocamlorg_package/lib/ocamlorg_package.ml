@@ -31,7 +31,6 @@ module Opam_metadata = struct
     dev_repo : string option;
     bug_reports : string list;
     available : string;
-    flags : string list;
     depends : string;
     depopts : string;
     conflicts : string;
@@ -55,8 +54,6 @@ module Opam_metadata = struct
       dev_repo = Option.map OpamUrl.to_string (OpamFile.OPAM.dev_repo opam);
       bug_reports = OpamFile.OPAM.bug_reports opam;
       available = OpamFilter.to_string (OpamFile.OPAM.available opam);
-      flags =
-        List.map OpamTypesBase.string_of_pkg_flag (OpamFile.OPAM.flags opam);
       depends = formula `Conj (OpamFile.OPAM.depends opam);
       depopts = formula `Disj (OpamFile.OPAM.depopts opam);
       conflicts = formula `Disj (OpamFile.OPAM.conflicts opam);
@@ -75,14 +72,25 @@ module Opam_metadata = struct
         OpamStd.String.Map.bindings (OpamFile.OPAM.extensions opam)
         |> List.map (fun (k, v) -> (k, OpamPrinter.FullPos.value v));
     }
-
-  let read path = Opam_repository.read_opam_file path |> Result.map of_opam
 end
 
+(* The reason names the file, a path on the server: it is logged here, and
+   callers only learn which kind of failure it was. *)
 let opam_metadata ?repo t =
   let name = Name.to_string t.name in
-  Opam_repository.opam_file ?repo name (name ^ "." ^ Version.to_string t.version)
-  |> Result.map Opam_metadata.of_opam
+  let version = Version.to_string t.version in
+  let failed reason =
+    Logs.warn (fun m ->
+        m "Cannot read the opam file of %s.%s: %s" name version reason)
+  in
+  match Opam_repository.opam_file ?repo name (name ^ "." ^ version) with
+  | Ok opam -> Ok (Opam_metadata.of_opam opam)
+  | Error (`Unreadable reason) ->
+      failed reason;
+      Error `Unreadable
+  | Error (`Unparsable reason) ->
+      failed reason;
+      Error `Unparsable
 
 module Statistics = struct
   type t = {

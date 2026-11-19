@@ -24,18 +24,17 @@ val list_package_versions : string -> string list option
     [packages/<package>/] directory. Returns [None] if the specified package
     doesn't exist in [packages/]. *)
 
-val read_opam_file : Fpath.t -> (OpamFile.OPAM.t, string) result
-(** [read_opam_file path] reads and parses an opam file, or returns why it could
-    not: the file cannot be read (the [Sys_error] message, which names the
-    path), or does not parse. Synchronous, like {!opam_file}. *)
-
 val opam_file :
-  ?repo:Fpath.t -> string -> string -> (OpamFile.OPAM.t, string) result
+  ?repo:Fpath.t ->
+  string ->
+  string ->
+  (OpamFile.OPAM.t, [ `Unreadable of string | `Unparsable of string ]) result
 (** [opam_file name version] reads and parses [packages/<name>/<version>/opam]
     in [repo] (by default the opam-repository clone), or returns why it could
-    not: the file cannot be read, or does not parse. It reads synchronously,
-    holding the event loop: a caller that reads many files must yield between
-    them, as [read_packages] does between packages. *)
+    not: the file cannot be read (the [Sys_error] message, which names the
+    path), or does not parse. It reads synchronously, holding the event loop: a
+    caller that reads many files must yield between them, as [read_packages]
+    does between packages. *)
 
 val commit_at_date : string -> string Lwt.t
 (** Find the first commit that happened before or at a date. Will be passed to
