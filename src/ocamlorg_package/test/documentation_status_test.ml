@@ -249,38 +249,56 @@ let failures_are_cached_briefly () =
     ]
 
 (* [latest_documented_version] over versions 3.0, 2.0 and 1.0 of foo, whose
-   statuses ([Error `Not_found] for none) are first put in the cache, through
-   the fake fetch, so that it fetches nothing itself. *)
+   status.json requests are answered with [statuses] (given for 1.0, 2.0 and
+   3.0; [Error `Not_found] for none), on a fresh cache. Also the versions whose
+   status was requested, in order. *)
 let latest_documented statuses =
   let versions = [ "1.0"; "2.0"; "3.0" ] in
-  let packages = List.map (fun version -> package ~version ()) versions in
-  let state = Ocamlorg_package.mockup_state packages in
-  List.iter2
-    (fun pkg response ->
-      Lwt_main.run
-        (Documentation.For_testing.status
-           ~get:(fun _ -> Lwt.return response)
-           ~now:Unix.gettimeofday ~kind:`Package state pkg)
-      |> ignore)
-    packages statuses;
-  Lwt_main.run
-    (Ocamlorg_package.latest_documented_version state
-       (Ocamlorg_package.Name.of_string "foo"))
-  |> Option.map Ocamlorg_package.Version.to_string
+  let state =
+    Ocamlorg_package.mockup_state
+      (List.map (fun version -> package ~version ()) versions)
+  in
+  let requests = ref [] in
+  let get url =
+    match
+      List.find_opt
+        (fun (v, _) -> String.ends_with ~suffix:("/" ^ v ^ "/status.json") url)
+        (List.combine versions statuses)
+    with
+    | Some (v, response) ->
+        requests := v :: !requests;
+        Lwt.return response
+    | None -> Alcotest.failf "unexpected fetch: %s" url
+  in
+  let latest =
+    Lwt_main.run
+      (Documentation.For_testing.latest_documented_version ~get
+         ~now:(fun () -> 0.)
+         state
+         (Ocamlorg_package.Name.of_string "foo"))
+    |> Result.map (Option.map Ocamlorg_package.Version.to_string)
+  in
+  (latest, List.rev !requests)
 
 let latest_documented_version () =
   let unreadable = Error (`Msg "timed out after 30s fetching status.json") in
+  let check name ~expected ~requested statuses =
+    let latest, requests = latest_documented statuses in
+    Alcotest.(check (result (option string) unit)) name expected latest;
+    Alcotest.(check (list string)) (name ^ ": requests") requested requests
+  in
   (* Statuses of 1.0, 2.0 and 3.0. *)
-  Alcotest.(check (option string))
-    "skips a version without documentation" (Some "1.0")
-    (latest_documented
-       [ Ok without_digest; Error `Not_found; Error `Not_found ]);
-  Alcotest.(check (option string))
-    "stops at a status that could not be read" None
-    (latest_documented [ Ok without_digest; unreadable; Error `Not_found ]);
-  Alcotest.(check (option string))
-    "after a documented version" (Some "3.0")
-    (latest_documented [ Ok without_digest; unreadable; Ok without_digest ])
+  check "skips a version without documentation" ~expected:(Ok (Some "1.0"))
+    ~requested:[ "3.0"; "2.0"; "1.0" ]
+    [ Ok without_digest; Error `Not_found; Error `Not_found ];
+  check "none documented" ~expected:(Ok None) ~requested:[ "3.0"; "2.0"; "1.0" ]
+    [ Error `Not_found; Error `Not_found; Error `Not_found ];
+  check "stops at a status that could not be read" ~expected:(Error ())
+    ~requested:[ "3.0"; "2.0" ]
+    [ Ok without_digest; unreadable; Error `Not_found ];
+  check "after a documented version" ~expected:(Ok (Some "3.0"))
+    ~requested:[ "3.0" ]
+    [ Ok without_digest; unreadable; Ok without_digest ]
 
 let () =
   Alcotest.run "documentation_status"

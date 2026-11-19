@@ -193,6 +193,15 @@ module Documentation : sig
         [Error `Not_found] for a 404, and [now] for the clock. It shares the
         cache of {!status}. *)
 
+    val latest_documented_version :
+      get:(string -> (string, [ `Not_found | `Msg of string ]) result Lwt.t) ->
+      now:(unit -> float) ->
+      state ->
+      Name.t ->
+      (Version.t option, unit) result Lwt.t
+    (** [Ocamlorg_package.latest_documented_version], reading the statuses with
+        [get] and [now], as {!status} does. *)
+
     val package_caches_ttl : float
     (** How long {!status} caches a status or a missing one, in seconds:
         [OCAMLORG_PACKAGE_CACHES_TTL]. *)
@@ -354,10 +363,13 @@ val get_latest : state -> Name.t -> t option
 val get : state -> Name.t -> Version.t -> t option
 (** Get a package given its name and version. *)
 
-val latest_documented_version : state -> Name.t -> Version.t option Lwt.t
-(** Find the latest documented version of a package. [None] also when the status
-    of a version could not be read before a documented one was found: the search
-    stops there. **)
+val latest_documented_version :
+  state -> Name.t -> (Version.t option, unit) result Lwt.t
+(** Find the latest documented version of a package, probing its newest versions
+    first: [Ok (Some v)] when [v] is the latest documented version, [Ok None]
+    when none of the probed versions is documented, and [Error ()] when the
+    status of a version could not be read before a documented one was found. The
+    search stops there. **)
 
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)

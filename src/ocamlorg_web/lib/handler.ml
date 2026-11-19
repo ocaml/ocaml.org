@@ -1402,10 +1402,10 @@ let package_documentation t kind req =
   in
   match docs with
   | None ->
-      let response_404_page =
-        Dream.html ~code:404
-          (Ocamlorg_frontend.package_documentation_not_found ~page:path
-             ~search_index_digest:None
+      let not_found_page ?unavailable code =
+        Dream.html ~code
+          (Ocamlorg_frontend.package_documentation_not_found ?unavailable
+             ~page:path ~search_index_digest:None
              ~path:(Ocamlorg_frontend.Package_breadcrumbs.Documentation [])
              frontend_package)
       in
@@ -1414,14 +1414,18 @@ let package_documentation t kind req =
           Ocamlorg_package.latest_documented_version t name
         in
         match latest_documented_version with
-        | None -> response_404_page
-        | Some version ->
+        | Ok None -> not_found_page 404
+        | Error () ->
+            (* docs-ci failed to answer: not a 404, which crawlers take as
+               "gone", but a 503, "try again later". *)
+            not_found_page ~unavailable:true 503
+        | Ok (Some version) ->
             Dream.redirect req ~code:302
               (Url.Package.documentation ?hash
                  ~version:(Ocamlorg_package.Version.to_string version)
                  ~page:path
                  (Ocamlorg_package.Name.to_string name))
-      else response_404_page
+      else not_found_page 404
   | Some doc ->
       let* search_index_digest =
         Package_helper.search_index_digest ~kind t package
