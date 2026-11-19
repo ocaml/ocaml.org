@@ -169,7 +169,7 @@ let () =
               let t = parse with_extra_field in
               Alcotest.(check string) "name still parsed" "foo" t.Status.name);
         ] );
-      ( "bodies that are not JSON",
+      ( "bodies that do not parse",
         [
           test_case "are errors, not exceptions" non_json_bodies;
           test_case "nor is malformed JSON" malformed_bodies;
