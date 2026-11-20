@@ -166,6 +166,16 @@ let selects_versions () =
   Alcotest.(check strings) "newest in range" [ "1.2"; "1.10" ] (vs selected);
   Alcotest.(check bool) "truncated" true truncated
 
+let present signature =
+  M.Present
+    {
+      kind = "value";
+      name = "f";
+      qualified = "f";
+      signature;
+      sig_key = M.signature_key signature;
+    }
+
 let summarises_history () =
   let check msg (expected, oldest, expected_changed) l =
     let f, last, i, o, r, changed = M.history_summary l in
@@ -177,9 +187,9 @@ let summarises_history () =
     ([ Some "1.1"; Some "1.3"; Some "1.1"; Some "2.0" ], false, [ "1.3" ])
     [
       ("1.0", M.Absent);
-      ("1.1", M.Present "val f : int");
-      ("1.2", M.Present "val f : int");
-      ("1.3", M.Present "val f : string");
+      ("1.1", present "val f : int");
+      ("1.2", present "val f : int");
+      ("1.3", present "val f : string");
       ("1.4", M.Unknown);
       ("2.0", M.Absent);
     ];
@@ -187,8 +197,8 @@ let summarises_history () =
     ([ Some "1.8.0"; Some "1.8.2"; None; Some "1.9.0" ], true, [])
     [
       ("1.7.0", M.Unknown);
-      ("1.8.0", M.Present "x");
-      ("1.8.2", M.Present "x");
+      ("1.8.0", present "x");
+      ("1.8.2", present "x");
       ("1.9.0", M.Absent);
     ];
   check "never present"
@@ -675,6 +685,144 @@ let stalled_docs_ci () =
         "comparison" "docs-ci did not answer within 0.2 s: call again later" e
   | Ok _ -> Alcotest.fail "expected an error"
 
+(* --- the fixes of the third review --- *)
+
+let big_page =
+  String.concat "" (List.init 5001 (fun i -> value (Printf.sprintf "x%d" i)))
+
+(* A page too large to be read whole lacks items: the items of the other page
+   missing from it are neither added nor removed, as far as is known. *)
+let truncated_page_in_a_diff () =
+  let diff ~from_page ~to_page =
+    payload
+      (api_call
+         [
+           ("lwt.1.0", built (lwt_page from_page));
+           ("lwt.2.0", built (lwt_page to_page));
+         ]
+         [ "1.0"; "2.0" ]
+         [ ("module", `String "Lwt"); ("from_version", `String "1.0") ])
+  in
+  let json, partial = diff ~from_page:(page ()) ~to_page:big_page in
+  Alcotest.(check bool) "complete" false partial;
+  Alcotest.(check bool) "removed unknown" true (member "removed" json = `Null);
+  Alcotest.(check bool) "added known" true (to_list (member "added" json) <> []);
+  Alcotest.(check bool) "truncated" true (member "truncated" json = `Bool true);
+  let json, _ = diff ~from_page:big_page ~to_page:(page ()) in
+  Alcotest.(check bool) "added unknown" true (member "added" json = `Null);
+  Alcotest.(check bool)
+    "removed known" true
+    (to_list (member "removed" json) <> [])
+
+(* Version 1.0 has a value [label] and a field [r.label]; 2.0 has the field
+   only. The item followed is the same in every version. *)
+let one_item_across_versions () =
+  let docs =
+    [
+      ("lwt.1.0", built (lwt_page (value "label" ^ record ~field_type:"int")));
+      ("lwt.2.0", built (lwt_page (record ~field_type:"int")));
+    ]
+  in
+  let history args =
+    payload
+      (api_call docs [ "1.0"; "2.0" ]
+         (("module", `String "Lwt") :: ("identifier", `String "label") :: args))
+    |> fst
+  in
+  let json = history [] in
+  Alcotest.(check string)
+    "the item of the newest version" "field"
+    (to_string (member "kind" json));
+  Alcotest.(check string)
+    "its full name" "r.label"
+    (to_string (member "resolved_identifier" json));
+  Alcotest.(check strings)
+    "the field in both"
+    [ "1.0 present"; "2.0 present" ]
+    (statuses json);
+  Alcotest.(check strings)
+    "unchanged" []
+    (to_list (member "changed_in" json) |> List.map to_string);
+  let json = history [ ("kind", `String "value") ] in
+  Alcotest.(check string) "the value" "value" (to_string (member "kind" json));
+  Alcotest.(check string)
+    "removed, not changed into the field" "2.0"
+    (to_string (member "removed_in" json))
+
+let from_version_after_latest_documented () =
+  match
+    api_call
+      [
+        ("lwt.1.0", built (lwt_page (page ())));
+        ("lwt.2.0", built (lwt_page (page ())));
+        ("lwt.2.1", `Missing);
+      ]
+      [ "1.0"; "2.0"; "2.1" ]
+      [ ("module", `String "Lwt"); ("from_version", `String "2.1") ]
+  with
+  | Error e ->
+      Alcotest.(check string)
+        "error"
+        "from_version \"2.1\" is newer than the latest documented version \
+         \"2.0\""
+        e
+  | Ok _ -> Alcotest.fail "expected an error"
+
+(* Signatures are compared whole, past the part shown, and without the spaces
+   odoc lays out differently from one version to the next. *)
+let compares_signatures () =
+  let long = String.make 3000 'a' in
+  let entries sigs =
+    fst
+      (M.api_entries
+         (String.concat ""
+            (List.mapi
+               (fun i signature -> value ~signature (Printf.sprintf "f%d" i))
+               sigs)))
+  in
+  let _, _, changed =
+    M.api_diff
+      ~before:(entries [ "f:(int -> int) -> int"; long ^ " -> int" ])
+      ~after:(entries [ "f: ( int -> int ) -> int"; long ^ " -> bool" ])
+  in
+  Alcotest.(check strings)
+    "only the change past the part shown" [ "f1" ]
+    (List.map (fun ((e : M.api_entry), _) -> e.qualified) changed)
+
+let identifier_forms () =
+  let p s = match M.parse_identifier s with Ok s -> s | Error e -> e in
+  Alcotest.(check string) "polymorphic variant tag" "Null" (p "`Null");
+  match
+    api_call [] [ "1.0" ]
+      [ ("module", `String "Lwt"); ("identifier", `String "Lwt.run") ]
+  with
+  | Error e ->
+      Alcotest.(check string)
+        "module path"
+        "identifier \"Lwt.run\" starts with the module path: give it as \"run\""
+        e
+  | Ok _ -> Alcotest.fail "expected an error"
+
+(* Many large changes: the lists stop at a total size. *)
+let diff_size_is_bounded () =
+  let page =
+    String.concat ""
+      (List.init 150 (fun i ->
+           value ~signature:(String.make 1000 'a') (Printf.sprintf "x%d" i)))
+  in
+  let json, _ =
+    payload
+      (api_call
+         [
+           ("lwt.1.0", built (lwt_page page)); ("lwt.2.0", built (lwt_page ""));
+         ]
+         [ "1.0"; "2.0" ]
+         [ ("module", `String "Lwt"); ("from_version", `String "1.0") ])
+  in
+  let n = List.length (to_list (member "removed" json)) in
+  Alcotest.(check bool) "some, not all" true (n > 0 && n < 150);
+  Alcotest.(check bool) "truncated" true (member "truncated" json = `Bool true)
+
 let () =
   Alcotest.run "mcp_api_changes"
     [
@@ -704,5 +852,17 @@ let () =
           Alcotest.test_case "duplicate ids" `Quick duplicate_ids;
           Alcotest.test_case "unreadable status" `Quick unreadable_status;
           Alcotest.test_case "stalled docs-ci" `Quick stalled_docs_ci;
+        ] );
+      ( "third review",
+        [
+          Alcotest.test_case "truncated page in a diff" `Quick
+            truncated_page_in_a_diff;
+          Alcotest.test_case "one item across versions" `Quick
+            one_item_across_versions;
+          Alcotest.test_case "from_version after the latest" `Quick
+            from_version_after_latest_documented;
+          Alcotest.test_case "signature comparison" `Quick compares_signatures;
+          Alcotest.test_case "identifier forms" `Quick identifier_forms;
+          Alcotest.test_case "diff size" `Quick diff_size_is_bounded;
         ] );
     ]

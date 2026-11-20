@@ -126,7 +126,9 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
   `>>=`, `let*` or `mod`, a module, exception or class) and an optional
   `kind`, it instead gives that item's signature in each version of a range
   (`max_versions`, 30 by default, at most 60), and the versions where it was
-  introduced, changed, and removed. Versions without documentation are
+  introduced, changed, and removed. The item is looked up in the newest
+  version that has it, and the same item (same kind and full name) is followed
+  in every version. Versions without documentation are
   skipped, and `introduced_in` is `null` when the item is already in the
   oldest version checked. This helps upgrade code to a new version, see what a
   release changed, or find the version a dependency bound needs. When docs-ci
