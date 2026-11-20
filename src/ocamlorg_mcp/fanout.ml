@@ -44,7 +44,13 @@ let map ?(concurrency = default_concurrency) ?(deadline = default_deadline)
           (fun () ->
             let+ v = f item in
             Done v)
-          (fun e -> Lwt.return (Failed e));
+          (function
+            | Lwt.Canceled as e ->
+                (* At the deadline, [Lwt.pick] keeps the timer's [Skipped].
+                   Otherwise the whole map was cancelled, and the worker must
+                   not take this for a failed item and start the next one. *)
+                Lwt.reraise e
+            | e -> Lwt.return (Failed e));
         (let+ () = Lwt_unix.sleep remaining in
          Skipped);
       ]

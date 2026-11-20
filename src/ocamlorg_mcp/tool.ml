@@ -42,7 +42,8 @@ let partial (block : Yojson.Safe.t) : Yojson.Safe.t =
   | `Assoc fields ->
       let meta =
         match List.assoc_opt "_meta" fields with
-        | Some (`Assoc m) -> `Assoc ((partial_key, `Bool true) :: m)
+        | Some (`Assoc m) ->
+            `Assoc ((partial_key, `Bool true) :: List.remove_assoc partial_key m)
         | _ -> `Assoc [ (partial_key, `Bool true) ]
       in
       `Assoc (List.remove_assoc "_meta" fields @ [ ("_meta", meta) ])
