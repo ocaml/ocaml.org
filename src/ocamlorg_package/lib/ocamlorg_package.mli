@@ -132,6 +132,15 @@ module Documentation : sig
       read. The first is cached for [OCAMLORG_PACKAGE_CACHES_TTL], the second
       only for [OCAMLORG_DOC_NEGATIVE_TTL]. *)
 
+  val status_result :
+    kind:[< `Package | `Universe of string ] ->
+    state ->
+    pkg ->
+    (Documentation.Status.t option, unit) result Lwt.t
+  (** {!status}, telling a version that docs-ci has no documentation for
+      ([Ok None]) from a status that could not be read ([Error]): a backend
+      failure, which the MCP tools report as such. *)
+
   val sidebar :
     kind:[ `Package | `Universe of string ] ->
     pkg ->
@@ -201,6 +210,11 @@ module Documentation : sig
       (Version.t option, unit) result Lwt.t
     (** [Ocamlorg_package.latest_documented_version], reading the statuses with
         [get] and [now], as {!status} does. *)
+
+    val http_get :
+      string -> (string, [ `Not_found | `Msg of string ]) result Lwt.t
+    (** The fetch of {!status}: [Error] for a failed fetch, and a failure with
+        [Lwt.Canceled] when cancelled. *)
 
     val package_caches_ttl : float
     (** How long {!status} caches a status or a missing one, in seconds:
@@ -370,6 +384,10 @@ val latest_documented_version :
     when none of the probed versions is documented, and [Error ()] when the
     status of a version could not be read before a documented one was found. The
     search stops there. **)
+
+val latest_documented_version_depth : int
+(** How many of the newest versions {!latest_documented_version} probes:
+    [OCAMLORG_LATEST_DOC_VERSION_DEPTH], 25 by default. *)
 
 val is_latest_version : state -> Name.t -> Version.t -> bool
 (** Returns a bool if the given version is the latest version of a package. **)

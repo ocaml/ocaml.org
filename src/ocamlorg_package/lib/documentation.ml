@@ -131,7 +131,8 @@ let sidebar_of_string = Sidebar.navmap_of_string
 
 (* GET [url]: its body, [Error `Not_found] when the backend answers 404, and
    [Error (`Msg _)] for every other failure (another error status, a network
-   error, the timeout, a body over the size limit). *)
+   error, the timeout, a body over the size limit). When the caller cancels it,
+   it fails with [Lwt.Canceled], which is no answer to cache. *)
 let http_get url =
   let open Lwt.Syntax in
   Logs.info (fun m -> m "GET %s" url);
@@ -240,9 +241,14 @@ let http_get url =
   Lwt.catch
     (fun () -> Lwt.pick [ fetch (); timed_out () ])
     (function
+      | Lwt.Canceled as e ->
+          (* Cancelled by the caller (the deadline of an MCP call), which wants
+             no answer: re-raise, so that the callers that cache a failed fetch
+             do not cache this one, which says nothing about docs-ci. *)
+          Lwt.reraise e
       | e ->
-      Logs.err (fun m -> m "%s" (Printexc.to_string e));
-      Lwt.return (Error (`Msg (Printexc.to_string e))))
+          Logs.err (fun m -> m "%s" (Printexc.to_string e));
+          Lwt.return (Error (`Msg (Printexc.to_string e))))
 
 (* Fetch a resource's ETag with a headers-only HEAD, transferring no body. dill
    serves a per-version ETag for doc assets (verified on [doc/index.js]); it is

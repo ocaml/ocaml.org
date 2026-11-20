@@ -6,6 +6,7 @@ module Toc = Toc
 module Package = Package
 module Pagination = Pagination
 module Search = Search
+module Utils = Utils
 
 let about = About.render
 let academic_users = Academic_users.render

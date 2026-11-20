@@ -248,6 +248,59 @@ let failures_are_cached_briefly () =
       Ok {|{"name": "foo"}|};
     ]
 
+(* A fetch cancelled by its caller (the deadline of an MCP call) is no answer:
+   [http_get] fails with [Lwt.Canceled] rather than returning an error, so that
+   the status cache, shared with the website, does not keep it as a failure to
+   read status.json. The fetch is made to a local server that never answers. *)
+let cancelled_fetch_is_not_cached () =
+  let open Lwt.Syntax in
+  Lwt_main.run
+    (let sock = Lwt_unix.socket Unix.PF_INET Unix.SOCK_STREAM 0 in
+     let* () =
+       Lwt_unix.bind sock (Unix.ADDR_INET (Unix.inet_addr_loopback, 0))
+     in
+     Lwt_unix.listen sock 8;
+     let port =
+       match Lwt_unix.getsockname sock with
+       | Unix.ADDR_INET (_, port) -> port
+       | Unix.ADDR_UNIX _ -> assert false
+     in
+     let url = Printf.sprintf "http://127.0.0.1:%d/status.json" port in
+     let fetch = Documentation.For_testing.http_get url in
+     let* () = Lwt_unix.sleep 0.1 in
+     Lwt.cancel fetch;
+     Alcotest.(check bool)
+       "the fetch fails with Canceled" true
+       (Lwt.state fetch = Lwt.Fail Lwt.Canceled);
+     let package = package () in
+     let state = Ocamlorg_package.mockup_state [ package ] in
+     let status get =
+       Documentation.For_testing.status ~get
+         ~now:(fun () -> 0.)
+         ~kind:`Package state package
+     in
+     let* outcome =
+       Lwt.pick
+         [
+           Lwt.map
+             (fun _ -> `Answered)
+             (status (fun _ -> Documentation.For_testing.http_get url));
+           Lwt.map (fun () -> `Cancelled) (Lwt_unix.sleep 0.1);
+         ]
+     in
+     Alcotest.(check bool) "cancelled" true (outcome = `Cancelled);
+     let requests = ref 0 in
+     let+ answer =
+       status (fun _ ->
+           incr requests;
+           Lwt.return (Ok without_digest))
+     in
+     Alcotest.(check int) "fetched again" 1 !requests;
+     Alcotest.(check (option string))
+       "the status" (Some "foo")
+       (Option.map (fun (s : Status.t) -> s.name) answer);
+     Lwt.async (fun () -> Lwt_unix.close sock))
+
 (* [latest_documented_version] over versions 3.0, 2.0 and 1.0 of foo, whose
    status.json requests are answered with [statuses] (given for 1.0, 2.0 and
    3.0; [Error `Not_found] for none), on a fresh cache. Also the versions whose
@@ -354,5 +407,7 @@ let () =
           test_case "a failure only for the negative TTL"
             failures_are_cached_briefly;
           test_case "the latest documented version" latest_documented_version;
+          test_case "a cancelled fetch is not cached"
+            cancelled_fetch_is_not_cached;
         ] );
     ]
