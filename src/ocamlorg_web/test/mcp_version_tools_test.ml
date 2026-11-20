@@ -42,7 +42,45 @@ let reads_heading_versions () =
     (hv ~known_versions:[ "1.1"; "1.2" ] "OCaml 4.14 support");
   Alcotest.(check string)
     "even a version of the package" "none"
-    (hv ~known_versions:[ "5.2.0" ] "Support for OCaml 5.2.0")
+    (hv ~known_versions:[ "5.2.0" ] "Support for OCaml 5.2.0");
+  (* The project's name, up to a "-" or "_" of the package name. *)
+  Alcotest.(check string)
+    "after the project name" "like 0.24.0"
+    (hv ~package:"ctypes-foreign" "ctypes 0.24.0");
+  Alcotest.(check string)
+    "after the project name, with an underscore" "like 5.9.0"
+    (hv ~package:"lwt_ppx" "Lwt 5.9.0");
+  Alcotest.(check string)
+    "a longer prefix" "like 6.0.0"
+    (hv ~package:"cohttp-lwt-unix" "cohttp-lwt 6.0.0");
+  Alcotest.(check string)
+    "not a word that only starts the name" "none"
+    (hv ~package:"ctypes-foreign" "ct 0.24.0");
+  Alcotest.(check string)
+    "not OCaml, even for an ocaml-* package" "none"
+    (hv ~package:"ocaml-lsp-server" "OCaml 5.2 support")
+
+(* ctypes-foreign's CHANGES names the project, ctypes, in its headings. *)
+let project_name_headings () =
+  let text =
+    "# Changes\n\n\
+     ## ctypes 0.24.0\n\n\
+     - a\n\n\
+     ## ctypes 0.23.0\n\n\
+     - b\n\n\
+     ## ctypes 0.22.0\n\n\
+     - c\n"
+  in
+  let versions =
+    match
+      M.changelog_range
+        ~is_known:(known [ "0.22.0"; "0.23.0"; "0.24.0" ])
+        ~package:"ctypes-foreign" ~since:"0.23.0" text
+    with
+    | Some (_, versions) -> versions
+    | None -> [ "no headings" ]
+  in
+  Alcotest.(check (list string)) "after 0.23.0" [ "0.24.0" ] versions
 
 let range ?(known_versions = []) ?since ?until text =
   M.changelog_range ~is_known:(known known_versions) ?since ?until text
@@ -470,6 +508,7 @@ let () =
       ( "changelog",
         [
           Alcotest.test_case "heading versions" `Quick reads_heading_versions;
+          Alcotest.test_case "project name" `Quick project_name_headings;
           Alcotest.test_case "sections" `Quick selects_sections;
           Alcotest.test_case "oldest first" `Quick oldest_first;
           Alcotest.test_case "heading level" `Quick level_with_most_versions;

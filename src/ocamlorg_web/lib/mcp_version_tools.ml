@@ -328,12 +328,23 @@ let lead_words =
 
 type heading_version = Known of string | Like of string
 
+(* Whether [w] (lowercase) names the project of [package]: the package name, or
+   its part before a "-" or "_" ("ctypes" for ctypes-foreign, "lwt" for
+   lwt_ppx), as in "## ctypes 0.24.0". Not "ocaml", which in a heading usually
+   names the compiler ("## OCaml 5.2 support"), even for an ocaml-* package. *)
+let names_project ~package w =
+  w = package
+  || w <> "" && w <> "ocaml"
+     && List.exists
+          (fun sep -> String.starts_with ~prefix:(w ^ sep) package)
+          [ "-"; "_" ]
+
 (* The version a heading names: its first token, after the words of
-   [lead_words], the [package] name and dates. That token is one of the
-   package's versions ([is_known]), with or without its "v", or something that
-   looks like a version; else the heading names none. So "## OCaml 4.14 support"
-   and "## Support for OCaml 5.2.0" name no version, even when 5.2.0 is one of
-   the package's. *)
+   [lead_words], the project's name (see {!names_project}) and dates. That token
+   is one of the package's versions ([is_known]), with or without its "v", or
+   something that looks like a version; else the heading names none. So "##
+   OCaml 4.14 support" and "## Support for OCaml 5.2.0" name no version, even
+   when 5.2.0 is one of the package's. *)
 let heading_version ~is_known ?(package = "") text =
   let package = String.lowercase_ascii package in
   let tokens =
@@ -351,8 +362,8 @@ let heading_version ~is_known ?(package = "") text =
             if version_like t then Some (Like t)
             else
               let w = String.lowercase_ascii t in
-              if List.mem w lead_words || w = package || is_date t then
-                first rest
+              if List.mem w lead_words || names_project ~package w || is_date t
+              then first rest
               else None)
   in
   first tokens
