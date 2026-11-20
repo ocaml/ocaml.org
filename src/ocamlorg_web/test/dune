@@ -9,6 +9,7 @@
   utf_8_snippet_test
   case_fold_test
   mcp_version_tools_test
+  mcp_api_changes_test
   package_health_test
   v2_asset_test
   planet_search_test

@@ -111,6 +111,29 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
   `deprecated`). Takes a `package` name, `include_source` to also get the
   source archive of each version (URL and checksums), and `limit` and `offset`
   for paging.
+- `ocaml_module_changes`: how the API of a module changed across versions, from
+  the package's documentation. Takes a `package` and a `module` as written in
+  OCaml code (for example `Lwt_main` or `Lwt_unix.LargeFile`; a module reached
+  through an `open`, such as `Term` for why3's `Why3.Term`, is found too, and
+  when a name matches several modules the least nested one is used and the
+  others are listed). The module is resolved in the newest version where it
+  is found, and the module at that full path is used in every version. By
+  default it compares two versions of the module (`from_version` and
+  `to_version`, defaulting to the latest documented version and the
+  documented version before it) and lists the items added, removed, and
+  changed, with their signatures. With an `identifier` (a value such as
+  `run`, a type, a constructor or field such as `t.Foo`, an operator such as
+  `>>=`, `let*` or `mod`, a module, exception or class) and an optional
+  `kind`, it instead gives that item's signature in each version of a range
+  (`max_versions`, 30 by default, at most 60), and the versions where it was
+  introduced, changed, and removed. The item is looked up in the newest
+  version that has it, and the same item (same kind and full name) is followed
+  in every version. Versions without documentation are
+  skipped, and `introduced_in` is `null` when the item is already in the
+  oldest version checked. This helps upgrade code to a new version, see what a
+  release changed, or find the version a dependency bound needs. When docs-ci
+  cannot be read for some versions, or the call takes too long, the result says
+  so (`partial`) and is not cached, so a later call can complete it.
 - `ocaml_package_changelog`: the changelog shipped with a version of a package
   (its `CHANGES` or `CHANGELOG` file) as plain text. Takes a `package`, an
   optional `version` (defaulting to the latest documented version), and
