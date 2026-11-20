@@ -135,10 +135,17 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
 - `ocaml_module_changes`: how the API of a module changed across versions, from
   the package's documentation. Takes a `package` and a `module` as written in
   OCaml code (for example `Lwt_main` or `Lwt_unix.LargeFile`; a module reached
-  through an `open`, such as `Term` for why3's `Why3.Term`, is found too, and
-  when a name matches several modules the least nested one is used and the
-  others are listed). The module is resolved in the newest version where it
-  is found, and the module at that full path is used in every version. By
+  through an `open`, such as `Term` for why3's `Why3.Term`, is found too). The
+  module is resolved in the newest version where it is found, and the module at
+  that full path is used in every version. When a name matches several modules,
+  the least nested ones count, and the result lists the others
+  (`ambiguous_with`) and says how the one used was chosen (`resolved_by`):
+  with an `identifier`, the one that has it (`identifier`; at most 5 modules
+  are checked, and `unchecked` lists those that could not be); otherwise one
+  under `Stdlib`, since OCaml code opens it implicitly (`stdlib`: in
+  `ocaml-base-compiler`, `List` is `Stdlib.List`, not compiler-libs'
+  `Parameter.List`); otherwise the first in the documentation's order
+  (`order`). By
   default it compares two versions of the module (`from_version` and
   `to_version`, defaulting to the latest documented version and the
   documented version before it) and lists the items added, removed, and
@@ -151,10 +158,15 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
   version that has it, and the same item (same kind and full name) is followed
   in every version. Versions without documentation are
   skipped, and `introduced_in` is `null` when the item is already in the
-  oldest version checked. This helps upgrade code to a new version, see what a
+  oldest version checked. When no version checked has the item, `found` is
+  `false`, with a hint when it looks like an item of a submodule or may be in
+  another module of that name, and the status of each version shows which ones
+  could not be checked. This helps upgrade code to a
+  new version, see what a
   release changed, or find the version a dependency bound needs. When docs-ci
-  cannot be read for some versions, or the call takes too long, the result says
-  so (`partial`) and is not cached, so a later call can complete it.
+  cannot be read for some versions, or for a module checked for the
+  `identifier`, or the call takes too long, the result says so (`partial`) and
+  is not cached, so a later call can complete it.
 - `ocaml_package_changelog`: the changelog shipped with a version of a package
   (its `CHANGES` or `CHANGELOG` file) as plain text. Takes a `package`, an
   optional `version` (defaulting to the latest documented version), and
