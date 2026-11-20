@@ -188,6 +188,8 @@ The server side of the deployment is documented in the [OCaml infrastructure wik
 
 The wiki's [OCaml.org Deployment](https://infra.ocaml.org/www-ocaml-org.html) page predates this setup and still describes Caddy in production. The deployer itself runs on the `ci5.ocamllabs.io` host.
 
+[`doc/DEPLOYMENT.md`](doc/DEPLOYMENT.md) gives the whole picture: each step from a push to running containers, what a request goes through in production and on staging, which repository controls which layer, every GitHub Actions workflow and external service, where other documentation is wrong, and where a change tends to get stuck.
+
 To test the deployment locally, run the following commands:
 
 ```bash
@@ -283,6 +285,8 @@ The maintainers will add your pull request to `staging` if it is worthwhile
 to do so. For example, documentation PRs or new features where we need testing
 and feedback from the community will generally be live on `staging` for a while
 before they get merged.
+
+How maintainers add pull requests to `staging`, remove them, and push to contributors' forks is described in [`doc/FOR_MAINTAINERS.md`](doc/FOR_MAINTAINERS.md). Staging deploys currently fail, see [Staging Outage](doc/DEPLOYMENT.md#staging-outage).
 
 ### Managing Dependencies
 
