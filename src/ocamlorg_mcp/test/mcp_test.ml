@@ -427,6 +427,15 @@ let test_partial_not_cached () =
   let _ = call_partial ~cache calls in
   Alcotest.(check int) "complete result cached" 2 !calls
 
+(* Marking a block twice leaves one mark, which [take_partial] removes. *)
+let test_partial_twice () =
+  let block = Ocamlorg_mcp.Tool.text_content "data" in
+  let twice = Ocamlorg_mcp.Tool.(partial (partial block)) in
+  Alcotest.(check bool) "one mark" true (Ocamlorg_mcp.Tool.partial block = twice);
+  Alcotest.(check bool)
+    "removed" true
+    (Ocamlorg_mcp.Tool.take_partial twice = Some block)
+
 (* --- Fanout: bounded concurrency, errors per item, deadline. --- *)
 
 module F = Ocamlorg_mcp.Fanout
@@ -508,6 +517,20 @@ let test_fanout_stalled_item () =
     (Lwt.state stalled = Lwt.Fail Lwt.Canceled);
   Alcotest.(check bool) "deadline reached" true (F.deadline_reached outcomes)
 
+(* A map cancelled from outside fails with [Lwt.Canceled], and does not start
+   the next item, whichever of the item and its timer Lwt cancels first. *)
+let test_fanout_cancelled () =
+  let stalled, _ = Lwt.task () in
+  let started = ref [] in
+  let f x =
+    started := x :: !started;
+    if x = 0 then stalled else Lwt.return x
+  in
+  let p = F.map ~concurrency:1 ~deadline:10. f [ 0; 1 ] in
+  Lwt.cancel p;
+  Alcotest.(check bool) "cancelled" true (Lwt.state p = Lwt.Fail Lwt.Canceled);
+  Alcotest.(check (list int)) "the next item not started" [ 0 ] !started
+
 let () =
   Alcotest.run "ocamlorg_mcp"
     [
@@ -556,6 +579,7 @@ let () =
             test_cache_key_canonical;
           Alcotest.test_case "partial result is not cached" `Quick
             test_partial_not_cached;
+          Alcotest.test_case "partial marked twice" `Quick test_partial_twice;
         ] );
       ( "fanout",
         [
@@ -565,5 +589,7 @@ let () =
             test_fanout_concurrency;
           Alcotest.test_case "deadline" `Quick test_fanout_deadline;
           Alcotest.test_case "stalled item" `Quick test_fanout_stalled_item;
+          Alcotest.test_case "cancelled from outside" `Quick
+            test_fanout_cancelled;
         ] );
     ]

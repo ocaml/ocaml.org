@@ -55,7 +55,7 @@ type limiter = unit Lwt_pool.t
 let limiter n : limiter = Lwt_pool.create (max 1 n) (fun () -> Lwt.return_unit)
 
 let limited (l : limiter) (b : backend) : backend =
-  let use f = Lwt_pool.use l (fun () -> f ()) in
+  let use f = Lwt_pool.use l f in
   {
     status = (fun pkg -> use (fun () -> b.status pkg));
     sidebar = (fun pkg -> use (fun () -> b.sidebar pkg));
@@ -113,8 +113,9 @@ let latest_documented ~depth backend state name =
 (* How long a tool waits for docs-ci in one call. Past it, the tool reports what
    it has, as a partial result or an error. Each fetch also has its own timeout
    (OCAMLORG_DOC_FETCH_TIMEOUT, 30 s by default), longer than this, but a call
-   can make many fetches. *)
-let call_deadline = 15.
+   can make many fetches. It is the default deadline of
+   {!Ocamlorg_mcp.Fanout.map}. *)
+let call_deadline = Ocamlorg_mcp.Fanout.default_deadline
 
 (* [Some v] when [f ()] resolves to [v] within [seconds], else [None]: [f ()] is
    then cancelled, and so are its docs-ci fetches, which cache nothing. *)
@@ -143,11 +144,21 @@ let valid_module_component p =
 (* "Ortools.Sat" -> ["Ortools"; "Sat"]. A module whose name contains a quote
    ("M'") is valid OCaml, but its documentation page cannot be fetched (the path
    guard {!Mcp_tools.is_safe_path} excludes quotes), so it is rejected with that
-   reason rather than reported missing. *)
+   reason rather than reported missing. So is a name that does not start with a
+   capital letter ("make"), which no module has. *)
 let parse_module_path s =
   let parts = String.split_on_char '.' (String.trim s) in
   if not (List.for_all valid_module_component parts) then
     Error (Printf.sprintf "invalid module path: %S" s)
+  else if
+    not
+      (List.for_all
+         (fun p -> match p.[0] with 'A' .. 'Z' -> true | _ -> false)
+         parts)
+  then
+    Error
+      (Printf.sprintf
+         "invalid module path: %S (module names start with a capital letter)" s)
   else if String.contains s '\'' then
     Error
       (Printf.sprintf
@@ -239,6 +250,10 @@ let resolve_module ?(max_matches = default_max_matches) ~name ~version
         match (n.kind, module_kind n, target) with
         | Navmap.Library, _, _ ->
             walk ancestors (Some (library_name n)) n.children
+        | (Navmap.Parameter | Navmap.Class | Navmap.Class_type), _, _ ->
+            (* Not modules: what they contain is not reached through the
+               enclosing module. *)
+            []
         | _, Some _, first :: rest ->
             let here =
               if title n = first then

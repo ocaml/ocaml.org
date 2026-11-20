@@ -136,6 +136,32 @@ let shallowest_wins () =
     [ "Aaa.Result module x x/Aaa/Result/index.html" ]
     (matches ~sidebar:clashing "Aaa.Result")
 
+(* Functor [Make]'s parameter [Net] has a submodule [IO], which is not
+   [Make.IO]: only [S.IO] is. *)
+let with_parameter =
+  [
+    library "x"
+      [
+        node "Make" "x/Make/index.html"
+          ~children:
+            [
+              node ~kind:Navmap.Parameter "Net"
+                "x/Make/argument-1-Net/index.html"
+                ~children:[ node "IO" "x/Make/argument-1-Net/IO/index.html" ];
+            ];
+        node "S" "x/S/index.html" ~children:[ node "IO" "x/S/IO/index.html" ];
+      ];
+  ]
+
+let functor_parameters () =
+  Alcotest.(check strings)
+    "not a module of a functor parameter"
+    [ "S.IO module x x/S/IO/index.html" ]
+    (matches ~sidebar:with_parameter "IO");
+  Alcotest.(check strings)
+    "nor through the functor" []
+    (matches ~sidebar:with_parameter "Make.IO")
+
 let top_level_modules () =
   let r = resolve "Nope" in
   Alcotest.(check strings) "no match" [] (List.map describe r.matches);
@@ -157,6 +183,11 @@ let module_paths () =
   Alcotest.(check string)
     "path characters" "invalid module path: \"../etc\"" (p "../etc");
   Alcotest.(check string) "empty" "invalid module path: \"\"" (p "");
+  Alcotest.(check string)
+    "lower case"
+    "invalid module path: \"make.real\" (module names start with a capital \
+     letter)"
+    (p "make.real");
   Alcotest.(check string)
     "a quote"
     "invalid module path: \"M'\" (module names containing a quote are not \
@@ -241,6 +272,36 @@ let cancelled_fetch_frees_its_slot () =
        (Mcp_docs.within 1. (fun () -> docs.status (package "fast" "1.0")))
     = Some (Ok None))
 
+(* A fetch cancelled at its call's deadline while it waits for a slot leaves the
+   queue. *)
+let cancelled_queued_fetch () =
+  let l = Mcp_docs.limiter 1 in
+  let docs =
+    Mcp_docs.limited l
+      (counting_backend ~running:(ref 0) ~peak:(ref 0) (fun _ ->
+           Lwt.return_unit))
+  in
+  let held, release = Lwt.wait () in
+  let holder = Lwt_pool.use l (fun () -> held) in
+  let call =
+    Ocamlorg_mcp.Fanout.map ~deadline:0.02
+      (fun () -> docs.status (package "p" "1.0"))
+      [ () ]
+  in
+  Alcotest.(check int) "queued" 1 (Lwt_pool.wait_queue_length l);
+  let outcomes = Lwt_main.run call in
+  Alcotest.(check bool)
+    "cancelled at the deadline" true
+    (Ocamlorg_mcp.Fanout.deadline_reached outcomes);
+  Alcotest.(check int) "no longer queued" 0 (Lwt_pool.wait_queue_length l);
+  Lwt.wakeup_later release ();
+  Lwt_main.run holder;
+  Alcotest.(check bool)
+    "the slot is free again" true
+    (Lwt_main.run
+       (Mcp_docs.within 1. (fun () -> docs.status (package "p" "2.0")))
+    = Some (Ok None))
+
 let () =
   Alcotest.run "mcp_docs"
     [
@@ -249,6 +310,7 @@ let () =
           Alcotest.test_case "dotted paths" `Quick dotted_paths;
           Alcotest.test_case "ambiguous names" `Quick ambiguous_names;
           Alcotest.test_case "shallowest wins" `Quick shallowest_wins;
+          Alcotest.test_case "functor parameters" `Quick functor_parameters;
           Alcotest.test_case "top-level modules" `Quick top_level_modules;
         ] );
       ( "helpers",
@@ -265,5 +327,7 @@ let () =
             limiter_bounds_all_calls;
           Alcotest.test_case "a cancelled fetch frees its slot" `Quick
             cancelled_fetch_frees_its_slot;
+          Alcotest.test_case "a cancelled queued fetch leaves the queue" `Quick
+            cancelled_queued_fetch;
         ] );
     ]
