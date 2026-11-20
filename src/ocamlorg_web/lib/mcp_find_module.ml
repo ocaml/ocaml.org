@@ -17,6 +17,7 @@ module Fanout = Ocamlorg_mcp.Fanout
 module Navmap = Ocamlorg_frontend.Navmap
 
 let max_candidates = 40
+let sanitize = Mcp_doc_html.sanitize_field
 let max_matches = 50
 
 (* How many of a candidate's newest versions are probed for documentation: 5, or
@@ -73,7 +74,8 @@ type provider =
   | Module of Mcp_docs.module_match
 
 (* The libraries named [target] in a sidebar. docs-ci gives library nodes no
-   page, so their path is usually [None]. *)
+   page, so their path is usually [None]; a path is kept only if
+   {!Mcp_tools.is_safe_path} accepts it, as for the pages of modules. *)
 let find_libraries ~name ~version ~target (sidebar : Navmap.t) =
   let rec go (nodes : Navmap.t) =
     List.concat_map
@@ -84,7 +86,9 @@ let find_libraries ~name ~version ~target (sidebar : Navmap.t) =
               {
                 name = target;
                 path =
-                  Option.map (Mcp_tools.doc_relative_path ~name ~version) n.href;
+                  Option.bind n.href (fun h ->
+                      let p = Mcp_tools.doc_relative_path ~name ~version h in
+                      if Mcp_tools.is_safe_path p then Some p else None);
               }
             :: go n.children
         | _ -> go n.children)
@@ -92,20 +96,37 @@ let find_libraries ~name ~version ~target (sidebar : Navmap.t) =
   in
   go sidebar
 
+(* What [target] is looked for as, for [kind] "module", "library" or "any": a
+   library name, and a module path. With "any", a name that is not a module path
+   is also looked for as the module of that name with a capital letter
+   ("lwt_main" as [Lwt_main]), as a file lwt_main.ml defines it. *)
+let searched_as ~kind target =
+  let module_path t = Result.to_option (Mcp_docs.parse_module_path t) in
+  match kind with
+  | "library" -> (Some target, None)
+  | "module" -> (None, module_path target)
+  | _ ->
+      ( Some target,
+        match module_path target with
+        | Some p -> Some p
+        | None -> module_path (String.capitalize_ascii target) )
+
 (* The libraries and modules of a sidebar that [target] names, for [kind]
-   "module", "library" or "any", and whether the modules were cut at
-   [Mcp_docs.default_max_matches]. A module path is resolved by
+   "module", "library" or "any" (see {!searched_as}), and whether the modules
+   were cut at [Mcp_docs.default_max_matches]. A module path is resolved by
    {!Mcp_docs.resolve_module}: "Lwt_unix.LargeFile", or "Infix" for the least
    nested modules of that name. *)
 let find_in_sidebar ~kind ~target ~name ~version sidebar =
+  let library, module_path = searched_as ~kind target in
   let libraries =
-    if kind = "module" then []
-    else find_libraries ~name ~version ~target sidebar
+    match library with
+    | None -> []
+    | Some target -> find_libraries ~name ~version ~target sidebar
   in
   let modules, truncated =
-    match (kind, Mcp_docs.parse_module_path target) with
-    | "library", _ | _, Error _ -> ([], false)
-    | _, Ok path ->
+    match module_path with
+    | None -> ([], false)
+    | Some path ->
         let r = Mcp_docs.resolve_module ~name ~version sidebar path in
         (List.map (fun m -> Module m) r.matches, r.matches_truncated)
   in
@@ -129,7 +150,22 @@ let compiler_libraries =
     "dynlink";
     "threads";
     "runtime_events";
+    "bigarray";
+    "compiler-libs";
   ]
+
+(* The modules of the standard library (OCaml 5.4), which code uses without the
+   "Stdlib." prefix. Some opam packages have a module of the same name (the
+   package "result", Base's [List]). *)
+let stdlib_modules =
+  String.split_on_char ' '
+    "Arg Array ArrayLabels Atomic Bigarray Bool Buffer Bytes BytesLabels \
+     Callback Char Complex Condition Digest Domain Dynarray Effect Either \
+     Ephemeron Filename Float Format Fun Gc Hashtbl Iarray In_channel Int \
+     Int32 Int64 Lazy Lexing List ListLabels Map Marshal MoreLabels Mutex \
+     Nativeint Obj Oo Option Out_channel Pair Parsing Pqueue Printexc Printf \
+     Queue Random Repr Result Scanf Semaphore Seq Set Stack StdLabels String \
+     StringLabels Sys Type Uchar Unit Weak"
 
 let compiler_library_note target =
   let root =
@@ -141,6 +177,12 @@ let compiler_library_note target =
          "%s comes with the OCaml compiler, not with an opam package: see the \
           API reference of the OCaml distribution at https://ocaml.org/api/"
          root)
+  else if List.mem root stdlib_modules then
+    Some
+      (Printf.sprintf
+         "the standard library, which comes with the OCaml compiler, has a \
+          module %s (Stdlib.%s): see https://ocaml.org/api/"
+         root root)
   else None
 
 let find_module_schema =
@@ -174,7 +216,10 @@ let find_module_schema =
                 [
                   ("type", `String "array");
                   ("items", `Assoc [ ("type", `String "string") ]);
-                  ("description", `String "Optional packages to search.");
+                  ( "description",
+                    `String
+                      (Printf.sprintf "Optional packages to search, at most %d."
+                         max_candidates) );
                 ] );
             ( "dependencies_of",
               `Assoc
@@ -245,19 +290,39 @@ let parse_query state args =
         | Some _ -> Error "argument \"packages\" must be an array of strings")
     | _ -> Ok []
   in
+  (* each once, in the order given *)
+  let given =
+    List.fold_left
+      (fun acc p -> if List.mem p acc then acc else p :: acc)
+      [] given
+    |> List.rev
+  in
+  let* () =
+    if List.length given > max_candidates then
+      Error
+        (Printf.sprintf "argument \"packages\" has more than %d packages"
+           max_candidates)
+    else Ok ()
+  in
   let* deps =
     let* of_ = Mcp_tools.optional_string_member "dependencies_of" args in
     let* version =
       Mcp_tools.optional_string_member "dependencies_of_version" args
     in
-    match of_ with
-    | None -> Ok []
-    | Some p ->
-        let* pkg = Mcp_tools.resolve state p version in
-        Ok
-          (List.map
-             (fun (n, _) -> Package.Name.to_string n)
-             (Package.dependencies pkg @ Package.depopts pkg))
+    match (of_, version) with
+    | None, None -> Ok []
+    | None, Some _ ->
+        Error
+          "argument \"dependencies_of_version\" is given without \
+           \"dependencies_of\""
+    | Some p, version -> (
+        match Mcp_tools.resolve state p version with
+        | Error e -> Error ("argument \"dependencies_of\": " ^ e)
+        | Ok pkg ->
+            Ok
+              (List.map
+                 (fun (n, _) -> Package.Name.to_string n)
+                 (Package.dependencies pkg @ Package.depopts pkg)))
   in
   Ok { target; kind; given; deps }
 
@@ -284,12 +349,16 @@ let find_module ?docs ?(deadline = Mcp_docs.call_deadline) state : Tool.t =
          ocaml_module_documentation. Use it to find which package (or which of \
          a package's dependencies) a module comes from, e.g. when reading code \
          that uses it or after an \"Unbound module\" or \"Library not found\" \
-         error. It searches the candidates only, not every package, and only \
-         those documented in one of their %d newest versions. Packages given \
-         that do not exist are listed in \"unknown_packages\". When docs-ci \
-         could not be read for some candidates, or the call ran out of time, \
-         \"partial\" is true: call again later. The modules of the OCaml \
-         distribution (Stdlib, Unix, Str, ...) are in no package."
+         error. With kind \"any\", a lowercase name is looked for both as a \
+         library and as the module of that name with a capital letter \
+         (\"lwt_main\" as Lwt_main); \"searched_as\" gives both names. It \
+         searches the candidates only, not every package, and only those \
+         documented in one of their %d newest versions (\"no-docs\" with \
+         \"versions_probed\" otherwise). Packages given that do not exist are \
+         listed in \"unknown_packages\". When docs-ci could not be read for \
+         some candidates, or the call ran out of time, \"partial\" is true: \
+         call again later. The modules of the OCaml distribution (Stdlib and \
+         its modules such as List, Unix, Str, ...) are in no package."
         max_candidates doc_depth;
     input_schema = find_module_schema;
     handler =
@@ -410,10 +479,12 @@ let find_module ?docs ?(deadline = Mcp_docs.call_deadline) state : Tool.t =
                                 | Module m ->
                                     [
                                       ("kind", `String m.kind);
-                                      ("library", opt m.library);
+                                      ( "library",
+                                        opt (Option.map sanitize m.library) );
                                       ( "module",
-                                        `String (Mcp_docs.module_path_string m)
-                                      );
+                                        `String
+                                          (sanitize
+                                             (Mcp_docs.module_path_string m)) );
                                       ("path", `String m.page);
                                     ]))
                             found
@@ -441,10 +512,26 @@ let find_module ?docs ?(deadline = Mcp_docs.call_deadline) state : Tool.t =
                       | Fanout.Done _ -> false)
                     results
                 in
+                let versions_probed package =
+                  match Package.Name.of_string_opt package with
+                  | None -> 0
+                  | Some name ->
+                      min doc_depth
+                        (List.length
+                           (Mcp_docs.versions_newest_first state name))
+                in
+                let library, module_path = searched_as ~kind:q.kind q.target in
                 Mcp_docs.ok_json ~partial
                   ([
                      ("name", `String q.target);
                      ("kind", `String q.kind);
+                     ( "searched_as",
+                       `Assoc
+                         [
+                           ("library", opt library);
+                           ( "module",
+                             opt (Option.map (String.concat ".") module_path) );
+                         ] );
                      ("matches", `List matches);
                      ( "matches_truncated",
                        `Bool
@@ -473,6 +560,12 @@ let find_module ?docs ?(deadline = Mcp_docs.call_deadline) state : Tool.t =
                                 | Fanout.Done (_, Match { truncated = true; _ })
                                   ->
                                     [ ("matches_truncated", `Bool true) ]
+                                | Fanout.Done (_, No_docs) ->
+                                    (* how many of its newest versions *)
+                                    [
+                                      ( "versions_probed",
+                                        `Int (versions_probed package) );
+                                    ]
                                 | _ -> []))
                             results) );
                      ( "unknown_packages",

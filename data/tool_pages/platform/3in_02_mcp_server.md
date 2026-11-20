@@ -67,9 +67,11 @@ odoc content shown on package pages.
   it gives the package, that version, the library defining the module, the
   module's full path (`Infix` finds `Lwt.Infix` and `Lwt_result.Infix`), and
   the page `path` for `ocaml_module_documentation`. Takes a `name` and an
-  optional `kind` (`module`, `library` or `any`). Packages given that do not
-  exist are listed in `unknown_packages`. The libraries of the OCaml
-  distribution (`Stdlib`, `Unix`, `Str`, ...) are in no package: see the
+  optional `kind` (`module`, `library` or `any`); with `any`, the default, a
+  lowercase name such as `lwt_main` is looked for both as a library and as
+  the module `Lwt_main`. Packages given that do not exist are listed in
+  `unknown_packages`. The libraries of the OCaml distribution (`Stdlib` and
+  its modules such as `List`, `Unix`, `Str`, ...) are in no package: see the
   [standard library API](https://ocaml.org/api/).
 
 ### Package Dependencies

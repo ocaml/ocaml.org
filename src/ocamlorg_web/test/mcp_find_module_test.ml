@@ -71,7 +71,9 @@ let guesses_packages () =
    not in 6.0.0, and other packages: [app] depends on lwt and [nodoc], [nodoc]
    has no documentation, [flaky]'s fetches raise, [big] depends on 45 packages,
    [unread]'s status cannot be read, [stalled] never answers, [deep] has 7
-   versions without documentation, and [sigs] has 25 module types [S]. *)
+   versions without documentation, [sigs], [sigs2] and [sigs3] have 25 module
+   types [S], [empty] has an empty sidebar, and [app] 0.9 depends on [nodoc] and
+   optionally on [sigs]. *)
 let deps l = List.map (fun d -> (n d, None)) l
 let many = List.init 45 (Printf.sprintf "dep%02d")
 
@@ -87,6 +89,11 @@ let state =
        package "unread" "1.0";
        package "stalled" "1.0";
        package "sigs" "1.0";
+       package "sigs2" "1.0";
+       package "sigs3" "1.0";
+       package "empty" "1.0";
+       package "app" "0.9" ~dependencies:(deps [ "nodoc" ])
+         ~depopts:(deps [ "sigs" ]);
      ]
     @ List.init 7 (fun i -> package "deep" (Printf.sprintf "1.%d" i))
     @ List.map (fun d -> package d "1.0") many)
@@ -121,6 +128,9 @@ let docs =
     ("flaky.1.0", `Built (lwt_sidebar, [], []));
     ("unread.1.0", `Unreadable);
     ("sigs.1.0", `Built (module_types_s, [], []));
+    ("sigs2.1.0", `Built (module_types_s, [], []));
+    ("sigs3.1.0", `Built (module_types_s, [], []));
+    ("empty.1.0", `Built ([], [], []));
   ]
 
 let find_call ?(fetches = ref 0) ?(status_fetches = ref 0) ?deadline args =
@@ -247,8 +257,22 @@ let argument_errors () =
     "packages type" "argument \"packages\" must be an array of strings"
     (error [ ("name", `String "X"); ("packages", `String "lwt") ]);
   Alcotest.(check string)
-    "unknown dependencies_of" "unknown package: \"nope\""
+    "unknown dependencies_of"
+    "argument \"dependencies_of\": unknown package: \"nope\""
     (error [ ("name", `String "X"); ("dependencies_of", `String "nope") ]);
+  Alcotest.(check string)
+    "dependencies_of_version alone"
+    "argument \"dependencies_of_version\" is given without \"dependencies_of\""
+    (error
+       [ ("name", `String "X"); ("dependencies_of_version", `String "1.0") ]);
+  Alcotest.(check string)
+    "too many packages" "argument \"packages\" has more than 40 packages"
+    (error
+       [
+         ("name", `String "X");
+         ( "packages",
+           `List (List.init 41 (fun i -> `String (Printf.sprintf "p%d" i))) );
+       ]);
   Alcotest.(check string)
     "no candidate at all"
     "no package to search for \"Xyz\": none is named after it, and no known \
@@ -345,6 +369,140 @@ let compiler_libraries () =
   in
   Alcotest.(check string) "a note" note (to_string (member "note" json))
 
+(* --- the fixes of the first review --- *)
+
+(* With kind "any", a lowercase name is also the module of that name with a
+   capital letter; "lwt" is both a library and a module. *)
+let lowercase_name () =
+  let json, partial =
+    payload
+      (find_call
+         [ ("name", `String "lwt_main"); ("packages", `List [ `String "lwt" ]) ])
+  in
+  Alcotest.(check bool) "complete" false partial;
+  Alcotest.(check strings)
+    "the module"
+    [ "lwt 5.9.0 module Lwt_main lwt.unix lwt.unix/Lwt_main/index.html" ]
+    (matches json);
+  Alcotest.(check bool)
+    "searched as" true
+    (member "searched_as" json
+    = `Assoc [ ("library", `String "lwt_main"); ("module", `String "Lwt_main") ]
+    );
+  Alcotest.(check strings)
+    "a library and a module"
+    [ "library lwt -"; "module Lwt lwt lwt/Lwt/index.html" ]
+    (find "any" "lwt")
+
+(* A library's path is kept only if it is a safe relative path. *)
+let library_paths () =
+  let library href : Ocamlorg_frontend.Navmap.toc =
+    {
+      title = "Library <code>x</code>";
+      kind = Ocamlorg_frontend.Navmap.Library;
+      href = Some href;
+      children = [];
+    }
+  in
+  Alcotest.(check strings)
+    "paths"
+    [ "library x x/index.html"; "library x -" ]
+    (M.find_in_sidebar ~kind:"library" ~target:"x" ~name:"spoof" ~version:"1.0"
+       [
+         library "/p/spoof/1.0/doc/x/index.html";
+         library "/p/spoof/1.0/doc/../../../etc/x.html";
+       ]
+    |> fst |> List.map describe)
+
+let no_docs_in_newest_versions () =
+  let json, _ =
+    payload
+      (find_call
+         [
+           ("name", `String "X");
+           ("packages", `List [ `String "deep"; `String "nodoc" ]);
+         ])
+  in
+  Alcotest.(check (list int))
+    "versions probed" [ 5; 1 ]
+    (List.map
+       (fun c -> match member "versions_probed" c with `Int n -> n | _ -> -1)
+       (to_list (member "checked" json)))
+
+let packages_given_once () =
+  let json, _ =
+    payload
+      (find_call
+         [
+           ("name", `String "Lwt_main");
+           ( "packages",
+             `List
+               [ `String "nope"; `String "lwt"; `String "nope"; `String "lwt" ]
+           );
+         ])
+  in
+  Alcotest.(check strings) "checked" [ "lwt match" ] (checked json);
+  Alcotest.(check bool)
+    "unknown once" true
+    (member "unknown_packages" json = `List [ `String "nope" ])
+
+let stdlib_modules () =
+  match find_call [ ("name", `String "List") ] with
+  | Error e ->
+      Alcotest.(check bool)
+        "a hint in the error" true
+        (contains
+           "the standard library, which comes with the OCaml compiler, has a \
+            module List (Stdlib.List)"
+           e)
+  | Ok _ -> Alcotest.fail "expected an error"
+
+let empty_sidebar () =
+  let json, partial =
+    payload
+      (find_call
+         [
+           ("name", `String "Lwt_main"); ("packages", `List [ `String "empty" ]);
+         ])
+  in
+  Alcotest.(check bool) "partial" true partial;
+  Alcotest.(check strings)
+    "checked"
+    [ "empty docs-unavailable"; "lwt match" ]
+    (checked json)
+
+(* 20 matches in each of 3 packages: 50 in all. *)
+let matches_across_packages () =
+  let json, _ =
+    payload
+      (find_call
+         [
+           ("name", `String "S");
+           ( "packages",
+             `List [ `String "sigs"; `String "sigs2"; `String "sigs3" ] );
+         ])
+  in
+  Alcotest.(check int)
+    "50 matches" 50
+    (List.length (to_list (member "matches" json)));
+  Alcotest.(check bool) "cut" true (member "matches_truncated" json = `Bool true)
+
+(* The dependencies of a given version, optional dependencies included. *)
+let dependencies_of_a_version () =
+  let json, _ =
+    payload
+      (find_call
+         [
+           ("name", `String "S");
+           ("dependencies_of", `String "app");
+           ("dependencies_of_version", `String "0.9");
+         ])
+  in
+  Alcotest.(check strings)
+    "checked"
+    [ "nodoc no-docs"; "sigs match" ]
+    (checked json)
+
 let () =
   Alcotest.run "mcp_find_module"
     [
@@ -366,5 +524,19 @@ let () =
           Alcotest.test_case "truncated matches" `Quick truncated_matches;
           Alcotest.test_case "status probes" `Quick status_probes;
           Alcotest.test_case "compiler libraries" `Quick compiler_libraries;
+        ] );
+      ( "first review",
+        [
+          Alcotest.test_case "lowercase name" `Quick lowercase_name;
+          Alcotest.test_case "library paths" `Quick library_paths;
+          Alcotest.test_case "no docs in newest versions" `Quick
+            no_docs_in_newest_versions;
+          Alcotest.test_case "packages given once" `Quick packages_given_once;
+          Alcotest.test_case "stdlib modules" `Quick stdlib_modules;
+          Alcotest.test_case "empty sidebar" `Quick empty_sidebar;
+          Alcotest.test_case "matches across packages" `Quick
+            matches_across_packages;
+          Alcotest.test_case "dependencies of a version" `Quick
+            dependencies_of_a_version;
         ] );
     ]
