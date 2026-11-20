@@ -12,6 +12,7 @@
   mcp_api_changes_test
   package_health_test
   v2_asset_test
+  mcp_find_module_test
   planet_search_test
   data_index_test
   planet_facets_test

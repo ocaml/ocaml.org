@@ -17,6 +17,9 @@ module Mcp_tools = Mcp_tools
    beyond one page, which tests replace with a stand-in. *)
 module Mcp_docs = Mcp_docs
 
+(* Exposed for tests: ocaml_module_find. *)
+module Mcp_find_module = Mcp_find_module
+
 (* Exposed for tests: ocaml_package_versions and ocaml_package_changelog. *)
 module Mcp_version_tools = Mcp_version_tools
 

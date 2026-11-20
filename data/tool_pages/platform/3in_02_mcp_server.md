@@ -53,6 +53,27 @@ odoc content shown on package pages.
   `package`, an optional `version`, and a `path` (for example
   `lwt/Lwt/index.html`, as returned by `ocaml_package_documentation`).
 
+### Finding a Module or Library
+
+- `ocaml_module_find`: which package provides a module (for example
+  `EzLwtSys` or `Lwt_unix.LargeFile`) or a findlib library (for example
+  `lwt.unix`), for instance after an `Unbound module` or `Library not found`
+  error. It searches candidate packages, not every package: those given in
+  `packages`, the direct dependencies and optional dependencies of
+  `dependencies_of` (with an optional `dependencies_of_version`), but not
+  their own dependencies, and packages named after the module or library or a
+  prefix of it (`lwt` for `Lwt_main`), at most 40. A candidate is searched in
+  its latest documented version, among its 5 newest versions. For each match
+  it gives the package, that version, the library defining the module, the
+  module's full path (`Infix` finds `Lwt.Infix` and `Lwt_result.Infix`), and
+  the page `path` for `ocaml_module_documentation`. Takes a `name` and an
+  optional `kind` (`module`, `library` or `any`); with `any`, the default, a
+  lowercase name such as `lwt_main` is looked for both as a library and as
+  the module `Lwt_main`. Packages given that do not exist are listed in
+  `unknown_packages`. The libraries of the OCaml distribution (`Stdlib` and
+  its modules such as `List`, `Unix`, `Str`, ...) are in no package: see the
+  [standard library API](https://ocaml.org/api/).
+
 ### Package Dependencies
 
 ocaml.org can answer dependency queries because it already computes
