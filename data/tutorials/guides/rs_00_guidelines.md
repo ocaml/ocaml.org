@@ -42,8 +42,7 @@ debugging).
 
 In place of
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let temp =
   f x y z
     “large
@@ -55,8 +54,7 @@ let temp =
 
 write
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let t =
   “large
   expression”
@@ -73,8 +71,7 @@ let temp =
 In the case of an iterator whose argument is a complex function, define
 the function by a `let` binding as well. In place of
 
-<!-- $MDX skip -->
-```ocaml
+```text
 List.map
   (function x ->
     blabla
@@ -85,8 +82,7 @@ List.map
 
 write
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let f x =
   blabla
   blabla
@@ -201,8 +197,7 @@ while allowing a useful verification upon execution.
 For example, the conditions to validate a function's arguments
 are usefully verified by assertions.
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let f x =
   assert (x >= 0);
   ...
@@ -261,8 +256,7 @@ with `1` and `0`.
 
 Example:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let add_expression expr1 expr2 = ...
 let print_expression expr = ...
 ```
@@ -294,8 +288,7 @@ notation. Thus you will prefer short but meaningful module names.
 > gives rise to difficult-to-detect semantic errors.
 >
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let lim = String.length name - 1 in
 ...
 let lim = Array.length v - 1 in
@@ -319,7 +312,6 @@ and this could be perfectly silent, since many of
 leads to subtle bugs in the display that are difficult to trace. For
 instance:
 
-<!-- $MDX skip -->
 ```ocaml
 let f () =
   Format.print_string "Hello World!"; print_newline ()
@@ -517,7 +509,6 @@ procedural part from the functional part of the function
 elegantly solves the problem, and the resulting program just looks
 better afterwards! For instance, you would turn the problematic
 definition
-<!-- $MDX skip -->
 ```ocaml
 let add x y =
   if x > 1 then print_int x;
@@ -559,8 +550,7 @@ argument explicitly.
 
 To simply traverse an array or a string, use a `for` loop.
 
-<!-- $MDX skip -->
-```ocaml
+```text
 for i = 0 to Array.length v - 1 do
   ...
 done
@@ -568,7 +558,6 @@ done
 
 If the loop is complex or returns a result, use a recursive function.
 
-<!-- $MDX skip -->
 ```ocaml
 let find_index e v =
   let rec loop i =
@@ -623,8 +612,7 @@ for the program's main function. If you must catch every
 exception in order to maintain an algorithm's invariant, be careful to name
 the exception and re-raise it after having reset the invariant.
 Typically:
-<!-- $MDX skip -->
-```ocaml
+```text
 let ic = open_in ...
 and oc = open_out ... in
 try
@@ -717,7 +705,6 @@ type type_of_definition =
 for Boolean flags when the interpretation of constructors `true` and
 `false` are clear. The usefulness of the following
 types' definitions are then questionable:
-<!-- $MDX skip -->
 ```ocaml
 type switch = On | Off
 type bit = One | Zero
@@ -757,18 +744,19 @@ let rec square_elements = function
 ```
 
 On the other hand, avoid writing:
-<!-- $MDX skip -->
 ```ocaml
 let iterator f x l =
   List.fold_right (List.fold_left f) [List.map x l] l
 ```
 
 even though you get:
-<!-- $MDX skip -->
 ```ocaml
-  let iterator f x l =
+# let iterator f x l =
     List.fold_right (List.fold_left f) [List.map x l] l;;
-  iterator (fun l x -> x :: l) (fun l -> List.rev l) [[1; 2; 3]]
+val iterator : ('a list -> 'a -> 'a list) -> ('a -> 'a) -> 'a list -> 'a list =
+  <fun>
+# iterator (fun l x -> x :: l) (fun l -> List.rev l) [[1; 2; 3]];;
+- : int list list = [[1; 2; 3]; [3; 2; 1]]
 ```
 
 In case of express need, be sure to add an explanatory
@@ -837,7 +825,6 @@ future.
   * It is a bad idea to use imperative style to code a function that
  is *naturally* recursive. For instance, to compute the length of
  a list, you shouldn't write:
-<!-- $MDX skip -->
 ```ocaml
 let list_length l =
   let l = ref l in
@@ -850,7 +837,6 @@ let list_length l =
 
 in place of the following recursive function that's so simple and
 clear:
-<!-- $MDX skip -->
 ```ocaml
 let rec list_length = function
   | [] -> 0
@@ -945,7 +931,6 @@ x + y
 
 * Another efficient way to write unreadable code is to mix all or some
  of these methods. For example:
-<!-- $MDX skip -->
 ```ocaml
 (fun u -> print_string "world"; print_string u)
   (let temp = print_string "Hello"; "!" in
@@ -1138,8 +1123,7 @@ Indent long character strings with the convention in force at that line,
 plus an indication of string continuation at the end of each line (a `\`
 character at the end of the line omits white spaces at the
 beginning of the next line):
-<!-- $MDX skip -->
-```ocaml
+```text
 let universal_declaration =
   "-1- Programs are born and remain free and equal under the law;\n\
    distinctions can only be based on the common good." in
@@ -1203,8 +1187,7 @@ embedded construct (otherwise subsequent clauses of the enclosing
 pattern-matching construct will automatically be associated with the
 enclosed pattern-matching construct). For example:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 match x with
 | 1 ->
   begin match y with
@@ -1317,8 +1300,7 @@ When dealing with a “large expression” in such an operation sequence,
 it's preferable to define the “large expression” with the help of a `let in`
 construction than to indent the line. In place of
 
-<!-- $MDX skip -->
-```ocaml
+```text
 x + y + z
 + “large
   expression”
@@ -1326,8 +1308,7 @@ x + y + z
 
 write
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let t =
   “large
    expression” in
@@ -1338,8 +1319,7 @@ You most certainly must bind expressions too large to be written
 in one operation when using a combination of operators. In place of
 the unreadable expression
 
-<!-- $MDX skip -->
-```ocaml
+```text
 (x + y + z * t)
 / (“large
     expression”)
@@ -1347,8 +1327,7 @@ the unreadable expression
 
 write
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let u =
   “large
   expression” in
@@ -1357,8 +1336,7 @@ let u =
 
 These guidelines extend to all operators. For example:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let u =
   “large
   expression” in
@@ -1374,8 +1352,7 @@ better offset the definition.
 
 With a regular indentation of 1 or 2 spaces:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let f x = function
   | C ->
   | D ->
@@ -1396,8 +1373,7 @@ Other conventions are acceptable, for example:
 
 * The body is left-justified when pattern-matching.
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let f x = function
 | C ->
 | D ->
@@ -1413,8 +1389,7 @@ let f x = function
 
 * The body is justified just under the name of the defined function.
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let f x =
     let tmp = ... in
     try g x with
@@ -1434,8 +1409,7 @@ The expression following a definition introduced by `let` is indented to
 the same level as the keyword `let`, and the keyword `in`, which
 introduces it, is written at the end of the line:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let expr1 = ... in
 expr1 + expr1
 ```
@@ -1443,8 +1417,7 @@ expr1 + expr1
 In the case of a series of `let` definitions, the preceding rule implies.
 These definitions should be placed at the same indentation level:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let expr1 = ... in
 let n = ... in
 ...
@@ -1458,8 +1431,7 @@ let n = ... in
 Variation: some write the keyword `in` alone on one line to set apart
 the final expression of the computation:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let e1 = ... in
 let e2 = ... in
 let new_expr =
@@ -1480,8 +1452,7 @@ Mult_expression (new_expr, new_expr)
 Write conditions with multiple branches at the same level of
 indentation:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 if cond1 ...
 if cond2 ...
 if cond3 ...
@@ -1505,8 +1476,7 @@ e4
 If expressions in the branches of multiple conditions have to be
 enclosed (when they include statements for instance), write:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 if cond then begin
     e1
   end else
@@ -1519,8 +1489,7 @@ if cond3 then ...
 Some suggest another method for multiple conditionals: starting each
 line by the keyword `else`:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 if cond1 ...
 else if cond2 ...
 else if cond3 ...
@@ -1669,8 +1638,7 @@ Arrows of pattern-matching clauses should not be aligned.
 For a `match` or a `try`, align the clauses with the beginning of the
 construct:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 match lam with
 | Abs (x, body) -> 1 + size_lambda body
 | App (lam1, lam2) -> size_lambda lam1 + size_lambda lam2
@@ -1684,8 +1652,7 @@ try f x with
 Put the keyword `with` at the end of the line. If the preceding
 expression extends beyond one line, put `with` on its own line:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 try
   let y = f x in
   if ...
@@ -1725,7 +1692,6 @@ expressions overflows. They will then indent the last clause like this:
 Other programmers go one step further and apply this rule systematically
 to any clause of any pattern-matching.
 
-<!-- $MDX skip -->
 ```ocaml
 let rec fib = function
   | 0 ->
@@ -1788,8 +1754,7 @@ let rec size_lambda accu = function
 This consists in indenting normally under the keyword `match` or
 `function` that has previously been pushed to the right. Don't write:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let rec f x = function
               | [] -> ...
               ...
@@ -1797,8 +1762,7 @@ let rec f x = function
 
 but choose to indent the line under the `let` keyword:
 
-<!-- $MDX skip -->
-```ocaml
+```text
 let rec f x = function
   | [] -> ...
   ...
@@ -1864,7 +1828,6 @@ write a function that is recursive in its tail (or *tail-rec*). This
 is a function that just ends by a recursive call (which is not the case
 here, since a call to `+` has to be performed after the recursive call has
 returned). Just use an accumulator for intermediate results, as in:
-<!-- $MDX skip -->
 ```ocaml
 let list_length l =
   let rec loop accu = function
