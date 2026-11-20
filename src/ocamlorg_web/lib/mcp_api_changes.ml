@@ -39,7 +39,8 @@ type api_entry = {
   name : string;  (** its own name: "run", "Foo", "(>>=)", "x" *)
   qualified : string;
       (** within the module: "run", "t.Foo", "t.A.x" for field [x] of the inline
-          record of constructor [A] of type [t] *)
+          record of constructor [A] of type [t], "E.x" for field [x] of
+          exception [E] *)
   signature : string;
       (** plain text, entities decoded, not sanitised, at most
           [max_signature_bytes] *)
@@ -77,30 +78,65 @@ let id_kinds =
     ("class-", Some "class");
   ]
 
-let classify ~id ~classes =
-  match
-    List.find_opt (fun (p, _) -> String.starts_with ~prefix:p id) id_kinds
-  with
-  | None | Some (_, None) -> None
-  | Some (p, Some kind) -> (
-      let rest =
-        String.sub id (String.length p) (String.length id - String.length p)
-      in
-      if rest = "" then None
-      else
-        match (kind, String.index_opt rest '.') with
-        | "type", Some _ ->
-            (* type-t.Foo: a constructor or a field of type t; type-t.A.x: a
-               field of the inline record of its constructor A *)
-            let i = String.rindex rest '.' in
-            let own = String.sub rest (i + 1) (String.length rest - i - 1) in
-            if own = "" then None
-            else
-              Some
-                ( (if List.mem "field" classes then "field" else "constructor"),
-                  own,
-                  rest )
-        | _ -> Some (kind, rest, rest))
+type builder = {
+  b_kind : string;
+  b_name : string;
+  b_qualified : string;
+  b_depth : int;
+  buf : Buffer.t;
+  mutable sig_state : [ `Waiting | `Capturing | `Done ];
+}
+
+let drop_prefix p s =
+  if String.starts_with ~prefix:p s then
+    String.sub s (String.length p) (String.length s - String.length p)
+  else s
+
+let after_last_dot s =
+  match String.rindex_opt s '.' with
+  | None -> s
+  | Some i -> String.sub s (i + 1) (String.length s - i - 1)
+
+(* A record field (class "field"). Its anchor names the type for a field of a
+   record type ("type-t.x"), but not the constructor for a field of an inline
+   record: odoc writes "type-t.x" for the fields of all the constructors of [t],
+   and, for an exception or an extension constructor, ".x", "module-M.x" or
+   "field-x", depending on the odoc version and on where the exception is. So a
+   field inside a constructor, an extension or an exception (its [parent], the
+   innermost item open) is named after it ("t.A.x", "E.x"), and the anchor only
+   gives the field's own name. *)
+let classify_field ~id ~parent =
+  let own = after_last_dot (drop_prefix "field-" id) in
+  if own = "" then None
+  else
+    match parent with
+    | Some p
+      when p.b_kind = "constructor" || p.b_kind = "extension"
+           || p.b_kind = "exception" ->
+        Some ("field", own, p.b_qualified ^ "." ^ own)
+    | _ when String.starts_with ~prefix:"type-" id ->
+        Some ("field", own, drop_prefix "type-" id)
+    | _ -> Some ("field", own, own)
+
+(* An anchored element: its kind, own name and qualified name, if it is an
+   item. *)
+let classify ~id ~classes ~parent =
+  if List.mem "field" classes then classify_field ~id ~parent
+  else
+    match
+      List.find_opt (fun (p, _) -> String.starts_with ~prefix:p id) id_kinds
+    with
+    | None | Some (_, None) -> None
+    | Some (p, Some kind) -> (
+        let rest = drop_prefix p id in
+        if rest = "" then None
+        else
+          match (kind, String.index_opt rest '.') with
+          | "type", Some _ ->
+              (* type-t.Foo: a constructor of type t *)
+              let own = after_last_dot rest in
+              if own = "" then None else Some ("constructor", own, rest)
+          | _ -> Some (kind, rest, rest))
 
 let max_signature_bytes = 2000
 let max_page_entries = 5000
@@ -135,15 +171,6 @@ let normalise_signature s =
 
 let signature_key s = Digest.string (normalise_signature s)
 
-type builder = {
-  b_kind : string;
-  b_name : string;
-  b_qualified : string;
-  b_depth : int;
-  buf : Buffer.t;
-  mutable sig_state : [ `Waiting | `Capturing | `Done ];
-}
-
 (* The items of a module page, in page order, and whether the page had more than
    [max_page_entries] (or was too large to parse). One streaming pass over the
    page; Markup decodes the entities of attributes and text. *)
@@ -176,7 +203,9 @@ let api_entries html : api_entry list * bool =
           | Some id, Some cls -> (
               let classes = String.split_on_char ' ' cls in
               if List.mem "anchored" classes then
-                match classify ~id ~classes with
+                match
+                  classify ~id ~classes ~parent:(List.nth_opt !open_entries 0)
+                with
                 | None -> ()
                 | Some _ when !count >= max_page_entries -> truncated := true
                 | Some (kind, own, qualified) ->
@@ -394,7 +423,7 @@ type presence = Present of api_entry | Absent | Unknown
    [introduced_in] is the first version where it is present after one where it
    is absent, and [None] when it is present in the oldest version whose status
    is known ([present_in_oldest_checked]): it may then be older than every
-   version checked.
+   version checked, even if it was removed and added back later.
 
    [removed_in] is the first version where it is absent after one where it is
    present, and [changed_in] the versions where its signature differs from the
@@ -442,7 +471,7 @@ let history_summary (results : (string * presence) list) =
   in
   ( first_present,
     last_present,
-    first `Introduced,
+    (if present_in_oldest then None else first `Introduced),
     present_in_oldest,
     first `Removed,
     changed )
@@ -451,7 +480,8 @@ let max_history_versions = 60
 let default_history_versions = 30
 let max_diff_entries = 200
 
-(* The bytes of names and signatures of a comparison, all lists together. *)
+(* The bytes of names and signatures of a comparison, all lists together, as
+   given (sanitised). *)
 let max_diff_bytes = 100_000
 
 (* How many older versions are probed for a documented one when from_version is
@@ -483,11 +513,12 @@ let api_changes_schema =
               str
                 "Optional item of the module, without the module path: a value \
                  (\"run\"), a type (\"t\"), a constructor or record field \
-                 (\"Foo\" or \"t.Foo\"), an operator (\">>=\", \"let*\", \
-                 \"mod\", \".%{}\"), a module, exception or class. With it, \
-                 the tool tracks that item across versions instead of \
-                 comparing two versions of the whole module. Methods of \
-                 classes cannot be tracked." );
+                 (\"Foo\" or \"t.Foo\"), a field of the inline record of a \
+                 constructor or exception, named after it (\"Yield.state\"), \
+                 an operator (\">>=\", \"let*\", \"mod\", \".%{}\"), a module, \
+                 exception or class. With it, the tool tracks that item across \
+                 versions instead of comparing two versions of the whole \
+                 module. Methods of classes cannot be tracked." );
             ( "kind",
               `Assoc
                 [
@@ -907,30 +938,63 @@ let identifier_history ~deadline docs state (q : api_query) ident =
         [] results
   in
   let partial = List.exists (fun (_, o, _) -> is_backend_failure o) results in
-  Mcp_docs.ok_json ~partial
-    (common q @ reference_fields reference
-    @ [
-        ("identifier", `String (sanitize ident));
-        ( "resolved_identifier",
-          match item with
-          | Some i -> `String (sanitize i.qualified)
-          | None -> `Null );
-        ("kind", `String (match item with Some i -> i.kind | None -> q.kind));
-        ("versions", `List (List.map version_json results));
-        ("versions_truncated", `Bool versions_truncated);
-        ("first_present", opt_string first_present);
-        ("last_present", opt_string last_present);
-        ("introduced_in", opt_string introduced);
-        ("present_in_oldest_checked", `Bool present_in_oldest);
-        ("changed_in", strings changed);
-        ("removed_in", opt_string removed);
-      ]
-    @ (if top_level = [] then []
-       else [ ("top_level_modules", sanitized top_level) ])
-    @ [
-        ("partial", `Bool partial);
-        ("deadline_reached", `Bool (Fanout.deadline_reached outcomes));
-      ])
+  let page_truncated =
+    List.exists
+      (function _, Fanout.Done (Page _), Unknown -> true | _ -> false)
+      results
+  in
+  match (reference, item) with
+  | Some _, None when not (partial || page_truncated) ->
+      (* The module is there and its page was read whole in every documented
+         version: a typo, or an item of a submodule ("Infix.map"). *)
+      let hint =
+        match String.rindex_opt ident '.' with
+        | Some i when match ident.[0] with 'A' .. 'Z' -> true | _ -> false ->
+            Printf.sprintf
+              "; if %S is a submodule, pass \"module\": %S and \"identifier\": \
+               %S"
+              (String.sub ident 0 i)
+              (String.concat "." q.mods ^ "." ^ String.sub ident 0 i)
+              (String.sub ident (i + 1) (String.length ident - i - 1))
+        | _ -> ""
+      in
+      let checked =
+        match (results, List.rev results) with
+        | (oldest, _, _) :: _, (newest, _, _) :: _ when oldest <> newest ->
+            Printf.sprintf "versions %s to %s" oldest newest
+        | (v, _, _) :: _, _ -> "version " ^ v
+        | [], _ -> "no version"
+      in
+      Error
+        (Printf.sprintf "%s %S not found in %s in %s%s"
+           (if q.kind = "any" then "identifier" else q.kind)
+           ident (String.concat "." q.mods) checked hint)
+  | _ ->
+      Mcp_docs.ok_json ~partial
+        (common q @ reference_fields reference
+        @ [
+            ("identifier", `String (sanitize ident));
+            ( "resolved_identifier",
+              match item with
+              | Some i -> `String (sanitize i.qualified)
+              | None -> `Null );
+            ( "kind",
+              `String (match item with Some i -> i.kind | None -> q.kind) );
+            ("versions", `List (List.map version_json results));
+            ("versions_truncated", `Bool versions_truncated);
+            ("first_present", opt_string first_present);
+            ("last_present", opt_string last_present);
+            ("introduced_in", opt_string introduced);
+            ("present_in_oldest_checked", `Bool present_in_oldest);
+            ("changed_in", strings changed);
+            ("removed_in", opt_string removed);
+          ]
+        @ (if top_level = [] then []
+           else [ ("top_level_modules", sanitized top_level) ])
+        @ [
+            ("partial", `Bool partial);
+            ("deadline_reached", `Bool (Fanout.deadline_reached outcomes));
+          ])
 
 (* The whole module between two versions. *)
 let module_diff ~deadline docs state (q : api_query) =
@@ -948,9 +1012,10 @@ let module_diff ~deadline docs state (q : api_query) =
     | Some (Error pkg) -> Error (Mcp_version_tools.unreadable_status pkg)
     | Some (Ok found) -> Ok (Option.map Package.version found)
   in
-  let* until =
+  (* to_version, and what it is when it was not given, for the errors *)
+  let* until, default_until =
     match q.until with
-    | Some u -> Lwt.return (Ok (Some u))
+    | Some u -> Lwt.return (Ok (Some u), None)
     | None -> (
         let+ latest =
           probe (fun () ->
@@ -959,8 +1024,13 @@ let module_diff ~deadline docs state (q : api_query) =
                 q.name)
         in
         match latest with
-        | Ok None -> Ok (match q.versions with v :: _ -> Some v | [] -> None)
-        | r -> r)
+        | Ok None ->
+            ( Ok (match q.versions with v :: _ -> Some v | [] -> None),
+              Some
+                (Printf.sprintf
+                   "the newest version (none of the %d newest is documented)"
+                   Mcp_version_tools.latest_documented_depth) )
+        | r -> (r, Some "the latest documented version"))
   in
   let* from =
     match (q.from, until) with
@@ -983,16 +1053,27 @@ let module_diff ~deadline docs state (q : api_query) =
               (Package.Version.to_string u)
               previous_documented_depth))
   | _, Ok None -> Lwt.return (Error "no version to compare: pass to_version")
-  | Ok (Some from), Ok (Some until) when Package.Version.compare from until > 0
+  | Ok (Some from), Ok (Some until) when Package.Version.compare from until >= 0
     ->
-      (* Only from_version was given (both are checked by [parse_api_query]),
-         and to_version defaults to the latest documented version. *)
+      (* Newer only when to_version was not given: both are checked by
+         [parse_api_query]. *)
+      let same = Package.Version.compare from until = 0 in
+      let from = Package.Version.to_string from
+      and until = Package.Version.to_string until in
       Lwt.return
         (Error
-           (Printf.sprintf
-              "from_version %S is newer than the latest documented version %S"
-              (Package.Version.to_string from)
-              (Package.Version.to_string until)))
+           (match default_until with
+           | None ->
+               Printf.sprintf
+                 "from_version and to_version are both %S: nothing to compare"
+                 from
+           | Some d when same ->
+               Printf.sprintf
+                 "from_version %S is %s, the default to_version: nothing to \
+                  compare"
+                 from d
+           | Some d ->
+               Printf.sprintf "from_version %S is newer than %s %S" from d until))
   | Ok (Some from), Ok (Some until) ->
       let+ reference, outcomes =
         module_pages docs state q ~deadline:(remaining ()) [ from; until ]
@@ -1018,20 +1099,22 @@ let module_diff ~deadline docs state (q : api_query) =
                read: an item of the other page missing from it may be there. So
                the items added are not known when the "from" page is cut, nor
                the items removed when the "to" page is. *)
-            let known cut (l, t) = if cut then None else Some (l, t) in
             let budget = ref max_diff_bytes in
             let size (e : api_entry) =
-              String.length e.qualified + String.length e.signature
+              String.length (sanitize e.qualified)
+              + String.length (sanitize e.signature)
             in
-            let removed =
-              known a.entries_truncated (capped ~budget size removed)
+            (* A list that is not known takes nothing from the budget. *)
+            let known cut l =
+              if cut then None else Some (capped ~budget size l)
             in
+            let removed = known a.entries_truncated removed in
             let changed, changed_t =
               capped ~budget
                 (fun ((x : api_entry), y) -> size x + size y)
                 changed
             in
-            let added = known b.entries_truncated (capped ~budget size added) in
+            let added = known b.entries_truncated added in
             let list = function
               | None -> `Null
               | Some (l, _) -> `List (List.map entry_json l)
@@ -1066,7 +1149,10 @@ let module_diff ~deadline docs state (q : api_query) =
         @ diff
         @ (if q.given = [] then []
            else [ ("ignored_arguments", strings q.given) ])
-        @ [ ("partial", `Bool partial) ])
+        @ [
+            ("partial", `Bool partial);
+            ("deadline_reached", `Bool (Fanout.deadline_reached outcomes));
+          ])
 
 (* [deadline] bounds the time spent on docs-ci, the default versions
    included. *)

@@ -201,6 +201,9 @@ let summarises_history () =
       ("1.8.2", present "x");
       ("1.9.0", M.Absent);
     ];
+  check "present in the oldest version checked, removed and added back"
+    ([ Some "1.0"; Some "3.0"; None; Some "2.0" ], true, [])
+    [ ("1.0", present "x"); ("2.0", M.Absent); ("3.0", present "x") ];
   check "never present"
     ([ None; None; None; None ], false, [])
     [ ("1.0", M.Absent); ("2.0", M.Unknown) ]
@@ -317,6 +320,9 @@ let compares_two_versions () =
          [ ("module", `String "Lwt"); ("kind", `String "value") ])
   in
   Alcotest.(check bool) "complete" false partial;
+  Alcotest.(check bool)
+    "deadline not reached" true
+    (member "deadline_reached" json = `Bool false);
   Alcotest.(check string)
     "to: the latest documented version" "2.0"
     (to_string (member "version" (member "to" json)));
@@ -508,7 +514,7 @@ let one_module_across_versions () =
         built ~sidebar:(sidebar true)
           [
             ("x/Aaa/Result/index.html", result_page);
-            ("y/Result/index.html", value "bind");
+            ("y/Result/index.html", value "map");
           ] );
     ]
   in
@@ -523,7 +529,7 @@ let one_module_across_versions () =
   Alcotest.(check string) "there" "2.0" (to_string (member "resolved_in" json));
   Alcotest.(check strings)
     "1.0 has no top-level Result"
-    [ "1.0 module-not-found"; "2.0 absent" ]
+    [ "1.0 module-not-found"; "2.0 present" ]
     (statuses json);
   Alcotest.(check string)
     "nothing removed" "null"
@@ -568,14 +574,11 @@ let truncated_ambiguity () =
     payload
       (api_call
          [
-           ("lwt.1.0", built ~sidebar [ ("x/M00/module-type-S/index.html", "") ]);
+           ( "lwt.1.0",
+             built ~sidebar [ ("x/M00/module-type-S/index.html", value "x") ] );
          ]
          [ "1.0" ]
-         [
-           ("module", `String "S");
-           ("to_version", `String "1.0");
-           ("from_version", `String "1.0");
-         ])
+         [ ("module", `String "S"); ("identifier", `String "x") ])
   in
   Alcotest.(check int)
     "19 others" 19
@@ -603,19 +606,55 @@ let named_operators () =
   Alcotest.(check opt) "mod" (Some "val (mod) : int") (find "mod");
   Alcotest.(check opt) "(.%{})" (Some "val (.%{}) : string") (find ".%{}")
 
+(* The fields of inline records, as odoc anchors them: by the type for a
+   constructor (base v0.17.3's Base.Sequence.Step has "type-t.state" twice, in
+   [Skip of { state }] and [Yield of { value; state }]), and ".x" (odoc 3, top
+   of the page), "module-M.x" (odoc 3, in the page of submodule [M]) or
+   "field-x" (older odoc) for an exception or an extension constructor. *)
+let inline_record ?(yield_state = "'s") () =
+  Printf.sprintf
+    {|<div class="odoc-spec"><div class="spec type anchored" id="type-t"><code><span>type t = </span></code><ol><li id="type-t.Skip" class="def variant constructor anchored"><a href="#type-t.Skip" class="anchor"></a><code><span>| </span><span><span class="constructor">Skip</span> <span class="keyword">of</span> </span><span>{</span></code><ol><li id="type-t.state" class="def record field anchored"><a href="#type-t.state" class="anchor"></a><code><span>state : <span class="type-var">'s</span>;</span></code></li></ol><code><span>}</span></code></li><li id="type-t.Yield" class="def variant constructor anchored"><a href="#type-t.Yield" class="anchor"></a><code><span>| </span><span><span class="constructor">Yield</span> <span class="keyword">of</span> </span><span>{</span></code><ol><li id="type-t.value" class="def record field anchored"><a href="#type-t.value" class="anchor"></a><code><span>value : <span class="type-var">'a</span>;</span></code></li><li id="type-t.state" class="def record field anchored"><a href="#type-t.state" class="anchor"></a><code><span>state : %s;</span></code></li></ol><code><span>}</span></code></li></ol></div></div>|}
+    yield_state
+  ^ {|<div class="odoc-spec"><div class="spec exception anchored" id="exception-E"><code><span>exception E of {</span></code><ol><li id=".x" class="def record field anchored"><code><span>x : int;</span></code></li></ol><code><span>}</span></code></div></div>|}
+  ^ {|<div class="odoc-spec"><div class="spec exception anchored" id="exception-F"><code><span>exception F of {</span></code><ol><li id="module-M.w" class="def record field anchored"><code><span>w : int;</span></code></li></ol><code><span>}</span></code></div></div>|}
+  ^ {|<div class="odoc-spec"><div class="spec type extension anchored" id="extension-decl-G"><code><span>type u += </span></code><ol><li id="extension-G" class="def variant extension anchored"><code><span>| G of {</span></code><ol><li id="field-y" class="def record field anchored"><code><span>y : int;</span></code></li></ol><code><span>}</span></code></li></ol></div></div>|}
+
 let inline_record_fields () =
-  let page =
-    {|<div class="odoc-spec"><div class="spec type anchored" id="type-t"><code><span>type t = </span></code><ol><li id="type-t.A" class="def variant constructor anchored"><code><span>| A of {</span></code><ol><li id="type-t.A.x" class="def record field anchored"><code><span>x : int;</span></code></li></ol><code>}</code></li></ol></div></div>|}
-  in
-  let entries, _ = M.api_entries page in
+  let entries, _ = M.api_entries (inline_record ()) in
+  Alcotest.(check strings)
+    "each field named after its constructor"
+    [
+      "type t";
+      "constructor t.Skip";
+      "field t.Skip.state";
+      "constructor t.Yield";
+      "field t.Yield.value";
+      "field t.Yield.state";
+      "exception E";
+      "field E.x";
+      "exception F";
+      "field F.w";
+      "extension G";
+      "field G.y";
+    ]
+    (List.map (fun (e : M.api_entry) -> e.kind ^ " " ^ e.qualified) entries);
   let find name =
     Option.map
       (fun (e : M.api_entry) -> e.kind ^ " " ^ e.qualified)
       (M.find_entry ~kind:"field" ~name entries)
   in
-  Alcotest.(check opt) "by its own name" (Some "field t.A.x") (find "x");
-  Alcotest.(check opt) "with its constructor" (Some "field t.A.x") (find "A.x");
-  Alcotest.(check opt) "qualified" (Some "field t.A.x") (find "t.A.x")
+  Alcotest.(check opt)
+    "by its own name: the first" (Some "field t.Skip.state") (find "state");
+  Alcotest.(check opt)
+    "with its constructor" (Some "field t.Yield.state") (find "Yield.state");
+  Alcotest.(check opt)
+    "qualified" (Some "field t.Yield.state") (find "t.Yield.state");
+  Alcotest.(check opt) "of an exception" (Some "field E.x") (find "E.x");
+  let after, _ = M.api_entries (inline_record ~yield_state:"int" ()) in
+  let _, _, changed = M.api_diff ~before:entries ~after in
+  Alcotest.(check strings)
+    "a change of the second field of that name" [ "t.Yield.state" ]
+    (List.map (fun ((e : M.api_entry), _) -> e.qualified) changed)
 
 let duplicate_ids () =
   let entries, _ =
@@ -825,6 +864,112 @@ let diff_size_is_bounded () =
   Alcotest.(check bool) "some, not all" true (n > 0 && n < 150);
   Alcotest.(check bool) "truncated" true (member "truncated" json = `Bool true)
 
+(* --- the fixes of the fourth review --- *)
+
+let diff_of ?(args = []) ~from_page ~to_page () =
+  payload
+    (api_call
+       [
+         ("lwt.1.0", built (lwt_page from_page));
+         ("lwt.2.0", built (lwt_page to_page));
+       ]
+       [ "1.0"; "2.0" ]
+       (("module", `String "Lwt") :: ("from_version", `String "1.0") :: args))
+  |> fst
+
+(* The "to" page has too many items to be read whole, so the items removed are
+   not known: they leave the whole budget to the one item changed. *)
+let unknown_list_takes_no_budget () =
+  let values ?signature prefix n =
+    String.concat ""
+      (List.init n (fun i -> value ?signature (Printf.sprintf "%s%d" prefix i)))
+  in
+  let json =
+    diff_of
+      ~from_page:
+        (value ~signature:(String.make 1500 'a') "x"
+        ^ values ~signature:(String.make 1000 'a') "y" 500)
+      ~to_page:(value ~signature:(String.make 1500 'b') "x" ^ values "z" 5001)
+      ()
+  in
+  Alcotest.(check bool) "removed unknown" true (member "removed" json = `Null);
+  Alcotest.(check strings)
+    "changed" [ "x" ]
+    (List.map
+       (fun e -> to_string (member "name" e))
+       (to_list (member "changed" json)))
+
+(* The budget is the size of the text given, after "<" becomes "&lt;". *)
+let budget_counts_sanitised_text () =
+  let page =
+    String.concat ""
+      (List.init 150 (fun i ->
+           value
+             ~signature:(String.concat "" (List.init 1000 (fun _ -> "&lt;")))
+             (Printf.sprintf "x%d" i)))
+  in
+  let json = diff_of ~from_page:page ~to_page:"" () in
+  let size =
+    List.fold_left
+      (fun n e ->
+        n
+        + String.length (to_string (member "name" e))
+        + String.length (to_string (member "signature" e)))
+      0
+      (to_list (member "removed" json))
+  in
+  Alcotest.(check bool) "at most 100 KB" true (size <= 100_000)
+
+let same_version () =
+  let docs =
+    [
+      ("lwt.1.0", built (lwt_page (page ())));
+      ("lwt.2.0", built (lwt_page (page ())));
+    ]
+  in
+  let err args =
+    match
+      api_call docs [ "1.0"; "2.0" ] (("module", `String "Lwt") :: args)
+    with
+    | Error e -> e
+    | Ok _ -> "ok"
+  in
+  Alcotest.(check string)
+    "both given"
+    "from_version and to_version are both \"2.0\": nothing to compare"
+    (err [ ("from_version", `String "2.0"); ("to_version", `String "2.0") ]);
+  Alcotest.(check string)
+    "to_version by default"
+    "from_version \"2.0\" is the latest documented version, the default \
+     to_version: nothing to compare"
+    (err [ ("from_version", `String "2.0") ])
+
+let identifier_not_found () =
+  let docs =
+    [
+      ("lwt.1.0", built (lwt_page (page ())));
+      ("lwt.1.1", `Missing);
+      ("lwt.2.0", built (lwt_page (page ())));
+    ]
+  in
+  let err ident =
+    match
+      api_call docs [ "1.0"; "1.1"; "2.0" ]
+        [ ("module", `String "Lwt"); ("identifier", `String ident) ]
+    with
+    | Error e -> e
+    | Ok _ -> "ok"
+  in
+  Alcotest.(check string)
+    "a typo" "identifier \"stat\" not found in Lwt in versions 1.0 to 2.0"
+    (err "stat");
+  Alcotest.(check string)
+    "an item of a submodule"
+    "identifier \"Infix.map\" not found in Lwt in versions 1.0 to 2.0; if \
+     \"Infix\" is a submodule, pass \"module\": \"Lwt.Infix\" and \
+     \"identifier\": \"map\""
+    (err "Infix.map")
+
 let () =
   Alcotest.run "mcp_api_changes"
     [
@@ -866,5 +1011,14 @@ let () =
           Alcotest.test_case "signature comparison" `Quick compares_signatures;
           Alcotest.test_case "identifier forms" `Quick identifier_forms;
           Alcotest.test_case "diff size" `Quick diff_size_is_bounded;
+        ] );
+      ( "fourth review",
+        [
+          Alcotest.test_case "unknown list and budget" `Quick
+            unknown_list_takes_no_budget;
+          Alcotest.test_case "budget after sanitising" `Quick
+            budget_counts_sanitised_text;
+          Alcotest.test_case "same version" `Quick same_version;
+          Alcotest.test_case "identifier not found" `Quick identifier_not_found;
         ] );
     ]
