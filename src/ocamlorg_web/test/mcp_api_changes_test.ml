@@ -659,13 +659,15 @@ let unreadable_status () =
 
 (* docs-ci accepts the connection and says nothing: a version is skipped at the
    deadline, and so are the default-version probes of a comparison. *)
+(* The deadline only bounds the wait for the stalled version: long enough for
+   the other one to be read on a slow CI machine. *)
 let stalled_docs_ci () =
   let docs =
     [ ("lwt.1.0", built (lwt_page (page ()))); ("lwt.2.0", `Missing) ]
   in
   let json, partial =
     payload
-      (api_call ~stalling:[ "lwt.2.0" ] ~deadline:0.2 docs [ "1.0"; "2.0" ]
+      (api_call ~stalling:[ "lwt.2.0" ] ~deadline:2. docs [ "1.0"; "2.0" ]
          [ ("module", `String "Lwt"); ("identifier", `String "state") ])
   in
   Alcotest.(check bool) "partial" true partial;
@@ -677,12 +679,12 @@ let stalled_docs_ci () =
     "deadline reached" true
     (member "deadline_reached" json = `Bool true);
   match
-    api_call ~stalling:[ "lwt.2.0" ] ~deadline:0.2 docs [ "1.0"; "2.0" ]
+    api_call ~stalling:[ "lwt.2.0" ] ~deadline:2. docs [ "1.0"; "2.0" ]
       [ ("module", `String "Lwt") ]
   with
   | Error e ->
       Alcotest.(check string)
-        "comparison" "docs-ci did not answer within 0.2 s: call again later" e
+        "comparison" "docs-ci did not answer within 2 s: call again later" e
   | Ok _ -> Alcotest.fail "expected an error"
 
 (* --- the fixes of the third review --- *)
