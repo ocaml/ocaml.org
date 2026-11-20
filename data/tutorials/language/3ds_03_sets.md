@@ -80,10 +80,10 @@ Let's look at a few functions for working with sets using these two sets.
 
 ```ocaml
 # let first_set = ["hello"; "hi"] |> StringSet.of_list;;
-- : val first_set : StringSet.t = <abstr>
+val first_set : StringSet.t = <abstr>
 
 # let second_set = ["good morning"; "hi"] |> StringSet.of_list;;
-- : val second_set : StringSet.t = <abstr>
+val second_set : StringSet.t = <abstr>
 ```
 
 ### Adding an Element to a Set
@@ -172,18 +172,10 @@ comparison instead of the case-sensitive comparison provided by `String.compare`
 We can accomplish this by passing an ad-hoc module to the `Set.Make` function:
 
 ```ocaml
-# module CISS = Set.Make(struct
+module CISS = Set.Make(struct
   type t = string
   let compare a b = compare (String.lowercase_ascii a) (String.lowercase_ascii b)
-end);;
-- : sig
-    type elt = string
-    type t
-    val empty : t
-    val is_empty : t -> bool
-    val mem : elt -> t -> bool
-    val add : elt -> t -> t
-(...)
+end)
 ```
 
 We name the resulting module `CISS` (short for "Case Insensitive String Set").
@@ -202,8 +194,10 @@ You can use any type for elements, as long as you define a meaningful `compare` 
 ```ocaml
 # type color = Red | Green | Blue;;
 type color = Red | Green | Blue
+```
 
-# module SC = Set.Make(struct
+```ocaml
+module SC = Set.Make(struct
   type t = color
   let compare a b =
     match a, b with
@@ -216,8 +210,7 @@ type color = Red | Green | Blue
     | (Blue, Red) -> -1
     | (Blue, Green) -> -1
     | (Blue, Blue) -> 0
-end);;
-...
+end)
 ```
 
 ## Conclusion
