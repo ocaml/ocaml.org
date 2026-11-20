@@ -14,5 +14,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Cloud sessions** (`CLAUDE_CODE_REMOTE=true`): OCaml isn't installed on the VM; run `make`, `opam`, and `dune` commands through `.devcontainer/run` (e.g. `.devcontainer/run make build`). See [Devcontainer and Cloud Sessions](HACKING.md#devcontainer-and-cloud-sessions).
 - **Lwt only**: Dream is Lwt-based, so don't introduce Eio dependencies.
 - **`data/` rules** (UTF-8 without BOM, no hand-editing of scraped files, never touch `data/attribution.jsonl` in a PR, update `asset/llms.txt` on renames/removals): see [Working With `data/`](HACKING.md#working-with-data).
+- **Tutorial and exercise code blocks are tests** run by mdx (`make test_code_examples`; `make mdx-coverage` shows coverage). See [Working With `data/`](HACKING.md#working-with-data) and [Tutorials and Exercises](CONTRIBUTING.md#content-tutorial).
 - **Bumping the opam-repository pin**: all pin sites change together, and the commit must be at or below the base images' bundled opam-repository tip. See [Managing Dependencies](HACKING.md#managing-dependencies).
 - **Package docs** under `/p/<package>/<version>/doc/` come from an external server, not from this code base. See [External Services](HACKING.md#external-services).
