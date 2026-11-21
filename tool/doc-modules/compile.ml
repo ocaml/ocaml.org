@@ -5,7 +5,8 @@
 
    Decodes the input strictly (Doc_modules_jsonl), writes the index, reads it
    back and verifies it, and only then renames it into place. Exits 1 with the
-   first problem on stderr, leaving OUTPUT untouched. *)
+   first problem on stderr, leaving OUTPUT untouched. An input without any
+   package is a problem too: published, it would empty every server's index. *)
 
 let fail fmt =
   Printf.ksprintf
@@ -20,6 +21,7 @@ let () =
       let contents = In_channel.with_open_bin input In_channel.input_all in
       match Doc_modules_jsonl.of_string contents with
       | Error e -> fail "%s: %s" input e
+      | Ok [] -> fail "%s: no packages" input
       | Ok packages -> (
           let index = Ocamlorg_doc_modules.Writer.to_string packages in
           match Ocamlorg_doc_modules.Reader.of_string index with

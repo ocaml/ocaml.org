@@ -7,7 +7,10 @@ connections, as curl uses them): 200 with an ETag (the MD5 of the body) and a
 Last-Modified (the file's mtime), 304 when If-None-Match matches, 404 when the
 file does not exist. A file `<path>.status` next to a sidebar, or ROOT/status
 for every request, holds a status code to answer instead (with an empty body).
-Writes the port it listens on to PORT_FILE.
+A file `<path>.mode` holds a misbehaviour instead: `slow` (answer after 3
+seconds), `truncated` (a Content-Length longer than the body, then close the
+connection) or `garbled` (200 with a body that is not JSON). Every request path
+is appended to ROOT/requests.log. Writes the port it listens on to PORT_FILE.
 """
 
 import email.utils
@@ -15,6 +18,7 @@ import hashlib
 import http.server
 import os
 import sys
+import time
 
 ROOT = os.path.abspath(sys.argv[1])
 
@@ -41,9 +45,26 @@ class Handler(http.server.BaseHTTPRequestHandler):
         return None
 
     def do_GET(self):
+        with open(os.path.join(ROOT, "requests.log"), "a") as h:
+            h.write(self.path + "\n")
         path = os.path.normpath(os.path.join(ROOT, self.path.lstrip("/")))
         if not path.startswith(os.path.abspath(ROOT) + os.sep):
             return self.reply(400)
+        mode = None
+        if os.path.isfile(path + ".mode"):
+            with open(path + ".mode") as h:
+                mode = h.read().strip()
+        if mode == "slow":
+            time.sleep(3)
+        elif mode == "garbled":
+            return self.reply(200, b"<html>not json")
+        elif mode == "truncated":
+            self.send_response(200)
+            self.send_header("Content-Length", "1000")
+            self.end_headers()
+            self.wfile.write(b'[{"node":')
+            self.close_connection = True
+            return
         status = self.forced_status(path)
         if status is not None:
             return self.reply(status)
@@ -62,7 +83,13 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.reply(200, body, headers + [("Content-Type", "application/json")])
 
 
-server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+class Server(http.server.ThreadingHTTPServer):
+    # A client that gave up (`slow`) leaves a broken pipe: not worth a trace.
+    def handle_error(self, request, client_address):
+        pass
+
+
+server = Server(("127.0.0.1", 0), Handler)
 with open(sys.argv[2] + ".tmp", "w") as h:
     h.write(str(server.server_address[1]))
 os.rename(sys.argv[2] + ".tmp", sys.argv[2])

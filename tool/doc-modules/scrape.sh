@@ -21,9 +21,11 @@
 # State. STATE_DIR is self-contained: per package, its candidate versions, the
 # version its docs come from, the extracted module line and the ETag it was
 # fetched with. The output is regenerated from it, never read back. Neither
-# STATE_DIR nor OUTPUT.jsonl is touched unless the run succeeds. STATE_DIR can
-# be lost (it lives in a CI cache): the next run refetches everything and
-# produces the same data.
+# STATE_DIR nor OUTPUT.jsonl is touched unless the run succeeds: everything,
+# the stats record included, is computed first, then the output and the state
+# are renamed into place and the record appended. STATE_DIR can be lost (it
+# lives in a CI cache): the next run refetches everything and produces the
+# same data.
 #
 # Outcomes per package:
 # - 200 with a sidebar: new module line; 304: unchanged;
@@ -31,9 +33,12 @@
 # - anything else (5xx, 429, redirects, timeouts, truncated, empty or garbled
 #   bodies): an error, and the package keeps its previous state.
 # The run aborts, changing nothing, if more than SCRAPE_MAX_ERRORS percent
-# (default 10) of the attempted requests fail, or if more than
-# SCRAPE_MAX_LOSSES percent (default 10) of the packages that had docs now
-# have none: both mean the backend, not the packages, changed.
+# (default 10) of the attempted requests fail, if more than SCRAPE_MAX_LOSSES
+# percent (default 10) of the packages that had docs now have none or are gone
+# from OPAM_REPOSITORY, or if OPAM_REPOSITORY lists no package at all: these
+# mean the backend or the clone, not the packages, changed. A genuine mass
+# removal from opam-repository keeps aborting: a run from an empty STATE_DIR
+# (the workflow's `reset`) has nothing to lose and accepts it.
 #
 # Load on the backend. Each round of requests is one curl process, so requests
 # share one kept-alive connection; they are sequential and capped at
@@ -81,9 +86,11 @@ if [ -d "$STATE" ]; then cp -R "$STATE/." "$W/old/"; fi
 touch "$W/old/manifest.tsv" "$W/old/lines.txt"
 OLD=$W/old
 
-# Candidate versions per package, newest first: "pkg v1 [v2 v3 v4]".
+# Candidate versions per package, newest first: "pkg v1 [v2 v3 v4]". sort -V
+# only approximates opam's version order, hence several candidates.
 n=0
 for dir in "$REPO"/packages/*/; do
+  [ -d "$dir" ] || continue # no match: the pattern itself
   pkg=$(basename "$dir")
   n=$((n + 1))
   [ "$LIMIT" -gt 0 ] && [ "$n" -gt "$LIMIT" ] && break
@@ -213,11 +220,10 @@ done
 touch "$W/lastmod" "$W/changed"
 count() { awk -v s="$1" '$3 == s' "$W/outcome" | wc -l; }
 
-# One JSON record for this run, appended to $STATS if set. $1: "scraped" or
-# "aborted"; $2: the reason of an abort. Last-Modified times become Unix
-# times; packages changed are listed (at most 500).
+# One JSON record for this run, on stdout. $1: "scraped" or "aborted"; $2: the
+# reason of an abort. Last-Modified times become Unix times; packages changed
+# are listed (at most 500).
 write_stats() {
-  [ -n "$STATS" ] || return 0
   # LC_ALL=C: strptime reads day and month names in the current locale
   LC_ALL=C jq -n -c -R \
     --argjson started "$STARTED" --argjson finished "$(date -u +%s)" \
@@ -241,14 +247,14 @@ write_stats() {
         | map(sub("^[^ ]+ "; "") | try (strptime("%a, %d %b %Y %H:%M:%S GMT")
               | mktime) catch empty)
         | sort)
-    }' </dev/null >>"$STATS"
+    }' </dev/null
 }
 
 abort() {
   echo "Aborting: $1; state and data unchanged." >&2
   awk -v s="$2" '$3 == s' "$W/outcome" | head -20 >&2
   if [ -s "$W/curl.err" ]; then sort -u "$W/curl.err" | head -5 >&2; fi
-  write_stats aborted "$1"
+  if [ -n "$STATS" ]; then write_stats aborted "$1" >>"$STATS"; fi
   exit 1
 }
 requests=$(wc -l <"$W/log")
@@ -257,12 +263,20 @@ errors=$(awk '$3 == "error"' "$W/outcome" | wc -l)
 if [ $((errors * 100)) -gt $((attempts * MAX_ERRORS)) ]; then
   abort "$errors of $attempts attempted requests failed" error
 fi
+if [ ! -s "$W/versions" ]; then
+  abort "no package in $REPO/packages" missing
+fi
+# Losses: packages that had docs and now have none, or are not listed any more
+# (unless the listing is cut short by SCRAPE_LIMIT).
 had_docs=$(awk -F'\t' '$4 == "ok"' "$OLD/manifest.tsv" | wc -l)
-lost=$(awk -v m="$OLD/manifest.tsv" 'FILENAME == m { split($0, f, "\t")
-    if (f[4] == "ok") ok[f[1]] = 1; next }
-  $3 == "missing" && ($1 in ok)' "$OLD/manifest.tsv" "$W/outcome" | wc -l)
+lost=$(awk -v m="$OLD/manifest.tsv" -v vs="$W/versions" -v limit="$LIMIT" '
+  FILENAME == m { split($0, f, "\t"); if (f[4] == "ok") ok[f[1]] = 1; next }
+  FILENAME == vs { listed[$1] = 1; next }
+  $3 == "missing" && ($1 in ok) { n++ }
+  END { if (limit == 0) for (p in ok) if (!(p in listed)) n++; print n + 0 }' \
+  "$OLD/manifest.tsv" "$W/versions" "$W/outcome")
 if [ $((lost * 100)) -gt $((had_docs * MAX_LOSSES)) ]; then
-  abort "$lost of the $had_docs packages with docs have none any more" missing
+  abort "$lost of the $had_docs packages with docs have none any more or are gone" missing
 fi
 
 # New state. Per package: this run's outcome; skipped packages and errors keep
@@ -349,12 +363,14 @@ changed=$(wc -l <"$W/changed")
   echo "Requests: $requests, $(awk '{ s += $4 } END { print s + 0 }' "$W/log") bytes (gzip)."
 } >"$W/new/report.md"
 
+if [ -n "$STATS" ]; then write_stats scraped "" >"$W/stats"; fi
+
 # Commit: the output, then the state, each replaced by a rename, then the
-# stats record.
+# stats record, computed above.
 mv "$W/data" "$DATA.tmp" && mv "$DATA.tmp" "$DATA"
 rm -rf "$STATE.old"
 if [ -d "$STATE" ]; then mv "$STATE" "$STATE.old"; fi
 mv "$W/new" "$STATE"
 rm -rf "$STATE.old"
-write_stats scraped ""
+if [ -n "$STATS" ]; then cat "$W/stats" >>"$STATS"; fi
 cat "$STATE/report.md"

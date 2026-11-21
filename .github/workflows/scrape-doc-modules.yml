@@ -55,30 +55,33 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      # The release is production data: a manual run from another branch would
+      # publish it with that branch's scripts. (Scheduled runs are always on
+      # the default branch, and their event carries no repository.)
+      - name: Only on the default branch
+        if: >-
+          github.event_name == 'workflow_dispatch' &&
+          github.ref_name != github.event.repository.default_branch
+        env:
+          REF: ${{ github.ref_name }}
+          DEFAULT: ${{ github.event.repository.default_branch }}
+        run: |
+          echo "Run this workflow from $DEFAULT, not $REF: it publishes to the release $RELEASE_TAG." >&2
+          exit 1
+
       - name: Checkout code
         uses: actions/checkout@v7
 
-      # Only a missing release (the very first run) or missing assets are
-      # tolerated: any other failure fails the job, since scraping without the
-      # published stats would scrape too early and overwrite their history.
+      # Only a missing release (the very first run) or a missing index is
+      # tolerated: any other failure fails the job, including a release without
+      # stats.jsonl, since scraping without the published stats would scrape
+      # too early and overwrite their history. An interrupted replacement of an
+      # asset is recovered (see release-assets.sh).
       - name: Download the published stats and index
         run: |
-          mkdir -p _published _out
-          if gh release view "$RELEASE_TAG" --json assets -q '.assets[].name' \
-               >_published/assets 2>_published/error; then
-            for asset in stats.jsonl doc-modules-v1.idx; do
-              if grep -qxF "$asset" _published/assets; then
-                gh release download "$RELEASE_TAG" -D _published -p "$asset"
-              fi
-            done
-          elif grep -q 'release not found' _published/error; then
-            echo "No release $RELEASE_TAG yet: first run."
-          else
-            cat _published/error >&2
-            exit 1
-          fi
-          rm -f _published/assets _published/error
-          touch _published/stats.jsonl
+          mkdir -p _out
+          tool/doc-modules/release-assets.sh download "$RELEASE_TAG" _published \
+            stats.jsonl doc-modules-v1.idx
 
       - name: Is a scrape due?
         id: policy
@@ -96,7 +99,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: _doc-modules-state
-          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: ${{ env.STATE_KEY }}-
 
       # Every attempt records its stats, so that policy.sh counts it: an
@@ -128,17 +131,28 @@ jobs:
 
       # Also after a failed step (but not after a skipped policy step, nor a
       # cancelled run): the stats of an attempt must be published whatever
-      # happens after it, or every hourly wake-up would be due.
+      # happens after it, or every hourly wake-up would be due. Records older
+      # than STATS_KEEP_DAYS are dropped: policy.sh only needs recent batches.
+      # The first run creates the release with the stats in one command (gh
+      # publishes it only once its assets are uploaded), so that a release
+      # never exists without them.
       - name: Publish the stats
         if: ${{ !cancelled() && steps.policy.outputs.due == 'true' }}
+        env:
+          STATS_KEEP_DAYS: 180
         run: |
-          gh release view "$RELEASE_TAG" >/dev/null 2>&1 ||
-            gh release create "$RELEASE_TAG" --prerelease --latest=false \
-              --title "Doc modules" \
-              --notes "Module paths of package documentation, see #3982. Updated by .github/workflows/scrape-doc-modules.yml."
           if [ -s _out/run-stats.jsonl ]; then
-            cat _published/stats.jsonl _out/run-stats.jsonl > _out/stats.jsonl
-            gh release upload "$RELEASE_TAG" --clobber _out/stats.jsonl
+            cat _published/stats.jsonl _out/run-stats.jsonl |
+              jq -c --argjson cutoff "$(( $(date -u +%s) - STATS_KEEP_DAYS * 86400 ))" \
+                'select(.started >= $cutoff)' > _out/stats.jsonl
+            if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+              tool/doc-modules/release-assets.sh replace "$RELEASE_TAG" _out/stats.jsonl
+            else
+              gh release create "$RELEASE_TAG" --prerelease --latest=false \
+                --title "Doc modules" \
+                --notes "Module paths of package documentation, see #3982. Updated by .github/workflows/scrape-doc-modules.yml." \
+                _out/stats.jsonl
+            fi
           fi
 
       - name: Set up OCaml
@@ -160,13 +174,16 @@ jobs:
             _out/doc-modules.jsonl _out/doc-modules-v1.idx
           gzip -9 -n -k _out/doc-modules.jsonl
 
+      # Also when unchanged, if a previous replacement of the index or the
+      # JSONL was interrupted, to finish it.
       - name: Publish the index
         if: steps.compile.outcome == 'success'
         run: |
-          if cmp -s _out/doc-modules-v1.idx _published/doc-modules-v1.idx; then
+          if cmp -s _out/doc-modules-v1.idx _published/doc-modules-v1.idx &&
+             ! grep -q '^doc-modules' _published/unfinished; then
             echo "Index unchanged: not uploaded." >> "$GITHUB_STEP_SUMMARY"
           else
-            gh release upload "$RELEASE_TAG" --clobber \
+            tool/doc-modules/release-assets.sh replace "$RELEASE_TAG" \
               _out/doc-modules-v1.idx _out/doc-modules.jsonl.gz
             echo "Index changed: uploaded." >> "$GITHUB_STEP_SUMMARY"
           fi
@@ -178,7 +195,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: _doc-modules-state
-          key: ${{ env.STATE_KEY }}-${{ github.run_id }}
+          key: ${{ env.STATE_KEY }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Fail if the scrape aborted
         if: steps.scrape.outputs.ok == 'false'

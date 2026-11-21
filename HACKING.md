@@ -116,6 +116,15 @@ You can run the unit test suite with:
 make test
 ```
 
+#### Doc-modules scraper tests
+
+The shell tools in [`tool/doc-modules`](tool/doc-modules) (the scraper, its polling policy, its sidebar filter, and the release asset helper) are tested against a mock documentation backend and a fake `gh`, outside `make test`. They need `curl`, `jq`, and `python3`. CI runs them on Linux:
+
+```bash
+dune build ./tool/doc-modules/compile.exe
+tool/doc-modules/test/scrape_test.sh _build/default/tool/doc-modules/compile.exe
+```
+
 #### Load tests
 
 See the readme's for running load tests via [k6](./test/load-test/k6/README.md)
@@ -372,7 +381,7 @@ Two workflows gate every pull request:
 * [`markdown-lint.yml`](.github/workflows/markdown-lint.yml) lints the changed Markdown files.
 
 The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`. `devcontainer.yml` publishes the [development image](#devcontainer-and-cloud-sessions) when `.devcontainer/` or `ocamlorg.opam` change.
-`scrape-doc-modules.yml` wakes up hourly and, at a rate learned from how often the documentation backend regenerates docs, scrapes the module paths of every package's documentation and publishes them as assets of the `doc-modules-latest` release rather than as a pull request (see [`tool/doc-modules`](tool/doc-modules)).
+`scrape-doc-modules.yml` wakes up hourly and, at a rate learned from how often the documentation backend regenerates docs, scrapes the module paths of every package's documentation and publishes them as assets of the `doc-modules-latest` release rather than as a pull request (see [`tool/doc-modules`](tool/doc-modules)). It replaces assets with `tool/doc-modules/release-assets.sh` rather than `gh release upload --clobber`, which deletes the old asset before uploading the new one. Manual runs are refused outside the default branch. If the scraper keeps aborting because many packages were genuinely removed from opam-repository, run it manually with `reset`.
 
 ## Repository Structure
 
