@@ -10,8 +10,11 @@ name: Scrape doc modules
 # - stats.jsonl: one record per scrape, used to decide how often to scrape.
 #
 # The documentation backend regenerates docs in batches, much less often than
-# opam-repository changes. The workflow wakes up hourly, and policy.sh decides
-# from stats.jsonl whether a scrape is due (between every hour and every day).
+# opam-repository changes. The workflow wakes up hourly, and `doc_modules.exe
+# policy` decides from stats.jsonl whether a scrape is due (between every hour
+# and every day). doc_modules.exe (tool/doc-modules/bin) is not built here:
+# release-scraper.yml builds it on every change to main and publishes it in the
+# release scraper-latest, so that an hourly wake-up costs no OCaml setup.
 # A scrape keeps the load limits agreed with the backend's admins: one
 # kept-alive connection, at most 8 requests per second, ETag revalidation
 # (~3.6k requests, ~8 min, a few KB when nothing changed). The scrape state is
@@ -38,7 +41,7 @@ env:
   RELEASE_TAG: doc-modules-latest
   # Bump when the layout of the scrape state changes, so that a new version of
   # the script never starts from a state it does not understand.
-  STATE_KEY: doc-modules-state-v1
+  STATE_KEY: doc-modules-state-v2
 
 jobs:
   scrape:
@@ -83,11 +86,25 @@ jobs:
           tool/doc-modules/release-assets.sh download "$RELEASE_TAG" _published \
             stats.jsonl doc-modules-v1.idx
 
+      # release-scraper.yml deletes and recreates scraper-latest on every
+      # change to main: retry for a few minutes in case this run falls in
+      # between.
+      - name: Download the doc-modules binary
+        run: |
+          for attempt in 1 2 3 4 5; do
+            if gh release download scraper-latest -p doc_modules.exe -D _bin; then
+              chmod +x _bin/doc_modules.exe
+              exit 0
+            fi
+            sleep 60
+          done
+          exit 1
+
       - name: Is a scrape due?
         id: policy
         run: >-
           FORCE=${{ github.event_name == 'workflow_dispatch' && 1 || 0 }}
-          tool/doc-modules/policy.sh _published/stats.jsonl "$GITHUB_STEP_SUMMARY"
+          _bin/doc_modules.exe policy _published/stats.jsonl "$GITHUB_STEP_SUMMARY"
           >> "$GITHUB_OUTPUT"
 
       - name: Clone opam-repository
@@ -102,7 +119,7 @@ jobs:
           key: ${{ env.STATE_KEY }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: ${{ env.STATE_KEY }}-
 
-      # Every attempt records its stats, so that policy.sh counts it: an
+      # Every attempt records its stats, so that the policy counts it: an
       # aborted scrape writes its own record; a scrape killed by the time limit
       # below or crashing gets a minimal one. The limit leaves the rest of the
       # job time to publish the stats. The job fails at the end.
@@ -111,8 +128,8 @@ jobs:
         if: steps.policy.outputs.due == 'true'
         run: |
           started=$(date -u +%s)
-          if SCRAPE_STATS=_out/run-stats.jsonl timeout 40m \
-               tool/doc-modules/scrape.sh \
+          if timeout 40m _bin/doc_modules.exe scrape \
+               --stats _out/run-stats.jsonl \
                _opam-repository _doc-modules-state _out/doc-modules.jsonl; then
             echo "ok=true" >> "$GITHUB_OUTPUT"
             cat _doc-modules-state/report.md >> "$GITHUB_STEP_SUMMARY"
@@ -123,7 +140,7 @@ jobs:
               jq -n -c --argjson started "$started" --argjson status "$status" '
                 { started: $started, finished: (now | floor),
                   status: "aborted",
-                  reason: "scrape.sh exited with \($status) without a record"
+                  reason: "the scrape exited with \($status) without a record"
                     + (if $status == 124 then " (time limit)" else "" end) }' \
                 > _out/run-stats.jsonl
             fi
@@ -132,7 +149,7 @@ jobs:
       # Also after a failed step (but not after a skipped policy step, nor a
       # cancelled run): the stats of an attempt must be published whatever
       # happens after it, or every hourly wake-up would be due. Records older
-      # than STATS_KEEP_DAYS are dropped: policy.sh only needs recent batches.
+      # than STATS_KEEP_DAYS are dropped: the policy only needs recent batches.
       # The first run creates the release with the stats in one command (gh
       # publishes it only once its assets are uploaded), so that a release
       # never exists without them.
@@ -155,23 +172,11 @@ jobs:
             fi
           fi
 
-      - name: Set up OCaml
-        if: steps.scrape.outputs.ok == 'true'
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: "5.5.2"
-          dune-cache: true
-          opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac
-
       - name: Compile the index
         id: compile
         if: steps.scrape.outputs.ok == 'true'
         run: |
-          opam install -y dune yojson
-          opam exec -- dune build ./tool/doc-modules/compile.exe
-          ./_build/default/tool/doc-modules/compile.exe \
-            _out/doc-modules.jsonl _out/doc-modules-v1.idx
+          _bin/doc_modules.exe compile _out/doc-modules.jsonl _out/doc-modules-v1.idx
           gzip -9 -n -k _out/doc-modules.jsonl
 
       # Also when unchanged, if a previous replacement of the index or the

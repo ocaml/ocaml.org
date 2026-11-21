@@ -116,15 +116,12 @@ You can run the unit test suite with:
 make test
 ```
 
-#### Doc-modules scraper tests
+#### Doc-modules release asset tests
 
-The shell tools in [`tool/doc-modules`](tool/doc-modules) (the scraper, its polling policy, its sidebar filter, and the release asset helper) are tested against a mock documentation backend and a fake `gh`, outside `make test`. They need `curl` and `jq`. CI runs them on Linux:
+`make test` covers the doc-modules scraper in [`tool/doc-modules`](tool/doc-modules), with end-to-end scrapes against a local mock of the documentation backend. Its release asset helper, a shell script, is tested separately against a fake `gh`. It needs `jq`, and CI runs it on Linux:
 
 ```bash
-dune build ./tool/doc-modules/test/mock_backend.exe ./tool/doc-modules/compile.exe
-tool/doc-modules/test/scrape_test.sh \
-  _build/default/tool/doc-modules/test/mock_backend.exe \
-  _build/default/tool/doc-modules/compile.exe
+tool/doc-modules/test/release_assets_test.sh
 ```
 
 #### Load tests
@@ -311,7 +308,6 @@ dune-workspace
 .github/workflows/ci.yml
 .github/workflows/debug-ci.yml
 .github/workflows/release-scraper.yml
-.github/workflows/scrape-doc-modules.yml
 .github/workflows/sync-attribution.yml
 ```
 
@@ -382,8 +378,8 @@ Two workflows gate every pull request:
 * [`ci.yml`](.github/workflows/ci.yml) builds and tests the project on Ubuntu and macOS, and checks `make fmt`.
 * [`markdown-lint.yml`](.github/workflows/markdown-lint.yml) lints the changed Markdown files.
 
-The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binary when `tool/`, `src/`, or build files change on `main`. `devcontainer.yml` publishes the [development image](#devcontainer-and-cloud-sessions) when `.devcontainer/` or `ocamlorg.opam` change.
-`scrape-doc-modules.yml` wakes up hourly and, at a rate learned from how often the documentation backend regenerates docs, scrapes the module paths of every package's documentation and publishes them as assets of the `doc-modules-latest` release rather than as a pull request (see [`tool/doc-modules`](tool/doc-modules)). It replaces assets with `tool/doc-modules/release-assets.sh` rather than `gh release upload --clobber`, which deletes the old asset before uploading the new one. Manual runs are refused outside the default branch. If the scraper keeps aborting because many packages were genuinely removed from opam-repository, run it manually with `reset`.
+The others are automation. `scrape-planet.yml`, `scrape-platform-releases.yml`, and `scrape-opam-health.yml` (build results from check.ci.ocaml.org) run daily, and `sync-attribution.yml` runs after each merge that touches a tutorial or tool page. Each keeps a single rolling pull request open on a `bot/<area>` branch (`bot/planet`, `bot/platform`, `bot/opam-health`, `bot/attribution`). Its commit subject, which is also the pull request title, reads `<area>: <what changed>`, for instance `planet: 4 posts (effects, eio, …), 2 videos`. `release-scraper.yml` rebuilds the scraper binaries (`scrape.exe`, and `doc_modules.exe` for `scrape-doc-modules.yml`) when `tool/`, `src/`, or build files change on `main`. `devcontainer.yml` publishes the [development image](#devcontainer-and-cloud-sessions) when `.devcontainer/` or `ocamlorg.opam` change.
+`scrape-doc-modules.yml` wakes up hourly and, at a rate learned from how often the documentation backend regenerates docs, scrapes the module paths of every package's documentation and publishes them as assets of the `doc-modules-latest` release rather than as a pull request (see [`tool/doc-modules`](tool/doc-modules)). It runs `doc_modules.exe` from the `scraper-latest` release, so a change to the scraper takes effect once `release-scraper.yml` has run on `main`. It replaces assets with `tool/doc-modules/release-assets.sh` rather than `gh release upload --clobber`, which deletes the old asset before uploading the new one. Manual runs are refused outside the default branch. If the scraper keeps aborting because many packages were genuinely removed from opam-repository, run it manually with `reset`.
 
 ## Repository Structure
 
@@ -434,8 +430,9 @@ The following snippet describes the repository structure:
 │   │   opam build results from check.ci.ocaml.org).
 │   │
 │   ├── doc-modules
-│   │   Scraper of the module paths of package documentation, compiled into a
-│   │   memory-mappable index (see `.github/workflows/scrape-doc-modules.yml`).
+│   │   Scraper of the module paths of package documentation, its polling
+│   │   policy, and the compiler of its memory-mappable index, all in
+│   │   `doc_modules.exe` (see `.github/workflows/scrape-doc-modules.yml`).
 │   │
 │   ├── sim
 │   │   Accelerated, instrumented simulation of the server: replays opam-repository

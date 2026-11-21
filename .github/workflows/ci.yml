@@ -50,10 +50,10 @@ jobs:
       - name: Run tests
         run: make test
 
-      # Needs curl and jq, which Ubuntu runners have; GNU date and touch,
-      # hence Linux only. Requests go to a local mock backend only.
-      - name: Test the doc-modules scraper
-        run: tool/doc-modules/test/scrape_test.sh _build/default/tool/doc-modules/test/mock_backend.exe _build/default/tool/doc-modules/compile.exe
+      # The doc-modules scraper itself is tested by `make test`; its release
+      # asset helper, a shell script, here. Needs jq, which Ubuntu runners have.
+      - name: Test the doc-modules release asset helper
+        run: tool/doc-modules/test/release_assets_test.sh
         if: runner.os == 'Linux'
 
       - name: Format code
