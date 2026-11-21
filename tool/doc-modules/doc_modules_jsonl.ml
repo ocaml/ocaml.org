@@ -1,5 +1,6 @@
 (* The reference form of the doc-modules data, doc-modules.jsonl, as written by
-   scrape.sh and compiled into the index by compile.exe.
+   doc_modules.exe scrape and compiled into the index by doc_modules.exe
+   compile.
 
    First line: {"format": "ocamlorg-doc-modules", "version": 1, ...} (other
    header fields, such as "generated_at", are free). Then one object per
@@ -109,3 +110,28 @@ let of_string s =
           rest
       in
       Ok (List.rev packages)
+
+(* The contents of a doc-modules.jsonl file: the header line, then one line per
+   package, sorted by name. *)
+let to_string ~generated_at (packages : Ocamlorg_doc_modules.package list) =
+  let line json = Yojson.Safe.to_string json ^ "\n" in
+  line
+    (`Assoc
+       [
+         ("format", `String format);
+         ("version", `Int version);
+         ("generated_at", `String generated_at);
+       ])
+  ^ String.concat ""
+      (List.sort
+         (fun (a : Ocamlorg_doc_modules.package) b ->
+           String.compare a.name b.name)
+         packages
+      |> List.map (fun (p : Ocamlorg_doc_modules.package) ->
+          line
+            (`Assoc
+               [
+                 ("name", `String p.name);
+                 ("version", `String p.version);
+                 ("modules", `List (List.map (fun m -> `String m) p.modules));
+               ])))

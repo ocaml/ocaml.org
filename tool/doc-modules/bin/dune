@@ -1,0 +1,3 @@
+(executable
+ (name doc_modules)
+ (libraries doc_modules_scraper cmdliner unix))

@@ -3,15 +3,18 @@
    mock_backend.exe ROOT PORT_FILE
 
    Serves ROOT/p/<pkg>/<version>/doc/sidebar.json over HTTP/1.1 (kept-alive
-   connections, as curl uses them): 200 with an ETag (the MD5 of the body) and a
-   Last-Modified (the file's mtime), 304 when If-None-Match matches, 404 when
-   the file does not exist. A file `<path>.status` next to a sidebar, or
-   ROOT/status for every request, holds a status code to answer instead (with an
-   empty body). A file `<path>.mode` holds a misbehaviour instead: `slow`
-   (answer after 3 seconds), `truncated` (a Content-Length longer than the body,
-   then close the connection) or `garbled` (200 with a body that is not JSON).
-   Every request path is appended to ROOT/requests.log. Writes the port it
-   listens on to PORT_FILE.
+   connections): 200 with an ETag (the MD5 of the body) and a Last-Modified (the
+   file's mtime), 304 when If-None-Match matches, 404 when the file does not
+   exist. Like the real backend, it gzips the body when the request accepts
+   gzip, with an ETag of its own (suffixed "-gzip"). A file `<path>.status` next
+   to a sidebar, or ROOT/status for every request, holds a status code to answer
+   instead (with an empty body). A file `<path>.mode` holds a misbehaviour
+   instead: `slow` (answer after 3 seconds), `truncated` (a Content-Length
+   longer than the body, then close the connection) or `garbled` (200 with a
+   body that is not JSON). Every request path is appended to ROOT/requests.log,
+   followed by " gzip" if the request accepts gzip, and a line per accepted
+   connection to ROOT/connections.log. Writes the port it listens on to
+   PORT_FILE.
 
    Plain Unix I/O and one system thread per connection: a client that gave up on
    a `slow` answer must not hold up the next connection.
@@ -27,6 +30,30 @@
 let root = ref ""
 let log_mutex = Mutex.create ()
 let read_all path = In_channel.with_open_bin path In_channel.input_all
+
+let gzip s =
+  let i = De.bigstring_create De.io_buffer_size in
+  let o = De.bigstring_create De.io_buffer_size in
+  let w = De.Lz77.make_window ~bits:15 in
+  let q = De.Queue.create 0x1000 in
+  let out = Buffer.create (String.length s) in
+  let pos = ref 0 in
+  let refill buf =
+    let len = min (String.length s - !pos) De.io_buffer_size in
+    for k = 0 to len - 1 do
+      Bigarray.Array1.unsafe_set buf k s.[!pos + k]
+    done;
+    pos := !pos + len;
+    len
+  in
+  let flush buf len =
+    for k = 0 to len - 1 do
+      Buffer.add_char out (Bigarray.Array1.unsafe_get buf k)
+    done
+  in
+  let cfg = Gz.Higher.configuration Gz.Unix (fun () -> 0l) in
+  Gz.Higher.compress ~w ~q ~level:4 ~refill ~flush () cfg i o;
+  Buffer.contents out
 
 let file_opt path =
   if Sys.file_exists path then Some (String.trim (read_all path)) else None
@@ -72,16 +99,23 @@ let reply oc ?(headers = []) ?content_length code body =
   Printf.fprintf oc "Content-Length: %d\r\n\r\n%s" len body;
   flush oc
 
-let log_request target =
+let log file line =
   Mutex.protect log_mutex (fun () ->
       Out_channel.with_open_gen [ Open_append; Open_creat; Open_wronly ] 0o644
-        (Filename.concat !root "requests.log") (fun log ->
-          output_string log (target ^ "\n")))
+        (Filename.concat !root file) (fun log ->
+          output_string log (line ^ "\n")))
+
+let accepts_gzip request_headers =
+  match List.assoc_opt "accept-encoding" request_headers with
+  | Some a ->
+      List.mem "gzip" (List.map String.trim (String.split_on_char ',' a))
+  | None -> false
 
 (* Answers one request, given its target and its headers (names lowercased);
    false to close the connection. *)
 let answer oc target request_headers =
-  log_request target;
+  log "requests.log"
+    (target ^ if accepts_gzip request_headers then " gzip" else "");
   if List.mem ".." (String.split_on_char '/' target) then (
     reply oc 400 "";
     true)
@@ -110,12 +144,22 @@ let answer oc target request_headers =
             true
         | None ->
             let body = read_all path in
-            let etag = "\"" ^ Digest.to_hex (Digest.string body) ^ "\"" in
+            let gzipped = accepts_gzip request_headers in
+            let digest = Digest.to_hex (Digest.string body) in
+            let etag, body, encoding =
+              if gzipped then
+                ( "\"" ^ digest ^ "-gzip\"",
+                  gzip body,
+                  [ ("Content-Encoding", "gzip") ] )
+              else ("\"" ^ digest ^ "\"", body, [])
+            in
             let headers =
               [
                 ("ETag", etag);
                 ("Last-Modified", http_date (Unix.stat path).st_mtime);
+                ("Vary", "Accept-Encoding");
               ]
+              @ encoding
             in
             if List.assoc_opt "if-none-match" request_headers = Some etag then
               reply oc ~headers 304 ""
@@ -182,6 +226,7 @@ let () =
       Sys.rename (port_file ^ ".tmp") port_file;
       while true do
         let fd, _ = Unix.accept sock in
+        log "connections.log" "accepted";
         ignore (Thread.create serve fd)
       done
   | _ ->
