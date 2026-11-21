@@ -1,9 +1,21 @@
 ; The package-state builder: brings the opam-repository clone up to date,
-; rebuilds the package state, writes it, and exits. It links only
-; ocamlorg_package_state, not the web server.
+; rebuilds the package state, writes it, downloads the doc-modules index (#3982),
+; and exits. It links ocamlorg_package_state, the index format and an HTTP
+; client, not the web server.
 
 (executable
  (name main)
  (public_name ocamlorg-package-builder)
  (package ocamlorg)
- (libraries ocamlorg_package_state fpath logs lwt lwt.unix unix))
+ (libraries
+  ocamlorg_package_state
+  ocamlorg.doc_modules
+  cohttp
+  cohttp-lwt
+  cohttp-lwt-unix
+  uri
+  fpath
+  logs
+  lwt
+  lwt.unix
+  unix))
