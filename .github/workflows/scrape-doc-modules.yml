@@ -88,7 +88,8 @@ jobs:
 
       # release-scraper.yml deletes and recreates scraper-latest on every
       # change to main: retry for a few minutes in case this run falls in
-      # between.
+      # between. A failed recreation leaves it missing until the next
+      # successful run (#4065).
       - name: Download the doc-modules binary
         run: |
           for attempt in 1 2 3 4 5; do
