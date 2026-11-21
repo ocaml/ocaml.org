@@ -145,10 +145,10 @@ jobs:
         if: steps.scrape.outputs.ok == 'true'
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2.0"
+          ocaml-compiler: "5.5.2"
           dune-cache: true
           opam-repositories: |
-            pin: git+https://github.com/ocaml/opam-repository#8cdfa3296d9bc7d93273f46eb2438757e4fd5cf0
+            pin: git+https://github.com/ocaml/opam-repository#ca403de684b07caee6f246b36a2f3a1787d780ac
 
       - name: Compile the index
         id: compile
