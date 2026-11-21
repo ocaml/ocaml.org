@@ -86,7 +86,7 @@ let policy =
 
 let scrape =
   let run repo state_dir output stats doc_url rate max_time max_errors
-      max_losses retry_days day limit =
+      max_losses max_failures_in_a_row baseline retry_days day limit =
     let config =
       {
         S.Scrape.default with
@@ -95,6 +95,8 @@ let scrape =
         max_time;
         max_errors;
         max_losses;
+        max_failures_in_a_row;
+        baseline;
         retry_days;
         day = Option.value day ~default:S.Scrape.default.day;
         limit;
@@ -126,6 +128,17 @@ let scrape =
           ~doc:
             "Abort if more than this percentage of the packages with docs lose \
              them."
+      $ opt Arg.int d.max_failures_in_a_row
+          [ "max-failures-in-a-row" ]
+          ~env:"SCRAPE_MAX_FAILURES_IN_A_ROW"
+          ~doc:"Stop asking and abort once this many packages fail in a row."
+      $ opt
+          Arg.(some string)
+          None [ "baseline" ] ~env:"SCRAPE_BASELINE"
+          ~doc:
+            "The published index: if STATE_DIR holds no packages with docs, \
+             losses are counted against the packages of this index instead. A \
+             missing file is ignored; an unreadable one aborts."
       $ opt Arg.int d.retry_days [ "retry-days" ] ~env:"SCRAPE_RETRY_DAYS"
           ~doc:"Ask packages without docs again once every this many days."
       $ opt

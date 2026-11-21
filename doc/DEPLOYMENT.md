@@ -157,7 +157,9 @@ Every staging deploy since has failed the same way (2025-06-20, 2025-07-04, 2025
 | A VCL change is merged but not live | The VCL is part of the Ansible stack, not the image | It needs a playbook re-run on v3b |
 | A scraper workflow fails at its download step | `scraper-latest` was being republished, or a failed `release-scraper.yml` run left it missing ([#4065](https://github.com/ocaml/ocaml.org/issues/4065)) | Rerun the scraper; if the release is missing, run `release-scraper.yml` manually |
 | A merged change to a scraper has no effect | The scrapers run the binary from `scraper-latest`, rebuilt by `release-scraper.yml` after the merge | Check that `release-scraper.yml` succeeded for that commit |
-| The doc-modules scraper keeps aborting after opam-repository removed many packages | Packages that lose their docs or disappear count as losses, and above 10% the scrape aborts, as for a backend failure | If the removal is genuine, run `scrape-doc-modules.yml` manually with `reset` |
+| The doc-modules scraper keeps aborting after opam-repository removed many packages | Packages that lose their docs or disappear count as losses, and above 10% the scrape aborts, as for a backend failure. Without a scrape state (cache evicted, `STATE_KEY` bumped), losses count against the published index | If the removal is genuine, run `scrape-doc-modules.yml` manually with `reset`, which also drops the published index as the reference |
+| The doc-modules scraper aborts with "packages failed in a row" | The documentation backend failed 20 packages in a row (5xx, 429, timeouts), so the scrape stopped asking | Nothing to do if the backend recovers: the next due run retries. Check the backend otherwise |
+| `doc-modules-v1.idx` or another doc-modules asset answers 404 | A replacement was interrupted after deleting the old asset, and its rename failed even after retries | Every hourly run of `scrape-doc-modules.yml` finishes interrupted replacements first; run it manually to do so at once |
 
 ## Planned Changes
 

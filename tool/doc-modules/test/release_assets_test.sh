@@ -27,7 +27,10 @@ fails() { ! "$@"; }
 
 mkdir -p "$T/bin" "$T/gh"
 ln -s "$HERE/fake_gh.sh" "$T/bin/gh"
-ra() { PATH="$T/bin:$PATH" GH_FAKE="$T/gh" "$TOOL/release-assets.sh" "$@"; }
+ra() {
+  PATH="$T/bin:$PATH" GH_FAKE="$T/gh" RELEASE_ASSETS_RETRY_DELAYS=0 \
+    "$TOOL/release-assets.sh" "$@"
+}
 asset() { # asset NAME: its content, or nothing
   id=$(awk -v n="$1" '$2 == n { print $1 }' "$T/gh/names")
   if [ -n "$id" ]; then cat "$T/gh/assets/$id"; fi
@@ -51,12 +54,22 @@ version s3
 check "assets: failed upload, fails" fails ra replace TAG "$T/stats.jsonl"
 check "assets: failed upload, old kept" eq "$(asset stats.jsonl)" s2
 echo rename >"$T/gh/fail"
+check "assets: rename retried" ra replace TAG "$T/stats.jsonl"
+check "assets: rename retried, content" eq "$(asset stats.jsonl)" s3
+check "assets: rename retried, nothing left over" eq "$(names)" "stats.jsonl "
+echo rename >"$T/gh/fail-always"
 check "assets: failed rename, fails" fails ra replace TAG "$T/stats.jsonl"
 check "assets: failed rename, only the new one" eq "$(names)" "stats.jsonl.new "
 rm -rf "$T/pub"
 check "assets: download after a failed rename" ra download TAG "$T/pub" stats.jsonl x.idx
 check "assets: recovered" eq "$(cat "$T/pub/stats.jsonl")" s3
 check "assets: recovered, unfinished" eq "$(cat "$T/pub/unfinished")" stats.jsonl
+check "assets: finish fails while renames fail" fails ra finish TAG
+rm "$T/gh/fail-always"
+check "assets: finish" ra finish TAG
+check "assets: finished by finish" eq "$(names)" "stats.jsonl "
+check "assets: finished by finish, content" eq "$(asset stats.jsonl)" s3
+check "assets: finish, nothing to do" ra finish TAG
 version s4
 check "assets: replace after a failed rename" ra replace TAG "$T/stats.jsonl"
 check "assets: finished" eq "$(names)" "stats.jsonl "
@@ -72,14 +85,33 @@ version s6
 check "assets: replace after a failed delete" ra replace TAG "$T/stats.jsonl"
 check "assets: finished again" eq "$(names)" "stats.jsonl "
 echo gz >"$T/x.jsonl.gz"
-echo rename >"$T/gh/fail"
+echo rename >"$T/gh/fail-always"
 check "assets: other asset, failed rename" fails ra replace TAG "$T/x.jsonl.gz"
+rm "$T/gh/fail-always"
 rm -rf "$T/pub"
 check "assets: download" ra download TAG "$T/pub" stats.jsonl x.idx
 check "assets: an asset not downloaded is unfinished too" \
   eq "$(cat "$T/pub/unfinished")" x.jsonl.gz
 echo list >"$T/gh/fail"
 check "assets: other failures fail" fails ra download TAG "$T/pub" stats.jsonl
+check "assets: x finished" ra finish TAG
+# An upload cut short leaves NAME.new in state "starter": never read, never
+# promoted, but listed as unfinished and replaced by the next `replace`.
+version s7
+echo starter >"$T/gh/fail"
+check "assets: upload cut short, fails" fails ra replace TAG "$T/stats.jsonl"
+check "assets: upload cut short, both" eq "$(names)" "stats.jsonl stats.jsonl.new x.jsonl.gz "
+rm -rf "$T/pub"
+check "assets: download ignores a starter" ra download TAG "$T/pub" stats.jsonl x.idx
+check "assets: the old one" eq "$(cat "$T/pub/stats.jsonl")" s6
+check "assets: starter unfinished" eq "$(cat "$T/pub/unfinished")" stats.jsonl
+check "assets: finish leaves a starter" ra finish TAG
+check "assets: starter left" eq "$(asset stats.jsonl)" s6
+check "assets: replace over a starter" ra replace TAG "$T/stats.jsonl"
+check "assets: replaced over a starter" eq "$(names)" "stats.jsonl x.jsonl.gz "
+check "assets: replaced over a starter, content" eq "$(asset stats.jsonl)" s7
+rm -rf "$T/gh/release"
+check "assets: finish without a release" ra finish TAG
 
 echo "$PASS passed, $FAIL failed"
 [ "$FAIL" = 0 ]

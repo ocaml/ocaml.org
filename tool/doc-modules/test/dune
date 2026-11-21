@@ -9,7 +9,7 @@
  (name scraper_test)
  (modules scraper_test)
  (deps mock_backend.exe)
- (libraries alcotest doc_modules_scraper yojson unix))
+ (libraries alcotest doc_modules_scraper yojson unix uri lwt lwt.unix))
 
 (executable
  (name mock_backend)

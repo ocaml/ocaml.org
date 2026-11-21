@@ -302,6 +302,8 @@ module Reader = struct
           let first = u32 t.ba (e + 8) and count = u32 t.ba (e + 12) in
           if first <> !next_first || count = 0 then
             failwith ("postings not contiguous at " ^ key);
+          if first + count > t.npost then
+            failwith ("postings out of bounds at " ^ key);
           next_first := first + count;
           let last = ref (-1) in
           for j = first to first + count - 1 do

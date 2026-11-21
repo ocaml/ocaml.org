@@ -75,6 +75,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
+      # On every wake-up, due or not: a replacement interrupted after deleting
+      # the old asset leaves it missing for the servers until finished.
+      - name: Finish interrupted asset replacements
+        run: tool/doc-modules/release-assets.sh finish "$RELEASE_TAG"
+
       # Only a missing release (the very first run) or a missing index is
       # tolerated: any other failure fails the job, including a release without
       # stats.jsonl, since scraping without the published stats would scrape
@@ -124,9 +129,15 @@ jobs:
       # aborted scrape writes its own record; a scrape killed by the time limit
       # below or crashing gets a minimal one. The limit leaves the rest of the
       # job time to publish the stats. The job fails at the end.
+      # The published index is the baseline for losses when the state is lost
+      # (cache evicted, STATE_KEY bumped): a run from scratch must not publish
+      # a much smaller index. `reset` drops it, to accept a genuine mass
+      # removal.
       - name: Scrape
         id: scrape
         if: steps.policy.outputs.due == 'true'
+        env:
+          SCRAPE_BASELINE: ${{ !inputs.reset && '_published/doc-modules-v1.idx' || '' }}
         run: |
           started=$(date -u +%s)
           if timeout 40m _bin/doc_modules.exe scrape \
@@ -181,7 +192,9 @@ jobs:
           gzip -9 -n -k _out/doc-modules.jsonl
 
       # Also when unchanged, if a previous replacement of the index or the
-      # JSONL was interrupted, to finish it.
+      # JSONL was interrupted, to finish it. The JSONL goes first: if its
+      # upload fails, the index is not replaced either, so the next run finds
+      # it changed and uploads both.
       - name: Publish the index
         if: steps.compile.outcome == 'success'
         run: |
@@ -190,7 +203,7 @@ jobs:
             echo "Index unchanged: not uploaded." >> "$GITHUB_STEP_SUMMARY"
           else
             tool/doc-modules/release-assets.sh replace "$RELEASE_TAG" \
-              _out/doc-modules-v1.idx _out/doc-modules.jsonl.gz
+              _out/doc-modules.jsonl.gz _out/doc-modules-v1.idx
             echo "Index changed: uploaded." >> "$GITHUB_STEP_SUMMARY"
           fi
 

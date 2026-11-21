@@ -186,7 +186,19 @@ let damaged_entries () =
   let t = ok (R.of_string bad) in
   Alcotest.(check names)
     "a lookup reading the bad offset" [] (R.providers t "Lwt_io");
-  lookups_do_not_raise t
+  lookups_do_not_raise t;
+  (* the posting count of the last key, past the postings: [verify] must refuse
+     it before reading them, not read on past the mapping *)
+  let nk = u32_at s 12 and off_keys = u32_at s 20 in
+  let bad = patch_u32 s (off_keys + ((nk - 1) * 16) + 12) 0x7FFF_FFFF in
+  (match R.verify (ok (R.of_string bad)) with
+  | Ok () -> Alcotest.fail "postings past the end: accepted"
+  | Error e ->
+      Alcotest.(check bool)
+        ("postings past the end: " ^ e)
+        true
+        (String.starts_with ~prefix:"postings out of bounds" e));
+  lookups_do_not_raise (ok (R.of_string bad))
 
 let damaged () =
   let s = D.Writer.to_string sample in

@@ -20,12 +20,17 @@
    bodies): an error, and the package keeps its previous state.
 
    The run aborts, changing nothing but the stats, if OPAM_REPOSITORY lists no
-   package, if more than [max_errors] percent of the attempted requests fail, or
-   if more than [max_losses] percent of the packages that had docs now have none
-   or are gone from OPAM_REPOSITORY: these mean the backend or the clone, not
-   the packages, changed. A genuine mass removal from opam-repository keeps
-   aborting: a run from an empty STATE_DIR (the workflow's `reset`) has nothing
-   to lose and accepts it.
+   package, if [max_failures_in_a_row] packages fail in a row (checked as it
+   goes, so that a failing backend is not sent every request), if more than
+   [max_errors] percent of the attempted requests fail, or if more than
+   [max_losses] percent of the packages that had docs now have none or are gone
+   from OPAM_REPOSITORY: these mean the backend or the clone, not the packages,
+   changed. The packages that had docs are those of the state, or, if the state
+   has none (lost, reset or damaged), those of the [baseline] index, the
+   published one: a run from scratch must not publish a much smaller index. A
+   genuine mass removal from opam-repository keeps aborting: a run from an empty
+   STATE_DIR without a baseline (the workflow's `reset`) has nothing to lose and
+   accepts it.
 
    Load on the backend: see Http. ~3.6k requests, ~8 min daily; ~5.3k, ~15 min
    after a backend rebuild. Packages without docs are asked again when their
@@ -43,6 +48,10 @@ type config = {
   max_time : float;  (** seconds per request *)
   max_errors : int;  (** percent of attempted requests *)
   max_losses : int;  (** percent of packages that had docs *)
+  max_failures_in_a_row : int;
+  baseline : string option;
+      (** the published index: the packages that had docs if the state has none
+      *)
   retry_days : int;
   day : int;  (** days since the epoch; decides the re-probes *)
   limit : int;  (** 0: all packages; for testing only *)
@@ -59,6 +68,8 @@ let default =
     max_time = 20.;
     max_errors = 10;
     max_losses = 10;
+    max_failures_in_a_row = 20;
+    baseline = None;
     retry_days = 7;
     day = int_of_float (Unix.time ()) / 86400;
     limit = 0;
@@ -229,9 +240,38 @@ let run ?(config = default) ?stats ~repo ~state_dir ~output () =
   let started = int_of_float (Unix.time ()) in
   let old_state = load_state state_dir in
   let packages = listing ~limit:config.limit repo in
+  (* The packages that had docs: see the header. *)
+  let baseline_error, had_docs =
+    let of_state =
+      State.M.filter_map
+        (fun _ (e : State.entry) -> Option.map ignore e.docs)
+        old_state
+    in
+    match config.baseline with
+    | Some path when State.M.is_empty of_state && Sys.file_exists path -> (
+        match
+          Result.bind (Ocamlorg_doc_modules.Reader.map_file path) (fun t ->
+              Result.map
+                (fun () -> Ocamlorg_doc_modules.Reader.packages t)
+                (Ocamlorg_doc_modules.Reader.verify t))
+        with
+        | Error e ->
+            ( Some (Printf.sprintf "cannot read the baseline %s: %s" path e),
+              of_state )
+        | Ok packages ->
+            ( None,
+              List.fold_left
+                (fun m (name, _) -> State.M.add name () m)
+                State.M.empty packages ))
+    | _ -> (None, of_state)
+  in
   let http = Http.create ~rate:config.rate ~max_time:config.max_time in
+  (* Failed packages in a row; once [max_failures_in_a_row], the remaining
+     packages are not asked (Skipped) and the run aborts. *)
+  let in_a_row = ref 0 in
+  let gave_up () = !in_a_row >= config.max_failures_in_a_row in
   let outcomes, bytes =
-    if packages = [] then ([], 0)
+    if packages = [] || baseline_error <> None then ([], 0)
     else
       Lwt_main.run
         (let open Lwt.Syntax in
@@ -247,10 +287,15 @@ let run ?(config = default) ?stats ~repo ~state_dir ~output () =
                  State.attempts ~day:config.day ~every:config.retry_days name
                    previous candidates
                with
+               | _ when gave_up () ->
+                   Lwt.return ((name, candidates, Skipped) :: acc, bytes, i + 1)
                | None ->
                    Lwt.return ((name, candidates, Skipped) :: acc, bytes, i + 1)
                | Some attempts ->
                    let* o, b = probe config http name previous attempts in
+                   (match o with
+                   | Failed _ -> incr in_a_row
+                   | _ -> in_a_row := 0);
                    Lwt.return ((name, candidates, o) :: acc, bytes + b, i + 1))
              ([], 0, 0) packages
          in
@@ -310,9 +355,6 @@ let run ?(config = default) ?stats ~repo ~state_dir ~output () =
     append_stats (record `Aborted (Some reason) [] []);
     Error reason
   in
-  let had_docs =
-    State.M.filter (fun _ (e : State.entry) -> e.docs <> None) old_state
-  in
   (* Losses: packages that had docs and now have none, or are not listed any
      more (unless the listing is cut short by [limit]). *)
   let by_name =
@@ -332,6 +374,14 @@ let run ?(config = default) ?stats ~repo ~state_dir ~output () =
   let n_had_docs = State.M.cardinal had_docs in
   if packages = [] then
     abort (Printf.sprintf "no package in %s/packages" repo) (fun _ -> false)
+  else if Option.is_some baseline_error then
+    abort (Option.get baseline_error) (fun _ -> false)
+  else if gave_up () then
+    abort
+      (Printf.sprintf "%d packages failed in a row, after %d requests"
+         config.max_failures_in_a_row requests) (function
+      | _, _, Failed _ -> true
+      | _ -> false)
   else if errors * 100 > requests * config.max_errors then
     abort (Printf.sprintf "%d of %d attempted requests failed" errors requests)
       (function

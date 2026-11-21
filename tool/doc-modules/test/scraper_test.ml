@@ -407,12 +407,16 @@ let count_lines file =
     List.length (List.filter (( <> ) "") (String.split_on_char '\n' (read p)))
   else 0
 
-let asked name =
+let asked ?(version = "") name =
   let p = Filename.concat backend "requests.log" in
+  let prefix =
+    if version = "" then Printf.sprintf "/p/%s/" name
+    else Printf.sprintf "/p/%s/%s/" name version
+  in
   if Sys.file_exists p then
     List.length
       (List.filter
-         (fun l -> String.starts_with ~prefix:(Printf.sprintf "/p/%s/" name) l)
+         (String.starts_with ~prefix)
          (String.split_on_char '\n' (read p)))
   else 0
 
@@ -505,6 +509,17 @@ let e2e_basics () =
   Alcotest.(check bool) "all errors: unchanged" true (before = snapshot ());
   Alcotest.(check string)
     "all errors: stats aborted" "aborted" (last_string "status");
+  (* ... and stops asking once packages fail in a row. *)
+  clear_logs ();
+  let e =
+    aborts "failures in a row"
+      (run ~f:(fun c -> { c with max_failures_in_a_row = 2 }) ())
+  in
+  Alcotest.(check bool) "in a row: reason" true (contains e "in a row");
+  Alcotest.(check int)
+    "in a row: no request after the second failure" 2
+    (count_lines "requests.log");
+  Alcotest.(check bool) "in a row: unchanged" true (before = snapshot ());
   (* 6. The backend loses every doc: abort. *)
   write (Filename.concat backend "status") "404";
   let e = aborts "all lost" (run ()) in
@@ -588,6 +603,20 @@ let e2e_transfer_failures () =
         {|{"name":"beta","version":"0.1","modules":["Beta"]}|} (line "beta"))
     [ "slow"; "truncated"; "garbled" ];
   control "alpha" "2.0" "mode" None;
+  (* A timeout on a reused connection (beta is asked after alpha) is not sent
+     again: the timeout closing the connection is not a stale connection. *)
+  control "beta" "0.1" "mode" (Some "slow");
+  clear_logs ();
+  succeeds "slow on a reused connection"
+    (run ~f:(fun c -> { c with max_errors = 100; max_time = 1. }) ());
+  Alcotest.(check int) "slow, reused: one error" 1 (last_int "errors");
+  Alcotest.(check int)
+    "slow, reused: asked once" 1
+    (asked ~version:"0.1" "beta");
+  Alcotest.(check int)
+    "slow, reused: one new connection after the timeout" 2
+    (count_lines "connections.log");
+  control "beta" "0.1" "mode" None;
   succeeds "after transfer failures" (run ());
   Alcotest.(check int) "no error" 0 (last_int "errors")
 
@@ -600,9 +629,49 @@ let e2e_invalid_names () =
     "dropped" {|{"name":"nl","version":"1.0","modules":["Good"]}|} (line "nl");
   compiles ()
 
+(* Requests start at most [rate] per second. *)
+let e2e_rate () =
+  let rate = 20. and n = 6 in
+  let http = S.Http.create ~rate ~max_time:5. in
+  let uri = Uri.of_string (Lazy.force mock_url ^ "p/none/1/doc/sidebar.json") in
+  let t0 = Unix.gettimeofday () in
+  Lwt_main.run
+    (Lwt_list.iter_s
+       (fun _ -> Lwt.map ignore (S.Http.get http uri))
+       (List.init n Fun.id));
+  let elapsed = Unix.gettimeofday () -. t0 in
+  S.Http.close http;
+  Alcotest.(check int) "requests" n (S.Http.requests http);
+  Alcotest.(check bool)
+    (Printf.sprintf "%d requests at %g per second took %.3f s" n rate elapsed)
+    true
+    (elapsed >= float (n - 1) /. rate)
+
+(* Without docs in the state, losses count against the baseline, the published
+   index: a run from scratch while the backend has lost the docs aborts. *)
 let e2e_damaged_state () =
+  compiles ();
+  let baseline c = { c with S.Scrape.baseline = Some (path "out.idx") } in
+  let before = read output in
   write (Filename.concat state_dir "state.jsonl") "garbage";
-  succeeds "a damaged state: refetch" (run ());
+  write (Filename.concat backend "status") "404";
+  let e = aborts "from scratch, docs lost" (run ~f:baseline ()) in
+  Alcotest.(check bool)
+    "from scratch, docs lost: reason" true
+    (contains e "have none any more");
+  Alcotest.(check string)
+    "from scratch, docs lost: unchanged" before (read output);
+  remove (Filename.concat backend "status");
+  write (path "bad.idx") "garbage";
+  let e =
+    aborts "unreadable baseline"
+      (run ~f:(fun c -> { c with baseline = Some (path "bad.idx") }) ())
+  in
+  Alcotest.(check bool)
+    "unreadable baseline: reason" true
+    (contains e "cannot read the baseline");
+  write (Filename.concat state_dir "state.jsonl") "garbage";
+  succeeds "a damaged state: refetch" (run ~f:baseline ());
   Alcotest.(check int) "refetched" 0 (last_int "unchanged");
   Alcotest.(check string)
     "same data" {|{"name":"nl","version":"1.0","modules":["Good"]}|} (line "nl")
@@ -625,6 +694,7 @@ let () =
           Alcotest.test_case "empty listing" `Quick e2e_empty_listing;
           Alcotest.test_case "re-probe schedule" `Quick e2e_reprobe;
           Alcotest.test_case "transfer failures" `Quick e2e_transfer_failures;
+          Alcotest.test_case "rate limit" `Quick e2e_rate;
           Alcotest.test_case "invalid names" `Quick e2e_invalid_names;
           Alcotest.test_case "damaged state" `Quick e2e_damaged_state;
         ] );

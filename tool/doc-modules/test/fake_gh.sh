@@ -1,10 +1,13 @@
 #!/bin/sh
 # A fake of the few `gh` commands release-assets.sh uses, for scrape_test.sh.
 # One release, kept in $GH_FAKE: it exists if $GH_FAKE/release does; its
-# assets are $GH_FAKE/assets/ID, named by the lines "ID NAME" of
-# $GH_FAKE/names. If $GH_FAKE/fail names an operation (list, upload, delete,
-# rename), that operation fails once. Like GitHub, an upload under the name of
-# an existing asset fails.
+# assets are $GH_FAKE/assets/ID, named by the lines "ID NAME [STATE]" of
+# $GH_FAKE/names (STATE: "uploaded" if absent). If $GH_FAKE/fail names an
+# operation (list, upload, delete, rename), that operation fails once; if
+# $GH_FAKE/fail-always does, it fails every time. `starter` makes the next
+# upload fail once after creating its asset in state "starter", as an upload
+# cut short does. Like GitHub, an upload under the name of an existing asset
+# fails.
 set -eu
 F=$GH_FAKE
 mkdir -p "$F/assets"
@@ -16,6 +19,10 @@ fail_once() {
     echo "gh: injected $1 failure" >&2
     exit 1
   fi
+  if [ "$(cat "$F/fail-always" 2>/dev/null)" = "$1" ]; then
+    echo "gh: injected $1 failure (always)" >&2
+    exit 1
+  fi
 }
 id_of() { awk -v n="$1" '$2 == n { print $1 }' "$F/names"; }
 
@@ -24,8 +31,8 @@ case "$1 $2" in
   fail_once list
   [ -d "$F/release" ] || { echo "gh: Not Found (HTTP 404)" >&2; exit 1; }
   [ "$3" = --jq ] || exit 2
-  awk '{ printf "%s{\"id\":%s,\"name\":\"%s\",\"state\":\"uploaded\"}",
-                 (NR > 1 ? "," : ""), $1, $2 }
+  awk '{ printf "%s{\"id\":%s,\"name\":\"%s\",\"state\":\"%s\"}",
+                 (NR > 1 ? "," : ""), $1, $2, ($3 == "" ? "uploaded" : $3) }
     BEGIN { printf "{\"assets\":[" } END { print "]}" }' "$F/names" |
     jq -r "$4"
   ;;
@@ -60,6 +67,12 @@ case "$1 $2" in
     fi
     id=$(($(awk '$1 > m { m = $1 } END { print m + 0 }' "$F/names") + 1))
     cp "$file" "$F/assets/$id"
+    if [ "$(cat "$F/fail" 2>/dev/null)" = starter ]; then
+      rm -f "$F/fail"
+      echo "$id $name starter" >>"$F/names"
+      echo "gh: injected upload cut short" >&2
+      exit 1
+    fi
     echo "$id $name" >>"$F/names"
   done
   ;;

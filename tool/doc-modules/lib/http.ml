@@ -77,8 +77,11 @@ let connection t uri =
       Lwt.return (c, false)
 
 (* One exchange. A request on a reused connection that fails before any response
-   (the backend closed the idle connection) is sent again on a new one. *)
-let rec exchange t uri headers ~retry =
+   (the backend closed the idle connection) is sent again on a new one, unless
+   the request was abandoned ([live] false: its time is up, and the failure is
+   the timeout closing the connection), which must not be retried: the retry
+   would run unbounded, uncounted and outside the rate limit. *)
+let rec exchange t uri headers ~live ~retry =
   let open Lwt.Syntax in
   let* c, reused = connection t uri in
   Lwt.catch
@@ -88,8 +91,11 @@ let rec exchange t uri headers ~retry =
       Lwt.return (response, raw))
     (fun e ->
       close t;
-      if reused && retry then exchange t uri headers ~retry:false
-      else Lwt.reraise e)
+      match e with
+      | Lwt.Canceled -> Lwt.reraise e
+      | _ when reused && retry && !live ->
+          exchange t uri headers ~live ~retry:false
+      | _ -> Lwt.reraise e)
 
 let decode response raw =
   let h = Cohttp.Response.headers response in
@@ -133,15 +139,17 @@ let get t ?etag uri =
       ([ ("Accept-Encoding", "gzip"); ("User-Agent", user_agent) ]
       @ match etag with Some e -> [ ("If-None-Match", e) ] | None -> [])
   in
+  let live = ref true in
   let fetch () =
     Lwt.catch
       (fun () ->
-        let* response, raw = exchange t uri headers ~retry:true in
+        let* response, raw = exchange t uri headers ~live ~retry:true in
         Lwt.return (decode response raw))
       (fun e -> Lwt.return (Error (Printexc.to_string e)))
   in
   let timeout () =
     let* () = Lwt_unix.sleep t.max_time in
+    live := false;
     close t;
     Lwt.return (Error (Printf.sprintf "timed out after %gs" t.max_time))
   in
