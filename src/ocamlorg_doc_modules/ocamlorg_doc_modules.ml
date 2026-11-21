@@ -207,11 +207,17 @@ module Reader = struct
   (* The lookup path allocates nothing but its result: top-level functions with
      plain arguments (no closures, no tuples). *)
 
-  (* Compare bytes [o + i, o + l) with [q.[i], ...], as String.compare. *)
+  (* Compare bytes [o + i, o + l) with the lowercased [q.[i], ...], as
+     String.compare on [String.lowercase_ascii q] would, without allocating the
+     lowercased copy. *)
   let rec compare_from ba o l q ql i =
     if i = l || i = ql then Int.compare l ql
     else
-      let c = Char.compare (get ba (o + i)) (String.unsafe_get q i) in
+      let c =
+        Char.compare
+          (get ba (o + i))
+          (Char.lowercase_ascii (String.unsafe_get q i))
+      in
       if c <> 0 then c else compare_from ba o l q ql (i + 1)
 
   (* Compare key [i] with [q]. *)
@@ -247,15 +253,17 @@ module Reader = struct
       let p = u32 t.ba (t.off_post + (4 * (first + j))) in
       collect t first (j - 1) (name_at t p :: acc)
 
+  (* The handler covers the whole lookup: the search, and [collect], which
+     checks every posting and name reference. *)
   let providers t path =
-    let q = String.lowercase_ascii path in
-    match search t q 0 t.nk with
-    | -1 -> []
-    | i ->
-        let e = t.off_keys + (i * key_entry) in
-        let first = u32 t.ba (e + 8) and count = u32 t.ba (e + 12) in
-        if first + count > t.npost then [] else collect t first (count - 1) []
-    | exception Damaged -> []
+    try
+      match search t path 0 t.nk with
+      | -1 -> []
+      | i ->
+          let e = t.off_keys + (i * key_entry) in
+          let first = u32 t.ba (e + 8) and count = u32 t.ba (e + 12) in
+          if first + count > t.npost then [] else collect t first (count - 1) []
+    with Damaged -> []
 
   let packages t =
     try

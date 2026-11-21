@@ -102,10 +102,10 @@ let little_allocation () =
     ignore (Sys.opaque_identity (R.providers t "Nope_nope"))
   done;
   let per_miss = (Gc.minor_words () -. before) /. 1000. in
-  (* only the lowercased query: a few words *)
+  (* the query is lowercased on the fly, not copied: nothing at all *)
   Alcotest.(check bool)
-    (Printf.sprintf "a miss allocates %.0f words" per_miss)
-    true (per_miss < 16.)
+    (Printf.sprintf "a miss allocates %.1f words" per_miss)
+    true (per_miss < 1.)
 
 let fails what s =
   match R.of_string s with
@@ -120,6 +120,74 @@ let set_byte s i c =
   Bytes.set b i c;
   Bytes.to_string b
 
+let u32_at s off =
+  Char.code s.[off]
+  lor (Char.code s.[off + 1] lsl 8)
+  lor (Char.code s.[off + 2] lsl 16)
+  lor (Char.code s.[off + 3] lsl 24)
+
+(* [s] with the u32 at [off] set to [n], and the MD5 fixed up so that only the
+   structural checks can catch it. *)
+let patch_u32 s off n =
+  let b = Bytes.of_string s in
+  Bytes.set_int32_le b off (Int32.of_int n);
+  let body = Bytes.sub_string b 64 (Bytes.length b - 64) in
+  Bytes.blit_string (Digest.string body) 0 b 36 16;
+  Bytes.to_string b
+
+(* Lookups on an index that passes [of_string] but not [verify] return [[]] for
+   the damaged entries, and never raise. *)
+let lookups_do_not_raise t =
+  List.iter
+    (fun q ->
+      match R.providers t q with
+      | _ -> ()
+      | exception e ->
+          Alcotest.failf "providers %S raised %s" q (Printexc.to_string e))
+    [
+      "Lwt";
+      "Lwt_io";
+      "Yojson.Safe";
+      "CCList";
+      "CCHashtbl";
+      "Ppx_lwt";
+      "Zzz";
+      "";
+    ];
+  match R.packages t with
+  | _ -> ()
+  | exception e -> Alcotest.failf "packages raised %s" (Printexc.to_string e)
+
+(* Postings and package name references are only checked as the lookup reads
+   them, after the key is found. *)
+let damaged_entries () =
+  let s = D.Writer.to_string sample in
+  let off_pkgs = u32_at s 16 and off_post = u32_at s 24 in
+  (* the first key, "cchashtbl", has a single posting: "containers", 0 *)
+  let bad = patch_u32 s off_post 7 in
+  fails "posting past the package table" bad;
+  let t = ok (R.of_string bad) in
+  Alcotest.(check names)
+    "a lookup reading the bad posting" []
+    (R.providers t "CCHashtbl");
+  lookups_do_not_raise t;
+  (* the name length of the first package, "containers" *)
+  let bad = patch_u32 s (off_pkgs + 4) 0x7FFF_FFFF in
+  fails "name past the end" bad;
+  let t = ok (R.of_string bad) in
+  Alcotest.(check names)
+    "a lookup reading the bad name" [] (R.providers t "CCList");
+  Alcotest.(check names)
+    "another package's lookup" [ "yojson" ] (R.providers t "Yojson");
+  lookups_do_not_raise t;
+  (* the name offset of the second package, "lwt", pointing into the tables *)
+  let bad = patch_u32 s (off_pkgs + 16) off_pkgs in
+  fails "name before the strings" bad;
+  let t = ok (R.of_string bad) in
+  Alcotest.(check names)
+    "a lookup reading the bad offset" [] (R.providers t "Lwt_io");
+  lookups_do_not_raise t
+
 let damaged () =
   let s = D.Writer.to_string sample in
   fails "bad magic" (set_byte s 0 'X');
@@ -130,16 +198,7 @@ let damaged () =
   fails "body byte flipped (MD5)" (set_byte s (String.length s - 1) 'z');
   (* a key's offset pointing past the end, with a fixed-up MD5 so that only the
      structural checks can catch it *)
-  let t = ok (R.of_string s) in
-  ignore t;
-  let off_keys =
-    Char.code s.[20] lor (Char.code s.[21] lsl 8) lor (Char.code s.[22] lsl 16)
-  in
-  let b = Bytes.of_string s in
-  Bytes.set_int32_le b off_keys 0x7FFF_FFFFl;
-  let body = Bytes.sub_string b 64 (Bytes.length b - 64) in
-  Bytes.blit_string (Digest.string body) 0 b 36 16;
-  let bad = Bytes.to_string b in
+  let bad = patch_u32 s (u32_at s 20) 0x7FFF_FFFF in
   fails "out-of-bounds key" bad;
   (* and lookups on it fail safely instead of reading outside *)
   let t = ok (R.of_string bad) in
@@ -148,9 +207,7 @@ let damaged () =
   Alcotest.(check names)
     "a lookup reaching the damaged key" []
     (R.providers t "CCHashtbl");
-  List.iter
-    (fun q -> ignore (R.providers t q))
-    [ "Lwt"; "Lwt_io"; "Yojson.Safe"; "CCList"; "Ppx_lwt"; "Zzz"; "" ]
+  lookups_do_not_raise t
 
 let map_file () =
   let path = Filename.temp_file "doc-modules" ".idx" in
@@ -175,6 +232,7 @@ let () =
           Alcotest.test_case "naive equivalence" `Quick naive_equivalence;
           Alcotest.test_case "little allocation" `Quick little_allocation;
           Alcotest.test_case "damaged files" `Quick damaged;
+          Alcotest.test_case "damaged entries" `Quick damaged_entries;
           Alcotest.test_case "map_file" `Quick map_file;
         ] );
     ]

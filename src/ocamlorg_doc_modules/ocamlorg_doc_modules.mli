@@ -71,7 +71,7 @@ module Reader : sig
   (** [providers t path] are the names of the packages whose documentation
       defines the module [path], compared case-insensitively, in name order. A
       binary search over the keys; allocates only the result. [[]] if the path
-      is unknown, or if the index turns out to be damaged. *)
+      is unknown, or if the index turns out to be damaged (never raises). *)
 
   val packages : t -> (string * string) list
   (** All [(name, version)] pairs, in name order. *)
