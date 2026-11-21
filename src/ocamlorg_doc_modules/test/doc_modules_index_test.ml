@@ -150,7 +150,24 @@ let damaged () =
     (R.providers t "CCHashtbl");
   List.iter
     (fun q -> ignore (R.providers t q))
-    [ "Lwt"; "Lwt_io"; "Yojson.Safe"; "CCList"; "Ppx_lwt"; "Zzz"; "" ]
+    [ "Lwt"; "Lwt_io"; "Yojson.Safe"; "CCList"; "Ppx_lwt"; "Zzz"; "" ];
+  (* the last key's postings running one past the postings table, with a
+     fixed-up MD5: verify must reject it before reading them, not read on into
+     the string area (or past the end of the file) *)
+  let u32_at i = Int32.to_int (String.get_int32_le s i) in
+  let nk = u32_at 12 and off_keys = u32_at 20 in
+  let count_at = off_keys + ((nk - 1) * 16) + 12 in
+  let b = Bytes.of_string s in
+  Bytes.set_int32_le b count_at (Int32.of_int (u32_at count_at + 1));
+  let body = Bytes.sub_string b 64 (Bytes.length b - 64) in
+  Bytes.blit_string (Digest.string body) 0 b 36 16;
+  match R.verify (ok (R.of_string (Bytes.to_string b))) with
+  | Ok () -> Alcotest.fail "postings past the table: accepted"
+  | Error m ->
+      Alcotest.(check bool)
+        ("postings past the table rejected as out of bounds: " ^ m)
+        true
+        (String.starts_with ~prefix:"postings out of bounds" m)
 
 let map_file () =
   let path = Filename.temp_file "doc-modules" ".idx" in
