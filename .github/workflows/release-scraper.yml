@@ -35,8 +35,10 @@ jobs:
       - name: Install opam dependencies
         run: opam install --deps-only --with-test .
 
-      - name: Build scraper
-        run: opam exec -- dune build tool/data-scrape/bin/scrape.exe
+      # scrape.exe for the data scrapers; doc_modules.exe for
+      # scrape-doc-modules.yml.
+      - name: Build scrapers
+        run: opam exec -- dune build tool/data-scrape/bin/scrape.exe tool/doc-modules/bin/doc_modules.exe
 
       - name: Delete previous release
         run: gh release delete scraper-latest --cleanup-tag --yes || true
@@ -47,6 +49,7 @@ jobs:
         run: |
           gh release create scraper-latest \
             _build/default/tool/data-scrape/bin/scrape.exe \
+            _build/default/tool/doc-modules/bin/doc_modules.exe \
             --title "Scraper @ ${GITHUB_SHA::7}" \
             --notes "Built from ${{ github.sha }}" \
             --latest=false

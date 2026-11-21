@@ -23,6 +23,7 @@ depends: [
   "cohttp"
   "cohttp-lwt"
   "cohttp-lwt-unix"
+  "decompress"
   "bos"
   "crunch"
   "dream" {>= "1.0.0~alpha8"}

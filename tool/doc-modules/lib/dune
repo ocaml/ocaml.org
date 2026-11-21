@@ -1,0 +1,16 @@
+(library
+ (name doc_modules_scraper)
+ (libraries
+  doc_modules_jsonl
+  ocamlorg.doc_modules
+  yojson
+  lwt
+  lwt.unix
+  cohttp
+  cohttp-lwt
+  cohttp-lwt-unix
+  uri
+  decompress.gz
+  decompress.de
+  ptime
+  opam-format))
