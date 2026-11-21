@@ -1,3 +1,11 @@
 (test
  (name doc_modules_jsonl_test)
+ (modules doc_modules_jsonl_test)
  (libraries alcotest doc_modules_jsonl ocamlorg.doc_modules))
+
+; The mock documentation backend of scrape_test.sh, which CI runs separately.
+
+(executable
+ (name mock_backend)
+ (modules mock_backend)
+ (libraries unix threads.posix))

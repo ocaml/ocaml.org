@@ -1,15 +1,18 @@
 #!/bin/sh
 # Tests of scrape.sh and policy.sh against a mock documentation backend
-# (mock_backend.py), of sidebar-modules.jq, and of release-assets.sh against a
-# fake gh (fake_gh.sh). Needs curl, jq and python3, like the workflow.
+# (mock_backend.ml), of sidebar-modules.jq, and of release-assets.sh against a
+# fake gh (fake_gh.sh). Needs curl and jq, like the workflow.
 #
-#   tool/doc-modules/test/scrape_test.sh [COMPILE.exe]
+#   tool/doc-modules/test/scrape_test.sh MOCK_BACKEND.exe [COMPILE.exe]
 #
-# With the path of compile.exe, also checks that it accepts every output.
+# Both built by `dune build ./tool/doc-modules/test/mock_backend.exe
+# ./tool/doc-modules/compile.exe`. With the path of compile.exe, also checks
+# that it accepts every output.
 set -eu
 HERE=$(cd "$(dirname "$0")" && pwd)
 TOOL=$(dirname "$HERE")
-COMPILE=${1:-}
+MOCK=${1:?usage: scrape_test.sh MOCK_BACKEND.exe [COMPILE.exe]}
+COMPILE=${2:-}
 T=$(mktemp -d)
 SERVER=
 cleanup() {
@@ -19,7 +22,8 @@ cleanup() {
 trap cleanup EXIT
 trap 'exit 1' INT TERM HUP
 
-python3 "$HERE/mock_backend.py" "$T/backend" "$T/port" &
+mkdir -p "$T/backend"
+"$MOCK" "$T/backend" "$T/port" &
 SERVER=$!
 mkdir -p "$T/backend/p" "$T/repo/packages"
 i=0

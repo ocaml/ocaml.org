@@ -118,11 +118,13 @@ make test
 
 #### Doc-modules scraper tests
 
-The shell tools in [`tool/doc-modules`](tool/doc-modules) (the scraper, its polling policy, its sidebar filter, and the release asset helper) are tested against a mock documentation backend and a fake `gh`, outside `make test`. They need `curl`, `jq`, and `python3`. CI runs them on Linux:
+The shell tools in [`tool/doc-modules`](tool/doc-modules) (the scraper, its polling policy, its sidebar filter, and the release asset helper) are tested against a mock documentation backend and a fake `gh`, outside `make test`. They need `curl` and `jq`. CI runs them on Linux:
 
 ```bash
-dune build ./tool/doc-modules/compile.exe
-tool/doc-modules/test/scrape_test.sh _build/default/tool/doc-modules/compile.exe
+dune build ./tool/doc-modules/test/mock_backend.exe ./tool/doc-modules/compile.exe
+tool/doc-modules/test/scrape_test.sh \
+  _build/default/tool/doc-modules/test/mock_backend.exe \
+  _build/default/tool/doc-modules/compile.exe
 ```
 
 #### Load tests
