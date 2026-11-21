@@ -15,7 +15,9 @@ let package_state =
 
 (* The doc-modules index (#3982), next to the package state by default: the
    builder downloads it there and the server maps it. *)
-let doc_modules =
+let doc_modules_for ~state =
   Sys.getenv_opt "OCAMLORG_DOC_MODULES_PATH"
   |> Option.map (fun x -> Result.get_ok (Fpath.of_string x))
-  |> Option.value ~default:Fpath.(parent package_state / "doc-modules.idx")
+  |> Option.value ~default:Fpath.(parent state / "doc-modules.idx")
+
+let doc_modules = doc_modules_for ~state:package_state

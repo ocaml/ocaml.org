@@ -7,8 +7,9 @@
    saved by another version, is rebuilt from scratch; otherwise only what
    changed since the saved commit is re-read where possible.
 
-   Then, independently, bring the doc-modules index at
-   [OCAMLORG_DOC_MODULES_PATH] up to date from the release asset CI publishes
+   Then, independently, bring the doc-modules index up to date, at
+   [OCAMLORG_DOC_MODULES_PATH] or else next to STATE_PATH (the same place the
+   server looks when given STATE_PATH), from the release asset CI publishes
    (Doc_modules_fetch, #3982): a failure there keeps the current index and never
    fails the state, and the other way round.
 
@@ -130,10 +131,11 @@ let () =
             m "Failed to update the package state: %s" (Printexc.to_string e));
         false
   in
-  let index_ok = Lwt_main.run (Doc_modules_fetch.run Paths.doc_modules) in
+  let doc_modules = Paths.doc_modules_for ~state:o.state_path in
+  let index_ok = Lwt_main.run (Doc_modules_fetch.run doc_modules) in
   if not state_ok then exit 1
   else if o.require_doc_modules && not index_ok then (
     Logs.err (fun m ->
-        m "No valid doc-modules index at %a" Fpath.pp Paths.doc_modules);
+        m "No valid doc-modules index at %a" Fpath.pp doc_modules);
     exit 1)
   else exit 0
