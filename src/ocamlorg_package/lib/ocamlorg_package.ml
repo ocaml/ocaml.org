@@ -247,7 +247,8 @@ let reload t path =
    assignment: requests already running keep the mapping they hold. Mapping only
    checks the header, in constant time; the builder verified the whole file
    before renaming it there. A file that can't be mapped is skipped, and the
-   current index kept. *)
+   current index kept. Says whether the index was swapped in, so that the caller
+   tries again at the next poll if not. *)
 let reload_doc_modules t path =
   let t0 = Unix.gettimeofday () in
   match Ocamlorg_doc_modules.Reader.map_file (Fpath.to_string path) with
@@ -256,8 +257,11 @@ let reload_doc_modules t path =
       Logs.info (fun m ->
           m "Doc-modules index mapped (%d module paths, %.3fms)"
             (Ocamlorg_doc_modules.Reader.key_count r)
-            ((Unix.gettimeofday () -. t0) *. 1000.))
-  | Error e -> Logs.err (fun m -> m "Doc-modules index not mapped: %s" e)
+            ((Unix.gettimeofday () -. t0) *. 1000.));
+      true
+  | Error e ->
+      Logs.err (fun m -> m "Doc-modules index not mapped: %s" e);
+      false
 
 let doc_module_providers t path =
   match t.doc_modules with
@@ -361,11 +365,12 @@ let refresh t ~loaded ~loaded_doc ~failures =
       failed (fun f () -> Fmt.pf f "failed to run: %s" (Printexc.to_string e)));
   (* The builder brings the doc-modules index up to date independently of the
      state, and only renames a verified file into place: look for a new one
-     whatever its exit status. *)
+     whatever its exit status. A file that could not be mapped (for instance,
+     out of file descriptors) is not recorded as loaded, so it is tried again at
+     the next poll. *)
   let id = file_id Paths.doc_modules in
-  if id <> None && id <> !loaded_doc then (
-    loaded_doc := id;
-    reload_doc_modules t Paths.doc_modules)
+  if id <> None && id <> !loaded_doc && reload_doc_modules t Paths.doc_modules
+  then loaded_doc := id
 
 let rec poll t ~loaded ~loaded_doc ~failures =
   let open Lwt.Syntax in
@@ -380,10 +385,14 @@ let rec poll t ~loaded ~loaded_doc ~failures =
 let init ?(disable_polling = false) () =
   let open Lwt.Syntax in
   let loaded = ref (file_id Paths.package_state) in
-  let loaded_doc = ref (file_id Paths.doc_modules) in
   let failures = ref 0 in
   let state = try_load_state () in
-  if !loaded_doc <> None then reload_doc_modules state Paths.doc_modules;
+  let loaded_doc =
+    let id = file_id Paths.doc_modules in
+    ref
+      (if id <> None && reload_doc_modules state Paths.doc_modules then id
+       else None)
+  in
   Lwt.async (fun () ->
       let* () = refresh state ~loaded ~loaded_doc ~failures in
       if disable_polling then Lwt.return_unit
