@@ -948,8 +948,9 @@ let same_version () =
      to_version: nothing to compare"
     (err [ ("from_version", `String "2.0") ])
 
-(* An identifier found in no version is a result, not an error: the status of
-   each version says which ones could not be checked. *)
+(* An identifier found in no version is a result, not an error: "found" is false
+   when every version in range was checked, and null when some could not be, as
+   the status of each version shows. *)
 let identifier_not_found () =
   let docs =
     [
@@ -958,14 +959,16 @@ let identifier_not_found () =
       ("lwt.2.0", built (lwt_page (page ())));
     ]
   in
-  let history ident =
+  let history ?(args = []) ident =
     payload
       (api_call docs [ "1.0"; "1.1"; "2.0" ]
-         [ ("module", `String "Lwt"); ("identifier", `String ident) ])
+         (("module", `String "Lwt") :: ("identifier", `String ident) :: args))
   in
   let json, partial = history "stat" in
   Alcotest.(check bool) "complete" false partial;
-  Alcotest.(check bool) "not found" true (member "found" json = `Bool false);
+  Alcotest.(check bool)
+    "not found in the versions checked, 1.1 has no docs" true
+    (member "found" json = `Null);
   Alcotest.(check bool)
     "no item" true
     (member "resolved_identifier" json = `Null);
@@ -974,6 +977,14 @@ let identifier_not_found () =
     [ "1.0 absent"; "1.1 no-docs"; "2.0 absent" ]
     (statuses json);
   Alcotest.(check bool) "no hint" true (member "hint" json = `Null);
+  let json, _ = history ~args:[ ("from_version", `String "2.0") ] "stat" in
+  Alcotest.(check bool)
+    "every version in range checked: false" true
+    (member "found" json = `Bool false);
+  let json, _ = history ~args:[ ("max_versions", `Int 1) ] "stat" in
+  Alcotest.(check bool)
+    "versions truncated: null" true
+    (member "found" json = `Null);
   let json, _ = history "Infix.map" in
   Alcotest.(check string)
     "an item of a submodule"
@@ -1143,10 +1154,11 @@ let stalling_in_2_0 path =
 let unchecked json = List.map to_string (to_list (member "unchecked" json))
 
 (* The page of [Parameter.List] in 2.0 never comes: the check stops at the
-   deadline, and the result is partial, since that module might have the
-   identifier too. So the identifier does not decide alone. The check gets half
-   of what is left after the first step, the pages the other half: both have a
-   few seconds. *)
+   deadline, and the result is partial, since that module could not be checked.
+   [Stdlib.List], the only checked module that has the identifier, is used, and
+   [Parameter.List] is listed in "unchecked". The check gets half of what is
+   left after the first step, the pages the other half: both have a few
+   seconds. *)
 let checks_within_the_deadline () =
   let start = Unix.gettimeofday () in
   let json, partial =
@@ -1165,8 +1177,8 @@ let checks_within_the_deadline () =
     "deadline reached" true
     (member "deadline_reached" json = `Bool true);
   Alcotest.(check resolution_t)
-    "Stdlib, which has it, before the one not checked"
-    ("Stdlib.List", "stdlib", [ "Parameter.List" ])
+    "Stdlib, the only one checked that has it"
+    ("Stdlib.List", "identifier", [ "Parameter.List" ])
     (resolution json);
   Alcotest.(check strings) "not checked" [ "Parameter.List" ] (unchecked json);
   Alcotest.(check strings)
@@ -1199,13 +1211,16 @@ let stalled_preferred_candidate () =
     "statuses"
     [ "1.0 absent"; "2.0 skipped" ]
     (statuses json);
-  Alcotest.(check bool) "not found" true (member "found" json = `Bool false)
+  Alcotest.(check bool)
+    "not found: 2.0 skipped" true
+    (member "found" json = `Null)
 
 (* --- the fixes of the review of the choice among modules --- *)
 
 (* Two matches with the same path: a module and a module type, or the same
    top-level module in two libraries. They are told apart by their page, in
-   every version. *)
+   every version, and "resolved_kind", "resolved_library" and
+   "ambiguous_matches" tell them apart in the output. *)
 let same_path_twice () =
   let sidebar =
     [
@@ -1239,6 +1254,25 @@ let same_path_twice () =
     "the module type"
     ("A.S", "identifier", [ "A.S" ])
     (resolution json);
+  Alcotest.(check string)
+    "resolved kind" "module-type"
+    (to_string (member "resolved_kind" json));
+  Alcotest.(check string)
+    "resolved library" "x"
+    (to_string (member "resolved_library" json));
+  Alcotest.(check bool)
+    "the other match, with its kind and page" true
+    (member "ambiguous_matches" json
+    = `List
+        [
+          `Assoc
+            [
+              ("module", `String "A.S");
+              ("kind", `String "module");
+              ("library", `String "x");
+              ("path", `String "x/A/S/index.html");
+            ];
+        ]);
   Alcotest.(check bool) "found" true (member "found" json = `Bool true);
   Alcotest.(check strings)
     "its page in every version"
@@ -1268,6 +1302,22 @@ let same_path_twice () =
     "the module of the second library"
     ("M", "identifier", [ "M" ])
     (resolution json);
+  Alcotest.(check string)
+    "its library" "y"
+    (to_string (member "resolved_library" json));
+  Alcotest.(check bool)
+    "the match of the first library" true
+    (member "ambiguous_matches" json
+    = `List
+        [
+          `Assoc
+            [
+              ("module", `String "M");
+              ("kind", `String "module");
+              ("library", `String "x");
+              ("path", `String "x/M/index.html");
+            ];
+        ]);
   Alcotest.(check strings) "found" [ "1.0 present" ] (statuses json);
   Alcotest.(check string)
     "its page" "y/M/index.html"
@@ -1289,8 +1339,8 @@ let list_1_0 pages =
 let parameter_list = "compiler-libs.common/Parameter/List/index.html"
 let stdlib_list = "stdlib/Stdlib/List/index.html"
 
-(* A page too large to be read whole that lacks the identifier may have it past
-   the part read: neither module decides alone. *)
+(* A page too large to be read whole that lacks the identifier is listed in
+   "unchecked", while the checked module that has it is used. *)
 let truncated_candidate () =
   let json, partial =
     payload
@@ -1302,11 +1352,11 @@ let truncated_candidate () =
   in
   Alcotest.(check bool) "complete" false partial;
   Alcotest.(check resolution_t)
-    "Stdlib, which may have it"
-    ("Stdlib.List", "stdlib", [ "Parameter.List" ])
+    "Parameter.List, which is known to have it"
+    ("Parameter.List", "identifier", [ "Stdlib.List" ])
     (resolution json);
-  Alcotest.(check strings) "statuses" [ "1.0 page-truncated" ] (statuses json);
-  Alcotest.(check strings) "the module is not listed" [] (unchecked json);
+  Alcotest.(check strings) "statuses" [ "1.0 present" ] (statuses json);
+  Alcotest.(check strings) "unchecked" [ "Stdlib.List" ] (unchecked json);
   let json, partial =
     payload
       (list_1_0 [ (parameter_list, big_page); (stdlib_list, value "length") ])
@@ -1314,10 +1364,65 @@ let truncated_candidate () =
   Alcotest.(check bool) "complete" false partial;
   Alcotest.(check resolution_t)
     "Stdlib, which has it"
-    ("Stdlib.List", "stdlib", [ "Parameter.List" ])
+    ("Stdlib.List", "identifier", [ "Parameter.List" ])
     (resolution json);
   Alcotest.(check strings) "unchecked" [ "Parameter.List" ] (unchecked json);
-  Alcotest.(check strings) "statuses" [ "1.0 present" ] (statuses json)
+  Alcotest.(check strings) "statuses" [ "1.0 present" ] (statuses json);
+  (* Earlier in sidebar order, a truncated page without the identifier does not
+     beat a later module that has it. *)
+  let sidebar =
+    [
+      library "x"
+        [
+          node "A" "x/A/index.html"
+            ~children:[ node "Infix" "x/A/Infix/index.html" ];
+          node "B" "x/B/index.html"
+            ~children:[ node "Infix" "x/B/Infix/index.html" ];
+        ];
+    ]
+  in
+  let json, partial =
+    payload
+      (api_call
+         [
+           ( "lwt.1.0",
+             built ~sidebar
+               [
+                 ("x/A/Infix/index.html", big_page);
+                 ("x/B/Infix/index.html", value "bind");
+               ] );
+         ]
+         [ "1.0" ]
+         [ ("module", `String "Infix"); ("identifier", `String "bind") ])
+  in
+  Alcotest.(check bool) "complete" false partial;
+  Alcotest.(check resolution_t)
+    "B.Infix, which has it"
+    ("B.Infix", "identifier", [ "A.Infix" ])
+    (resolution json);
+  Alcotest.(check strings) "unchecked" [ "A.Infix" ] (unchecked json);
+  Alcotest.(check bool) "found" true (member "found" json = `Bool true);
+  (* When neither has it in the part read, the unknown one beats the one known
+     to lack it. *)
+  let json, _ =
+    payload
+      (api_call
+         [
+           ( "lwt.1.0",
+             built ~sidebar
+               [
+                 ("x/A/Infix/index.html", value "other");
+                 ("x/B/Infix/index.html", big_page);
+               ] );
+         ]
+         [ "1.0" ]
+         [ ("module", `String "Infix"); ("identifier", `String "bind") ])
+  in
+  Alcotest.(check resolution_t)
+    "B.Infix, the one that may have it"
+    ("B.Infix", "order", [ "A.Infix" ])
+    (resolution json);
+  Alcotest.(check bool) "page truncated: null" true (member "found" json = `Null)
 
 (* The page of the other module is missing, or raises: it is not known to lack
    the identifier, and the result is partial. *)
@@ -1325,8 +1430,8 @@ let failed_candidate () =
   let check msg (json, partial) =
     Alcotest.(check bool) (msg ^ ": partial") true partial;
     Alcotest.(check resolution_t)
-      (msg ^ ": Stdlib, which has it")
-      ("Stdlib.List", "stdlib", [ "Parameter.List" ])
+      (msg ^ ": Stdlib, the only one checked that has it")
+      ("Stdlib.List", "identifier", [ "Parameter.List" ])
       (resolution json);
     Alcotest.(check strings)
       (msg ^ ": unchecked") [ "Parameter.List" ] (unchecked json);
@@ -1472,15 +1577,15 @@ let fetch_counts () =
     "two modules, comparison" 4
     (count list_docs [ ("module", `String "List") ])
 
-(* Not found under ambiguity: the hints name the module used and the other
-   one. *)
+(* Not found under ambiguity: the hints name the module used and the other one,
+   which was read whole in 2.0 and lacks it there. *)
 let hints_under_ambiguity () =
   let json, _ = payload (list_call [ ("identifier", `String "Sub.map") ]) in
   Alcotest.(check string)
     "hint"
     "if \"Sub\" is a submodule, pass \"module\": \"Stdlib.List.Sub\" and \
      \"identifier\": \"map\"; \"List\" also names Parameter.List, which may \
-     have it: pass \"module\": \"Parameter.List\""
+     have it in another version: pass \"module\": \"Parameter.List\""
     (to_string (member "hint" json));
   let json, _ = payload (list_call [ ("identifier", `String "length") ]) in
   Alcotest.(check bool) "found: no hint" true (member "hint" json = `Null)

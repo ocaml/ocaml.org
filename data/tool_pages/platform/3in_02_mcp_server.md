@@ -159,10 +159,10 @@ links to its build log on check.ci, which asks you to sign in with GitHub.
   in every version. Versions without documentation are
   skipped, and `introduced_in` is `null` when the item is already in the
   oldest version checked. When no version checked has the item, `found` is
-  `false`, with a hint when it looks like an item of a submodule or may be in
-  another module of that name, and the status of each version shows which ones
-  could not be checked. This helps upgrade code to a
-  new version, see what a
+  `false` when every version in range was checked (or `null` when some could
+  not be, as the status of each version shows), with a hint when it looks like
+  an item of a submodule or may be in another module of that name. This helps
+  upgrade code to a new version, see what a
   release changed, or find the version a dependency bound needs. When docs-ci
   cannot be read for some versions, or for a module checked for the
   `identifier`, or the call takes too long, the result says so (`partial`) and
