@@ -338,3 +338,6 @@
 - id: lexifi
   name: LexiFi
   url: https://www.lexifi.com/blog/ocaml/index.xml
+- id: ocamleer
+  name: OCamleer
+  url: https://vontanne.github.io/ocamleer/feed.xml
