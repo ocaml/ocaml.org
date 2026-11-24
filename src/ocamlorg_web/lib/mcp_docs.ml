@@ -298,12 +298,16 @@ let resolve_module ?(max_matches = default_max_matches) ~name ~version
 
 let module_path_string (m : module_match) = String.concat "." m.path
 
+(* The module path and library come from the sidebar, community-authored, so
+   they are sanitized like the text of a page. *)
 let module_match_json (m : module_match) : Yojson.Safe.t =
+  let sanitize = Mcp_doc_html.sanitize_field in
   `Assoc
     [
-      ("module", `String (module_path_string m));
+      ("module", `String (sanitize (module_path_string m)));
       ("kind", `String m.kind);
-      ("library", match m.library with Some l -> `String l | None -> `Null);
+      ( "library",
+        match m.library with Some l -> `String (sanitize l) | None -> `Null );
       ("path", `String m.page);
     ]
 
