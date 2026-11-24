@@ -723,6 +723,17 @@ let module_query query =
       in
       if String.for_all is_path_char path then Some path else None
 
+(* The providers of the longest prefix of [path], segment by segment, that has
+   any: "Awso_xray.Values" finds awso through "Awso_xray" when the index, capped
+   in depth and paths per package, doesn't have the full path. *)
+let rec longest_prefix_providers providers path =
+  match providers path with
+  | _ :: _ as hits -> hits
+  | [] -> (
+      match String.rindex_opt path '.' with
+      | Some i -> longest_prefix_providers providers (String.sub path 0 i)
+      | None -> [])
+
 let search ~is_author_match ?(sort_by_popularity = false) ?module_providers t
     query =
   let request = Search.to_request query in
@@ -747,7 +758,7 @@ let search ~is_author_match ?(sort_by_popularity = false) ?module_providers t
   match (module_providers, module_query query) with
   | Some providers, Some path -> (
       let by_popularity =
-        providers path
+        longest_prefix_providers providers path
         |> List.filter_map (fun n ->
             Option.bind (Name.of_string_opt n) (get_latest t))
         |> List.map (fun p -> (List.length p.info.rev_deps, p))

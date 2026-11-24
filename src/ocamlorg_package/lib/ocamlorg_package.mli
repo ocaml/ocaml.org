@@ -424,7 +424,9 @@ val search :
       or another uppercase letter (["Lwt_io"], ["Yojson.Safe"], ["CCList"], or
       ["Uri.of_string"] for its module part), those packages come first, most
       depended upon first, even if their metadata does not match; only a package
-      named exactly like the query stays ahead of them. Other queries, including
-      capitalized single words such as ["Json"], are not affected.
+      named exactly like the query stays ahead of them. A path without providers
+      falls back to its longest prefix that has some (["Awso_xray.Values"] to
+      ["Awso_xray"]). Other queries, including capitalized single words such as
+      ["Json"], are not affected.
 
     A call to this function call Lazy.force on every package info. *)

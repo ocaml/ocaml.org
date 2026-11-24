@@ -94,6 +94,7 @@ let test_index_per_state () =
 (* Module lookup: packages whose docs define the module the query names. *)
 let providers = function
   | "lwt_io" -> [ "lwt" ]
+  | "lwt_io.inner" -> [ "async" ]
   | "trie" | "trie_kit" -> [ "async"; "lwt" ]
   | "http" -> [ "async" ]
   | "lterm" -> [ "logs" ]
@@ -127,6 +128,13 @@ let test_modules () =
     [ "http"; "async"; "http-client"; "web-kit" ]
     "HTTP";
   check "unknown provider names are ignored" [] "Ghost_town";
+  check "an unknown path falls back to its known prefix" [ "lwt" ]
+    "Lwt_io.Deep.Path";
+  check "the fallback applies after dropping the value" [ "lwt" ]
+    "Lwt_io.Deep.read_line";
+  check "the longest known prefix wins" [ "async" ] "Lwt_io.Inner.Deep";
+  check "a single-segment prefix counts" [ "lwt"; "async" ] "Trie.Unknown";
+  check "no known prefix: no module lookup" [] "Nowhere.Deep";
   Alcotest.(check (list string))
     "without providers there is no module lookup" [] (search state "Lwt_io")
 
