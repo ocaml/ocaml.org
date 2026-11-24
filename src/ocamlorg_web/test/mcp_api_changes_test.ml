@@ -1493,19 +1493,18 @@ let candidates_cap () =
   in
   let fetches = ref 0 in
   let json, partial = call ~fetches [ "M6" ] in
-  Alcotest.(check int) "the sidebar and 5 pages" 6 !fetches;
+  Alcotest.(check int) "the sidebar and 6 pages" 7 !fetches;
   Alcotest.(check bool) "complete" false partial;
   Alcotest.(check resolution_t)
-    "none of those checked has it"
-    ("M0.Infix", "order", others "M0.Infix")
+    "none of those checked has it: one past the first 5"
+    ("M5.Infix", "order", others "M5.Infix")
     (resolution json);
-  Alcotest.(check strings)
-    "unchecked" [ "M5.Infix"; "M6.Infix" ] (unchecked json);
+  Alcotest.(check strings) "unchecked" [ "M6.Infix" ] (unchecked json);
   Alcotest.(check bool) "not found" true (member "found" json = `Bool false);
   Alcotest.(check string)
     "hint"
     "\"Infix\" also names the other modules of \"ambiguous_with\", which may \
-     have it: pass the full path of one, e.g. \"module\": \"M5.Infix\""
+     have it: pass the full path of one, e.g. \"module\": \"M6.Infix\""
     (to_string (member "hint" json));
   let json, _ = call [ "M1"; "M6" ] in
   Alcotest.(check resolution_t)
