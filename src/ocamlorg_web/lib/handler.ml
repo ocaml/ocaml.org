@@ -1148,8 +1148,9 @@ let packages_search t req =
   let packages =
     match Dream.query req "q" with
     | Some search ->
-        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
-          search
+        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true
+          ~module_providers:(Ocamlorg_package.doc_module_providers t)
+          t search
     | None -> Ocamlorg_package.all_latest t
   in
   let total = List.length packages in
@@ -1182,8 +1183,9 @@ let packages_autocomplete_fragment t req =
   match Dream.query req "q" with
   | Some search when search <> "" ->
       let packages =
-        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true t
-          search
+        Ocamlorg_package.search ~is_author_match ~sort_by_popularity:true
+          ~module_providers:(Ocamlorg_package.doc_module_providers t)
+          t search
       in
 
       let open Lwt.Syntax in
