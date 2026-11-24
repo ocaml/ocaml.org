@@ -38,9 +38,9 @@
    share of them each day (State.attempts).
 
    Per package, paths deeper than [max_depth] and beyond the first [max_paths]
-   (shallowest first) are dropped: a few packages define hundreds of thousands
-   of modules (awso, the AWS SDK, one per service and operation), and lookups
-   are for the top. *)
+   (shallowest first) are dropped: a few packages define tens of thousands of
+   modules or more (awso, the AWS SDK, about 131k: one per service, then one per
+   API type), and lookups are for the top. *)
 
 type config = {
   doc_url : string;
