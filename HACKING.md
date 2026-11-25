@@ -13,7 +13,7 @@ Before starting to hack, you need a properly configured development environment.
 
 On most Linux distributions and on macOS with Homebrew, opam (2.1 or later) installs these for you when it installs the project dependencies (see below), since they are declared as external dependencies of the `conf-*` packages. The list is given for other environments.
 
-The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Alpine Linux distribution, but it is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew, or others. The devcontainer [`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) gives the Debian and Ubuntu package names. Since OCaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. It is possible to run workflow files in `.github/workflows` using the [`nektos/act`](https://github.com/nektos/act) tool. For instance, the following command runs the CI checks through GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: <https://github.com/nektos/act#github_token>)
+The project [`Dockerfile`](./Dockerfile) contains up-to-date system configuration instructions, as used to ship into production. It is written for the Debian distribution, but it is meant to be adapted to other environments such as Ubuntu, macOS+Homebrew, or others. Since OCaml.org is mostly written in OCaml, a properly configured OCaml development environment is also required, but is not detailed here. Although Docker is used to ship, it is not a requirement to begin hacking. It is possible to run workflow files in `.github/workflows` using the [`nektos/act`](https://github.com/nektos/act) tool. For instance, the following command runs the CI checks through GitHub on each pull request (where `ghghgh` is replace by an _ad-hoc_ GitHub token, see: <https://github.com/nektos/act#github_token>)
 
 ```bash
 act -s GITHUB_TOKEN=ghghgh .github/workflows/ci.yml -j build
@@ -315,7 +315,7 @@ When bringing up OCaml.org to a newer pin, the commit hash found in those files 
 So the default is to pin to the base image's current opam-repository tip. Find it with the following commands, substituting the images named in the two `FROM` lines (`.devcontainer/Dockerfile` pins its base image by digest, so a digest update must also keep the pin at or below the new image's tip):
 
 ```bash
-docker run --rm ocaml/opam:alpine-3.24-ocaml-5.5 sh -c 'cd ~/opam-repository && git rev-parse HEAD'  # Dockerfile
+docker run --rm ocaml/opam:debian-13-ocaml-5.5 sh -c 'cd ~/opam-repository && git rev-parse HEAD'    # Dockerfile
 docker run --rm ocaml/opam:debian-13-ocaml-5.5 sh -c 'cd ~/opam-repository && git rev-parse HEAD'    # .devcontainer/Dockerfile
 ```
 
