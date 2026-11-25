@@ -82,7 +82,8 @@ The `Array.length` function returns the size of an array:
 
 ```ocaml
 # Array.iter (fun x -> print_int x; print_string " ") zeroes;;
-0 0 0 0 0 - : unit = ()
+0 0 0 0 0
+- : unit = ()
 ```
 
 Iterating on arrays can also be made using `for` loops. Here is the same example using a loop:
@@ -92,7 +93,8 @@ Iterating on arrays can also be made using `for` loops. Here is the same example
     print_int zeroes.(i);
     print_string " "
   done;;
-0 0 0 0 0 - : unit = ()
+0 0 0 0 0
+- : unit = ()
 ```
 
 ### Map an Array
@@ -113,7 +115,7 @@ Here is the signature of `Array.fold_left`:
 
 ```ocaml
 # Array.fold_left;;
-val fold_left : ('a -> 'b -> 'a) -> 'a -> 'b array -> 'a = <fun>
+- : ('acc -> 'a -> 'acc) -> 'acc -> 'a array -> 'acc = <fun>
 ```
 
 `fold_left f init a` computes `f (... (f(f init a.(0)) a.(1)) ...) a.(n-1)`
@@ -122,7 +124,7 @@ Similarly, we can use the `Array.fold_right` function, which switches the order 
 
 ```ocaml
 # Array.fold_right;;
-val fold_right : ('b -> 'a -> 'a) -> 'b array -> 'a -> 'a = <fun>
+- : ('a -> 'acc -> 'acc) -> 'a array -> 'acc -> 'acc = <fun>
 ```
 
 `fold_right f a init` computes `f a.(0) (f a.(1) ( ... (f a.(n-1) init) ...))`

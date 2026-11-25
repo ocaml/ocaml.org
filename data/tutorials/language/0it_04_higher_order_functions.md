@@ -50,7 +50,7 @@ val say_hi : string -> unit = <fun>
 We can call this function several times, to say "hello" to several people:
 
 ```ocaml
-#say_hi "Xavier";;
+# say_hi "Xavier";;
 Hello, Xavier!
 - : unit = ()
 
@@ -83,10 +83,9 @@ One way we can avoid having to repeat these lines every time is by writing a fun
 
 ```ocaml
 # let say_hi_3_times name =
-  say_hi name;
-  say_hi name;
-  say_hi name
-;;
+    say_hi name;
+    say_hi name;
+    say_hi name;;
 val say_hi_3_times : string -> unit = <fun>
 ```
 
@@ -102,12 +101,11 @@ So instead, we will create a function that **lets the caller decide** how many t
 
 ```ocaml
 # let rec say_many_hi times name =
-  if times < 1 then ()
-  else begin
-    say_hi name;
-    say_many_hi (times - 1) name
-  end
-;;
+    if times < 1 then ()
+    else begin
+      say_hi name;
+      say_many_hi (times - 1) name
+    end;;
 val say_many_hi : int -> string -> unit = <fun>
 ```
 
@@ -142,12 +140,11 @@ To make this reusable, we can **let the caller decide** what our function should
 
 ```ocaml
 # let rec repeat times thing_to_do =
-  if times < 1 then ()
-  else begin
-    thing_to_do;
-    repeat (times - 1) thing_to_do
-  end
-;;
+    if times < 1 then ()
+    else begin
+      thing_to_do;
+      repeat (times - 1) thing_to_do
+    end;;
 val repeat : int -> 'a -> unit = <fun>
 ```
 
@@ -173,8 +170,9 @@ We can let `repeat` call `say_hi` many times by _delaying_ the function's execut
 
 ```ocaml
 # repeat 3 (
-fun () ->
-    say_hi "Camel");;
+    fun () ->
+      say_hi "Camel");;
+- : unit = ()
 ```
 
 This means we must refactor our `repeat` function, by replacing `thing_to_do` with `thing_to_do ()`, to _call_ our new function:
@@ -192,12 +190,11 @@ After renaming `thing_to_do` to `fn` we get a nice little `repeat` function:
 
 ```ocaml
 # let rec repeat times fn =
-  if times < 1 then ()
-  else begin
-    fn ();
-    repeat (times - 1) fn
-  end
-;;
+    if times < 1 then ()
+    else begin
+      fn ();
+      repeat (times - 1) fn
+    end;;
 val repeat : int -> (unit -> 'a) -> unit = <fun>
 ```
 
@@ -218,16 +215,13 @@ Here's some other examples from the real world:
 ```ocaml
 # let say_hi_to_many names = List.iter say_hi names;;
 val say_hi_to_many : string list -> unit = <fun>
+```
 
+```ocaml
+module StringSet = Set.Make(String)
+```
 
-# module StringSet = Set.Make(String);;
-module StringSet :
-  sig
-    type elt = string
-    type t = StringSet.t
-    val empty : t [...]
-  end
-
+```ocaml
 # let only_once fn names =
   names
   |> StringSet.of_list
@@ -281,9 +275,9 @@ The output function will have type `('a * 'b) -> 'c`. Notice how the arguments `
 Here's our helper:
 
 ```ocaml
-(* [uncurry] takes a function that is normally curried,
-   and returns a function that takes all arguments at once. *)
-# let uncurry f (x, y) = f x y;;
+# (* [uncurry] takes a function that is normally curried,
+     and returns a function that takes all arguments at once. *)
+  let uncurry f (x, y) = f x y;;
 val uncurry : ('a -> 'b -> 'c) -> 'a * 'b -> 'c = <fun>
 ```
 
@@ -291,7 +285,8 @@ If we wanted to write `uncurry` for more arguments, we'd just make a new `uncurr
 
 ```ocaml
 # let uncurry4 f (w, x, y, z) = f w x y z;;
-val uncurry4 : ('a -> 'b -> 'c -> 'd -> 'e) -> 'a * 'b * 'c * 'd -> 'e = <fun>
+val uncurry4 : ('a -> 'b -> 'c -> 'd -> 'e) -> 'a * 'b * 'c * 'd -> 'e =
+  <fun>
 ```
 
 Uncurrying can be very useful when you're dealing with lists (which we do a lot in OCaml) and when the list happens to have tuples.
@@ -300,30 +295,33 @@ Take for example this list of tuples of names and favorite emojis:
 
 ```ocaml
 # let people = [
-  "🐫", "Sabine";
-  "🚀", "Xavier";
-  "✨", "Louis";
-]
-;;
+    "🐫", "Sabine";
+    "🚀", "Xavier";
+    "✨", "Louis";
+  ];;
+val people : (string * string) list =
+  [("🐫", "Sabine"); ("🚀", "Xavier"); ("✨", "Louis")]
 ```
 
 If we wanted to do something with any of these elements, we'd need to split the tuple, and call a function:
 
 ```ocaml
 # let greet emoji name =
-  Printf.printf "Glad to see you like %s, %s!\n" emoji name
-;;
+    Printf.printf "Glad to see you like %s, %s!\n" emoji name;;
+val greet : string -> string -> unit = <fun>
 
-let emoji, name = List.hd people in
-# greet emoji name
-;;
+# let emoji, name = List.hd people in
+  greet emoji name;;
+Glad to see you like 🐫, Sabine!
+- : unit = ()
 ```
 
 But we can also uncurry our `greet` function to operate over the entire tuple!
 
 ```ocaml
-# uncurry greet (List.hd people)
-;;
+# uncurry greet (List.hd people);;
+Glad to see you like 🐫, Sabine!
+- : unit = ()
 ```
 
 #### Currying
@@ -339,8 +337,8 @@ The output function will have type `'a -> 'b -> 'c` – notice how the arguments
 Here's our helper:
 
 ```ocaml
-(* [curry] takes a function that is normally curried,
-   and returns a function that takes all arguments at once. *)
+(* [curry] takes a function that takes all arguments at once,
+   and returns a function that is curried. *)
 let curry f x y = f (x, y)
 ;;
 ```
@@ -429,6 +427,8 @@ names
 
 In OCaml we use functions a lot, so values go from one function to the other forming what we like to call _pipelines_.
 
+<!-- Illustrative: foo, bar and baz are not defined. -->
+<!-- $MDX skip -->
 ```ocaml
 let a = foo () in
 let b = bar a in
@@ -438,6 +438,7 @@ let c = baz b in
 
 Of course, we can always call functions in a nested fashion, to avoid the extra variables and all that typing:
 
+<!-- $MDX skip -->
 ```ocaml
 let c = baz (bar (foo ())) in
 (* ... *)
@@ -447,6 +448,7 @@ But this is not so easy to read sometimes, especially as the number of functions
 
 To avoid this we have to use the `|>` operator:
 
+<!-- $MDX skip -->
 ```ocaml
 let c = foo () |> bar |> baz in
 (* ... *)
@@ -471,7 +473,7 @@ let email = "ocaml.mycamel@ocaml.org"
 
 email
 |> String.split_on_char '@'
-|> Fun.flip List.nth 0
+|> Fun.flip List.nth_opt 0
 |> Option.map (fun str -> String.sub str 0 5)
 |> Option.get
 ;;
@@ -486,18 +488,23 @@ The "t" in "**t-first**" and "**t-last**" stand for "**target argument**", as in
 
 These two cases sound very similar, but have a big practical difference when it comes to usability. Let's revisit our example above using labeled argument versions of those functions:
 
+<!-- Runs in its own toplevel so that `open StdLabels` does not leak into the
+     rest of the tutorial. -->
+<!-- $MDX env=stdlabels -->
 ```ocaml
 open StdLabels
 
 module List = struct
   include List
-  let nth_opt t ~at = nth_opt at t
+  let nth_opt t ~at = nth_opt t at
 end
+
+let email = "ocaml.mycamel@ocaml.org";;
 
 email
 |> String.split_on_char ~sep:'@'
 |> List.nth_opt ~at:0
-|> Option.map (String.sub ~off:0 ~len:5)
+|> Option.map (String.sub ~pos:0 ~len:5)
 |> Option.value ~default:"new-user"
 ;;
 ```
@@ -765,6 +772,8 @@ let rec sum_tree tree =
 
 And if we generalize this to apply any transformation over our tree and reduce it to a single value we will need to replace our `+` function with an argument `fn`:
 
+<!-- Does not type-check, which is the point made below. -->
+<!-- $MDX skip -->
 ```ocaml
 let rec fold_tree tree fn =
   match tree with
@@ -882,6 +891,7 @@ The main difference is that in this case `Result.bind` is biased towards `Ok val
 
 Unfortunately, calling `Result.bind` can be a bit awkward. We can't pipe our value through a series of binds like we can do with calls to `map`. For example, this isn't valid:
 
+<!-- $MDX skip -->
 ```ocaml
 let email = get_user ()
            |> Result.bind get_email
@@ -892,6 +902,8 @@ let email = get_user ()
 
 Thankfully, OCaml lets us redefine a subset of operators called _let-operators_ that can be used to streamline the use of `bind` calls by making them look very close to normal let-bindings:
 
+<!-- Illustrative: extract_domain and validate_domain are not defined. -->
+<!-- $MDX skip -->
 ```ocaml
 (* first we will declare out let* operator to be equal to Result.bind *)
 let (let*) = Result.bind
@@ -953,7 +965,8 @@ type ('input, 'output) operations = {
   read_record: 'input -> ('output, error) result;
   delete_record: 'input -> ('output, error) result;
 }
-``` -->
+```
+-->
 
 <!--
 Comment
