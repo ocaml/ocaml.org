@@ -8,7 +8,8 @@
   publication_dates_test
   packages_matching_test
   rev_deps_test
-  accessors_test)
+  accessors_test
+  opam_roundtrip_test)
  (libraries
   alcotest
   ocamlorg_package
