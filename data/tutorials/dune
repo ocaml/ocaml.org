@@ -1,13 +1,21 @@
 ; Tutorial markdown lives in per-topic subdirectories. The mdx stanza only
 ; tests files in its own directory, so a (subdir ...) is needed for each.
 ;
-; The tested set is listed explicitly, per subdirectory. It is the set of
-; tutorials that currently pass mdx. The remaining tutorials need an editorial
-; pass before they can be tested (compiler-version-specific output, code blocks
-; authored in a non-mdx-compatible style, cross-block state, blocks that write
-; files or run external tools) and are tracked as a follow-up rather than
-; silently skipped block by block. The platform/ subdirectory has no tutorial
-; with testable OCaml blocks yet, so it has no stanza.
+; The tested set is listed explicitly, per subdirectory. Every tutorial with
+; OCaml blocks is in it except eight whose code is a multi-file project rather
+; than toplevel sessions, and which need an examples/ sub-directory with
+; `file=` includes (and, for the RWO chapters, the example sources that were
+; never imported) before they can be tested:
+;   getting-started/1_02_your_first_ocaml_program.md
+;   platform/0_03_run_executables_and_tests.md  (test modules that call exit)
+;   language/1ms_00_modules.md   (also needs language/examples/{athens,berlin,
+;                                 cairo,delhi}.ml and cairo.mli)
+;   language/1ms_01_functors.md
+;   language/1ms_03_dune.md
+;   language/5rt_01_garbage-collector.md, 5rt_02_compiler_frontend.md,
+;   5rt_03_compiler_backend.md  (~35 files from Real World OCaml)
+; They are tracked in ocaml/ocaml.org#3745. The other platform/ tutorials
+; have only shell commands for the reader, so that subdirectory has no stanza.
 ;
 ; A file in the tested set must verify something: tool/check-mdx-coverage.sh
 ; fails the build if a listed file has no ocaml/sh/bash block left that mdx
@@ -44,8 +52,13 @@
    0tt_02_file_manipulation.md
    0tt_03_calling_c_libraries.md
    1wf_00_using_the_ocaml_compiler_toolchain.md
+   1wf_01_debugging.md
+   1wf_02_error_handling.md
+   1wf_03_profiling.md
+   1wf_04_multicore_ready.md
    1wf_05_garbage_collection.md
-   rs_00_guidelines.md)
+   rs_00_guidelines.md
+   rs_01_common_error_messages.md)
   (libraries unix)))
 
 (subdir

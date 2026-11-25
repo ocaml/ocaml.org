@@ -618,7 +618,7 @@ floats on the heap.
 Let's see this in practice:
 
 ```ocaml
-let a = Array.create 10 0.0;;
+let a = Array.make 10 0.0;;
 for i = 0 to 9 do
   a.(i) <- float_of_int i
 done

@@ -33,7 +33,7 @@ Each image also includes two Dockerfiles showing how it was built:
 
 Images are tagged with distribution and OCaml version:
 
-```bash
+```shell
 # Full explicit tag
 docker run --rm -it ocaml/opam:debian-11-ocaml-4.14
 
@@ -95,7 +95,7 @@ COPY --chown=opam <SRCs> <DST>
 
 Each image ships with a copy of `opam-repository` from the time the image was built. Since images are rebuilt weekly, the repository may be up to a week out of date. Run `opam update` before installing packages to ensure you have the latest package definitions:
 
-```bash
+```shell
 opam update
 opam install <package>
 ```
@@ -111,7 +111,7 @@ For a development-oriented Docker setup with OCaml LSP, editors, and debugging t
 
 ## Example: Basic Usage
 
-```bash
+```shell
 # Interactive session with latest Debian + OCaml
 docker run --rm -it ocaml/opam
 
@@ -141,7 +141,7 @@ FROM ocaml/opam:debian-11-ocaml-4.14@sha256:167218493be2d3a2f93c9546fc73f249c691
 - **Security**: If the image changes for any reason, the mathematics of cryptography guarantees that the digest also changes.
 
 **Finding a digest:**
-```bash
+```shell
 docker images --digests ocaml/opam
 ```
 
