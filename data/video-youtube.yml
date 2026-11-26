@@ -1,3 +1,34 @@
+- title: "Trading at the speed of\u2026 chat?"
+  url: https://www.youtube.com/watch/UExgCSJdIn4?version=3
+  thumbnail: https://i2.ytimg.com/vi/UExgCSJdIn4/hqdefault.jpg
+  description: "Chloe Casale was planning to be an auto mechanic before taking an
+    intro CS class on a bet. After a stint as a Forward Deployed Engineer at Palantir,
+    Chloe came to Jane Street with no background in OCaml or finance. Now she leads
+    a team of \u201Cdesk devs\u201D building tools for client-facing traders. In this
+    episode, Ron and Chloe discuss how a surprising amount of Jane Street\u2019s client
+    business is conducted via chat, and the promise and perils of using LLMs to automate
+    that trading. They dive deep on hiring and interviewing: does Jane Street\u2019s
+    process select for less \u201Cspiky\u201D kinds of people than Palantir\u2019s?
+    Along the way, they marvel at Webs, an internal spreadsheet-like framework for
+    composing computations and building UIs (which, you can see, is sort of hard to
+    explain); compare building software for internal versus external customers; and
+    recount the tale of Chloe\u2019s epic 1,000km horse race across the Mongolian
+    steppe.\n\n00:00:00 \u2013 Start\n00:00:03 \u2013 Racing 1,000km across Mongolia\n00:05:18
+    \u2013 From auto shop to CS on a $20 bet\n00:09:41 \u2013 Forward-deployed engineer
+    at Palantir\n00:12:23 \u2013 Why Jane Street (and why London)\n00:16:06 \u2013
+    Sales traders, prop traders, and client flow\n00:22:26 \u2013 Why so much trading
+    happens over chat\n00:31:19 \u2013 LLM parsing and the 95% problem\n00:41:05 \u2013
+    Bonsai, Webs, and everything Excel wanted to be\n00:47:44 \u2013 Vibe coding and
+    varying scrutiny\n00:56:35 \u2013 Desk dev vs. forward-deployed engineer\n01:02:56
+    \u2013 Generalists vs. specialists\n01:06:14 \u2013 Hiring at Jane Street vs.
+    Palantir\n01:20:00 \u2013 Who our interview process might miss\n01:26:39 \u2013
+    On generalists and specialists\n01:31:17 \u2013 At least one interview that someone
+    can crush\n\nFor more episodes, visit: https://signalsandthreads.com/"
+  published: 2026-11-13T18:00:13+00:00
+  author_name: Jane Street
+  author_uri: https://www.youtube.com/channel/UCDsVC_ewpcEW_AQcO-H-RDQ
+  source_link: https://www.youtube.com/feeds/videos.xml?playlist_id=PLCiAikFFaMJouorRXDSfS2UoKV4BfKyQm
+  source_title: Jane Street - Signal & Threads
 - title: How AI is Changing Programming
   url: https://www.youtube.com/watch/b9Ssp1B_Pf4?version=3
   thumbnail: https://i3.ytimg.com/vi/b9Ssp1B_Pf4/hqdefault.jpg
