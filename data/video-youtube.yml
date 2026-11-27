@@ -900,9 +900,9 @@
     by Paul-Elliot:\n\nThis talk is a gentle introduction to the documenting part
     of the OCaml ecosystem. We will see how to use `odoc` to build nice documentation
     for your `dune`-based project, from a bare repository to a documentation with
-    both API pages and documentation pages.\n\nodoc: https://github.com/ocaml/odoc\n\nConnect
-    with us\nWebsite: https://fun-ocaml.com/\nTwitter: https://x.com/FunOCaml\nBluesky:
-    https://bsky.app/profile/fun-ocaml.com\n\n#ocaml"
+    both API pages and documentation pages.\n\nhttps://fun-ocaml.com/2024/odoc/\nodoc:
+    https://github.com/ocaml/odoc\n\nConnect with us\nWebsite: https://fun-ocaml.com/\nTwitter:
+    https://x.com/FunOCaml\nBluesky: https://bsky.app/profile/fun-ocaml.com\n\n#ocaml"
   published: 2024-11-20T09:24:00+00:00
   author_name: FUN OCaml
   author_uri: https://www.youtube.com/channel/UC3TI-fmhJ_g3_n9fHaXGZKA
