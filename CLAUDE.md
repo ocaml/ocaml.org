@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [`CONTRIBUTING.md`](CONTRIBUTING.md): how each kind of content in `data/` is contributed.
 - [`DOCUMENTATION_WRITING.md`](DOCUMENTATION_WRITING.md): writing guidelines for tutorials.
 - [`doc/FOR_MAINTAINERS.md`](doc/FOR_MAINTAINERS.md): the `staging` branch and pushing to contributors' forks.
+- [`UPSTREAM.md`](UPSTREAM.md): pinned forks and versions, and the upstream issues that block removing them.
 - [`tool/attribution/README.md`](tool/attribution/README.md), [`tool/data-packer/DESIGN.md`](tool/data-packer/DESIGN.md): tool-specific documentation.
 
 ## Rules That Are Easy to Miss

@@ -294,16 +294,21 @@ OCaml.org is using an opam switch that is local and bound to a pinned commit in 
 
 ```text
 Makefile
+playground/Makefile
 Dockerfile
 .devcontainer/Dockerfile
 dune-workspace
 .github/workflows/ci.yml
 .github/workflows/debug-ci.yml
+.github/workflows/playground.yml
+.github/workflows/release-playground.yml
 .github/workflows/release-scraper.yml
 .github/workflows/sync-attribution.yml
 ```
 
-When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once.
+When bringing up OCaml.org to a newer pin, the commit hash found in those files must be changed all at once. Check with `git grep <old-commit-hash>` that none is left.
+
+The other pins (forks, unreleased commits, base images, tool versions) and the upstream issues that hold them in place are listed in [`UPSTREAM.md`](UPSTREAM.md).
 
 #### Choosing the Pin Commit
 

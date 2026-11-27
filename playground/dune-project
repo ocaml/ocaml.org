@@ -48,6 +48,7 @@
   lwt
   ; UPSTREAM: built from the vendor/merlin-js submodule (see vendor/dune).
   ; Once merlin-js and code-mirror can be installed together, replace these
-  ; with code-mirror and merlin-js, and their pins in the opam template.
+  ; with code-mirror and merlin-js; neither is in opam-repository, so pin
+  ; them in an ocamlorg-playground.opam.template until they are released.
   merlin-lib
   js_of_ocaml-ppx))
