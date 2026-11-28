@@ -38,6 +38,7 @@
   cohttp
   cohttp-lwt
   cohttp-lwt-unix
+  decompress
   bos
   crunch
   (dream

@@ -1,0 +1,17 @@
+(test
+ (name doc_modules_jsonl_test)
+ (modules doc_modules_jsonl_test)
+ (libraries alcotest doc_modules_jsonl ocamlorg.doc_modules))
+
+; End-to-end tests start the mock documentation backend.
+
+(test
+ (name scraper_test)
+ (modules scraper_test)
+ (deps mock_backend.exe)
+ (libraries alcotest doc_modules_scraper yojson unix uri lwt lwt.unix))
+
+(executable
+ (name mock_backend)
+ (modules mock_backend)
+ (libraries unix threads.posix decompress.gz decompress.de))
